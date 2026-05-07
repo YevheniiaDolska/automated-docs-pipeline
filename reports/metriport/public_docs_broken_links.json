@@ -1,0 +1,80 @@
+{
+  "generated_at_utc": "2026-04-25T17:05:34.187128+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 4,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 4,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.metriport.com/medical-api/api-reference/fhir/add-patient-data",
+    "https://docs.metriport.com/medical-api/api-reference/patient/medical-api/api-reference/patient/bulk-create-patient",
+    "https://docs.metriport.com/medical-api/handling-data/medical-api/api-reference/patient/get-patient",
+    "https://docs.metriport.com/medical-api/handling-data/medical-api/fhir/overview"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.metriport.com/",
+      "confirmed_broken_links_count": 4,
+      "docs_broken_links_count": 4,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.metriport.com/medical-api/api-reference/fhir/add-patient-data",
+        "https://docs.metriport.com/medical-api/api-reference/patient/medical-api/api-reference/patient/bulk-create-patient",
+        "https://docs.metriport.com/medical-api/handling-data/medical-api/api-reference/patient/get-patient",
+        "https://docs.metriport.com/medical-api/handling-data/medical-api/fhir/overview"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.metriport.com/medical-api/api-reference/fhir/add-patient-data",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.metriport.com/medical-api/fhir/overview",
+              "anchor_text": "Add Patient Data endpoint"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.metriport.com/medical-api/api-reference/patient/medical-api/api-reference/patient/bulk-create-patient",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.metriport.com/medical-api/api-reference/patient/bulk-create-patient",
+              "anchor_text": "facilityId"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.metriport.com/medical-api/handling-data/medical-api/api-reference/patient/get-patient",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.metriport.com/medical-api/handling-data/realtime-patient-notifications",
+              "anchor_text": "GET Patient"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.metriport.com/medical-api/handling-data/medical-api/fhir/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.metriport.com/medical-api/handling-data/patient-encounter-bundle",
+              "anchor_text": "FHIR Overview"
+            },
+            {
+              "source_page": "https://docs.metriport.com/medical-api/handling-data/realtime-patient-notifications",
+              "anchor_text": "FHIR Overview"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

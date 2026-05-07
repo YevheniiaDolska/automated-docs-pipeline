@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of runware.ai/docs crawled 746 pages with 100% coverage across 747 discovered pages. Critical issues include 37 confirmed broken internal links all within user-facing documentation, 0% API reference coverage despite 10 API pages detected, and high SEO/metadata issues affecting 21.78% of pages. Freshness tracking is limited with only 41.69% of pages displaying last-updated timestamps. Overall confidence is 81% with API coverage confidence at 55% indicating potential detection gaps. Example code reliability estimated at 77.27%.",
+    "strengths": [
+      "Complete crawl coverage at 100% with all 747 discovered pages successfully examined",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "No trap URLs or crawl scope issues encountered during examination",
+      "Example code reliability above 75% threshold at 77.27%",
+      "High overall audit confidence at 81% with links verification at 95%"
+    ],
+    "risks": [
+      "37 confirmed broken internal links in user-facing documentation degrading navigation and user experience",
+      "Zero API reference coverage (0.0%) despite 10 API pages detected indicates missing or incomplete API documentation",
+      "API detection confidence only 55% suggests potential undercounting of API endpoints or documentation gaps",
+      "SEO/metadata issues on 21.78% of pages harm discoverability and search ranking",
+      "58.31% of pages lack last-updated timestamps preventing users from assessing content currency",
+      "Example reliability at 77.27% means approximately 1 in 4-5 code samples may be outdated or non-functional",
+      "Single-product topology with 746 pages creates high impact radius for systemic issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 37 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and expand API reference documentation to cover detected endpoints and improve 0% coverage baseline",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on remaining 58.31% of pages to establish freshness visibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Remediate SEO/metadata issues affecting 21.78% of pages (approximately 162 pages) to improve discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Review and update code examples in lower 22.73% reliability segment to achieve 90%+ reliability target",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality of code examples or API endpoints, only structural presence and syntax patterns",
+      "API coverage detection at 55% confidence may undercount endpoints if non-standard documentation patterns or dynamic content are used",
+      "Freshness assessment relies on visible timestamps only; actual content currency requires subject matter expert review",
+      "Link verification confirms HTTP responses but cannot validate semantic correctness of link destinations or content relevance",
+      "Example reliability is estimated through heuristics; actual executability requires environment-specific testing with live API credentials"
+    ]
+  }
+}

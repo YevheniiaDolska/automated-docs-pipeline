@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Spacelift documentation audit covered 204 pages with 100% crawl coverage across single-product topology. Critical gaps identified: only 43.59% API reference coverage (13 API pages detected), 0% example reliability, and 9.31% freshness visibility. One confirmed broken internal link found with 9 unverified links requiring authentication or blocked by rate limits. Overall confidence score of 63.5% indicates moderate documentation health with significant improvement opportunities in API documentation and content maintenance signals.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 204 discovered pages)",
+      "Minimal broken link issues (1 confirmed broken internal link, 0 repository navigation breaks)",
+      "No SEO or geographic accessibility issues detected (0% issue rate)",
+      "Clean site structure with 408 trap URLs successfully avoided",
+      "High crawl confidence at 95% indicates reliable topology mapping"
+    ],
+    "risks": [
+      "API reference coverage at 43.59% leaves majority of API surface undocumented or undetected",
+      "Zero example reliability (0.0%) suggests no working code examples or detection failure",
+      "Freshness metadata present on only 9.31% of pages obscures content staleness",
+      "9 unverified links create uncertainty in link health assessment (auth/rate-limit barriers)",
+      "Overall confidence of 63.5% and links confidence of 25% indicate audit blind spots",
+      "Low freshness coverage prevents identification of outdated integration guides or deprecated features",
+      "Missing example validation may hide broken customer onboarding paths"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement last-updated timestamps on all 204 pages to enable freshness tracking and content audit workflows",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference documentation from 13 pages to cover remaining 56% of API surface area",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Deploy automated example testing infrastructure to validate code samples and establish reliability baseline",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Fix confirmed broken internal link and investigate 9 unverified URLs with authentication bypass for monitoring",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Conduct manual API page detection review to confirm 43.59% coverage accuracy given detection_note absence",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or completeness of technical content, only structural presence and link validity",
+      "9 unverified links blocked by authentication or rate limits may include additional broken links not counted in metrics",
+      "Example reliability at 0% may indicate detection methodology limitation rather than actual absence of working examples",
+      "API coverage detection depends on URL patterns and page structure; non-standard documentation layouts may be undercounted",
+      "Freshness analysis limited to explicit metadata; actual content age and accuracy cannot be determined externally"
+    ]
+  }
+}

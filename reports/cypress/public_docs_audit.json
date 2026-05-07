@@ -1,0 +1,508 @@
+{
+  "generated_at": "2026-05-06T09:54:54.298577+00:00",
+  "site_url": "https://docs.cypress.io/",
+  "site_urls": [
+    "https://docs.cypress.io/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.cypress.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 315,
+          "requested_pages": 1355,
+          "urls_examined": 1293,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1293,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1293,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 4,
+          "seeded_sitemap_urls": 1293,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 376,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.cypress.io/cdn-cgi/l/email-protection",
+            "https://www.cypress.io/contact"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.cypress.io/cdn-cgi/l/email-protection",
+            "https://www.cypress.io/contact"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 138,
+          "excluded_link_samples": [
+            "https://docs.cypress.io/api/commands/and",
+            "https://docs.cypress.io/api/commands/as",
+            "https://docs.cypress.io/api/commands/blur",
+            "https://docs.cypress.io/api/commands/check",
+            "https://docs.cypress.io/api/commands/children",
+            "https://docs.cypress.io/api/commands/clear",
+            "https://docs.cypress.io/api/commands/clearallcookies",
+            "https://docs.cypress.io/api/commands/clearalllocalstorage",
+            "https://docs.cypress.io/api/commands/clearallsessionstorage",
+            "https://docs.cypress.io/api/commands/clearcookie",
+            "https://docs.cypress.io/api/commands/clearcookies",
+            "https://docs.cypress.io/api/commands/clearlocalstorage",
+            "https://docs.cypress.io/api/commands/click",
+            "https://docs.cypress.io/api/commands/clock",
+            "https://docs.cypress.io/api/commands/closest",
+            "https://docs.cypress.io/api/commands/contains",
+            "https://docs.cypress.io/api/commands/dblclick",
+            "https://docs.cypress.io/api/commands/debug",
+            "https://docs.cypress.io/api/commands/document",
+            "https://docs.cypress.io/api/commands/each",
+            "https://docs.cypress.io/api/commands/end",
+            "https://docs.cypress.io/api/commands/env",
+            "https://docs.cypress.io/api/commands/eq",
+            "https://docs.cypress.io/api/commands/exec",
+            "https://docs.cypress.io/api/commands/filter",
+            "https://docs.cypress.io/api/commands/find",
+            "https://docs.cypress.io/api/commands/first",
+            "https://docs.cypress.io/api/commands/fixture",
+            "https://docs.cypress.io/api/commands/focus",
+            "https://docs.cypress.io/api/commands/focused"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.cypress.io/cdn-cgi/l/email-protection",
+            "https://www.cypress.io/contact"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.cypress.io/api/commands/and",
+            "https://docs.cypress.io/api/commands/as",
+            "https://docs.cypress.io/api/commands/blur",
+            "https://docs.cypress.io/api/commands/check",
+            "https://docs.cypress.io/api/commands/children",
+            "https://docs.cypress.io/api/commands/clear",
+            "https://docs.cypress.io/api/commands/clearallcookies",
+            "https://docs.cypress.io/api/commands/clearalllocalstorage",
+            "https://docs.cypress.io/api/commands/clearallsessionstorage",
+            "https://docs.cypress.io/api/commands/clearcookie",
+            "https://docs.cypress.io/api/commands/clearcookies",
+            "https://docs.cypress.io/api/commands/clearlocalstorage",
+            "https://docs.cypress.io/api/commands/click",
+            "https://docs.cypress.io/api/commands/clock",
+            "https://docs.cypress.io/api/commands/closest",
+            "https://docs.cypress.io/api/commands/contains",
+            "https://docs.cypress.io/api/commands/dblclick",
+            "https://docs.cypress.io/api/commands/debug",
+            "https://docs.cypress.io/api/commands/document",
+            "https://docs.cypress.io/api/commands/each",
+            "https://docs.cypress.io/api/commands/end",
+            "https://docs.cypress.io/api/commands/env",
+            "https://docs.cypress.io/api/commands/eq",
+            "https://docs.cypress.io/api/commands/exec",
+            "https://docs.cypress.io/api/commands/filter",
+            "https://docs.cypress.io/api/commands/find",
+            "https://docs.cypress.io/api/commands/first",
+            "https://docs.cypress.io/api/commands/fixture",
+            "https://docs.cypress.io/api/commands/focus",
+            "https://docs.cypress.io/api/commands/focused",
+            "https://docs.cypress.io/api/commands/get",
+            "https://docs.cypress.io/api/commands/getallcookies",
+            "https://docs.cypress.io/api/commands/getalllocalstorage",
+            "https://docs.cypress.io/api/commands/getallsessionstorage",
+            "https://docs.cypress.io/api/commands/getcookie",
+            "https://docs.cypress.io/api/commands/getcookies",
+            "https://docs.cypress.io/api/commands/go",
+            "https://docs.cypress.io/api/commands/hash",
+            "https://docs.cypress.io/api/commands/hover",
+            "https://docs.cypress.io/api/commands/intercept",
+            "https://docs.cypress.io/api/commands/invoke",
+            "https://docs.cypress.io/api/commands/its",
+            "https://docs.cypress.io/api/commands/last",
+            "https://docs.cypress.io/api/commands/location",
+            "https://docs.cypress.io/api/commands/log",
+            "https://docs.cypress.io/api/commands/mount",
+            "https://docs.cypress.io/api/commands/next",
+            "https://docs.cypress.io/api/commands/nextall",
+            "https://docs.cypress.io/api/commands/nextuntil",
+            "https://docs.cypress.io/api/commands/not",
+            "https://docs.cypress.io/api/commands/origin",
+            "https://docs.cypress.io/api/commands/parent",
+            "https://docs.cypress.io/api/commands/parents",
+            "https://docs.cypress.io/api/commands/parentsuntil",
+            "https://docs.cypress.io/api/commands/pause",
+            "https://docs.cypress.io/api/commands/press",
+            "https://docs.cypress.io/api/commands/prev",
+            "https://docs.cypress.io/api/commands/prevall",
+            "https://docs.cypress.io/api/commands/prevuntil",
+            "https://docs.cypress.io/api/commands/prompt",
+            "https://docs.cypress.io/api/commands/readfile",
+            "https://docs.cypress.io/api/commands/reload",
+            "https://docs.cypress.io/api/commands/request",
+            "https://docs.cypress.io/api/commands/rightclick",
+            "https://docs.cypress.io/api/commands/root",
+            "https://docs.cypress.io/api/commands/screenshot",
+            "https://docs.cypress.io/api/commands/scrollintoview",
+            "https://docs.cypress.io/api/commands/scrollto",
+            "https://docs.cypress.io/api/commands/select",
+            "https://docs.cypress.io/api/commands/selectfile",
+            "https://docs.cypress.io/api/commands/session",
+            "https://docs.cypress.io/api/commands/setcookie",
+            "https://docs.cypress.io/api/commands/shadow",
+            "https://docs.cypress.io/api/commands/should",
+            "https://docs.cypress.io/api/commands/siblings",
+            "https://docs.cypress.io/api/commands/spread",
+            "https://docs.cypress.io/api/commands/spy",
+            "https://docs.cypress.io/api/commands/stub",
+            "https://docs.cypress.io/api/commands/submit",
+            "https://docs.cypress.io/api/commands/task",
+            "https://docs.cypress.io/api/commands/then",
+            "https://docs.cypress.io/api/commands/tick",
+            "https://docs.cypress.io/api/commands/title",
+            "https://docs.cypress.io/api/commands/trigger",
+            "https://docs.cypress.io/api/commands/type",
+            "https://docs.cypress.io/api/commands/uncheck",
+            "https://docs.cypress.io/api/commands/url",
+            "https://docs.cypress.io/api/commands/viewport",
+            "https://docs.cypress.io/api/commands/visit",
+            "https://docs.cypress.io/api/commands/wait",
+            "https://docs.cypress.io/api/commands/window",
+            "https://docs.cypress.io/api/commands/within",
+            "https://docs.cypress.io/api/commands/wrap",
+            "https://docs.cypress.io/api/commands/writefile",
+            "https://docs.cypress.io/api/cypress-api/arch",
+            "https://docs.cypress.io/api/cypress-api/browser",
+            "https://docs.cypress.io/api/cypress-api/catalog-of-events",
+            "https://docs.cypress.io/api/cypress-api/config",
+            "https://docs.cypress.io/api/cypress-api/cookies",
+            "https://docs.cypress.io/api/cypress-api/currentretry",
+            "https://docs.cypress.io/api/cypress-api/currenttest",
+            "https://docs.cypress.io/api/cypress-api/custom-commands",
+            "https://docs.cypress.io/api/cypress-api/custom-queries",
+            "https://docs.cypress.io/api/cypress-api/cypress-log",
+            "https://docs.cypress.io/api/cypress-api/dom",
+            "https://docs.cypress.io/api/cypress-api/element-selector-api",
+            "https://docs.cypress.io/api/cypress-api/ensure",
+            "https://docs.cypress.io/api/cypress-api/env",
+            "https://docs.cypress.io/api/cypress-api/expose",
+            "https://docs.cypress.io/api/cypress-api/isbrowser",
+            "https://docs.cypress.io/api/cypress-api/iscy",
+            "https://docs.cypress.io/api/cypress-api/keyboard-api",
+            "https://docs.cypress.io/api/cypress-api/platform",
+            "https://docs.cypress.io/api/cypress-api/require",
+            "https://docs.cypress.io/api/cypress-api/screenshot-api",
+            "https://docs.cypress.io/api/cypress-api/session",
+            "https://docs.cypress.io/api/cypress-api/spec",
+            "https://docs.cypress.io/api/cypress-api/stop",
+            "https://docs.cypress.io/api/cypress-api/testing-type",
+            "https://docs.cypress.io/api/cypress-api/version",
+            "https://docs.cypress.io/api/node-events/after-run-api",
+            "https://docs.cypress.io/api/node-events/after-screenshot-api",
+            "https://docs.cypress.io/api/node-events/after-spec-api",
+            "https://docs.cypress.io/api/node-events/before-run-api",
+            "https://docs.cypress.io/api/node-events/before-spec-api",
+            "https://docs.cypress.io/api/node-events/browser-launch-api",
+            "https://docs.cypress.io/api/node-events/configuration-api",
+            "https://docs.cypress.io/api/node-events/overview",
+            "https://docs.cypress.io/api/node-events/preprocessors-api",
+            "https://docs.cypress.io/api/table-of-contents",
+            "https://docs.cypress.io/api/utilities/$",
+            "https://docs.cypress.io/api/utilities/_",
+            "https://docs.cypress.io/api/utilities/blob",
+            "https://docs.cypress.io/api/utilities/buffer",
+            "https://docs.cypress.io/api/utilities/minimatch",
+            "https://docs.cypress.io/api/utilities/promise",
+            "https://docs.cypress.io/api/utilities/sinon",
+            "https://docs.cypress.io/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.cypress.io/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.cypress.io/api/commands/prompt",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.cypress.io/api/commands/readfile",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.cypress.io/api/commands/root",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.cypress.io/api/commands/type",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.cypress.io/api/commands/within",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://www.cypress.io/contact": [
+              {
+                "source_page": "https://docs.cypress.io/cloud/account-management/data-storage-and-masking",
+                "anchor_text": "contact us"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 315,
+          "missing_title_count": 0,
+          "missing_description_count": 3,
+          "multiple_h1_count": 1,
+          "heading_hierarchy_jump_count": 92,
+          "seo_geo_issue_rate_pct": 7.62
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 566,
+          "api_pages_detected": 165,
+          "endpoints_with_usage_docs": 86,
+          "reference_endpoints_without_usage_docs": 480,
+          "reference_coverage_pct": 15.19,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/').then((",
+            "ep:/(edit",
+            "ep:/).as('userget')cy.intercept('put",
+            "ep:/).as('userput",
+            "ep:/)file.on('close",
+            "ep:/*.cy.js",
+            "ep:/.+$/",
+            "ep:/...hack",
+            "ep:/../server/src/db",
+            "ep:/../server/src/db')module.exports",
+            "ep:/../server/src/db'export",
+            "ep:/../src/_services/user.service",
+            "ep:/../src/_services/user.service'it('can",
+            "ep:/../webpack.config.js",
+            "ep:/../webpack.config.js')module.exports",
+            "ep:/.bash_profile",
+            "ep:/.cache/cypress$",
+            "ep:/.cache/cypress/13.15.0/cypress/chrome-sandbox",
+            "ep:/.cache/cypress/13.15.0/cypress/chrome-sandboxsudo",
+            "ep:/.cache/cypress/13.15.0/cypress/cypress"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 2717,
+          "total_code_blocks_all": 3105,
+          "runnable_without_env": 2369,
+          "blocked_by_placeholders": 121,
+          "network_bound_examples": 227,
+          "example_reliability_estimate_pct": 87.19,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 312,
+          "pages_without_last_updated_hint": 3,
+          "last_updated_coverage_pct": 99.05,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/axe-core-configuration",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/changelog",
+              "hint": "Week of Apr 13, 2026"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/ignoring-rules-per-element",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/components",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/block-pull-requests",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/attributefilters",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/overview",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/significantattributes",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/elementfilters",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.cypress.io/accessibility/configuration/profiles",
+              "hint": "Last updated"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.cypress.io/cdn-cgi/l/email-protection",
+          "https://www.cypress.io/contact"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.cypress.io/cdn-cgi/l/email-protection",
+          "https://www.cypress.io/contact"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/').then((",
+          "ep:/(edit",
+          "ep:/).as('userget')cy.intercept('put",
+          "ep:/).as('userput",
+          "ep:/)file.on('close",
+          "ep:/*.cy.js",
+          "ep:/.+$/",
+          "ep:/...hack",
+          "ep:/../server/src/db",
+          "ep:/../server/src/db')module.exports",
+          "ep:/../server/src/db'export",
+          "ep:/../src/_services/user.service",
+          "ep:/../src/_services/user.service'it('can",
+          "ep:/../webpack.config.js",
+          "ep:/../webpack.config.js')module.exports",
+          "ep:/.bash_profile",
+          "ep:/.cache/cypress$",
+          "ep:/.cache/cypress/13.15.0/cypress/chrome-sandbox",
+          "ep:/.cache/cypress/13.15.0/cypress/chrome-sandboxsudo",
+          "ep:/.cache/cypress/13.15.0/cypress/cypress"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 315,
+        "requested_pages": 1355,
+        "urls_examined": 1293,
+        "max_pages_total": 5000,
+        "discovered_pages": 1293,
+        "crawl_scope_pages": 1293,
+        "trap_urls_skipped": 4,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 138
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 7.62
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 15.19,
+        "no_api_pages_found": false,
+        "api_pages_detected": 165,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 87.19
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 99.05
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "API usage-doc coverage is low: 15.19% (165 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.cypress.io covered 315 pages crawled from 1,293 discovered pages with 100% crawl coverage within scope. Link integrity is strong with only 2 confirmed broken internal documentation links and zero broken repository links. API reference coverage is critically low at 15.19% despite detecting 165 API pages, indicating significant gaps in usage documentation. Example reliability stands at 87.19% with 99.05% of pages showing last-updated metadata. Overall audit confidence is 91.5% with API coverage confidence at 85%.",
+      "strengths": [
+        "Excellent link integrity: only 2 broken internal documentation links across 315 crawled pages",
+        "Complete crawl coverage at 100% within defined scope (1,293 pages)",
+        "Strong freshness tracking with 99.05% last-updated metadata coverage",
+        "High example reliability estimate at 87.19%",
+        "Zero broken repository navigation links"
+      ],
+      "risks": [
+        "Critical API coverage gap: only 15.19% of 165 detected API pages have adequate usage documentation",
+        "SEO/geo issue rate at 7.62% may impact discoverability in certain markets",
+        "2 confirmed broken internal documentation links require immediate remediation",
+        "Large discovery-to-crawl gap (1,293 discovered vs 315 crawled) suggests potential scope limitations or access restrictions",
+        "API confidence at 85% indicates possible detection or measurement limitations in coverage calculation",
+        "12.81% of examples may be unreliable or outdated",
+        "138 excluded links warrant review to ensure no critical resources are being systematically ignored"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Expand API usage documentation to cover the 140+ API pages lacking adequate examples and integration guidance",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix 2 confirmed broken internal documentation links immediately",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate and resolve SEO/geo issues affecting 7.62% of pages to improve international discoverability",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Review and update the 12.81% of examples flagged as potentially unreliable",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit the 138 excluded links to verify no critical documentation resources are being systematically omitted",
+          "impact": "low",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+        "Crawl covered 315 of 1,293 discovered pages; uncrawled pages may contain additional issues not reflected in this analysis",
+        "API coverage detection at 85% confidence suggests measurement methodology may not capture all API documentation patterns",
+        "Cannot assess user comprehension, documentation effectiveness, or whether content meets actual developer needs",
+        "Link checking reflects point-in-time status; dynamic content or authentication-gated resources may not be fully validated"
+      ]
+    }
+  }
+}

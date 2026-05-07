@@ -1,0 +1,60 @@
+{
+  "generated_at_utc": "2026-04-30T11:06:27.665628+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 1,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 1,
+    "unverified_links_sample_count": 9
+  },
+  "all_docs_broken_links": [
+    "https://docs.spacelift.io/worker-pools"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://mailto:ar@spacelift.io/",
+    "https://mailto:contact@spacelift.io/",
+    "https://mailto:cs@spacelift.io/",
+    "https://mailto:intent@spacelift.io/",
+    "https://mailto:legal@spacelift.io/",
+    "https://mailto:privacy@spacelift.io/",
+    "https://mailto:sales@spacelift.io/",
+    "https://mailto:security@spacelift.io/",
+    "https://mailto:support@spacelift.io/"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.spacelift.io/",
+      "confirmed_broken_links_count": 1,
+      "docs_broken_links_count": 1,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.spacelift.io/worker-pools"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.spacelift.io/worker-pools",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.spacelift.io/concepts/policy",
+              "anchor_text": "private workers"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://mailto:ar@spacelift.io/",
+        "https://mailto:contact@spacelift.io/",
+        "https://mailto:cs@spacelift.io/",
+        "https://mailto:intent@spacelift.io/",
+        "https://mailto:legal@spacelift.io/",
+        "https://mailto:privacy@spacelift.io/",
+        "https://mailto:sales@spacelift.io/",
+        "https://mailto:security@spacelift.io/",
+        "https://mailto:support@spacelift.io/"
+      ]
+    }
+  ]
+}

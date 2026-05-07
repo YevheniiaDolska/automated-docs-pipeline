@@ -1,0 +1,410 @@
+{
+  "generated_at": "2026-05-05T11:18:12.512101+00:00",
+  "site_url": "https://docs.port.io/",
+  "site_urls": [
+    "https://docs.port.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.port.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 894,
+          "requested_pages": 958,
+          "urls_examined": 895,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 895,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 895,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 1877,
+          "seeded_sitemap_urls": 895,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 957,
+          "broken_internal_links_count": 8,
+          "docs_broken_links_count": 8,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/manage-pagerduty-incident",
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/trigger-pagerduty-incident",
+            "https://docs.port.io/ai-agents/overview",
+            "https://docs.port.io/ai-interfaces/auto-assign-bugs-to-owners",
+            "https://docs.port.io/api-reference/get-an-integrations-audit-logs",
+            "https://docs.port.io/guides/all/automate-jira-to-github-copilot",
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/improve-lead-time",
+            "https://docs.port.io/workflows/troubleshooting"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/manage-pagerduty-incident",
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/trigger-pagerduty-incident",
+            "https://docs.port.io/ai-agents/overview",
+            "https://docs.port.io/ai-interfaces/auto-assign-bugs-to-owners",
+            "https://docs.port.io/api-reference/get-an-integrations-audit-logs",
+            "https://docs.port.io/guides/all/automate-jira-to-github-copilot",
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/improve-lead-time",
+            "https://docs.port.io/workflows/troubleshooting"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 5,
+          "unverified_link_samples": [
+            "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/git/azure-devops/azure-devops",
+            "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/jira/jira",
+            "https://docs.port.io/create-self-service-experiences/reflect-action-progress",
+            "https://docs.port.io/guides/all/connect-jira-issue-to-service",
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/reduce-mttr"
+          ],
+          "confirmed_broken_links_count": 8,
+          "excluded_links_count": 10,
+          "excluded_link_samples": [
+            "https://docs.port.io/api-reference/search-a-blueprints-entities",
+            "https://docs.port.io/api-reference/search-entities",
+            "https://docs.port.io/assets/files/OneloginPortalWithApp-9495574bc3ee4e364c36e5e71ff7051e.png",
+            "https://docs.port.io/search-and-query/advanced",
+            "https://docs.port.io/search-and-query/examples",
+            "https://docs.port.io/search-and-query/global-search",
+            "https://docs.port.io/search-and-query/operators/comparison-operators",
+            "https://docs.port.io/search-and-query/operators/relation-operators",
+            "https://docs.port.io/search-and-query/overview",
+            "https://docs.port.io/search-and-query/structure-and-syntax"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/manage-pagerduty-incident",
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/trigger-pagerduty-incident",
+            "https://docs.port.io/ai-agents/overview",
+            "https://docs.port.io/ai-interfaces/auto-assign-bugs-to-owners",
+            "https://docs.port.io/api-reference/get-an-integrations-audit-logs",
+            "https://docs.port.io/guides/all/automate-jira-to-github-copilot",
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/improve-lead-time",
+            "https://docs.port.io/workflows/troubleshooting"
+          ],
+          "_all_unverified_links": [
+            "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/git/azure-devops/azure-devops",
+            "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/jira/jira",
+            "https://docs.port.io/create-self-service-experiences/reflect-action-progress",
+            "https://docs.port.io/guides/all/connect-jira-issue-to-service",
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/reduce-mttr"
+          ],
+          "_all_excluded_links": [
+            "https://docs.port.io/api-reference/search-a-blueprints-entities",
+            "https://docs.port.io/api-reference/search-entities",
+            "https://docs.port.io/assets/files/OneloginPortalWithApp-9495574bc3ee4e364c36e5e71ff7051e.png",
+            "https://docs.port.io/search-and-query/advanced",
+            "https://docs.port.io/search-and-query/examples",
+            "https://docs.port.io/search-and-query/global-search",
+            "https://docs.port.io/search-and-query/operators/comparison-operators",
+            "https://docs.port.io/search-and-query/operators/relation-operators",
+            "https://docs.port.io/search-and-query/overview",
+            "https://docs.port.io/search-and-query/structure-and-syntax"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/git/azure-devops/azure-devops",
+            "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/jira/jira",
+            "https://docs.port.io/create-self-service-experiences/reflect-action-progress",
+            "https://docs.port.io/guides/all/connect-jira-issue-to-service",
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/reduce-mttr"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/manage-pagerduty-incident": [
+              {
+                "source_page": "https://docs.port.io/guides/all/resolve-incident",
+                "anchor_text": "Trigger PagerDuty incident"
+              }
+            ],
+            "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/trigger-pagerduty-incident": [
+              {
+                "source_page": "https://docs.port.io/guides/all/create-pagerduty-service",
+                "anchor_text": "Trigger PagerDuty incident"
+              }
+            ],
+            "https://docs.port.io/ai-agents/overview": [
+              {
+                "source_page": "https://docs.port.io/api-reference/get-an-invocations-result",
+                "anchor_text": "documentation"
+              },
+              {
+                "source_page": "https://docs.port.io/guides/all/heal-unhealthy-k8s-pods",
+                "anchor_text": "create and configure AI agents"
+              },
+              {
+                "source_page": "https://docs.port.io/guides/all/self-heal-scorecards-with-ai",
+                "anchor_text": "create and configure AI agents"
+              },
+              {
+                "source_page": "https://docs.port.io/guides/all/trigger-claude-code-from-port",
+                "anchor_text": "create and configure AI agents"
+              }
+            ],
+            "https://docs.port.io/ai-interfaces/auto-assign-bugs-to-owners": [
+              {
+                "source_page": "https://docs.port.io/guides/all/route-scorecard-failures-to-jira-issues",
+                "anchor_text": "Auto-assign bugs to owners with AI"
+              }
+            ],
+            "https://docs.port.io/api-reference/get-an-integrations-audit-logs": [
+              {
+                "source_page": "https://docs.port.io/ai-interfaces/port-mcp-server/available-tools",
+                "anchor_text": "API Reference"
+              }
+            ],
+            "https://docs.port.io/guides/all/automate-jira-to-github-copilot": [
+              {
+                "source_page": "https://docs.port.io/guides/all/self-heal-scorecards-with-ai",
+                "anchor_text": "Automate Jira to GitHub Copilot"
+              }
+            ],
+            "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/improve-lead-time": [
+              {
+                "source_page": "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora",
+                "anchor_text": "Learn more arrow_forward"
+              }
+            ],
+            "https://docs.port.io/workflows/troubleshooting": [
+              {
+                "source_page": "https://docs.port.io/guides/all/automatically-resolve-tickets-with-coding-agents",
+                "anchor_text": "workflows troubleshooting page"
+              },
+              {
+                "source_page": "https://docs.port.io/guides/all/orchestrate-incident-response-with-ai",
+                "anchor_text": "troubleshooting page"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 894,
+          "missing_title_count": 0,
+          "missing_description_count": 3,
+          "multiple_h1_count": 4,
+          "heading_hierarchy_jump_count": 55,
+          "seo_geo_issue_rate_pct": 1.73
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 6,
+          "api_pages_detected": 411,
+          "endpoints_with_usage_docs": 6,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 959,
+          "total_code_blocks_all": 5383,
+          "runnable_without_env": 500,
+          "blocked_by_placeholders": 339,
+          "network_bound_examples": 120,
+          "example_reliability_estimate_pct": 52.14,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 69,
+          "pages_without_last_updated_hint": 825,
+          "last_updated_coverage_pct": 7.72,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.port.io/ai-interfaces/port-ai/llm-providers-management/providers/aws-bedrock",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/customize-integrations/configure-data-model/setup-blueprint/properties/calculation-property",
+              "hint": "Starting March 30, 2026,"
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/customize-integrations/configure-data-model/setup-blueprint/properties/datetime",
+              "hint": "- Fixed ISO-like format, e.g., \"2025-11-26 20:50\"."
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/customize-integrations/configure-data-model/setup-blueprint/properties/meta-properties",
+              "hint": "The user who last updated the entity"
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/ai-agents/claude",
+              "hint": "\"2023-06-01\""
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/ai-agents/github-copilot",
+              "hint": "\"2026-03-05\""
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/apm-alerting/azure-monitor",
+              "hint": "'2018-03-01'"
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/cicd/octopus-deploy/mapping-extra-resources",
+              "hint": "\"Last Modified On\""
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/cloud-providers/aws-v3/installation/self-hosted/iam-role-architecture",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/cloud-providers/aws-v3/installation/hosted-by-port/iam-role-architecture",
+              "hint": "\"2012-10-17\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/manage-pagerduty-incident",
+          "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/trigger-pagerduty-incident",
+          "https://docs.port.io/ai-agents/overview",
+          "https://docs.port.io/ai-interfaces/auto-assign-bugs-to-owners",
+          "https://docs.port.io/api-reference/get-an-integrations-audit-logs",
+          "https://docs.port.io/guides/all/automate-jira-to-github-copilot",
+          "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/improve-lead-time",
+          "https://docs.port.io/workflows/troubleshooting"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/manage-pagerduty-incident",
+          "https://docs.port.io/actions-and-automations/setup-backend/github-workflow/examples/PagerDuty/trigger-pagerduty-incident",
+          "https://docs.port.io/ai-agents/overview",
+          "https://docs.port.io/ai-interfaces/auto-assign-bugs-to-owners",
+          "https://docs.port.io/api-reference/get-an-integrations-audit-logs",
+          "https://docs.port.io/guides/all/automate-jira-to-github-copilot",
+          "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/improve-lead-time",
+          "https://docs.port.io/workflows/troubleshooting"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/git/azure-devops/azure-devops",
+          "https://docs.port.io/build-your-software-catalog/sync-data-to-catalog/jira/jira",
+          "https://docs.port.io/create-self-service-experiences/reflect-action-progress",
+          "https://docs.port.io/guides/all/connect-jira-issue-to-service",
+          "https://docs.port.io/solutions/engineering-intelligence/use-cases/dora/reduce-mttr"
+        ],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 894,
+        "requested_pages": 958,
+        "urls_examined": 895,
+        "max_pages_total": 5000,
+        "discovered_pages": 895,
+        "crawl_scope_pages": 895,
+        "trap_urls_skipped": 1877,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 8,
+        "docs_broken_links_count": 8,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 8,
+        "excluded_links_count": 10
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.73
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 100.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 411,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 52.14
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 7.72
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 76.12,
+      "links_confidence_pct": 56.54,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 76.12,
+    "links_confidence_pct": 56.54,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 8",
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "Example reliability estimate is low: 52.14%",
+    "Freshness visibility is weak: only 7.72% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.port.io covered 894 pages with 100% crawl coverage across a single-product topology. The site contains 8 confirmed broken internal documentation links and 5 unverified links excluded from counts due to authentication or rate-limiting. API reference coverage is complete at 100% across 411 detected API pages. Critical weaknesses include low example reliability at 52.14% and minimal freshness visibility with only 7.72% of pages displaying last-updated metadata. Overall audit confidence stands at 76.12%, with links confidence notably lower at 56.54%.",
+      "strengths": [
+        "Complete crawl coverage at 100% with 894 pages successfully indexed",
+        "Full API reference coverage at 100% across 411 API pages detected",
+        "Zero broken repository navigation links; all 8 broken links are user-facing documentation links",
+        "Strong crawl confidence at 95% and API detection confidence at 85%",
+        "Low SEO/geo issue rate at 1.73%"
+      ],
+      "risks": [
+        "Example reliability critically low at 52.14%, indicating over half of code examples may be outdated or non-functional",
+        "Freshness metadata present on only 7.72% of pages, preventing users from assessing content currency",
+        "8 confirmed broken internal documentation links degrade user navigation experience",
+        "5 unverified links due to authentication/rate-limiting represent unknown documentation quality gaps",
+        "Links confidence at 56.54% suggests potential undetected link issues beyond confirmed breaks",
+        "Overall confidence of 76.12% indicates moderate uncertainty in audit completeness",
+        "Large page count (894) with minimal freshness tracking creates maintenance blind spots"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated example testing pipeline to validate code samples and raise reliability above 85%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix all 8 confirmed broken internal documentation links immediately",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Deploy last-updated timestamps across all 894 pages with automated git-based tracking",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and resolve 5 unverified links blocked by authentication or rate-limiting",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Establish quarterly link validation process to address 56.54% links confidence gap",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or correctness of technical content, only structural and linking integrity",
+        "Example reliability is estimated through heuristics; actual code execution and functional testing not performed",
+        "Authentication-protected pages and rate-limited endpoints (5 unverified links) could not be fully validated",
+        "Freshness assessment relies solely on visible metadata; actual content currency requires subject matter expert review",
+        "API coverage detection may miss non-standard API documentation patterns not matching common reference page structures"
+      ]
+    }
+  }
+}

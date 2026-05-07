@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.canvasmedical.com covered 787 pages with 100% crawl coverage across 790 discovered pages. The site contains 36 confirmed broken internal links affecting user-facing documentation. API reference coverage is critically low at 4.95% despite 273 API pages detected, indicating minimal integration of usage examples with API documentation. Example code reliability is estimated at 80%, and freshness metadata coverage is strong at 99.49%. Overall audit confidence stands at 91.5%.",
+    "strengths": [
+      "Complete crawl coverage at 100% with 787 pages successfully indexed",
+      "High freshness metadata coverage at 99.49% enables content currency tracking",
+      "Strong overall audit confidence at 91.5% with 95% crawl confidence",
+      "Single-product topology provides clear documentation structure",
+      "No repository navigation link issues (0 repo broken links)"
+    ],
+    "risks": [
+      "36 confirmed broken internal links in user-facing documentation degrade user experience and trust",
+      "Critically low API reference coverage at 4.95% leaves developers without adequate usage guidance",
+      "273 API pages detected but minimal integration with examples creates documentation gaps",
+      "SEO/geo issue rate of 7.91% may impact discoverability and search rankings",
+      "Example reliability at 80% means 1 in 5 code samples may be outdated or non-functional",
+      "318 trap URLs skipped during crawl suggests potential pagination or infinite scroll issues",
+      "API confidence at 85% indicates moderate uncertainty in API documentation assessment"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 36 broken internal links in user-facing documentation",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Integrate usage examples and tutorials into 273 detected API pages to raise coverage from 4.95% to minimum 40%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and update the 20% of code examples flagged as potentially unreliable",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 7.91% of pages to improve search discoverability",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 318 trap URLs to eliminate crawl inefficiencies and ensure complete indexing",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of medical/clinical content or regulatory compliance requirements",
+      "Code example functionality testing requires execution environment; audit provides reliability estimates only",
+      "API coverage metrics depend on detection heuristics; actual developer experience may vary",
+      "Broken link detection is point-in-time; dynamic content or authentication-gated pages may not be fully assessed",
+      "User comprehension, workflow completeness, and domain-specific terminology appropriateness require subject matter expert review"
+    ]
+  }
+}

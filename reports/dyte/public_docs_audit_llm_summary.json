@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.dyte.io crawled 1220 pages with 100% coverage across 1225 discovered pages. Critical issue: 712 confirmed broken internal documentation links affecting user navigation. API reference coverage is low at 30.95% across 187 detected API pages. Freshness is strong with 90.74% of pages showing last-updated metadata. SEO/geo issues affect 15.31% of content, indicating potential discoverability problems.",
+    "strengths": [
+      "Complete crawl coverage at 100% (1220 of 1225 pages within scope)",
+      "High freshness coverage at 90.74% with last-updated metadata present",
+      "Strong example reliability at 89.2% across code samples",
+      "High overall confidence score of 91.39% for audit findings",
+      "No repository navigation link breakage (0 repo_broken_links_count)"
+    ],
+    "risks": [
+      "712 broken internal documentation links create severe navigation and user experience degradation",
+      "API reference coverage at 30.95% leaves 69% of API surface undocumented or poorly linked",
+      "SEO/geo issue rate of 15.31% may reduce organic discoverability and search ranking",
+      "768 trap URLs skipped suggests potential crawler confusion or URL structure issues",
+      "2 unverified links due to auth/rate-limit/server blocks may hide additional broken links",
+      "Low API reference coverage across 187 API pages indicates incomplete technical documentation",
+      "Large gap between requested pages (2125) and crawled pages (1220) suggests access or structure barriers"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Audit and repair 712 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Expand API reference documentation from 30.95% to minimum 80% coverage across 187 API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 15.31% of pages to improve search discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 768 trap URLs and URL structure to eliminate crawler confusion patterns",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Manually verify 2 auth-blocked links and establish monitoring for protected endpoints",
+        "impact": "low",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of explanations within pages",
+      "2 links blocked by auth/rate-limit/server restrictions were not verified and may contain additional broken links",
+      "Audit cannot assess user comprehension, learning outcomes, or real-world usability of documentation",
+      "API coverage detection relies on pattern matching and may miss non-standard API documentation structures",
+      "Crawl cannot evaluate internal content management workflows, review processes, or documentation maintenance practices"
+    ]
+  }
+}

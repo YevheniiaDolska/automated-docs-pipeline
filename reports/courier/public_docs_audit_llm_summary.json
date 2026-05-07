@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 998 pages from Courier.com documentation with 100% crawl coverage across 1,286 discovered pages. Identified 24 confirmed broken internal documentation links with zero repository navigation link failures. API reference coverage stands at 62.7% across 238 detected API pages, while only 29.66% of pages display last-updated metadata. Overall confidence score is 63.5%, with link verification confidence notably low at 25% due to 232 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100% within scope (998 of 1,286 pages crawled)",
+      "All broken links are user-facing documentation links; no repository navigation failures",
+      "238 API pages successfully detected with 85% detection confidence",
+      "Zero crawl trap URLs encountered during site traversal",
+      "Single-product topology provides clear documentation structure"
+    ],
+    "risks": [
+      "24 confirmed broken internal documentation links directly impact user navigation and trust",
+      "232 unverified links (authentication/rate-limit blocked) represent unknown link health exposure",
+      "API reference coverage gap of 37.3% leaves significant API surface undocumented or undetected",
+      "SEO/GEO issue rate of 10.22% affects discoverability and search ranking",
+      "Only 29.66% freshness coverage prevents users from assessing content currency",
+      "Example code reliability estimate of 63.49% suggests potential broken or outdated code samples",
+      "Overall confidence of 63.5% and link confidence of 25% indicate significant audit blind spots"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 24 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on remaining 70.34% of pages to improve freshness visibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and document the 37.3% API coverage gap to achieve complete reference documentation",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve authentication barriers for 232 unverified links to enable complete link health assessment",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Address SEO/GEO issues affecting 10.22% of pages to improve search discoverability",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify 232 URLs blocked by authentication, rate limiting, or server restrictions; actual broken link count may be higher",
+      "API coverage detection relies on pattern matching; 62.7% figure may undercount if non-standard API documentation structures exist",
+      "Example code reliability estimate of 63.49% is based on static analysis; cannot guarantee runtime execution success or environment-specific failures",
+      "Crawl captured 998 of 1,751 requested pages; 753 pages were out-of-scope or blocked, potentially hiding additional documentation quality issues",
+      "Overall confidence of 63.5% indicates significant uncertainty; findings represent minimum baseline rather than comprehensive quality assessment"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.metriport.com covered 359 pages with 100.28% crawl coverage and 91.5% overall confidence. Critical issues include 4 confirmed broken internal documentation links, 0% example reliability (no working code examples detected), and only 6.96% of pages displaying freshness metadata. API reference coverage is 80% across 349 detected API pages. SEO/geo issues affect 14.55% of pages, indicating potential discoverability problems.",
+    "strengths": [
+      "Complete crawl coverage (100.28%) with 359 pages successfully examined",
+      "Strong API documentation presence with 349 API pages detected and 80% reference coverage",
+      "High overall audit confidence at 91.5% with robust link verification (95% confidence)",
+      "No repository navigation broken links; all 4 broken links are user-facing documentation",
+      "Clean crawl with zero trap URLs or excluded links"
+    ],
+    "risks": [
+      "Zero percent example reliability means no working code examples detected across 359 pages, severely impacting developer onboarding",
+      "4 confirmed broken internal documentation links degrade user trust and navigation experience",
+      "Only 6.96% freshness coverage leaves users unable to assess content currency on 93% of pages",
+      "14.55% SEO/geo issue rate may reduce organic discoverability and search ranking",
+      "20% API reference gap leaves portions of API undocumented or undetectable",
+      "No detection note on examples suggests systematic issue with code sample implementation or testing",
+      "Lack of last-updated timestamps prevents users from evaluating documentation reliability"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated code example testing and validation across all documentation pages to achieve >80% example reliability",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix all 4 confirmed broken internal documentation links immediately",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Add last-updated metadata to all pages, targeting 90%+ coverage with automated git-based timestamps",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and resolve SEO/geo issues on the 52+ affected pages (14.55% of 359)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Close the 20% API reference gap by documenting missing endpoints or improving detection patterns",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functional correctness of API documentation content or parameter accuracy",
+      "Code example execution environment and runtime dependencies are not validated; examples may fail in production contexts",
+      "Audit cannot assess documentation completeness for internal/private APIs not exposed in public documentation",
+      "User comprehension, tutorial effectiveness, and actual developer success rates are not measured",
+      "Third-party integrations, SDK documentation hosted externally, and embedded widgets are outside audit scope"
+    ]
+  }
+}

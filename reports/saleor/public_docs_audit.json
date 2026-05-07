@@ -1,0 +1,341 @@
+{
+  "generated_at": "2026-04-29T10:46:27.450235+00:00",
+  "site_url": "https://docs.saleor.io/",
+  "site_urls": [
+    "https://docs.saleor.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.saleor.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2173,
+          "requested_pages": 2185,
+          "urls_examined": 2173,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2173,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 2173,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 78,
+          "seeded_sitemap_urls": 2173,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 2185,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.saleor.io/api-reference/api-reference",
+            "https://docs.saleor.io/developer/attributes"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.saleor.io/api-reference/api-reference",
+            "https://docs.saleor.io/developer/attributes"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://mailto:hello@saleor.io/"
+          ],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 3,
+          "excluded_link_samples": [
+            "https://docs.saleor.io/api-usage/search",
+            "https://docs.saleor.io/developer/app-store/apps/search",
+            "https://docs.saleor.io/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.saleor.io/api-reference/api-reference",
+            "https://docs.saleor.io/developer/attributes"
+          ],
+          "_all_unverified_links": [
+            "https://mailto:hello@saleor.io/"
+          ],
+          "_all_excluded_links": [
+            "https://docs.saleor.io/api-usage/search",
+            "https://docs.saleor.io/developer/app-store/apps/search",
+            "https://docs.saleor.io/search"
+          ],
+          "_all_docs_unverified_links": [
+            "https://mailto:hello@saleor.io/"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.saleor.io/api-reference/api-reference": [
+              {
+                "source_page": "https://docs.saleor.io/developer/ai",
+                "anchor_text": "https://docs.saleor.io/api-reference/api-reference"
+              }
+            ],
+            "https://docs.saleor.io/developer/attributes": [
+              {
+                "source_page": "https://docs.saleor.io/recipes/marketplace",
+                "anchor_text": "Attributes Overview Learn more about attributes in Saleor."
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 2173,
+          "missing_title_count": 0,
+          "missing_description_count": 5,
+          "multiple_h1_count": 6,
+          "heading_hierarchy_jump_count": 1910,
+          "seo_geo_issue_rate_pct": 22.1
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 34,
+          "api_pages_detected": 1962,
+          "endpoints_with_usage_docs": 12,
+          "reference_endpoints_without_usage_docs": 22,
+          "reference_coverage_pct": 35.29,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:devops",
+            "ev:event",
+            "ev:giftcardevent",
+            "ev:graphql",
+            "ev:maintained",
+            "ev:manage_checkouts",
+            "ev:orderevent",
+            "ev:security",
+            "ev:software-development",
+            "gql:a",
+            "gql:builders",
+            "gql:event",
+            "gql:instead",
+            "gql:language",
+            "gql:menu",
+            "gql:must",
+            "gql:mutation",
+            "gql:tries",
+            "gql:updates"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 2826,
+          "total_code_blocks_all": 3482,
+          "runnable_without_env": 2429,
+          "blocked_by_placeholders": 368,
+          "network_bound_examples": 29,
+          "example_reliability_estimate_pct": 85.95,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 17,
+          "pages_without_last_updated_hint": 2156,
+          "last_updated_coverage_pct": 0.78,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.saleor.io/api-reference/apps/objects/app-problem",
+              "hint": "The date and time when the problem was last updated."
+            },
+            {
+              "url": "https://docs.saleor.io/api-reference/orders/enums/order-sort-field",
+              "hint": "Sort orders by last modified date."
+            },
+            {
+              "url": "https://docs.saleor.io/api-reference/products/objects/category",
+              "hint": "The date and time when the category was last updated."
+            },
+            {
+              "url": "https://docs.saleor.io/api-reference/products/objects/product",
+              "hint": "The date and time when the product was last updated."
+            },
+            {
+              "url": "https://docs.saleor.io/api-reference/products/objects/product-variant",
+              "hint": "The date and time when the product variant was last updated."
+            },
+            {
+              "url": "https://docs.saleor.io/api-reference/users/enums/user-sort-field",
+              "hint": "Sort users by last modified at."
+            },
+            {
+              "url": "https://docs.saleor.io/api-reference/users/inputs/customer-where-input",
+              "hint": "Filter by last updated date."
+            },
+            {
+              "url": "https://docs.saleor.io/developer/app-store/apps/stripe/migration-from-plugin",
+              "hint": "2020-08-27"
+            },
+            {
+              "url": "https://docs.saleor.io/developer/app-store/apps/stripe/overview",
+              "hint": "2025-04-30.basil"
+            },
+            {
+              "url": "https://docs.saleor.io/developer/app-store/legacy-plugins/stripe",
+              "hint": "2020-08-27"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.saleor.io/api-reference/api-reference",
+          "https://docs.saleor.io/developer/attributes"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.saleor.io/api-reference/api-reference",
+          "https://docs.saleor.io/developer/attributes"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://mailto:hello@saleor.io/"
+        ],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:devops",
+          "ev:event",
+          "ev:giftcardevent",
+          "ev:graphql",
+          "ev:maintained",
+          "ev:manage_checkouts",
+          "ev:orderevent",
+          "ev:security",
+          "ev:software-development",
+          "gql:a",
+          "gql:builders",
+          "gql:event",
+          "gql:instead",
+          "gql:language",
+          "gql:menu",
+          "gql:must",
+          "gql:mutation",
+          "gql:tries",
+          "gql:updates"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 2173,
+        "requested_pages": 2185,
+        "urls_examined": 2173,
+        "max_pages_total": 5000,
+        "discovered_pages": 2173,
+        "crawl_scope_pages": 2173,
+        "trap_urls_skipped": 78,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 1,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 3
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 22.1
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 35.29,
+        "no_api_pages_found": false,
+        "api_pages_detected": 1962,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 85.95
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 0.78
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 78.17,
+      "links_confidence_pct": 61.67,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 78.17,
+    "links_confidence_pct": 61.67,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 22.1%",
+    "API usage-doc coverage is low: 35.29% (1962 API pages detected)",
+    "Freshness visibility is weak: only 0.78% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of docs.saleor.io crawled 2,173 pages with 100% coverage across a single-product documentation site. Only 2 confirmed broken internal links were found, both within user-facing documentation. API reference coverage is low at 35.29% despite detecting 1,962 API pages. SEO/metadata issues affect 22.1% of pages, and freshness metadata is nearly absent with only 0.78% of pages displaying last-updated timestamps. Example code reliability is estimated at 85.95%, and overall audit confidence stands at 78.17%.",
+      "strengths": [
+        "Complete crawl coverage at 100% with 2,173 pages successfully examined",
+        "Minimal broken links with only 2 confirmed broken internal documentation links",
+        "No broken repository navigation links detected",
+        "High example code reliability estimate at 85.95%",
+        "Large API surface detected with 1,962 API-related pages identified"
+      ],
+      "risks": [
+        "API reference coverage critically low at 35.29%, indicating poor integration between API docs and usage examples",
+        "SEO/metadata issues present on 22.1% of pages (481 pages), impacting discoverability and search ranking",
+        "Freshness metadata virtually absent with only 0.78% coverage, preventing users from assessing content currency",
+        "1 link could not be verified due to authentication, rate-limiting, or server blocks, creating uncertainty",
+        "Overall audit confidence at 78.17% suggests moderate reliability gaps in findings",
+        "Link verification confidence at 61.67% is notably low, indicating potential false negatives in link health",
+        "78 URLs skipped as crawler traps may hide additional documentation quality issues"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement last-updated timestamps across all documentation pages to address 0.78% freshness coverage",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and expand API usage documentation to improve 35.29% reference coverage across 1,962 API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/metadata issues affecting 22.1% of pages (481 pages) to improve discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Fix 2 confirmed broken internal documentation links and investigate 1 unverified link",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Review and validate 78 crawler-trap URLs to ensure no legitimate documentation is excluded",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or whether documentation matches actual product behavior",
+        "Link verification confidence of 61.67% means some broken links may be undetected or false positives may exist; 1 link remains unverified due to access restrictions",
+        "API coverage detection relies on heuristics and may not capture all integration gaps or measure documentation quality and completeness",
+        "Crawler trap detection (78 URLs skipped) may exclude valid pages or miss problematic infinite-loop patterns",
+        "Example code reliability estimate does not guarantee executability, version compatibility, or real-world applicability of code samples"
+      ]
+    }
+  }
+}

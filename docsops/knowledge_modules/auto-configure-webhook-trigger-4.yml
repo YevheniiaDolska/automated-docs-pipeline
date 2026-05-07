@@ -1,0 +1,101 @@
+id: auto-configure-webhook-trigger-4
+title: Configure webhook triggers (Part 4)
+summary: Set up and configure webhook trigger nodes to start workflows from incoming
+  HTTP requests with authentication.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-18'
+dependencies: []
+tags:
+- auto-extracted
+- configure-webhook-trigger
+- how-to
+metadata:
+  url: https://docs.example.com/how-to/configure-webhook-trigger/
+  title: Configure webhook triggers (Part 4)
+  heading: Webhook returns 404
+  version: 1.50.0
+  updated_at: '2026-03-07T00:00:00Z'
+  source_site: docs.example.com
+  source_path: how-to/configure-webhook-trigger.md
+semantic:
+  topic: Webhook returns 404
+  intent: configure
+  audience: practitioner
+  keywords:
+  - configure webhook trigger
+  - how-to
+  status: rule_based
+content:
+  docs_markdown: '### Webhook returns 404
+
+
+    Verify the workflow is active. Inactive workflows do not register
+
+    webhook endpoints. Activate the workflow and retry.
+
+
+    ### Request body is empty
+
+
+    Check that you send the `Content-Type: application/json` header.
+
+    {{ product_name }} requires this header to parse JSON request bodies.
+
+
+    ## Related resources
+
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+    - [Troubleshoot webhook issues](../troubleshooting/webhook-not-firing.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: Configure
+    webhook triggers (Part 4). Source path: how-to/configure-webhook-trigger.md. Summary:
+    Set up and configure webhook trigger nodes to start workflows from incoming HTTP
+    requests with authentication.
+
+
+    ### Webhook returns 404
+
+
+    Verify the workflow is active. Inactive workflows do not register
+
+    webhook endpoints. Activate the workflow and retry.
+
+
+    ### Request body is empty
+
+
+    Check that you send the `Content-Type: application/json` header.
+
+    {{ product_name }} requires this header to parse JSON request bodies.
+
+
+    ## Related resources
+
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+    - [Troubleshoot webhook issues](../troubleshooting/webhook-not-firing.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

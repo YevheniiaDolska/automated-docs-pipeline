@@ -1,0 +1,597 @@
+{
+  "generated_at": "2026-05-05T10:58:57.668880+00:00",
+  "site_url": "https://okteto.com/docs",
+  "site_urls": [
+    "https://okteto.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://okteto.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2139,
+          "requested_pages": 2342,
+          "urls_examined": 2140,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2140,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 2139,
+          "crawl_coverage_pct": 100.05,
+          "trap_urls_skipped": 180,
+          "seeded_sitemap_urls": 2139,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 2334,
+          "broken_internal_links_count": 23,
+          "docs_broken_links_count": 23,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://okteto.com/blog/building-and-deploying-a-fastapi-app-in-okteto-cloud",
+            "https://okteto.com/blog/deploying-preview-environments-for-docker-compose-applications-using-okteto-and-github",
+            "https://www.okteto.com/blog/cloud-based-kubernetes-dev-environments-simplify-how-developers-use-kubernetes",
+            "https://www.okteto.com/blog/configure-preview-environments-in-okteto",
+            "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud",
+            "https://www.okteto.com/blog/making-sense-of-cloud-development-in-a-complicated-kubernetes-world",
+            "https://www.okteto.com/blog/making-your-cli-more-accessible-using-fig",
+            "https://www.okteto.com/blog/okteto-at-kubecon-2021",
+            "https://www.okteto.com/docs/1.32/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.33/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.34/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.35/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.36/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.37/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.38/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.39/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.40/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.41/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.42/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.44/byoc/trust-policy.json"
+          ],
+          "docs_broken_link_samples": [
+            "https://okteto.com/blog/building-and-deploying-a-fastapi-app-in-okteto-cloud",
+            "https://okteto.com/blog/deploying-preview-environments-for-docker-compose-applications-using-okteto-and-github",
+            "https://www.okteto.com/blog/cloud-based-kubernetes-dev-environments-simplify-how-developers-use-kubernetes",
+            "https://www.okteto.com/blog/configure-preview-environments-in-okteto",
+            "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud",
+            "https://www.okteto.com/blog/making-sense-of-cloud-development-in-a-complicated-kubernetes-world",
+            "https://www.okteto.com/blog/making-your-cli-more-accessible-using-fig",
+            "https://www.okteto.com/blog/okteto-at-kubecon-2021",
+            "https://www.okteto.com/docs/1.32/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.33/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.34/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.35/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.36/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.37/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.38/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.39/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.40/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.41/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.42/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.44/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/self-hosted/administration/github",
+            "https://www.okteto.com/videos/undefined"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "https://mailto:hello@okteto.com/",
+            "https://mailto:podcast@okteto.com/",
+            "https://mailto:support@okteto.com/"
+          ],
+          "confirmed_broken_links_count": 23,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://www.okteto.com/docs/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://okteto.com/blog/building-and-deploying-a-fastapi-app-in-okteto-cloud",
+            "https://okteto.com/blog/deploying-preview-environments-for-docker-compose-applications-using-okteto-and-github",
+            "https://www.okteto.com/blog/cloud-based-kubernetes-dev-environments-simplify-how-developers-use-kubernetes",
+            "https://www.okteto.com/blog/configure-preview-environments-in-okteto",
+            "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud",
+            "https://www.okteto.com/blog/making-sense-of-cloud-development-in-a-complicated-kubernetes-world",
+            "https://www.okteto.com/blog/making-your-cli-more-accessible-using-fig",
+            "https://www.okteto.com/blog/okteto-at-kubecon-2021",
+            "https://www.okteto.com/docs/1.32/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.33/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.34/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.35/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.36/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.37/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.38/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.39/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.40/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.41/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.42/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/1.44/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/byoc/trust-policy.json",
+            "https://www.okteto.com/docs/self-hosted/administration/github",
+            "https://www.okteto.com/videos/undefined"
+          ],
+          "_all_unverified_links": [
+            "https://mailto:hello@okteto.com/",
+            "https://mailto:podcast@okteto.com/",
+            "https://mailto:support@okteto.com/"
+          ],
+          "_all_excluded_links": [
+            "https://www.okteto.com/docs/search"
+          ],
+          "_all_docs_unverified_links": [
+            "https://mailto:hello@okteto.com/",
+            "https://mailto:podcast@okteto.com/",
+            "https://mailto:support@okteto.com/"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://okteto.com/blog/building-and-deploying-a-fastapi-app-in-okteto-cloud": [
+              {
+                "source_page": "https://www.okteto.com/blog/fastapi-and-okteto-video-series-database",
+                "anchor_text": "Building a FastAPI app with Okteto"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/fastapi-and-okteto-video-series-getting-started",
+                "anchor_text": "Building a FastAPI app with Okteto"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/fastapi-and-okteto-video-series-preview-environment",
+                "anchor_text": "as a blog post"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/intro-to-fastapi-and-okteto-video-series",
+                "anchor_text": "Building a FastAPI app with Okteto"
+              }
+            ],
+            "https://okteto.com/blog/deploying-preview-environments-for-docker-compose-applications-using-okteto-and-github": [
+              {
+                "source_page": "https://www.okteto.com/blog/ci-cd-using-gh-actions-and-okteto",
+                "anchor_text": "This"
+              }
+            ],
+            "https://www.okteto.com/blog/cloud-based-kubernetes-dev-environments-simplify-how-developers-use-kubernetes": [
+              {
+                "source_page": "https://www.okteto.com/blog/beginners-guide-to-kubernetes-deployments",
+                "anchor_text": "worry about Kubernetes"
+              }
+            ],
+            "https://www.okteto.com/blog/configure-preview-environments-in-okteto": [
+              {
+                "source_page": "https://www.okteto.com/blog/preview-environments-importance",
+                "anchor_text": "video walkthrough"
+              }
+            ],
+            "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud": [
+              {
+                "source_page": "https://www.okteto.com/videos/how-to-create-and-use-data-clones-in-okteto",
+                "anchor_text": "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud/"
+              }
+            ],
+            "https://www.okteto.com/blog/making-sense-of-cloud-development-in-a-complicated-kubernetes-world": [
+              {
+                "source_page": "https://www.okteto.com/blog/kubernetes-basics",
+                "anchor_text": "Read now"
+              }
+            ],
+            "https://www.okteto.com/blog/making-your-cli-more-accessible-using-fig": [
+              {
+                "source_page": "https://www.okteto.com/blog/announcing-the-launch-of-okteto-cli-2-0",
+                "anchor_text": ".css-1sec1qy{position:absolute;width:10px!important;height:10px!important;opacity:0;z-index:-10;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/announcing-the-launch-of-okteto-cli-2-0",
+                "anchor_text": "Making Your CLI More Accessible Using Fig"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/authors/arsh-sharma",
+                "anchor_text": ".css-1sec1qy{position:absolute;width:10px!important;height:10px!important;opacity:0;z-index:-10;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/authors/arsh-sharma",
+                "anchor_text": "Making Your CLI More Accessible Using Fig"
+              },
+              {
+                "source_page": "https://www.okteto.com/blog/page-3",
+                "anchor_text": ".css-1sec1qy{position:absolute;width:10px!important;height:10px!important;opacity:0;z-index:-10;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}"
+              }
+            ],
+            "https://www.okteto.com/blog/okteto-at-kubecon-2021": [
+              {
+                "source_page": "https://www.okteto.com/blog/getting-the-most-out-of-an-online-conference",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.32/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.32/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.33/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.33/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.34/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.34/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.35/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.35/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.36/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.36/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.37/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.37/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.38/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.38/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.39/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.39/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.40/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.40/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.41/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.41/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.42/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.42/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/1.44/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/1.44/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/byoc/trust-policy.json": [
+              {
+                "source_page": "https://www.okteto.com/docs/byoc/aws",
+                "anchor_text": "here"
+              }
+            ],
+            "https://www.okteto.com/docs/self-hosted/administration/github": [
+              {
+                "source_page": "https://www.okteto.com/poc",
+                "anchor_text": "GitHub App"
+              }
+            ],
+            "https://www.okteto.com/videos/undefined": [
+              {
+                "source_page": "https://www.okteto.com/content",
+                "anchor_text": "$18 Million Raised to Build the Future of Cloud Development"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 2139,
+          "missing_title_count": 0,
+          "missing_description_count": 16,
+          "multiple_h1_count": 81,
+          "heading_hierarchy_jump_count": 478,
+          "seo_geo_issue_rate_pct": 6.72
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 216,
+          "api_pages_detected": 332,
+          "endpoints_with_usage_docs": 116,
+          "reference_endpoints_without_usage_docs": 100,
+          "reference_coverage_pct": 53.7,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/-10%",
+            "ep:/api-staging-$",
+            "ep:/api.$",
+            "ep:/api/customer",
+            "ep:/api/customer'.format(staging_api_endpoint",
+            "ep:/apispec",
+            "ep:/app-cindy.example.com",
+            "ep:/app.pulumi.com/$fully_qualified_name",
+            "ep:/app/code",
+            "ep:/auth/callbackhttps",
+            "ep:/aws.github.io/eks-charts",
+            "ep:/aws.github.io/eks-chartshelm",
+            "ep:/aws/containerinsights",
+            "ep:/aws/eks",
+            "ep:/blog/automate-provisioning-any-dev-resource-on-any-cloud-provider-with-pulumi-and-okteto",
+            "ep:/blog/bring-any-cloud-resource-to-your-modern-app-dev-workflow",
+            "ep:/blog/ci-cd-using-gh-actions-and-okteto",
+            "ep:/blog/developing-microservices-by-hot-reloading-on-kubernetes-clusters",
+            "ep:/blog/ingress-nginx-controller-deprecation-your-migration-guide-to-kubernetes-gateway-api",
+            "ep:/blog/kubernetes-network-policies"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 5350,
+          "total_code_blocks_all": 11302,
+          "runnable_without_env": 4275,
+          "blocked_by_placeholders": 161,
+          "network_bound_examples": 914,
+          "example_reliability_estimate_pct": 79.91,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 256,
+          "pages_without_last_updated_hint": 1883,
+          "last_updated_coverage_pct": 11.97,
+          "samples_with_last_updated": [
+            {
+              "url": "https://www.okteto.com/blog",
+              "hint": "March 20, 2026"
+            },
+            {
+              "url": "https://www.okteto.com/blog/5-internal-software-development-platform-challenges",
+              "hint": "2023-01-23"
+            },
+            {
+              "url": "https://www.okteto.com/blog/5-reasons-to-prioritize-a-positive-developer-experience",
+              "hint": "2023-03-23"
+            },
+            {
+              "url": "https://www.okteto.com/blog/5-technical-challenges-of-building-software-for-modern-cloud-development",
+              "hint": "2023-03-20"
+            },
+            {
+              "url": "https://www.okteto.com/blog/a-15m-series-a-to-disrupt-modern-development",
+              "hint": "2022-02-23"
+            },
+            {
+              "url": "https://www.okteto.com/blog/announcing-the-launch-of-okteto-cli-2-0",
+              "hint": "2022-04-13"
+            },
+            {
+              "url": "https://www.okteto.com/blog/applying-gitops-principles-to-your-development-environments",
+              "hint": "2022-10-18"
+            },
+            {
+              "url": "https://www.okteto.com/blog/authors/abdulazeez-abdulazeez-adeshina",
+              "hint": "November 05, 2021"
+            },
+            {
+              "url": "https://www.okteto.com/blog/authors/anita-ihuman",
+              "hint": "January 06, 2023"
+            },
+            {
+              "url": "https://www.okteto.com/blog/authors/ashlynn-pericacho",
+              "hint": "March 20, 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://okteto.com/blog/building-and-deploying-a-fastapi-app-in-okteto-cloud",
+          "https://okteto.com/blog/deploying-preview-environments-for-docker-compose-applications-using-okteto-and-github",
+          "https://www.okteto.com/blog/cloud-based-kubernetes-dev-environments-simplify-how-developers-use-kubernetes",
+          "https://www.okteto.com/blog/configure-preview-environments-in-okteto",
+          "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud",
+          "https://www.okteto.com/blog/making-sense-of-cloud-development-in-a-complicated-kubernetes-world",
+          "https://www.okteto.com/blog/making-your-cli-more-accessible-using-fig",
+          "https://www.okteto.com/blog/okteto-at-kubecon-2021",
+          "https://www.okteto.com/docs/1.32/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.33/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.34/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.35/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.36/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.37/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.38/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.39/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.40/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.41/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.42/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.44/byoc/trust-policy.json"
+        ],
+        "docs_broken_link_samples": [
+          "https://okteto.com/blog/building-and-deploying-a-fastapi-app-in-okteto-cloud",
+          "https://okteto.com/blog/deploying-preview-environments-for-docker-compose-applications-using-okteto-and-github",
+          "https://www.okteto.com/blog/cloud-based-kubernetes-dev-environments-simplify-how-developers-use-kubernetes",
+          "https://www.okteto.com/blog/configure-preview-environments-in-okteto",
+          "https://www.okteto.com/blog/how-to-create-and-use-data-clones-in-okteto-cloud",
+          "https://www.okteto.com/blog/making-sense-of-cloud-development-in-a-complicated-kubernetes-world",
+          "https://www.okteto.com/blog/making-your-cli-more-accessible-using-fig",
+          "https://www.okteto.com/blog/okteto-at-kubecon-2021",
+          "https://www.okteto.com/docs/1.32/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.33/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.34/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.35/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.36/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.37/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.38/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.39/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.40/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.41/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.42/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/1.44/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/byoc/trust-policy.json",
+          "https://www.okteto.com/docs/self-hosted/administration/github",
+          "https://www.okteto.com/videos/undefined"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://mailto:hello@okteto.com/",
+          "https://mailto:podcast@okteto.com/",
+          "https://mailto:support@okteto.com/"
+        ],
+        "api_uncovered_samples": [
+          "ep:/-10%",
+          "ep:/api-staging-$",
+          "ep:/api.$",
+          "ep:/api/customer",
+          "ep:/api/customer'.format(staging_api_endpoint",
+          "ep:/apispec",
+          "ep:/app-cindy.example.com",
+          "ep:/app.pulumi.com/$fully_qualified_name",
+          "ep:/app/code",
+          "ep:/auth/callbackhttps",
+          "ep:/aws.github.io/eks-charts",
+          "ep:/aws.github.io/eks-chartshelm",
+          "ep:/aws/containerinsights",
+          "ep:/aws/eks",
+          "ep:/blog/automate-provisioning-any-dev-resource-on-any-cloud-provider-with-pulumi-and-okteto",
+          "ep:/blog/bring-any-cloud-resource-to-your-modern-app-dev-workflow",
+          "ep:/blog/ci-cd-using-gh-actions-and-okteto",
+          "ep:/blog/developing-microservices-by-hot-reloading-on-kubernetes-clusters",
+          "ep:/blog/ingress-nginx-controller-deprecation-your-migration-guide-to-kubernetes-gateway-api",
+          "ep:/blog/kubernetes-network-policies"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 2139,
+        "requested_pages": 2342,
+        "urls_examined": 2140,
+        "max_pages_total": 10000,
+        "discovered_pages": 2140,
+        "crawl_scope_pages": 2139,
+        "trap_urls_skipped": 180,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 23,
+        "docs_broken_links_count": 23,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 3,
+        "confirmed_broken_links_count": 23,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 6.72
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 53.7,
+        "no_api_pages_found": false,
+        "api_pages_detected": 332,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 79.91
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 11.97
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 86.88,
+      "links_confidence_pct": 83.46,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 86.88,
+    "links_confidence_pct": 83.46,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 23",
+    "Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 53.7% (332 API pages detected)",
+    "Freshness visibility is weak: only 11.97% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of okteto.com/docs crawled 2,139 pages with 100% coverage across the site. 23 confirmed broken internal documentation links require immediate remediation. API reference coverage stands at 53.7% across 332 detected API pages, indicating significant documentation gaps. Only 11.97% of pages display last-updated metadata, severely limiting freshness transparency. Overall audit confidence is 86.88%, with link verification confidence at 83.46% due to 3 unverified URLs blocked by authentication or rate limits.",
+      "strengths": [
+        "Complete crawl coverage achieved: 100% of in-scope documentation pages indexed (2,139 pages)",
+        "Single-product topology provides clear documentation structure and navigation model",
+        "API pages successfully detected (332 pages) enabling quantitative coverage analysis",
+        "Example code reliability estimated at 79.91%, indicating generally functional code samples",
+        "Trap URL detection prevented 180 false positives from skewing link quality metrics"
+      ],
+      "risks": [
+        "23 confirmed broken internal documentation links degrade user experience and SEO authority",
+        "API reference coverage at 53.7% leaves nearly half of API surface undocumented or poorly linked",
+        "Freshness metadata present on only 11.97% of pages prevents users from assessing content currency",
+        "SEO/geo issue rate of 6.72% may impact discoverability in search engines and international markets",
+        "3 unverified links due to authentication/rate-limiting create blind spots in link integrity assessment",
+        "Link verification confidence at 83.46% indicates moderate uncertainty in external link health",
+        "Example reliability at 79.91% means approximately 1 in 5 code samples may fail or mislead users"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair all 23 confirmed broken internal documentation links",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API reference documentation to achieve minimum 80% coverage of detected API surface (currently 53.7%)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated timestamps on all documentation pages (currently 11.97% coverage)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and fix example code reliability issues affecting ~20% of samples",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Resolve SEO/geo issues affecting 6.72% of pages to improve search discoverability",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify 3 URLs blocked by authentication, rate limits, or server restrictions; actual broken link count may differ",
+        "Crawl cannot assess accuracy, completeness, or technical correctness of documentation content itself",
+        "API coverage metrics depend on automated detection patterns; manual API inventory may reveal different coverage gaps",
+        "Example reliability is estimated through static analysis; runtime execution in actual user environments not tested",
+        "Audit reflects point-in-time snapshot; documentation and link health may change immediately after assessment"
+      ]
+    }
+  }
+}

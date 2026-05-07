@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.redoxengine.com crawled 1,315 pages from 1,994 discovered URLs with 100% crawl coverage. Critical issue: 679 confirmed broken internal documentation links affecting user navigation. Example code reliability estimated at only 55.51%, indicating potential execution or maintenance issues. SEO/geo metadata issues affect 29.11% of pages, and last-updated timestamps are missing on 40% of content.",
+    "strengths": [
+      "Complete crawl coverage at 100% with 1,315 pages successfully indexed",
+      "API reference documentation detected on 848 pages with 100% reference coverage",
+      "Overall audit confidence level of 91.5% indicates reliable findings",
+      "Single-product topology provides clear documentation structure",
+      "No repository navigation link issues (0 repo broken links)"
+    ],
+    "risks": [
+      "679 confirmed broken internal documentation links create severe navigation barriers for users",
+      "Example code reliability at 55.51% suggests nearly half of code samples may be outdated or non-functional",
+      "29.11% SEO/geo issue rate impacts discoverability and search engine ranking",
+      "39.62% of pages lack last-updated timestamps, obscuring content freshness for users",
+      "107 trap URLs were skipped, indicating potential crawl obstacles or infinite loop patterns",
+      "API confidence at 85% (lowest subscore) suggests potential gaps in API documentation detection",
+      "687 URLs requested but not crawled may indicate access issues or redirect problems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Audit and repair all 679 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Review and update code examples to improve 55.51% reliability score; implement automated testing for examples",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add or update last-updated metadata on 40% of pages missing freshness indicators",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Resolve SEO/geo metadata issues affecting 29.11% of pages to improve search discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 107 trap URLs and 687 uncrawled pages to identify structural or access issues",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality of API endpoints or validate that code examples execute successfully in live environments",
+      "Broken link detection reflects point-in-time status; links may break or be fixed after audit completion",
+      "Example reliability is estimated through heuristics; actual code correctness requires manual review and testing",
+      "Audit cannot assess content accuracy, completeness of technical explanations, or alignment with current product features",
+      "SEO/geo scoring reflects metadata presence and structure but cannot predict actual search engine ranking performance"
+    ]
+  }
+}

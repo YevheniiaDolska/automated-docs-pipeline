@@ -1,0 +1,1079 @@
+{
+  "generated_at": "2026-05-06T10:10:49.748816+00:00",
+  "site_url": "https://checklyhq.com/docs",
+  "site_urls": [
+    "https://checklyhq.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://checklyhq.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 976,
+          "requested_pages": 1500,
+          "urls_examined": 977,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 977,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 976,
+          "crawl_coverage_pct": 100.1,
+          "trap_urls_skipped": 723,
+          "seeded_sitemap_urls": 976,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 1451,
+          "broken_internal_links_count": 54,
+          "docs_broken_links_count": 54,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://auth.checklyhq.com/login",
+            "https://blog.checklyhq.com/docs/browser-checks/partials-code-snippets",
+            "https://blog.checklyhq.com/docs/monitoring/whitelisting",
+            "https://checklyhq.com/docs/api/authentication",
+            "https://checklyhq.com/docs/blog/scaling-puppeteer-playwright-on-checkly-with-terraform",
+            "https://checklyhq.com/docs/blog/what-is-api-monitoring",
+            "https://checklyhq.com/docs/cli/overviewcli-vs-terraform-pulumi",
+            "https://checklyhq.com/docs/detect/private-locations/overviewscaling-and-redundancy",
+            "https://checklyhq.com/docs/detect/synthetic-monitoring/browser-checks/visual-regression-testing",
+            "https://checklyhq.com/docs/detect/uptime-monitoring/url-monitors/creating-your-first-url-monitor",
+            "https://checklyhq.com/docs/guides/monitoring-as-code-cli",
+            "https://checklyhq.com/docs/learn/headless/basics-selectors",
+            "https://checklyhq.com/docs/learn/headless/e2e-account-settings",
+            "https://checklyhq.com/docs/learn/headless/request-interception",
+            "https://checklyhq.com/docs/learn/playwright/interaction/waits",
+            "https://checklyhq.com/docs/open-telemetry/instrumenting-code",
+            "https://checklyhq.com/docs/product/dashboards",
+            "https://checklyhq.com/docs/product/private-locations",
+            "https://checklyhq.com/docs/product/status-pages",
+            "https://checklyhq.com/docs/quickstarts/assertions"
+          ],
+          "docs_broken_link_samples": [
+            "https://auth.checklyhq.com/login",
+            "https://blog.checklyhq.com/docs/browser-checks/partials-code-snippets",
+            "https://blog.checklyhq.com/docs/monitoring/whitelisting",
+            "https://checklyhq.com/docs/api/authentication",
+            "https://checklyhq.com/docs/blog/scaling-puppeteer-playwright-on-checkly-with-terraform",
+            "https://checklyhq.com/docs/blog/what-is-api-monitoring",
+            "https://checklyhq.com/docs/cli/overviewcli-vs-terraform-pulumi",
+            "https://checklyhq.com/docs/detect/private-locations/overviewscaling-and-redundancy",
+            "https://checklyhq.com/docs/detect/synthetic-monitoring/browser-checks/visual-regression-testing",
+            "https://checklyhq.com/docs/detect/uptime-monitoring/url-monitors/creating-your-first-url-monitor",
+            "https://checklyhq.com/docs/guides/monitoring-as-code-cli",
+            "https://checklyhq.com/docs/learn/headless/basics-selectors",
+            "https://checklyhq.com/docs/learn/headless/e2e-account-settings",
+            "https://checklyhq.com/docs/learn/headless/request-interception",
+            "https://checklyhq.com/docs/learn/playwright/interaction/waits",
+            "https://checklyhq.com/docs/open-telemetry/instrumenting-code",
+            "https://checklyhq.com/docs/product/dashboards",
+            "https://checklyhq.com/docs/product/private-locations",
+            "https://checklyhq.com/docs/product/status-pages",
+            "https://checklyhq.com/docs/quickstarts/assertions",
+            "https://checklyhq.com/docs/quickstarts/request-settings",
+            "https://checklyhq.com/docs/quickstarts/setup-teardown-scripts",
+            "https://checklyhq.com/docs/testing/overview",
+            "https://checklyhq.com/kick-start",
+            "https://developers.checklyhq.com/reference/authentication",
+            "https://developers.checklyhq.com/reference/getv1checkgroups",
+            "https://developers.checklyhq.com/reference/getv1clientcertificates",
+            "https://docs.checklyhq.com/cli/overviewconstructs-reference",
+            "https://docs.checklyhq.com/cli/overviewproject-structure",
+            "https://www.checklyhq.com/cli/overviewproject-structure"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 47,
+          "unverified_link_samples": [
+            "https://blog.checklyhq.com/managing-checkly-checks-with-terraform",
+            "https://blog.checklyhq.com/p/7af060fe-dd69-497f-9575-36e6267a64db/www.checklyhq.com",
+            "https://checklyhq.com/docs/alerting/webhooks",
+            "https://checklyhq.com/docs/api",
+            "https://checklyhq.com/docs/api-reference/analytics",
+            "https://checklyhq.com/docs/browser-checks/triggers",
+            "https://checklyhq.com/docs/constructs/platform/runtimes/runtime-specification",
+            "https://checklyhq.com/docs/detect/private-locations/overview",
+            "https://checklyhq.com/docs/docs/concepts/locations",
+            "https://checklyhq.com/docs/guides/api-monitoring",
+            "https://checklyhq.com/docs/guides/monitoring-as-code",
+            "https://checklyhq.com/docs/learn/headless/e2e-file-download",
+            "https://checklyhq.com/docs/learn/headless/valuable-tests",
+            "https://checklyhq.com/docs/monitoring/check-results",
+            "https://checklyhq.com/docs/terraform-provider/snippets-variables",
+            "https://checklyhq.com/docs/traces-open-telemetry",
+            "https://checklyhq.com/jobs",
+            "https://mailto:sales@checklyhq.com/",
+            "https://mailto:security@checklyhq.com/",
+            "https://mailto:support@checklyhq.com/",
+            "https://meet.checklyhq.com/kickstart-workshop",
+            "https://otel.eu-west-1.checklyhq.com/",
+            "https://pages.checklyhq.com/unite-testing-and-monitoring-webinar",
+            "https://www.checklyhq.com/cli/overviewconstructs-reference",
+            "https://www.checklyhq.com/docs/,",
+            "https://www.checklyhq.com/docs/admin/changing-your-email-password",
+            "https://www.checklyhq.com/docs/ai//use-checkly-with-ai-ide",
+            "https://www.checklyhq.com/docs/alerting/alert-channels",
+            "https://www.checklyhq.com/docs/api-checks/teardown-script-examples",
+            "https://www.checklyhq.com/docs/browser-checks/degraded-state"
+          ],
+          "confirmed_broken_links_count": 54,
+          "excluded_links_count": 7,
+          "excluded_link_samples": [
+            "https://cdn.checklyhq.com/downloads/checkly-cli/4.9.0/darwin/checkly-cli.zip",
+            "https://cdn.checklyhq.com/downloads/checkly-cli/4.9.0/linux/checkly-cli.tar.gz",
+            "https://cdn.checklyhq.com/downloads/checkly-cli/4.9.0/windows/checkly-cli.zip",
+            "https://cdn.checklyhq.com/logos/fat_racoon_square.png",
+            "https://checklyhq.com/downloads/Seed_Release_Checkly_Accel_23_04_2020.pdf",
+            "https://www.checklyhq.com/images/Costa-Bravo-2025.jpg",
+            "https://www.checklyhq.com/rss.xml"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://auth.checklyhq.com/login",
+            "https://blog.checklyhq.com/docs/browser-checks/partials-code-snippets",
+            "https://blog.checklyhq.com/docs/monitoring/whitelisting",
+            "https://checklyhq.com/docs/api/authentication",
+            "https://checklyhq.com/docs/blog/scaling-puppeteer-playwright-on-checkly-with-terraform",
+            "https://checklyhq.com/docs/blog/what-is-api-monitoring",
+            "https://checklyhq.com/docs/cli/overviewcli-vs-terraform-pulumi",
+            "https://checklyhq.com/docs/detect/private-locations/overviewscaling-and-redundancy",
+            "https://checklyhq.com/docs/detect/synthetic-monitoring/browser-checks/visual-regression-testing",
+            "https://checklyhq.com/docs/detect/uptime-monitoring/url-monitors/creating-your-first-url-monitor",
+            "https://checklyhq.com/docs/guides/monitoring-as-code-cli",
+            "https://checklyhq.com/docs/learn/headless/basics-selectors",
+            "https://checklyhq.com/docs/learn/headless/e2e-account-settings",
+            "https://checklyhq.com/docs/learn/headless/request-interception",
+            "https://checklyhq.com/docs/learn/playwright/interaction/waits",
+            "https://checklyhq.com/docs/open-telemetry/instrumenting-code",
+            "https://checklyhq.com/docs/product/dashboards",
+            "https://checklyhq.com/docs/product/private-locations",
+            "https://checklyhq.com/docs/product/status-pages",
+            "https://checklyhq.com/docs/quickstarts/assertions",
+            "https://checklyhq.com/docs/quickstarts/request-settings",
+            "https://checklyhq.com/docs/quickstarts/setup-teardown-scripts",
+            "https://checklyhq.com/docs/testing/overview",
+            "https://checklyhq.com/kick-start",
+            "https://developers.checklyhq.com/reference/authentication",
+            "https://developers.checklyhq.com/reference/getv1checkgroups",
+            "https://developers.checklyhq.com/reference/getv1clientcertificates",
+            "https://docs.checklyhq.com/cli/overviewconstructs-reference",
+            "https://docs.checklyhq.com/cli/overviewproject-structure",
+            "https://www.checklyhq.com/cli/overviewproject-structure",
+            "https://www.checklyhq.com/docs/api-reference/incidents/create-an-incident/,",
+            "https://www.checklyhq.com/docs/browser-checks/%E2%80%99",
+            "https://www.checklyhq.com/docs/browser-checks/quickstart",
+            "https://www.checklyhq.com/docs/browser-checks/visual-comparison-snapshot-testing",
+            "https://www.checklyhq.com/docs/detect/private-locations/overview",
+            "https://www.checklyhq.com/docs/heartbeat-checks",
+            "https://www.checklyhq.com/docs/monitoring/check-pricing",
+            "https://www.checklyhq.com/docs/monitoring/check-results",
+            "https://www.checklyhq.com/docs/open-telemetry/exporting-traces",
+            "https://www.checklyhq.com/docs/open-telemetry/instrumenting-code",
+            "https://www.checklyhq.com/docs/open-telemetry/instrumenting-code/nextjs",
+            "https://www.checklyhq.com/docs/tcp-checks",
+            "https://www.checklyhq.com/guides/setup-scripts",
+            "https://www.checklyhq.com/guides/using-pw-test-command/,",
+            "https://www.checklyhq.com/learn/headless",
+            "https://www.checklyhq.com/learn/headless/avoiding-hard-waits",
+            "https://www.checklyhq.com/learn/headless/basics-performance",
+            "https://www.checklyhq.com/learn/headless/basics-playwright-intro",
+            "https://www.checklyhq.com/learn/monitoring/reduce-mttd",
+            "https://www.checklyhq.com/learn/monitoring/synthetic-transaction-monitoring",
+            "https://www.checklyhq.com/learn/playwright/codegen/,",
+            "https://www.checklyhq.com/learn/playwright/playwright-vs-others",
+            "https://www.checklyhq.com/learn/playwright/playwright-vs-selenium",
+            "https://www.checklyhq.com/signup"
+          ],
+          "_all_unverified_links": [
+            "https://blog.checklyhq.com/managing-checkly-checks-with-terraform",
+            "https://blog.checklyhq.com/p/7af060fe-dd69-497f-9575-36e6267a64db/www.checklyhq.com",
+            "https://checklyhq.com/docs/alerting/webhooks",
+            "https://checklyhq.com/docs/api",
+            "https://checklyhq.com/docs/api-reference/analytics",
+            "https://checklyhq.com/docs/browser-checks/triggers",
+            "https://checklyhq.com/docs/constructs/platform/runtimes/runtime-specification",
+            "https://checklyhq.com/docs/detect/private-locations/overview",
+            "https://checklyhq.com/docs/docs/concepts/locations",
+            "https://checklyhq.com/docs/guides/api-monitoring",
+            "https://checklyhq.com/docs/guides/monitoring-as-code",
+            "https://checklyhq.com/docs/learn/headless/e2e-file-download",
+            "https://checklyhq.com/docs/learn/headless/valuable-tests",
+            "https://checklyhq.com/docs/monitoring/check-results",
+            "https://checklyhq.com/docs/terraform-provider/snippets-variables",
+            "https://checklyhq.com/docs/traces-open-telemetry",
+            "https://checklyhq.com/jobs",
+            "https://mailto:sales@checklyhq.com/",
+            "https://mailto:security@checklyhq.com/",
+            "https://mailto:support@checklyhq.com/",
+            "https://meet.checklyhq.com/kickstart-workshop",
+            "https://otel.eu-west-1.checklyhq.com/",
+            "https://pages.checklyhq.com/unite-testing-and-monitoring-webinar",
+            "https://www.checklyhq.com/cli/overviewconstructs-reference",
+            "https://www.checklyhq.com/docs/,",
+            "https://www.checklyhq.com/docs/admin/changing-your-email-password",
+            "https://www.checklyhq.com/docs/ai//use-checkly-with-ai-ide",
+            "https://www.checklyhq.com/docs/alerting/alert-channels",
+            "https://www.checklyhq.com/docs/api-checks/teardown-script-examples",
+            "https://www.checklyhq.com/docs/browser-checks/degraded-state",
+            "https://www.checklyhq.com/docs/cicd/github",
+            "https://www.checklyhq.com/docs/cli/project-structure",
+            "https://www.checklyhq.com/docs/monitoring-as-code",
+            "https://www.checklyhq.com/docs/monitoring/assertions",
+            "https://www.checklyhq.com/docs/open-telemetry/ingesting-traces-otel-collector",
+            "https://www.checklyhq.com/guides/auto-waiting-methods",
+            "https://www.checklyhq.com/guides/end-to-end-monitoring",
+            "https://www.checklyhq.com/guides/monitoring-as-code",
+            "https://www.checklyhq.com/guides/monitoring-as-code-best-practices",
+            "https://www.checklyhq.com/guides/monitoring-ecommerce-apps-using-playwright",
+            "https://www.checklyhq.com/guides/puppeteer-to-playwright",
+            "https://www.checklyhq.com/learn/headless/basics-puppeteer-intro",
+            "https://www.checklyhq.com/learn/headless/request-interception",
+            "https://www.checklyhq.com/learn/monitoring/intro-to-sdlc",
+            "https://www.checklyhq.com/learn/opentelemetry/context-propagation",
+            "https://www.checklyhq.com/learn/playwright/performance",
+            "https://www.checklyhq.com/learn/playwright/playwright-vs-cypress"
+          ],
+          "_all_excluded_links": [
+            "https://cdn.checklyhq.com/downloads/checkly-cli/4.9.0/darwin/checkly-cli.zip",
+            "https://cdn.checklyhq.com/downloads/checkly-cli/4.9.0/linux/checkly-cli.tar.gz",
+            "https://cdn.checklyhq.com/downloads/checkly-cli/4.9.0/windows/checkly-cli.zip",
+            "https://cdn.checklyhq.com/logos/fat_racoon_square.png",
+            "https://checklyhq.com/downloads/Seed_Release_Checkly_Accel_23_04_2020.pdf",
+            "https://www.checklyhq.com/images/Costa-Bravo-2025.jpg",
+            "https://www.checklyhq.com/rss.xml"
+          ],
+          "_all_docs_unverified_links": [
+            "https://blog.checklyhq.com/managing-checkly-checks-with-terraform",
+            "https://blog.checklyhq.com/p/7af060fe-dd69-497f-9575-36e6267a64db/www.checklyhq.com",
+            "https://checklyhq.com/docs/alerting/webhooks",
+            "https://checklyhq.com/docs/api",
+            "https://checklyhq.com/docs/api-reference/analytics",
+            "https://checklyhq.com/docs/browser-checks/triggers",
+            "https://checklyhq.com/docs/constructs/platform/runtimes/runtime-specification",
+            "https://checklyhq.com/docs/detect/private-locations/overview",
+            "https://checklyhq.com/docs/docs/concepts/locations",
+            "https://checklyhq.com/docs/guides/api-monitoring",
+            "https://checklyhq.com/docs/guides/monitoring-as-code",
+            "https://checklyhq.com/docs/learn/headless/e2e-file-download",
+            "https://checklyhq.com/docs/learn/headless/valuable-tests",
+            "https://checklyhq.com/docs/monitoring/check-results",
+            "https://checklyhq.com/docs/terraform-provider/snippets-variables",
+            "https://checklyhq.com/docs/traces-open-telemetry",
+            "https://checklyhq.com/jobs",
+            "https://mailto:sales@checklyhq.com/",
+            "https://mailto:security@checklyhq.com/",
+            "https://mailto:support@checklyhq.com/",
+            "https://meet.checklyhq.com/kickstart-workshop",
+            "https://otel.eu-west-1.checklyhq.com/",
+            "https://pages.checklyhq.com/unite-testing-and-monitoring-webinar",
+            "https://www.checklyhq.com/cli/overviewconstructs-reference",
+            "https://www.checklyhq.com/docs/,",
+            "https://www.checklyhq.com/docs/admin/changing-your-email-password",
+            "https://www.checklyhq.com/docs/ai//use-checkly-with-ai-ide",
+            "https://www.checklyhq.com/docs/alerting/alert-channels",
+            "https://www.checklyhq.com/docs/api-checks/teardown-script-examples",
+            "https://www.checklyhq.com/docs/browser-checks/degraded-state",
+            "https://www.checklyhq.com/docs/cicd/github",
+            "https://www.checklyhq.com/docs/cli/project-structure",
+            "https://www.checklyhq.com/docs/monitoring-as-code",
+            "https://www.checklyhq.com/docs/monitoring/assertions",
+            "https://www.checklyhq.com/docs/open-telemetry/ingesting-traces-otel-collector",
+            "https://www.checklyhq.com/guides/auto-waiting-methods",
+            "https://www.checklyhq.com/guides/end-to-end-monitoring",
+            "https://www.checklyhq.com/guides/monitoring-as-code",
+            "https://www.checklyhq.com/guides/monitoring-as-code-best-practices",
+            "https://www.checklyhq.com/guides/monitoring-ecommerce-apps-using-playwright",
+            "https://www.checklyhq.com/guides/puppeteer-to-playwright",
+            "https://www.checklyhq.com/learn/headless/basics-puppeteer-intro",
+            "https://www.checklyhq.com/learn/headless/request-interception",
+            "https://www.checklyhq.com/learn/monitoring/intro-to-sdlc",
+            "https://www.checklyhq.com/learn/opentelemetry/context-propagation",
+            "https://www.checklyhq.com/learn/playwright/performance",
+            "https://www.checklyhq.com/learn/playwright/playwright-vs-cypress"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://auth.checklyhq.com/login": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/opentelemetry-metrics",
+                "anchor_text": "Get started with Checkly for free"
+              }
+            ],
+            "https://blog.checklyhq.com/docs/browser-checks/partials-code-snippets": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/e2e-monitoring-of-crucial-user-flows",
+                "anchor_text": "code snippets"
+              }
+            ],
+            "https://blog.checklyhq.com/docs/monitoring/whitelisting": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/e2e-monitoring-of-crucial-user-flows",
+                "anchor_text": "is guide."
+              }
+            ],
+            "https://checklyhq.com/docs/api/authentication": [
+              {
+                "source_page": "https://checklyhq.com/docs/concepts/monitoring-as-code",
+                "anchor_text": "API"
+              }
+            ],
+            "https://checklyhq.com/docs/blog/scaling-puppeteer-playwright-on-checkly-with-terraform": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-ecommerce-apps-using-terraform",
+                "anchor_text": "create multiple checks while declaring only one resource"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-ecommerce-apps-using-terraform",
+                "anchor_text": "Group checks together"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-ecommerce-apps-using-terraform",
+                "anchor_text": "Use code snippets"
+              }
+            ],
+            "https://checklyhq.com/docs/blog/what-is-api-monitoring": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-an-openapi-spec",
+                "anchor_text": "API monitoring"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/guides/setup-scripts-for-apis",
+                "anchor_text": "API Monitoring"
+              }
+            ],
+            "https://checklyhq.com/docs/cli/overviewcli-vs-terraform-pulumi": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-ecommerce-apps-using-terraform",
+                "anchor_text": "documentation"
+              }
+            ],
+            "https://checklyhq.com/docs/detect/private-locations/overviewscaling-and-redundancy": [
+              {
+                "source_page": "https://checklyhq.com/docs/integrations/observability/prometheus-v2",
+                "anchor_text": "scale your Checkly Agents"
+              }
+            ],
+            "https://checklyhq.com/docs/detect/synthetic-monitoring/browser-checks/visual-regression-testing": [
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/browser-check",
+                "anchor_text": "looks visually correct"
+              }
+            ],
+            "https://checklyhq.com/docs/detect/uptime-monitoring/url-monitors/creating-your-first-url-monitor": [
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/browser-check",
+                "anchor_text": "Uptime Monitor Quickstart"
+              }
+            ],
+            "https://checklyhq.com/docs/guides/monitoring-as-code-cli": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-ecommerce-apps-using-terraform",
+                "anchor_text": "Monitoring as Code experience"
+              }
+            ],
+            "https://checklyhq.com/docs/learn/headless/basics-selectors": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/moving-from-puppeteer-to-playwright",
+                "anchor_text": "our dedicated guide"
+              }
+            ],
+            "https://checklyhq.com/docs/learn/headless/e2e-account-settings": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/moving-from-puppeteer-to-playwright",
+                "anchor_text": "example on file upload"
+              }
+            ],
+            "https://checklyhq.com/docs/learn/headless/request-interception": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/moving-from-puppeteer-to-playwright",
+                "anchor_text": "full guide"
+              }
+            ],
+            "https://checklyhq.com/docs/learn/playwright/interaction/waits": [
+              {
+                "source_page": "https://checklyhq.com/docs/learn/playwright/navigation",
+                "anchor_text": "Playwright auto waiting"
+              }
+            ],
+            "https://checklyhq.com/docs/open-telemetry/instrumenting-code": [
+              {
+                "source_page": "https://checklyhq.com/docs/resolve/traces/import/open-telemetry",
+                "anchor_text": "send traces directly to Checkly by instrumenting your application code"
+              }
+            ],
+            "https://checklyhq.com/docs/product/dashboards": [
+              {
+                "source_page": "https://checklyhq.com/docs/learn/monitoring/monitoring-as-code",
+                "anchor_text": "internal dashboards"
+              }
+            ],
+            "https://checklyhq.com/docs/product/private-locations": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/monitoring-ecommerce-apps-using-playwright",
+                "anchor_text": "Private Locations"
+              }
+            ],
+            "https://checklyhq.com/docs/product/status-pages": [
+              {
+                "source_page": "https://checklyhq.com/docs/learn/monitoring/monitoring-as-code",
+                "anchor_text": "Status pages"
+              }
+            ],
+            "https://checklyhq.com/docs/quickstarts/assertions": [
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/api-check",
+                "anchor_text": "Read more about assertions"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/openapi-spec",
+                "anchor_text": "Read more about assertions"
+              }
+            ],
+            "https://checklyhq.com/docs/quickstarts/request-settings": [
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/api-check",
+                "anchor_text": "request settings"
+              }
+            ],
+            "https://checklyhq.com/docs/quickstarts/setup-teardown-scripts": [
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/api-check",
+                "anchor_text": "Read more about setup and teardown scripts"
+              }
+            ],
+            "https://checklyhq.com/docs/testing/overview": [
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/api-check",
+                "anchor_text": "E2E test"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/quickstarts/openapi-spec",
+                "anchor_text": "E2E test"
+              }
+            ],
+            "https://checklyhq.com/kick-start": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/playwright-tests-in-sequence",
+                "anchor_text": "our weekly Kick-start webinar"
+              }
+            ],
+            "https://developers.checklyhq.com/reference/authentication": [
+              {
+                "source_page": "https://www.checklyhq.com/",
+                "anchor_text": "API Documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/about",
+                "anchor_text": "API Documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/ai-reliability",
+                "anchor_text": "API Documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/ai-workflow",
+                "anchor_text": "API Documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/ai-story",
+                "anchor_text": "API Documentation"
+              }
+            ],
+            "https://developers.checklyhq.com/reference/getv1checkgroups": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/monitor-complex-user-flows-with-multistep-checks",
+                "anchor_text": "Checkly\u2019s API"
+              }
+            ],
+            "https://developers.checklyhq.com/reference/getv1clientcertificates": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/using-client-certificates",
+                "anchor_text": "public API"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/using-client-certificates",
+                "anchor_text": "public API \u00a0documentation"
+              }
+            ],
+            "https://docs.checklyhq.com/cli/overviewconstructs-reference": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/developer-fixtures",
+                "anchor_text": "construct documentation"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/guides/developer-fixtures",
+                "anchor_text": "documentation of retry configuration is on our docs site"
+              }
+            ],
+            "https://docs.checklyhq.com/cli/overviewproject-structure": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/developer-fixtures",
+                "anchor_text": "global configuration"
+              }
+            ],
+            "https://www.checklyhq.com/cli/overviewproject-structure": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/sdlc-monitoring",
+                "anchor_text": "test repository\u2019s config"
+              }
+            ],
+            "https://www.checklyhq.com/docs/api-reference/incidents/create-an-incident/,": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/create-multiple-monitors",
+                "anchor_text": "https://www.checklyhq.com/docs/api-reference/incidents/create-an-incident/"
+              }
+            ],
+            "https://www.checklyhq.com/docs/browser-checks/%E2%80%99": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/end-to-end-monitoring",
+                "anchor_text": "https://www.checklyhq.com/docs/browser-checks/\u2019"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/guides/getting-started-with-monitoring-as-code",
+                "anchor_text": "https://www.checklyhq.com/docs/browser-checks/\u2019"
+              }
+            ],
+            "https://www.checklyhq.com/docs/browser-checks/quickstart": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/an-in-depth-look-at-100-zero-downtime-deployments-with-terraform",
+                "anchor_text": "browser checks"
+              }
+            ],
+            "https://www.checklyhq.com/docs/browser-checks/visual-comparison-snapshot-testing": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/how-to-spend-ten-grand-12-bucks-at-a-time",
+                "anchor_text": "with snapshot testing"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/visual-regression--snapshot-testing-on-checkly-is",
+                "anchor_text": "Read more about these options in our docs."
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/visual-regression--snapshot-testing-on-checkly-is",
+                "anchor_text": "You can read more about this workflow in our docs."
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/visual-regression--snapshot-testing-on-checkly-is",
+                "anchor_text": "Check out the full documentation here."
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/visual-regression-testing-with-playwright",
+                "anchor_text": "our docs"
+              }
+            ],
+            "https://www.checklyhq.com/docs/detect/private-locations/overview": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/sdlc-monitoring",
+                "anchor_text": "Checkly Private Location"
+              }
+            ],
+            "https://www.checklyhq.com/docs/heartbeat-checks": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/a-peek-into-our-job-monitoring-strategy-with-heartbeat",
+                "anchor_text": "documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/beyond-apm-webinar-what-datadog-isnt-telling-you",
+                "anchor_text": "before they impact real users"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/heartbeat-monitoring-with-checkly",
+                "anchor_text": "provide various examples in our documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/heartbeat-monitoring-with-checkly",
+                "anchor_text": "Checkly documentation"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/heartbeat-monitoring-with-checkly",
+                "anchor_text": "provide a source"
+              }
+            ],
+            "https://www.checklyhq.com/docs/monitoring/check-pricing": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/parallel-scheduling",
+                "anchor_text": "we have a detailed breakdown in our documentation"
+              }
+            ],
+            "https://www.checklyhq.com/docs/monitoring/check-results": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/uptime-monitoring",
+                "anchor_text": "the results for a TCP check"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/learn/monitoring/https-for-app-developers",
+                "anchor_text": "Checkly"
+              }
+            ],
+            "https://www.checklyhq.com/docs/open-telemetry/exporting-traces": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/opentelemetry-metrics",
+                "anchor_text": "Sending traces to 3rd party services"
+              }
+            ],
+            "https://www.checklyhq.com/docs/open-telemetry/instrumenting-code": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/how-i-integrated-intercom-into-my-saass-vue-js-app",
+                "anchor_text": "instrumenting some code"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/opentelemetry-metrics",
+                "anchor_text": "Instrumenting your code with OpenTelemetry SDKs"
+              }
+            ],
+            "https://www.checklyhq.com/docs/open-telemetry/instrumenting-code/nextjs": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/in-depth-guide-to-monitoring-next-js-apps-with-opentelemetry",
+                "anchor_text": "Check our docs on how to instrument your app"
+              }
+            ],
+            "https://www.checklyhq.com/docs/tcp-checks": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/network-monitoring-tcp-checks",
+                "anchor_text": "TCP-based checks"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/network-monitoring-tcp-checks",
+                "anchor_text": "our documentation on TCP checks"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/tcp-checks-now-available-in-checkly",
+                "anchor_text": "Read our documentation"
+              }
+            ],
+            "https://www.checklyhq.com/guides/setup-scripts": [
+              {
+                "source_page": "https://checklyhq.com/docs/learn/monitoring/api-monitoring",
+                "anchor_text": "using scripts"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/what-is-api-monitoring",
+                "anchor_text": "using scripts"
+              }
+            ],
+            "https://www.checklyhq.com/guides/using-pw-test-command/,": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/create-multiple-monitors",
+                "anchor_text": "https://www.checklyhq.com/guides/using-pw-test-command/"
+              }
+            ],
+            "https://www.checklyhq.com/learn/headless": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/playwright-explained",
+                "anchor_text": "Learn Playwright & Puppeteer"
+              }
+            ],
+            "https://www.checklyhq.com/learn/headless/avoiding-hard-waits": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/fire-up-new-browser-checks-with-our-new-templates",
+                "anchor_text": "we recommend a set of best practices"
+              }
+            ],
+            "https://www.checklyhq.com/learn/headless/basics-performance": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/how-playwright-can-monitor-third-party-resources",
+                "anchor_text": "evaluates the popular largest contentful paint metric by injecting custom JavaScript into the page"
+              }
+            ],
+            "https://www.checklyhq.com/learn/headless/basics-playwright-intro": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/cypress-vs-selenium-vs-playwright-vs-puppeteer-speed-comparison",
+                "anchor_text": "Playwright"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/how-to-implement-custom-test-fixtures-in-playwright",
+                "anchor_text": "Playwright"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/new-relic-vs-checkly",
+                "anchor_text": "Playwright"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/playwright-explained",
+                "anchor_text": "Basic Playwright Info"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/blog/sending-checkly-traces-to-coralogix",
+                "anchor_text": "Playwright"
+              }
+            ],
+            "https://www.checklyhq.com/learn/monitoring/reduce-mttd": [
+              {
+                "source_page": "https://checklyhq.com/docs/learn/incidents/mttr-challenges",
+                "anchor_text": "MTTD"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/learn/incidents/mttr-challenges",
+                "anchor_text": "optimizing time to detection"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/learn/incidents/mttr-challenges",
+                "anchor_text": "optimizing detection time"
+              }
+            ],
+            "https://www.checklyhq.com/learn/monitoring/synthetic-transaction-monitoring": [
+              {
+                "source_page": "https://checklyhq.com/docs/learn/incidents/anatomy-of-a-status-page",
+                "anchor_text": "synthetic monitoring"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/learn/monitoring/real-user-monitoring",
+                "anchor_text": "synthetic monitoring"
+              },
+              {
+                "source_page": "https://checklyhq.com/docs/learn/monitoring/metrics-every-team-needs",
+                "anchor_text": "synthetic monitoring"
+              }
+            ],
+            "https://www.checklyhq.com/learn/playwright/codegen/,": [
+              {
+                "source_page": "https://checklyhq.com/docs/guides/create-multiple-monitors",
+                "anchor_text": "https://www.checklyhq.com/learn/playwright/codegen/"
+              }
+            ],
+            "https://www.checklyhq.com/learn/playwright/playwright-vs-others": [
+              {
+                "source_page": "https://www.checklyhq.com/",
+                "anchor_text": "Playwright vs other frameworks"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/about",
+                "anchor_text": "Playwright vs other frameworks"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/ai-reliability",
+                "anchor_text": "Playwright vs other frameworks"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/ai-workflow",
+                "anchor_text": "Playwright vs other frameworks"
+              },
+              {
+                "source_page": "https://www.checklyhq.com/ai-story",
+                "anchor_text": "Playwright vs other frameworks"
+              }
+            ],
+            "https://www.checklyhq.com/learn/playwright/playwright-vs-selenium": [
+              {
+                "source_page": "https://www.checklyhq.com/blog/puppeteer-vs-selenium-vs-playwright-speed-comparison",
+                "anchor_text": "Selenium"
+              }
+            ],
+            "https://www.checklyhq.com/signup": [
+              {
+                "source_page": "https://checklyhq.com/docs/detect/testing/playwright-reporter",
+                "anchor_text": "sign up"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 976,
+          "missing_title_count": 0,
+          "missing_description_count": 86,
+          "multiple_h1_count": 14,
+          "heading_hierarchy_jump_count": 240,
+          "seo_geo_issue_rate_pct": 8.71
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 16,
+          "api_pages_detected": 235,
+          "endpoints_with_usage_docs": 8,
+          "reference_endpoints_without_usage_docs": 8,
+          "reference_coverage_pct": 50.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:devops",
+            "ev:direct",
+            "ev:gtm.js",
+            "ev:hapi",
+            "ev:security",
+            "ev:software-development",
+            "gql:menu"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 13,
+          "total_code_blocks_all": 2961,
+          "runnable_without_env": 6,
+          "blocked_by_placeholders": 1,
+          "network_bound_examples": 6,
+          "example_reliability_estimate_pct": 46.15,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 372,
+          "pages_without_last_updated_hint": 604,
+          "last_updated_coverage_pct": 38.11,
+          "samples_with_last_updated": [
+            {
+              "url": "https://checklyhq.com/docs/api-reference/analytics/api-checks",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/analytics/url-monitors",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/check-status/retrieve-check-status-details",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/checks/create-a-tcp-check",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/checks/create-a-browser-check",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/checks/update-a-browser-check",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/checks/update-an-tcp-check",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/dashboards/retrieve-a-dashboard",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/error-groups/list-all-error-groups-for-a-specific-check",
+              "hint": "\"2023-12-25\""
+            },
+            {
+              "url": "https://checklyhq.com/docs/api-reference/dashboards/create-a-dashboard",
+              "hint": "\"created_at\": \"2023-12-25\","
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://auth.checklyhq.com/login",
+          "https://blog.checklyhq.com/docs/browser-checks/partials-code-snippets",
+          "https://blog.checklyhq.com/docs/monitoring/whitelisting",
+          "https://checklyhq.com/docs/api/authentication",
+          "https://checklyhq.com/docs/blog/scaling-puppeteer-playwright-on-checkly-with-terraform",
+          "https://checklyhq.com/docs/blog/what-is-api-monitoring",
+          "https://checklyhq.com/docs/cli/overviewcli-vs-terraform-pulumi",
+          "https://checklyhq.com/docs/detect/private-locations/overviewscaling-and-redundancy",
+          "https://checklyhq.com/docs/detect/synthetic-monitoring/browser-checks/visual-regression-testing",
+          "https://checklyhq.com/docs/detect/uptime-monitoring/url-monitors/creating-your-first-url-monitor",
+          "https://checklyhq.com/docs/guides/monitoring-as-code-cli",
+          "https://checklyhq.com/docs/learn/headless/basics-selectors",
+          "https://checklyhq.com/docs/learn/headless/e2e-account-settings",
+          "https://checklyhq.com/docs/learn/headless/request-interception",
+          "https://checklyhq.com/docs/learn/playwright/interaction/waits",
+          "https://checklyhq.com/docs/open-telemetry/instrumenting-code",
+          "https://checklyhq.com/docs/product/dashboards",
+          "https://checklyhq.com/docs/product/private-locations",
+          "https://checklyhq.com/docs/product/status-pages",
+          "https://checklyhq.com/docs/quickstarts/assertions"
+        ],
+        "docs_broken_link_samples": [
+          "https://auth.checklyhq.com/login",
+          "https://blog.checklyhq.com/docs/browser-checks/partials-code-snippets",
+          "https://blog.checklyhq.com/docs/monitoring/whitelisting",
+          "https://checklyhq.com/docs/api/authentication",
+          "https://checklyhq.com/docs/blog/scaling-puppeteer-playwright-on-checkly-with-terraform",
+          "https://checklyhq.com/docs/blog/what-is-api-monitoring",
+          "https://checklyhq.com/docs/cli/overviewcli-vs-terraform-pulumi",
+          "https://checklyhq.com/docs/detect/private-locations/overviewscaling-and-redundancy",
+          "https://checklyhq.com/docs/detect/synthetic-monitoring/browser-checks/visual-regression-testing",
+          "https://checklyhq.com/docs/detect/uptime-monitoring/url-monitors/creating-your-first-url-monitor",
+          "https://checklyhq.com/docs/guides/monitoring-as-code-cli",
+          "https://checklyhq.com/docs/learn/headless/basics-selectors",
+          "https://checklyhq.com/docs/learn/headless/e2e-account-settings",
+          "https://checklyhq.com/docs/learn/headless/request-interception",
+          "https://checklyhq.com/docs/learn/playwright/interaction/waits",
+          "https://checklyhq.com/docs/open-telemetry/instrumenting-code",
+          "https://checklyhq.com/docs/product/dashboards",
+          "https://checklyhq.com/docs/product/private-locations",
+          "https://checklyhq.com/docs/product/status-pages",
+          "https://checklyhq.com/docs/quickstarts/assertions",
+          "https://checklyhq.com/docs/quickstarts/request-settings",
+          "https://checklyhq.com/docs/quickstarts/setup-teardown-scripts",
+          "https://checklyhq.com/docs/testing/overview",
+          "https://checklyhq.com/kick-start",
+          "https://developers.checklyhq.com/reference/authentication",
+          "https://developers.checklyhq.com/reference/getv1checkgroups",
+          "https://developers.checklyhq.com/reference/getv1clientcertificates",
+          "https://docs.checklyhq.com/cli/overviewconstructs-reference",
+          "https://docs.checklyhq.com/cli/overviewproject-structure",
+          "https://www.checklyhq.com/cli/overviewproject-structure"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://blog.checklyhq.com/managing-checkly-checks-with-terraform",
+          "https://blog.checklyhq.com/p/7af060fe-dd69-497f-9575-36e6267a64db/www.checklyhq.com",
+          "https://checklyhq.com/docs/alerting/webhooks",
+          "https://checklyhq.com/docs/api",
+          "https://checklyhq.com/docs/api-reference/analytics",
+          "https://checklyhq.com/docs/browser-checks/triggers",
+          "https://checklyhq.com/docs/constructs/platform/runtimes/runtime-specification",
+          "https://checklyhq.com/docs/detect/private-locations/overview",
+          "https://checklyhq.com/docs/docs/concepts/locations",
+          "https://checklyhq.com/docs/guides/api-monitoring",
+          "https://checklyhq.com/docs/guides/monitoring-as-code",
+          "https://checklyhq.com/docs/learn/headless/e2e-file-download",
+          "https://checklyhq.com/docs/learn/headless/valuable-tests",
+          "https://checklyhq.com/docs/monitoring/check-results",
+          "https://checklyhq.com/docs/terraform-provider/snippets-variables",
+          "https://checklyhq.com/docs/traces-open-telemetry",
+          "https://checklyhq.com/jobs",
+          "https://mailto:sales@checklyhq.com/",
+          "https://mailto:security@checklyhq.com/",
+          "https://mailto:support@checklyhq.com/",
+          "https://meet.checklyhq.com/kickstart-workshop",
+          "https://otel.eu-west-1.checklyhq.com/",
+          "https://pages.checklyhq.com/unite-testing-and-monitoring-webinar",
+          "https://www.checklyhq.com/cli/overviewconstructs-reference",
+          "https://www.checklyhq.com/docs/,",
+          "https://www.checklyhq.com/docs/admin/changing-your-email-password",
+          "https://www.checklyhq.com/docs/ai//use-checkly-with-ai-ide",
+          "https://www.checklyhq.com/docs/alerting/alert-channels",
+          "https://www.checklyhq.com/docs/api-checks/teardown-script-examples",
+          "https://www.checklyhq.com/docs/browser-checks/degraded-state"
+        ],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:devops",
+          "ev:direct",
+          "ev:gtm.js",
+          "ev:hapi",
+          "ev:security",
+          "ev:software-development",
+          "gql:menu"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 976,
+        "requested_pages": 1500,
+        "urls_examined": 977,
+        "max_pages_total": 5000,
+        "discovered_pages": 977,
+        "crawl_scope_pages": 976,
+        "trap_urls_skipped": 723,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 54,
+        "docs_broken_links_count": 54,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 47,
+        "confirmed_broken_links_count": 54,
+        "excluded_links_count": 7
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 8.71
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 50.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 235,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 46.15
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 38.11
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 72.89,
+      "links_confidence_pct": 48.47,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 72.89,
+    "links_confidence_pct": 48.47,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 54",
+    "Link verification inconclusive for 47 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 50.0% (235 API pages detected)",
+    "Example reliability estimate is low: 46.15%",
+    "Freshness visibility is weak: only 38.11% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of checklyhq.com/docs crawled 976 pages (100% coverage of discovered scope). Critical issues identified: 54 confirmed broken internal links within documentation, 50% API reference coverage gap across 235 detected API pages, and 46.15% example reliability estimate indicating potential code rot. Freshness metadata present on only 38.11% of pages, limiting change tracking. Overall confidence score 72.89% with link verification at 48.47% due to 47 unverified URLs blocked by authentication or rate limiting.",
+      "strengths": [
+        "Complete crawl coverage at 100% of discovered documentation scope (976 pages)",
+        "API page detection successful with 235 pages identified, enabling coverage analysis",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "Topology clearly defined as single-product documentation",
+        "Crawl trap detection active, filtering 723 non-documentation URLs"
+      ],
+      "risks": [
+        "54 confirmed broken internal documentation links degrading user navigation and trust",
+        "50% API reference coverage gap leaves half of API surface undocumented or poorly linked",
+        "46.15% example reliability estimate suggests high probability of outdated or non-functional code samples",
+        "61.89% of pages lack last-updated timestamps, obscuring content freshness and maintenance status",
+        "47 unverified links due to authentication/rate-limiting may hide additional broken links",
+        "8.71% SEO/geo issue rate may impact discoverability in search and regional access",
+        "Overall confidence at 72.89% with link confidence critically low at 48.47%"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair all 54 confirmed broken internal documentation links",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and expand API reference documentation to close 50% coverage gap across 235 API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Validate and update code examples to improve 46.15% reliability estimate",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated metadata on remaining 61.89% of pages for freshness transparency",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate 47 unverified links with authentication bypass or manual verification to confirm status",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "47 links unverified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+        "Example reliability is estimated via heuristics; actual code execution success requires runtime testing",
+        "API coverage calculation depends on detection accuracy; complex API structures may be underreported",
+        "External link validity subject to third-party availability at audit time; status may change post-audit",
+        "Content quality, accuracy, and completeness not assessed; audit covers structural and technical health only"
+      ]
+    }
+  }
+}

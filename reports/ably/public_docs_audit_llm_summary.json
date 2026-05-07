@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of https://ably.com/docs covered 693 pages across 2,071 discovered URLs with 100% crawl coverage. 8 confirmed broken internal links were found, all within user-facing documentation (0 repository links). 739 links could not be verified due to authentication or rate-limiting, representing a significant blind spot. API reference coverage stands at 52.49% across 71 detected API pages, and SEO/geo issues affect 44.3% of pages. Example code reliability is estimated at 87.33%, with 83.12% of pages showing last-updated metadata.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 2,071 in-scope pages)",
+      "Zero broken repository navigation links; all 8 broken links are user-facing and fixable",
+      "High example code reliability estimate at 87.33%",
+      "Strong last-updated metadata coverage at 83.12% of pages",
+      "71 API pages successfully detected with no detection failures flagged"
+    ],
+    "risks": [
+      "739 unverified links create major uncertainty; 25% link confidence indicates potential hidden broken links behind auth/rate-limits",
+      "API reference coverage at 52.49% leaves nearly half of API surface undocumented or poorly linked",
+      "SEO/geo issue rate of 44.3% significantly impacts discoverability and search ranking",
+      "Overall confidence of 63.5% suggests moderate reliability gaps across multiple dimensions",
+      "Multi-project topology may hide cross-project linking issues not surfaced in this audit",
+      "8 confirmed broken internal links degrade user experience and trust",
+      "2,376 pages requested but only 693 crawled suggests potential scope or access restrictions limiting audit completeness"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 8 confirmed broken internal documentation links immediately",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 739 unverified links by addressing auth/rate-limit barriers or confirming validity",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Increase API reference coverage from 52.49% to minimum 80% by documenting missing endpoints and improving cross-linking",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 44.3% of pages to improve search visibility and organic traffic",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Analyze gap between 2,376 requested pages and 693 crawled to identify access barriers or scope misconfigurations",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify 739 links behind authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "Crawl accessed only 693 of 2,376 requested pages; uncrawled content may contain additional issues not reflected in this analysis",
+      "API coverage detection relies on heuristics; actual documentation gaps may differ if API surface inventory is incomplete",
+      "Example code reliability is an estimate based on static analysis; runtime execution failures are not tested",
+      "Multi-project topology may obscure cross-project dependencies, versioning conflicts, or shared component issues not visible in aggregate metrics"
+    ]
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "generated_at": "2026-04-30T11:06:01.969841+00:00",
+  "site_url": "https://docs.spacelift.io/",
+  "site_urls": [
+    "https://docs.spacelift.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.spacelift.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 204,
+          "requested_pages": 243,
+          "urls_examined": 204,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 204,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 204,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 408,
+          "seeded_sitemap_urls": 204,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 243,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.spacelift.io/worker-pools"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.spacelift.io/worker-pools"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 9,
+          "unverified_link_samples": [
+            "https://mailto:ar@spacelift.io/",
+            "https://mailto:contact@spacelift.io/",
+            "https://mailto:cs@spacelift.io/",
+            "https://mailto:intent@spacelift.io/",
+            "https://mailto:legal@spacelift.io/",
+            "https://mailto:privacy@spacelift.io/",
+            "https://mailto:sales@spacelift.io/",
+            "https://mailto:security@spacelift.io/",
+            "https://mailto:support@spacelift.io/"
+          ],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 12,
+          "excluded_link_samples": [
+            "https://docs.spacelift.io/assets/screenshots/Version_mark_as_bad_2.png",
+            "https://docs.spacelift.io/assets/screenshots/Versions_-_terraform_spacelift_example.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/module_list.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_behavior.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_cloud.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_contexts.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_details.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_intermediate.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_policies.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_share.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_source_code.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_summary.png"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.spacelift.io/worker-pools"
+          ],
+          "_all_unverified_links": [
+            "https://mailto:ar@spacelift.io/",
+            "https://mailto:contact@spacelift.io/",
+            "https://mailto:cs@spacelift.io/",
+            "https://mailto:intent@spacelift.io/",
+            "https://mailto:legal@spacelift.io/",
+            "https://mailto:privacy@spacelift.io/",
+            "https://mailto:sales@spacelift.io/",
+            "https://mailto:security@spacelift.io/",
+            "https://mailto:support@spacelift.io/"
+          ],
+          "_all_excluded_links": [
+            "https://docs.spacelift.io/assets/screenshots/Version_mark_as_bad_2.png",
+            "https://docs.spacelift.io/assets/screenshots/Versions_-_terraform_spacelift_example.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/module_list.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_behavior.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_cloud.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_contexts.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_details.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_intermediate.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_policies.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_share.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_source_code.png",
+            "https://docs.spacelift.io/assets/screenshots/terraform/modules/new_module_summary.png"
+          ],
+          "_all_docs_unverified_links": [
+            "https://mailto:ar@spacelift.io/",
+            "https://mailto:contact@spacelift.io/",
+            "https://mailto:cs@spacelift.io/",
+            "https://mailto:intent@spacelift.io/",
+            "https://mailto:legal@spacelift.io/",
+            "https://mailto:privacy@spacelift.io/",
+            "https://mailto:sales@spacelift.io/",
+            "https://mailto:security@spacelift.io/",
+            "https://mailto:support@spacelift.io/"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.spacelift.io/worker-pools": [
+              {
+                "source_page": "https://docs.spacelift.io/concepts/policy",
+                "anchor_text": "private workers"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 204,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 39,
+          "api_pages_detected": 13,
+          "endpoints_with_usage_docs": 17,
+          "reference_endpoints_without_usage_docs": 22,
+          "reference_coverage_pct": 43.59,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/10.10.1.1:8888",
+            "ep:/169.254.0.10:7990",
+            "ep:/192.168.2.2",
+            "ep:/account_name.app.spacelift.io",
+            "ep:/accounts.google.com",
+            "ep:/apikeytoken",
+            "ep:/artifact_name",
+            "ep:/example.app.spacelift.io/graphql",
+            "ep:/graphql",
+            "ep:/internal-github.net",
+            "ep:/keys.openpgp.org/vks/v1/by-fingerprint/175fd97ad2358efe02832978e302fb5aa29d88f7",
+            "ep:/mnt/workspace/.terragrunt-provider-cache",
+            "ep:/my-account.app.spacelift.io",
+            "ep:/myorg.app.spacelift.io",
+            "ep:/possible/path",
+            "ep:/spacelift.io/organization/module_name/provider",
+            "ep:/tmp/.ansible/cp",
+            "ep:/token.actions.githubusercontent.com",
+            "gql:getspacelifttoken",
+            "gql:should"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1016,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1016 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 19,
+          "pages_without_last_updated_hint": 185,
+          "last_updated_coverage_pct": 9.31,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.spacelift.io/concepts/blueprint",
+              "hint": "The time when the blueprint was last updated."
+            },
+            {
+              "url": "https://docs.spacelift.io/concepts/policy/deprecated",
+              "hint": "entirely disabled on May 30, 2026"
+            },
+            {
+              "url": "https://docs.spacelift.io/concepts/policy/deprecated/migrate-to-spaces",
+              "hint": "May 30, 2026"
+            },
+            {
+              "url": "https://docs.spacelift.io/concepts/resources",
+              "hint": "You can drill down to see the runs that either created or last updated each of the managed resources. Click the ID of th"
+            },
+            {
+              "url": "https://docs.spacelift.io/getting-started/integrate-cloud/AWS",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.spacelift.io/getting-started/integrate-source-code/GitHub",
+              "hint": "spacelift.2025-05-11.private-key.pem"
+            },
+            {
+              "url": "https://docs.spacelift.io/integrations/cloud-providers/aws",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.spacelift.io/integrations/cloud-providers/oidc/aws-oidc",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.spacelift.io/integrations/cloud-providers/oidc/subject-template",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.spacelift.io/integrations/source-control/github",
+              "hint": "spacelift.2025-05-11.private-key.pem"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.spacelift.io/worker-pools"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.spacelift.io/worker-pools"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://mailto:ar@spacelift.io/",
+          "https://mailto:contact@spacelift.io/",
+          "https://mailto:cs@spacelift.io/",
+          "https://mailto:intent@spacelift.io/",
+          "https://mailto:legal@spacelift.io/",
+          "https://mailto:privacy@spacelift.io/",
+          "https://mailto:sales@spacelift.io/",
+          "https://mailto:security@spacelift.io/",
+          "https://mailto:support@spacelift.io/"
+        ],
+        "api_uncovered_samples": [
+          "ep:/10.10.1.1:8888",
+          "ep:/169.254.0.10:7990",
+          "ep:/192.168.2.2",
+          "ep:/account_name.app.spacelift.io",
+          "ep:/accounts.google.com",
+          "ep:/apikeytoken",
+          "ep:/artifact_name",
+          "ep:/example.app.spacelift.io/graphql",
+          "ep:/graphql",
+          "ep:/internal-github.net",
+          "ep:/keys.openpgp.org/vks/v1/by-fingerprint/175fd97ad2358efe02832978e302fb5aa29d88f7",
+          "ep:/mnt/workspace/.terragrunt-provider-cache",
+          "ep:/my-account.app.spacelift.io",
+          "ep:/myorg.app.spacelift.io",
+          "ep:/possible/path",
+          "ep:/spacelift.io/organization/module_name/provider",
+          "ep:/tmp/.ansible/cp",
+          "ep:/token.actions.githubusercontent.com",
+          "gql:getspacelifttoken",
+          "gql:should"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 204,
+        "requested_pages": 243,
+        "urls_examined": 204,
+        "max_pages_total": 5000,
+        "discovered_pages": 204,
+        "crawl_scope_pages": 204,
+        "trap_urls_skipped": 408,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 9,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 12
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 0.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 43.59,
+        "no_api_pages_found": false,
+        "api_pages_detected": 13,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 9.31
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "Link verification inconclusive for 9 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 43.59% (13 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 9.31% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Spacelift documentation audit covered 204 pages with 100% crawl coverage across single-product topology. Critical gaps identified: only 43.59% API reference coverage (13 API pages detected), 0% example reliability, and 9.31% freshness visibility. One confirmed broken internal link found with 9 unverified links requiring authentication or blocked by rate limits. Overall confidence score of 63.5% indicates moderate documentation health with significant improvement opportunities in API documentation and content maintenance signals.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of 204 discovered pages)",
+        "Minimal broken link issues (1 confirmed broken internal link, 0 repository navigation breaks)",
+        "No SEO or geographic accessibility issues detected (0% issue rate)",
+        "Clean site structure with 408 trap URLs successfully avoided",
+        "High crawl confidence at 95% indicates reliable topology mapping"
+      ],
+      "risks": [
+        "API reference coverage at 43.59% leaves majority of API surface undocumented or undetected",
+        "Zero example reliability (0.0%) suggests no working code examples or detection failure",
+        "Freshness metadata present on only 9.31% of pages obscures content staleness",
+        "9 unverified links create uncertainty in link health assessment (auth/rate-limit barriers)",
+        "Overall confidence of 63.5% and links confidence of 25% indicate audit blind spots",
+        "Low freshness coverage prevents identification of outdated integration guides or deprecated features",
+        "Missing example validation may hide broken customer onboarding paths"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement last-updated timestamps on all 204 pages to enable freshness tracking and content audit workflows",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API reference documentation from 13 pages to cover remaining 56% of API surface area",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Deploy automated example testing infrastructure to validate code samples and establish reliability baseline",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Fix confirmed broken internal link and investigate 9 unverified URLs with authentication bypass for monitoring",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Conduct manual API page detection review to confirm 43.59% coverage accuracy given detection_note absence",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or completeness of technical content, only structural presence and link validity",
+        "9 unverified links blocked by authentication or rate limits may include additional broken links not counted in metrics",
+        "Example reliability at 0% may indicate detection methodology limitation rather than actual absence of working examples",
+        "API coverage detection depends on URL patterns and page structure; non-standard documentation layouts may be undercounted",
+        "Freshness analysis limited to explicit metadata; actual content age and accuracy cannot be determined externally"
+      ]
+    }
+  }
+}

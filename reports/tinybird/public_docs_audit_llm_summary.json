@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of tinybird.co/docs crawled 1,113 pages from a discovered 1,229 total pages, achieving 102.85% crawl coverage against the requested scope. The site contains 21 confirmed broken internal documentation links and 111 unverified links blocked by authentication or rate limits. API reference coverage is strong at 88.24% across 368 detected API pages. Example code reliability shows 0% detection across all pages, indicating a critical detection limitation likely due to JavaScript-rendered code blocks. Overall audit confidence is 63.5%, with link verification confidence notably low at 25%.",
+    "strengths": [
+      "High API reference coverage at 88.24% with 368 API pages successfully detected",
+      "Strong freshness tracking with 90.84% of pages showing last-updated metadata",
+      "Comprehensive crawl coverage at 102.85%, exceeding requested scope",
+      "Single-product topology provides clear documentation structure",
+      "95% crawl confidence indicates reliable site mapping"
+    ],
+    "risks": [
+      "21 confirmed broken internal documentation links degrading user navigation experience",
+      "111 unverified links (auth/rate-limit blocked) represent unknown documentation quality exposure",
+      "0% example reliability detection across 1,113 pages indicates complete blindness to code sample quality",
+      "SEO/GEO issue rate of 16.22% may impact discoverability and international reach",
+      "Overall audit confidence of 63.5% limits reliability of findings for sales commitments",
+      "Link verification confidence at 25% creates significant uncertainty in link health reporting",
+      "JavaScript-rendered code blocks bypass static analysis, hiding potential broken examples or outdated syntax"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 21 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement server-side rendering or static generation for code examples to enable reliability auditing",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Manually verify the 111 auth-blocked/rate-limited links to determine actual broken link count",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Address SEO/GEO issues affecting 16.22% of pages to improve search visibility and localization",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Establish automated link checking in CI/CD pipeline to prevent future broken link accumulation",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functionality of authentication-protected links or rate-limited external resources (111 unverified URLs)",
+      "JavaScript-rendered code examples bypass static analysis; actual code sample accuracy, syntax validity, and executability remain unverified",
+      "Audit cannot confirm whether API documentation matches actual API behavior, versioning, or parameter accuracy",
+      "SEO/GEO issue detection does not guarantee search engine ranking performance or international user experience quality",
+      "Crawl-based analysis cannot assess documentation comprehensiveness, technical accuracy, or alignment with product features"
+    ]
+  }
+}

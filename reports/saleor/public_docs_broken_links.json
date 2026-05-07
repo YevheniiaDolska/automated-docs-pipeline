@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "2026-04-29T10:47:47.068829+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 2,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 2,
+    "unverified_links_sample_count": 1
+  },
+  "all_docs_broken_links": [
+    "https://docs.saleor.io/api-reference/api-reference",
+    "https://docs.saleor.io/developer/attributes"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://mailto:hello@saleor.io/"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.saleor.io/",
+      "confirmed_broken_links_count": 2,
+      "docs_broken_links_count": 2,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.saleor.io/api-reference/api-reference",
+        "https://docs.saleor.io/developer/attributes"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.saleor.io/api-reference/api-reference",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.saleor.io/developer/ai",
+              "anchor_text": "https://docs.saleor.io/api-reference/api-reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.saleor.io/developer/attributes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.saleor.io/recipes/marketplace",
+              "anchor_text": "Attributes Overview Learn more about attributes in Saleor."
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://mailto:hello@saleor.io/"
+      ]
+    }
+  ]
+}

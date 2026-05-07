@@ -1,0 +1,80 @@
+{
+  "generated_at_utc": "2026-05-05T11:26:37.327331+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 3,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 3,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.cortex.io/cdn-cgi/l/email-protection",
+    "https://docs.cortex.io/docs/api/get-query-results",
+    "https://docs.cortex.io/docs/walkthroughs/workspace-settings/permissioning"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.cortex.io/",
+      "confirmed_broken_links_count": 3,
+      "docs_broken_links_count": 3,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.cortex.io/cdn-cgi/l/email-protection",
+        "https://docs.cortex.io/docs/api/get-query-results",
+        "https://docs.cortex.io/docs/walkthroughs/workspace-settings/permissioning"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.cortex.io/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.cortex.io/api/readme/eng-intel-user-labels",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.cortex.io/api/readme/catalog-entities",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.cortex.io/api/readme/on-call",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.cortex.io/api/readme/workflows",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.cortex.io/configure/settings/managing-users/permissioning",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.cortex.io/docs/api/get-query-results",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.cortex.io/api/readme/queries",
+              "anchor_text": "retrieve query results"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.cortex.io/docs/walkthroughs/workspace-settings/permissioning",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.cortex.io/api/readme/plugins",
+              "anchor_text": "docs"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

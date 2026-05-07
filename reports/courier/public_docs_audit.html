@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-04-30T10:52:12.859129+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">998</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">1286</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">24</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">232</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">10.22%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">62.7%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">63.49%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">29.66%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 24</li><li>Link verification inconclusive for 232 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 10.22%</li><li>API usage-doc coverage is low: 62.7% (238 API pages detected)</li><li>Freshness visibility is weak: only 29.66% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://courier.com/docs</strong>: pages=998, broken_links=24, api_coverage=62.7%, examples=63.49%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit crawled 998 pages from Courier.com documentation with 100% crawl coverage across 1,286 discovered pages. Identified 24 confirmed broken internal documentation links with zero repository navigation link failures. API reference coverage stands at 62.7% across 238 detected API pages, while only 29.66% of pages display last-updated metadata. Overall confidence score is 63.5%, with link verification confidence notably low at 25% due to 232 unverified URLs blocked by authentication or rate limiting.</p><h3>Strengths</h3><ul><li>Complete crawl coverage at 100% within scope (998 of 1,286 pages crawled)</li><li>All broken links are user-facing documentation links; no repository navigation failures</li><li>238 API pages successfully detected with 85% detection confidence</li><li>Zero crawl trap URLs encountered during site traversal</li><li>Single-product topology provides clear documentation structure</li></ul><h3>Risks</h3><ul><li>24 confirmed broken internal documentation links directly impact user navigation and trust</li><li>232 unverified links (authentication/rate-limit blocked) represent unknown link health exposure</li><li>API reference coverage gap of 37.3% leaves significant API surface undocumented or undetected</li><li>SEO/GEO issue rate of 10.22% affects discoverability and search ranking</li><li>Only 29.66% freshness coverage prevents users from assessing content currency</li><li>Example code reliability estimate of 63.49% suggests potential broken or outdated code samples</li><li>Overall confidence of 63.5% and link confidence of 25% indicate significant audit blind spots</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 24 confirmed broken internal documentation links to restore navigation integrity <em>[critical, low]</em></li><li>Implement last-updated timestamps on remaining 70.34% of pages to improve freshness visibility <em>[high, medium]</em></li><li>Audit and document the 37.3% API coverage gap to achieve complete reference documentation <em>[high, high]</em></li><li>Resolve authentication barriers for 232 unverified links to enable complete link health assessment <em>[high, medium]</em></li><li>Address SEO/GEO issues affecting 10.22% of pages to improve search discoverability <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

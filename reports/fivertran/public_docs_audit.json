@@ -1,0 +1,638 @@
+{
+  "generated_at": "2026-05-07T11:01:51.579034+00:00",
+  "site_url": "https://fivetran.com/docs",
+  "site_urls": [
+    "https://fivetran.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://fivetran.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 6330,
+          "requested_pages": 7775,
+          "urls_examined": 6475,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 6475,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 6474,
+          "crawl_coverage_pct": 100.02,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 6474,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 7676,
+          "broken_internal_links_count": 9,
+          "docs_broken_links_count": 9,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://api.fivetran.com/scim/v2",
+            "https://blog.fivetran.com/help-scout-is-our-latest-fivetran-connector-and-partner-a05172c3d80f",
+            "https://fivetran.com/dashboard/notifications/account",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/null",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/null",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/sql-database-in-microsoft-fabric-requirements",
+            "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/null",
+            "https://fivetran.com/www.braze.com/docs/user_guide/data_and_analytics/custom_data/custom_attributes/nested_custom_attribute_support",
+            "https://resources.fivetran.com/ebooks/fivetran-protocol-ebook"
+          ],
+          "docs_broken_link_samples": [
+            "https://api.fivetran.com/scim/v2",
+            "https://blog.fivetran.com/help-scout-is-our-latest-fivetran-connector-and-partner-a05172c3d80f",
+            "https://fivetran.com/dashboard/notifications/account",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/null",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/null",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/sql-database-in-microsoft-fabric-requirements",
+            "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/null",
+            "https://fivetran.com/www.braze.com/docs/user_guide/data_and_analytics/custom_data/custom_attributes/nested_custom_attribute_support",
+            "https://resources.fivetran.com/ebooks/fivetran-protocol-ebook"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 58,
+          "unverified_links_count": 71,
+          "unverified_link_samples": [
+            "https://community.fivetran.com/t5/welcome-center/bd-p/welcome-center-forum",
+            "https://fivetran.com/docs/connectors/applications/phoenix-ads/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uppromote",
+            "https://fivetran.com/docs/connectors/applications/uppromote/changelog",
+            "https://fivetran.com/docs/connectors/applications/uppromote/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uptempo",
+            "https://fivetran.com/docs/connectors/applications/uptempo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uservoice",
+            "https://fivetran.com/docs/connectors/applications/uservoice/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/validio",
+            "https://fivetran.com/docs/connectors/applications/validio/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/veeqo",
+            "https://fivetran.com/docs/connectors/applications/veeqo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/veeva",
+            "https://fivetran.com/docs/connectors/applications/veeva-vault",
+            "https://fivetran.com/docs/connectors/applications/veeva-vault/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/venminder",
+            "https://fivetran.com/docs/connectors/applications/venminder/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vimeo",
+            "https://fivetran.com/docs/connectors/applications/vimeo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/visit-by-ges",
+            "https://fivetran.com/docs/connectors/applications/visit-by-ges/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/visma",
+            "https://fivetran.com/docs/connectors/applications/visma/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vitally",
+            "https://fivetran.com/docs/connectors/applications/vitally/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vonage-contact-center",
+            "https://fivetran.com/docs/connectors/applications/vonage-contact-center/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vts",
+            "https://fivetran.com/docs/connectors/applications/vts/setup-guide"
+          ],
+          "confirmed_broken_links_count": 9,
+          "excluded_links_count": 9,
+          "excluded_link_samples": [
+            "https://fivetran.com/assets-docs/functions/AzureFunctionPython.zip",
+            "https://fivetran.com/assets-docs/functions/Azure_Java_London_Tube.zip",
+            "https://fivetran.com/assets-docs/functions/LondonTube_Java.zip",
+            "https://fivetran.com/assets-docs/functions/LondonTube_NodeJs.zip",
+            "https://fivetran.com/assets-docs/functions/LondonTube_Python.zip",
+            "https://fivetran.com/assets-docs/sap_hana_db/fivetran_netweaver_api.zip",
+            "https://fivetran.com/assets-docs/sql_server_binary_log_reader/Fivetran-Log-Data.zip",
+            "https://fivetran.com/rss/changelog",
+            "https://fivetran.com/rss/hvr-changelog"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://api.fivetran.com/scim/v2",
+            "https://blog.fivetran.com/help-scout-is-our-latest-fivetran-connector-and-partner-a05172c3d80f",
+            "https://fivetran.com/dashboard/notifications/account",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/null",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/null",
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/sql-database-in-microsoft-fabric-requirements",
+            "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/null",
+            "https://fivetran.com/www.braze.com/docs/user_guide/data_and_analytics/custom_data/custom_attributes/nested_custom_attribute_support",
+            "https://resources.fivetran.com/ebooks/fivetran-protocol-ebook"
+          ],
+          "_all_unverified_links": [
+            "https://community.fivetran.com/t5/welcome-center/bd-p/welcome-center-forum",
+            "https://fivetran.com/docs/connectors/applications/phoenix-ads/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uppromote",
+            "https://fivetran.com/docs/connectors/applications/uppromote/changelog",
+            "https://fivetran.com/docs/connectors/applications/uppromote/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uptempo",
+            "https://fivetran.com/docs/connectors/applications/uptempo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uservoice",
+            "https://fivetran.com/docs/connectors/applications/uservoice/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/validio",
+            "https://fivetran.com/docs/connectors/applications/validio/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/veeqo",
+            "https://fivetran.com/docs/connectors/applications/veeqo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/veeva",
+            "https://fivetran.com/docs/connectors/applications/veeva-vault",
+            "https://fivetran.com/docs/connectors/applications/veeva-vault/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/venminder",
+            "https://fivetran.com/docs/connectors/applications/venminder/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vimeo",
+            "https://fivetran.com/docs/connectors/applications/vimeo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/visit-by-ges",
+            "https://fivetran.com/docs/connectors/applications/visit-by-ges/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/visma",
+            "https://fivetran.com/docs/connectors/applications/visma/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vitally",
+            "https://fivetran.com/docs/connectors/applications/vitally/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vonage-contact-center",
+            "https://fivetran.com/docs/connectors/applications/vonage-contact-center/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vts",
+            "https://fivetran.com/docs/connectors/applications/vts/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vwo",
+            "https://fivetran.com/docs/connectors/applications/vwo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/walmart-dsp",
+            "https://fivetran.com/docs/connectors/applications/walmart-dsp/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/walmart-marketplace",
+            "https://fivetran.com/docs/connectors/applications/walmart-marketplace/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/web-scraper",
+            "https://fivetran.com/docs/connectors/applications/web-scraper/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/webconnex",
+            "https://fivetran.com/docs/connectors/applications/webconnex/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/when-i-work",
+            "https://fivetran.com/docs/connectors/applications/when-i-work/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/wherefour",
+            "https://fivetran.com/docs/connectors/applications/wherefour/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/wicked-reports",
+            "https://fivetran.com/docs/connectors/applications/wicked-reports/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/woocommerce",
+            "https://fivetran.com/docs/connectors/applications/woocommerce/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/wordpress",
+            "https://fivetran.com/docs/connectors/applications/wordpress/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/workable",
+            "https://fivetran.com/docs/connectors/applications/workable/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/workday-adaptive-planning",
+            "https://fivetran.com/docs/connectors/applications/zoho-desk/changelog",
+            "https://fivetran.com/docs/connectors/applications/zoom",
+            "https://fivetran.com/docs/connectors/events/aws-msk/private-link",
+            "https://fivetran.com/docs/hvr6/rest-api/rest-api-reference/615/6152",
+            "https://fivetran.com/docs/rest-api/troubleshooting/terraform-schema-changes",
+            "https://fivetran.com/docs/transformations/dbt/dbt-commands",
+            "https://mailto:DPO@fivetran.com/",
+            "https://mailto:activation-support@fivetran.com/",
+            "https://mailto:ar@fivetran.com/",
+            "https://mailto:james.hooker@fivetran.com/",
+            "https://mailto:jimmy.hooker@fivetran.com/",
+            "https://mailto:privacy@fivetran.com/",
+            "https://mailto:sales@fivetran.com/",
+            "https://mailto:security@fivetran.com/",
+            "https://mailto:solutions@fivetran.com/",
+            "https://mailto:support@fivetran.com/",
+            "https://trust.fivetran.com/",
+            "https://trust.fivetran.com/product/census/soc-2-type-2"
+          ],
+          "_all_excluded_links": [
+            "https://fivetran.com/assets-docs/functions/AzureFunctionPython.zip",
+            "https://fivetran.com/assets-docs/functions/Azure_Java_London_Tube.zip",
+            "https://fivetran.com/assets-docs/functions/LondonTube_Java.zip",
+            "https://fivetran.com/assets-docs/functions/LondonTube_NodeJs.zip",
+            "https://fivetran.com/assets-docs/functions/LondonTube_Python.zip",
+            "https://fivetran.com/assets-docs/sap_hana_db/fivetran_netweaver_api.zip",
+            "https://fivetran.com/assets-docs/sql_server_binary_log_reader/Fivetran-Log-Data.zip",
+            "https://fivetran.com/rss/changelog",
+            "https://fivetran.com/rss/hvr-changelog"
+          ],
+          "_all_docs_unverified_links": [
+            "https://community.fivetran.com/t5/welcome-center/bd-p/welcome-center-forum",
+            "https://fivetran.com/docs/connectors/applications/phoenix-ads/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uppromote",
+            "https://fivetran.com/docs/connectors/applications/uppromote/changelog",
+            "https://fivetran.com/docs/connectors/applications/uppromote/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uptempo",
+            "https://fivetran.com/docs/connectors/applications/uptempo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/uservoice",
+            "https://fivetran.com/docs/connectors/applications/uservoice/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/validio",
+            "https://fivetran.com/docs/connectors/applications/validio/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/veeqo",
+            "https://fivetran.com/docs/connectors/applications/veeqo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/veeva",
+            "https://fivetran.com/docs/connectors/applications/veeva-vault",
+            "https://fivetran.com/docs/connectors/applications/veeva-vault/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/venminder",
+            "https://fivetran.com/docs/connectors/applications/venminder/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vimeo",
+            "https://fivetran.com/docs/connectors/applications/vimeo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/visit-by-ges",
+            "https://fivetran.com/docs/connectors/applications/visit-by-ges/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/visma",
+            "https://fivetran.com/docs/connectors/applications/visma/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vitally",
+            "https://fivetran.com/docs/connectors/applications/vitally/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vonage-contact-center",
+            "https://fivetran.com/docs/connectors/applications/vonage-contact-center/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vts",
+            "https://fivetran.com/docs/connectors/applications/vts/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/vwo",
+            "https://fivetran.com/docs/connectors/applications/vwo/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/walmart-dsp",
+            "https://fivetran.com/docs/connectors/applications/walmart-dsp/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/walmart-marketplace",
+            "https://fivetran.com/docs/connectors/applications/walmart-marketplace/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/web-scraper",
+            "https://fivetran.com/docs/connectors/applications/web-scraper/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/webconnex",
+            "https://fivetran.com/docs/connectors/applications/webconnex/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/when-i-work",
+            "https://fivetran.com/docs/connectors/applications/when-i-work/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/wherefour",
+            "https://fivetran.com/docs/connectors/applications/wherefour/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/wicked-reports",
+            "https://fivetran.com/docs/connectors/applications/wicked-reports/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/woocommerce",
+            "https://fivetran.com/docs/connectors/applications/woocommerce/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/wordpress",
+            "https://fivetran.com/docs/connectors/applications/wordpress/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/workable",
+            "https://fivetran.com/docs/connectors/applications/workable/setup-guide",
+            "https://fivetran.com/docs/connectors/applications/workday-adaptive-planning",
+            "https://fivetran.com/docs/connectors/applications/zoho-desk/changelog",
+            "https://fivetran.com/docs/connectors/applications/zoom",
+            "https://fivetran.com/docs/connectors/events/aws-msk/private-link",
+            "https://fivetran.com/docs/hvr6/rest-api/rest-api-reference/615/6152",
+            "https://fivetran.com/docs/rest-api/troubleshooting/terraform-schema-changes",
+            "https://fivetran.com/docs/transformations/dbt/dbt-commands",
+            "https://mailto:DPO@fivetran.com/",
+            "https://mailto:activation-support@fivetran.com/",
+            "https://mailto:ar@fivetran.com/",
+            "https://mailto:james.hooker@fivetran.com/",
+            "https://mailto:jimmy.hooker@fivetran.com/",
+            "https://mailto:privacy@fivetran.com/",
+            "https://mailto:sales@fivetran.com/",
+            "https://mailto:security@fivetran.com/",
+            "https://mailto:solutions@fivetran.com/",
+            "https://mailto:support@fivetran.com/",
+            "https://trust.fivetran.com/",
+            "https://trust.fivetran.com/product/census/soc-2-type-2"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://api.fivetran.com/scim/v2": [
+              {
+                "source_page": "https://fivetran.com/docs/getting-started/fivetran-dashboard/account-settings/scim/entra-id-scim",
+                "anchor_text": "https://api.fivetran.com/scim/v2"
+              }
+            ],
+            "https://blog.fivetran.com/help-scout-is-our-latest-fivetran-connector-and-partner-a05172c3d80f": [
+              {
+                "source_page": "https://fivetran.com/docs/connectors/applications/helpscout",
+                "anchor_text": "in this post"
+              }
+            ],
+            "https://fivetran.com/dashboard/notifications/account": [
+              {
+                "source_page": "https://fivetran.com/docs/changelog/2022/july-2022",
+                "anchor_text": "Account"
+              },
+              {
+                "source_page": "https://fivetran.com/docs/rest-api/changelog",
+                "anchor_text": "Account"
+              }
+            ],
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/null": [
+              {
+                "source_page": "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/azure-data-lake-storage-requirements",
+                "anchor_text": "Hadoop Azure Data Lake Support"
+              }
+            ],
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/null": [
+              {
+                "source_page": "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/capture-from-oracle-using-archive-only",
+                "anchor_text": "Oracle documentation"
+              }
+            ],
+            "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/sql-database-in-microsoft-fabric-requirements": [
+              {
+                "source_page": "https://fivetran.com/docs/hvr6/capabilities/630/capabilities-for-sql-database-in-microsoft-fabric",
+                "anchor_text": "SQL database in Microsoft Fabric Requirements"
+              },
+              {
+                "source_page": "https://fivetran.com/docs/hvr6/capabilities/635/capabilities-for-sql-database-in-microsoft-fabric",
+                "anchor_text": "SQL database in Microsoft Fabric Requirements"
+              }
+            ],
+            "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/null": [
+              {
+                "source_page": "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/location-connection-for-azure-blob-storage",
+                "anchor_text": "Hadoop Azure Blob Storage Support"
+              },
+              {
+                "source_page": "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/location-connection-for-azure-data-lake-storage",
+                "anchor_text": "Hadoop Azure Data Lake Storage Support"
+              }
+            ],
+            "https://fivetran.com/www.braze.com/docs/user_guide/data_and_analytics/custom_data/custom_attributes/nested_custom_attribute_support": [
+              {
+                "source_page": "https://fivetran.com/docs/activations/destinations/available-destinations/braze",
+                "anchor_text": "Arrays, Objects, and Arrays of Objects to Braze"
+              }
+            ],
+            "https://resources.fivetran.com/ebooks/fivetran-protocol-ebook": [
+              {
+                "source_page": "https://fivetran.com/docs/connectors/by-request-program",
+                "anchor_text": "E-book"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 6330,
+          "missing_title_count": 2,
+          "missing_description_count": 3,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 226,
+          "seo_geo_issue_rate_pct": 0.91
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 71,
+          "api_pages_detected": 1604,
+          "endpoints_with_usage_docs": 33,
+          "reference_endpoints_without_usage_docs": 38,
+          "reference_coverage_pct": 46.48,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:devops",
+            "ev:gtm.js",
+            "ev:l",
+            "ev:security",
+            "ev:software-development",
+            "gql:accepts",
+            "gql:alloydb",
+            "gql:amazon",
+            "gql:apache",
+            "gql:append",
+            "gql:assigns",
+            "gql:azure",
+            "gql:best",
+            "gql:cloud",
+            "gql:clustered",
+            "gql:computation",
+            "gql:conditions",
+            "gql:contracts",
+            "gql:google"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 3424,
+          "total_code_blocks_all": 13890,
+          "runnable_without_env": 3006,
+          "blocked_by_placeholders": 306,
+          "network_bound_examples": 112,
+          "example_reliability_estimate_pct": 87.79,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 570,
+          "pages_without_last_updated_hint": 5760,
+          "last_updated_coverage_pct": 9.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://fivetran.com/docs/activations/census-migration-faq",
+              "hint": "Census accounts can start migrating February 1, 2026."
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/datasets/overview/csv-datasets",
+              "hint": "July 1, 2026"
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/datasets/overview/mesh-datasets",
+              "hint": "July 1, 2026"
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/destinations/available-destinations/facebook-ads",
+              "hint": "2022-01-01 00:00:00+000"
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/destinations/available-destinations/notion",
+              "hint": "Screen Shot 2022-03-08 at 5.39.03 PM.png"
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/destinations/available-destinations/s3",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/destinations/available-destinations/turbopuffer",
+              "hint": "mode, meaning only the fields being synced by Activations will be updated on existing records. However, turbopuffer does"
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/destinations/available-destinations/twitter",
+              "hint": "if initially accepted prior to 2018-08-01."
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/misc/data-storage/bring-your-own-bucket/bring-your-own-s3-bucket",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://fivetran.com/docs/activations/misc/data-storage/census-store",
+              "hint": "July 1, 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://api.fivetran.com/scim/v2",
+          "https://blog.fivetran.com/help-scout-is-our-latest-fivetran-connector-and-partner-a05172c3d80f",
+          "https://fivetran.com/dashboard/notifications/account",
+          "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/null",
+          "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/null",
+          "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/sql-database-in-microsoft-fabric-requirements",
+          "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/null",
+          "https://fivetran.com/www.braze.com/docs/user_guide/data_and_analytics/custom_data/custom_attributes/nested_custom_attribute_support",
+          "https://resources.fivetran.com/ebooks/fivetran-protocol-ebook"
+        ],
+        "docs_broken_link_samples": [
+          "https://api.fivetran.com/scim/v2",
+          "https://blog.fivetran.com/help-scout-is-our-latest-fivetran-connector-and-partner-a05172c3d80f",
+          "https://fivetran.com/dashboard/notifications/account",
+          "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/null",
+          "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/oracle-requirements/oracle-as-source/null",
+          "https://fivetran.com/docs/hvr6/requirements/source-and-target-requirements/sql-database-in-microsoft-fabric-requirements",
+          "https://fivetran.com/docs/hvr6/user-interface/locations/creating-location/location-connection/null",
+          "https://fivetran.com/www.braze.com/docs/user_guide/data_and_analytics/custom_data/custom_attributes/nested_custom_attribute_support",
+          "https://resources.fivetran.com/ebooks/fivetran-protocol-ebook"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://community.fivetran.com/t5/welcome-center/bd-p/welcome-center-forum",
+          "https://fivetran.com/docs/connectors/applications/phoenix-ads/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/uppromote",
+          "https://fivetran.com/docs/connectors/applications/uppromote/changelog",
+          "https://fivetran.com/docs/connectors/applications/uppromote/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/uptempo",
+          "https://fivetran.com/docs/connectors/applications/uptempo/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/uservoice",
+          "https://fivetran.com/docs/connectors/applications/uservoice/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/validio",
+          "https://fivetran.com/docs/connectors/applications/validio/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/veeqo",
+          "https://fivetran.com/docs/connectors/applications/veeqo/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/veeva",
+          "https://fivetran.com/docs/connectors/applications/veeva-vault",
+          "https://fivetran.com/docs/connectors/applications/veeva-vault/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/venminder",
+          "https://fivetran.com/docs/connectors/applications/venminder/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/vimeo",
+          "https://fivetran.com/docs/connectors/applications/vimeo/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/visit-by-ges",
+          "https://fivetran.com/docs/connectors/applications/visit-by-ges/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/visma",
+          "https://fivetran.com/docs/connectors/applications/visma/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/vitally",
+          "https://fivetran.com/docs/connectors/applications/vitally/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/vonage-contact-center",
+          "https://fivetran.com/docs/connectors/applications/vonage-contact-center/setup-guide",
+          "https://fivetran.com/docs/connectors/applications/vts",
+          "https://fivetran.com/docs/connectors/applications/vts/setup-guide"
+        ],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:devops",
+          "ev:gtm.js",
+          "ev:l",
+          "ev:security",
+          "ev:software-development",
+          "gql:accepts",
+          "gql:alloydb",
+          "gql:amazon",
+          "gql:apache",
+          "gql:append",
+          "gql:assigns",
+          "gql:azure",
+          "gql:best",
+          "gql:cloud",
+          "gql:clustered",
+          "gql:computation",
+          "gql:conditions",
+          "gql:contracts",
+          "gql:google"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 6330,
+        "requested_pages": 7775,
+        "urls_examined": 6475,
+        "max_pages_total": 10000,
+        "discovered_pages": 6475,
+        "crawl_scope_pages": 6474,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 9,
+        "docs_broken_links_count": 9,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 71,
+        "confirmed_broken_links_count": 9,
+        "excluded_links_count": 9
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 0.91
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 46.48,
+        "no_api_pages_found": false,
+        "api_pages_detected": 1604,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 87.79
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 9.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 9",
+    "Link verification inconclusive for 71 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 46.48% (1604 API pages detected)",
+    "Freshness visibility is weak: only 9.0% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Fivetran documentation audit covered 6,330 pages from a discovered 6,475 total pages, achieving 100% crawl coverage within scope. The site contains 9 confirmed broken internal documentation links and 71 unverified links due to authentication or rate-limiting barriers. API reference coverage stands at 46.48% across 1,604 detected API pages, indicating significant gaps in usage documentation. Only 9.0% of pages display last-updated metadata, severely limiting freshness transparency. Overall audit confidence is 63.5%, with link verification confidence notably low at 25% due to access restrictions.",
+      "strengths": [
+        "Complete crawl coverage (100%) of in-scope documentation with 6,330 pages successfully indexed",
+        "Large-scale API documentation presence with 1,604 API pages detected across the site",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "Example code reliability estimated at 87.79%, indicating strong code sample quality",
+        "Minimal SEO/geo issues at 0.91% rate across crawled pages"
+      ],
+      "risks": [
+        "9 confirmed broken internal documentation links degrade user navigation and trust",
+        "71 unverified links (blocked by auth/rate-limits) represent unknown quality exposure; 25% link confidence indicates high verification gap",
+        "API reference coverage at 46.48% means over half of API surfaces lack adequate usage documentation",
+        "Freshness metadata visible on only 9.0% of pages prevents users from assessing content currency",
+        "Overall confidence of 63.5% suggests moderate audit blind spots that may hide additional issues",
+        "6,475 discovered pages vs 6,330 crawled indicates 145 pages exist but were not fully audited",
+        "Large documentation footprint (6,330 pages) increases maintenance burden and drift risk without visible freshness tracking"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 9 confirmed broken internal documentation links immediately",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement last-updated timestamps on all pages to increase freshness coverage from 9.0% to 100%",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Expand API usage documentation to close the 53.52% coverage gap across 1,604 API pages",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Audit and resolve 71 unverified links by providing test credentials or whitelisting audit tooling",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and document the 145 discovered but uncrawled pages to ensure completeness",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or completeness of explanations within documentation pages",
+        "71 links blocked by authentication, rate-limiting, or server restrictions could not be verified; actual broken link count may be higher",
+        "API coverage detection relies on pattern matching; actual API documentation quality and completeness require manual subject-matter review",
+        "Freshness assessment limited to visible metadata (9.0% coverage); actual content currency unknown for 91% of pages without timestamps"
+      ]
+    }
+  }
+}

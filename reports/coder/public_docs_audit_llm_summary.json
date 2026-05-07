@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of coder.com/docs covered 820 pages with 100% crawl coverage and 91.08% overall confidence. Critical issue: 94 confirmed broken internal links exist within user-facing documentation. API reference coverage is 75% with 276 API pages detected. Freshness metadata is visible on only 38.29% of pages, limiting maintainability transparency. SEO/GEO issues affect 16.83% of content.",
+    "strengths": [
+      "Complete crawl coverage achieved: 820 of 821 discovered pages indexed (100%)",
+      "High overall audit confidence at 91.08% with strong link verification confidence at 93.95%",
+      "API documentation present and detected across 276 pages with 75% reference coverage",
+      "Example code reliability estimated at 88.62%, indicating generally trustworthy samples",
+      "No repository navigation link breakage (0 repo_broken_links_count)"
+    ],
+    "risks": [
+      "94 confirmed broken internal links in user-facing documentation create poor user experience and erode trust",
+      "38.29% freshness coverage means 61.71% of pages lack visible last-updated dates, obscuring content staleness",
+      "16.83% SEO/GEO issue rate may impact discoverability and search ranking",
+      "25% API reference gap leaves portion of API surface undocumented or undetected",
+      "1 unverified link due to auth/rate-limit/server blocks introduces uncertainty in link health",
+      "444 pages requested but not crawled (1265 requested vs 821 discovered) suggests potential scope or redirect issues",
+      "Multi-project topology mode may hide inconsistencies across product documentation sets"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 94 confirmed broken internal links in user-facing documentation",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated metadata on remaining 61.71% of pages lacking freshness indicators",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and close 25% API reference coverage gap (identify missing endpoints or improve detection)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and resolve 16.83% SEO/GEO issues (meta descriptions, titles, structured data)",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 444-page gap between requested and discovered pages to identify redirect chains or scope leaks",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or correctness of technical content, code examples, or API specifications",
+      "1 unverified link due to authentication or rate-limiting means link health for protected resources is unconfirmed",
+      "API coverage detection may miss non-standard documentation patterns or dynamically generated reference pages",
+      "Freshness metadata reflects only visible last-updated dates; actual content currency requires manual review",
+      "Multi-project topology may obscure cross-project linking issues or inconsistent standards between product doc sets"
+    ]
+  }
+}

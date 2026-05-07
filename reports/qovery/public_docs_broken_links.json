@@ -1,0 +1,1930 @@
+{
+  "generated_at_utc": "2026-05-05T12:19:21.640315+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 98,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 98,
+    "unverified_links_sample_count": 28
+  },
+  "all_docs_broken_links": [
+    "http://www.qovery.com/authors/albane",
+    "http://www.qovery.com/authors/alessandro",
+    "http://www.qovery.com/authors/benjamin",
+    "http://www.qovery.com/authors/julien",
+    "http://www.qovery.com/authors/melanie",
+    "http://www.qovery.com/authors/morgan",
+    "http://www.qovery.com/authors/qovery",
+    "http://www.qovery.com/authors/romain",
+    "http://www.qovery.com/authors/romaric",
+    "http://www.qovery.com/authors/william",
+    "http://www.qovery.com/cdn-cgi/l/email-protection",
+    "https://changelog.qovery.com/",
+    "https://console.qovery.com/login",
+    "https://console.qovery.com/organization",
+    "https://console.qovery.com/platform/organization/141c07c8-0dd9-4623-983b-3fdd61867777/projects/4ac1185f-4b7c-4f12-95b6-0690f796bbbb/environments/1109c4d2-ffbb-49d6-9826-f5a7ca3a8888/applications/3cc850c6-cc4f-46bc-ad05-c90f7b597333/summary",
+    "https://console.qovery.com/platform/organization/api-tokens",
+    "https://console.qovery.com/signup",
+    "https://discord.qovery.com/",
+    "https://discuss.qovery.com/t/downtime-when-changing-cluster-instance-type/2002",
+    "https://discuss.qovery.com/t/manual-trigger-for-preview-environment-doesnt-start/1900",
+    "https://discuss.qovery.com/t/read-me-first-welcome-to-the-console-v3-alpha-testing/1149",
+    "https://qovery.com/docs",
+    "https://qovery.com/docs/guides/tutorial/customizing-preview-url-with-qovery-cli",
+    "https://roadmap.qovery.com/b/5m13y5v6/feature-ideas/support-google-cloud-platform-gcp",
+    "https://skill.qovery.com/",
+    "https://www.qovery.com/ai-devops-copilot",
+    "https://www.qovery.com/authors/albane",
+    "https://www.qovery.com/authors/alessandro",
+    "https://www.qovery.com/authors/benjamin",
+    "https://www.qovery.com/authors/julien",
+    "https://www.qovery.com/authors/melanie",
+    "https://www.qovery.com/authors/morgan",
+    "https://www.qovery.com/authors/qovery",
+    "https://www.qovery.com/authors/romain",
+    "https://www.qovery.com/authors/romaric",
+    "https://www.qovery.com/authors/william",
+    "https://www.qovery.com/blog/10-best-internal-developer-platforms-to-consider-in-2023",
+    "https://www.qovery.com/blog/announcement-of-pleco-the-open-source-kubernetes-and-cloud-services-garbage-collector",
+    "https://www.qovery.com/blog/kubernetes-observability-at-scale",
+    "https://www.qovery.com/case-study/alan-case-study",
+    "https://www.qovery.com/case-study/case-study-rxvantage",
+    "https://www.qovery.com/case-study/getsafe-case-study",
+    "https://www.qovery.com/case-study/hyperline-case-study",
+    "https://www.qovery.com/case-study/hyperline-eliminates-devops-overhead-and-accelerates-time-to-market-with-qovery",
+    "https://www.qovery.com/case-study/julaya",
+    "https://www.qovery.com/case-study/julaya-testimonial",
+    "https://www.qovery.com/case-study/kelvin",
+    "https://www.qovery.com/case-study/kubernetes-management-syment",
+    "https://www.qovery.com/case-study/nextools-case-study",
+    "https://www.qovery.com/case-study/papershift-casestudy",
+    "https://www.qovery.com/case-study/spayr",
+    "https://www.qovery.com/case-study/talkspace-case-study",
+    "https://www.qovery.com/cdn-cgi/l/email-protection",
+    "https://www.qovery.com/changelog---kubernetes",
+    "https://www.qovery.com/changelog/changelog-000025",
+    "https://www.qovery.com/changelog/qovery-managed-kubernetes-cluster-upgrade-moving-to-1-34-1-35",
+    "https://www.qovery.com/copilot",
+    "https://www.qovery.com/docs/api/overview",
+    "https://www.qovery.com/docs/basic-concepts",
+    "https://www.qovery.com/docs/configuration/environment-variable",
+    "https://www.qovery.com/docs/getting-started/quickstart/cli",
+    "https://www.qovery.com/docs/guides/getting-started/deploy-your-first-application",
+    "https://www.qovery.com/docs/guides/qovery-101/observe",
+    "https://www.qovery.com/docs/guides/qovery-101/provision",
+    "https://www.qovery.com/docs/guides/use-cases/ephemeral-environment",
+    "https://www.qovery.com/docs/guides/use-cases/production-environment-management",
+    "https://www.qovery.com/docs/installation/aws",
+    "https://www.qovery.com/docs/installation/aws/cluster-managed-by-qovery/quickstart",
+    "https://www.qovery.com/docs/installation/azure",
+    "https://www.qovery.com/docs/installation/gcp",
+    "https://www.qovery.com/docs/installation/kubernetes",
+    "https://www.qovery.com/docs/installation/scaleway",
+    "https://www.qovery.com/docs/integrations/ci-cd/github-actions",
+    "https://www.qovery.com/docs/integrations/ci-cd/gitlab-ci",
+    "https://www.qovery.com/docs/integrations/git-providers/overview",
+    "https://www.qovery.com/docs/integrations/iac/lifecycle-job-tutorial",
+    "https://www.qovery.com/docs/integrations/kubernetes/eks/kubectl-access",
+    "https://www.qovery.com/docs/integrations/networking/vpc-peering",
+    "https://www.qovery.com/docs/integrations/observability/datadog",
+    "https://www.qovery.com/docs/integrations/observability/overview",
+    "https://www.qovery.com/docs/integrations/secret-managers/doppler",
+    "https://www.qovery.com/docs/quickstart",
+    "https://www.qovery.com/docs/security-and-compliance/audit-logs",
+    "https://www.qovery.com/docs/security-and-compliance/overview",
+    "https://www.qovery.com/docs/security-and-compliance/soc2",
+    "https://www.qovery.com/docs/terraform/overview",
+    "https://www.qovery.com/docs/using-qovery/interface/terraform-provider",
+    "https://www.qovery.com/event/aws-summit-amsterdam",
+    "https://www.qovery.com/event/demo-day-q1-2026",
+    "https://www.qovery.com/guide/kubernetes-best-practices",
+    "https://www.qovery.com/private-policy",
+    "https://www.qovery.com/request-access",
+    "https://www.qovery.com/solutions/environment-as-a-service",
+    "https://www.qovery.com/solutions/production-infrastructure-on-aws",
+    "https://www.qovery.com/solutions/production-infrastructure-on-gcp",
+    "https://www.qovery.com/team",
+    "https://www.qovery.com/terms-of-service",
+    "https://www.qovery.com/use-cases/ephemeral-environment"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "http://new.console.qovery.com/",
+    "https://discuss.qovery.com/",
+    "https://discuss.qovery.com/t/aws-migration-moving-from-nlb-controller-to-alb-controller/2953",
+    "https://discuss.qovery.com/t/beta-deploy-containers-application/1360",
+    "https://discuss.qovery.com/t/certificate-update-for-managed-databases-aws-rds/2702",
+    "https://discuss.qovery.com/t/container-request-vs-max-vcpu-settings/1769/1",
+    "https://discuss.qovery.com/t/critical-security-vulnerability-in-ingress-nginx-cve-2025-1974-our-response/6819",
+    "https://discuss.qovery.com/t/decommissioning-qovery-deployment-id-built-in-environment-variable/6813/2",
+    "https://discuss.qovery.com/t/how-to-run-my-tests-before-deploying-my-app/1939/1",
+    "https://discuss.qovery.com/t/important-kubernetes-upgrade-moving-to-1-22/1582",
+    "https://discuss.qovery.com/t/important-kubernetes-upgrade-moving-to-1-23/1648",
+    "https://discuss.qovery.com/t/important-qovery-managed-kubernetes-cluster-upgrade-moving-to-1-29/3351",
+    "https://discuss.qovery.com/t/kubernetes-cluster-version-updated-on-aws-but-not-qovery/1745",
+    "https://discuss.qovery.com/t/new-logs-view-feedback-are-welcome/1781/1",
+    "https://discuss.qovery.com/t/read-me-first-welcome-to-the-console-v3-alpha-testing/1149/8",
+    "https://discuss.qovery.com/t/upcoming-feature-spot-instances-karpenter-autoscaler-looking-for-beta-testers/2490",
+    "https://discuss.qovery.com/t/using-kong-api-gateway-with-qovery/1898",
+    "https://discuss.qovery.com/t/websocket-webhook-and-multiple-workers-instance-issues/1761",
+    "https://discuss.qovery.com/t/yarn-for-node-js",
+    "https://mailto:sales@qovery.com/",
+    "https://mailto:security@qovery.com/",
+    "https://mailto:support@qovery.com/",
+    "https://new.console.qovery.com/login",
+    "https://www.qovery.com/docs/api-reference/environment-actions/stop-environment",
+    "https://www.qovery.com/docs/api-reference/environment-deployment-history/generate-a-grafana-snapshot-report-showing-build-runner-pod-usage-for-a-specific-deployment",
+    "https://www.qovery.com/docs/api-reference/organization-account-git-repositories/get-bitbucket-branches-of-the-specified-repository",
+    "https://www.qovery.com/docs/api-reference/project-deployment-rule/edit-a-project-deployment-rule",
+    "https://www.qovery.com/docs/api-reference/project-deployment-rule/list-project-deployment-rules"
+  ],
+  "sites": [
+    {
+      "site_url": "https://hub.qovery.com/docs",
+      "confirmed_broken_links_count": 98,
+      "docs_broken_links_count": 98,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "http://www.qovery.com/authors/albane",
+        "http://www.qovery.com/authors/alessandro",
+        "http://www.qovery.com/authors/benjamin",
+        "http://www.qovery.com/authors/julien",
+        "http://www.qovery.com/authors/melanie",
+        "http://www.qovery.com/authors/morgan",
+        "http://www.qovery.com/authors/qovery",
+        "http://www.qovery.com/authors/romain",
+        "http://www.qovery.com/authors/romaric",
+        "http://www.qovery.com/authors/william",
+        "http://www.qovery.com/cdn-cgi/l/email-protection",
+        "https://changelog.qovery.com/",
+        "https://console.qovery.com/login",
+        "https://console.qovery.com/organization",
+        "https://console.qovery.com/platform/organization/141c07c8-0dd9-4623-983b-3fdd61867777/projects/4ac1185f-4b7c-4f12-95b6-0690f796bbbb/environments/1109c4d2-ffbb-49d6-9826-f5a7ca3a8888/applications/3cc850c6-cc4f-46bc-ad05-c90f7b597333/summary",
+        "https://console.qovery.com/platform/organization/api-tokens",
+        "https://console.qovery.com/signup",
+        "https://discord.qovery.com/",
+        "https://discuss.qovery.com/t/downtime-when-changing-cluster-instance-type/2002",
+        "https://discuss.qovery.com/t/manual-trigger-for-preview-environment-doesnt-start/1900",
+        "https://discuss.qovery.com/t/read-me-first-welcome-to-the-console-v3-alpha-testing/1149",
+        "https://qovery.com/docs",
+        "https://qovery.com/docs/guides/tutorial/customizing-preview-url-with-qovery-cli",
+        "https://roadmap.qovery.com/b/5m13y5v6/feature-ideas/support-google-cloud-platform-gcp",
+        "https://skill.qovery.com/",
+        "https://www.qovery.com/ai-devops-copilot",
+        "https://www.qovery.com/authors/albane",
+        "https://www.qovery.com/authors/alessandro",
+        "https://www.qovery.com/authors/benjamin",
+        "https://www.qovery.com/authors/julien",
+        "https://www.qovery.com/authors/melanie",
+        "https://www.qovery.com/authors/morgan",
+        "https://www.qovery.com/authors/qovery",
+        "https://www.qovery.com/authors/romain",
+        "https://www.qovery.com/authors/romaric",
+        "https://www.qovery.com/authors/william",
+        "https://www.qovery.com/blog/10-best-internal-developer-platforms-to-consider-in-2023",
+        "https://www.qovery.com/blog/announcement-of-pleco-the-open-source-kubernetes-and-cloud-services-garbage-collector",
+        "https://www.qovery.com/blog/kubernetes-observability-at-scale",
+        "https://www.qovery.com/case-study/alan-case-study",
+        "https://www.qovery.com/case-study/case-study-rxvantage",
+        "https://www.qovery.com/case-study/getsafe-case-study",
+        "https://www.qovery.com/case-study/hyperline-case-study",
+        "https://www.qovery.com/case-study/hyperline-eliminates-devops-overhead-and-accelerates-time-to-market-with-qovery",
+        "https://www.qovery.com/case-study/julaya",
+        "https://www.qovery.com/case-study/julaya-testimonial",
+        "https://www.qovery.com/case-study/kelvin",
+        "https://www.qovery.com/case-study/kubernetes-management-syment",
+        "https://www.qovery.com/case-study/nextools-case-study",
+        "https://www.qovery.com/case-study/papershift-casestudy",
+        "https://www.qovery.com/case-study/spayr",
+        "https://www.qovery.com/case-study/talkspace-case-study",
+        "https://www.qovery.com/cdn-cgi/l/email-protection",
+        "https://www.qovery.com/changelog---kubernetes",
+        "https://www.qovery.com/changelog/changelog-000025",
+        "https://www.qovery.com/changelog/qovery-managed-kubernetes-cluster-upgrade-moving-to-1-34-1-35",
+        "https://www.qovery.com/copilot",
+        "https://www.qovery.com/docs/api/overview",
+        "https://www.qovery.com/docs/basic-concepts",
+        "https://www.qovery.com/docs/configuration/environment-variable",
+        "https://www.qovery.com/docs/getting-started/quickstart/cli",
+        "https://www.qovery.com/docs/guides/getting-started/deploy-your-first-application",
+        "https://www.qovery.com/docs/guides/qovery-101/observe",
+        "https://www.qovery.com/docs/guides/qovery-101/provision",
+        "https://www.qovery.com/docs/guides/use-cases/ephemeral-environment",
+        "https://www.qovery.com/docs/guides/use-cases/production-environment-management",
+        "https://www.qovery.com/docs/installation/aws",
+        "https://www.qovery.com/docs/installation/aws/cluster-managed-by-qovery/quickstart",
+        "https://www.qovery.com/docs/installation/azure",
+        "https://www.qovery.com/docs/installation/gcp",
+        "https://www.qovery.com/docs/installation/kubernetes",
+        "https://www.qovery.com/docs/installation/scaleway",
+        "https://www.qovery.com/docs/integrations/ci-cd/github-actions",
+        "https://www.qovery.com/docs/integrations/ci-cd/gitlab-ci",
+        "https://www.qovery.com/docs/integrations/git-providers/overview",
+        "https://www.qovery.com/docs/integrations/iac/lifecycle-job-tutorial",
+        "https://www.qovery.com/docs/integrations/kubernetes/eks/kubectl-access",
+        "https://www.qovery.com/docs/integrations/networking/vpc-peering",
+        "https://www.qovery.com/docs/integrations/observability/datadog",
+        "https://www.qovery.com/docs/integrations/observability/overview",
+        "https://www.qovery.com/docs/integrations/secret-managers/doppler",
+        "https://www.qovery.com/docs/quickstart",
+        "https://www.qovery.com/docs/security-and-compliance/audit-logs",
+        "https://www.qovery.com/docs/security-and-compliance/overview",
+        "https://www.qovery.com/docs/security-and-compliance/soc2",
+        "https://www.qovery.com/docs/terraform/overview",
+        "https://www.qovery.com/docs/using-qovery/interface/terraform-provider",
+        "https://www.qovery.com/event/aws-summit-amsterdam",
+        "https://www.qovery.com/event/demo-day-q1-2026",
+        "https://www.qovery.com/guide/kubernetes-best-practices",
+        "https://www.qovery.com/private-policy",
+        "https://www.qovery.com/request-access",
+        "https://www.qovery.com/solutions/environment-as-a-service",
+        "https://www.qovery.com/solutions/production-infrastructure-on-aws",
+        "https://www.qovery.com/solutions/production-infrastructure-on-gcp",
+        "https://www.qovery.com/team",
+        "https://www.qovery.com/terms-of-service",
+        "https://www.qovery.com/use-cases/ephemeral-environment"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "http://www.qovery.com/authors/albane",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Albane Tonnellier Product Marketing Manager 64 articles"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/alessandro",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Alessandro Carrano Head of Product 10 articles"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/benjamin",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Benjamin Chastanier Staff Engineer 5 articles"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/julien",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Julien Dan Senior Product Manager 4 articles"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/melanie",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Melanie Dalle Senior Marketing Manager 90 articles"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/agentic-ai-infrastructure-moving-beyond-copilots-to-autonomous-operations",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/agentic-ai-infrastructure-moving-beyond-copilots-to-autonomous-operations",
+              "anchor_text": "Melanie Dalle"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/building-a-single-pane-of-glass-for-enterprise-kubernetes-fleets",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/building-a-single-pane-of-glass-for-enterprise-kubernetes-fleets",
+              "anchor_text": "Melanie Dalle"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/morgan",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Morgan Perry Co-founder 133 articles"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/10-best-practices-for-optimizing-kubernetes-on-aws",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/10-best-practices-for-optimizing-kubernetes-on-aws",
+              "anchor_text": "Morgan Perry"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/best-rancher-alternatives-and-competitors",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/best-rancher-alternatives-and-competitors",
+              "anchor_text": "Morgan Perry"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/qovery",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/blog/everything-i-wanted-to-know-about-kubernetes-autoscaling",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/everything-i-wanted-to-know-about-kubernetes-autoscaling",
+              "anchor_text": "Qovery Team"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/romain",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Romain Gerard Staff Software Engineer 5 articles"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/mcp-server-is-the-future-of-your-teams-incidents-response",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/mcp-server-is-the-future-of-your-teams-incidents-response",
+              "anchor_text": "Romain Gerard"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/romaric",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "Romaric Philogene CEO & Co-founder 184 articles"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Romaric Philogene"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/everything-you-should-know-about-how-kubernetes-works",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/everything-you-should-know-about-how-kubernetes-works",
+              "anchor_text": "Romaric Philogene"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/authors/william",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/authors",
+              "anchor_text": "William Occelli Platform Engineer at Alan 1 article"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/alan-from-nginx-to-envoy-what-actually-happens-when-you-swap-your-proxy-in-production",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/alan-from-nginx-to-envoy-what-actually-happens-when-you-swap-your-proxy-in-production",
+              "anchor_text": "William Occelli"
+            }
+          ]
+        },
+        {
+          "target_url": "http://www.qovery.com/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://www.qovery.com/partners",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://www.qovery.com/privacy",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://www.qovery.com/product/secure",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://www.qovery.com/terms",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://changelog.qovery.com/",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-2024-06-05",
+              "anchor_text": "changelog.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-2024-05-22",
+              "anchor_text": "changelog.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-2024-05-08",
+              "anchor_text": "changelog.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-2024-04-10",
+              "anchor_text": "changelog.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-2024-03-27",
+              "anchor_text": "changelog.qovery.com"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.qovery.com/login",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/agentic-ai-infrastructure-moving-beyond-copilots-to-autonomous-operations",
+              "anchor_text": "Try Qovery free"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/10-best-practices-for-optimizing-kubernetes-on-aws",
+              "anchor_text": "Try Qovery free"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/best-rancher-alternatives-and-competitors",
+              "anchor_text": "Try Qovery free"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Try Qovery free"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/alan-from-nginx-to-envoy-what-actually-happens-when-you-swap-your-proxy-in-production",
+              "anchor_text": "Try Qovery free"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.qovery.com/organization",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/api-reference/account-info/get-account-information",
+              "anchor_text": "https://console.qovery.com/organization"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/api-reference/account-info/edit-account-information",
+              "anchor_text": "https://console.qovery.com/organization"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/api-reference/alert-receivers/create-alert-receiver",
+              "anchor_text": "https://console.qovery.com/organization"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/api-reference/alert-receivers/validate-existing-alert-receiver",
+              "anchor_text": "https://console.qovery.com/organization"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/api-reference/alert-rules/create-alert-rule",
+              "anchor_text": "https://console.qovery.com/organization"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.qovery.com/platform/organization/141c07c8-0dd9-4623-983b-3fdd61867777/projects/4ac1185f-4b7c-4f12-95b6-0690f796bbbb/environments/1109c4d2-ffbb-49d6-9826-f5a7ca3a8888/applications/3cc850c6-cc4f-46bc-ad05-c90f7b597333/summary",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-000020",
+              "anchor_text": "https://console.qovery.com/platform/organization/141c07c8-0dd9-4623-983b-3fdd61867777/projects/4ac1185f-4b7c-4f12-95b6-0690f796bbbb/environments/1109c4d2-ffbb-49d6-9826-f5a7ca3a8888/applications/3cc850c6-cc4f-46bc-ad05-c90f7b597333/summary"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/changelog-000020",
+              "anchor_text": "https://console.qovery.com/platform/organization/141c07c8-0dd9-4623-983b-3fdd61867777/projects/4ac1185f-4b7c-4f12-95b6-0690f796bbbb/environments/1109c4d2-ffbb-49d6-9826-f5a7ca3a8888/applications/3cc850c6-cc4f-46bc-ad05-c90f7b597333/summary"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.qovery.com/platform/organization/api-tokens",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/cli/overview",
+              "anchor_text": "Qovery Console"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.qovery.com/signup",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/azure",
+              "anchor_text": "console.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/gcp",
+              "anchor_text": "console.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/aws",
+              "anchor_text": "Qovery account"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/scaleway",
+              "anchor_text": "console.qovery.com"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/getting-started/deploy-your-first-application",
+              "anchor_text": "Sign up here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://discord.qovery.com/",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Discord"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/shadow-it-is-back-and-vibe-coding-made-it-worse",
+              "anchor_text": "Discord"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Discord"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/shadow-it-is-back-and-vibe-coding-made-it-worse",
+              "anchor_text": "Discord"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/the-qovery-terraform-provider-is-available-now",
+              "anchor_text": "on Discord"
+            }
+          ]
+        },
+        {
+          "target_url": "https://discuss.qovery.com/t/downtime-when-changing-cluster-instance-type/2002",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-000035",
+              "anchor_text": "Preventing downtime when changing cluster instance type"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/changelog-000035",
+              "anchor_text": "Preventing downtime when changing cluster instance type"
+            }
+          ]
+        },
+        {
+          "target_url": "https://discuss.qovery.com/t/manual-trigger-for-preview-environment-doesnt-start/1900",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-000034",
+              "anchor_text": "Manual Trigger for Preview Environment doesn\u2019t start"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/changelog-000034",
+              "anchor_text": "Manual Trigger for Preview Environment doesn\u2019t start"
+            }
+          ]
+        },
+        {
+          "target_url": "https://discuss.qovery.com/t/read-me-first-welcome-to-the-console-v3-alpha-testing/1149",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-revival-brand-new-web-console-for-a-world-new-developer-experience",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://qovery.com/docs",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://hub.qovery.com/docs",
+              "anchor_text": "Documentation"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/configuration/overview",
+              "anchor_text": "Documentation"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/api-reference/introduction",
+              "anchor_text": "Documentation"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/getting-started/guides/others/database-seeding-lifecycle-job",
+              "anchor_text": "Documentation"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/getting-started/basic-concepts",
+              "anchor_text": "Documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://qovery.com/docs/guides/tutorial/customizing-preview-url-with-qovery-cli",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/use-cases/preview-environments",
+              "anchor_text": "Set up a custom domain for your Preview Environment"
+            }
+          ]
+        },
+        {
+          "target_url": "https://roadmap.qovery.com/b/5m13y5v6/feature-ideas/support-google-cloud-platform-gcp",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/early-access-for-google-cloud-platform",
+              "anchor_text": "the most requested feature on our public roadmap"
+            }
+          ]
+        },
+        {
+          "target_url": "https://skill.qovery.com/",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Qovery Skill"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Qovery Skill"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/ai-devops-copilot",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/kubernetes-observability",
+              "anchor_text": "Qovery's AI DevOps Copilot"
+            },
+            {
+              "source_page": "https://www.qovery.com/changelog/2025-11-05",
+              "anchor_text": "official page"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-we-built-an-agentic-devops-copilot-to-automate-infrastructure-tasks-and-beyond",
+              "anchor_text": "Agentic DevOps AI Copilot"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/kubernetes-observability",
+              "anchor_text": "Qovery's AI DevOps Copilot"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/2025-11-05",
+              "anchor_text": "official page"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/albane",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Albane Tonnellier Product Marketing Manager 64 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/partnership-save-your-cloud-costs-with-usage-ai-and-qovery",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/partnership-save-your-cloud-costs-with-usage-ai-and-qovery",
+              "anchor_text": "Albane Tonnellier"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-revival-brand-new-web-console-for-a-world-new-developer-experience",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-revival-brand-new-web-console-for-a-world-new-developer-experience",
+              "anchor_text": "Albane Tonnellier"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/alessandro",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Alessandro Carrano Head of Product 10 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/alerting-with-guided-troubleshooting-in-qovery-observe",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/alerting-with-guided-troubleshooting-in-qovery-observe",
+              "anchor_text": "Alessandro Carrano"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/stop-tool-sprawl--welcome-to-terraform-opentofu-support",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/stop-tool-sprawl--welcome-to-terraform-opentofu-support",
+              "anchor_text": "Alessandro Carrano"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/benjamin",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Benjamin Chastanier Staff Engineer 5 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/migrating-from-nginx-ingress-to-envoy-gateway-gateway-api-behind-the-scenes",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/migrating-from-nginx-ingress-to-envoy-gateway-gateway-api-behind-the-scenes",
+              "anchor_text": "Benjamin Chastanier"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/releasing-iam-eks-user-mapper-in-open-source",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/releasing-iam-eks-user-mapper-in-open-source",
+              "anchor_text": "Benjamin Chastanier"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/julien",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Julien Dan Senior Product Manager 4 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-observe-announcement",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-observe-announcement",
+              "anchor_text": "Julien Dan"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-now-supports-azure-aks-in-our-managed-offer",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-now-supports-azure-aks-in-our-managed-offer",
+              "anchor_text": "Julien Dan"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/melanie",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/agentic-ai-infrastructure-moving-beyond-copilots-to-autonomous-operations",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/agentic-ai-infrastructure-moving-beyond-copilots-to-autonomous-operations",
+              "anchor_text": "Melanie Dalle"
+            },
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Melanie Dalle Senior Marketing Manager 90 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/building-a-single-pane-of-glass-for-enterprise-kubernetes-fleets",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/building-a-single-pane-of-glass-for-enterprise-kubernetes-fleets",
+              "anchor_text": "Melanie Dalle"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/morgan",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Morgan Perry Co-founder 133 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/10-best-practices-for-optimizing-kubernetes-on-aws",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/10-best-practices-for-optimizing-kubernetes-on-aws",
+              "anchor_text": "Morgan Perry"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/best-rancher-alternatives-and-competitors",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/best-rancher-alternatives-and-competitors",
+              "anchor_text": "Morgan Perry"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/qovery",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/everything-i-wanted-to-know-about-kubernetes-autoscaling",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/everything-i-wanted-to-know-about-kubernetes-autoscaling",
+              "anchor_text": "Qovery Team"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/configuring-kubernetes-karpenter-lessons-learned-from-our-experience",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/configuring-kubernetes-karpenter-lessons-learned-from-our-experience",
+              "anchor_text": "Qovery Team"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/qovery-achieves-soc-2-type-ii-compliance",
+              "anchor_text": ""
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/romain",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Romain Gerard Staff Software Engineer 5 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/mcp-server-is-the-future-of-your-teams-incidents-response",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/mcp-server-is-the-future-of-your-teams-incidents-response",
+              "anchor_text": "Romain Gerard"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-qovery-uses-qovery-to-speed-up-ai-project",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-qovery-uses-qovery-to-speed-up-ai-project",
+              "anchor_text": "Romain Gerard"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/romaric",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "Romaric Philogene CEO & Co-founder 184 articles"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/build-with-claude-code-deploy-with-qovery",
+              "anchor_text": "Romaric Philogene"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/everything-you-should-know-about-how-kubernetes-works",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/everything-you-should-know-about-how-kubernetes-works",
+              "anchor_text": "Romaric Philogene"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/authors/william",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/authors",
+              "anchor_text": "William Occelli Platform Engineer at Alan 1 article"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/alan-from-nginx-to-envoy-what-actually-happens-when-you-swap-your-proxy-in-production",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/alan-from-nginx-to-envoy-what-actually-happens-when-you-swap-your-proxy-in-production",
+              "anchor_text": "William Occelli"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/blog/10-best-internal-developer-platforms-to-consider-in-2023",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/state-of-open-con-2023-my-top-5-sessions",
+              "anchor_text": "robust internal developer platform (IDP)"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/blog/announcement-of-pleco-the-open-source-kubernetes-and-cloud-services-garbage-collector",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-we-built-qovery---part-1",
+              "anchor_text": "Pleco"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/blog/kubernetes-observability-at-scale",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-agentic-kubernetes-slashes-cloud-waste-across-1000s-of-clusters",
+              "anchor_text": "a billing dashboard that shows which clusters are overspending"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/how-agentic-kubernetes-slashes-cloud-waste-across-1000s-of-clusters",
+              "anchor_text": "a billing dashboard that shows which clusters are overspending"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/alan-case-study",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/kubernetes-management",
+              "anchor_text": "Read the Alan case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-deploy-a-docker-container-on-kubernete",
+              "anchor_text": "Read the full case study here"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/kubernetes-management-tools",
+              "anchor_text": "Read the Alan case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/managing-kubernetes-deployment-yaml",
+              "anchor_text": "Read the Alan case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/what-is-kubernetes",
+              "anchor_text": "Read the Alan case study"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/case-study-rxvantage",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-agentic-kubernetes-slashes-cloud-waste-across-1000s-of-clusters",
+              "anchor_text": "Read the RxVantage case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-automate-environment-sleeping",
+              "anchor_text": "Read the RxVantage case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/automating-ephemeral-environments-with-kubernetes-a-quick-guide",
+              "anchor_text": "Read the RxVantage case study"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/how-to-automate-environment-sleeping",
+              "anchor_text": "Read the RxVantage case study"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/how-agentic-kubernetes-slashes-cloud-waste-across-1000s-of-clusters",
+              "anchor_text": "Read the RxVantage case study"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/getsafe-case-study",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-achieve-zero-downtime-application-with-kubernetes",
+              "anchor_text": "Read the Getsafe case study"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/hyperline-case-study",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-automatically-save-24-days-of-infrastructur",
+              "anchor_text": "Hyperline"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/hyperline-eliminates-devops-overhead-and-accelerates-time-to-market-with-qovery",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/building-a-single-pane-of-glass-for-enterprise-kubernetes-fleets",
+              "anchor_text": "Read the full case study here"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/building-a-single-pane-of-glass-for-enterprise-kubernetes-fleets",
+              "anchor_text": "Read the full case study here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/julaya",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/kubernetes-observability",
+              "anchor_text": "Read the Julaya case study"
+            },
+            {
+              "source_page": "http://www.qovery.com/blog/kubernetes-observability",
+              "anchor_text": "Read the Julaya case study"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/julaya-testimonial",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/scaling-dev-teams-with-ephemeral-environments",
+              "anchor_text": "Julaya"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/kelvin",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/kubernetes-cost-optimization-tips-and-best-practises",
+              "anchor_text": "Read the full kelvin case study here"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/9-key-reasons-to-use-or-not-kubernetes-for-your-dev-environments",
+              "anchor_text": "Read the full case study here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/kubernetes-management-syment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-automatically-save-24-days-of-infrastructur",
+              "anchor_text": "Syment"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/nextools-case-study",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/10-best-practices-for-optimizing-kubernetes-on-aws",
+              "anchor_text": "Read the Nextools case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/managed-kubernetes-comparison-eks-vs-gke",
+              "anchor_text": "Read the Nextools case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/what-is-kubernetes-architecture",
+              "anchor_text": "Read the Nextools case study"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-automatically-save-24-days-of-infrastructur",
+              "anchor_text": "Nextools"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/managed-kubernetes-comparison-eks-vs-aks",
+              "anchor_text": "Read the full Nextools case study here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/papershift-casestudy",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-to-automatically-save-24-days-of-infrastructur",
+              "anchor_text": "Papershift"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/spayr",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/10-best-container-management-tools",
+              "anchor_text": "Read the Spayr case study"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/case-study/talkspace-case-study",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/scaling-dev-teams-with-ephemeral-environments",
+              "anchor_text": "Talkspace"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/scaling-dev-teams-with-ephemeral-environments",
+              "anchor_text": "Talkspace achieved 20 consecutive on-time deployments after adopting this model"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/partners",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://www.qovery.com/product/secure",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://www.qovery.com/privacy",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://www.qovery.com/terms",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/changelog---kubernetes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/azure",
+              "anchor_text": "Qovery Kubernetes Changelog"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/gcp",
+              "anchor_text": "Qovery Kubernetes Changelog"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/aws",
+              "anchor_text": "Qovery Kubernetes Changelog"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/scaleway",
+              "anchor_text": "Qovery Kubernetes Changelog"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/connect-to-cluster",
+              "anchor_text": "Qovery Kubernetes Changelog"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/changelog/changelog-000025",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-000026",
+              "anchor_text": "Changelog"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/changelog-000026",
+              "anchor_text": "Changelog"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/changelog/qovery-managed-kubernetes-cluster-upgrade-moving-to-1-34-1-35",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/2026-04-08",
+              "anchor_text": "this changelog section"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/2026-04-08",
+              "anchor_text": "this changelog section"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/copilot",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/how-we-built-an-agentic-devops-copilot-to-automate-infrastructure-tasks-and-beyond",
+              "anchor_text": "DevOps AI Agent Copilot"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/how-we-built-an-agentic-devops-copilot-to-automate-infrastructure-tasks-and-beyond",
+              "anchor_text": "Agentic DevOps Copilot"
+            },
+            {
+              "source_page": "https://www.qovery.com/changelog/2025-05-21",
+              "anchor_text": "Qovery DevOps Copilot"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/2025-05-21",
+              "anchor_text": "Qovery DevOps Copilot"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/api/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/how-it-works",
+              "anchor_text": "API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/basic-concepts",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/useful-resources/faq",
+              "anchor_text": "Here"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/clusters",
+              "anchor_text": "Basic Concepts"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/configuration/environment-variable",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/disaster-recovery",
+              "anchor_text": "Qovery Secrets"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/getting-started/quickstart/cli",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/interfaces/cli",
+              "anchor_text": "View docs"
+            },
+            {
+              "source_page": "https://www.qovery.com/interfaces/cli",
+              "anchor_text": "Read the full guide"
+            },
+            {
+              "source_page": "https://www.qovery.com/interfaces/cli",
+              "anchor_text": "Install the CLI"
+            },
+            {
+              "source_page": "https://www.qovery.com/interfaces/cli",
+              "anchor_text": "Read the docs"
+            },
+            {
+              "source_page": "http://www.qovery.com/interfaces/cli",
+              "anchor_text": "View docs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/guides/getting-started/deploy-your-first-application",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/azure",
+              "anchor_text": "Deploy Your First App"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/gcp",
+              "anchor_text": "Deploy Your First App"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/aws",
+              "anchor_text": "deploying your first app"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/scaleway",
+              "anchor_text": "Deploy Your First App"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/cli/commands/demo",
+              "anchor_text": "Deploy your first app"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/guides/qovery-101/observe",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/use-cases/cloud-migration-and-scaling",
+              "anchor_text": "monitoring guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/guides/qovery-101/provision",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/useful-resources/faq",
+              "anchor_text": "CLI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/guides/use-cases/ephemeral-environment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/basic-concepts",
+              "anchor_text": "Learn more \u2192"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/quickstart",
+              "anchor_text": "\u2192 View Complete Ephemeral Environment Guide"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/qovery-101/deploy",
+              "anchor_text": "Learn more \u2192"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/guides/use-cases/production-environment-management",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/quickstart",
+              "anchor_text": "\u2192 View Complete Production Guide"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/cli/commands/demo",
+              "anchor_text": "advanced features"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/installation/aws",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/basic-concepts",
+              "anchor_text": "Create a managed cluster \u2192"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/getting-started/deploy-your-first-application",
+              "anchor_text": "Install a cluster"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/kubernetes/eks/managed",
+              "anchor_text": "Procedure for AWS account"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/installation/aws/cluster-managed-by-qovery/quickstart",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/cluster-advanced-settings",
+              "anchor_text": "IAM permissions setup"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/installation/azure",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/kubernetes/aks/managed",
+              "anchor_text": "Procedure for Azure account"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/installation/gcp",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/kubernetes/gke/managed",
+              "anchor_text": "Procedure for GCP account"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/installation/kubernetes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/quickstart",
+              "anchor_text": "\u2192 View BYOK Integration Guide"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/clusters",
+              "anchor_text": "Kubernetes Installation\nGuide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/installation/scaleway",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/kubernetes/scaleway/managed",
+              "anchor_text": "Procedure for Scaleway account"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/ci-cd/github-actions",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/jenkins",
+              "anchor_text": "GitHub Actions"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/circleci",
+              "anchor_text": "GitHub Actions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/ci-cd/gitlab-ci",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/jenkins",
+              "anchor_text": "GitLab CI"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/circleci",
+              "anchor_text": "GitLab CI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/git-providers/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/aws",
+              "anchor_text": "Connect Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/iac/lifecycle-job-tutorial",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/iac/terraform",
+              "anchor_text": "Deployment Guide for Custom Resources"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/iac/cloudformation",
+              "anchor_text": "Deployment Guide for Custom Resources"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/kubernetes/eks/kubectl-access",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/cli/commands/cluster",
+              "anchor_text": "Connect to EKS with kubectl"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/networking/vpc-peering",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/use-cases/cloud-migration-and-scaling",
+              "anchor_text": "VPC peering"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/observability/datadog",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/azure",
+              "anchor_text": "Datadog"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/gcp",
+              "anchor_text": "Datadog"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/observability/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/azure",
+              "anchor_text": "Azure Monitor"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/gcp",
+              "anchor_text": "Cloud Monitoring"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/installation/scaleway",
+              "anchor_text": "monitoring and observability"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/integrations/secret-managers/doppler",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/use-cases/production-environment-management",
+              "anchor_text": "Doppler integration"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/secret-managers/aws-secrets-manager",
+              "anchor_text": "Doppler"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/quickstart",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/getting-started/connect-database",
+              "anchor_text": "Quick Start Guide"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/cli/commands/demo",
+              "anchor_text": "Set up Qovery"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/security-and-compliance/audit-logs",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/security-and-compliance/overview",
+              "anchor_text": "View audit logs documentation \u2192"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/security-and-compliance/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/security-and-compliance/dora",
+              "anchor_text": "Qovery Security Overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/security-and-compliance/soc2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/security-and-compliance/dora",
+              "anchor_text": "SOC 2 Compliance"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/terraform/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/guides/use-cases/cloud-migration-and-scaling",
+              "anchor_text": "Terraform provider"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/getting-started/how-it-works",
+              "anchor_text": "Terraform"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/docs/using-qovery/interface/terraform-provider",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/github-actions",
+              "anchor_text": "Terraform Provider documentation"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/jenkins",
+              "anchor_text": "Terraform Provider documentation"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/gitlab-ci",
+              "anchor_text": "Terraform Provider documentation"
+            },
+            {
+              "source_page": "https://www.qovery.com/docs/configuration/integrations/ci-cd/circleci",
+              "anchor_text": "Terraform Provider documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/event/aws-summit-amsterdam",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/events/aws-summit-amsterdam",
+              "anchor_text": "Register now"
+            },
+            {
+              "source_page": "http://www.qovery.com/events/aws-summit-amsterdam",
+              "anchor_text": "Register now"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/event/demo-day-q1-2026",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/2026-04-22",
+              "anchor_text": "full recording here"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/2026-04-22",
+              "anchor_text": "full recording here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/guide/kubernetes-best-practices",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/2025-12-17",
+              "anchor_text": "guide here"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/2025-12-17",
+              "anchor_text": "guide here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/private-policy",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://hub.qovery.com/docs",
+              "anchor_text": "Privacy Policy"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/configuration/overview",
+              "anchor_text": "Privacy Policy"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/api-reference/introduction",
+              "anchor_text": "Privacy Policy"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/getting-started/guides/others/database-seeding-lifecycle-job",
+              "anchor_text": "Privacy Policy"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/getting-started/basic-concepts",
+              "anchor_text": "Privacy Policy"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/request-access",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/case-studies/charles-co",
+              "anchor_text": "Let\u2019s start today"
+            },
+            {
+              "source_page": "https://www.qovery.com/case-studies/alan-case-study",
+              "anchor_text": "schedule a demo today!"
+            },
+            {
+              "source_page": "https://www.qovery.com/case-studies/kubernetes-management-syment",
+              "anchor_text": "Try Qovery today"
+            },
+            {
+              "source_page": "https://www.qovery.com/case-studies/spiko",
+              "anchor_text": "See Qovery in action today"
+            },
+            {
+              "source_page": "https://www.qovery.com/case-studies/talkspace-case-study",
+              "anchor_text": "contact us"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/solutions/environment-as-a-service",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/why-preview-environments-are-the-new-thing-in-devops",
+              "anchor_text": "Qovery"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/solutions/production-infrastructure-on-aws",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/aws-vs-gcp-vs-azure",
+              "anchor_text": "managing applications across AWS"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/early-access-for-google-cloud-platform",
+              "anchor_text": "production hassle-free"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/solutions/production-infrastructure-on-gcp",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/aws-vs-gcp-vs-azure",
+              "anchor_text": "GCP"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/team",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/changelog/changelog-000003",
+              "anchor_text": "Team"
+            },
+            {
+              "source_page": "http://www.qovery.com/changelog/changelog-000003",
+              "anchor_text": "Team"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/terms-of-service",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://hub.qovery.com/docs",
+              "anchor_text": "Terms"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/configuration/overview",
+              "anchor_text": "Terms"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/api-reference/introduction",
+              "anchor_text": "Terms"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/getting-started/guides/others/database-seeding-lifecycle-job",
+              "anchor_text": "Terms"
+            },
+            {
+              "source_page": "https://hub.qovery.com/docs/getting-started/basic-concepts",
+              "anchor_text": "Terms"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.qovery.com/use-cases/ephemeral-environment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.qovery.com/blog/deploy-to-eks-aks-or-gke-without-writing-a-single-line-of-yaml",
+              "anchor_text": "Ephemeral environments"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/cut-tool-sprawl-automate-your-tech-stack",
+              "anchor_text": "Ephemeral environments"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/the-fastest-way-to-k8s",
+              "anchor_text": "Self-service ephemeral environments"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/the-fastest-way-to-k8s",
+              "anchor_text": "self-service ephemeral environments"
+            },
+            {
+              "source_page": "https://www.qovery.com/blog/the-fastest-way-to-k8s",
+              "anchor_text": "Ephemeral environments"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "http://new.console.qovery.com/",
+        "https://discuss.qovery.com/",
+        "https://discuss.qovery.com/t/aws-migration-moving-from-nlb-controller-to-alb-controller/2953",
+        "https://discuss.qovery.com/t/beta-deploy-containers-application/1360",
+        "https://discuss.qovery.com/t/certificate-update-for-managed-databases-aws-rds/2702",
+        "https://discuss.qovery.com/t/container-request-vs-max-vcpu-settings/1769/1",
+        "https://discuss.qovery.com/t/critical-security-vulnerability-in-ingress-nginx-cve-2025-1974-our-response/6819",
+        "https://discuss.qovery.com/t/decommissioning-qovery-deployment-id-built-in-environment-variable/6813/2",
+        "https://discuss.qovery.com/t/how-to-run-my-tests-before-deploying-my-app/1939/1",
+        "https://discuss.qovery.com/t/important-kubernetes-upgrade-moving-to-1-22/1582",
+        "https://discuss.qovery.com/t/important-kubernetes-upgrade-moving-to-1-23/1648",
+        "https://discuss.qovery.com/t/important-qovery-managed-kubernetes-cluster-upgrade-moving-to-1-29/3351",
+        "https://discuss.qovery.com/t/kubernetes-cluster-version-updated-on-aws-but-not-qovery/1745",
+        "https://discuss.qovery.com/t/new-logs-view-feedback-are-welcome/1781/1",
+        "https://discuss.qovery.com/t/read-me-first-welcome-to-the-console-v3-alpha-testing/1149/8",
+        "https://discuss.qovery.com/t/upcoming-feature-spot-instances-karpenter-autoscaler-looking-for-beta-testers/2490",
+        "https://discuss.qovery.com/t/using-kong-api-gateway-with-qovery/1898",
+        "https://discuss.qovery.com/t/websocket-webhook-and-multiple-workers-instance-issues/1761",
+        "https://discuss.qovery.com/t/yarn-for-node-js",
+        "https://mailto:sales@qovery.com/",
+        "https://mailto:security@qovery.com/",
+        "https://mailto:support@qovery.com/",
+        "https://new.console.qovery.com/login",
+        "https://www.qovery.com/docs/api-reference/environment-actions/stop-environment",
+        "https://www.qovery.com/docs/api-reference/environment-deployment-history/generate-a-grafana-snapshot-report-showing-build-runner-pod-usage-for-a-specific-deployment",
+        "https://www.qovery.com/docs/api-reference/organization-account-git-repositories/get-bitbucket-branches-of-the-specified-repository",
+        "https://www.qovery.com/docs/api-reference/project-deployment-rule/edit-a-project-deployment-rule",
+        "https://www.qovery.com/docs/api-reference/project-deployment-rule/list-project-deployment-rules"
+      ]
+    }
+  ]
+}

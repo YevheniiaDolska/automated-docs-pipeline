@@ -1,0 +1,90 @@
+client:
+  id: "code-forge"
+  company_name: "Forge Suite"
+  contact_email: "ops@forge.local"
+  tenant_id: "forge-suite"
+  company_domain: "forge.local"
+
+bundle:
+  output_dir: "generated/client_bundles"
+  base_policy_pack: "multi-product"
+  style_guide: "google"
+  include_scripts:
+    - "scripts/run_autopipeline.py"
+  include_docs:
+    - "README_SETUP.md"
+  include_paths:
+    - "knowledge_modules"
+  llm:
+    codex_instructions_source: "AGENTS.md"
+    claude_instructions_source: "CLAUDE.md"
+    local_instructions_source: "LOCAL_MODEL.md"
+    inject_managed_block: true
+    docsops_root_in_client_repo: "docsops"
+
+runtime:
+  docs_flow:
+    mode: "hybrid"
+  docs_root: "docs"
+  api_root: "api"
+  sdk_root: "sdk"
+  preferred_llm: "claude"
+  llm_control:
+    llm_mode: "external_preferred"
+    external_llm_allowed: true
+    require_explicit_approval: false
+    approval_cache_scope: "run"
+    redact_before_external: true
+    strict_local_first: false
+    local_model: "veridoc-writer"
+    local_base_model: "qwen2.5:7b"
+  output_targets:
+    - "mkdocs"
+    - "github"
+  integrations:
+    algolia:
+      enabled: true
+      upload_on_weekly: true
+      site_generator: "mkdocs"
+      generate_search_widget: true
+    ask_ai:
+      enabled: true
+      provider: "openai"
+      billing_mode: "user-subscription"
+      install_runtime_pack: true
+  veridoc_branding:
+    enabled: true
+    landing_url: "https://veri-doc.app/"
+    lock_badge_policy: true
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+    terminology_management: true
+    multilang_examples: true
+    normalization: true
+    snippet_lint: true
+    diagram_validation: true
+    self_checks: true
+    fact_checks: true
+    lifecycle_management: true
+    knowledge_validation: true
+    i18n_sync: true
+    release_pack: true
+  custom_tasks:
+    weekly: []
+    on_demand: []
+
+licensing:
+  commercial_package: "full+rag"
+  plan: "enterprise"
+  days: 365
+  max_docs: 0
+  require_signed_jwt: false
+  manual_jwt_path: ""
+  expose_license_key_env: false
+  expose_dev_plan_override_env: false

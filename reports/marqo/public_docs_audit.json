@@ -1,0 +1,602 @@
+{
+  "generated_at": "2026-04-28T12:35:27.052812+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://docs.marqo.ai/",
+    "https://docs.marqo.ai/merchandising"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.marqo.ai/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 74,
+          "requested_pages": 82,
+          "urls_examined": 74,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 74,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 74,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 69,
+          "seeded_sitemap_urls": 74,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 82,
+          "broken_internal_links_count": 6,
+          "docs_broken_links_count": 6,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.marqo.ai/agentic-search-implementation",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+            "https://docs.marqo.ai/merchandising/operations/workflows.md",
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+            "https://docs.marqo.ai/pixel/installation"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.marqo.ai/agentic-search-implementation",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+            "https://docs.marqo.ai/merchandising/operations/workflows.md",
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+            "https://docs.marqo.ai/pixel/installation"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 6,
+          "excluded_links_count": 5,
+          "excluded_link_samples": [
+            "https://docs.marqo.ai/assets/templates/marqo_shopify_pixel.js",
+            "https://docs.marqo.ai/assets/templates/marqo_universal_gtm_container.json",
+            "https://docs.marqo.ai/home/recommendations/search-suggestions",
+            "https://docs.marqo.ai/merchandising/analytics-reporting/search-analytics",
+            "https://docs.marqo.ai/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.marqo.ai/agentic-search-implementation",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+            "https://docs.marqo.ai/merchandising/operations/workflows.md",
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+            "https://docs.marqo.ai/pixel/installation"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.marqo.ai/assets/templates/marqo_shopify_pixel.js",
+            "https://docs.marqo.ai/assets/templates/marqo_universal_gtm_container.json",
+            "https://docs.marqo.ai/home/recommendations/search-suggestions",
+            "https://docs.marqo.ai/merchandising/analytics-reporting/search-analytics",
+            "https://docs.marqo.ai/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.marqo.ai/agentic-search-implementation": [
+              {
+                "source_page": "https://docs.marqo.ai/home/agentic-search-introduction",
+                "anchor_text": "Implementation guide"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising",
+                "anchor_text": "Result Explanations"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/explainability/overview",
+                "anchor_text": "Result Explanations"
+              },
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/explainability/rule-trace",
+                "anchor_text": "Result Explanations"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/operations/workflows.md": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/operations/roles-permissions",
+                "anchor_text": "Workflows"
+              },
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/operations/overview",
+                "anchor_text": "Workflows"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/ranking-strategy/personalization",
+                "anchor_text": "Recommendations"
+              }
+            ],
+            "https://docs.marqo.ai/pixel/installation": [
+              {
+                "source_page": "https://docs.marqo.ai/home/adobe-commerce-integration",
+                "anchor_text": "Pixel Installation Guide"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 74,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.34
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 193,
+          "api_pages_detected": 32,
+          "endpoints_with_usage_docs": 7,
+          "reference_endpoints_without_usage_docs": 186,
+          "reference_coverage_pct": 3.63,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/9j/4aaqskzjrgabaqaaaqabaad",
+            "ep:/accounts",
+            "ep:/api.marqo.ai",
+            "ep:/api.marqo.ai/api/v2/indexes/my-first-index",
+            "ep:/body",
+            "ep:/cdn.example.com/earbuds-white.jpg",
+            "ep:/cdn.example.com/headphones-black.jpg",
+            "ep:/cdn.example.com/headphones-pro.jpg",
+            "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/blue-tshirt.jpg",
+            "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/light-blue-tshirt.jpg",
+            "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/red-tshirt.jpg",
+            "ep:/collections",
+            "ep:/composite-search",
+            "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_fitment.csv",
+            "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_keywords.csv",
+            "ep:/detect",
+            "ep:/div",
+            "ep:/docs.marqo.ai",
+            "ep:/docs.marqo.ai/home/addons/fitment",
+            "ep:/docs.marqo.ai/home/adobe-commerce-integration"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 137,
+          "total_code_blocks_all": 299,
+          "runnable_without_env": 17,
+          "blocked_by_placeholders": 16,
+          "network_bound_examples": 104,
+          "example_reliability_estimate_pct": 12.41,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 4,
+          "pages_without_last_updated_hint": 70,
+          "last_updated_coverage_pct": 5.41,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.marqo.ai/home/conversational-agent",
+              "hint": "(number): Timestamp (milliseconds since epoch) when the conversation was last updated"
+            },
+            {
+              "url": "https://docs.marqo.ai/home/manage-collections",
+              "hint": "\"startDate\": \"2024-06-01\","
+            },
+            {
+              "url": "https://docs.marqo.ai/home/manage-products/update-products",
+              "hint": "\"2024-01-15\""
+            },
+            {
+              "url": "https://docs.marqo.ai/merchandising/merchandising-controls/exclusions",
+              "hint": "\"2024-01-01\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.marqo.ai/agentic-search-implementation",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+          "https://docs.marqo.ai/merchandising/operations/workflows.md",
+          "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+          "https://docs.marqo.ai/pixel/installation"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.marqo.ai/agentic-search-implementation",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+          "https://docs.marqo.ai/merchandising/operations/workflows.md",
+          "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+          "https://docs.marqo.ai/pixel/installation"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/9j/4aaqskzjrgabaqaaaqabaad",
+          "ep:/accounts",
+          "ep:/api.marqo.ai",
+          "ep:/api.marqo.ai/api/v2/indexes/my-first-index",
+          "ep:/body",
+          "ep:/cdn.example.com/earbuds-white.jpg",
+          "ep:/cdn.example.com/headphones-black.jpg",
+          "ep:/cdn.example.com/headphones-pro.jpg",
+          "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/blue-tshirt.jpg",
+          "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/light-blue-tshirt.jpg",
+          "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/red-tshirt.jpg",
+          "ep:/collections",
+          "ep:/composite-search",
+          "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_fitment.csv",
+          "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_keywords.csv",
+          "ep:/detect",
+          "ep:/div",
+          "ep:/docs.marqo.ai",
+          "ep:/docs.marqo.ai/home/addons/fitment",
+          "ep:/docs.marqo.ai/home/adobe-commerce-integration"
+        ]
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://docs.marqo.ai/merchandising",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 74,
+          "requested_pages": 82,
+          "urls_examined": 74,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 74,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 74,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 69,
+          "seeded_sitemap_urls": 74,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 82,
+          "broken_internal_links_count": 6,
+          "docs_broken_links_count": 6,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.marqo.ai/agentic-search-implementation",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+            "https://docs.marqo.ai/merchandising/operations/workflows.md",
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+            "https://docs.marqo.ai/pixel/installation"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.marqo.ai/agentic-search-implementation",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+            "https://docs.marqo.ai/merchandising/operations/workflows.md",
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+            "https://docs.marqo.ai/pixel/installation"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 6,
+          "excluded_links_count": 5,
+          "excluded_link_samples": [
+            "https://docs.marqo.ai/assets/templates/marqo_shopify_pixel.js",
+            "https://docs.marqo.ai/assets/templates/marqo_universal_gtm_container.json",
+            "https://docs.marqo.ai/home/recommendations/search-suggestions",
+            "https://docs.marqo.ai/merchandising/analytics-reporting/search-analytics",
+            "https://docs.marqo.ai/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.marqo.ai/agentic-search-implementation",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+            "https://docs.marqo.ai/merchandising/operations/workflows.md",
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+            "https://docs.marqo.ai/pixel/installation"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.marqo.ai/assets/templates/marqo_shopify_pixel.js",
+            "https://docs.marqo.ai/assets/templates/marqo_universal_gtm_container.json",
+            "https://docs.marqo.ai/home/recommendations/search-suggestions",
+            "https://docs.marqo.ai/merchandising/analytics-reporting/search-analytics",
+            "https://docs.marqo.ai/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.marqo.ai/agentic-search-implementation": [
+              {
+                "source_page": "https://docs.marqo.ai/home/agentic-search-introduction",
+                "anchor_text": "Implementation guide"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising",
+                "anchor_text": "Result Explanations"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/explainability/result-explanations.md": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/explainability/overview",
+                "anchor_text": "Result Explanations"
+              },
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/explainability/rule-trace",
+                "anchor_text": "Result Explanations"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/operations/workflows.md": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/operations/overview",
+                "anchor_text": "Workflows"
+              },
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/operations/roles-permissions",
+                "anchor_text": "Workflows"
+              }
+            ],
+            "https://docs.marqo.ai/merchandising/recommendations/overview.md": [
+              {
+                "source_page": "https://docs.marqo.ai/merchandising/ranking-strategy/personalization",
+                "anchor_text": "Recommendations"
+              }
+            ],
+            "https://docs.marqo.ai/pixel/installation": [
+              {
+                "source_page": "https://docs.marqo.ai/home/adobe-commerce-integration",
+                "anchor_text": "Pixel Installation Guide"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 74,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.34
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 193,
+          "api_pages_detected": 32,
+          "endpoints_with_usage_docs": 7,
+          "reference_endpoints_without_usage_docs": 186,
+          "reference_coverage_pct": 3.63,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/9j/4aaqskzjrgabaqaaaqabaad",
+            "ep:/accounts",
+            "ep:/api.marqo.ai",
+            "ep:/api.marqo.ai/api/v2/indexes/my-first-index",
+            "ep:/body",
+            "ep:/cdn.example.com/earbuds-white.jpg",
+            "ep:/cdn.example.com/headphones-black.jpg",
+            "ep:/cdn.example.com/headphones-pro.jpg",
+            "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/blue-tshirt.jpg",
+            "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/light-blue-tshirt.jpg",
+            "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/red-tshirt.jpg",
+            "ep:/collections",
+            "ep:/composite-search",
+            "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_fitment.csv",
+            "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_keywords.csv",
+            "ep:/detect",
+            "ep:/div",
+            "ep:/docs.marqo.ai",
+            "ep:/docs.marqo.ai/home/addons/fitment",
+            "ep:/docs.marqo.ai/home/adobe-commerce-integration"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 137,
+          "total_code_blocks_all": 299,
+          "runnable_without_env": 17,
+          "blocked_by_placeholders": 16,
+          "network_bound_examples": 104,
+          "example_reliability_estimate_pct": 12.41,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 4,
+          "pages_without_last_updated_hint": 70,
+          "last_updated_coverage_pct": 5.41,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.marqo.ai/home/conversational-agent",
+              "hint": "(number): Timestamp (milliseconds since epoch) when the conversation was last updated"
+            },
+            {
+              "url": "https://docs.marqo.ai/home/manage-collections",
+              "hint": "\"startDate\": \"2024-06-01\","
+            },
+            {
+              "url": "https://docs.marqo.ai/home/manage-products/update-products",
+              "hint": "\"2024-01-15\""
+            },
+            {
+              "url": "https://docs.marqo.ai/merchandising/merchandising-controls/exclusions",
+              "hint": "\"2024-01-01\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.marqo.ai/agentic-search-implementation",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+          "https://docs.marqo.ai/merchandising/operations/workflows.md",
+          "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+          "https://docs.marqo.ai/pixel/installation"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.marqo.ai/agentic-search-implementation",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations",
+          "https://docs.marqo.ai/merchandising/explainability/result-explanations.md",
+          "https://docs.marqo.ai/merchandising/operations/workflows.md",
+          "https://docs.marqo.ai/merchandising/recommendations/overview.md",
+          "https://docs.marqo.ai/pixel/installation"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/9j/4aaqskzjrgabaqaaaqabaad",
+          "ep:/accounts",
+          "ep:/api.marqo.ai",
+          "ep:/api.marqo.ai/api/v2/indexes/my-first-index",
+          "ep:/body",
+          "ep:/cdn.example.com/earbuds-white.jpg",
+          "ep:/cdn.example.com/headphones-black.jpg",
+          "ep:/cdn.example.com/headphones-pro.jpg",
+          "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/blue-tshirt.jpg",
+          "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/light-blue-tshirt.jpg",
+          "ep:/cdn.shopify.com/s/files/1/0705/8276/3687/files/red-tshirt.jpg",
+          "ep:/collections",
+          "ep:/composite-search",
+          "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_fitment.csv",
+          "ep:/d2dhilujomkt2t.cloudfront.net/examples/example_keywords.csv",
+          "ep:/detect",
+          "ep:/div",
+          "ep:/docs.marqo.ai",
+          "ep:/docs.marqo.ai/home/addons/fitment",
+          "ep:/docs.marqo.ai/home/adobe-commerce-integration"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 148,
+        "requested_pages": 164,
+        "urls_examined": 148,
+        "max_pages_total": 10000,
+        "discovered_pages": 148,
+        "crawl_scope_pages": 148,
+        "trap_urls_skipped": 138,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 12,
+        "docs_broken_links_count": 12,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 12,
+        "excluded_links_count": 10
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 0.34
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 3.63,
+        "no_api_pages_found": false,
+        "api_pages_detected": 64,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 12.41
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 5.41
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 12",
+    "API usage-doc coverage is low: 3.63% (64 API pages detected)",
+    "Example reliability estimate is low: 12.41%",
+    "Freshness visibility is weak: only 5.41% pages show last updated",
+    "Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit covered 148 pages across 2 site URLs with 100% crawl coverage and 91.5% overall confidence. Critical issues identified: 12 confirmed broken internal links affecting user navigation, API reference coverage at only 3.63% despite 64 API pages detected, and example code reliability estimated at 12.41%. Freshness metadata present on only 5.41% of pages, limiting maintainability visibility. Multi-project topology confirmed with no fragmentation penalties applied.",
+      "strengths": [
+        "Complete crawl coverage achieved at 100% (148 of 148 discovered pages)",
+        "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+        "Zero repository navigation broken links; all 12 broken links are user-facing documentation issues",
+        "Multi-project structure properly configured without fragmentation penalties",
+        "No unverified or excluded link issues detected"
+      ],
+      "risks": [
+        "12 confirmed broken internal documentation links directly impacting user navigation and trust",
+        "API reference coverage critically low at 3.63% with 64 API pages detected, indicating severe documentation gaps",
+        "Example code reliability at 12.41% suggests majority of code samples may be outdated or non-functional",
+        "Freshness metadata missing on 94.59% of pages, preventing users from assessing content currency",
+        "SEO/geo issues present at 0.34% rate, potential discoverability impact",
+        "Low example reliability combined with low API coverage creates compounding onboarding friction",
+        "Absence of last-updated timestamps undermines documentation credibility for enterprise evaluation"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 12 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API reference documentation from 3.63% to minimum 60% coverage across 64 detected API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Audit and update example code to improve reliability from 12.41% to target 80%+",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated metadata across all pages to increase freshness visibility from 5.41% to 100%",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Resolve SEO/geo issues affecting 0.34% of pages to optimize search discoverability",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify functional correctness of API documentation content or parameter accuracy",
+        "Example code reliability is estimated through heuristics; actual runtime testing required for true validation",
+        "Crawl limited to publicly accessible pages; authenticated or gated content not evaluated",
+        "API coverage detection may undercount if non-standard documentation patterns used; 85% confidence indicates possible detection gaps",
+        "Freshness assessment relies on explicit metadata presence; actual content currency not semantically analyzed"
+      ]
+    }
+  }
+}

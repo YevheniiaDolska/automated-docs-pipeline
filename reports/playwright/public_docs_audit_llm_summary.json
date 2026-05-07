@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Playwright documentation spans 4 language-specific sites with 1932 pages crawled from 1971 discovered (100% coverage). Critical issue: 1823 confirmed broken internal documentation links across the estate. API reference coverage is weak at 17.01% despite 873 API pages detected. Freshness metadata exists on only 2.23% of pages. Overall audit confidence is 90.2% with 61 links unverifiable due to access restrictions.",
+    "strengths": [
+      "Complete crawl coverage at 100% (1932 of 1932 in-scope pages successfully crawled)",
+      "High overall audit confidence at 90.2% with strong crawl confidence at 95%",
+      "Example code reliability estimated at 87.13%, indicating quality code samples",
+      "Low SEO/geo issue rate at 2.46%, suggesting good technical SEO hygiene",
+      "Multi-language documentation strategy supports JavaScript, Python, Java, and .NET audiences"
+    ],
+    "risks": [
+      "1823 confirmed broken internal documentation links create severe user navigation and trust issues",
+      "API reference coverage at 17.01% leaves 82.99% of API surface undocumented or poorly linked",
+      "Freshness metadata on only 2.23% of pages prevents users from assessing content currency",
+      "Multi-site topology for single product increases inconsistency risk and maintenance burden across 4 separate doc trees",
+      "61 unverified links due to authentication or rate-limiting may hide additional broken links",
+      "Large page count (1932) with minimal freshness tracking suggests potential documentation drift",
+      "Low API coverage combined with 873 detected API pages indicates significant gap between API surface and usage documentation"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Emergency remediation of 1823 broken internal links across all four language documentation sites",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement automated link checking in CI/CD pipeline to prevent future link rot",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Expand API reference coverage from 17.01% to minimum 70% by adding usage examples and cross-links to 873 detected API pages",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all pages (currently 2.23% coverage) to improve content trust and maintenance visibility",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 61 unverified links blocked by authentication or rate-limiting to complete link audit",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or whether documentation matches actual product behavior",
+      "61 links were unverifiable due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "API coverage detection relies on heuristics; actual API surface completeness requires internal product knowledge and schema validation",
+      "Multi-site consistency (terminology, versioning, feature parity) across 4 language docs cannot be assessed through automated crawling",
+      "Example code reliability is estimated through static analysis; actual executability and correctness require live testing against product versions"
+    ]
+  }
+}

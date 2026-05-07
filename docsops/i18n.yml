@@ -1,0 +1,13 @@
+default_language: en
+docs_structure: folder
+languages:
+- locale: en
+  name: English
+  build: true
+translation:
+  stale_threshold_days: 30
+  auto_translate:
+    provider: anthropic
+    model: claude-sonnet-4-20250514
+    max_concurrency: 3
+    temperature: 0.3

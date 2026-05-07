@@ -1,0 +1,38 @@
+name: DocsOps Docs CI
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'docsops/**'
+  push:
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'docsops/**'
+
+jobs:
+  lint-and-build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          npm ci || true
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements-dev.txt || true
+          python3 -m pip install mkdocs sphinx || true
+      - name: Run docs checks
+        env:
+          DOCSOPS_SITE_GENERATOR: 'mkdocs'
+          DOCSOPS_SITE_BUILD_COMMAND: 'mkdocs build --strict'
+          DOCSOPS_DOCS_LINT_COMMAND: 'npm run lint'
+        run: |
+          python3 docsops/scripts/run_docs_ci_checks.py --runtime-config docsops/config/client_runtime.yml

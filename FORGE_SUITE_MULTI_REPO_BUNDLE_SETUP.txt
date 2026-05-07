@@ -1,0 +1,74 @@
+Forge Suite multi-repo setup (app-forge + code-forge + quantum-forge + forge-studio hub)
+
+Goal
+- Keep four separate repositories.
+- Publish one unified docs portal from forge-studio with sections:
+  - docs/app-forge
+  - docs/code-forge
+  - docs/quantum-forge
+  - docs/forge-studio
+
+Files prepared for you
+1) Hub profile:
+   profiles/clients/examples/forge-suite-forge-studio-hub.client.yml
+2) Product profiles:
+   profiles/clients/examples/forge-suite-app-forge.client.yml
+   profiles/clients/examples/forge-suite-code-forge.client.yml
+   profiles/clients/examples/forge-suite-quantum-forge.client.yml
+3) Sync script:
+   scripts/sync_multi_repo_docs.py
+
+Before build
+1) Open each profile and update at least:
+   - client.contact_email
+   - client.company_domain
+   - licensing.days (if needed)
+2) For hub profile, verify sibling paths in custom_tasks.weekly:
+   - ../app-forge/docs
+   - ../code-forge/docs
+   - ../quantum-forge/docs
+   - ../forge-studio/docs
+   These assume repos are siblings in one parent folder.
+
+Build 4 bundles
+Run from Auto-Doc Pipeline root:
+
+python3 scripts/build_client_bundle.py --client profiles/clients/examples/forge-suite-app-forge.client.yml
+python3 scripts/build_client_bundle.py --client profiles/clients/examples/forge-suite-code-forge.client.yml
+python3 scripts/build_client_bundle.py --client profiles/clients/examples/forge-suite-quantum-forge.client.yml
+python3 scripts/build_client_bundle.py --client profiles/clients/examples/forge-suite-forge-studio-hub.client.yml
+
+Expected output folders
+- generated/client_bundles/app-forge
+- generated/client_bundles/code-forge
+- generated/client_bundles/quantum-forge
+- generated/client_bundles/forge-studio-hub
+
+Install each bundle into each target repo
+1) Install app-forge bundle into app-forge repo
+2) Install code-forge bundle into code-forge repo
+3) Install quantum-forge bundle into quantum-forge repo
+4) Install forge-studio-hub bundle into forge-studio repo
+
+If you prefer one-step install-local, run (example):
+python3 scripts/provision_client_repo.py --client profiles/clients/examples/forge-suite-app-forge.client.yml --client-repo "C:\Users\Kroha\Documents\development\app-forge" --docsops-dir docsops --install-scheduler none
+python3 scripts/provision_client_repo.py --client profiles/clients/examples/forge-suite-code-forge.client.yml --client-repo "C:\Users\Kroha\Documents\development\code-forge" --docsops-dir docsops --install-scheduler none
+python3 scripts/provision_client_repo.py --client profiles/clients/examples/forge-suite-quantum-forge.client.yml --client-repo "C:\Users\Kroha\Documents\development\quantum-forge" --docsops-dir docsops --install-scheduler none
+python3 scripts/provision_client_repo.py --client profiles/clients/examples/forge-suite-forge-studio-hub.client.yml --client-repo "C:\Users\Kroha\Documents\development\forge-studio" --docsops-dir docsops --install-scheduler none
+
+How unified portal works
+1) Product repos generate and maintain their own docs.
+2) In forge-studio, weekly tasks run sync_multi_repo_docs.py and copy docs into:
+   - docs/app-forge
+   - docs/code-forge
+   - docs/quantum-forge
+   - docs/forge-studio
+3) Then run forge-studio autopipeline/build/publish as your canonical shared docs site.
+
+Run hub sync manually
+From forge-studio repo:
+python3 docsops/scripts/sync_multi_repo_docs.py --pair ../app-forge/docs:docs/app-forge --pair ../code-forge/docs:docs/code-forge --pair ../quantum-forge/docs:docs/quantum-forge --pair ../forge-studio/docs:docs/forge-studio
+
+Important note
+- Do not point --pair source to docsops-managed generated folders.
+- Always use source repositories' canonical docs directories.

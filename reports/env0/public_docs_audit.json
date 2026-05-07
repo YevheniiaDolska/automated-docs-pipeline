@@ -1,0 +1,256 @@
+{
+  "generated_at": "2026-04-30T13:56:55.401794+00:00",
+  "site_url": "https://docs.envzero.com/",
+  "site_urls": [
+    "https://docs.envzero.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.envzero.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 613,
+          "requested_pages": 624,
+          "urls_examined": 614,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 614,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 614,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 614,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 624,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://docs.envzero.com/api-reference/webhooks/destroy-failed-webhook"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.envzero.com/api-reference/webhooks/destroy-failed-webhook"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.envzero.com/api-reference/webhooks/destroy-failed-webhook"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 613,
+          "missing_title_count": 0,
+          "missing_description_count": 209,
+          "multiple_h1_count": 26,
+          "heading_hierarchy_jump_count": 294,
+          "seo_geo_issue_rate_pct": 21.57
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 8,
+          "api_pages_detected": 319,
+          "endpoints_with_usage_docs": 6,
+          "reference_endpoints_without_usage_docs": 2,
+          "reference_coverage_pct": 75.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:configuration",
+            "gql:result"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 797,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (797 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 7,
+          "pages_without_last_updated_hint": 606,
+          "last_updated_coverage_pct": 1.14,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.envzero.com/guides/cloud-compass/cloud-compass",
+              "hint": "The dashboard displays the period for which the data is shown (including the initial data time and last updated time) an"
+            },
+            {
+              "url": "https://docs.envzero.com/guides/community-and-resources/learn-more/events-and-webinars",
+              "hint": "All event details, registration links, and schedules are maintained on our events hub. Bookmark the page to stay updated"
+            },
+            {
+              "url": "https://docs.envzero.com/guides/cost-monitoring/aws-costs",
+              "hint": "'2010-09-09'"
+            },
+            {
+              "url": "https://docs.envzero.com/guides/getting-started/connect-your-cloud-account",
+              "hint": "'2010-09-09'"
+            },
+            {
+              "url": "https://docs.envzero.com/guides/integrations/logs-forwarding/cloudwatch",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.envzero.com/guides/integrations/logs-forwarding/s3",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.envzero.com/guides/integrations/oidc-integrations/oidc-with-aws",
+              "hint": "\"2012-10-17\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.envzero.com/api-reference/webhooks/destroy-failed-webhook"
+        ],
+        "api_uncovered_samples": [
+          "gql:configuration",
+          "gql:result"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 613,
+        "requested_pages": 624,
+        "urls_examined": 614,
+        "max_pages_total": 5000,
+        "discovered_pages": 614,
+        "crawl_scope_pages": 614,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 1,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 21.57
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 75.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 319,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.14
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 21.57%",
+    "Example reliability: 0% on 613 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 1.14% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.envzero.com covered 613 pages with 100% crawl coverage across 614 discovered URLs. Zero broken links detected in user-facing documentation, with 1 unverified link due to authentication or rate-limiting. API reference coverage stands at 75% across 319 detected API pages. Critical gaps include 21.57% SEO/GEO issue rate, 0% example reliability detection (likely JS rendering limitation), and only 1.14% of pages displaying freshness timestamps.",
+      "strengths": [
+        "Complete crawl coverage at 100% with no trap URLs or scope issues",
+        "Zero broken internal or documentation links across 613 pages",
+        "Strong API page detection with 319 pages identified and 75% reference coverage",
+        "No repository navigation link breakage",
+        "High crawl confidence at 95%"
+      ],
+      "risks": [
+        "SEO/GEO issue rate of 21.57% may impact discoverability and search ranking",
+        "Example reliability at 0% indicates code samples are unverified or undetectable (JS rendering suspected)",
+        "Freshness metadata present on only 1.14% of pages undermines content trust and maintenance visibility",
+        "Overall confidence at 63.5% suggests significant audit blind spots",
+        "Links confidence at 25% indicates limited verification depth for external references",
+        "1 unverified link blocked by authentication or rate-limiting requires manual review",
+        "Detection limitations on examples may hide broken or outdated code samples"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement last-updated timestamps on all 613 pages to improve freshness visibility from 1.14% to 100%",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and remediate SEO/GEO issues affecting 21.57% of pages (metadata, headings, structure)",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Enable server-side rendering or static code block generation to allow example validation",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Manually verify the 1 unverified link and establish authentication bypass for monitoring",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Close API reference coverage gap from 75% to 95%+ by documenting missing endpoints",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audits cannot verify correctness or accuracy of technical content, only structural presence",
+        "JavaScript-rendered code examples (0% detection) cannot be extracted or validated without runtime execution",
+        "Authentication-protected links and rate-limited endpoints require internal access for full verification",
+        "API coverage percentage assumes detected pages represent complete API surface; undiscoverable endpoints are excluded",
+        "Freshness analysis depends on visible metadata; actual content currency may differ from displayed timestamps"
+      ]
+    }
+  }
+}

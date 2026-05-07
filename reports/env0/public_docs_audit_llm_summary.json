@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.envzero.com covered 613 pages with 100% crawl coverage across 614 discovered URLs. Zero broken links detected in user-facing documentation, with 1 unverified link due to authentication or rate-limiting. API reference coverage stands at 75% across 319 detected API pages. Critical gaps include 21.57% SEO/GEO issue rate, 0% example reliability detection (likely JS rendering limitation), and only 1.14% of pages displaying freshness timestamps.",
+    "strengths": [
+      "Complete crawl coverage at 100% with no trap URLs or scope issues",
+      "Zero broken internal or documentation links across 613 pages",
+      "Strong API page detection with 319 pages identified and 75% reference coverage",
+      "No repository navigation link breakage",
+      "High crawl confidence at 95%"
+    ],
+    "risks": [
+      "SEO/GEO issue rate of 21.57% may impact discoverability and search ranking",
+      "Example reliability at 0% indicates code samples are unverified or undetectable (JS rendering suspected)",
+      "Freshness metadata present on only 1.14% of pages undermines content trust and maintenance visibility",
+      "Overall confidence at 63.5% suggests significant audit blind spots",
+      "Links confidence at 25% indicates limited verification depth for external references",
+      "1 unverified link blocked by authentication or rate-limiting requires manual review",
+      "Detection limitations on examples may hide broken or outdated code samples"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement last-updated timestamps on all 613 pages to improve freshness visibility from 1.14% to 100%",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate SEO/GEO issues affecting 21.57% of pages (metadata, headings, structure)",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Enable server-side rendering or static code block generation to allow example validation",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Manually verify the 1 unverified link and establish authentication bypass for monitoring",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Close API reference coverage gap from 75% to 95%+ by documenting missing endpoints",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audits cannot verify correctness or accuracy of technical content, only structural presence",
+      "JavaScript-rendered code examples (0% detection) cannot be extracted or validated without runtime execution",
+      "Authentication-protected links and rate-limited endpoints require internal access for full verification",
+      "API coverage percentage assumes detected pages represent complete API surface; undiscoverable endpoints are excluded",
+      "Freshness analysis depends on visible metadata; actual content currency may differ from displayed timestamps"
+    ]
+  }
+}

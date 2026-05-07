@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of https://unkey.com/docs covered 114 pages with 100.88% crawl coverage and 91.5% overall confidence. Critical issues include 17 confirmed broken internal documentation links requiring immediate remediation. API reference coverage is severely deficient at 13.16% despite 33 API pages detected, indicating incomplete documentation of available endpoints. Example code reliability scored 0.0%, representing a complete absence of validated or testable code samples. Freshness metadata exists for 76.32% of pages, while SEO/geo issues affect 9.65% of content.",
+    "strengths": [
+      "Complete crawl coverage at 100.88% with all 114 discovered pages successfully examined",
+      "High overall audit confidence at 91.5% with strong link verification (95%) and crawl reliability (95%)",
+      "Single-product topology provides clear documentation structure and navigation model",
+      "No repository navigation link breakage (0 repo_broken_links_count), indicating healthy source control integration",
+      "Majority of pages (76.32%) include last-updated metadata supporting freshness tracking"
+    ],
+    "risks": [
+      "17 confirmed broken internal documentation links create poor user experience and erode trust in documentation quality",
+      "API reference coverage at 13.16% leaves 86.84% of API surface undocumented, blocking developer adoption and integration",
+      "Example reliability at 0.0% indicates no working code samples, forcing users to debug documentation errors",
+      "Zero validated examples increase support burden and slow time-to-first-success for new developers",
+      "23.68% of pages lack freshness metadata, obscuring content staleness and maintenance gaps",
+      "SEO/geo issues on 9.65% of pages may reduce discoverability in search engines and international markets",
+      "Low API confidence score (85%) suggests potential gaps in automated API endpoint detection or documentation structure"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 17 broken internal documentation links through automated link validation in CI/CD pipeline",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference documentation from 13.16% to minimum 80% coverage by documenting missing endpoints, parameters, and response schemas",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement executable code examples with automated testing to achieve minimum 60% example reliability score",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated metadata to remaining 23.68% of pages and establish quarterly content review process",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Remediate SEO/geo issues on affected 9.65% of pages (meta descriptions, canonical tags, language declarations)",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify technical accuracy of API documentation content, parameter types, or response examples against actual API behavior",
+      "Example code reliability scoring depends on detectable patterns; custom or embedded code samples may not be fully assessed",
+      "API coverage detection relies on documentation structure conventions; non-standard reference page formats may undercount actual coverage",
+      "Audit cannot assess documentation completeness for proprietary features, internal tools, or undisclosed API capabilities",
+      "Freshness metadata presence does not guarantee content accuracy or reflect actual product changes since last update"
+    ]
+  }
+}

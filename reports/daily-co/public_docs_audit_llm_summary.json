@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.daily.co crawled 584 pages with 100% coverage of discovered content. The site contains 31 confirmed broken internal documentation links requiring immediate remediation. API reference coverage is critically low at 14.52% despite 447 API pages detected, indicating significant gaps in usage documentation. Example code reliability is strong at 93.48%, and freshness metadata coverage is complete at 100%. Overall audit confidence stands at 89.08%.",
+    "strengths": [
+      "Complete crawl coverage at 100% of 584 discovered pages with no scope limitations",
+      "Strong example code reliability at 93.48% across detected samples",
+      "Full freshness metadata coverage at 100% enabling content maintenance tracking",
+      "Zero broken repository navigation links, keeping internal workflows intact",
+      "High overall audit confidence at 89.08% with strong crawl confidence at 95%"
+    ],
+    "risks": [
+      "31 confirmed broken internal documentation links degrading user navigation and trust",
+      "Critically low API reference coverage at 14.52% leaving 85% of API surface undocumented for usage",
+      "447 API pages detected but minimal accompanying usage documentation creates integration friction",
+      "2 unverified links due to authentication or rate-limiting may hide additional broken links",
+      "SEO/geo issues present at 1.41% rate potentially affecting discoverability in key markets",
+      "API confidence at 85% suggests potential detection gaps in coverage measurement",
+      "23 trap URLs skipped during crawl may indicate pagination or infinite scroll issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 31 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API usage documentation from 14.52% to minimum 70% coverage across 447 detected API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate and resolve 2 unverified links blocked by auth/rate-limits to complete link audit",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Audit 23 trap URLs skipped to identify and fix pagination or crawl architecture issues",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Address SEO/geo issues affecting 1.41% of pages to improve regional discoverability",
+        "impact": "low",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of implementation details",
+      "Authentication-protected pages and rate-limited endpoints (2 unverified links) may hide additional broken links or coverage gaps",
+      "API coverage detection relies on pattern matching and may undercount or misclassify reference vs usage documentation",
+      "Example code reliability is estimated through static analysis and cannot guarantee runtime execution success or environment compatibility"
+    ]
+  }
+}

@@ -1,0 +1,829 @@
+{
+  "generated_at": "2026-04-25T17:28:23.724107+00:00",
+  "site_url": "https://www.tinybird.co/docs",
+  "site_urls": [
+    "https://www.tinybird.co/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://www.tinybird.co/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1113,
+          "requested_pages": 1897,
+          "urls_examined": 1229,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1229,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1195,
+          "crawl_coverage_pct": 102.85,
+          "trap_urls_skipped": 4,
+          "seeded_sitemap_urls": 1195,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 1696,
+          "broken_internal_links_count": 21,
+          "docs_broken_links_count": 21,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://www.tinybird.co/2024-08-12-tinybird-vs-clickhouse",
+            "https://www.tinybird.co/2025-05-19-real-time-analytics-on-apache-iceberg-with-tinybird",
+            "https://www.tinybird.co/2025-05-26-optimizing-apache-iceberg-tables-for-real-time-analytics",
+            "https://www.tinybird.co/docs/forward/branches",
+            "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/index",
+            "https://www.tinybird.co/docs/forward/get-started/api-reference",
+            "https://www.tinybird.co/docs/forward/pricing/billing",
+            "https://www.tinybird.co/docs/forward/work-with-data/query/guides/working-with-time",
+            "https://www.tinybird.co/docs/get-started/plans/billing",
+            "https://www.tinybird.co/docs/quick-start-coding-agents",
+            "https://www.tinybird.co/docs/quick-start-python-sdk",
+            "https://www.tinybird.co/docs/quick-start-typescript-sdk",
+            "https://www.tinybird.co/docs/sql-reference/data-types/float.md",
+            "https://www.tinybird.co/docs/work-with-data/publish-data/sinks",
+            "https://www.tinybird.co/guide/high-frequency-ingestion",
+            "https://www.tinybird.co/quick-start",
+            "https://www.tinybird.co/quick-start-coding-agents",
+            "https://www.tinybird.co/quick-start-python-sdk",
+            "https://www.tinybird.co/quick-start-typescript-sdk",
+            "https://www.tinybird.co/troubleshooting"
+          ],
+          "docs_broken_link_samples": [
+            "https://www.tinybird.co/2024-08-12-tinybird-vs-clickhouse",
+            "https://www.tinybird.co/2025-05-19-real-time-analytics-on-apache-iceberg-with-tinybird",
+            "https://www.tinybird.co/2025-05-26-optimizing-apache-iceberg-tables-for-real-time-analytics",
+            "https://www.tinybird.co/docs/forward/branches",
+            "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/index",
+            "https://www.tinybird.co/docs/forward/get-started/api-reference",
+            "https://www.tinybird.co/docs/forward/pricing/billing",
+            "https://www.tinybird.co/docs/forward/work-with-data/query/guides/working-with-time",
+            "https://www.tinybird.co/docs/get-started/plans/billing",
+            "https://www.tinybird.co/docs/quick-start-coding-agents",
+            "https://www.tinybird.co/docs/quick-start-python-sdk",
+            "https://www.tinybird.co/docs/quick-start-typescript-sdk",
+            "https://www.tinybird.co/docs/sql-reference/data-types/float.md",
+            "https://www.tinybird.co/docs/work-with-data/publish-data/sinks",
+            "https://www.tinybird.co/guide/high-frequency-ingestion",
+            "https://www.tinybird.co/quick-start",
+            "https://www.tinybird.co/quick-start-coding-agents",
+            "https://www.tinybird.co/quick-start-python-sdk",
+            "https://www.tinybird.co/quick-start-typescript-sdk",
+            "https://www.tinybird.co/troubleshooting",
+            "https://www.tinybird.co/troubleshooting/errors/TOO_MANY_PARTS"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 111,
+          "unverified_links_count": 111,
+          "unverified_link_samples": [
+            "https://www.tinybird.co/blog/1b-rows-per-second-clickhouse",
+            "https://www.tinybird.co/blog/5-criteria-of-data-quality-and-how-to-test-for-them",
+            "https://www.tinybird.co/blog/5-rules-for-writing-faster-sql-queries",
+            "https://www.tinybird.co/blog/7-strategies-for-reducing-cloud-infrastructure-costs-in-2023",
+            "https://www.tinybird.co/blog/8-considerations-for-designing-public-data-apis",
+            "https://www.tinybird.co/blog/announcing-copy-pipes",
+            "https://www.tinybird.co/blog/announcing-time-series",
+            "https://www.tinybird.co/blog/announcing-tinybird-forward",
+            "https://www.tinybird.co/blog/badass-api-endpoint",
+            "https://www.tinybird.co/blog/birdwatcher-slack-app",
+            "https://www.tinybird.co/blog/branches-deep-dive",
+            "https://www.tinybird.co/blog/branches-ga",
+            "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes",
+            "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes-part-2",
+            "https://www.tinybird.co/blog/building-a-product-feedback-loop-with-tinybird-mcp-plain-and-one-llm-prompt",
+            "https://www.tinybird.co/blog/building-a-resend-analytics-dashboard",
+            "https://www.tinybird.co/blog/building-an-analytics-agent-with-agno-and-tinybird",
+            "https://www.tinybird.co/blog/building-real-time-leaderboards-with-tinybird",
+            "https://www.tinybird.co/blog/cdc-real-time-analytics-estuary-dekaf",
+            "https://www.tinybird.co/blog/changelog-10-bigquery-connector-cli-improvements",
+            "https://www.tinybird.co/blog/changelog-11-snowflake-connector-cancellable-jobs",
+            "https://www.tinybird.co/blog/changelog-12-better-autocomplete-cli-on-macos-endpoint-errors-data-source",
+            "https://www.tinybird.co/blog/changelog-13-faster-advanced-dynamic-functions-and-fixes",
+            "https://www.tinybird.co/blog/changelog-15",
+            "https://www.tinybird.co/blog/changelog-17-some-features-and-updates",
+            "https://www.tinybird.co/blog/changelog-api-endpoints-clickhouse-cli",
+            "https://www.tinybird.co/blog/changelog-performance-improvement",
+            "https://www.tinybird.co/blog/ci-cd-best-practices-with-tinybird",
+            "https://www.tinybird.co/blog/clickhouse-kafka-connector",
+            "https://www.tinybird.co/blog/clickhouse-kafka-engine-vs-tinybird-connector"
+          ],
+          "confirmed_broken_links_count": 21,
+          "excluded_links_count": 5,
+          "excluded_link_samples": [
+            "https://www.tinybird.co/blog/rss.xml",
+            "https://www.tinybird.co/blog/search",
+            "https://www.tinybird.co/blog/search-posts",
+            "https://www.tinybird.co/docs/third-party-credits.zip",
+            "https://www.tinybird.co/tinybird-subprocessors.pdf"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://www.tinybird.co/2024-08-12-tinybird-vs-clickhouse",
+            "https://www.tinybird.co/2025-05-19-real-time-analytics-on-apache-iceberg-with-tinybird",
+            "https://www.tinybird.co/2025-05-26-optimizing-apache-iceberg-tables-for-real-time-analytics",
+            "https://www.tinybird.co/docs/forward/branches",
+            "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/index",
+            "https://www.tinybird.co/docs/forward/get-started/api-reference",
+            "https://www.tinybird.co/docs/forward/pricing/billing",
+            "https://www.tinybird.co/docs/forward/work-with-data/query/guides/working-with-time",
+            "https://www.tinybird.co/docs/get-started/plans/billing",
+            "https://www.tinybird.co/docs/quick-start-coding-agents",
+            "https://www.tinybird.co/docs/quick-start-python-sdk",
+            "https://www.tinybird.co/docs/quick-start-typescript-sdk",
+            "https://www.tinybird.co/docs/sql-reference/data-types/float.md",
+            "https://www.tinybird.co/docs/work-with-data/publish-data/sinks",
+            "https://www.tinybird.co/guide/high-frequency-ingestion",
+            "https://www.tinybird.co/quick-start",
+            "https://www.tinybird.co/quick-start-coding-agents",
+            "https://www.tinybird.co/quick-start-python-sdk",
+            "https://www.tinybird.co/quick-start-typescript-sdk",
+            "https://www.tinybird.co/troubleshooting",
+            "https://www.tinybird.co/troubleshooting/errors/TOO_MANY_PARTS"
+          ],
+          "_all_unverified_links": [
+            "https://www.tinybird.co/blog/1b-rows-per-second-clickhouse",
+            "https://www.tinybird.co/blog/5-criteria-of-data-quality-and-how-to-test-for-them",
+            "https://www.tinybird.co/blog/5-rules-for-writing-faster-sql-queries",
+            "https://www.tinybird.co/blog/7-strategies-for-reducing-cloud-infrastructure-costs-in-2023",
+            "https://www.tinybird.co/blog/8-considerations-for-designing-public-data-apis",
+            "https://www.tinybird.co/blog/announcing-copy-pipes",
+            "https://www.tinybird.co/blog/announcing-time-series",
+            "https://www.tinybird.co/blog/announcing-tinybird-forward",
+            "https://www.tinybird.co/blog/badass-api-endpoint",
+            "https://www.tinybird.co/blog/birdwatcher-slack-app",
+            "https://www.tinybird.co/blog/branches-deep-dive",
+            "https://www.tinybird.co/blog/branches-ga",
+            "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes",
+            "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes-part-2",
+            "https://www.tinybird.co/blog/building-a-product-feedback-loop-with-tinybird-mcp-plain-and-one-llm-prompt",
+            "https://www.tinybird.co/blog/building-a-resend-analytics-dashboard",
+            "https://www.tinybird.co/blog/building-an-analytics-agent-with-agno-and-tinybird",
+            "https://www.tinybird.co/blog/building-real-time-leaderboards-with-tinybird",
+            "https://www.tinybird.co/blog/cdc-real-time-analytics-estuary-dekaf",
+            "https://www.tinybird.co/blog/changelog-10-bigquery-connector-cli-improvements",
+            "https://www.tinybird.co/blog/changelog-11-snowflake-connector-cancellable-jobs",
+            "https://www.tinybird.co/blog/changelog-12-better-autocomplete-cli-on-macos-endpoint-errors-data-source",
+            "https://www.tinybird.co/blog/changelog-13-faster-advanced-dynamic-functions-and-fixes",
+            "https://www.tinybird.co/blog/changelog-15",
+            "https://www.tinybird.co/blog/changelog-17-some-features-and-updates",
+            "https://www.tinybird.co/blog/changelog-api-endpoints-clickhouse-cli",
+            "https://www.tinybird.co/blog/changelog-performance-improvement",
+            "https://www.tinybird.co/blog/ci-cd-best-practices-with-tinybird",
+            "https://www.tinybird.co/blog/clickhouse-kafka-connector",
+            "https://www.tinybird.co/blog/clickhouse-kafka-engine-vs-tinybird-connector",
+            "https://www.tinybird.co/blog/clickhouse-lock-contention",
+            "https://www.tinybird.co/blog/custom-ci-for-kafka-and-tinybird",
+            "https://www.tinybird.co/blog/data-driven-ci-pipeline-monitoring-with-pytest",
+            "https://www.tinybird.co/blog/data-journey",
+            "https://www.tinybird.co/blog/data-lineage-graph",
+            "https://www.tinybird.co/blog/data-market-whitebox-replaces-4-data-stack-tools-with-tinybird",
+            "https://www.tinybird.co/blog/data-rules-materialized-views-40000-dollars",
+            "https://www.tinybird.co/blog/database-timestamps-timezones",
+            "https://www.tinybird.co/blog/designing-and-implementing-a-weather-data-api",
+            "https://www.tinybird.co/blog/dev-qa-guilherme-oenning",
+            "https://www.tinybird.co/blog/dub-webhooks-event-logs",
+            "https://www.tinybird.co/blog/dynamodb-connector-ga",
+            "https://www.tinybird.co/blog/dynamodb-public-beta",
+            "https://www.tinybird.co/blog/dynamodb-real-time-analytics",
+            "https://www.tinybird.co/blog/dynamodb-use-cases",
+            "https://www.tinybird.co/blog/eating-our-own-dog-food-how-we-investigate-performance-bottlenecks-using-our-product-and-google-sheets",
+            "https://www.tinybird.co/blog/enterprise-grade-real-time-analytics",
+            "https://www.tinybird.co/blog/explorations-ui-revamp",
+            "https://www.tinybird.co/blog/how-i-replaced-google-analytics-with-retool-and-tinybird-part-1",
+            "https://www.tinybird.co/blog/how-to-build-an-analytics-agent-with-agno-and-tinybird-step-by-step",
+            "https://www.tinybird.co/blog/how-to-fix-kafka-to-clickhouse-performance-bottlenecks",
+            "https://www.tinybird.co/blog/how-to-install-clickhouse-on-your-own-servers-with-tinybird-self-managed-regions",
+            "https://www.tinybird.co/blog/how-to-monitor-tinybird-using-datadog-with-vector-dev",
+            "https://www.tinybird.co/blog/how-to-set-up-event-based-ingestion-of-files-in-s3-for-free",
+            "https://www.tinybird.co/blog/how-we-handle-service-disruptions",
+            "https://www.tinybird.co/blog/how-we-setup-real-time-analytics-service-to-process-12-trillion-rows-during-black-friday",
+            "https://www.tinybird.co/blog/improved-rowbinary-conversion",
+            "https://www.tinybird.co/blog/instrument-your-llm-calls",
+            "https://www.tinybird.co/blog/introducing-branches-in-beta",
+            "https://www.tinybird.co/blog/introducing-explorations",
+            "https://www.tinybird.co/blog/introducing-llm-performance-tracker",
+            "https://www.tinybird.co/blog/introducing-the-tinybird-mcp-server-your-real-time-data-llm-ready",
+            "https://www.tinybird.co/blog/introducing-the-tinybird-opentelemetry-exporter",
+            "https://www.tinybird.co/blog/iot-monitoring-with-kafka-and-tinybird",
+            "https://www.tinybird.co/blog/jobs-log-launch",
+            "https://www.tinybird.co/blog/mcp-vs-apis-when-to-use-which-for-ai-agent-development",
+            "https://www.tinybird.co/blog/migrating-from-rockset-feature-comparison",
+            "https://www.tinybird.co/blog/multi-agent-claude-code-tinybird-code",
+            "https://www.tinybird.co/blog/mysql-cdc",
+            "https://www.tinybird.co/blog/natural-language-dashboard-filters",
+            "https://www.tinybird.co/blog/new-clickhouse-backup-engine",
+            "https://www.tinybird.co/blog/privacy-first-google-analytics-alternative",
+            "https://www.tinybird.co/blog/projections",
+            "https://www.tinybird.co/blog/python-real-time-dashboard",
+            "https://www.tinybird.co/blog/query-google-sheets-with-sql-in-real-time",
+            "https://www.tinybird.co/blog/rate-limiting-announcement",
+            "https://www.tinybird.co/blog/real-time-analytics-a-definitive-guide",
+            "https://www.tinybird.co/blog/real-time-analytics-bigquery-dataflow",
+            "https://www.tinybird.co/blog/real-time-applications-with-bigquery-connector",
+            "https://www.tinybird.co/blog/real-time-change-data-capture",
+            "https://www.tinybird.co/blog/real-time-dashboard-step-by-step",
+            "https://www.tinybird.co/blog/real-time-dashboards-are-they-worth-it",
+            "https://www.tinybird.co/blog/real-time-data-engineering-example-projects",
+            "https://www.tinybird.co/blog/real-time-data-ingestion",
+            "https://www.tinybird.co/blog/real-time-data-platforms",
+            "https://www.tinybird.co/blog/real-time-data-processing",
+            "https://www.tinybird.co/blog/real-time-data-visualization",
+            "https://www.tinybird.co/blog/real-time-databases-what-developers-need-to-know",
+            "https://www.tinybird.co/blog/real-time-personalization",
+            "https://www.tinybird.co/blog/real-time-recommendation-system",
+            "https://www.tinybird.co/blog/real-time-solutions-with-snowflake",
+            "https://www.tinybird.co/blog/real-time-streaming-analytics-confluent-connector-tinybird",
+            "https://www.tinybird.co/blog/real-time-streaming-data-architectures-that-scale",
+            "https://www.tinybird.co/blog/tb-create",
+            "https://www.tinybird.co/blog/tb-deploy",
+            "https://www.tinybird.co/blog/tb-dev",
+            "https://www.tinybird.co/blog/tb-infra",
+            "https://www.tinybird.co/blog/tb-test",
+            "https://www.tinybird.co/blog/the-data-journey",
+            "https://www.tinybird.co/blog/top-emojis-of-2022",
+            "https://www.tinybird.co/blog/upgrading-short-link-analytics-by-100x-with-steven-tey",
+            "https://www.tinybird.co/blog/use-aws-sns-to-send-data-to-tinybird",
+            "https://www.tinybird.co/blog/using-llms-to-generate-user-defined-real-time-data-visualizations",
+            "https://www.tinybird.co/blog/vercel-webhooks-and-tinybird-integration",
+            "https://www.tinybird.co/blog/vibe-code-tools-not-toys",
+            "https://www.tinybird.co/blog/we-graded-19-llms-on-sql-you-graded-us",
+            "https://www.tinybird.co/blog/we-launched-an-open-source-clickhouse-knowledge-base",
+            "https://www.tinybird.co/blog/web-analytics-with-multitenancy-and-ai",
+            "https://www.tinybird.co/blog/what-we-are-reading-75",
+            "https://www.tinybird.co/blog/what-we-are-reading-b",
+            "https://www.tinybird.co/blog/what-we-are-reading-f"
+          ],
+          "_all_excluded_links": [
+            "https://www.tinybird.co/blog/rss.xml",
+            "https://www.tinybird.co/blog/search",
+            "https://www.tinybird.co/blog/search-posts",
+            "https://www.tinybird.co/docs/third-party-credits.zip",
+            "https://www.tinybird.co/tinybird-subprocessors.pdf"
+          ],
+          "_all_docs_unverified_links": [
+            "https://www.tinybird.co/blog/1b-rows-per-second-clickhouse",
+            "https://www.tinybird.co/blog/5-criteria-of-data-quality-and-how-to-test-for-them",
+            "https://www.tinybird.co/blog/5-rules-for-writing-faster-sql-queries",
+            "https://www.tinybird.co/blog/7-strategies-for-reducing-cloud-infrastructure-costs-in-2023",
+            "https://www.tinybird.co/blog/8-considerations-for-designing-public-data-apis",
+            "https://www.tinybird.co/blog/announcing-copy-pipes",
+            "https://www.tinybird.co/blog/announcing-time-series",
+            "https://www.tinybird.co/blog/announcing-tinybird-forward",
+            "https://www.tinybird.co/blog/badass-api-endpoint",
+            "https://www.tinybird.co/blog/birdwatcher-slack-app",
+            "https://www.tinybird.co/blog/branches-deep-dive",
+            "https://www.tinybird.co/blog/branches-ga",
+            "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes",
+            "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes-part-2",
+            "https://www.tinybird.co/blog/building-a-product-feedback-loop-with-tinybird-mcp-plain-and-one-llm-prompt",
+            "https://www.tinybird.co/blog/building-a-resend-analytics-dashboard",
+            "https://www.tinybird.co/blog/building-an-analytics-agent-with-agno-and-tinybird",
+            "https://www.tinybird.co/blog/building-real-time-leaderboards-with-tinybird",
+            "https://www.tinybird.co/blog/cdc-real-time-analytics-estuary-dekaf",
+            "https://www.tinybird.co/blog/changelog-10-bigquery-connector-cli-improvements",
+            "https://www.tinybird.co/blog/changelog-11-snowflake-connector-cancellable-jobs",
+            "https://www.tinybird.co/blog/changelog-12-better-autocomplete-cli-on-macos-endpoint-errors-data-source",
+            "https://www.tinybird.co/blog/changelog-13-faster-advanced-dynamic-functions-and-fixes",
+            "https://www.tinybird.co/blog/changelog-15",
+            "https://www.tinybird.co/blog/changelog-17-some-features-and-updates",
+            "https://www.tinybird.co/blog/changelog-api-endpoints-clickhouse-cli",
+            "https://www.tinybird.co/blog/changelog-performance-improvement",
+            "https://www.tinybird.co/blog/ci-cd-best-practices-with-tinybird",
+            "https://www.tinybird.co/blog/clickhouse-kafka-connector",
+            "https://www.tinybird.co/blog/clickhouse-kafka-engine-vs-tinybird-connector",
+            "https://www.tinybird.co/blog/clickhouse-lock-contention",
+            "https://www.tinybird.co/blog/custom-ci-for-kafka-and-tinybird",
+            "https://www.tinybird.co/blog/data-driven-ci-pipeline-monitoring-with-pytest",
+            "https://www.tinybird.co/blog/data-journey",
+            "https://www.tinybird.co/blog/data-lineage-graph",
+            "https://www.tinybird.co/blog/data-market-whitebox-replaces-4-data-stack-tools-with-tinybird",
+            "https://www.tinybird.co/blog/data-rules-materialized-views-40000-dollars",
+            "https://www.tinybird.co/blog/database-timestamps-timezones",
+            "https://www.tinybird.co/blog/designing-and-implementing-a-weather-data-api",
+            "https://www.tinybird.co/blog/dev-qa-guilherme-oenning",
+            "https://www.tinybird.co/blog/dub-webhooks-event-logs",
+            "https://www.tinybird.co/blog/dynamodb-connector-ga",
+            "https://www.tinybird.co/blog/dynamodb-public-beta",
+            "https://www.tinybird.co/blog/dynamodb-real-time-analytics",
+            "https://www.tinybird.co/blog/dynamodb-use-cases",
+            "https://www.tinybird.co/blog/eating-our-own-dog-food-how-we-investigate-performance-bottlenecks-using-our-product-and-google-sheets",
+            "https://www.tinybird.co/blog/enterprise-grade-real-time-analytics",
+            "https://www.tinybird.co/blog/explorations-ui-revamp",
+            "https://www.tinybird.co/blog/how-i-replaced-google-analytics-with-retool-and-tinybird-part-1",
+            "https://www.tinybird.co/blog/how-to-build-an-analytics-agent-with-agno-and-tinybird-step-by-step",
+            "https://www.tinybird.co/blog/how-to-fix-kafka-to-clickhouse-performance-bottlenecks",
+            "https://www.tinybird.co/blog/how-to-install-clickhouse-on-your-own-servers-with-tinybird-self-managed-regions",
+            "https://www.tinybird.co/blog/how-to-monitor-tinybird-using-datadog-with-vector-dev",
+            "https://www.tinybird.co/blog/how-to-set-up-event-based-ingestion-of-files-in-s3-for-free",
+            "https://www.tinybird.co/blog/how-we-handle-service-disruptions",
+            "https://www.tinybird.co/blog/how-we-setup-real-time-analytics-service-to-process-12-trillion-rows-during-black-friday",
+            "https://www.tinybird.co/blog/improved-rowbinary-conversion",
+            "https://www.tinybird.co/blog/instrument-your-llm-calls",
+            "https://www.tinybird.co/blog/introducing-branches-in-beta",
+            "https://www.tinybird.co/blog/introducing-explorations",
+            "https://www.tinybird.co/blog/introducing-llm-performance-tracker",
+            "https://www.tinybird.co/blog/introducing-the-tinybird-mcp-server-your-real-time-data-llm-ready",
+            "https://www.tinybird.co/blog/introducing-the-tinybird-opentelemetry-exporter",
+            "https://www.tinybird.co/blog/iot-monitoring-with-kafka-and-tinybird",
+            "https://www.tinybird.co/blog/jobs-log-launch",
+            "https://www.tinybird.co/blog/mcp-vs-apis-when-to-use-which-for-ai-agent-development",
+            "https://www.tinybird.co/blog/migrating-from-rockset-feature-comparison",
+            "https://www.tinybird.co/blog/multi-agent-claude-code-tinybird-code",
+            "https://www.tinybird.co/blog/mysql-cdc",
+            "https://www.tinybird.co/blog/natural-language-dashboard-filters",
+            "https://www.tinybird.co/blog/new-clickhouse-backup-engine",
+            "https://www.tinybird.co/blog/privacy-first-google-analytics-alternative",
+            "https://www.tinybird.co/blog/projections",
+            "https://www.tinybird.co/blog/python-real-time-dashboard",
+            "https://www.tinybird.co/blog/query-google-sheets-with-sql-in-real-time",
+            "https://www.tinybird.co/blog/rate-limiting-announcement",
+            "https://www.tinybird.co/blog/real-time-analytics-a-definitive-guide",
+            "https://www.tinybird.co/blog/real-time-analytics-bigquery-dataflow",
+            "https://www.tinybird.co/blog/real-time-applications-with-bigquery-connector",
+            "https://www.tinybird.co/blog/real-time-change-data-capture",
+            "https://www.tinybird.co/blog/real-time-dashboard-step-by-step",
+            "https://www.tinybird.co/blog/real-time-dashboards-are-they-worth-it",
+            "https://www.tinybird.co/blog/real-time-data-engineering-example-projects",
+            "https://www.tinybird.co/blog/real-time-data-ingestion",
+            "https://www.tinybird.co/blog/real-time-data-platforms",
+            "https://www.tinybird.co/blog/real-time-data-processing",
+            "https://www.tinybird.co/blog/real-time-data-visualization",
+            "https://www.tinybird.co/blog/real-time-databases-what-developers-need-to-know",
+            "https://www.tinybird.co/blog/real-time-personalization",
+            "https://www.tinybird.co/blog/real-time-recommendation-system",
+            "https://www.tinybird.co/blog/real-time-solutions-with-snowflake",
+            "https://www.tinybird.co/blog/real-time-streaming-analytics-confluent-connector-tinybird",
+            "https://www.tinybird.co/blog/real-time-streaming-data-architectures-that-scale",
+            "https://www.tinybird.co/blog/tb-create",
+            "https://www.tinybird.co/blog/tb-deploy",
+            "https://www.tinybird.co/blog/tb-dev",
+            "https://www.tinybird.co/blog/tb-infra",
+            "https://www.tinybird.co/blog/tb-test",
+            "https://www.tinybird.co/blog/the-data-journey",
+            "https://www.tinybird.co/blog/top-emojis-of-2022",
+            "https://www.tinybird.co/blog/upgrading-short-link-analytics-by-100x-with-steven-tey",
+            "https://www.tinybird.co/blog/use-aws-sns-to-send-data-to-tinybird",
+            "https://www.tinybird.co/blog/using-llms-to-generate-user-defined-real-time-data-visualizations",
+            "https://www.tinybird.co/blog/vercel-webhooks-and-tinybird-integration",
+            "https://www.tinybird.co/blog/vibe-code-tools-not-toys",
+            "https://www.tinybird.co/blog/we-graded-19-llms-on-sql-you-graded-us",
+            "https://www.tinybird.co/blog/we-launched-an-open-source-clickhouse-knowledge-base",
+            "https://www.tinybird.co/blog/web-analytics-with-multitenancy-and-ai",
+            "https://www.tinybird.co/blog/what-we-are-reading-75",
+            "https://www.tinybird.co/blog/what-we-are-reading-b",
+            "https://www.tinybird.co/blog/what-we-are-reading-f"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://www.tinybird.co/2024-08-12-tinybird-vs-clickhouse": [
+              {
+                "source_page": "https://www.tinybird.co/blog/clickhouse-apache-iceberg-integration",
+                "anchor_text": "Tinybird vs ClickHouse: What's the difference?"
+              }
+            ],
+            "https://www.tinybird.co/2025-05-19-real-time-analytics-on-apache-iceberg-with-tinybird": [
+              {
+                "source_page": "https://www.tinybird.co/blog/clickhouse-apache-iceberg-integration",
+                "anchor_text": "real-time analytics on Apache Iceberg with Tinybird"
+              },
+              {
+                "source_page": "https://www.tinybird.co/blog/clickhouse-apache-iceberg-integration",
+                "anchor_text": "Real-Time Analytics on Apache Iceberg with Tinybird"
+              }
+            ],
+            "https://www.tinybird.co/2025-05-26-optimizing-apache-iceberg-tables-for-real-time-analytics": [
+              {
+                "source_page": "https://www.tinybird.co/blog/clickhouse-apache-iceberg-integration",
+                "anchor_text": "Optimizing Apache Iceberg tables for real-time analytics"
+              }
+            ],
+            "https://www.tinybird.co/docs/forward/branches": [
+              {
+                "source_page": "https://www.tinybird.co/blog/cli-4",
+                "anchor_text": "data branching"
+              },
+              {
+                "source_page": "https://www.tinybird.co/docs/changelog/2026-02-27-february-week-four",
+                "anchor_text": "Branches"
+              }
+            ],
+            "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/index": [
+              {
+                "source_page": "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/troubleshooting",
+                "anchor_text": "AWS IAM permissions"
+              }
+            ],
+            "https://www.tinybird.co/docs/forward/get-started/api-reference": [
+              {
+                "source_page": "https://www.tinybird.co/docs/forward/get-started/concepts",
+                "anchor_text": "regions"
+              }
+            ],
+            "https://www.tinybird.co/docs/forward/pricing/billing": [
+              {
+                "source_page": "https://www.tinybird.co/blog/managed-clickhouse-options",
+                "anchor_text": "billing docs"
+              }
+            ],
+            "https://www.tinybird.co/docs/forward/work-with-data/query/guides/working-with-time": [
+              {
+                "source_page": "https://www.tinybird.co/blog/parse-numeric-date-formats-clickhouse",
+                "anchor_text": "Working with Time in Tinybird"
+              }
+            ],
+            "https://www.tinybird.co/docs/get-started/plans/billing": [
+              {
+                "source_page": "https://www.tinybird.co/blog/new-pricing-model-jan-2025",
+                "anchor_text": "billing docs"
+              }
+            ],
+            "https://www.tinybird.co/docs/quick-start-coding-agents": [
+              {
+                "source_page": "https://www.tinybird.co/docs/forward",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/docs/quick-start-python-sdk": [
+              {
+                "source_page": "https://www.tinybird.co/docs/forward",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/docs/quick-start-typescript-sdk": [
+              {
+                "source_page": "https://www.tinybird.co/docs/forward",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/docs/sql-reference/data-types/float.md": [
+              {
+                "source_page": "https://www.tinybird.co/docs/sql-reference/functions/type-conversion-functions",
+                "anchor_text": "BFloat16"
+              }
+            ],
+            "https://www.tinybird.co/docs/work-with-data/publish-data/sinks": [
+              {
+                "source_page": "https://www.tinybird.co/docs/forward/pricing/dedicated-infrastructure",
+                "anchor_text": "Sinks"
+              }
+            ],
+            "https://www.tinybird.co/guide/high-frequency-ingestion": [
+              {
+                "source_page": "https://www.tinybird.co/blog/changelog-18-hfi-and-more",
+                "anchor_text": "guide"
+              },
+              {
+                "source_page": "https://www.tinybird.co/blog/changelog-19-add-new-columns",
+                "anchor_text": "guide"
+              }
+            ],
+            "https://www.tinybird.co/quick-start": [
+              {
+                "source_page": "https://www.tinybird.co/docs",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/quick-start-coding-agents": [
+              {
+                "source_page": "https://www.tinybird.co/docs",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/quick-start-python-sdk": [
+              {
+                "source_page": "https://www.tinybird.co/docs",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/quick-start-typescript-sdk": [
+              {
+                "source_page": "https://www.tinybird.co/docs",
+                "anchor_text": ""
+              }
+            ],
+            "https://www.tinybird.co/troubleshooting": [
+              {
+                "source_page": "https://www.tinybird.co/",
+                "anchor_text": "Troubleshooting"
+              },
+              {
+                "source_page": "https://www.tinybird.co/about",
+                "anchor_text": "Troubleshooting"
+              },
+              {
+                "source_page": "https://www.tinybird.co/blog",
+                "anchor_text": "Troubleshooting"
+              },
+              {
+                "source_page": "https://www.tinybird.co/blog/10-analytics-agents-examples-you-can-copy",
+                "anchor_text": "Troubleshooting"
+              },
+              {
+                "source_page": "https://www.tinybird.co/blog/5-snowflake-struggles-that-every-data-engineer-deals-with",
+                "anchor_text": "Troubleshooting"
+              }
+            ],
+            "https://www.tinybird.co/troubleshooting/errors/TOO_MANY_PARTS": [
+              {
+                "source_page": "https://www.tinybird.co/blog/backpressure-improvements",
+                "anchor_text": "too many small inserts"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1113,
+          "missing_title_count": 0,
+          "missing_description_count": 2,
+          "multiple_h1_count": 523,
+          "heading_hierarchy_jump_count": 197,
+          "seo_geo_issue_rate_pct": 16.22
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 51,
+          "api_pages_detected": 368,
+          "endpoints_with_usage_docs": 45,
+          "reference_endpoints_without_usage_docs": 6,
+          "reference_coverage_pct": 88.24,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:contain",
+            "gql:depth",
+            "gql:naming",
+            "gql:order",
+            "gql:staging",
+            "gql:task"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 7717,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (7717 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 1011,
+          "pages_without_last_updated_hint": 102,
+          "last_updated_coverage_pct": 90.84,
+          "samples_with_last_updated": [
+            {
+              "url": "https://www.tinybird.co/blog",
+              "hint": "Apr 17, 2026"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/10-analytics-agents-examples-you-can-copy",
+              "hint": "Jul 07, 2025"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/5-snowflake-struggles-that-every-data-engineer-deals-with",
+              "hint": "Apr 24, 2025"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/16-questions-real-time-data-strategy",
+              "hint": "Apr 24, 2025"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/7-tips-to-make-your-dashboards-faster",
+              "hint": "Apr 24, 2025"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/Best-Database-Choices-for-Fast-SaaS-Embedded-Analytics",
+              "hint": "Jan 31, 2026"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/CockroachDB-Alternatives",
+              "hint": "Jan 15, 2026"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/Citus-Alternatives",
+              "hint": "Jan 15, 2026"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/ScyllaDB-Alternatives",
+              "hint": "Jan 15, 2026"
+            },
+            {
+              "url": "https://www.tinybird.co/blog/Fast-Charts-real-Time-Data",
+              "hint": "Jan 15, 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://www.tinybird.co/2024-08-12-tinybird-vs-clickhouse",
+          "https://www.tinybird.co/2025-05-19-real-time-analytics-on-apache-iceberg-with-tinybird",
+          "https://www.tinybird.co/2025-05-26-optimizing-apache-iceberg-tables-for-real-time-analytics",
+          "https://www.tinybird.co/docs/forward/branches",
+          "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/index",
+          "https://www.tinybird.co/docs/forward/get-started/api-reference",
+          "https://www.tinybird.co/docs/forward/pricing/billing",
+          "https://www.tinybird.co/docs/forward/work-with-data/query/guides/working-with-time",
+          "https://www.tinybird.co/docs/get-started/plans/billing",
+          "https://www.tinybird.co/docs/quick-start-coding-agents",
+          "https://www.tinybird.co/docs/quick-start-python-sdk",
+          "https://www.tinybird.co/docs/quick-start-typescript-sdk",
+          "https://www.tinybird.co/docs/sql-reference/data-types/float.md",
+          "https://www.tinybird.co/docs/work-with-data/publish-data/sinks",
+          "https://www.tinybird.co/guide/high-frequency-ingestion",
+          "https://www.tinybird.co/quick-start",
+          "https://www.tinybird.co/quick-start-coding-agents",
+          "https://www.tinybird.co/quick-start-python-sdk",
+          "https://www.tinybird.co/quick-start-typescript-sdk",
+          "https://www.tinybird.co/troubleshooting"
+        ],
+        "docs_broken_link_samples": [
+          "https://www.tinybird.co/2024-08-12-tinybird-vs-clickhouse",
+          "https://www.tinybird.co/2025-05-19-real-time-analytics-on-apache-iceberg-with-tinybird",
+          "https://www.tinybird.co/2025-05-26-optimizing-apache-iceberg-tables-for-real-time-analytics",
+          "https://www.tinybird.co/docs/forward/branches",
+          "https://www.tinybird.co/docs/forward/get-data-in/connectors/kafka/index",
+          "https://www.tinybird.co/docs/forward/get-started/api-reference",
+          "https://www.tinybird.co/docs/forward/pricing/billing",
+          "https://www.tinybird.co/docs/forward/work-with-data/query/guides/working-with-time",
+          "https://www.tinybird.co/docs/get-started/plans/billing",
+          "https://www.tinybird.co/docs/quick-start-coding-agents",
+          "https://www.tinybird.co/docs/quick-start-python-sdk",
+          "https://www.tinybird.co/docs/quick-start-typescript-sdk",
+          "https://www.tinybird.co/docs/sql-reference/data-types/float.md",
+          "https://www.tinybird.co/docs/work-with-data/publish-data/sinks",
+          "https://www.tinybird.co/guide/high-frequency-ingestion",
+          "https://www.tinybird.co/quick-start",
+          "https://www.tinybird.co/quick-start-coding-agents",
+          "https://www.tinybird.co/quick-start-python-sdk",
+          "https://www.tinybird.co/quick-start-typescript-sdk",
+          "https://www.tinybird.co/troubleshooting",
+          "https://www.tinybird.co/troubleshooting/errors/TOO_MANY_PARTS"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://www.tinybird.co/blog/1b-rows-per-second-clickhouse",
+          "https://www.tinybird.co/blog/5-criteria-of-data-quality-and-how-to-test-for-them",
+          "https://www.tinybird.co/blog/5-rules-for-writing-faster-sql-queries",
+          "https://www.tinybird.co/blog/7-strategies-for-reducing-cloud-infrastructure-costs-in-2023",
+          "https://www.tinybird.co/blog/8-considerations-for-designing-public-data-apis",
+          "https://www.tinybird.co/blog/announcing-copy-pipes",
+          "https://www.tinybird.co/blog/announcing-time-series",
+          "https://www.tinybird.co/blog/announcing-tinybird-forward",
+          "https://www.tinybird.co/blog/badass-api-endpoint",
+          "https://www.tinybird.co/blog/birdwatcher-slack-app",
+          "https://www.tinybird.co/blog/branches-deep-dive",
+          "https://www.tinybird.co/blog/branches-ga",
+          "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes",
+          "https://www.tinybird.co/blog/build-a-datadog-alternative-in-5-minutes-part-2",
+          "https://www.tinybird.co/blog/building-a-product-feedback-loop-with-tinybird-mcp-plain-and-one-llm-prompt",
+          "https://www.tinybird.co/blog/building-a-resend-analytics-dashboard",
+          "https://www.tinybird.co/blog/building-an-analytics-agent-with-agno-and-tinybird",
+          "https://www.tinybird.co/blog/building-real-time-leaderboards-with-tinybird",
+          "https://www.tinybird.co/blog/cdc-real-time-analytics-estuary-dekaf",
+          "https://www.tinybird.co/blog/changelog-10-bigquery-connector-cli-improvements",
+          "https://www.tinybird.co/blog/changelog-11-snowflake-connector-cancellable-jobs",
+          "https://www.tinybird.co/blog/changelog-12-better-autocomplete-cli-on-macos-endpoint-errors-data-source",
+          "https://www.tinybird.co/blog/changelog-13-faster-advanced-dynamic-functions-and-fixes",
+          "https://www.tinybird.co/blog/changelog-15",
+          "https://www.tinybird.co/blog/changelog-17-some-features-and-updates",
+          "https://www.tinybird.co/blog/changelog-api-endpoints-clickhouse-cli",
+          "https://www.tinybird.co/blog/changelog-performance-improvement",
+          "https://www.tinybird.co/blog/ci-cd-best-practices-with-tinybird",
+          "https://www.tinybird.co/blog/clickhouse-kafka-connector",
+          "https://www.tinybird.co/blog/clickhouse-kafka-engine-vs-tinybird-connector"
+        ],
+        "api_uncovered_samples": [
+          "gql:contain",
+          "gql:depth",
+          "gql:naming",
+          "gql:order",
+          "gql:staging",
+          "gql:task"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1113,
+        "requested_pages": 1897,
+        "urls_examined": 1229,
+        "max_pages_total": 10000,
+        "discovered_pages": 1229,
+        "crawl_scope_pages": 1195,
+        "trap_urls_skipped": 4,
+        "crawl_coverage_pct": 102.85
+      },
+      "links": {
+        "broken_internal_links_count": 21,
+        "docs_broken_links_count": 21,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 111,
+        "confirmed_broken_links_count": 21,
+        "excluded_links_count": 5
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 16.22
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 88.24,
+        "no_api_pages_found": false,
+        "api_pages_detected": 368,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 90.84
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 21",
+    "Link verification inconclusive for 111 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 16.22%",
+    "Example reliability: 0% on 1113 pages (likely detection limitation). Site may use JS-rendered code blocks."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of tinybird.co/docs crawled 1,113 pages from a discovered 1,229 total pages, achieving 102.85% crawl coverage against the requested scope. The site contains 21 confirmed broken internal documentation links and 111 unverified links blocked by authentication or rate limits. API reference coverage is strong at 88.24% across 368 detected API pages. Example code reliability shows 0% detection across all pages, indicating a critical detection limitation likely due to JavaScript-rendered code blocks. Overall audit confidence is 63.5%, with link verification confidence notably low at 25%.",
+      "strengths": [
+        "High API reference coverage at 88.24% with 368 API pages successfully detected",
+        "Strong freshness tracking with 90.84% of pages showing last-updated metadata",
+        "Comprehensive crawl coverage at 102.85%, exceeding requested scope",
+        "Single-product topology provides clear documentation structure",
+        "95% crawl confidence indicates reliable site mapping"
+      ],
+      "risks": [
+        "21 confirmed broken internal documentation links degrading user navigation experience",
+        "111 unverified links (auth/rate-limit blocked) represent unknown documentation quality exposure",
+        "0% example reliability detection across 1,113 pages indicates complete blindness to code sample quality",
+        "SEO/GEO issue rate of 16.22% may impact discoverability and international reach",
+        "Overall audit confidence of 63.5% limits reliability of findings for sales commitments",
+        "Link verification confidence at 25% creates significant uncertainty in link health reporting",
+        "JavaScript-rendered code blocks bypass static analysis, hiding potential broken examples or outdated syntax"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 21 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement server-side rendering or static generation for code examples to enable reliability auditing",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Manually verify the 111 auth-blocked/rate-limited links to determine actual broken link count",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Address SEO/GEO issues affecting 16.22% of pages to improve search visibility and localization",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Establish automated link checking in CI/CD pipeline to prevent future broken link accumulation",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify functionality of authentication-protected links or rate-limited external resources (111 unverified URLs)",
+        "JavaScript-rendered code examples bypass static analysis; actual code sample accuracy, syntax validity, and executability remain unverified",
+        "Audit cannot confirm whether API documentation matches actual API behavior, versioning, or parameter accuracy",
+        "SEO/GEO issue detection does not guarantee search engine ranking performance or international user experience quality",
+        "Crawl-based analysis cannot assess documentation comprehensiveness, technical accuracy, or alignment with product features"
+      ]
+    }
+  }
+}

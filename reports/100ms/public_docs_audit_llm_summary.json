@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of 100ms.live/docs covered 643 pages (100% of discovered scope) with 85.94% overall confidence. Critical issues include 31 confirmed broken internal documentation links and weak freshness visibility at 20.84% coverage. API reference coverage stands at 75.37% across 154 detected API pages. Example code reliability estimates at 90.6%, indicating generally healthy code samples. 5 links remain unverified due to authentication or rate-limiting barriers.",
+    "strengths": [
+      "Complete crawl coverage at 100% of discovered documentation scope (643 pages)",
+      "High example code reliability at 90.6%, demonstrating quality code samples",
+      "Strong API page detection with 154 pages identified and 75.37% reference coverage",
+      "Overall audit confidence of 85.94% provides reliable baseline metrics",
+      "Low SEO/geo issue rate at 4.28% indicates solid technical SEO foundation"
+    ],
+    "risks": [
+      "31 confirmed broken internal documentation links create poor user experience and navigation failures",
+      "Freshness visibility at only 20.84% prevents users from assessing content currency and trustworthiness",
+      "24.63% API reference gap leaves significant portions of API surface undocumented or undetected",
+      "5 unverified links due to authentication/rate-limiting may hide additional broken links",
+      "Links confidence at 81.11% suggests potential for additional undiscovered link issues",
+      "No repository broken links detected, but 31 docs-internal breaks indicate maintenance gaps",
+      "Single-product topology with 643 pages requires systematic link maintenance processes"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 31 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on 79.16% of pages currently missing freshness indicators",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Close 24.63% API reference coverage gap by documenting missing endpoints or improving detection",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate and resolve 5 unverified links blocked by authentication or rate-limiting",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Establish automated link checking in CI/CD to prevent future broken link accumulation",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of explanations",
+      "5 unverified links due to authentication/rate-limiting may mask additional broken links not detected in this audit",
+      "API coverage detection relies on pattern matching; actual API completeness requires internal schema validation",
+      "Crawl limited to publicly accessible pages; authenticated or gated content not evaluated",
+      "Example code reliability is estimated through static analysis; runtime execution success not guaranteed"
+    ]
+  }
+}

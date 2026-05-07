@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of developers.swell.is covered 331 pages with 100% crawl coverage and 91.5% overall confidence. The site contains 10 confirmed broken internal links requiring immediate remediation. API reference coverage is critically low at 31.25% despite 279 API pages detected, indicating significant gaps in usage documentation. SEO/geo issues affect 24.62% of pages, impacting discoverability. Last-updated metadata is present on only 56.5% of pages, limiting transparency on content freshness.",
+    "strengths": [
+      "Complete crawl coverage achieved (331/331 pages, 100%)",
+      "High overall audit confidence at 91.5%",
+      "Example code reliability estimated at 100%",
+      "No repository navigation link breakage detected",
+      "Crawl trap detection prevented 9 URLs from skewing results"
+    ],
+    "risks": [
+      "10 confirmed broken internal links degrade user experience and SEO authority",
+      "API reference coverage at 31.25% leaves 68.75% of API surface undocumented for usage patterns",
+      "SEO/geo issues on 24.62% of pages (approximately 81 pages) harm search visibility",
+      "43.5% of pages lack last-updated metadata, eroding user trust in content currency",
+      "279 API pages detected but low coverage suggests incomplete integration examples or tutorials",
+      "Single-product topology may hide cross-product documentation gaps if ecosystem expands",
+      "API confidence at 85% indicates potential detection limitations in coverage calculation"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 10 confirmed broken internal links across documentation",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit 279 API pages and create usage documentation to raise coverage from 31.25% to minimum 70%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues on 81 affected pages (24.62% of site)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Add last-updated timestamps to 144 pages currently missing metadata (43.5%)",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Implement automated link checking in CI/CD to prevent future broken link accumulation",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or completeness of technical content, code examples, or API specifications",
+      "API coverage detection at 85% confidence may undercount or misclassify reference vs. usage documentation",
+      "Crawl cannot assess gated content, authentication-required pages, or dynamically generated documentation",
+      "SEO/geo issue detection does not guarantee search engine ranking outcomes or international accessibility compliance",
+      "Example reliability estimate cannot execute code or validate against live API endpoints"
+    ]
+  }
+}

@@ -1,0 +1,474 @@
+{
+  "generated_at": "2026-04-28T12:50:19.134303+00:00",
+  "site_url": "https://windmill.dev/docs",
+  "site_urls": [
+    "https://windmill.dev/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://windmill.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 973,
+          "requested_pages": 1214,
+          "urls_examined": 973,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 973,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 972,
+          "crawl_coverage_pct": 100.1,
+          "trap_urls_skipped": 1087,
+          "seeded_sitemap_urls": 972,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 1210,
+          "broken_internal_links_count": 3,
+          "docs_broken_links_count": 3,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://www.windmill.dev/cdn-cgi/l/email-protection",
+            "https://www.windmill.dev/docs/advanced/3_cli",
+            "https://www.windmill.dev/docs/full_code_apps/index.mdx"
+          ],
+          "docs_broken_link_samples": [
+            "https://www.windmill.dev/cdn-cgi/l/email-protection",
+            "https://www.windmill.dev/docs/advanced/3_cli",
+            "https://www.windmill.dev/docs/full_code_apps/index.mdx"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 3,
+          "excluded_links_count": 130,
+          "excluded_link_samples": [
+            "https://app.windmill.dev/scripts/add",
+            "https://hub.windmill.dev/integrations/RSS",
+            "https://hub.windmill.dev/scripts/%22%22/1530/do-sentiment-analysis-with-nltk-%22%22",
+            "https://hub.windmill.dev/scripts/add",
+            "https://hub.windmill.dev/scripts/airtable/298/create-multiple-records-airtable",
+            "https://hub.windmill.dev/scripts/airtable/300/list-records-airtable",
+            "https://hub.windmill.dev/scripts/airtable/301/update-record-airtable",
+            "https://hub.windmill.dev/scripts/airtable/302/create-single-record-airtable",
+            "https://hub.windmill.dev/scripts/airtable/303/get-record-airtable",
+            "https://hub.windmill.dev/scripts/airtable/304/delete-record-airtable",
+            "https://hub.windmill.dev/scripts/discord/113/delete-message-discord",
+            "https://hub.windmill.dev/scripts/discord/1288/send-a-message-to-discord-using-webhook-discord",
+            "https://hub.windmill.dev/scripts/discord/1292",
+            "https://hub.windmill.dev/scripts/discord/1345/edit-message-discord",
+            "https://hub.windmill.dev/scripts/discord/1523/send-the-error-to-discord-discord",
+            "https://hub.windmill.dev/scripts/discord/1586/receive-application-command-sample-discord",
+            "https://hub.windmill.dev/scripts/discord/1603",
+            "https://hub.windmill.dev/scripts/discord/6941/send-app-report-discord",
+            "https://hub.windmill.dev/scripts/discord/7110/read-last-message-sent-to-a-discord-channel-discord",
+            "https://hub.windmill.dev/scripts/discord/7123/create-discord-thread-and-send-messages-discord",
+            "https://hub.windmill.dev/scripts/gdrive/1457/get-new-files-gdrive",
+            "https://hub.windmill.dev/scripts/github/1208/notify-of-new-github-repo-stars-github",
+            "https://hub.windmill.dev/scripts/github/1456/list-newly-added-issues-github",
+            "https://hub.windmill.dev/scripts/github/1568",
+            "https://hub.windmill.dev/scripts/github/3292/create-a-pull-request-github",
+            "https://hub.windmill.dev/scripts/github/3323/get-the-latest-release-github",
+            "https://hub.windmill.dev/scripts/github/768/create-issue-github",
+            "https://hub.windmill.dev/scripts/github/769/get-repo-github",
+            "https://hub.windmill.dev/scripts/gmail/1291",
+            "https://hub.windmill.dev/scripts/gmail/1291/-send-email-gmail"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://www.windmill.dev/cdn-cgi/l/email-protection",
+            "https://www.windmill.dev/docs/advanced/3_cli",
+            "https://www.windmill.dev/docs/full_code_apps/index.mdx"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://app.windmill.dev/scripts/add",
+            "https://hub.windmill.dev/integrations/RSS",
+            "https://hub.windmill.dev/scripts/%22%22/1530/do-sentiment-analysis-with-nltk-%22%22",
+            "https://hub.windmill.dev/scripts/add",
+            "https://hub.windmill.dev/scripts/airtable/298/create-multiple-records-airtable",
+            "https://hub.windmill.dev/scripts/airtable/300/list-records-airtable",
+            "https://hub.windmill.dev/scripts/airtable/301/update-record-airtable",
+            "https://hub.windmill.dev/scripts/airtable/302/create-single-record-airtable",
+            "https://hub.windmill.dev/scripts/airtable/303/get-record-airtable",
+            "https://hub.windmill.dev/scripts/airtable/304/delete-record-airtable",
+            "https://hub.windmill.dev/scripts/discord/113/delete-message-discord",
+            "https://hub.windmill.dev/scripts/discord/1288/send-a-message-to-discord-using-webhook-discord",
+            "https://hub.windmill.dev/scripts/discord/1292",
+            "https://hub.windmill.dev/scripts/discord/1345/edit-message-discord",
+            "https://hub.windmill.dev/scripts/discord/1523/send-the-error-to-discord-discord",
+            "https://hub.windmill.dev/scripts/discord/1586/receive-application-command-sample-discord",
+            "https://hub.windmill.dev/scripts/discord/1603",
+            "https://hub.windmill.dev/scripts/discord/6941/send-app-report-discord",
+            "https://hub.windmill.dev/scripts/discord/7110/read-last-message-sent-to-a-discord-channel-discord",
+            "https://hub.windmill.dev/scripts/discord/7123/create-discord-thread-and-send-messages-discord",
+            "https://hub.windmill.dev/scripts/gdrive/1457/get-new-files-gdrive",
+            "https://hub.windmill.dev/scripts/github/1208/notify-of-new-github-repo-stars-github",
+            "https://hub.windmill.dev/scripts/github/1456/list-newly-added-issues-github",
+            "https://hub.windmill.dev/scripts/github/1568",
+            "https://hub.windmill.dev/scripts/github/3292/create-a-pull-request-github",
+            "https://hub.windmill.dev/scripts/github/3323/get-the-latest-release-github",
+            "https://hub.windmill.dev/scripts/github/768/create-issue-github",
+            "https://hub.windmill.dev/scripts/github/769/get-repo-github",
+            "https://hub.windmill.dev/scripts/gmail/1291",
+            "https://hub.windmill.dev/scripts/gmail/1291/-send-email-gmail",
+            "https://hub.windmill.dev/scripts/gsheets/1214/add-rows-gsheets",
+            "https://hub.windmill.dev/scripts/gsheets/1228/list-worksheets-gsheets",
+            "https://hub.windmill.dev/scripts/gsheets/1230/get-values-in-range-gsheets",
+            "https://hub.windmill.dev/scripts/gsheets/1232/get-values-gsheets",
+            "https://hub.windmill.dev/scripts/gsheets/1250/clear-row-gsheets",
+            "https://hub.windmill.dev/scripts/gsheets/1431/update-values-gsheets",
+            "https://hub.windmill.dev/scripts/gworkspace/22221/google-native-trigger-template-script-gworkspace",
+            "https://hub.windmill.dev/scripts/hackernews/1301/trigger-everytime-a-new-item-text-on-hackernews-match-at-least-one-mention-hackernews",
+            "https://hub.windmill.dev/scripts/hubspot/1577/get-a-properties-configuration-from-hubspot-crm-hubspot",
+            "https://hub.windmill.dev/scripts/hubspot/885/create-associations-hubspot",
+            "https://hub.windmill.dev/scripts/hubspot/887/get-deal-hubspot",
+            "https://hub.windmill.dev/scripts/hubspot/889/create-contact-hubspot",
+            "https://hub.windmill.dev/scripts/hubspot/890/create-deal-hubspot",
+            "https://hub.windmill.dev/scripts/hubspot/891/get-contact-hubspot",
+            "https://hub.windmill.dev/scripts/mongodb/1462/get-recently-inserted-documents-mongodb",
+            "https://hub.windmill.dev/scripts/msteams/1582/send-a-message-to-ms-teams-channel-via-webhook-msteams",
+            "https://hub.windmill.dev/scripts/mysql/7107/execute-arbitrary-query-mysql",
+            "https://hub.windmill.dev/scripts/mysql/7108/execute-arbitrary-query-mysql",
+            "https://hub.windmill.dev/scripts/mysql/7109/execute-arbitrary-query-mysql",
+            "https://hub.windmill.dev/scripts/notion/1106/retrieve-page-notion",
+            "https://hub.windmill.dev/scripts/notion/1109/retrieve-block-notion",
+            "https://hub.windmill.dev/scripts/notion/1572/list-users-notion",
+            "https://hub.windmill.dev/scripts/notion/1573/search-by-title-notion",
+            "https://hub.windmill.dev/scripts/notion/7159/update-page-properties-notion",
+            "https://hub.windmill.dev/scripts/notion/7160/fetch-data-from-notion-database-notion",
+            "https://hub.windmill.dev/scripts/openai/1451/generate-image-openai",
+            "https://hub.windmill.dev/scripts/openai/1452/create-completion-openai",
+            "https://hub.windmill.dev/scripts/openai/1453/create-moderation-openai",
+            "https://hub.windmill.dev/scripts/openai/1454",
+            "https://hub.windmill.dev/scripts/openai/1454/create-embedding-openai",
+            "https://hub.windmill.dev/scripts/openai/1570/create-chat-completion-openai",
+            "https://hub.windmill.dev/scripts/openai/1571/create-translation-openai",
+            "https://hub.windmill.dev/scripts/postgresql/1294/execute-query-and-return-results-postgresql",
+            "https://hub.windmill.dev/scripts/postgresql/7105/execute-arbitrary-query-and-return-results-postgresql",
+            "https://hub.windmill.dev/scripts/postgresql/7106/execute-arbitrary-query-postgresql",
+            "https://hub.windmill.dev/scripts/prediction/7162/train-rnn-for-time-series-prediction-prediction",
+            "https://hub.windmill.dev/scripts/s3/1319/list-objects-in-a-bucket-s3",
+            "https://hub.windmill.dev/scripts/s3/1320/upload-text-in-bucket-s3",
+            "https://hub.windmill.dev/scripts/s3/1321/get-object-in-bucket-as-text-s3",
+            "https://hub.windmill.dev/scripts/s3/1459/get-recently-updated-objects-s3",
+            "https://hub.windmill.dev/scripts/s3/7111/read-a-file-from-s3-within-a-script-s3",
+            "https://hub.windmill.dev/scripts/s3/7117/create-a-file-in-s3-(bun)-s3",
+            "https://hub.windmill.dev/scripts/scraping/7161/perform-advanced-seo-analysis-on-website-url-scraping",
+            "https://hub.windmill.dev/scripts/slack/11402/request-interactive-slack-approval-slack",
+            "https://hub.windmill.dev/scripts/slack/11403/request-interactive-slack-approval-(python)-slack",
+            "https://hub.windmill.dev/scripts/slack/1199/list-conversation-history-slack",
+            "https://hub.windmill.dev/scripts/slack/1284",
+            "https://hub.windmill.dev/scripts/slack/1284/send-message-to-channel-slack",
+            "https://hub.windmill.dev/scripts/slack/1405/example-of-responding-to-a-slack-command-slack",
+            "https://hub.windmill.dev/scripts/slack/1432/send-direct-message-slack",
+            "https://hub.windmill.dev/scripts/slack/1503/ask-channel-for-approval-slack",
+            "https://hub.windmill.dev/scripts/slack/1525/send-error-to-slack-channel-slack",
+            "https://hub.windmill.dev/scripts/slack/6940/send-app-report-slack",
+            "https://hub.windmill.dev/scripts/slack/7124/list-slack-channels%2C-last-message-date%2C-and-whether-it-contains-external-members-slack",
+            "https://hub.windmill.dev/scripts/stripe/1335/retrieve-invoice-line-item-stripe",
+            "https://hub.windmill.dev/scripts/stripe/1336/create-a-payout-stripe",
+            "https://hub.windmill.dev/scripts/stripe/1337/create-a-refund-stripe",
+            "https://hub.windmill.dev/scripts/stripe/1338/list-balance-history-stripe",
+            "https://hub.windmill.dev/scripts/stripe/1343/update-a-customer-stripe",
+            "https://hub.windmill.dev/scripts/stripe/1463/get-recently-added-customers-stripe",
+            "https://hub.windmill.dev/scripts/supabase/1455/preview-supabase-event-supabase",
+            "https://hub.windmill.dev/scripts/supabase/1512/fetch-data-supabase",
+            "https://hub.windmill.dev/scripts/supabase/1513/insert-data-supabase",
+            "https://hub.windmill.dev/scripts/supabase/1514/update-data-supabase",
+            "https://hub.windmill.dev/scripts/supabase/1515/delete-data-supabase",
+            "https://hub.windmill.dev/scripts/supabase/1540/authenticate-with-email-and-password-supabase",
+            "https://hub.windmill.dev/scripts/teams/11409/example-of-responding-to-a-microsoft-teams-command-teams",
+            "https://hub.windmill.dev/scripts/teams/13935/interactive-microsoft-teams-approval-teams",
+            "https://hub.windmill.dev/scripts/teams/13936/microsoft-teams-approval-teams",
+            "https://hub.windmill.dev/scripts/windmill/11414/git-sync-push-windmill",
+            "https://hub.windmill.dev/scripts/windmill/1325/trigger-windmill-webhook-with-native-fetch-api-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7120/approval-prompt-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7121/default-arguments-in-approval-steps-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7122/dynamics-enums-in-approval-step-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7163/generate-random-password-of-specified-length-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7164/extract-text-from-pdf-and-return-it-as-txt-file-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7165/extract-phone-numbers-from-text-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7166/get-latitude-and-longitude-of-address-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7167/convert-csv-file-to-excel-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7168/fetch-wikipedia-page-content-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7169/converts-an-image-to-jpeg-windmill",
+            "https://hub.windmill.dev/scripts/windmill/7170/compress-image-windmill",
+            "https://hub.windmill.dev/scripts/windmillhub/9069/synchronize-hub-resource-types-with-instance-windmillhub",
+            "https://www.windmill.dev/assets/files/airflow-e78c69353474d277d238cec52f76c760.json",
+            "https://www.windmill.dev/assets/files/hatchet-6759b6ac187ce69ab7167a0f85b78c4a.json",
+            "https://www.windmill.dev/assets/files/kestra-f6b184fa25b428c1cc206461f6fdaabe.json",
+            "https://www.windmill.dev/assets/files/prefect-267bc4f94ed130762a71fd22459b9abd.json",
+            "https://www.windmill.dev/assets/files/temporal-978c9efa4cf025cc78c68bc9bc62cb7f.json",
+            "https://www.windmill.dev/assets/files/windmill-9dc7b81b12b18550895851241f36c9c0.json",
+            "https://www.windmill.dev/assets/medias/aiflow-7225781ddf6771bf53c2639168342b8d.mp4",
+            "https://www.windmill.dev/assets/medias/chat_mode-36790dc76e969d4ba268972c81f8838f.mp4",
+            "https://www.windmill.dev/assets/medias/ci-7538e962ea1502761493e5e6c039df2e.mp4",
+            "https://www.windmill.dev/assets/medias/create-3d89ed87a6044efe67865db75f8a15cf.mp4",
+            "https://www.windmill.dev/assets/medias/demo-70e6479e1cd41749dbbe5042d255b08b.mp4",
+            "https://www.windmill.dev/assets/medias/demo-f8b8db13e3a1b9ce51904d2982f33c3c.mp4",
+            "https://www.windmill.dev/assets/medias/health-cb42aad44a6c194917d0c497d80a0c36.mp4",
+            "https://www.windmill.dev/assets/medias/linear-73a76660e87224dff8951c72e5284c0d.mp4",
+            "https://www.windmill.dev/changelog/search-bar",
+            "https://www.windmill.dev/docs/core_concepts/search_bar",
+            "https://www.windmill.dev/docs/integrations/rss"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://www.windmill.dev/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://www.windmill.dev/blog/automatically-populate-crm",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://www.windmill.dev/blog/knowledge-base-discord-bot",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://www.windmill.dev/blog/supabase-authentication-and-rls-protected-tables-on-windmill",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://www.windmill.dev/blog/smtp-server",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://www.windmill.dev/blog/use-selenium-with-windmill",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://www.windmill.dev/docs/advanced/3_cli": [
+              {
+                "source_page": "https://www.windmill.dev/docs/misc/guides/local_dev_with_ai",
+                "anchor_text": "Command-line interface (CLI) Interact with Windmill instances right from your terminal."
+              }
+            ],
+            "https://www.windmill.dev/docs/full_code_apps/index.mdx": [
+              {
+                "source_page": "https://www.windmill.dev/docs/core_concepts/ai_generation",
+                "anchor_text": "Full-code app builder Build full-code apps with AI."
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 973,
+          "missing_title_count": 1,
+          "missing_description_count": 251,
+          "multiple_h1_count": 251,
+          "heading_hierarchy_jump_count": 370,
+          "seo_geo_issue_rate_pct": 22.43
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 3,
+          "api_pages_detected": 86,
+          "endpoints_with_usage_docs": 2,
+          "reference_endpoints_without_usage_docs": 1,
+          "reference_coverage_pct": 66.67,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:itself"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1076,
+          "total_code_blocks_all": 1410,
+          "runnable_without_env": 894,
+          "blocked_by_placeholders": 77,
+          "network_bound_examples": 105,
+          "example_reliability_estimate_pct": 83.09,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 522,
+          "pages_without_last_updated_hint": 451,
+          "last_updated_coverage_pct": 53.65,
+          "samples_with_last_updated": [
+            {
+              "url": "https://www.windmill.dev/blog",
+              "hint": "Apr 23, 2026"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/2023/08/10/supabase-partnership",
+              "hint": "2023-08-10T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/ai-chat",
+              "hint": "2025-06-11T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/ai-agents",
+              "hint": "2025-11-12T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/audience-management-case-study",
+              "hint": "2023-04-05T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/ansible-history",
+              "hint": "2024-11-29T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/bash-scripts-arguments",
+              "hint": "2023-12-27T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/conservation-metrics-case-study",
+              "hint": "2025-06-03T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/automatically-populate-crm",
+              "hint": "2023-03-29T00:00:00.000Z"
+            },
+            {
+              "url": "https://www.windmill.dev/blog/create-issue-tracker-in-15-minutes",
+              "hint": "2023-01-25T00:00:00.000Z"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://www.windmill.dev/cdn-cgi/l/email-protection",
+          "https://www.windmill.dev/docs/advanced/3_cli",
+          "https://www.windmill.dev/docs/full_code_apps/index.mdx"
+        ],
+        "docs_broken_link_samples": [
+          "https://www.windmill.dev/cdn-cgi/l/email-protection",
+          "https://www.windmill.dev/docs/advanced/3_cli",
+          "https://www.windmill.dev/docs/full_code_apps/index.mdx"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:itself"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 973,
+        "requested_pages": 1214,
+        "urls_examined": 973,
+        "max_pages_total": 2500,
+        "discovered_pages": 973,
+        "crawl_scope_pages": 972,
+        "trap_urls_skipped": 1087,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 3,
+        "docs_broken_links_count": 3,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 3,
+        "excluded_links_count": 130
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 22.43
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 66.67,
+        "no_api_pages_found": false,
+        "api_pages_detected": 86,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 83.09
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 53.65
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 3",
+    "SEO/GEO issue rate is high: 22.43%",
+    "API usage-doc coverage is low: 66.67% (86 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of windmill.dev/docs crawled 973 pages with 100% coverage against discovered scope. Site contains 3 confirmed broken internal links within user-facing documentation. API reference coverage stands at 66.67% across 86 detected API pages. SEO/geo issue rate is elevated at 22.43%, and only 53.65% of pages display last-updated metadata. Example code reliability estimate is 83.09% with overall audit confidence at 91.5%.",
+      "strengths": [
+        "Complete crawl coverage (100%) with 973 pages successfully examined",
+        "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+        "No repository navigation link breakage (repo_broken_links_count: 0)",
+        "Example code reliability estimate above 80% (83.09%)",
+        "Single-product topology provides clear documentation structure"
+      ],
+      "risks": [
+        "3 confirmed broken internal links in user-facing documentation degrade user experience",
+        "API reference coverage gap at 66.67% leaves one-third of API surface undocumented",
+        "SEO/geo issue rate of 22.43% affects discoverability for 218+ pages",
+        "Freshness metadata missing on 46.35% of pages (450+ pages) obscures content currency",
+        "16.91% of examples may contain reliability issues affecting developer onboarding",
+        "130 links excluded from verification may hide additional broken references",
+        "API detection confidence at 85% suggests possible undercounted API surface"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix 3 confirmed broken internal documentation links immediately",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Complete API reference documentation for the missing 33.33% of detected API surface (29 pages)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated timestamps to 450+ pages missing freshness metadata",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 218+ pages (22.43% of site)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and fix example code reliability issues in the 16.91% flagged subset",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or completeness of technical content, only structural and linking integrity",
+        "API coverage detection at 85% confidence may undercount actual API surface; manual verification recommended for complete inventory",
+        "Example reliability is estimated through static analysis; runtime validation and environment-specific testing not performed",
+        "130 excluded links were not verified and may contain additional broken references outside audit scope",
+        "Freshness metadata absence does not confirm content is outdated, only that update tracking is not visible to users"
+      ]
+    }
+  }
+}

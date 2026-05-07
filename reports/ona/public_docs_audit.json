@@ -1,0 +1,505 @@
+{
+  "generated_at": "2026-05-05T12:30:10.708938+00:00",
+  "site_url": "https://ona.com/docs",
+  "site_urls": [
+    "https://ona.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://ona.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 584,
+          "requested_pages": 680,
+          "urls_examined": 602,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 602,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 601,
+          "crawl_coverage_pct": 100.17,
+          "trap_urls_skipped": 12,
+          "seeded_sitemap_urls": 601,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 624,
+          "broken_internal_links_count": 10,
+          "docs_broken_links_count": 10,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://ona.com/cde",
+            "https://ona.com/classic/user/configure/repositories/prebuilds",
+            "https://ona.com/demo",
+            "https://ona.com/docs/classic/payg/help/contribute/content",
+            "https://ona.com/docs/classic/payg/help/contribute/features-and-patches",
+            "https://ona.com/docs/ona/guardrails/audit-logs",
+            "https://ona.com/legal/cookie-policy)Further",
+            "https://ona.com/legal/data-privacy",
+            "https://ona.com/legal/terms-of-service).We",
+            "https://ona.com/ona/security/thanks"
+          ],
+          "docs_broken_link_samples": [
+            "https://ona.com/cde",
+            "https://ona.com/classic/user/configure/repositories/prebuilds",
+            "https://ona.com/demo",
+            "https://ona.com/docs/classic/payg/help/contribute/content",
+            "https://ona.com/docs/classic/payg/help/contribute/features-and-patches",
+            "https://ona.com/docs/ona/guardrails/audit-logs",
+            "https://ona.com/legal/cookie-policy)Further",
+            "https://ona.com/legal/data-privacy",
+            "https://ona.com/legal/terms-of-service).We",
+            "https://ona.com/ona/security/thanks"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 10,
+          "unverified_links_count": 18,
+          "unverified_link_samples": [
+            "https://mailto:contact@ona.com/",
+            "https://mailto:data@ona.com/",
+            "https://mailto:legal@ona.com/",
+            "https://mailto:privacy@ona.com/",
+            "https://mailto:security@ona.com/",
+            "https://mailto:support@ona.com/",
+            "https://ona.com/docs/classic/user/configure/user-settings/dotfiles",
+            "https://ona.com/docs/classic/user/configure/user-settings/overview",
+            "https://ona.com/docs/classic/user/references/gitpod-cli",
+            "https://ona.com/docs/ona/agents/mermaid-diagrams",
+            "https://ona.com/docs/ona/command-deny-list",
+            "https://ona.com/docs/ona/editors/vscode",
+            "https://ona.com/docs/ona/identity/aws-oidc",
+            "https://ona.com/docs/ona/organizations/manage-members",
+            "https://ona.com/newsletter/{% unsubscribe_url %}",
+            "https://ona.com/stories/financial-services-company-context-switching-made-easy-case-study",
+            "https://ona.com/stories/migrations-are-the-next-ai-frontier",
+            "https://trust.ona.com/"
+          ],
+          "confirmed_broken_links_count": 10,
+          "excluded_links_count": 7,
+          "excluded_link_samples": [
+            "https://ona.com/build-with-ona.svg",
+            "https://ona.com/newsletter/feed",
+            "https://ona.com/ona-symbol-black.svg",
+            "https://ona.com/ona-symbol.svg",
+            "https://ona.com/ona-wordmark-black.svg",
+            "https://ona.com/ona-wordmark.svg",
+            "https://ona.com/stories/feed"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://ona.com/cde",
+            "https://ona.com/classic/user/configure/repositories/prebuilds",
+            "https://ona.com/demo",
+            "https://ona.com/docs/classic/payg/help/contribute/content",
+            "https://ona.com/docs/classic/payg/help/contribute/features-and-patches",
+            "https://ona.com/docs/ona/guardrails/audit-logs",
+            "https://ona.com/legal/cookie-policy)Further",
+            "https://ona.com/legal/data-privacy",
+            "https://ona.com/legal/terms-of-service).We",
+            "https://ona.com/ona/security/thanks"
+          ],
+          "_all_unverified_links": [
+            "https://mailto:contact@ona.com/",
+            "https://mailto:data@ona.com/",
+            "https://mailto:legal@ona.com/",
+            "https://mailto:privacy@ona.com/",
+            "https://mailto:security@ona.com/",
+            "https://mailto:support@ona.com/",
+            "https://ona.com/docs/classic/user/configure/user-settings/dotfiles",
+            "https://ona.com/docs/classic/user/configure/user-settings/overview",
+            "https://ona.com/docs/classic/user/references/gitpod-cli",
+            "https://ona.com/docs/ona/agents/mermaid-diagrams",
+            "https://ona.com/docs/ona/command-deny-list",
+            "https://ona.com/docs/ona/editors/vscode",
+            "https://ona.com/docs/ona/identity/aws-oidc",
+            "https://ona.com/docs/ona/organizations/manage-members",
+            "https://ona.com/newsletter/{% unsubscribe_url %}",
+            "https://ona.com/stories/financial-services-company-context-switching-made-easy-case-study",
+            "https://ona.com/stories/migrations-are-the-next-ai-frontier",
+            "https://trust.ona.com/"
+          ],
+          "_all_excluded_links": [
+            "https://ona.com/build-with-ona.svg",
+            "https://ona.com/newsletter/feed",
+            "https://ona.com/ona-symbol-black.svg",
+            "https://ona.com/ona-symbol.svg",
+            "https://ona.com/ona-wordmark-black.svg",
+            "https://ona.com/ona-wordmark.svg",
+            "https://ona.com/stories/feed"
+          ],
+          "_all_docs_unverified_links": [
+            "https://mailto:contact@ona.com/",
+            "https://mailto:data@ona.com/",
+            "https://mailto:legal@ona.com/",
+            "https://mailto:privacy@ona.com/",
+            "https://mailto:security@ona.com/",
+            "https://mailto:support@ona.com/",
+            "https://ona.com/docs/classic/user/configure/user-settings/dotfiles",
+            "https://ona.com/docs/classic/user/configure/user-settings/overview",
+            "https://ona.com/docs/classic/user/references/gitpod-cli",
+            "https://ona.com/docs/ona/agents/mermaid-diagrams",
+            "https://ona.com/docs/ona/command-deny-list",
+            "https://ona.com/docs/ona/editors/vscode",
+            "https://ona.com/docs/ona/identity/aws-oidc",
+            "https://ona.com/docs/ona/organizations/manage-members",
+            "https://ona.com/newsletter/{% unsubscribe_url %}",
+            "https://ona.com/stories/financial-services-company-context-switching-made-easy-case-study",
+            "https://ona.com/stories/migrations-are-the-next-ai-frontier",
+            "https://trust.ona.com/"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://ona.com/cde": [
+              {
+                "source_page": "https://ona.com/docs/classic/user/configure/workspaces/overview",
+                "anchor_text": "CDE"
+              }
+            ],
+            "https://ona.com/classic/user/configure/repositories/prebuilds": [
+              {
+                "source_page": "https://ona.com/docs/classic/admin/archive/outdated-getting-started",
+                "anchor_text": "Prebuilds"
+              }
+            ],
+            "https://ona.com/demo": [
+              {
+                "source_page": "https://ona.com/media",
+                "anchor_text": "Request a demo"
+              }
+            ],
+            "https://ona.com/docs/classic/payg/help/contribute/content": [
+              {
+                "source_page": "https://ona.com/docs/classic/payg/help/contribute/overview",
+                "anchor_text": "Creating content that shares your experiences with Gitpod"
+              }
+            ],
+            "https://ona.com/docs/classic/payg/help/contribute/features-and-patches": [
+              {
+                "source_page": "https://ona.com/docs/classic/payg/help/contribute/overview",
+                "anchor_text": "Making contributions to the code base"
+              }
+            ],
+            "https://ona.com/docs/ona/guardrails/audit-logs": [
+              {
+                "source_page": "https://ona.com/stories/rise-of-the-citizen-developer",
+                "anchor_text": "Audit logs"
+              }
+            ],
+            "https://ona.com/legal/cookie-policy)Further": [
+              {
+                "source_page": "https://ona.com/legal/privacy-policy",
+                "anchor_text": "https://ona.com/legal/cookie-policy)Further"
+              }
+            ],
+            "https://ona.com/legal/data-privacy": [
+              {
+                "source_page": "https://ona.com/stories",
+                "anchor_text": "data"
+              }
+            ],
+            "https://ona.com/legal/terms-of-service).We": [
+              {
+                "source_page": "https://ona.com/legal/privacy-policy",
+                "anchor_text": "https://ona.com/legal/terms-of-service).We"
+              }
+            ],
+            "https://ona.com/ona/security/thanks": [
+              {
+                "source_page": "https://ona.com/docs/ona/security/report",
+                "anchor_text": "View Contributors"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 584,
+          "missing_title_count": 0,
+          "missing_description_count": 257,
+          "multiple_h1_count": 30,
+          "heading_hierarchy_jump_count": 31,
+          "seo_geo_issue_rate_pct": 13.61
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1039,
+          "api_pages_detected": 96,
+          "endpoints_with_usage_docs": 623,
+          "reference_endpoints_without_usage_docs": 416,
+          "reference_coverage_pct": 59.96,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/*.test.*",
+            "ep:/.config/fish/completions/ona.fish",
+            "ep:/.gitconfig",
+            "ep:/.gitpod/jetbrains/clion/options",
+            "ep:/.gitpod/jetbrains/goland/options",
+            "ep:/.gitpod/jetbrains/intellij/options",
+            "ep:/.gitpod/jetbrains/options",
+            "ep:/.gitpod/jetbrains/phpstorm/options",
+            "ep:/.gitpod/jetbrains/pycharm/options",
+            "ep:/.gitpod/jetbrains/rider/options",
+            "ep:/.gitpod/jetbrains/rubymine/options",
+            "ep:/.gitpod/jetbrains/rustrover/options",
+            "ep:/.gitpod/jetbrains/webstorm/options",
+            "ep:/.kube",
+            "ep:/.local/bin",
+            "ep:/.ona/configuration.yaml",
+            "ep:/.ssh/code_gitpod.d",
+            "ep:/.ssh/code_gitpod.d/config",
+            "ep:/.ssh/ona/config",
+            "ep:/.vimrc"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 8,
+          "total_code_blocks_all": 992,
+          "runnable_without_env": 6,
+          "blocked_by_placeholders": 1,
+          "network_bound_examples": 1,
+          "example_reliability_estimate_pct": 75.0,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 133,
+          "pages_without_last_updated_hint": 451,
+          "last_updated_coverage_pct": 22.77,
+          "samples_with_last_updated": [
+            {
+              "url": "https://ona.com/",
+              "hint": "Wednesday, 6 May 2026"
+            },
+            {
+              "url": "https://ona.com/cases/automations",
+              "hint": "Wednesday, 6 May 2026"
+            },
+            {
+              "url": "https://ona.com/cases/code-review",
+              "hint": "Wednesday, 6 May 2026"
+            },
+            {
+              "url": "https://ona.com/cases/background-agent",
+              "hint": "Wednesday, 6 May 2026"
+            },
+            {
+              "url": "https://ona.com/cases/ona-agents",
+              "hint": "Wednesday, 6 May 2026"
+            },
+            {
+              "url": "https://ona.com/cases/ona-environments",
+              "hint": "Wednesday, 6 May 2026"
+            },
+            {
+              "url": "https://ona.com/docs/changelog",
+              "hint": "April 30, 2026"
+            },
+            {
+              "url": "https://ona.com/changelog",
+              "hint": "April 30, 2026"
+            },
+            {
+              "url": "https://ona.com/docs/classic/admin/getting-started/using-custom-or-private-ca",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://ona.com/docs/classic/admin/reference/aws-iam-permission-requirements",
+              "hint": "\"2012-10-17\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://ona.com/cde",
+          "https://ona.com/classic/user/configure/repositories/prebuilds",
+          "https://ona.com/demo",
+          "https://ona.com/docs/classic/payg/help/contribute/content",
+          "https://ona.com/docs/classic/payg/help/contribute/features-and-patches",
+          "https://ona.com/docs/ona/guardrails/audit-logs",
+          "https://ona.com/legal/cookie-policy)Further",
+          "https://ona.com/legal/data-privacy",
+          "https://ona.com/legal/terms-of-service).We",
+          "https://ona.com/ona/security/thanks"
+        ],
+        "docs_broken_link_samples": [
+          "https://ona.com/cde",
+          "https://ona.com/classic/user/configure/repositories/prebuilds",
+          "https://ona.com/demo",
+          "https://ona.com/docs/classic/payg/help/contribute/content",
+          "https://ona.com/docs/classic/payg/help/contribute/features-and-patches",
+          "https://ona.com/docs/ona/guardrails/audit-logs",
+          "https://ona.com/legal/cookie-policy)Further",
+          "https://ona.com/legal/data-privacy",
+          "https://ona.com/legal/terms-of-service).We",
+          "https://ona.com/ona/security/thanks"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://mailto:contact@ona.com/",
+          "https://mailto:data@ona.com/",
+          "https://mailto:legal@ona.com/",
+          "https://mailto:privacy@ona.com/",
+          "https://mailto:security@ona.com/",
+          "https://mailto:support@ona.com/",
+          "https://ona.com/docs/classic/user/configure/user-settings/dotfiles",
+          "https://ona.com/docs/classic/user/configure/user-settings/overview",
+          "https://ona.com/docs/classic/user/references/gitpod-cli",
+          "https://ona.com/docs/ona/agents/mermaid-diagrams",
+          "https://ona.com/docs/ona/command-deny-list",
+          "https://ona.com/docs/ona/editors/vscode",
+          "https://ona.com/docs/ona/identity/aws-oidc",
+          "https://ona.com/docs/ona/organizations/manage-members",
+          "https://ona.com/newsletter/{% unsubscribe_url %}",
+          "https://ona.com/stories/financial-services-company-context-switching-made-easy-case-study",
+          "https://ona.com/stories/migrations-are-the-next-ai-frontier",
+          "https://trust.ona.com/"
+        ],
+        "api_uncovered_samples": [
+          "ep:/*.test.*",
+          "ep:/.config/fish/completions/ona.fish",
+          "ep:/.gitconfig",
+          "ep:/.gitpod/jetbrains/clion/options",
+          "ep:/.gitpod/jetbrains/goland/options",
+          "ep:/.gitpod/jetbrains/intellij/options",
+          "ep:/.gitpod/jetbrains/options",
+          "ep:/.gitpod/jetbrains/phpstorm/options",
+          "ep:/.gitpod/jetbrains/pycharm/options",
+          "ep:/.gitpod/jetbrains/rider/options",
+          "ep:/.gitpod/jetbrains/rubymine/options",
+          "ep:/.gitpod/jetbrains/rustrover/options",
+          "ep:/.gitpod/jetbrains/webstorm/options",
+          "ep:/.kube",
+          "ep:/.local/bin",
+          "ep:/.ona/configuration.yaml",
+          "ep:/.ssh/code_gitpod.d",
+          "ep:/.ssh/code_gitpod.d/config",
+          "ep:/.ssh/ona/config",
+          "ep:/.vimrc"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 584,
+        "requested_pages": 680,
+        "urls_examined": 602,
+        "max_pages_total": 5000,
+        "discovered_pages": 602,
+        "crawl_scope_pages": 601,
+        "trap_urls_skipped": 12,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 10,
+        "docs_broken_links_count": 10,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 18,
+        "confirmed_broken_links_count": 10,
+        "excluded_links_count": 7
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 13.61
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 59.96,
+        "no_api_pages_found": false,
+        "api_pages_detected": 96,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 75.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 22.77
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 65.79,
+      "links_confidence_pct": 30.71,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 65.79,
+    "links_confidence_pct": 30.71,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 10",
+    "Link verification inconclusive for 18 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 13.61%",
+    "API usage-doc coverage is low: 59.96% (96 API pages detected)",
+    "Freshness visibility is weak: only 22.77% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of ona.com/docs covered 584 pages (100% crawl coverage of 601 in-scope pages). Site contains 10 confirmed broken internal documentation links and 18 unverified links blocked by authentication or rate limits. API reference coverage stands at 59.96% across 96 detected API pages. Only 22.77% of pages display last-updated metadata, severely limiting freshness transparency. Overall audit confidence is 65.79%, with links confidence notably low at 30.71%.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of 601 in-scope pages)",
+        "No repository navigation broken links detected (repo_broken_links_count: 0)",
+        "API page detection successful with 96 pages identified across the site",
+        "Trap URL detection prevented crawl pollution (12 trap URLs skipped)",
+        "High crawl confidence at 95.0% ensures topology accuracy"
+      ],
+      "risks": [
+        "10 confirmed broken internal documentation links degrade user navigation and trust",
+        "18 unverified links create uncertainty; may hide additional broken links behind authentication",
+        "API reference coverage at 59.96% leaves 40% of API surface undocumented or poorly linked",
+        "SEO/GEO issue rate of 13.61% impacts discoverability and search ranking",
+        "Freshness metadata visible on only 22.77% of pages obscures content currency for users",
+        "Links confidence at 30.71% indicates significant verification gaps",
+        "Example code reliability estimated at only 75.0%, risking developer onboarding friction"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 10 confirmed broken internal documentation links immediately",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate and resolve 18 unverified links (authentication/rate-limit issues)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Increase API reference coverage from 59.96% to minimum 85% by documenting missing endpoints",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated timestamps on all pages (currently 22.77% coverage)",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Remediate SEO/GEO issues affecting 13.61% of pages (meta descriptions, titles, structure)",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify links behind authentication walls or rate limits (18 URLs unverified)",
+        "Example code reliability at 75.0% is an estimate; actual runtime validation requires environment access",
+        "API coverage detection depends on pattern recognition; undocumented or non-standard API pages may be missed",
+        "Audit cannot assess content accuracy, technical correctness, or alignment with actual product behavior",
+        "Freshness analysis limited to visible metadata; actual content update dates may differ from displayed timestamps"
+      ]
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of developer.bigcommerce.com crawled 3,693 pages (97.71% coverage of 5,000 max scope). Documentation contains 306 confirmed broken internal links affecting user-facing content. API reference coverage is critically low at 20.24% despite 808 API pages detected. SEO/metadata issues affect 26.69% of pages. Only 5.44% of pages display freshness timestamps, severely limiting content lifecycle visibility.",
+    "strengths": [
+      "High crawl coverage achieved at 97.71% within scope limits",
+      "808 API pages successfully detected with reliable detection methodology",
+      "Zero repository navigation broken links (repo_broken_links_count: 0)",
+      "Multi-project topology successfully mapped across developer portal",
+      "Trap URL detection prevented crawl pollution (243 URLs skipped)"
+    ],
+    "risks": [
+      "306 confirmed broken internal links create poor user experience and erode trust",
+      "1,033 unverified links due to auth/rate-limit/server blocks represent unknown documentation quality exposure",
+      "API reference coverage at 20.24% indicates 79.76% of API surfaces lack usage documentation",
+      "26.69% SEO/GEO issue rate damages discoverability and search ranking",
+      "5.44% freshness coverage prevents users from assessing content currency and reliability",
+      "Example code reliability estimate of 66.67% suggests one-third of code samples may be broken or outdated",
+      "Overall confidence score of 63.16% indicates moderate audit certainty with verification gaps"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Remediate all 306 confirmed broken internal links across documentation",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages to achieve >90% freshness coverage",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API usage documentation to cover remaining 79.76% of API surfaces (target 808 pages)",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate and resolve 1,033 unverified links blocked by auth/rate-limits to confirm accessibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and fix SEO/metadata issues affecting 26.69% of pages to improve discoverability",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of documentation substance",
+      "1,033 links blocked by authentication, rate-limiting, or server restrictions could not be verified; actual broken link count may be higher",
+      "Example code reliability estimate is based on automated detection; actual runtime validity requires environment-specific testing",
+      "Crawl limited to 5,000 pages maximum; 117 discovered pages beyond scope remain unaudited",
+      "Audit cannot assess documentation usability, clarity, or alignment with actual product behavior"
+    ]
+  }
+}

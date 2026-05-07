@@ -1,0 +1,458 @@
+{
+  "generated_at_utc": "2026-05-05T10:48:57.910054+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 16,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 16,
+    "unverified_links_sample_count": 30
+  },
+  "all_docs_broken_links": [
+    "https://docs.garden.io/cdn-cgi/l/email-protection",
+    "https://docs.garden.io/cedar-0.14/advanced/terraform",
+    "https://docs.garden.io/cedar-0.14/advanced/using-remote-sources",
+    "https://docs.garden.io/cedar-0.14/guides/automatic-environment-cleanup",
+    "https://docs.garden.io/cedar-0.14/guides/code-synchronization",
+    "https://docs.garden.io/cedar-0.14/guides/configuration-overview",
+    "https://docs.garden.io/cedar-0.14/guides/deprecations",
+    "https://docs.garden.io/cedar-0.14/kubernetes-plugins/about",
+    "https://docs.garden.io/cedar-0.14/kubernetes-plugins/guides/in-cluster-building",
+    "https://docs.garden.io/cedar-0.14/kubernetes-plugins/local-k8s",
+    "https://docs.garden.io/cedar-0.14/kubernetes-plugins/remote-k8s",
+    "https://docs.garden.io/guides/code-synchronization",
+    "https://docs.garden.io/kubernetes-plugins/remote-k8s/configure-registry",
+    "https://docs.garden.io/overview/how-garden-works",
+    "https://docs.garden.io/pulumi-plugin/about",
+    "https://docs.garden.io/v/docs-edge-2/guides/running-service-in-local-mode"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://cloud.docs.garden.io/",
+    "https://cloud.docs.garden.io/features/workflows",
+    "https://cloud.docs.garden.io/getting-started/workflows",
+    "https://docs.garden.io/acorn-0.12/reference/providers/local-kubernetes",
+    "https://docs.garden.io/acorn-0.12/tutorials/your-first-project",
+    "https://docs.garden.io/bonsai-0.13/guides/migrating-from-docker-compose",
+    "https://docs.garden.io/bonsai-0.13/k8s-plugins/actions/deploy/helm",
+    "https://docs.garden.io/bonsai-0.13/reference/action-types/run",
+    "https://docs.garden.io/bonsai-0.13/reference/module-types/conftest",
+    "https://docs.garden.io/bonsai-0.13/reference/render-template-config",
+    "https://docs.garden.io/bonsai-0.13/reference/template-strings/project-outputs",
+    "https://docs.garden.io/bonsai-0.13/tutorials",
+    "https://docs.garden.io/bonsai-0.13/tutorials/your-first-project",
+    "https://docs.garden.io/bonsai-0.13/tutorials/your-first-project/1-initialize-a-project",
+    "https://docs.garden.io/bonsai-0.13/using-garden/dashboard",
+    "https://docs.garden.io/docs-edge/reference/glossary",
+    "https://docs.garden.io/docs-edge/reference/module-types/container",
+    "https://docs.garden.io/docs-edge/reference/module-types/jib-container",
+    "https://docs.garden.io/docs-edge/reference/project-config",
+    "https://docs.garden.io/docs-edge/reference/providers",
+    "https://docs.garden.io/docs-edge/reference/providers/container",
+    "https://docs.garden.io/docs-edge/reference/providers/exec",
+    "https://docs.garden.io/docs-edge/reference/render-template-config",
+    "https://docs.garden.io/docs-edge/reference/template-strings/workflows",
+    "https://docs.garden.io/docs-edge/tutorials/your-first-project/4-testing",
+    "https://docs.garden.io/docs-edge/using-garden-with/pulumi/actions",
+    "https://docs.garden.io/docs-edge/using-garden-with/pulumi/configure-provider",
+    "https://docs.garden.io/edge-release/contributing-to-garden/code_of_conduct",
+    "https://docs.garden.io/edge-release/contributing-to-garden/config-resolution",
+    "https://docs.garden.io/edge-release/contributing-to-garden/developing-garden"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.garden.io/",
+      "confirmed_broken_links_count": 16,
+      "docs_broken_links_count": 16,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.garden.io/cdn-cgi/l/email-protection",
+        "https://docs.garden.io/cedar-0.14/advanced/terraform",
+        "https://docs.garden.io/cedar-0.14/advanced/using-remote-sources",
+        "https://docs.garden.io/cedar-0.14/guides/automatic-environment-cleanup",
+        "https://docs.garden.io/cedar-0.14/guides/code-synchronization",
+        "https://docs.garden.io/cedar-0.14/guides/configuration-overview",
+        "https://docs.garden.io/cedar-0.14/guides/deprecations",
+        "https://docs.garden.io/cedar-0.14/kubernetes-plugins/about",
+        "https://docs.garden.io/cedar-0.14/kubernetes-plugins/guides/in-cluster-building",
+        "https://docs.garden.io/cedar-0.14/kubernetes-plugins/local-k8s",
+        "https://docs.garden.io/cedar-0.14/kubernetes-plugins/remote-k8s",
+        "https://docs.garden.io/guides/code-synchronization",
+        "https://docs.garden.io/kubernetes-plugins/remote-k8s/configure-registry",
+        "https://docs.garden.io/overview/how-garden-works",
+        "https://docs.garden.io/pulumi-plugin/about",
+        "https://docs.garden.io/v/docs-edge-2/guides/running-service-in-local-mode"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.garden.io/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/acorn-0.12/advanced/cert-manager-integration",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/contributing/code_of_conduct",
+              "anchor_text": "[email\u00a0protected] envelope"
+            },
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/misc/cloud-announcement",
+              "anchor_text": "[email\u00a0protected] envelope"
+            },
+            {
+              "source_page": "https://docs.garden.io/contributing-to-garden/code_of_conduct",
+              "anchor_text": "[email\u00a0protected] envelope"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/contributing-to-garden/code_of_conduct",
+              "anchor_text": "[email\u00a0protected] envelope"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/advanced/terraform",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/terraform",
+              "anchor_text": "Terraform guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/module-types/terraform",
+              "anchor_text": "Terraform guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/terraform",
+              "anchor_text": "Terraform guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/deploy/terraform",
+              "anchor_text": "Terraform guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/module-types/terraform",
+              "anchor_text": "Terraform guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/advanced/using-remote-sources",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/build/exec",
+              "anchor_text": "Remote Sources guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/build/container",
+              "anchor_text": "Remote Sources guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/build/jib-container",
+              "anchor_text": "Remote Sources guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/exec",
+              "anchor_text": "Remote Sources guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/container",
+              "anchor_text": "Remote Sources guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/guides/automatic-environment-cleanup",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/project-config",
+              "anchor_text": "Automatic Environment Cleanup guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/reference/project-config",
+              "anchor_text": "Automatic Environment Cleanup guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/guides/code-synchronization",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/container",
+              "anchor_text": "Code Synchronization guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/helm",
+              "anchor_text": "Code Synchronization guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/kubernetes",
+              "anchor_text": "Code Synchronization guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/module-types/helm",
+              "anchor_text": "Code Synchronization guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/deploy/container",
+              "anchor_text": "Code Synchronization guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/guides/configuration-overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/build/exec",
+              "anchor_text": "Configuration Files guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/build/container",
+              "anchor_text": "Configuration Files guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/build/jib-container",
+              "anchor_text": "Configuration Files guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/deploy/container",
+              "anchor_text": "Configuration Files guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/action-types/deploy/pulumi",
+              "anchor_text": "Configuration Files guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/guides/deprecations",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/project-config",
+              "anchor_text": "the deprecations guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/reference/project-config",
+              "anchor_text": "the deprecations guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/kubernetes-plugins/about",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/local-kubernetes",
+              "anchor_text": "Kubernetes guides arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/providers/local-kubernetes",
+              "anchor_text": "Kubernetes guides arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/reference/providers/local-kubernetes",
+              "anchor_text": "Kubernetes guides arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/kubernetes-plugins/guides/in-cluster-building",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/kubernetes",
+              "anchor_text": "in-cluster building guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/local-kubernetes",
+              "anchor_text": "in-cluster building guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/providers/kubernetes",
+              "anchor_text": "in-cluster building guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/providers/local-kubernetes",
+              "anchor_text": "in-cluster building guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/reference/providers/local-kubernetes",
+              "anchor_text": "in-cluster building guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/kubernetes-plugins/local-k8s",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/local-kubernetes",
+              "anchor_text": "Local Kubernetes arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/providers/local-kubernetes",
+              "anchor_text": "Local Kubernetes arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/reference/providers/local-kubernetes",
+              "anchor_text": "Local Kubernetes arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/cedar-0.14/kubernetes-plugins/remote-k8s",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/local-kubernetes",
+              "anchor_text": "Remote Kubernetes guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/reference/providers/local-kubernetes",
+              "anchor_text": "Remote Kubernetes guide arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/reference/providers/local-kubernetes",
+              "anchor_text": "Remote Kubernetes guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/guides/code-synchronization",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/use-cases/local-development-remote-clusters",
+              "anchor_text": "Code Synchronization arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/use-cases/shift-testing-left",
+              "anchor_text": "Code Synchronization arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/overview/use-cases/local-development-remote-clusters",
+              "anchor_text": "Code Synchronization arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/overview/use-cases/shift-testing-left",
+              "anchor_text": "Code Synchronization arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/overview/use-cases/local-development-remote-clusters",
+              "anchor_text": "Code Synchronization arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/kubernetes-plugins/remote-k8s/configure-registry",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/k8s-plugins/local-k8s/install",
+              "anchor_text": "configure Garden with an external image registry arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/guides/install-local-kubernetes",
+              "anchor_text": "configure Garden with an external image registry arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/edge-release/guides/install-local-kubernetes",
+              "anchor_text": "configure Garden with an external image registry arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/guides/install-local-kubernetes",
+              "anchor_text": "configure Garden with an external image registry arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/overview/how-garden-works",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/overview/garden-vs-other-tools",
+              "anchor_text": "How Garden Works guide arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/pulumi-plugin/about",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/reference/action-types/deploy/pulumi",
+              "anchor_text": "this guide on pulumi varfiles and variables arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/reference/providers/pulumi",
+              "anchor_text": "this guide on pulumi varfiles and variables arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/action-types/deploy/pulumi",
+              "anchor_text": "this guide on pulumi varfiles and variables arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/module-types/pulumi",
+              "anchor_text": "this guide on pulumi varfiles and variables arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/docs-edge/reference/providers/pulumi",
+              "anchor_text": "this guide on pulumi varfiles and variables arrow-up-right"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.garden.io/v/docs-edge-2/guides/running-service-in-local-mode",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/misc/faq",
+              "anchor_text": "See here arrow-up-right"
+            },
+            {
+              "source_page": "https://docs.garden.io/bonsai-0.13/other-plugins/exec",
+              "anchor_text": "Garden's local mode functionality arrow-up-right"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://cloud.docs.garden.io/",
+        "https://cloud.docs.garden.io/features/workflows",
+        "https://cloud.docs.garden.io/getting-started/workflows",
+        "https://docs.garden.io/acorn-0.12/reference/providers/local-kubernetes",
+        "https://docs.garden.io/acorn-0.12/tutorials/your-first-project",
+        "https://docs.garden.io/bonsai-0.13/guides/migrating-from-docker-compose",
+        "https://docs.garden.io/bonsai-0.13/k8s-plugins/actions/deploy/helm",
+        "https://docs.garden.io/bonsai-0.13/reference/action-types/run",
+        "https://docs.garden.io/bonsai-0.13/reference/module-types/conftest",
+        "https://docs.garden.io/bonsai-0.13/reference/render-template-config",
+        "https://docs.garden.io/bonsai-0.13/reference/template-strings/project-outputs",
+        "https://docs.garden.io/bonsai-0.13/tutorials",
+        "https://docs.garden.io/bonsai-0.13/tutorials/your-first-project",
+        "https://docs.garden.io/bonsai-0.13/tutorials/your-first-project/1-initialize-a-project",
+        "https://docs.garden.io/bonsai-0.13/using-garden/dashboard",
+        "https://docs.garden.io/docs-edge/reference/glossary",
+        "https://docs.garden.io/docs-edge/reference/module-types/container",
+        "https://docs.garden.io/docs-edge/reference/module-types/jib-container",
+        "https://docs.garden.io/docs-edge/reference/project-config",
+        "https://docs.garden.io/docs-edge/reference/providers",
+        "https://docs.garden.io/docs-edge/reference/providers/container",
+        "https://docs.garden.io/docs-edge/reference/providers/exec",
+        "https://docs.garden.io/docs-edge/reference/render-template-config",
+        "https://docs.garden.io/docs-edge/reference/template-strings/workflows",
+        "https://docs.garden.io/docs-edge/tutorials/your-first-project/4-testing",
+        "https://docs.garden.io/docs-edge/using-garden-with/pulumi/actions",
+        "https://docs.garden.io/docs-edge/using-garden-with/pulumi/configure-provider",
+        "https://docs.garden.io/edge-release/contributing-to-garden/code_of_conduct",
+        "https://docs.garden.io/edge-release/contributing-to-garden/config-resolution",
+        "https://docs.garden.io/edge-release/contributing-to-garden/developing-garden"
+      ]
+    }
+  ]
+}

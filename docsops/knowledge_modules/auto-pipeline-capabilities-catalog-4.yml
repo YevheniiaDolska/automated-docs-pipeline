@@ -1,0 +1,75 @@
+id: auto-pipeline-capabilities-catalog-4
+title: Pipeline Capabilities Catalog (Part 4)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-18'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 4)
+  heading: Pipeline Capabilities Catalog (Part 4)
+  version: 1.50.0
+  updated_at: '2026-04-17T00:00:00Z'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Pipeline Capabilities Catalog (Part 4)
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
+content:
+  docs_markdown: 'This catalog has two layers:
+
+
+    1. npm script entry points (from `package.json`)
+
+    1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
+    flows and are not exposed as npm commands
+
+
+    Non-script concepts (policy semantics, sales packaging, pilot/full scope) are
+    documented in ops guides.
+
+
+    Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
+    any capability.'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 4). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    This catalog has two layers:
+
+
+    1. npm script entry points (from `package.json`)
+
+    1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
+    flows and are not exposed as npm commands
+
+
+    Non-script concepts (policy semantics, sales packaging, pilot/full scope) are
+    documented in ops guides.
+
+
+    Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
+    any capability.'

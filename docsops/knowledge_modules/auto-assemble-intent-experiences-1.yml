@@ -1,0 +1,197 @@
+id: auto-assemble-intent-experiences-1
+title: Assemble intent experiences
+summary: Build user-intent documentation and channel bundles from reusable knowledge
+  modules with validation, indexing, and consistent outputs.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-18'
+dependencies: []
+tags:
+- assemble-intent-experiences
+- auto-extracted
+- how-to
+metadata:
+  url: https://docs.example.com/how-to/assemble-intent-experiences/
+  title: Assemble intent experiences
+  heading: Before you start
+  version: 1.50.0
+  updated_at: '2026-03-07T00:00:00Z'
+  source_site: docs.example.com
+  source_path: how-to/assemble-intent-experiences.md
+semantic:
+  topic: Before you start
+  intent: configure
+  audience: practitioner
+  keywords:
+  - assemble intent experiences
+  - how-to
+  status: rule_based
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Assemble intent experiences
+
+
+    Use this workflow to build a clean docs page and channel-ready AI bundle for one
+    user intent from reusable knowledge modules.
+
+
+    ```bash
+
+    npm run validate:knowledge
+
+    npm run build:intent -- --intent configure --audience operator --channel docs
+
+    npm run build:knowledge-index
+
+    ```
+
+
+    ## Before you start
+
+
+    You need:
+
+
+    - Python 3.10 or later
+
+    - Existing modules in `knowledge_modules/`
+
+    - Write access to `docs/reference/intent-experiences/` and `reports/intent-bundles/`
+
+
+    ## Step 1: Validate module integrity
+
+
+    Run:
+
+
+    ```bash
+
+    npm run lint:knowledge
+
+    ```
+
+
+    This command checks required fields, allowed metadata values, missing dependencies,
+    and dependency cycles.
+
+
+    ## Step 2: Generate a docs experience page
+
+
+    Run:
+
+
+    ```bash
+
+    npm run build:intent -- --intent configure --audience operator --channel docs
+
+    ```
+
+
+    Expected output includes a generated Markdown page in:
+
+
+    ```text
+
+    docs/reference/intent-experiences/configure-operator.md
+
+    ```'
+  assistant_context: 'Use this module when answering questions related to: Assemble
+    intent experiences. Source path: how-to/assemble-intent-experiences.md. Summary:
+    Build user-intent documentation and channel bundles from reusable knowledge modules
+    with validation, indexing, and consistent outputs.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Assemble intent experiences
+
+
+    Use this workflow to build a clean docs page and channel-ready AI bundle for one
+    user intent from reusable knowledge modules.
+
+
+    ```bash
+
+    npm run validate:knowledge
+
+    npm run build:intent -- --intent configure --audience operator --channel docs
+
+    npm run build:knowledge-index
+
+    ```
+
+
+    ## Before you start
+
+
+    You need:
+
+
+    - Python 3.10 or later
+
+    - Existing modules in `knowledge_modules/`
+
+    - Write access to `docs/reference/intent-experiences/` and `reports/intent-bundles/`
+
+
+    ## Step 1: Validate module integrity
+
+
+    Run:
+
+
+    ```bash
+
+    npm run lint:knowledge
+
+    ```
+
+
+    This command checks required fields, allowed metadata values, missing dependencies,
+    and dependency cycles.
+
+
+    ## Step 2: Generate a docs experience page
+
+
+    Run:
+
+
+    ```bash
+
+    npm run build:intent -- --intent configure --audience operator --channel docs
+
+    ```
+
+
+    Expected output includes a generated Markdown page in:
+
+
+    ```text
+
+    docs/reference/intent-experiences/configure-operator.md
+
+    ```'

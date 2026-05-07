@@ -1,0 +1,335 @@
+{
+  "generated_at": "2026-04-29T12:55:01.338947+00:00",
+  "site_url": "https://tiptap.dev/docs",
+  "site_urls": [
+    "https://tiptap.dev/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://tiptap.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 704,
+          "requested_pages": 932,
+          "urls_examined": 704,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 704,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 704,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 2,
+          "seeded_sitemap_urls": 704,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 930,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://cloud.tiptap.dev/v2/features/pro-extensions",
+            "https://tiptap.dev/docs/editor/extensions/custom-extensions/mark"
+          ],
+          "docs_broken_link_samples": [
+            "https://cloud.tiptap.dev/v2/features/pro-extensions",
+            "https://tiptap.dev/docs/editor/extensions/custom-extensions/mark"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "https://ai-demo.tiptap.dev/",
+            "https://mailto:humans@tiptap.dev/",
+            "https://tiptap.dev/docs/conversion/import-export/docx"
+          ],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 13,
+          "excluded_link_samples": [
+            "https://tiptap.dev/api/extensions/character-count",
+            "https://tiptap.dev/api/extensions/collaboration-history",
+            "https://tiptap.dev/api/extensions/file-handler",
+            "https://tiptap.dev/api/extensions/invisible-characters",
+            "https://tiptap.dev/api/extensions/mathematics",
+            "https://tiptap.dev/api/nodes/emoji",
+            "https://tiptap.dev/api/utilities/html",
+            "https://tiptap.dev/feed",
+            "https://www.tiptap.dev/api/extensions/typography",
+            "https://www.tiptap.dev/api/keyboard-shortcuts",
+            "https://www.tiptap.dev/api/marks/highlight",
+            "https://www.tiptap.dev/api/schema",
+            "https://www.tiptap.dev/api/utilities/html"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://cloud.tiptap.dev/v2/features/pro-extensions",
+            "https://tiptap.dev/docs/editor/extensions/custom-extensions/mark"
+          ],
+          "_all_unverified_links": [
+            "https://ai-demo.tiptap.dev/",
+            "https://mailto:humans@tiptap.dev/",
+            "https://tiptap.dev/docs/conversion/import-export/docx"
+          ],
+          "_all_excluded_links": [
+            "https://tiptap.dev/api/extensions/character-count",
+            "https://tiptap.dev/api/extensions/collaboration-history",
+            "https://tiptap.dev/api/extensions/file-handler",
+            "https://tiptap.dev/api/extensions/invisible-characters",
+            "https://tiptap.dev/api/extensions/mathematics",
+            "https://tiptap.dev/api/nodes/emoji",
+            "https://tiptap.dev/api/utilities/html",
+            "https://tiptap.dev/feed",
+            "https://www.tiptap.dev/api/extensions/typography",
+            "https://www.tiptap.dev/api/keyboard-shortcuts",
+            "https://www.tiptap.dev/api/marks/highlight",
+            "https://www.tiptap.dev/api/schema",
+            "https://www.tiptap.dev/api/utilities/html"
+          ],
+          "_all_docs_unverified_links": [
+            "https://ai-demo.tiptap.dev/",
+            "https://mailto:humans@tiptap.dev/",
+            "https://tiptap.dev/docs/conversion/import-export/docx"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://cloud.tiptap.dev/v2/features/pro-extensions": [
+              {
+                "source_page": "https://tiptap.dev/docs/guides/pro-extensions",
+                "anchor_text": "My features \u2192 Pro Extensions"
+              }
+            ],
+            "https://tiptap.dev/docs/editor/extensions/custom-extensions/mark": [
+              {
+                "source_page": "https://tiptap.dev/docs/guides/create-mark",
+                "anchor_text": "Mark API"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 704,
+          "missing_title_count": 3,
+          "missing_description_count": 40,
+          "multiple_h1_count": 13,
+          "heading_hierarchy_jump_count": 210,
+          "seo_geo_issue_rate_pct": 9.45
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 4,
+          "api_pages_detected": 158,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 3,
+          "reference_coverage_pct": 25.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:records",
+            "gql:their",
+            "gql:whether"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 33,
+          "total_code_blocks_all": 3072,
+          "runnable_without_env": 13,
+          "blocked_by_placeholders": 11,
+          "network_bound_examples": 9,
+          "example_reliability_estimate_pct": 39.39,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 67,
+          "pages_without_last_updated_hint": 637,
+          "last_updated_coverage_pct": 9.52,
+          "samples_with_last_updated": [
+            {
+              "url": "https://tiptap.dev/blog/insights",
+              "hint": "Mar 19, 2026"
+            },
+            {
+              "url": "https://tiptap.dev/blog/insights/news-on-tiptap-and-hocuspocus",
+              "hint": "Nov 21, 2022"
+            },
+            {
+              "url": "https://tiptap.dev/",
+              "hint": "Mar 10, 2026"
+            },
+            {
+              "url": "https://tiptap.dev/blog",
+              "hint": "Mar 10, 2026"
+            },
+            {
+              "url": "https://tiptap.dev/blog/insights/sponsoring-tiptap",
+              "hint": "Oct 29, 2020"
+            },
+            {
+              "url": "https://tiptap.dev/blog/insights/tiptap-ycombinator",
+              "hint": "Jul 11, 2023"
+            },
+            {
+              "url": "https://tiptap.dev/blog/insights/our-plan-for-tiptap-2",
+              "hint": "Oct 12, 2020"
+            },
+            {
+              "url": "https://tiptap.dev/blog/insights/tiptap-seriesseed",
+              "hint": "Oct 19, 2023"
+            },
+            {
+              "url": "https://tiptap.dev/blog/release-notes",
+              "hint": "Mar 10, 2026"
+            },
+            {
+              "url": "https://tiptap.dev/blog/release-notes/a-notion-style-editor-ready-to-use-in-tiptap-cloud",
+              "hint": "Last updated"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://cloud.tiptap.dev/v2/features/pro-extensions",
+          "https://tiptap.dev/docs/editor/extensions/custom-extensions/mark"
+        ],
+        "docs_broken_link_samples": [
+          "https://cloud.tiptap.dev/v2/features/pro-extensions",
+          "https://tiptap.dev/docs/editor/extensions/custom-extensions/mark"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://ai-demo.tiptap.dev/",
+          "https://mailto:humans@tiptap.dev/",
+          "https://tiptap.dev/docs/conversion/import-export/docx"
+        ],
+        "api_uncovered_samples": [
+          "gql:records",
+          "gql:their",
+          "gql:whether"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 704,
+        "requested_pages": 932,
+        "urls_examined": 704,
+        "max_pages_total": 5000,
+        "discovered_pages": 704,
+        "crawl_scope_pages": 704,
+        "trap_urls_skipped": 2,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 3,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 13
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 9.45
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 25.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 158,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 39.39
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 9.52
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 67.5,
+      "links_confidence_pct": 35.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 67.5,
+    "links_confidence_pct": 35.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 25.0% (158 API pages detected)",
+    "Example reliability estimate is low: 39.39%",
+    "Freshness visibility is weak: only 9.52% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of tiptap.dev/docs covered 704 pages across multi-project topology with 100% crawl coverage and 67.5% overall confidence. Critical gaps identified: only 25% of 158 detected API pages have adequate usage documentation, and example reliability stands at 39.39%. Freshness metadata is present on only 9.52% of pages, limiting maintenance visibility. Link health is strong with only 2 confirmed broken internal links. SEO/geo issues affect 9.45% of content.",
+      "strengths": [
+        "Complete crawl coverage achieved (704/704 pages, 100%)",
+        "Minimal broken links with only 2 confirmed broken internal documentation links",
+        "High crawl confidence at 95% and API detection confidence at 85%",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "Comprehensive API page detection with 158 pages identified"
+      ],
+      "risks": [
+        "API reference coverage critically low at 25%, leaving 75% of API pages without adequate usage documentation",
+        "Example reliability at 39.39% indicates majority of code examples may be outdated, untested, or non-functional",
+        "Freshness metadata missing on 90.48% of pages, preventing users from assessing content currency",
+        "Overall confidence at 67.5% suggests moderate reliability concerns in audit findings",
+        "Links confidence at 35% indicates potential undetected link issues due to auth/rate-limit barriers (3 unverified URLs)",
+        "SEO/geo issues at 9.45% may impact discoverability and international reach",
+        "Multi-project topology increases maintenance complexity and documentation drift risk"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated last-updated timestamps across all 704 pages to address 90.48% freshness gap",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API usage documentation for 119 undocumented API pages (75% of 158 detected) with integration examples and common patterns",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Establish automated example testing pipeline to improve 39.39% reliability score and prevent code rot",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Fix 2 confirmed broken internal documentation links and investigate 3 unverified URLs blocked by auth/rate-limits",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 9.45% of pages to improve search visibility and international accessibility",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify runtime correctness of code examples or guarantee they execute in actual development environments",
+        "3 links remain unverified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+        "API coverage assessment relies on automated detection patterns which may misclassify pages or miss unconventional API documentation structures",
+        "Freshness analysis only detects visible metadata; actual content currency requires subject matter expert review",
+        "Multi-project topology may contain cross-project dependencies and version compatibility issues not detectable through documentation structure alone"
+      ]
+    }
+  }
+}

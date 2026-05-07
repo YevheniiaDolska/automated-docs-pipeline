@@ -1,0 +1,863 @@
+{
+  "generated_at": "2026-04-25T12:32:00.798847+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://help.elationhealth.com/",
+    "https://docs.elationhealth.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.elationhealth.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 553,
+          "requested_pages": 625,
+          "urls_examined": 623,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 623,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 622,
+          "crawl_coverage_pct": 100.16,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 622,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 555,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 553,
+          "missing_title_count": 0,
+          "missing_description_count": 177,
+          "multiple_h1_count": 315,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 22.24
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 2,
+          "api_pages_detected": 551,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 1,
+          "reference_coverage_pct": 50.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:gtm.js"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 368,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (368 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 552,
+          "pages_without_last_updated_hint": 1,
+          "last_updated_coverage_pct": 99.82,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/docs/mcp",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/FAQ",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergy-documentation-nkda-1",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies_retrieve",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies_create",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies_partial_update",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies_destroy",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies_update",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            },
+            {
+              "url": "https://docs.elationhealth.com/reference/allergies_list",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OTY3NjU1NmNmZDA0ZjQwMDdhY2V"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:gtm.js"
+        ]
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://help.elationhealth.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 624,
+          "requested_pages": 705,
+          "urls_examined": 641,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 641,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 640,
+          "crawl_coverage_pct": 100.16,
+          "trap_urls_skipped": 131,
+          "seeded_sitemap_urls": 640,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 705,
+          "broken_internal_links_count": 20,
+          "docs_broken_links_count": 20,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://help.elationhealth.com/files/advanced-illness-codes-2026.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-bp.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-breast-2024.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-colorectal.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-eye-exam.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-glycemic.xlsx",
+            "https://help.elationhealth.com/files/bipolar-disorder-icd10-codes.xlsx",
+            "https://help.elationhealth.com/files/cms159-visit-codes.xlsx",
+            "https://help.elationhealth.com/files/depression-dysthymia-icd10-codes.xlsx",
+            "https://help.elationhealth.com/files/depression-mental-health-denominator-exceptions.xlsx",
+            "https://help.elationhealth.com/files/depression-screening-medications.xlsx",
+            "https://help.elationhealth.com/files/elation-analyst-sql.sql",
+            "https://help.elationhealth.com/files/eligibility-enrollment-spreadsheet.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-2026.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-bp.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-breast-2024.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-glycemic.xlsx",
+            "https://help.elationhealth.com/files/immunization-id-iris-form.docx",
+            "https://help.elationhealth.com/files/immunization-pa-piers-form.docx",
+            "https://help.elationhealth.com/s/article/Medication-Analysis"
+          ],
+          "docs_broken_link_samples": [
+            "https://help.elationhealth.com/files/advanced-illness-codes-2026.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-bp.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-breast-2024.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-colorectal.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-eye-exam.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-glycemic.xlsx",
+            "https://help.elationhealth.com/files/bipolar-disorder-icd10-codes.xlsx",
+            "https://help.elationhealth.com/files/cms159-visit-codes.xlsx",
+            "https://help.elationhealth.com/files/depression-dysthymia-icd10-codes.xlsx",
+            "https://help.elationhealth.com/files/depression-mental-health-denominator-exceptions.xlsx",
+            "https://help.elationhealth.com/files/depression-screening-medications.xlsx",
+            "https://help.elationhealth.com/files/elation-analyst-sql.sql",
+            "https://help.elationhealth.com/files/eligibility-enrollment-spreadsheet.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-2026.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-bp.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-breast-2024.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-glycemic.xlsx",
+            "https://help.elationhealth.com/files/immunization-id-iris-form.docx",
+            "https://help.elationhealth.com/files/immunization-pa-piers-form.docx",
+            "https://help.elationhealth.com/s/article/Medication-Analysis"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 17,
+          "unverified_links_count": 18,
+          "unverified_link_samples": [
+            "https://help.elationhealth.com/articles/Automatic-Coding-Guide-Advanced-Coding-Automations",
+            "https://help.elationhealth.com/articles/Automatic-Coding-Guide-lab-coding-templates",
+            "https://help.elationhealth.com/articles/CMS122v12-Diabetes-Hemoglobin-A1c-Poor-Control-MIPS-2024",
+            "https://help.elationhealth.com/articles/CMS122v14-Diabetes-Glycemic-Status-Assessment-Greater-Than-9",
+            "https://help.elationhealth.com/articles/Elation-Integrated-Video-FAQ",
+            "https://help.elationhealth.com/articles/Elation-Note-Guide-Managing-Templates",
+            "https://help.elationhealth.com/articles/Fax-Inbox-Guide-Managing-fax-settings-and-fax-usage",
+            "https://help.elationhealth.com/articles/MIPS-2026-Promoting-Interoperability-Category",
+            "https://help.elationhealth.com/articles/MIPS-Eligibility-FAQ",
+            "https://help.elationhealth.com/articles/Managing-Carriers-and-Plans",
+            "https://help.elationhealth.com/articles/North-Dakota-State-NDIIS-Immunization-Registry-Interface-User-Guide",
+            "https://help.elationhealth.com/articles/Note-Assist-Guide",
+            "https://help.elationhealth.com/articles/Ohio-State-ImpactSIIS-Immunization-Registry-Interface-User-Guide",
+            "https://help.elationhealth.com/articles/Patient-Chart-Navigation-Bar",
+            "https://help.elationhealth.com/articles/Questions-of-the-Month-August-2025",
+            "https://help.elationhealth.com/articles/Questions-of-the-Month-March-2024",
+            "https://help.elationhealth.com/articles/Troubleshooting-Login-and-Account-Lockouts-Non-MFA-in-Elation-EHR",
+            "https://help.elationhealth.com/files/frailty-descriptions-colorectal.xlsx"
+          ],
+          "confirmed_broken_links_count": 20,
+          "excluded_links_count": 30,
+          "excluded_link_samples": [
+            "https://help.elationhealth.com/files/ama-caregiver-self-assessment.pdf",
+            "https://help.elationhealth.com/files/controlled-substance-order-form-california.pdf",
+            "https://help.elationhealth.com/files/controlled-substance-order-form-laser.pdf",
+            "https://help.elationhealth.com/files/ehi-data-resource-table.pdf",
+            "https://help.elationhealth.com/files/fax-letter-of-authorization.pdf",
+            "https://help.elationhealth.com/files/immunization-hi-hir-form.pdf",
+            "https://help.elationhealth.com/files/immunization-ia-iris-onboarding.pdf",
+            "https://help.elationhealth.com/files/immunization-ia-iris-site-agreement.pdf",
+            "https://help.elationhealth.com/files/immunization-il-icare-form.pdf",
+            "https://help.elationhealth.com/files/immunization-in-chirp-form.pdf",
+            "https://help.elationhealth.com/files/immunization-ks-hl7-security.pdf",
+            "https://help.elationhealth.com/files/immunization-ks-site-enrollment.pdf",
+            "https://help.elationhealth.com/files/immunization-mo-showmevax-form.pdf",
+            "https://help.elationhealth.com/files/immunization-nc-ncir-agreement.pdf",
+            "https://help.elationhealth.com/files/immunization-nv-webiz-form.pdf",
+            "https://help.elationhealth.com/files/immunization-nyc-cir-confidentiality.pdf",
+            "https://help.elationhealth.com/files/immunization-tx-immtrac2-registration.pdf",
+            "https://help.elationhealth.com/files/immunization-wv-wvsiis-form.pdf",
+            "https://help.elationhealth.com/files/mini-cog-assessment.pdf",
+            "https://help.elationhealth.com/files/mmse-assessment.pdf",
+            "https://help.elationhealth.com/files/moca-questionnaire.pdf",
+            "https://help.elationhealth.com/files/panns-6-scale.pdf",
+            "https://help.elationhealth.com/files/rx-reminders-patient-overview.pdf",
+            "https://help.elationhealth.com/files/rx-reminders-poster-v1.pdf",
+            "https://help.elationhealth.com/files/rx-reminders-poster-v2.pdf",
+            "https://help.elationhealth.com/files/sample-ccda-summary.pdf",
+            "https://help.elationhealth.com/files/telehealth-patient-guide.pdf",
+            "https://help.elationhealth.com/files/uscdi-v1-elation-mapping.pdf",
+            "https://help.elationhealth.com/files/whodas-2.0-questionnaire.pdf",
+            "https://help.elationhealth.com/files/y-bocs-scale.pdf"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://help.elationhealth.com/files/advanced-illness-codes-2026.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-bp.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-breast-2024.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-colorectal.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-eye-exam.xlsx",
+            "https://help.elationhealth.com/files/advanced-illness-codes-glycemic.xlsx",
+            "https://help.elationhealth.com/files/bipolar-disorder-icd10-codes.xlsx",
+            "https://help.elationhealth.com/files/cms159-visit-codes.xlsx",
+            "https://help.elationhealth.com/files/depression-dysthymia-icd10-codes.xlsx",
+            "https://help.elationhealth.com/files/depression-mental-health-denominator-exceptions.xlsx",
+            "https://help.elationhealth.com/files/depression-screening-medications.xlsx",
+            "https://help.elationhealth.com/files/elation-analyst-sql.sql",
+            "https://help.elationhealth.com/files/eligibility-enrollment-spreadsheet.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-2026.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-bp.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-breast-2024.xlsx",
+            "https://help.elationhealth.com/files/frailty-descriptions-glycemic.xlsx",
+            "https://help.elationhealth.com/files/immunization-id-iris-form.docx",
+            "https://help.elationhealth.com/files/immunization-pa-piers-form.docx",
+            "https://help.elationhealth.com/s/article/Medication-Analysis"
+          ],
+          "_all_unverified_links": [
+            "https://help.elationhealth.com/articles/Automatic-Coding-Guide-Advanced-Coding-Automations",
+            "https://help.elationhealth.com/articles/Automatic-Coding-Guide-lab-coding-templates",
+            "https://help.elationhealth.com/articles/CMS122v12-Diabetes-Hemoglobin-A1c-Poor-Control-MIPS-2024",
+            "https://help.elationhealth.com/articles/CMS122v14-Diabetes-Glycemic-Status-Assessment-Greater-Than-9",
+            "https://help.elationhealth.com/articles/Elation-Integrated-Video-FAQ",
+            "https://help.elationhealth.com/articles/Elation-Note-Guide-Managing-Templates",
+            "https://help.elationhealth.com/articles/Fax-Inbox-Guide-Managing-fax-settings-and-fax-usage",
+            "https://help.elationhealth.com/articles/MIPS-2026-Promoting-Interoperability-Category",
+            "https://help.elationhealth.com/articles/MIPS-Eligibility-FAQ",
+            "https://help.elationhealth.com/articles/Managing-Carriers-and-Plans",
+            "https://help.elationhealth.com/articles/North-Dakota-State-NDIIS-Immunization-Registry-Interface-User-Guide",
+            "https://help.elationhealth.com/articles/Note-Assist-Guide",
+            "https://help.elationhealth.com/articles/Ohio-State-ImpactSIIS-Immunization-Registry-Interface-User-Guide",
+            "https://help.elationhealth.com/articles/Patient-Chart-Navigation-Bar",
+            "https://help.elationhealth.com/articles/Questions-of-the-Month-August-2025",
+            "https://help.elationhealth.com/articles/Questions-of-the-Month-March-2024",
+            "https://help.elationhealth.com/articles/Troubleshooting-Login-and-Account-Lockouts-Non-MFA-in-Elation-EHR",
+            "https://help.elationhealth.com/files/frailty-descriptions-colorectal.xlsx"
+          ],
+          "_all_excluded_links": [
+            "https://help.elationhealth.com/files/ama-caregiver-self-assessment.pdf",
+            "https://help.elationhealth.com/files/controlled-substance-order-form-california.pdf",
+            "https://help.elationhealth.com/files/controlled-substance-order-form-laser.pdf",
+            "https://help.elationhealth.com/files/ehi-data-resource-table.pdf",
+            "https://help.elationhealth.com/files/fax-letter-of-authorization.pdf",
+            "https://help.elationhealth.com/files/immunization-hi-hir-form.pdf",
+            "https://help.elationhealth.com/files/immunization-ia-iris-onboarding.pdf",
+            "https://help.elationhealth.com/files/immunization-ia-iris-site-agreement.pdf",
+            "https://help.elationhealth.com/files/immunization-il-icare-form.pdf",
+            "https://help.elationhealth.com/files/immunization-in-chirp-form.pdf",
+            "https://help.elationhealth.com/files/immunization-ks-hl7-security.pdf",
+            "https://help.elationhealth.com/files/immunization-ks-site-enrollment.pdf",
+            "https://help.elationhealth.com/files/immunization-mo-showmevax-form.pdf",
+            "https://help.elationhealth.com/files/immunization-nc-ncir-agreement.pdf",
+            "https://help.elationhealth.com/files/immunization-nv-webiz-form.pdf",
+            "https://help.elationhealth.com/files/immunization-nyc-cir-confidentiality.pdf",
+            "https://help.elationhealth.com/files/immunization-tx-immtrac2-registration.pdf",
+            "https://help.elationhealth.com/files/immunization-wv-wvsiis-form.pdf",
+            "https://help.elationhealth.com/files/mini-cog-assessment.pdf",
+            "https://help.elationhealth.com/files/mmse-assessment.pdf",
+            "https://help.elationhealth.com/files/moca-questionnaire.pdf",
+            "https://help.elationhealth.com/files/panns-6-scale.pdf",
+            "https://help.elationhealth.com/files/rx-reminders-patient-overview.pdf",
+            "https://help.elationhealth.com/files/rx-reminders-poster-v1.pdf",
+            "https://help.elationhealth.com/files/rx-reminders-poster-v2.pdf",
+            "https://help.elationhealth.com/files/sample-ccda-summary.pdf",
+            "https://help.elationhealth.com/files/telehealth-patient-guide.pdf",
+            "https://help.elationhealth.com/files/uscdi-v1-elation-mapping.pdf",
+            "https://help.elationhealth.com/files/whodas-2.0-questionnaire.pdf",
+            "https://help.elationhealth.com/files/y-bocs-scale.pdf"
+          ],
+          "_all_docs_unverified_links": [
+            "https://help.elationhealth.com/articles/Automatic-Coding-Guide-Advanced-Coding-Automations",
+            "https://help.elationhealth.com/articles/Automatic-Coding-Guide-lab-coding-templates",
+            "https://help.elationhealth.com/articles/CMS122v12-Diabetes-Hemoglobin-A1c-Poor-Control-MIPS-2024",
+            "https://help.elationhealth.com/articles/CMS122v14-Diabetes-Glycemic-Status-Assessment-Greater-Than-9",
+            "https://help.elationhealth.com/articles/Elation-Integrated-Video-FAQ",
+            "https://help.elationhealth.com/articles/Elation-Note-Guide-Managing-Templates",
+            "https://help.elationhealth.com/articles/Fax-Inbox-Guide-Managing-fax-settings-and-fax-usage",
+            "https://help.elationhealth.com/articles/MIPS-2026-Promoting-Interoperability-Category",
+            "https://help.elationhealth.com/articles/MIPS-Eligibility-FAQ",
+            "https://help.elationhealth.com/articles/Managing-Carriers-and-Plans",
+            "https://help.elationhealth.com/articles/North-Dakota-State-NDIIS-Immunization-Registry-Interface-User-Guide",
+            "https://help.elationhealth.com/articles/Note-Assist-Guide",
+            "https://help.elationhealth.com/articles/Ohio-State-ImpactSIIS-Immunization-Registry-Interface-User-Guide",
+            "https://help.elationhealth.com/articles/Patient-Chart-Navigation-Bar",
+            "https://help.elationhealth.com/articles/Questions-of-the-Month-August-2025",
+            "https://help.elationhealth.com/articles/Questions-of-the-Month-March-2024",
+            "https://help.elationhealth.com/articles/Troubleshooting-Login-and-Account-Lockouts-Non-MFA-in-Elation-EHR",
+            "https://help.elationhealth.com/files/frailty-descriptions-colorectal.xlsx"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://help.elationhealth.com/files/advanced-illness-codes-2026.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v13-Breast-Cancer-Screening",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS130v14-Colorectal-Cancer-Screening",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v14-Diabetes-Eye-Exam",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v14-Breast-Cancer-Screening",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v14-Breast-Cancer-Screening",
+                "anchor_text": "Advanced Illness Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/advanced-illness-codes-bp.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v12-Controlling-High-Blood-Pressure-MIPS-2024",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v13-Controlling-High-Blood-Pressure-MIPS-2025",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v14-Controlling-High-Blood-Pressure",
+                "anchor_text": "Advanced Illness Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/advanced-illness-codes-breast-2024.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v12-Breast-Cancer-Screening",
+                "anchor_text": "Advanced Illness Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/advanced-illness-codes-colorectal.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS130v14-Colorectal-Cancer-Screening",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS130v13-Colorectal-Cancer-Screening",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v11-Controlling-High-Blood-Pressure-MIPS-2023",
+                "anchor_text": "Advanced Illness Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/advanced-illness-codes-eye-exam.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v13-Diabetes-Eye-Exam-MIPS-2025",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v13-Diabetes-Eye-Exam-MIPS-2025",
+                "anchor_text": "Frailty Descriptions"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v12-Diabetes-Eye-Exam-MIPS-2024",
+                "anchor_text": "Advanced Illness Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v12-Diabetes-Eye-Exam-MIPS-2024",
+                "anchor_text": "Frailty Descriptions"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v14-Diabetes-Eye-Exam",
+                "anchor_text": "Advanced Illness Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/advanced-illness-codes-glycemic.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS122v13-Diabetes-Glycemic-Status-Greater-than-9percent",
+                "anchor_text": "Advanced Illness Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/bipolar-disorder-icd10-codes.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS2v14",
+                "anchor_text": "Click here for a list of qualifying ICD-10 codes for bipolar disorder"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS2v15-Preventive-Care-and-Screening-Screening-for-Depression-and-Follow-Up-Plan",
+                "anchor_text": "Click here for a list of qualifying ICD-10 codes for bipolar disorder"
+              }
+            ],
+            "https://help.elationhealth.com/files/cms159-visit-codes.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS159v13",
+                "anchor_text": "CMS159v13 - Visit Codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS159v14-Depression-Remission-at-Twelve-Months",
+                "anchor_text": "CMS159v13 - Visit Codes"
+              }
+            ],
+            "https://help.elationhealth.com/files/depression-dysthymia-icd10-codes.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS159v13",
+                "anchor_text": "Click here for a list of ICD-10 codes for depression and dysthymia that will be counted towards the Denominator criteria"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS159v14-Depression-Remission-at-Twelve-Months",
+                "anchor_text": "Click here for a list of ICD-10 codes for depression and dysthymia that will be counted towards the Denominator criteria"
+              }
+            ],
+            "https://help.elationhealth.com/files/depression-mental-health-denominator-exceptions.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS159v13",
+                "anchor_text": "Click here for a list of mental health disorders that meet this Denominator exception"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS159v14-Depression-Remission-at-Twelve-Months",
+                "anchor_text": "Click here for a list of mental health disorders that meet this Denominator exception"
+              }
+            ],
+            "https://help.elationhealth.com/files/depression-screening-medications.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS2v14",
+                "anchor_text": "Click here for a list of medications that meet this requirement"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS2v15-Preventive-Care-and-Screening-Screening-for-Depression-and-Follow-Up-Plan",
+                "anchor_text": "Click here for a list of medications that meet this requirement"
+              }
+            ],
+            "https://help.elationhealth.com/files/elation-analyst-sql.sql": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/Elation-Analyst",
+                "anchor_text": "this SQL code"
+              }
+            ],
+            "https://help.elationhealth.com/files/eligibility-enrollment-spreadsheet.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/Real-time-Eligibility-Set-Up-Payers",
+                "anchor_text": "this file"
+              }
+            ],
+            "https://help.elationhealth.com/files/frailty-descriptions-2026.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v13-Breast-Cancer-Screening",
+                "anchor_text": "Frailty Descriptions"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS130v14-Colorectal-Cancer-Screening",
+                "anchor_text": "this list of frailty device codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS131v14-Diabetes-Eye-Exam",
+                "anchor_text": "this list of frailty device codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v14-Breast-Cancer-Screening",
+                "anchor_text": "this list of frailty device codes"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v14-Breast-Cancer-Screening",
+                "anchor_text": "Frailty Descriptions"
+              }
+            ],
+            "https://help.elationhealth.com/files/frailty-descriptions-bp.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v12-Controlling-High-Blood-Pressure-MIPS-2024",
+                "anchor_text": "Frailty Descriptions"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v13-Controlling-High-Blood-Pressure-MIPS-2025",
+                "anchor_text": "Frailty Descriptions"
+              },
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS165v14-Controlling-High-Blood-Pressure",
+                "anchor_text": "Frailty Descriptions"
+              }
+            ],
+            "https://help.elationhealth.com/files/frailty-descriptions-breast-2024.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS125v12-Breast-Cancer-Screening",
+                "anchor_text": "Frailty Descriptions"
+              }
+            ],
+            "https://help.elationhealth.com/files/frailty-descriptions-glycemic.xlsx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/CMS122v13-Diabetes-Glycemic-Status-Greater-than-9percent",
+                "anchor_text": "Frailty Descriptions"
+              }
+            ],
+            "https://help.elationhealth.com/files/immunization-id-iris-form.docx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/Idaho-State-IRIS-Immunization-Registry-Interface-User-Guide",
+                "anchor_text": "this form from IRIS"
+              }
+            ],
+            "https://help.elationhealth.com/files/immunization-pa-piers-form.docx": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/Pennsylvania-State-PIERS-Immunization-Registry-Interface-User-Guide",
+                "anchor_text": "this request form"
+              }
+            ],
+            "https://help.elationhealth.com/s/article/Medication-Analysis": [
+              {
+                "source_page": "https://help.elationhealth.com/articles/Product-Updates-March-2026",
+                "anchor_text": "Medication Analysis article"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 624,
+          "missing_title_count": 0,
+          "missing_description_count": 100,
+          "multiple_h1_count": 2,
+          "heading_hierarchy_jump_count": 16,
+          "seo_geo_issue_rate_pct": 4.73
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 477,
+          "api_pages_detected": 9,
+          "endpoints_with_usage_docs": 468,
+          "reference_endpoints_without_usage_docs": 9,
+          "reference_coverage_pct": 98.11,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/articles/florida-state-fl-shots-immuni",
+            "ep:/help.elationhealth.com/api-reference",
+            "ep:/help.elationhealth.com/articles/change-healthcare-outage-information-and-resources",
+            "ep:/help.elationhealth.com/articles/elation-ehr-quick-start-training-resources",
+            "ep:/help.elationhealth.com/articles/fall-screening-resources",
+            "ep:/help.elationhealth.com/articles/modify-a-subscription-plan",
+            "ep:/help.elationhealth.com/articles/promoting-interoperability-mips-query-of-prescription-drug-monitoring-program",
+            "ep:/help.elationhealth.com/practice-operations",
+            "ep:/www.elationhealth.com/elation-university"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 31,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (31 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 28,
+          "pages_without_last_updated_hint": 596,
+          "last_updated_coverage_pct": 4.49,
+          "samples_with_last_updated": [
+            {
+              "url": "https://help.elationhealth.com/articles/21st-Century-Cures-Act-and-Elation-EHR",
+              "hint": "From April 5, 2021 to October 6, 2022"
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS131v14-Diabetes-Eye-Exam",
+              "hint": "or visit note with a start date prior to December 31, 2026."
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS159v13",
+              "hint": "If the patient is 12 years and older by November 1, 2023,"
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS159v14-Depression-Remission-at-Twelve-Months",
+              "hint": "or visit note with a start date prior to December 31, 2026."
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS165v14-Controlling-High-Blood-Pressure",
+              "hint": "in a visit note dated on or prior to June 30, 2026 OR"
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS155v14-Weight-Assessment-and-Counseling-for-Nutrition-and-Physical-Activity-for-Children-and-Adolescents",
+              "hint": "or visit note with a start date prior to December 31, 2026."
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS2v15-Preventive-Care-and-Screening-Screening-for-Depression-and-Follow-Up-Plan",
+              "hint": "or visit note with a start date prior to December 31, 2026."
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/CMS69v14-Preventive-Care-and-Screening-BMI-Screening-and-Follow-Up-Plan",
+              "hint": "or visit note with a start date prior to December 31, 2026."
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/Calendar-Guide-Managing-special-appointment-use-cases",
+              "hint": "If a provider is already booked for another appointment or event, the availability for that provider will be automatical"
+            },
+            {
+              "url": "https://help.elationhealth.com/articles/Cures-Act-Patient-Data-and-USCDI",
+              "hint": "After October 6, 2022, read the"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://help.elationhealth.com/files/advanced-illness-codes-2026.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-bp.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-breast-2024.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-colorectal.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-eye-exam.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-glycemic.xlsx",
+          "https://help.elationhealth.com/files/bipolar-disorder-icd10-codes.xlsx",
+          "https://help.elationhealth.com/files/cms159-visit-codes.xlsx",
+          "https://help.elationhealth.com/files/depression-dysthymia-icd10-codes.xlsx",
+          "https://help.elationhealth.com/files/depression-mental-health-denominator-exceptions.xlsx",
+          "https://help.elationhealth.com/files/depression-screening-medications.xlsx",
+          "https://help.elationhealth.com/files/elation-analyst-sql.sql",
+          "https://help.elationhealth.com/files/eligibility-enrollment-spreadsheet.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-2026.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-bp.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-breast-2024.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-glycemic.xlsx",
+          "https://help.elationhealth.com/files/immunization-id-iris-form.docx",
+          "https://help.elationhealth.com/files/immunization-pa-piers-form.docx",
+          "https://help.elationhealth.com/s/article/Medication-Analysis"
+        ],
+        "docs_broken_link_samples": [
+          "https://help.elationhealth.com/files/advanced-illness-codes-2026.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-bp.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-breast-2024.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-colorectal.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-eye-exam.xlsx",
+          "https://help.elationhealth.com/files/advanced-illness-codes-glycemic.xlsx",
+          "https://help.elationhealth.com/files/bipolar-disorder-icd10-codes.xlsx",
+          "https://help.elationhealth.com/files/cms159-visit-codes.xlsx",
+          "https://help.elationhealth.com/files/depression-dysthymia-icd10-codes.xlsx",
+          "https://help.elationhealth.com/files/depression-mental-health-denominator-exceptions.xlsx",
+          "https://help.elationhealth.com/files/depression-screening-medications.xlsx",
+          "https://help.elationhealth.com/files/elation-analyst-sql.sql",
+          "https://help.elationhealth.com/files/eligibility-enrollment-spreadsheet.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-2026.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-bp.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-breast-2024.xlsx",
+          "https://help.elationhealth.com/files/frailty-descriptions-glycemic.xlsx",
+          "https://help.elationhealth.com/files/immunization-id-iris-form.docx",
+          "https://help.elationhealth.com/files/immunization-pa-piers-form.docx",
+          "https://help.elationhealth.com/s/article/Medication-Analysis"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://help.elationhealth.com/articles/Automatic-Coding-Guide-Advanced-Coding-Automations",
+          "https://help.elationhealth.com/articles/Automatic-Coding-Guide-lab-coding-templates",
+          "https://help.elationhealth.com/articles/CMS122v12-Diabetes-Hemoglobin-A1c-Poor-Control-MIPS-2024",
+          "https://help.elationhealth.com/articles/CMS122v14-Diabetes-Glycemic-Status-Assessment-Greater-Than-9",
+          "https://help.elationhealth.com/articles/Elation-Integrated-Video-FAQ",
+          "https://help.elationhealth.com/articles/Elation-Note-Guide-Managing-Templates",
+          "https://help.elationhealth.com/articles/Fax-Inbox-Guide-Managing-fax-settings-and-fax-usage",
+          "https://help.elationhealth.com/articles/MIPS-2026-Promoting-Interoperability-Category",
+          "https://help.elationhealth.com/articles/MIPS-Eligibility-FAQ",
+          "https://help.elationhealth.com/articles/Managing-Carriers-and-Plans",
+          "https://help.elationhealth.com/articles/North-Dakota-State-NDIIS-Immunization-Registry-Interface-User-Guide",
+          "https://help.elationhealth.com/articles/Note-Assist-Guide",
+          "https://help.elationhealth.com/articles/Ohio-State-ImpactSIIS-Immunization-Registry-Interface-User-Guide",
+          "https://help.elationhealth.com/articles/Patient-Chart-Navigation-Bar",
+          "https://help.elationhealth.com/articles/Questions-of-the-Month-August-2025",
+          "https://help.elationhealth.com/articles/Questions-of-the-Month-March-2024",
+          "https://help.elationhealth.com/articles/Troubleshooting-Login-and-Account-Lockouts-Non-MFA-in-Elation-EHR",
+          "https://help.elationhealth.com/files/frailty-descriptions-colorectal.xlsx"
+        ],
+        "api_uncovered_samples": [
+          "ep:/articles/florida-state-fl-shots-immuni",
+          "ep:/help.elationhealth.com/api-reference",
+          "ep:/help.elationhealth.com/articles/change-healthcare-outage-information-and-resources",
+          "ep:/help.elationhealth.com/articles/elation-ehr-quick-start-training-resources",
+          "ep:/help.elationhealth.com/articles/fall-screening-resources",
+          "ep:/help.elationhealth.com/articles/modify-a-subscription-plan",
+          "ep:/help.elationhealth.com/articles/promoting-interoperability-mips-query-of-prescription-drug-monitoring-program",
+          "ep:/help.elationhealth.com/practice-operations",
+          "ep:/www.elationhealth.com/elation-university"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1177,
+        "requested_pages": 1330,
+        "urls_examined": 1264,
+        "max_pages_total": 20000,
+        "discovered_pages": 1264,
+        "crawl_scope_pages": 1262,
+        "trap_urls_skipped": 131,
+        "crawl_coverage_pct": 100.16
+      },
+      "links": {
+        "broken_internal_links_count": 20,
+        "docs_broken_links_count": 20,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 18,
+        "confirmed_broken_links_count": 20,
+        "excluded_links_count": 30
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 12.96
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 97.91,
+        "no_api_pages_found": false,
+        "api_pages_detected": 560,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 49.28
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 72.55,
+      "links_confidence_pct": 47.63,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 72.55,
+    "links_confidence_pct": 47.63,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 20",
+    "Link verification inconclusive for 18 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 12.96%",
+    "Example reliability: 0% on 1177 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 49.28% pages show last updated",
+    "Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Elation Health documentation spans 2 domains with 1,177 pages crawled at 100.16% coverage. 20 confirmed broken internal links exist within user-facing docs. API reference coverage is strong at 97.91% (560 API pages detected), but example code detection failed entirely (0.0% reliability, likely JS-rendering issue). Only 49.28% of pages display last-updated timestamps, limiting freshness transparency. Overall audit confidence is 72.55%, with link verification at 47.63% due to 18 unverified URLs blocked by auth or rate limits.",
+      "strengths": [
+        "Comprehensive API reference coverage at 97.91% with 560 API pages successfully detected",
+        "Complete crawl coverage at 100.16% across 1,177 pages within scope",
+        "Single-product topology maintained despite multi-domain structure",
+        "No repository navigation links broken (0 repo_broken_links_count)",
+        "Trap URL detection prevented crawling 131 non-documentation pages"
+      ],
+      "risks": [
+        "20 confirmed broken internal links in user-facing documentation degrade user experience and trust",
+        "Example code reliability at 0.0% indicates complete detection failure, masking potential code quality issues",
+        "SEO/GEO issue rate of 12.96% may harm discoverability and search ranking",
+        "Documentation split across 2 domains (help.elationhealth.com and docs.elationhealth.com) creates consistency and discoverability risk",
+        "Only 49.28% freshness coverage prevents users from assessing content currency on half of all pages",
+        "18 unverified links remain unconfirmed due to authentication or server blocks, representing unknown risk",
+        "Link verification confidence at 47.63% indicates substantial blind spots in link health assessment"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 20 confirmed broken internal links in user-facing documentation",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate and resolve example code detection failure (0.0% reliability); verify JS-rendering or detection tooling issue",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Add last-updated timestamps to the 50.72% of pages missing freshness metadata",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and remediate SEO/GEO issues affecting 12.96% of pages to improve discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Evaluate consolidating help.elationhealth.com and docs.elationhealth.com into single domain or implement clear cross-linking strategy",
+          "impact": "medium",
+          "effort": "high"
+        }
+      ],
+      "limitations": [
+        "Example code detection failed completely (0.0%); audit cannot confirm presence, accuracy, or executability of code samples if JS-rendered or non-standard format",
+        "18 links could not be verified due to authentication requirements, rate limiting, or server blocks; actual broken link count may be higher",
+        "External audit cannot validate accuracy of API documentation content, parameter descriptions, or alignment with actual API behavior",
+        "Crawl cannot assess gated or authenticated content quality; coverage limited to publicly accessible pages",
+        "SEO/GEO issue detection does not guarantee search engine ranking outcomes or user discoverability in practice"
+      ]
+    }
+  }
+}

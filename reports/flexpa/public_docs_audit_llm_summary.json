@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of https://www.flexpa.com/docs covered 165 pages with 100% crawl coverage and 91.5% overall confidence. Critical issues identified: 21 confirmed broken internal links within documentation, API reference coverage at only 23.32% across 61 detected API pages, and example reliability estimated at 28.57%. Additional concerns include 7.73% SEO/geo issue rate and only 55.76% of pages showing last-updated metadata. No repository navigation link issues detected; all broken links are user-facing documentation.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 191 discovered pages within scope)",
+      "High overall audit confidence at 91.5% with strong link verification confidence at 95%",
+      "Single-product topology provides clear documentation structure",
+      "No crawl traps or scope issues encountered during examination",
+      "Repository links are intact with zero broken repo navigation links"
+    ],
+    "risks": [
+      "21 confirmed broken internal documentation links directly impact user navigation and trust",
+      "API reference coverage at 23.32% leaves 76.68% of API surface undocumented or poorly linked",
+      "Example code reliability at 28.57% suggests majority of code samples may be outdated or non-functional",
+      "55.76% freshness coverage means 44.24% of pages lack visible last-updated dates, obscuring content currency",
+      "7.73% SEO/geo issue rate may impact discoverability and search ranking",
+      "Low example reliability combined with low API coverage creates compounding risk for developer onboarding",
+      "API confidence at 85% indicates potential detection gaps in reference documentation identification"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 21 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and expand API reference documentation to achieve minimum 70% coverage across 61 detected API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Validate and update code examples to improve reliability from 28.57% to minimum 80%",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated metadata on all pages to reach 100% freshness coverage from current 55.76%",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 7.73% of pages to improve search discoverability",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functional accuracy of API endpoints or actual runtime behavior of code examples",
+      "Detection of API pages relies on pattern matching; 85% API confidence suggests some reference pages may be misclassified or missed",
+      "Link verification confirms HTTP response codes but cannot validate semantic correctness of link destinations or content relevance",
+      "Freshness metadata presence is measured but actual content currency requires subject matter expert review",
+      "Example reliability is estimated through static analysis; actual executability requires environment-specific testing"
+    ]
+  }
+}

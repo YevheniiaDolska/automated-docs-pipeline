@@ -1,0 +1,86 @@
+{
+  "generated_at_utc": "2026-04-30T10:39:14.778510+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 2,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 2,
+    "unverified_links_sample_count": 8
+  },
+  "all_docs_broken_links": [
+    "https://docs.novu.co/api-reference/notifications/list-all-notifications",
+    "https://docs.novu.co/cdn-cgi/l/email-protection"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://docs.novu.co/",
+    "https://docs.novu.co/api-reference/channel-connections/list-all-channel-connections",
+    "https://docs.novu.co/api-reference/channel-connections/update-a-channel-connection",
+    "https://docs.novu.co/api-reference/channel-endpoints/create-a-channel-endpoint",
+    "https://docs.novu.co/api-reference/channel-endpoints/delete-a-channel-endpoint",
+    "https://docs.novu.co/api-reference/environment-variables/create-a-variable",
+    "https://docs.novu.co/api-reference/workflows/retrieve-a-workflow",
+    "https://docs.novu.co/api-reference/workflows/update-a-workflow"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.novu.co/",
+      "confirmed_broken_links_count": 2,
+      "docs_broken_links_count": 2,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.novu.co/api-reference/notifications/list-all-notifications",
+        "https://docs.novu.co/cdn-cgi/l/email-protection"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.novu.co/api-reference/notifications/list-all-notifications",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.novu.co/guides/migrate-from-courier-to-novu",
+              "anchor_text": "GET /v1/notifications"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.novu.co/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.novu.co/api-reference",
+              "anchor_text": "Contact Support"
+            },
+            {
+              "source_page": "https://docs.novu.co/api-reference/activity/track-provider-activity-and-engagement-events",
+              "anchor_text": "Contact Support"
+            },
+            {
+              "source_page": "https://docs.novu.co/api-reference/channel-connections/delete-a-channel-connection",
+              "anchor_text": "Contact Support"
+            },
+            {
+              "source_page": "https://docs.novu.co/api-reference/channel-connections/create-a-channel-connection",
+              "anchor_text": "Contact Support"
+            },
+            {
+              "source_page": "https://docs.novu.co/api-reference/channel-endpoints/retrieve-a-channel-endpoint",
+              "anchor_text": "Contact Support"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://docs.novu.co/",
+        "https://docs.novu.co/api-reference/channel-connections/list-all-channel-connections",
+        "https://docs.novu.co/api-reference/channel-connections/update-a-channel-connection",
+        "https://docs.novu.co/api-reference/channel-endpoints/create-a-channel-endpoint",
+        "https://docs.novu.co/api-reference/channel-endpoints/delete-a-channel-endpoint",
+        "https://docs.novu.co/api-reference/environment-variables/create-a-variable",
+        "https://docs.novu.co/api-reference/workflows/retrieve-a-workflow",
+        "https://docs.novu.co/api-reference/workflows/update-a-workflow"
+      ]
+    }
+  ]
+}

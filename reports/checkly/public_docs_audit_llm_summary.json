@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of checklyhq.com/docs crawled 976 pages (100% coverage of discovered scope). Critical issues identified: 54 confirmed broken internal links within documentation, 50% API reference coverage gap across 235 detected API pages, and 46.15% example reliability estimate indicating potential code rot. Freshness metadata present on only 38.11% of pages, limiting change tracking. Overall confidence score 72.89% with link verification at 48.47% due to 47 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100% of discovered documentation scope (976 pages)",
+      "API page detection successful with 235 pages identified, enabling coverage analysis",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "Topology clearly defined as single-product documentation",
+      "Crawl trap detection active, filtering 723 non-documentation URLs"
+    ],
+    "risks": [
+      "54 confirmed broken internal documentation links degrading user navigation and trust",
+      "50% API reference coverage gap leaves half of API surface undocumented or poorly linked",
+      "46.15% example reliability estimate suggests high probability of outdated or non-functional code samples",
+      "61.89% of pages lack last-updated timestamps, obscuring content freshness and maintenance status",
+      "47 unverified links due to authentication/rate-limiting may hide additional broken links",
+      "8.71% SEO/geo issue rate may impact discoverability in search and regional access",
+      "Overall confidence at 72.89% with link confidence critically low at 48.47%"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 54 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and expand API reference documentation to close 50% coverage gap across 235 API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Validate and update code examples to improve 46.15% reliability estimate",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on remaining 61.89% of pages for freshness transparency",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate 47 unverified links with authentication bypass or manual verification to confirm status",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "47 links unverified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "Example reliability is estimated via heuristics; actual code execution success requires runtime testing",
+      "API coverage calculation depends on detection accuracy; complex API structures may be underreported",
+      "External link validity subject to third-party availability at audit time; status may change post-audit",
+      "Content quality, accuracy, and completeness not assessed; audit covers structural and technical health only"
+    ]
+  }
+}

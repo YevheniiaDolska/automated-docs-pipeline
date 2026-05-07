@@ -1,0 +1,88 @@
+{
+  "generated_at_utc": "2026-04-29T10:51:45.741609+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 4,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 4,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.medusajs.com/learn/!https:/vitejs.dev",
+    "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/infrastructure-modules/caching",
+    "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/infrastructure-modules/caching/providers",
+    "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/references/caching-service"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.medusajs.com/",
+      "confirmed_broken_links_count": 4,
+      "docs_broken_links_count": 4,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.medusajs.com/learn/!https:/vitejs.dev",
+        "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/infrastructure-modules/caching",
+        "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/infrastructure-modules/caching/providers",
+        "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/references/caching-service"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.medusajs.com/learn/!https:/vitejs.dev",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.medusajs.com/learn/build",
+              "anchor_text": "Vite"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/infrastructure-modules/caching",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.medusajs.com/learn/fundamentals/module-links/index-module",
+              "anchor_text": "configured TTL of the Caching Module"
+            },
+            {
+              "source_page": "https://docs.medusajs.com/learn/fundamentals/module-links/query",
+              "anchor_text": "configured TTL of the Caching Module"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/infrastructure-modules/caching/providers",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.medusajs.com/learn/fundamentals/module-links/index-module",
+              "anchor_text": "default Caching Module Provider"
+            },
+            {
+              "source_page": "https://docs.medusajs.com/learn/fundamentals/module-links/query",
+              "anchor_text": "default Caching Module Provider"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.medusajs.com/learn/fundamentals/module-links/!resources!/references/caching-service",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.medusajs.com/learn/fundamentals/module-links/index-module",
+              "anchor_text": "Caching Module's service"
+            },
+            {
+              "source_page": "https://docs.medusajs.com/learn/fundamentals/module-links/query",
+              "anchor_text": "Caching Module's service"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

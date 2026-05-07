@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of codefresh.io/docs crawled 953 pages from a discovered 967 pages (100% crawl coverage). One confirmed broken internal documentation link was detected. API reference coverage is complete at 100% (139 API pages detected). Example code reliability is estimated at 70.71%, and only 36.73% of pages display last-updated metadata. Overall audit confidence is 63.5%, with link verification confidence at 25% due to 279 unverified URLs blocked by authentication or rate-limiting.",
+    "strengths": [
+      "Complete crawl coverage: 100% of in-scope pages (953/955) successfully crawled",
+      "Full API reference coverage: 100% with 139 API pages detected and validated",
+      "Minimal broken links: only 1 confirmed broken internal documentation link",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "Large documentation footprint with 953 pages providing comprehensive product coverage"
+    ],
+    "risks": [
+      "Low link verification confidence (25%): 279 URLs could not be verified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "High SEO/GEO issue rate at 12.91% may impact discoverability and search ranking",
+      "Weak freshness visibility: only 36.73% of pages display last-updated dates, obscuring content currency for users",
+      "Example code reliability at 70.71% indicates approximately 30% of code examples may be outdated, incorrect, or non-functional",
+      "Overall audit confidence of 63.5% suggests moderate uncertainty in findings",
+      "1,355 links excluded from analysis may hide additional quality issues",
+      "10 trap URLs skipped during crawl may indicate navigation or URL structure problems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Investigate and resolve 279 unverified links; implement monitoring for authentication-gated and external link health",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add or expose last-updated metadata on remaining 63.27% of pages to improve content trust and maintenance visibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and fix example code reliability: validate, test, and update the ~30% of examples flagged as potentially unreliable",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Address SEO/GEO issues affecting 12.91% of pages (123 pages): fix meta tags, descriptions, and geo-targeting configuration",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Fix the 1 confirmed broken internal documentation link and review the 10 trap URLs for navigation improvements",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify 279 links blocked by authentication, rate-limiting, or server restrictions; actual broken link count may be underreported",
+      "Example code reliability is estimated through heuristic analysis; actual runtime validity requires manual testing in target environments",
+      "Audit cannot assess content accuracy, completeness of feature coverage, or alignment with current product versions",
+      "Freshness analysis depends on visible metadata; pages without last-updated dates may still be current but are flagged as unknown",
+      "SEO/GEO issue detection is technical only; business impact on search rankings and user acquisition requires analytics correlation"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of polar.sh/docs covered 277 pages (100% crawl coverage) with 91.5% overall confidence. Critical gaps identified: 4 confirmed broken internal links, 18.32% SEO/geo issue rate, and only 18.77% of pages display last-updated timestamps. API reference coverage at 67.34% across 197 detected API pages indicates incomplete documentation. Example reliability scored 0.0%, signaling absent or non-functional code samples.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 277 pages in scope)",
+      "High overall audit confidence at 91.5% with strong link verification (95%)",
+      "Single-product topology provides clear documentation structure",
+      "197 API pages detected and analyzed for reference completeness",
+      "No repository navigation link breakage (repo_broken_links_count: 0)"
+    ],
+    "risks": [
+      "4 confirmed broken internal documentation links damage user navigation and trust",
+      "18.32% SEO/geo issue rate severely impacts discoverability and search ranking",
+      "32.66% API reference gap leaves significant functionality undocumented",
+      "0.0% example reliability indicates code samples are missing, broken, or undetectable",
+      "81.23% of pages lack last-updated dates, obscuring content freshness and accuracy",
+      "API confidence at 85% suggests potential undetected API pages or classification errors",
+      "Missing freshness metadata undermines user confidence in documentation currency"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 4 broken internal documentation links immediately",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on all 225+ pages currently missing them",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate 18.32% SEO/geo issues (meta descriptions, titles, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Document missing 32.66% of API reference content across 197 API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add functional, tested code examples to address 0.0% reliability score",
+        "impact": "high",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, only structural completeness and link validity",
+      "Example reliability at 0.0% may indicate detection limitations if examples exist but use non-standard formatting",
+      "API coverage assessment depends on page classification heuristics; 85% confidence suggests possible false negatives",
+      "Crawl limited to 277 of potential 1500 max pages; undiscovered content outside sitemap scope not evaluated",
+      "SEO/geo issue severity and business impact require manual review; automated detection flags potential problems only"
+    ]
+  }
+}

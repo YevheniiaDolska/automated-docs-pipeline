@@ -1,0 +1,22 @@
+schema_version: 1
+required_events:
+  - autopipeline_started
+  - autopipeline_finished
+  - stage_started
+  - stage_finished
+  - command_started
+  - command_heartbeat
+  - command_finished
+  - mandatory_gates_started
+  - mandatory_gates_finished
+  - mandatory_gate_command_started
+  - mandatory_gate_command_finished
+  - template_used
+  - doc_created
+required_statuses:
+  - info
+  - started
+  - heartbeat
+  - finished
+  - passed
+  - failed

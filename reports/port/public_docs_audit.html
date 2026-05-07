@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-05-05T11:18:12.512101+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">894</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">895</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">8</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">5</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">1.73%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">52.14%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">7.72%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">76.12%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 8</li><li>Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>Example reliability estimate is low: 52.14%</li><li>Freshness visibility is weak: only 7.72% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.port.io/</strong>: pages=894, broken_links=8, api_coverage=100.0%, examples=52.14%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit of docs.port.io covered 894 pages with 100% crawl coverage across a single-product topology. The site contains 8 confirmed broken internal documentation links and 5 unverified links excluded from counts due to authentication or rate-limiting. API reference coverage is complete at 100% across 411 detected API pages. Critical weaknesses include low example reliability at 52.14% and minimal freshness visibility with only 7.72% of pages displaying last-updated metadata. Overall audit confidence stands at 76.12%, with links confidence notably lower at 56.54%.</p><h3>Strengths</h3><ul><li>Complete crawl coverage at 100% with 894 pages successfully indexed</li><li>Full API reference coverage at 100% across 411 API pages detected</li><li>Zero broken repository navigation links; all 8 broken links are user-facing documentation links</li><li>Strong crawl confidence at 95% and API detection confidence at 85%</li><li>Low SEO/geo issue rate at 1.73%</li></ul><h3>Risks</h3><ul><li>Example reliability critically low at 52.14%, indicating over half of code examples may be outdated or non-functional</li><li>Freshness metadata present on only 7.72% of pages, preventing users from assessing content currency</li><li>8 confirmed broken internal documentation links degrade user navigation experience</li><li>5 unverified links due to authentication/rate-limiting represent unknown documentation quality gaps</li><li>Links confidence at 56.54% suggests potential undetected link issues beyond confirmed breaks</li><li>Overall confidence of 76.12% indicates moderate uncertainty in audit completeness</li><li>Large page count (894) with minimal freshness tracking creates maintenance blind spots</li></ul><h3>Prioritized actions</h3><ul><li>Implement automated example testing pipeline to validate code samples and raise reliability above 85% <em>[critical, high]</em></li><li>Fix all 8 confirmed broken internal documentation links immediately <em>[high, low]</em></li><li>Deploy last-updated timestamps across all 894 pages with automated git-based tracking <em>[high, medium]</em></li><li>Investigate and resolve 5 unverified links blocked by authentication or rate-limiting <em>[medium, low]</em></li><li>Establish quarterly link validation process to address 56.54% links confidence gap <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

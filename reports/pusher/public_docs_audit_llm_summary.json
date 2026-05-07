@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of pusher.com/docs covered 1549 pages across multi-project topology with 100% crawl coverage and 85.88% overall confidence. Critical issue: 159 confirmed broken internal documentation links require immediate remediation. API reference coverage is weak at 30.53% despite 216 API pages detected. Freshness metadata exists on only 48.81% of pages, limiting content currency visibility. Example code reliability estimate stands at 84.53%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100%) with 1549 pages successfully indexed",
+      "High overall audit confidence at 85.88% with strong crawl confidence at 95%",
+      "Example code reliability estimate of 84.53% indicates generally functional code samples",
+      "Zero repository navigation broken links (repo_broken_links_count: 0) shows clean version control integration",
+      "Multi-project topology successfully mapped across 1554 discovered pages"
+    ],
+    "risks": [
+      "159 confirmed broken internal documentation links create poor user experience and erode trust",
+      "API reference coverage at 30.53% leaves 69.47% of API surface undocumented or poorly linked",
+      "Only 48.81% of pages display last-updated metadata, obscuring content freshness for majority of docs",
+      "26 unverified links due to auth/rate-limit/server blocks represent potential hidden broken links",
+      "SEO/geo issue rate of 7.49% (approximately 116 pages) may impact discoverability",
+      "15.47% example code failure rate (100% - 84.53%) means roughly 1 in 6 code samples may not work",
+      "Link verification confidence at 80.95% is lowest confidence metric, suggesting possible undetected link issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 159 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and verify 26 unverified links blocked by auth/rate-limits to confirm accessibility",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference coverage from 30.53% to minimum 80% by documenting missing endpoints and improving cross-linking",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on remaining 51.19% of pages (approximately 793 pages) to improve freshness visibility",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and fix failing example code (15.47% failure rate) to achieve 95%+ reliability",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of documentation substance",
+      "26 links blocked by authentication, rate-limiting, or server restrictions could not be verified and may include additional broken links",
+      "Example code reliability is estimated through static analysis; actual runtime execution in customer environments may differ",
+      "API coverage detection depends on page structure patterns; actual API surface completeness requires internal product knowledge",
+      "Freshness metadata presence does not guarantee content is actually current or that missing dates indicate stale content"
+    ]
+  }
+}

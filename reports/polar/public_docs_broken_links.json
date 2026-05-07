@@ -1,0 +1,84 @@
+{
+  "generated_at_utc": "2026-04-28T09:24:06.909810+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 4,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 4,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://polar.sh/checkout/polar_c_ES7DwhlyvlYTPNaLiccKqiwJPda43FIzer",
+    "https://polar.sh/docs/docs/api-reference/customers/state",
+    "https://polar.sh/docs/docs/features/checkout/session",
+    "https://polar.sh/docs/features/usage-billing/cost-insights"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://polar.sh/docs/sitemap.xml.",
+      "confirmed_broken_links_count": 4,
+      "docs_broken_links_count": 4,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://polar.sh/checkout/polar_c_ES7DwhlyvlYTPNaLiccKqiwJPda43FIzer",
+        "https://polar.sh/docs/docs/api-reference/customers/state",
+        "https://polar.sh/docs/docs/features/checkout/session",
+        "https://polar.sh/docs/features/usage-billing/cost-insights"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://polar.sh/checkout/polar_c_ES7DwhlyvlYTPNaLiccKqiwJPda43FIzer",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://polar.sh/docs/guides/theme-switch-in-checkout",
+              "anchor_text": "https://polar.sh/checkout/polar_c_ES7DwhlyvlYTPNaLiccKqiwJPda43FIzer"
+            },
+            {
+              "source_page": "https://polar.sh/docs/guides/theme-switch-in-checkout",
+              "anchor_text": "https://polar.sh/checkout/polar_c_ES7DwhlyvlYTPNaLiccKqiwJPda43FIzer?theme=dark"
+            },
+            {
+              "source_page": "https://polar.sh/docs/guides/theme-switch-in-checkout",
+              "anchor_text": "https://polar.sh/checkout/polar_c_ES7DwhlyvlYTPNaLiccKqiwJPda43FIzer?theme=light"
+            }
+          ]
+        },
+        {
+          "target_url": "https://polar.sh/docs/docs/api-reference/customers/state",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://polar.sh/docs/changelog/recent",
+              "anchor_text": "Customer State API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://polar.sh/docs/docs/features/checkout/session",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://polar.sh/docs/changelog/recent",
+              "anchor_text": "Read more"
+            }
+          ]
+        },
+        {
+          "target_url": "https://polar.sh/docs/features/usage-billing/cost-insights",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://polar.sh/docs/changelog/recent",
+              "anchor_text": "Read more"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

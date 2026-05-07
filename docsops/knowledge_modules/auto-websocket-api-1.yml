@@ -1,0 +1,99 @@
+id: auto-websocket-api-1
+title: WEBSOCKET API Reference
+summary: Auto-generated websocket reference from source contract.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-18'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-api
+metadata:
+  url: https://docs.example.com/reference/websocket-api/
+  title: WEBSOCKET API Reference
+  heading: Top-level Keys
+  version: 1.50.0
+  updated_at: '2026-03-20T00:00:00Z'
+  source_site: docs.example.com
+  source_path: reference/websocket-api.md
+semantic:
+  topic: Top-level Keys
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - websocket api
+  status: rule_based
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # WEBSOCKET Reference
+
+
+    Source: `reports/acme-demo/contracts/websocket.yaml`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    - `channels`
+
+
+    ## Channels/Events
+
+
+    - Channel count: `1`
+
+    - `project.updated`'
+  assistant_context: 'Use this module when answering questions related to: WEBSOCKET
+    API Reference. Source path: reference/websocket-api.md. Summary: Auto-generated
+    websocket reference from source contract.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # WEBSOCKET Reference
+
+
+    Source: `reports/acme-demo/contracts/websocket.yaml`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    - `channels`
+
+
+    ## Channels/Events
+
+
+    - Channel count: `1`
+
+    - `project.updated`'
