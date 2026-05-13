@@ -2597,7 +2597,7 @@ def main() -> int:
     parser.add_argument(
         "--verification-runs",
         type=int,
-        default=3,
+        default=1,
         help="Number of full crawl+verification runs; broken links use intersection across runs",
     )
     parser.add_argument(
@@ -2928,7 +2928,7 @@ def main() -> int:
         if cookie_header and "Cookie" not in auth_headers:
             auth_headers["Cookie"] = cookie_header
 
-    verification_runs = max(1, int(getattr(args, "verification_runs", 3)))
+    verification_runs = max(1, int(getattr(args, "verification_runs", 1)))
 
     def _run_site(url: str) -> dict[str, Any]:
         runs: list[dict[str, Any]] = []
