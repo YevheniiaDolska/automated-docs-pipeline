@@ -47,6 +47,32 @@ Copy the received folder into your project repository as:
 <your-repo>/docsops/
 ```
 
+## One-command full install from ZIP (recommended)
+
+If you received a ZIP archive instead of a ready `docsops/` folder, use one command that performs:
+
+1. unpack archive,
+1. normalize folder name to `docsops`,
+1. run environment setup wizard in auto mode,
+1. install weekly scheduler automatically (OS-aware).
+
+Windows (PowerShell):
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$repo=(Resolve-Path '.').Path; $zip='.\docsops-bundle.zip'; $tmp=Join-Path $repo '.docsops_unpack'; if (Test-Path $tmp) { Remove-Item -Recurse -Force $tmp }; New-Item -ItemType Directory -Path $tmp | Out-Null; Expand-Archive -Path $zip -DestinationPath $tmp -Force; $entry=(Get-ChildItem -Path $tmp | Select-Object -First 1); $dst=Join-Path $repo 'docsops'; if (Test-Path $dst) { Remove-Item -Recurse -Force $dst }; Move-Item -Path $entry.FullName -Destination $dst; python $dst\scripts\setup_client_env_wizard.py --auto; Remove-Item -Recurse -Force $tmp"
+```
+
+Linux/macOS:
+
+```bash
+repo="$(pwd)" && zip="./docsops-bundle.zip" && tmp="$repo/.docsops_unpack" && rm -rf "$tmp" && mkdir -p "$tmp" && unzip -oq "$zip" -d "$tmp" && src="$(find "$tmp" -mindepth 1 -maxdepth 1 | head -n 1)" && rm -rf "$repo/docsops" && mv "$src" "$repo/docsops" && python3 "$repo/docsops/scripts/setup_client_env_wizard.py" --auto && rm -rf "$tmp"
+```
+
+Notes:
+
+1. Run command from the target client repository root.
+1. Replace `docsops-bundle.zip` with the actual archive name if different.
+
 ## Step 2: Fill local secrets (not in git)
 
 1. In repository root, copy:
@@ -65,8 +91,12 @@ If unsure which values are required, open:
 
 ## Step 3: Install weekly scheduler once
 
+Default path: `python3 docsops/scripts/setup_client_env_wizard.py --auto` writes local env with defaults and installs scheduler automatically based on OS.
+
 Before installing scheduler, make sure git access for this repository already works in terminal for the same OS user (SSH key or credential helper/PAT).
 Scheduler runs under that same user. If `git pull` fails for this user, weekly run will fail too.
+
+Manual fallback (if you skipped scheduler in wizard):
 
 Linux/macOS:
 

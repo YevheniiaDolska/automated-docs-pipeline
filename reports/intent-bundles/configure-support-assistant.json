@@ -11,7 +11,7 @@
       "intent": "configure",
       "audience": "support",
       "channel": "assistant",
-      "content": "Use this module when answering questions related to: Fix: Webhook trigger not firing (Part 3). Source path: docs/troubleshooting/webhook-not-firing.md. Summary: Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.\n\n## Still not working?\n\n1. Check the logs for errors: `docker logs` or the process output.\n1. Test with a minimal `curl` command from the same network as the service.\n1. Verify the HTTP method matches (the Webhook node only responds to the configured method).\n\n## Related\n\n- [Webhook node reference](../reference/nodes/webhook.md)\n- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)\n\n## Next steps\n\n- [Documentation index](index.md)"
+      "content": "Use this module when answering questions related to: Fix: Webhook trigger not firing (Part 3). Source path: troubleshooting/webhook-not-firing.md. Summary: Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.\n\n## Still not working?\n\n1. Check the logs for errors: `docker logs` or the process output.\n1. Test with a minimal `curl` command from the same network as the service.\n1. Verify the HTTP method matches (the Webhook node only responds to the configured method).\n\n## Related\n\n- [Webhook node reference](../reference/nodes/webhook.md)\n- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)\n\n## Next steps\n\n- [Documentation index](index.md)"
     },
     {
       "module_id": "webhook-auth-baseline",

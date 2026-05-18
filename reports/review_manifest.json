@@ -1,0 +1,287 @@
+{
+  "runtime_config": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml",
+  "stage_summary": {
+    "weekly_rc": 0,
+    "strictness": "standard",
+    "skip_consolidated_report": false,
+    "missing_required_artifacts": 1,
+    "stages": [
+      {
+        "stage": "multi_protocol_contract",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "consolidated_report",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/consolidated_report.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "audit_scorecard",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "finalize_gate",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/finalize_gate_report.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "docsops_status",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "ready_marker",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "kpi_wall",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-wall.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "kpi_sla",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-sla-report.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "glossary_sync",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/glossary_sync_report.json",
+        "exists": true,
+        "required": false
+      },
+      {
+        "stage": "test_assets_json",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/api_test_cases.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "test_assets_coverage",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/coverage_report.json",
+        "exists": true,
+        "required": true
+      },
+      {
+        "stage": "test_assets_fuzz",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json",
+        "exists": true,
+        "required": false
+      },
+      {
+        "stage": "test_assets_summary",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md",
+        "exists": false,
+        "required": true
+      }
+    ],
+    "ok": false
+  },
+  "artifacts": [
+    {
+      "title": "Consolidated report",
+      "category": "reports",
+      "module": "",
+      "required": true,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/consolidated_report.json",
+      "exists": true
+    },
+    {
+      "title": "Audit scorecard (JSON)",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json",
+      "exists": true
+    },
+    {
+      "title": "Audit scorecard (HTML)",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.html",
+      "exists": true
+    },
+    {
+      "title": "Finalize gate report",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/finalize_gate_report.json",
+      "exists": true
+    },
+    {
+      "title": "VeriOps status",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json",
+      "exists": true
+    },
+    {
+      "title": "Ready marker",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt",
+      "exists": true
+    },
+    {
+      "title": "Generated changes list",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/generated_changes.json",
+      "exists": true
+    },
+    {
+      "title": "VeriDoc branding policy report",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veridoc_branding_policy_report.json",
+      "exists": true
+    },
+    {
+      "title": "Docs index",
+      "category": "docs",
+      "module": "",
+      "required": true,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md",
+      "exists": true
+    },
+    {
+      "title": "Faceted search page",
+      "category": "search",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md",
+      "exists": true
+    },
+    {
+      "title": "Facets index",
+      "category": "search",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json",
+      "exists": true
+    },
+    {
+      "title": "Multi-protocol contract report",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json",
+      "exists": true
+    },
+    {
+      "title": "REST reference",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/rest-api.md",
+      "exists": true
+    },
+    {
+      "title": "REST playground",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md",
+      "exists": true
+    },
+    {
+      "title": "API test cases JSON",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/api_test_cases.json",
+      "exists": true
+    },
+    {
+      "title": "TestRail CSV",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/testrail_test_cases.csv",
+      "exists": true
+    },
+    {
+      "title": "Zephyr JSON",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/zephyr_test_cases.json",
+      "exists": true
+    },
+    {
+      "title": "Test coverage report",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/coverage_report.json",
+      "exists": true
+    },
+    {
+      "title": "Fuzz scenarios",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json",
+      "exists": true
+    },
+    {
+      "title": "Test assets summary",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md",
+      "exists": false
+    },
+    {
+      "title": "Glossary source",
+      "category": "quality",
+      "module": "terminology_management",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/glossary.yml",
+      "exists": true
+    },
+    {
+      "title": "Glossary sync report",
+      "category": "quality",
+      "module": "terminology_management",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/glossary_sync_report.json",
+      "exists": true
+    },
+    {
+      "title": "KPI wall",
+      "category": "quality",
+      "module": "kpi_sla",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-wall.json",
+      "exists": true
+    },
+    {
+      "title": "KPI SLA report",
+      "category": "quality",
+      "module": "kpi_sla",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-sla-report.json",
+      "exists": true
+    }
+  ],
+  "available_artifacts": 23,
+  "missing_artifacts": 1,
+  "rag_metadata": {}
+}

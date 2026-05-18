@@ -1,0 +1,240 @@
+{
+  "generated_at": "2026-05-11T11:44:06.064620+00:00",
+  "site_url": "https://docs.replay.io/",
+  "site_urls": [
+    "https://docs.replay.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.replay.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 71,
+          "requested_pages": 74,
+          "urls_examined": 74,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 74,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 74,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 74,
+          "broken_internal_links_count": 3,
+          "docs_broken_links_count": 3,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.replay.io/basics/time-travel-devtools/collaborative-devtools",
+            "https://docs.replay.io/basics/time-travel-devtools/focus-window",
+            "https://docs.replay.io/basics/time-travel-devtools/jump-to-event"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.replay.io/basics/time-travel-devtools/collaborative-devtools",
+            "https://docs.replay.io/basics/time-travel-devtools/focus-window",
+            "https://docs.replay.io/basics/time-travel-devtools/jump-to-event"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 3,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.replay.io/basics/time-travel-devtools/collaborative-devtools",
+            "https://docs.replay.io/basics/time-travel-devtools/focus-window",
+            "https://docs.replay.io/basics/time-travel-devtools/jump-to-event"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.replay.io/basics/time-travel-devtools/collaborative-devtools": [
+              {
+                "source_page": "https://docs.replay.io/basics/replay-devtools/overview",
+                "anchor_text": "Collaborative DevTools"
+              }
+            ],
+            "https://docs.replay.io/basics/time-travel-devtools/focus-window": [
+              {
+                "source_page": "https://docs.replay.io/basics/replay-devtools/overview",
+                "anchor_text": "Focus Window"
+              }
+            ],
+            "https://docs.replay.io/basics/time-travel-devtools/jump-to-event": [
+              {
+                "source_page": "https://docs.replay.io/basics/replay-devtools/overview",
+                "anchor_text": "Jump to Event"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 71,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 22,
+          "seo_geo_issue_rate_pct": 7.75
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 111,
+          "api_pages_detected": 30,
+          "endpoints_with_usage_docs": 29,
+          "reference_endpoints_without_usage_docs": 82,
+          "reference_coverage_pct": 26.13,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/.replay/runtimes/replay-chromium.app/contents/macos/chromium",
+            "ep:/9049-e6cb09f73335b30f.js",
+            "ep:/api.replay.io",
+            "ep:/api.replay.io/v1/graphql",
+            "ep:/app.replay.io/recording/8a5ab266-96ec-47d5-a56a-2b49fa2b999b",
+            "ep:/app.replay.io/recording/d1bd8025-cc11-473a-bd3d-997cb68050fa",
+            "ep:/checkout",
+            "ep:/circleci.com/docs/env-vars",
+            "ep:/circleci.com/docs/reference/variables",
+            "ep:/create-session",
+            "ep:/dispatch.replay.io",
+            "ep:/docs.github.com/en/actions/learn-github-actions/variables",
+            "ep:/docs.gitlab.com/ee/ci/variables/predefined_variables.html",
+            "ep:/docs.semaphoreci.com/ci-cd-environment/environment-variables",
+            "ep:/docs.travis-ci.com/user/environment-variables",
+            "ep:/extension",
+            "ep:/github.com/filiphric/replay-webdriverio-example",
+            "ep:/github.com/markerikson/react-prod-sourcemaps",
+            "ep:/github.com/replayio-public/chrome-extension-example",
+            "ep:/github.com/replayio-public/replay-sourcemap-upload-example/blob/main/next.config.mjs"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 92,
+          "total_code_blocks_all": 97,
+          "runnable_without_env": 66,
+          "blocked_by_placeholders": 11,
+          "network_bound_examples": 15,
+          "example_reliability_estimate_pct": 71.74,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 71,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.replay.io/basics/time-travel-devtools/collaborative-devtools",
+          "https://docs.replay.io/basics/time-travel-devtools/focus-window",
+          "https://docs.replay.io/basics/time-travel-devtools/jump-to-event"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.replay.io/basics/time-travel-devtools/collaborative-devtools",
+          "https://docs.replay.io/basics/time-travel-devtools/focus-window",
+          "https://docs.replay.io/basics/time-travel-devtools/jump-to-event"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/.replay/runtimes/replay-chromium.app/contents/macos/chromium",
+          "ep:/9049-e6cb09f73335b30f.js",
+          "ep:/api.replay.io",
+          "ep:/api.replay.io/v1/graphql",
+          "ep:/app.replay.io/recording/8a5ab266-96ec-47d5-a56a-2b49fa2b999b",
+          "ep:/app.replay.io/recording/d1bd8025-cc11-473a-bd3d-997cb68050fa",
+          "ep:/checkout",
+          "ep:/circleci.com/docs/env-vars",
+          "ep:/circleci.com/docs/reference/variables",
+          "ep:/create-session",
+          "ep:/dispatch.replay.io",
+          "ep:/docs.github.com/en/actions/learn-github-actions/variables",
+          "ep:/docs.gitlab.com/ee/ci/variables/predefined_variables.html",
+          "ep:/docs.semaphoreci.com/ci-cd-environment/environment-variables",
+          "ep:/docs.travis-ci.com/user/environment-variables",
+          "ep:/extension",
+          "ep:/github.com/filiphric/replay-webdriverio-example",
+          "ep:/github.com/markerikson/react-prod-sourcemaps",
+          "ep:/github.com/replayio-public/chrome-extension-example",
+          "ep:/github.com/replayio-public/replay-sourcemap-upload-example/blob/main/next.config.mjs"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 71,
+        "requested_pages": 74,
+        "urls_examined": 74,
+        "max_pages_total": 5000,
+        "discovered_pages": 74,
+        "crawl_scope_pages": 74,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 3,
+        "docs_broken_links_count": 3,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 3,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 7.75
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 26.13,
+        "no_api_pages_found": false,
+        "api_pages_detected": 30,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 71.74
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 0.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 3",
+    "API usage-doc coverage is low: 26.13% (30 API pages detected)",
+    "Freshness visibility is weak: only 0.0% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

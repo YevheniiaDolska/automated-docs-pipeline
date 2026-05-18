@@ -8,6 +8,10 @@ tags:
   - AI
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 <!-- markdownlint-disable MD001 MD007 MD024 MD025 MD031 -->
 
 # Intent experience: optimize for support

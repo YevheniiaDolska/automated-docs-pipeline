@@ -15,28 +15,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - security-contact-policy
-metadata:
-  url: https://docs.example.com/legal/security-contact-policy/
-  title: VeriDoc security contact policy
-  heading: Official contact channels
-  version: 1.50.0
-  updated_at: '2026-03-31T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/security-contact-policy.md
-semantic:
-  topic: Official contact channels
-  intent: integrate
-  audience: developer
-  keywords:
-  - reference
-  - security contact policy
-  status: rule_based
 content:
   docs_markdown: '# VeriDoc security contact policy
 
@@ -98,7 +82,7 @@ content:
     | Low | Hardening recommendations, low-risk findings | 72 hours | Planned release
     |'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    security contact policy. Source path: legal/security-contact-policy.md. Summary:
+    security contact policy. Source path: docs/legal/security-contact-policy.md. Summary:
     Security contact channels, response times, severity model, and disclosure workflow
     for VeriDoc incidents and vulnerability reports.
 

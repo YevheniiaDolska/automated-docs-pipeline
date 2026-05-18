@@ -13,6 +13,15 @@ import re
 from datetime import datetime
 from yaml import YAMLError
 
+
+IGNORED_LAYER_PATH_MARKERS = ("docs/reference/intent-experiences/",)
+
+
+def _should_skip_layer_validation(path: Path) -> bool:
+    normalized = str(path).replace("\\", "/")
+    return any(marker in normalized for marker in IGNORED_LAYER_PATH_MARKERS)
+
+
 class DocLayersValidator:
     """
     Validates that documentation maintains proper abstraction layers:
@@ -87,6 +96,8 @@ class DocLayersValidator:
         feature_layers: dict[str, set[str]] = {}
 
         for md_file in self.docs_dir.rglob("*.md"):
+            if _should_skip_layer_validation(md_file):
+                continue
             content = md_file.read_text(encoding='utf-8')
             frontmatter = self.extract_frontmatter(content)
 

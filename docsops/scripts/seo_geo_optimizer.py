@@ -37,6 +37,16 @@ except (RuntimeError, ValueError, TypeError, OSError, ImportError, ModuleNotFoun
 # Internal maintenance guides are kept in docs/ for operator convenience,
 # but they are not product docs pages and should not affect GEO gate signals.
 INTERNAL_GEO_IGNORE = {"SEO_GUIDE.md", "VARIABLES_GUIDE.md"}
+# Generated intent experience aggregates combine many modules and are validated
+# by dedicated pipelines; skip strict GEO gate here to avoid duplicate lint noise.
+INTERNAL_GEO_IGNORE_CONTAINS = ("docs/reference/intent-experiences/",)
+
+
+def _is_geo_ignored(path: Path) -> bool:
+    if path.name in INTERNAL_GEO_IGNORE:
+        return True
+    normalized = str(path).replace("\\", "/")
+    return any(marker in normalized for marker in INTERNAL_GEO_IGNORE_CONTAINS)
 
 # ==================== GEO RULES ====================
 
@@ -1121,7 +1131,7 @@ def main():
 
     # Process files
     if path.is_file():
-        if path.name in INTERNAL_GEO_IGNORE:
+        if _is_geo_ignored(path):
             print(f"Skipping internal guide for GEO checks: {path}")
             results = {}
         else:
@@ -1131,7 +1141,7 @@ def main():
         for md_file in sorted(path.rglob('*.md')):
             if md_file.name.startswith('_'):
                 continue
-            if md_file.name in INTERNAL_GEO_IGNORE:
+            if _is_geo_ignored(md_file):
                 print(f"Skipping internal guide for GEO checks: {md_file}")
                 continue
             print(f"Processing {md_file}...")

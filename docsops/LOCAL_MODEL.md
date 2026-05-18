@@ -48,62 +48,6 @@ Output contract for zero-config mode:
 1. What changed in docs/contracts/stubs/tests.
 1. Only the remaining manual review items (if any).
 
-## Bundle-aware seamless autopipeline (mandatory)
-
-Autopipeline behavior MUST follow active bundle/plan scope and include all implemented capabilities for that scope.
-
-1. `pilot` or `community` scope:
-   - Run docs generation + baseline lint/quality only.
-   - Do not claim full RAG runtime features are active.
-1. `full` (`professional`) scope:
-   - Run full DocsOps and mandatory RAG preparation/hardening before any retrieval artifacts are considered ready.
-   - Include knowledge extraction, module validation, retrieval index build, knowledge graph build, and retrieval eval gate.
-1. `full+rag` (`enterprise`) scope:
-   - Run everything from `full`.
-   - Include retrieval-time Ask AI runtime controls and guardrails.
-
-### Mandatory RAG hardening flow (pre-index + runtime)
-
-Codex MUST enforce this sequence for full/full+rag flows:
-
-1. Knowledge preparation first (normalize/structure docs before indexing).
-1. Semantic chunking to knowledge modules with metadata (`intents`, `audiences`, `channels`, provenance, verification timestamps).
-1. Quality gates before indexing: freshness, example correctness, coverage gaps, terminology consistency.
-1. Separate stale and contradiction controls:
-   - stale-check: detect outdated docs/modules.
-   - contradiction-check: detect conflicting claims across modules.
-1. Critical contradiction exclusion: conflicting modules MUST be excluded from retrieval index.
-1. Build retrieval assets only after hardening:
-   - `docs/assets/knowledge-retrieval-index.json`
-   - `docs/assets/knowledge-graph.jsonld`
-1. Enforce retrieval eval gate before production usage (`precision`, `recall`, `hallucination rate`) via `scripts/run_retrieval_evals_gate.py` (or `scripts/run_retrieval_evals.py` with thresholds).
-1. Retrieval-time RAG only: answer from retrieved evidence; low confidence MUST trigger safe fallback (no guessing).
-1. Runtime contradiction warnings: if cited evidence intersects contradiction set, return warning in response payload.
-1. Production feedback loop: log question/latency/citations/feedback and use logs for continuous quality improvement.
-1. Retrieval strategy auto-routing MUST be respected:
-   - modes: `auto|hybrid|vectorless|semantic|token`
-1. Vectorless structural path MUST be available for long/high-structure docs.
-1. Query decomposition + evidence fusion MUST run for complex multi-hop questions.
-1. Entity-first retrieval MUST pre-prioritize exact entities (for example endpoint, version, feature flag) before final ranking.
-1. Graph rerank layer MUST reorder candidates using module relationships (`dependencies`, `tags`, `topic` links).
-
-### Commands that MUST be included in full hardening runs
-
-```bash
-# Core docs quality
-npm run lint
-
-# Knowledge preparation and index
-python3 scripts/extract_knowledge_modules_from_docs.py --docs-dir docs --modules-dir knowledge_modules --report reports/knowledge_auto_extract_report.json
-python3 scripts/validate_knowledge_modules.py
-python3 scripts/generate_knowledge_retrieval_index.py
-python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json
-
-# Contradictions and eval gate
-python3 scripts/detect_rag_contradictions.py
-python3 scripts/run_retrieval_evals_gate.py
-```
-
 ## Mandatory pipeline execution for API docs
 
 The pipeline supports five API protocols: REST (OpenAPI), GraphQL (SDL/introspection), gRPC (Proto/descriptor), AsyncAPI (event-driven specs), and WebSocket (channel/message contracts).

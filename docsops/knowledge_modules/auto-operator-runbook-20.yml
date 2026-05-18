@@ -4,7 +4,6 @@ summary: Step-by-step instructions for weekly report review, client questions, n
   repo setup, and profile tuning.
 intents:
 - configure
-- troubleshoot
 audiences:
 - practitioner
 - developer
@@ -15,28 +14,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - operator-runbook
-metadata:
-  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
-  title: Operator Runbook (Retainer Operations) (Part 20)
-  heading: What happens without a license
-  version: 1.50.0
-  updated_at: '2026-03-21T00:00:00Z'
-  source_site: docs.example.com
-  source_path: operations/OPERATOR_RUNBOOK.md
-semantic:
-  topic: What happens without a license
-  intent: configure
-  audience: practitioner
-  keywords:
-  - how-to
-  - operator runbook
-  status: rule_based
 content:
   docs_markdown: '### What happens without a license
 
@@ -44,19 +27,12 @@ content:
     The pipeline runs in **community mode** (degraded):
 
 
-    - Markdown lint works (no quality scoring)
+    - Only free lint defaults are enabled (markdown, frontmatter, SEO/GEO report-only)
 
-    - Frontmatter validation works (no quality scoring)
+    - Advanced modules are disabled (gap detection, glossary sync, lifecycle, API-first,
+    multi-protocol, KPI/SLA, RAG prep/retrieval, PDF/i18n/custom packs)
 
-    - SEO/GEO report only (no auto-fix, no scoring)
-
-    - Gap detection code-only (no community/search sources)
-
-    - REST protocol only
-
-    - No PDF reports, no KPI wall, no drift detection
-
-    - Quality gates warn-only (never block)
+    - No protocol entitlement is granted in community mode
 
 
     ### License file location
@@ -87,7 +63,7 @@ content:
 
     ## Troubleshooting'
   assistant_context: 'Use this module when answering questions related to: Operator
-    Runbook (Retainer Operations) (Part 20). Source path: operations/OPERATOR_RUNBOOK.md.
+    Runbook (Retainer Operations) (Part 20). Source path: docs/operations/OPERATOR_RUNBOOK.md.
     Summary: Step-by-step instructions for weekly report review, client questions,
     new repo setup, and profile tuning.
 
@@ -98,19 +74,12 @@ content:
     The pipeline runs in **community mode** (degraded):
 
 
-    - Markdown lint works (no quality scoring)
+    - Only free lint defaults are enabled (markdown, frontmatter, SEO/GEO report-only)
 
-    - Frontmatter validation works (no quality scoring)
+    - Advanced modules are disabled (gap detection, glossary sync, lifecycle, API-first,
+    multi-protocol, KPI/SLA, RAG prep/retrieval, PDF/i18n/custom packs)
 
-    - SEO/GEO report only (no auto-fix, no scoring)
-
-    - Gap detection code-only (no community/search sources)
-
-    - REST protocol only
-
-    - No PDF reports, no KPI wall, no drift detection
-
-    - Quality gates warn-only (never block)
+    - No protocol entitlement is granted in community mode
 
 
     ### License file location

@@ -20,7 +20,12 @@ from urllib.request import Request, urlopen
 
 import yaml
 
-from scripts.env_loader import load_local_env
+try:
+    from scripts.env_loader import load_local_env
+except ModuleNotFoundError:
+    def load_local_env(*args, **kwargs):
+        return None
+
 from scripts.llm_egress import ensure_external_allowed, load_policy, redact_payload
 
 ALLOWED_INTENTS = {

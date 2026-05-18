@@ -14,16 +14,35 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-05-18'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - migrate-from-confluence
+metadata:
+  url: https://docs.example.com/how-to/migrate-from-confluence/
+  title: Migrate documentation from Confluence (Part 2)
+  heading: 'Method 1: Import with REST API'
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: how-to/migrate-from-confluence.md
+semantic:
+  topic: 'Method 1: Import with REST API'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - migrate from confluence
+  status: rule_based
 content:
-  docs_markdown: "### Step 1: Create an API token\n\n=== \"Cloud\"\n\n    1. Go to\
-    \ [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)\n\
-    \    1. Select **Create API token**\n    1. Enter a label (for example, \"docs-migration\"\
+  docs_markdown: "## Method 1: Import with REST API\n\nREST API mode connects directly\
+    \ to your Confluence instance, fetches pages,\nand converts them to Markdown.\
+    \ It supports both Confluence Cloud (API v2) and\nServer/Data Center (API v1).\n\
+    \n### Step 1: Create an API token\n\n=== \"Cloud\"\n\n    1. Go to [Atlassian\
+    \ API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)\n \
+    \   1. Select **Create API token**\n    1. Enter a label (for example, \"docs-migration\"\
     ) and select **Create**\n    1. Copy the token value\n\n=== \"Server/Data Center\"\
     \n\n    1. Go to your profile in Confluence Server\n    1. Select **Personal Access\
     \ Tokens** and then **Create token**\n    1. Enter a name and select **Create**\n\
@@ -32,10 +51,13 @@ content:
     \ or `/display/`. For example, in a URL like\n`mycompany.atlassian.net/wiki/spaces/DEV/overview`,\
     \ the space key is `DEV`."
   assistant_context: "Use this module when answering questions related to: Migrate\
-    \ documentation from Confluence (Part 2). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ documentation from Confluence (Part 2). Source path: how-to/migrate-from-confluence.md.\
     \ Summary: Import Confluence pages into the documentation pipeline with automatic\
-    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n### Step\
-    \ 1: Create an API token\n\n=== \"Cloud\"\n\n    1. Go to [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)\n\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n## Method\
+    \ 1: Import with REST API\n\nREST API mode connects directly to your Confluence\
+    \ instance, fetches pages,\nand converts them to Markdown. It supports both Confluence\
+    \ Cloud (API v2) and\nServer/Data Center (API v1).\n\n### Step 1: Create an API\
+    \ token\n\n=== \"Cloud\"\n\n    1. Go to [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)\n\
     \    1. Select **Create API token**\n    1. Enter a label (for example, \"docs-migration\"\
     ) and select **Create**\n    1. Copy the token value\n\n=== \"Server/Data Center\"\
     \n\n    1. Go to your profile in Confluence Server\n    1. Select **Personal Access\

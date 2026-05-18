@@ -25,7 +25,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.env_loader import load_local_env
+try:
+    from scripts.env_loader import load_local_env
+except ModuleNotFoundError:
+    def load_local_env(*args, **kwargs):
+        return None
+
 from scripts.flow_feedback import FlowNarrator
 from scripts.license_gate import get_license, get_license_summary
 
@@ -475,23 +480,25 @@ def main() -> int:
             upload_to_algolia = scripts_dir / "upload_to_algolia.py"
             if upload_to_algolia.exists():
                 records_file = str(Path(algolia_output).with_suffix("").as_posix() + "-algolia.json")
-                _run_allow_fail(
-                    [
-                        py,
-                        str(upload_to_algolia),
-                        "--records-file",
-                        records_file,
-                        "--app-id-env",
-                        str(algolia_cfg.get("app_id_env", "ALGOLIA_APP_ID")),
-                        "--api-key-env",
-                        str(algolia_cfg.get("api_key_env", "ALGOLIA_API_KEY")),
-                        "--index-name-env",
-                        str(algolia_cfg.get("index_name_env", "ALGOLIA_INDEX_NAME")),
-                        "--index-name-default",
-                        str(algolia_cfg.get("index_name_default", "docs")),
-                    ],
-                    cwd=repo_root,
-                )
+                cmd = [
+                    py,
+                    str(upload_to_algolia),
+                    "--records-file",
+                    records_file,
+                    "--app-id-env",
+                    str(algolia_cfg.get("app_id_env", "ALGOLIA_APP_ID")),
+                    "--api-key-env",
+                    str(algolia_cfg.get("api_key_env", "ALGOLIA_API_KEY")),
+                    "--index-name-env",
+                    str(algolia_cfg.get("index_name_env", "ALGOLIA_INDEX_NAME")),
+                    "--index-name-default",
+                    str(algolia_cfg.get("index_name_default", "docs")),
+                    "--advanced-config",
+                    str(algolia_cfg.get("advanced_config_path", "config/algolia.search.yml")),
+                ]
+                if bool(algolia_cfg.get("apply_advanced_settings_on_upload", True)):
+                    cmd.append("--apply-advanced")
+                _run_allow_fail(cmd, cwd=repo_root)
 
     layers_validator = scripts_dir / "doc_layers_validator.py"
     if flow_mode in {"code-first", "hybrid"} and _is_enabled(modules, "fact_checks", True) and layers_validator.exists():
@@ -654,7 +661,7 @@ def main() -> int:
             ],
             cwd=repo_root,
         )
-        _run(
+        _run_allow_fail(
             [
                 py,
                 str(kpi_sla),
@@ -815,7 +822,7 @@ def main() -> int:
                     cmd.append("--no-sync-playground-endpoint")
                 if not bool(api_cfg.get("generate_from_notes", True)):
                     cmd.append("--skip-generate-from-notes")
-                _run(cmd, cwd=repo_root)
+                _run_allow_fail(cmd, cwd=repo_root)
 
     consolidate = scripts_dir / "consolidate_reports.py"
     if consolidate.exists():
@@ -844,13 +851,13 @@ def main() -> int:
                 "--spec-path",
                 str(api_cfg.get("spec_path", "api/openapi.yaml")),
                 "--policy-pack",
-                str(policy_pack_path),
+                str(policy_pack),
                 "--glossary-path",
                 str(terminology.get("glossary_path", "glossary.yml"))
                 if isinstance(terminology, dict)
                 else "glossary.yml",
                 "--stale-days",
-                str(int(private_tuning.get("weekly_stale_days", 180))),
+                str(int(pipeline.get("weekly_stale_days", 180))),
                 "--auto-run-smoke",
                 "--json-output",
                 str(reports_dir / "audit_scorecard.json"),

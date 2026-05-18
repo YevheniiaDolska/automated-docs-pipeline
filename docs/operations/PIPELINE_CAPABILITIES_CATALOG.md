@@ -12,7 +12,7 @@ original_author: Developer
 ---
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 # Pipeline Capabilities Catalog
@@ -201,7 +201,7 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
 | `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
-| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia and optionally apply advanced settings, synonyms, rules, and replicas from config. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
 | `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
@@ -216,6 +216,43 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
 | `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
 | `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
+
+## Algolia advanced auto-optimization
+
+When `runtime.integrations.algolia.enabled=true`, the provisioning and weekly flows support advanced zero-manual search optimization.
+
+**Provisioning behavior (`provision_client_repo.py`):**
+
+1. Generates `config/algolia.search.yml` if missing (settings, synonyms, rules, replicas).
+1. Generates search widget helper script.
+1. If credentials exist, auto-bootstraps Algolia index (records + advanced config apply).
+
+**Weekly behavior (`run_weekly_gap_batch.py`):**
+
+1. Builds Algolia records from docs via `seo_geo_optimizer.py --algolia`.
+1. Uploads records with `upload_to_algolia.py`.
+1. Passes advanced config path and applies advanced settings automatically when enabled.
+
+**Runtime configuration keys:**
+
+```yaml
+runtime:
+  integrations:
+    algolia:
+      enabled: true
+      docs_dir: docs
+      report_output: reports/seo-report.json
+      upload_on_weekly: true
+      advanced_config_path: config/algolia.search.yml
+      apply_advanced_settings_on_upload: true
+      auto_optimize_on_provision: true
+      ab_test_replica_suffix: docs_ab_variant
+```
+
+**Uploader flags (`upload_to_algolia.py`):**
+
+- `--advanced-config <path>`: load YAML/JSON with `settings`, `synonyms`, `rules`, and `replicas`.
+- `--apply-advanced`: enable application of advanced objects in addition to records upload.
 
 ## Multi-protocol contract pipeline
 

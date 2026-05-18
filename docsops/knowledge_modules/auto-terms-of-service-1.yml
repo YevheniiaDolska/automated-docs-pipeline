@@ -15,28 +15,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - terms-of-service
-metadata:
-  url: https://docs.example.com/legal/terms-of-service/
-  title: VeriDoc terms of service
-  heading: Key definitions
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/terms-of-service.md
-semantic:
-  topic: Key definitions
-  intent: integrate
-  audience: developer
-  keywords:
-  - reference
-  - terms of service
-  status: rule_based
 content:
   docs_markdown: '# VeriDoc terms of service
 
@@ -84,9 +68,9 @@ content:
 
     <support@veri-doc.app> if you suspect unauthorized access.'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    terms of service. Source path: legal/terms-of-service.md. Summary: Terms of service
-    governing the use of VeriDoc automated documentation platform, including subscription
-    tiers, usage limits, and acceptable use policies.
+    terms of service. Source path: docs/legal/terms-of-service.md. Summary: Terms
+    of service governing the use of VeriDoc automated documentation platform, including
+    subscription tiers, usage limits, and acceptable use policies.
 
 
     # VeriDoc terms of service

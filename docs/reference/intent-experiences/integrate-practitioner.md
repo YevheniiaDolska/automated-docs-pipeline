@@ -95,7 +95,7 @@ Commercial note:
 Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Operator Runbook (Retainer Operations): Operator Runbook (Retainer Operations)
@@ -106,7 +106,7 @@ This content follows the active implementation baseline:
 
 1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
 1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
-1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. REST and non-REST flows include generated server stubs with business-logic placeholders.
 1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
@@ -188,7 +188,7 @@ Current baseline:
 
 1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
 1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
-1. Non-REST automation includes server stubs with business-logic placeholders.
+1. REST and non-REST automation includes server stubs with business-logic placeholders.
 1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
 1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
 1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
@@ -224,7 +224,7 @@ The production webhook pipeline spans 13 components across 5 layers:
 How needs_review works for protocol test assets and where operators review flagged cases.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Smart Merge and Manual Review: Smart Merge and Manual Review

@@ -26,7 +26,7 @@ python3 scripts/assemble_intent_experience.py \
 Solutions for common problems including webhook failures, credential errors, execution timeouts, and memory issues.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Troubleshooting Guide: Troubleshooting
@@ -38,7 +38,7 @@ Problem → cause → solution. Start here when something breaks.
 Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Fix: Webhook trigger not firing: Fix: Webhook trigger not firing

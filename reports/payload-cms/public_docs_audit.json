@@ -1,0 +1,449 @@
+{
+  "generated_at": "2026-05-12T12:29:15.390239+00:00",
+  "site_url": "https://payloadcms.com/docs",
+  "site_urls": [
+    "https://payloadcms.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://payloadcms.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 432,
+          "requested_pages": 550,
+          "urls_examined": 440,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 440,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 439,
+          "crawl_coverage_pct": 100.23,
+          "trap_urls_skipped": 9,
+          "seeded_sitemap_urls": 439,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 534,
+          "broken_internal_links_count": 18,
+          "docs_broken_links_count": 18,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://payloadcms.com/blog/add-schema-markup-to-payload--nextjs-for-better-seo",
+            "https://payloadcms.com/docs/admin/customizing-location",
+            "https://payloadcms.com/docs/admin/webpack",
+            "https://payloadcms.com/docs/authentication/config",
+            "https://payloadcms.com/docs/beta/database/overview",
+            "https://payloadcms.com/docs/beta/fields/join",
+            "https://payloadcms.com/docs/beta/fields/overview",
+            "https://payloadcms.com/docs/live-preview/conditional-rendering",
+            "https://payloadcms.com/docs/types/payload-request",
+            "https://payloadcms.com/docs/v2/database",
+            "https://payloadcms.com/docs/v2/live-preview",
+            "https://payloadcms.com/docs/v2/plugins/sentry.io",
+            "https://payloadcms.com/docs/v2/versions",
+            "https://payloadcms.com/posts/blog/announcing-the-write-for-the-community-program",
+            "https://payloadcms.com/pricing",
+            "https://payloadcms.com/sla",
+            "https://payloadcms.com/use-cases/native-apps",
+            "https://payloadcms.com/use-cases/web-apps"
+          ],
+          "docs_broken_link_samples": [
+            "https://payloadcms.com/blog/add-schema-markup-to-payload--nextjs-for-better-seo",
+            "https://payloadcms.com/docs/admin/customizing-location",
+            "https://payloadcms.com/docs/admin/webpack",
+            "https://payloadcms.com/docs/authentication/config",
+            "https://payloadcms.com/docs/beta/database/overview",
+            "https://payloadcms.com/docs/beta/fields/join",
+            "https://payloadcms.com/docs/beta/fields/overview",
+            "https://payloadcms.com/docs/live-preview/conditional-rendering",
+            "https://payloadcms.com/docs/types/payload-request",
+            "https://payloadcms.com/docs/v2/database",
+            "https://payloadcms.com/docs/v2/live-preview",
+            "https://payloadcms.com/docs/v2/plugins/sentry.io",
+            "https://payloadcms.com/docs/v2/versions",
+            "https://payloadcms.com/posts/blog/announcing-the-write-for-the-community-program",
+            "https://payloadcms.com/pricing",
+            "https://payloadcms.com/sla",
+            "https://payloadcms.com/use-cases/native-apps",
+            "https://payloadcms.com/use-cases/web-apps"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 18,
+          "excluded_links_count": 3,
+          "excluded_link_samples": [
+            "https://payloadcms.com/community-help/discord/search-on-a-localized-field-ie-slug-with-fallback",
+            "https://payloadcms.com/docs/plugins/search",
+            "https://payloadcms.com/docs/v2/plugins/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://payloadcms.com/blog/add-schema-markup-to-payload--nextjs-for-better-seo",
+            "https://payloadcms.com/docs/admin/customizing-location",
+            "https://payloadcms.com/docs/admin/webpack",
+            "https://payloadcms.com/docs/authentication/config",
+            "https://payloadcms.com/docs/beta/database/overview",
+            "https://payloadcms.com/docs/beta/fields/join",
+            "https://payloadcms.com/docs/beta/fields/overview",
+            "https://payloadcms.com/docs/live-preview/conditional-rendering",
+            "https://payloadcms.com/docs/types/payload-request",
+            "https://payloadcms.com/docs/v2/database",
+            "https://payloadcms.com/docs/v2/live-preview",
+            "https://payloadcms.com/docs/v2/plugins/sentry.io",
+            "https://payloadcms.com/docs/v2/versions",
+            "https://payloadcms.com/posts/blog/announcing-the-write-for-the-community-program",
+            "https://payloadcms.com/pricing",
+            "https://payloadcms.com/sla",
+            "https://payloadcms.com/use-cases/native-apps",
+            "https://payloadcms.com/use-cases/web-apps"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://payloadcms.com/community-help/discord/search-on-a-localized-field-ie-slug-with-fallback",
+            "https://payloadcms.com/docs/plugins/search",
+            "https://payloadcms.com/docs/v2/plugins/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://payloadcms.com/blog/add-schema-markup-to-payload--nextjs-for-better-seo": [
+              {
+                "source_page": "https://payloadcms.com/posts/guides/how-to-install-and-configure-the-payload-seo-plugin-nextjs-app",
+                "anchor_text": "schema markup"
+              }
+            ],
+            "https://payloadcms.com/docs/admin/customizing-location": [
+              {
+                "source_page": "https://payloadcms.com/docs/admin/overview",
+                "anchor_text": "Customizing Admin Panel Location"
+              },
+              {
+                "source_page": "https://payloadcms.com/docs/admin/overview",
+                "anchor_text": "Understanding Auto-Generated Files"
+              },
+              {
+                "source_page": "https://payloadcms.com/docs/admin/overview",
+                "anchor_text": "About the \"DO NOT MODIFY\" Warning"
+              },
+              {
+                "source_page": "https://payloadcms.com/docs/custom-components/overview",
+                "anchor_text": "Customizing Admin Panel Location"
+              }
+            ],
+            "https://payloadcms.com/docs/admin/webpack": [
+              {
+                "source_page": "https://payloadcms.com/posts/blog/tutorial-building-your-own-payload-plugin",
+                "anchor_text": "alias the file imports with webpack"
+              }
+            ],
+            "https://payloadcms.com/docs/authentication/config": [
+              {
+                "source_page": "https://payloadcms.com/headless-cms-auth",
+                "anchor_text": "Explore Docs Explore Docs"
+              },
+              {
+                "source_page": "https://payloadcms.com/posts/blog/nextjs-payload-cms-auth",
+                "anchor_text": "Authentication"
+              }
+            ],
+            "https://payloadcms.com/docs/beta/database/overview": [
+              {
+                "source_page": "https://payloadcms.com/payload-replace-wordpress-acf",
+                "anchor_text": "Explore Docs Explore Docs"
+              }
+            ],
+            "https://payloadcms.com/docs/beta/fields/join": [
+              {
+                "source_page": "https://payloadcms.com/payload-replace-wordpress-acf",
+                "anchor_text": "Explore Docs Explore Docs"
+              }
+            ],
+            "https://payloadcms.com/docs/beta/fields/overview": [
+              {
+                "source_page": "https://payloadcms.com/payload-replace-wordpress-acf",
+                "anchor_text": "Explore Docs Explore Docs"
+              }
+            ],
+            "https://payloadcms.com/docs/live-preview/conditional-rendering": [
+              {
+                "source_page": "https://payloadcms.com/docs/live-preview/overview",
+                "anchor_text": "Conditional Rendering"
+              }
+            ],
+            "https://payloadcms.com/docs/types/payload-request": [
+              {
+                "source_page": "https://payloadcms.com/docs/configuration/collections",
+                "anchor_text": "PayloadRequest"
+              }
+            ],
+            "https://payloadcms.com/docs/v2/database": [
+              {
+                "source_page": "https://payloadcms.com/docs/v2/fields/code",
+                "anchor_text": "index"
+              }
+            ],
+            "https://payloadcms.com/docs/v2/live-preview": [
+              {
+                "source_page": "https://payloadcms.com/docs/v2/admin/components",
+                "anchor_text": "More details"
+              }
+            ],
+            "https://payloadcms.com/docs/v2/plugins/sentry.io": [
+              {
+                "source_page": "https://payloadcms.com/docs/v2/plugins/sentry",
+                "anchor_text": "sentry.io"
+              }
+            ],
+            "https://payloadcms.com/docs/v2/versions": [
+              {
+                "source_page": "https://payloadcms.com/docs/v2/admin/components",
+                "anchor_text": "More details"
+              }
+            ],
+            "https://payloadcms.com/posts/blog/announcing-the-write-for-the-community-program": [
+              {
+                "source_page": "https://payloadcms.com/posts/blog",
+                "anchor_text": "Feb 16, 2023 Sean Zubrickas Announcing the Write for the Community Program"
+              }
+            ],
+            "https://payloadcms.com/pricing": [
+              {
+                "source_page": "https://payloadcms.com/posts/blog/building-professionally-designed-site-nextjs-typescript-episode-3",
+                "anchor_text": "Personal License"
+              },
+              {
+                "source_page": "https://payloadcms.com/posts/blog/building-professionally-designed-site-nextjs-typescript-episode-2",
+                "anchor_text": "Free license"
+              },
+              {
+                "source_page": "https://payloadcms.com/posts/blog/building-professionally-designed-site-nextjs-typescript-episode-4",
+                "anchor_text": "Personal License"
+              }
+            ],
+            "https://payloadcms.com/sla": [
+              {
+                "source_page": "https://payloadcms.com/cloud-terms",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://payloadcms.com/terms",
+                "anchor_text": ""
+              }
+            ],
+            "https://payloadcms.com/use-cases/native-apps": [
+              {
+                "source_page": "https://payloadcms.com/posts/blog/typescript-jest-vscode-debugger-tutorial",
+                "anchor_text": "native app"
+              }
+            ],
+            "https://payloadcms.com/use-cases/web-apps": [
+              {
+                "source_page": "https://payloadcms.com/posts/blog/typescript-jest-vscode-debugger-tutorial",
+                "anchor_text": "web app"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 432,
+          "missing_title_count": 1,
+          "missing_description_count": 28,
+          "multiple_h1_count": 4,
+          "heading_hierarchy_jump_count": 393,
+          "seo_geo_issue_rate_pct": 24.65
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 9,
+          "api_pages_detected": 22,
+          "endpoints_with_usage_docs": 6,
+          "reference_endpoints_without_usage_docs": 3,
+          "reference_coverage_pct": 66.67,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:graphql",
+            "gql:contained",
+            "gql:preferences"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1,
+          "total_code_blocks_all": 2537,
+          "runnable_without_env": 1,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 100.0,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 113,
+          "pages_without_last_updated_hint": 319,
+          "last_updated_coverage_pct": 26.16,
+          "samples_with_last_updated": [
+            {
+              "url": "https://payloadcms.com/cloud-terms",
+              "hint": "Last Revised: March 28, 2024"
+            },
+            {
+              "url": "https://payloadcms.com/cookie",
+              "hint": "Effective as of March 28, 2024."
+            },
+            {
+              "url": "https://payloadcms.com/docs/authentication/overview",
+              "hint": "field from being updated once it is created, or only allow it to be read by certain user roles. You can achieve this by "
+            },
+            {
+              "url": "https://payloadcms.com/docs/jobs-queue/jobs",
+              "hint": "'2024-01-15...'"
+            },
+            {
+              "url": "https://payloadcms.com/docs/plugins/mcp",
+              "hint": "Document last modified by:"
+            },
+            {
+              "url": "https://payloadcms.com/docs/plugins/stripe",
+              "hint": "'2022-08-01'"
+            },
+            {
+              "url": "https://payloadcms.com/docs/v2/plugins/stripe",
+              "hint": "'2022-08-01'"
+            },
+            {
+              "url": "https://payloadcms.com/posts/blog/access-control-overview",
+              "hint": "October 12, 2022"
+            },
+            {
+              "url": "https://payloadcms.com/posts/blog/10x-digital-agency-part-1",
+              "hint": "July 12, 2023"
+            },
+            {
+              "url": "https://payloadcms.com/posts/blog/a-quick-note-on-the-latest-nextjs-security-patch",
+              "hint": "March 24, 2025"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://payloadcms.com/blog/add-schema-markup-to-payload--nextjs-for-better-seo",
+          "https://payloadcms.com/docs/admin/customizing-location",
+          "https://payloadcms.com/docs/admin/webpack",
+          "https://payloadcms.com/docs/authentication/config",
+          "https://payloadcms.com/docs/beta/database/overview",
+          "https://payloadcms.com/docs/beta/fields/join",
+          "https://payloadcms.com/docs/beta/fields/overview",
+          "https://payloadcms.com/docs/live-preview/conditional-rendering",
+          "https://payloadcms.com/docs/types/payload-request",
+          "https://payloadcms.com/docs/v2/database",
+          "https://payloadcms.com/docs/v2/live-preview",
+          "https://payloadcms.com/docs/v2/plugins/sentry.io",
+          "https://payloadcms.com/docs/v2/versions",
+          "https://payloadcms.com/posts/blog/announcing-the-write-for-the-community-program",
+          "https://payloadcms.com/pricing",
+          "https://payloadcms.com/sla",
+          "https://payloadcms.com/use-cases/native-apps",
+          "https://payloadcms.com/use-cases/web-apps"
+        ],
+        "docs_broken_link_samples": [
+          "https://payloadcms.com/blog/add-schema-markup-to-payload--nextjs-for-better-seo",
+          "https://payloadcms.com/docs/admin/customizing-location",
+          "https://payloadcms.com/docs/admin/webpack",
+          "https://payloadcms.com/docs/authentication/config",
+          "https://payloadcms.com/docs/beta/database/overview",
+          "https://payloadcms.com/docs/beta/fields/join",
+          "https://payloadcms.com/docs/beta/fields/overview",
+          "https://payloadcms.com/docs/live-preview/conditional-rendering",
+          "https://payloadcms.com/docs/types/payload-request",
+          "https://payloadcms.com/docs/v2/database",
+          "https://payloadcms.com/docs/v2/live-preview",
+          "https://payloadcms.com/docs/v2/plugins/sentry.io",
+          "https://payloadcms.com/docs/v2/versions",
+          "https://payloadcms.com/posts/blog/announcing-the-write-for-the-community-program",
+          "https://payloadcms.com/pricing",
+          "https://payloadcms.com/sla",
+          "https://payloadcms.com/use-cases/native-apps",
+          "https://payloadcms.com/use-cases/web-apps"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:graphql",
+          "gql:contained",
+          "gql:preferences"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 432,
+        "requested_pages": 550,
+        "urls_examined": 440,
+        "max_pages_total": 5000,
+        "discovered_pages": 440,
+        "crawl_scope_pages": 439,
+        "trap_urls_skipped": 9,
+        "crawl_coverage_pct": 100.23
+      },
+      "links": {
+        "broken_internal_links_count": 18,
+        "docs_broken_links_count": 18,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 18,
+        "excluded_links_count": 3
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 24.65
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 66.67,
+        "no_api_pages_found": false,
+        "api_pages_detected": 22,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 100.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 26.16
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 18",
+    "SEO/GEO issue rate is high: 24.65%",
+    "API usage-doc coverage is low: 66.67% (22 API pages detected)",
+    "Freshness visibility is weak: only 26.16% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

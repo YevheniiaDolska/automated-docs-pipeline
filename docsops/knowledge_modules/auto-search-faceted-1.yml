@@ -13,28 +13,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - search-faceted
-metadata:
-  url: https://docs.example.com/search-faceted/
-  title: Advanced Search
-  heading: Advanced Search
-  version: 1.50.0
-  updated_at: '2026-04-18T18:12:15Z'
-  source_site: docs.example.com
-  source_path: search-faceted.md
-semantic:
-  topic: Advanced Search
-  intent: integrate
-  audience: developer
-  keywords:
-  - reference
-  - search faceted
-  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Advanced Search\n\n<div id=\"faceted-search-app\"\
@@ -53,7 +37,7 @@ content:
     \    font-weight: 600;\n    text-transform: uppercase;\n    letter-spacing: 0.05em;\n\
     \    color: var(--md-default-fg-color--light);\n  }"
   assistant_context: "Use this module when answering questions related to: Advanced\
-    \ Search. Source path: search-faceted.md. Summary: Search and filter documentation\
+    \ Search. Source path: docs/search-faceted.md. Summary: Search and filter documentation\
     \ using faceted navigation for quick discovery\n\n<!-- VERIDOC_POWERED_BADGE:START\
     \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Advanced Search\n\n<div id=\"faceted-search-app\"\

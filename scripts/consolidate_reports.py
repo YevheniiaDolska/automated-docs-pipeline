@@ -80,8 +80,8 @@ def _check_consolidate_license() -> None:
         from scripts.license_gate import require
         require("consolidated_reports")
     except (ImportError, SystemExit):
-        print("[consolidate] WARNING: consolidated_reports feature requires Professional+ license.", file=sys.stderr)
-        raise SystemExit(1)
+        print("[consolidate] WARNING: consolidated_reports feature requires Professional+ license; continuing in community mode.", file=sys.stderr)
+        return
 
 
 class ReportConsolidator:

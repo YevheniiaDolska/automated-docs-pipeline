@@ -15,28 +15,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - privacy-policy
 - reference
-metadata:
-  url: https://docs.example.com/legal/privacy-policy/
-  title: VeriDoc privacy policy (Part 4)
-  heading: How we use your data
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/privacy-policy.md
-semantic:
-  topic: How we use your data
-  intent: integrate
-  audience: developer
-  keywords:
-  - privacy policy
-  - reference
-  status: rule_based
 content:
   docs_markdown: "## How we use your data\n\nWe use personal data exclusively for:\n\
     \n1. **Service delivery** -- processing your documentation, enforcing usage\n\
@@ -53,8 +37,8 @@ content:
     \ Cloud, Germany | In-memory, no persistence of content |\n| Backups | Hetzner\
     \ Cloud, Germany | AES-256, 30-day retention |"
   assistant_context: "Use this module when answering questions related to: VeriDoc\
-    \ privacy policy (Part 4). Source path: legal/privacy-policy.md. Summary: Privacy\
-    \ policy for VeriDoc automated documentation platform, covering data collection,\
+    \ privacy policy (Part 4). Source path: docs/legal/privacy-policy.md. Summary:\
+    \ Privacy policy for VeriDoc automated documentation platform, covering data collection,\
     \ processing, storage, retention, and your rights under GDPR.\n\n## How we use\
     \ your data\n\nWe use personal data exclusively for:\n\n1. **Service delivery**\
     \ -- processing your documentation, enforcing usage\n   limits, and managing your\

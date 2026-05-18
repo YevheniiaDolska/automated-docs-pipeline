@@ -15,28 +15,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - data-processing-agreement
 - reference
-metadata:
-  url: https://docs.example.com/legal/data-processing-agreement/
-  title: VeriDoc data processing agreement (Part 6)
-  heading: EU-US transfers
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/data-processing-agreement.md
-semantic:
-  topic: EU-US transfers
-  intent: integrate
-  audience: developer
-  keywords:
-  - data processing agreement
-  - reference
-  status: rule_based
 content:
   docs_markdown: "### EU-US transfers\n\nFor sub-processors located in the United\
     \ States, we rely on:\n\n1. Standard Contractual Clauses (SCCs) approved by the\
@@ -54,7 +38,7 @@ content:
     \ number of data subjects affected.\n1. Likely consequences of the breach.\n1.\
     \ Measures taken to address and mitigate the breach."
   assistant_context: "Use this module when answering questions related to: VeriDoc\
-    \ data processing agreement (Part 6). Source path: legal/data-processing-agreement.md.\
+    \ data processing agreement (Part 6). Source path: docs/legal/data-processing-agreement.md.\
     \ Summary: Data processing agreement for VeriDoc platform covering GDPR compliance,\
     \ sub-processors, data transfer mechanisms, and breach notification procedures.\n\
     \n### EU-US transfers\n\nFor sub-processors located in the United States, we rely\

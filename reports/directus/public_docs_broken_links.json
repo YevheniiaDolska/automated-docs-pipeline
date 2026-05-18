@@ -1,0 +1,46 @@
+{
+  "generated_at_utc": "2026-05-12T11:38:00.995706+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 1,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 1,
+    "unverified_links_sample_count": 2
+  },
+  "all_docs_broken_links": [
+    "https://directus.io/docs/guides/ai/chat"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://directus.io/leapweek",
+    "https://directus.io/plus"
+  ],
+  "sites": [
+    {
+      "site_url": "https://directus.io/docs",
+      "confirmed_broken_links_count": 1,
+      "docs_broken_links_count": 1,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://directus.io/docs/guides/ai/chat"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://directus.io/docs/guides/ai/chat",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://directus.io/blog/directus-v11-14-release",
+              "anchor_text": "Link to docs \u2197"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://directus.io/leapweek",
+        "https://directus.io/plus"
+      ]
+    }
+  ]
+}

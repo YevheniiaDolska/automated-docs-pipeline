@@ -1,0 +1,353 @@
+{
+  "generated_at": "2026-05-13T10:13:05.067205+00:00",
+  "site_url": "https://docs.weaviate.io/weaviate",
+  "site_urls": [
+    "https://docs.weaviate.io/weaviate"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.weaviate.io/weaviate",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 350,
+          "requested_pages": 368,
+          "urls_examined": 364,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 364,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 364,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 531,
+          "seeded_sitemap_urls": 364,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 368,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.weaviate.io/weaviate/api/rest\\"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.weaviate.io/weaviate/api/rest\\"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 14,
+          "unverified_links_count": 13,
+          "unverified_link_samples": [
+            "https://docs.weaviate.io/agents/recipes/personalization-agent-get-started-recipes",
+            "https://docs.weaviate.io/weaviate/api/graphql/additional-operators",
+            "https://docs.weaviate.io/weaviate/api/graphql/explore",
+            "https://docs.weaviate.io/weaviate/api/graphql/filters",
+            "https://docs.weaviate.io/weaviate/configuration/compression/sq-compression",
+            "https://docs.weaviate.io/weaviate/connections/connect-local",
+            "https://docs.weaviate.io/weaviate/model-providers/gpt4all/embeddings",
+            "https://docs.weaviate.io/weaviate/model-providers/model2vec/embeddings",
+            "https://docs.weaviate.io/weaviate/model-providers/ollama/generative",
+            "https://docs.weaviate.io/weaviate/modules/ner-transformers",
+            "https://docs.weaviate.io/weaviate/starter-guides/custom-vectors",
+            "https://docs.weaviate.io/weaviate/tutorials/import",
+            "https://docs.weaviate.io/weaviate/tutorials/rbac"
+          ],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 21,
+          "excluded_link_samples": [
+            "https://docs.weaviate.io/assets/files/weaviate-architecture-overview-54e15328eb9bdfe6695f85443d892f2e.svg",
+            "https://docs.weaviate.io/assets/files/weaviate-module-diagram-7f76a5296b5fd7f9d6efefa9f4721891.svg",
+            "https://docs.weaviate.io/weaviate/api/graphql/search-operators",
+            "https://docs.weaviate.io/weaviate/concepts/search",
+            "https://docs.weaviate.io/weaviate/concepts/search/hybrid-search",
+            "https://docs.weaviate.io/weaviate/concepts/search/keyword-search",
+            "https://docs.weaviate.io/weaviate/concepts/search/vector-search",
+            "https://docs.weaviate.io/weaviate/search",
+            "https://docs.weaviate.io/weaviate/search/aggregate",
+            "https://docs.weaviate.io/weaviate/search/basics",
+            "https://docs.weaviate.io/weaviate/search/bm25",
+            "https://docs.weaviate.io/weaviate/search/filters",
+            "https://docs.weaviate.io/weaviate/search/generative",
+            "https://docs.weaviate.io/weaviate/search/hybrid",
+            "https://docs.weaviate.io/weaviate/search/image",
+            "https://docs.weaviate.io/weaviate/search/multi-vector",
+            "https://docs.weaviate.io/weaviate/search/near-media",
+            "https://docs.weaviate.io/weaviate/search/query-agent",
+            "https://docs.weaviate.io/weaviate/search/query-profile",
+            "https://docs.weaviate.io/weaviate/search/rerank",
+            "https://docs.weaviate.io/weaviate/search/similarity"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.weaviate.io/weaviate/api/rest\\"
+          ],
+          "_all_unverified_links": [
+            "https://docs.weaviate.io/agents/recipes/personalization-agent-get-started-recipes",
+            "https://docs.weaviate.io/weaviate/api/graphql/additional-operators",
+            "https://docs.weaviate.io/weaviate/api/graphql/explore",
+            "https://docs.weaviate.io/weaviate/api/graphql/filters",
+            "https://docs.weaviate.io/weaviate/configuration/compression/sq-compression",
+            "https://docs.weaviate.io/weaviate/connections/connect-local",
+            "https://docs.weaviate.io/weaviate/model-providers/gpt4all/embeddings",
+            "https://docs.weaviate.io/weaviate/model-providers/model2vec/embeddings",
+            "https://docs.weaviate.io/weaviate/model-providers/ollama/generative",
+            "https://docs.weaviate.io/weaviate/modules/ner-transformers",
+            "https://docs.weaviate.io/weaviate/starter-guides/custom-vectors",
+            "https://docs.weaviate.io/weaviate/tutorials/import",
+            "https://docs.weaviate.io/weaviate/tutorials/rbac"
+          ],
+          "_all_excluded_links": [
+            "https://docs.weaviate.io/assets/files/weaviate-architecture-overview-54e15328eb9bdfe6695f85443d892f2e.svg",
+            "https://docs.weaviate.io/assets/files/weaviate-module-diagram-7f76a5296b5fd7f9d6efefa9f4721891.svg",
+            "https://docs.weaviate.io/weaviate/api/graphql/search-operators",
+            "https://docs.weaviate.io/weaviate/concepts/search",
+            "https://docs.weaviate.io/weaviate/concepts/search/hybrid-search",
+            "https://docs.weaviate.io/weaviate/concepts/search/keyword-search",
+            "https://docs.weaviate.io/weaviate/concepts/search/vector-search",
+            "https://docs.weaviate.io/weaviate/search",
+            "https://docs.weaviate.io/weaviate/search/aggregate",
+            "https://docs.weaviate.io/weaviate/search/basics",
+            "https://docs.weaviate.io/weaviate/search/bm25",
+            "https://docs.weaviate.io/weaviate/search/filters",
+            "https://docs.weaviate.io/weaviate/search/generative",
+            "https://docs.weaviate.io/weaviate/search/hybrid",
+            "https://docs.weaviate.io/weaviate/search/image",
+            "https://docs.weaviate.io/weaviate/search/multi-vector",
+            "https://docs.weaviate.io/weaviate/search/near-media",
+            "https://docs.weaviate.io/weaviate/search/query-agent",
+            "https://docs.weaviate.io/weaviate/search/query-profile",
+            "https://docs.weaviate.io/weaviate/search/rerank",
+            "https://docs.weaviate.io/weaviate/search/similarity"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.weaviate.io/agents/recipes/personalization-agent-get-started-recipes",
+            "https://docs.weaviate.io/weaviate/api/graphql/additional-operators",
+            "https://docs.weaviate.io/weaviate/api/graphql/explore",
+            "https://docs.weaviate.io/weaviate/api/graphql/filters",
+            "https://docs.weaviate.io/weaviate/configuration/compression/sq-compression",
+            "https://docs.weaviate.io/weaviate/connections/connect-local",
+            "https://docs.weaviate.io/weaviate/model-providers/gpt4all/embeddings",
+            "https://docs.weaviate.io/weaviate/model-providers/model2vec/embeddings",
+            "https://docs.weaviate.io/weaviate/model-providers/ollama/generative",
+            "https://docs.weaviate.io/weaviate/modules/ner-transformers",
+            "https://docs.weaviate.io/weaviate/starter-guides/custom-vectors",
+            "https://docs.weaviate.io/weaviate/tutorials/import",
+            "https://docs.weaviate.io/weaviate/tutorials/rbac"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.weaviate.io/weaviate/api/rest\\": [
+              {
+                "source_page": "https://docs.weaviate.io/weaviate/manage-collections/collection-operations",
+                "anchor_text": "API References: REST: Schema"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 350,
+          "missing_title_count": 0,
+          "missing_description_count": 20,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 330,
+          "seo_geo_issue_rate_pct": 25.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 35,
+          "api_pages_detected": 92,
+          "endpoints_with_usage_docs": 19,
+          "reference_endpoints_without_usage_docs": 16,
+          "reference_coverage_pct": 54.29,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:about",
+            "gql:by",
+            "gql:functionality",
+            "gql:functions",
+            "gql:getting",
+            "gql:here",
+            "gql:instead",
+            "gql:languages",
+            "gql:merges",
+            "gql:must",
+            "gql:on",
+            "gql:refinement",
+            "gql:requires",
+            "gql:stops",
+            "gql:structure",
+            "gql:there"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 3212,
+          "total_code_blocks_all": 3676,
+          "runnable_without_env": 2690,
+          "blocked_by_placeholders": 312,
+          "network_bound_examples": 210,
+          "example_reliability_estimate_pct": 83.75,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 19,
+          "pages_without_last_updated_hint": 331,
+          "last_updated_coverage_pct": 5.43,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.weaviate.io/agents/recipes/transformation-agent-get-started",
+              "hint": "'end_time': '2025-03-11 14:58:57',"
+            },
+            {
+              "url": "https://docs.weaviate.io/agents/transformation/usage",
+              "hint": "Values of existing properties can be updated on objects based on existing property values and user instructions."
+            },
+            {
+              "url": "https://docs.weaviate.io/agents/recipes/transformation-agent-retrieval-benchmark",
+              "hint": "date: 2024-03-26"
+            },
+            {
+              "url": "https://docs.weaviate.io/deploy/configuration/env-vars",
+              "hint": "2025-06-01"
+            },
+            {
+              "url": "https://docs.weaviate.io/weaviate/api/graphql/get",
+              "hint": "Object last updated time"
+            },
+            {
+              "url": "https://docs.weaviate.io/weaviate/api/graphql/additional-properties",
+              "hint": "field to fetch the data object last updated timestamp."
+            },
+            {
+              "url": "https://docs.weaviate.io/weaviate/client-libraries/java",
+              "hint": "2026-04-16"
+            },
+            {
+              "url": "https://docs.weaviate.io/weaviate/client-libraries/python",
+              "hint": "2026-04-16"
+            },
+            {
+              "url": "https://docs.weaviate.io/weaviate/client-libraries/csharp",
+              "hint": "2026-04-16"
+            },
+            {
+              "url": "https://docs.weaviate.io/weaviate/client-libraries/go",
+              "hint": "2026-04-16"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.weaviate.io/weaviate/api/rest\\"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.weaviate.io/weaviate/api/rest\\"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.weaviate.io/agents/recipes/personalization-agent-get-started-recipes",
+          "https://docs.weaviate.io/weaviate/api/graphql/additional-operators",
+          "https://docs.weaviate.io/weaviate/api/graphql/explore",
+          "https://docs.weaviate.io/weaviate/api/graphql/filters",
+          "https://docs.weaviate.io/weaviate/configuration/compression/sq-compression",
+          "https://docs.weaviate.io/weaviate/connections/connect-local",
+          "https://docs.weaviate.io/weaviate/model-providers/gpt4all/embeddings",
+          "https://docs.weaviate.io/weaviate/model-providers/model2vec/embeddings",
+          "https://docs.weaviate.io/weaviate/model-providers/ollama/generative",
+          "https://docs.weaviate.io/weaviate/modules/ner-transformers",
+          "https://docs.weaviate.io/weaviate/starter-guides/custom-vectors",
+          "https://docs.weaviate.io/weaviate/tutorials/import",
+          "https://docs.weaviate.io/weaviate/tutorials/rbac"
+        ],
+        "api_uncovered_samples": [
+          "gql:about",
+          "gql:by",
+          "gql:functionality",
+          "gql:functions",
+          "gql:getting",
+          "gql:here",
+          "gql:instead",
+          "gql:languages",
+          "gql:merges",
+          "gql:must",
+          "gql:on",
+          "gql:refinement",
+          "gql:requires",
+          "gql:stops",
+          "gql:structure",
+          "gql:there"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 350,
+        "requested_pages": 368,
+        "urls_examined": 364,
+        "max_pages_total": 5000,
+        "discovered_pages": 364,
+        "crawl_scope_pages": 364,
+        "trap_urls_skipped": 531,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 13,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 21
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 25.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 54.29,
+        "no_api_pages_found": false,
+        "api_pages_detected": 92,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 83.75
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 5.43
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "Link verification inconclusive for 13 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 25.0%",
+    "API usage-doc coverage is low: 54.29% (92 API pages detected)",
+    "Freshness visibility is weak: only 5.43% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

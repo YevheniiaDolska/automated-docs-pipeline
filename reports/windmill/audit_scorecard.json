@@ -1,9 +1,8 @@
 {
-  "generated_at": "2026-04-28T12:55:07.839630+00:00",
-  "commercial_package": "full",
+  "generated_at": "2026-05-12T11:20:09.201892+00:00",
   "score": {
-    "audit_score_0_100": 60.8,
-    "grade": "D"
+    "audit_score_0_100": 59.47,
+    "grade": "F"
   },
   "kpis": {
     "api_coverage": {
@@ -24,11 +23,11 @@
       "example_reliability_pct": 100.0
     },
     "freshness": {
-      "total_docs": 81,
-      "dated_docs": 49,
-      "missing_date_docs": 32,
-      "average_age_days": 42.29,
-      "median_age_days": 39.0,
+      "total_docs": 80,
+      "dated_docs": 53,
+      "missing_date_docs": 27,
+      "average_age_days": 59.45,
+      "median_age_days": 53.0,
       "stale_days_threshold": 180,
       "stale_docs_count": 0,
       "stale_docs_pct": 0.0
@@ -47,8 +46,8 @@
         "how-to",
         "reference"
       ],
-      "total_features": 76,
-      "features_missing_required_layers": 76,
+      "total_features": 75,
+      "features_missing_required_layers": 75,
       "features_missing_required_layers_pct": 100.0,
       "sample_missing_features": [
         {
@@ -156,9 +155,9 @@
     },
     "retrieval_quality": {
       "report_found": true,
-      "status": "ok",
-      "precision_at_k": 0.24,
-      "recall_at_k": 0.72,
+      "status": "breach",
+      "precision_at_k": 0.1733,
+      "recall_at_k": 0.52,
       "hallucination_rate": 0.0,
       "top_k": 3
     },
@@ -166,7 +165,7 @@
       "glossary_path": "glossary.yml",
       "forbidden_terms_count": 5,
       "glossary_terms_count": 17,
-      "docs_scanned": 81,
+      "docs_scanned": 80,
       "docs_with_forbidden_terms": 0,
       "forbidden_term_occurrences": 0,
       "terminology_violation_pct": 0.0,
@@ -551,54 +550,24 @@
     "monthly_loss_usd_base_total": 12903.0,
     "monthly_loss_usd_high_total": 27808.0
   },
-  "top_3_gaps": [],
-  "scope": {
-    "package": "full",
-    "package_label": "Full implementation",
-    "in_scope": [
-      "Production rollout across prioritized repositories.",
-      "Full quality gate integration in CI and weekly automation.",
-      "Multi-surface docs generation and contract governance.",
-      "Operational runbook alignment and ownership handoff."
-    ],
-    "out_of_scope": [
-      "RAG-heavy retrieval evaluation and graph tuning (add-on).",
-      "Custom security attestations outside standard hardening profile."
-    ],
-    "coverage_note": "Current report includes 7 findings (1 high, 2 medium) mapped to pipeline capabilities."
-  },
-  "roadmap_90_days": [
+  "top_3_gaps": [
     {
-      "window_days": "0-30",
-      "objective": "Stabilize core quality risks",
-      "actions": [
-        "Stabilize highest-severity findings and unblock release-critical documentation paths.",
-        "Lock weekly quality gate cadence and confirm review-branch workflow behavior.",
-        "Prioritize 1 high-severity findings for immediate remediation."
+      "id": "CODE-0001",
+      "title": "Authentication: authentication: Auth",
+      "priority": "high",
+      "action_required": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
+      "related_files": [
+        "seo-summary.md"
       ]
     },
     {
-      "window_days": "31-60",
-      "objective": "Scale and standardize coverage",
-      "actions": [
-        "Close the highest business-impact medium findings and reduce recurring support burden.",
-        "Backfill missing documentation layers for top capabilities and API operations.",
-        "Primary gap themes: Missing required doc layers; Documentation freshness debt; RAG retrieval quality risk."
-      ]
-    },
-    {
-      "window_days": "61-90",
-      "objective": "Operationalize steady-state excellence",
-      "actions": [
-        "Harden governance with KPI/SLA thresholds tied to release-readiness criteria.",
-        "Institutionalize ownership model, reporting rhythm, and operational escalation policy.",
-        "Resolve remaining medium findings (2) into steady-state backlog."
+      "id": "CODE-0002",
+      "title": "Webhook: webhook: webhook",
+      "priority": "medium",
+      "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
+      "related_files": [
+        "sitemap.xml"
       ]
     }
-  ],
-  "executive_narrative": {
-    "summary": "Current documentation operating posture is fragile (score 60.8, grade D). API coverage is 0.0%, example reliability is 100.0%, drift is 0.0%, and stale coverage debt is 0.0%.",
-    "business_context": "The finding set contains 1 high and 2 medium risks, with quantifiable monthly loss and remediation effort modeled per issue.",
-    "recommendation": "NO-GO until critical remediation milestones are closed. Execute the 90-day roadmap with weekly evidence-based checkpoints to convert documentation quality from project effort into repeatable operating capability."
-  }
+  ]
 }

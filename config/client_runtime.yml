@@ -1,0 +1,6 @@
+llm_control:
+  llm_mode: external_preferred
+  external_llm_allowed: true
+  require_explicit_approval: false
+  approval_cache_scope: run
+  redact_before_external: true

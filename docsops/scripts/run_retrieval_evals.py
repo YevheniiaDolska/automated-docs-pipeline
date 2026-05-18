@@ -80,9 +80,16 @@ def _build_auto_dataset(index_rows: list[dict[str, Any]], limit: int) -> list[di
         module_id = str(item.get("id", "")).strip()
         title = str(item.get("title", "")).strip()
         summary = str(item.get("summary", "")).strip()
+        intents = " ".join(str(v).strip() for v in item.get("intents", []) if str(v).strip())
+        audiences = " ".join(str(v).strip() for v in item.get("audiences", []) if str(v).strip())
         if not module_id:
             continue
-        query = title or summary[:80] or module_id
+        # Build a richer query to reduce ambiguity for common titles
+        # such as "... (Part N)" chunks.
+        fragments = [title, summary, intents, audiences]
+        query = " ".join(part for part in fragments if part).strip()
+        if not query:
+            query = module_id
         rows.append({"query": query, "expected_ids": [module_id]})
     return rows
 
@@ -430,14 +437,14 @@ def main() -> int:
     index_rows = _load_index(index_path)
     dataset_path = Path(args.dataset) if args.dataset else None
 
-    if dataset_path and dataset_path.exists():
-        dataset_rows = _load_dataset(dataset_path)
-    elif args.auto_generate_dataset:
+    if args.auto_generate_dataset:
         dataset_rows = _build_auto_dataset(index_rows, limit=max(args.auto_samples, 1))
         generated_path = Path(args.dataset_out)
         generated_path.parent.mkdir(parents=True, exist_ok=True)
         generated_path.write_text(yaml.safe_dump(dataset_rows, sort_keys=False), encoding="utf-8")
         dataset_path = generated_path
+    elif dataset_path and dataset_path.exists():
+        dataset_rows = _load_dataset(dataset_path)
     else:
         dataset_rows = []
 

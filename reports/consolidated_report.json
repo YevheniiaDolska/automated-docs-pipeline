@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-03-16T10:04:38.149427+00:00",
+  "generated_at": "2026-05-18T09:11:36.822424+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-03-16T10:04:37.812492",
+      "generated_at": "2026-05-04T10:04:22.901402",
       "details": {
-        "total_gaps": 11,
-        "high_priority": 8,
-        "medium_priority": 3,
+        "total_gaps": 2,
+        "high_priority": 1,
+        "medium_priority": 1,
         "low_priority": 0
       }
     },
@@ -19,15 +19,22 @@
       }
     },
     "docs_contract": {
-      "found": false,
+      "found": true,
       "generated_at": "",
-      "details": {}
+      "details": {
+        "status": "ok",
+        "mismatch_count": 0,
+        "new_or_changed_count": 0,
+        "closed_count": 0,
+        "emitted_count": 0,
+        "deduplicated_count": 0
+      }
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-03-16T10:04:37Z",
+      "generated_at": "2026-05-18T09:11:36Z",
       "details": {
-        "quality_score": 76,
+        "quality_score": 97,
         "stale_docs": 0,
         "stale_files_count": 0
       }
@@ -36,31 +43,28 @@
       "found": true,
       "generated_at": "",
       "details": {
-        "status": "breach",
-        "breaches": [
-          "Quality score breach: 76 < 82.",
-          "High-priority gap breach: 8 > 6."
-        ],
+        "status": "ok",
+        "breaches": [],
         "metrics": {
-          "quality_score": 76,
+          "quality_score": 97,
           "stale_pct": 0.0,
-          "high_priority_gaps": 8
+          "high_priority_gaps": 1
         }
       }
     },
     "i18n": {
       "found": true,
-      "generated_at": "2026-03-11T11:41:29.946129+00:00",
+      "generated_at": "2026-05-18T09:11:34.881094+00:00",
       "details": {
-        "total_source_docs": 0,
+        "total_source_docs": 1,
         "languages": [
           "ru"
         ],
         "coverage": {
           "ru": {
-            "total_source_docs": 0,
+            "total_source_docs": 1,
             "translated": 0,
-            "missing": 0,
+            "missing": 1,
             "stale": 0,
             "coverage_pct": 0.0
           }
@@ -69,70 +73,67 @@
     },
     "glossary": {
       "found": true,
-      "generated_at": "2026-03-12T11:14:56.776726+00:00",
+      "generated_at": "2026-05-18T09:11:35.563520+00:00",
       "details": {
-        "markers_found": 0,
+        "markers_found": 3,
         "added_count": 0,
         "updated_count": 0
       }
     },
     "retrieval_evals": {
       "found": true,
-      "generated_at": "2026-03-12T11:31:43.202833+00:00",
+      "generated_at": "2026-05-11T10:53:13.629126+00:00",
       "details": {
-        "status": "ok",
-        "precision_at_k": 0.5,
-        "recall_at_k": 1.0,
-        "hallucination_rate": 0.5,
+        "status": "breach",
+        "precision_at_k": 0.1733,
+        "recall_at_k": 0.52,
+        "hallucination_rate": 0.0,
         "top_k": 3
       }
     },
     "knowledge_graph": {
       "found": true,
-      "generated_at": "2026-03-12T11:31:42.886813+00:00",
+      "generated_at": "2026-05-11T10:53:12.483812+00:00",
       "details": {
         "status": "ok",
-        "modules_count": 2,
-        "graph_nodes": 38,
-        "edge_count": 21,
-        "output_file": "docs/assets/knowledge-graph.jsonld"
+        "modules_count": 280,
+        "graph_nodes": 2113,
+        "edge_count": 1817,
+        "output_file": "docs\\assets\\knowledge-graph.jsonld"
       }
     }
   },
   "health_summary": {
-    "quality_score": 76,
+    "quality_score": 97,
     "stale_pct": 0.0,
-    "total_docs": 46,
+    "total_docs": 76,
     "metadata_completeness_pct": 100.0,
     "drift_status": "ok",
-    "sla_status": "breach",
-    "sla_breaches": [
-      "Quality score breach: 76 < 82.",
-      "High-priority gap breach: 8 > 6."
-    ],
-    "total_action_items": 13,
+    "sla_status": "ok",
+    "sla_breaches": [],
+    "total_action_items": 4,
     "translation_coverage": {
       "ru": 0.0
     },
     "terminology_new_terms": 0,
-    "retrieval_precision_at_k": 0.5,
-    "retrieval_recall_at_k": 1.0,
-    "retrieval_hallucination_rate": 0.5,
-    "knowledge_graph_nodes": 38
+    "retrieval_precision_at_k": 0.1733,
+    "retrieval_recall_at_k": 0.52,
+    "retrieval_hallucination_rate": 0.0,
+    "knowledge_graph_nodes": 2113
   },
   "action_items": [
     {
       "id": "CONS-001",
       "source_report": "gaps",
-      "source_id": "CODE-0007",
-      "title": "Webhook: webhook: Webhook",
-      "category": "webhook",
+      "source_id": "CODE-0001",
+      "title": "Authentication: authentication: Auth",
+      "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 3236,
-      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "frequency": 17,
+      "action_required": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "seo-summary.md"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -146,15 +147,15 @@
     {
       "id": "CONS-002",
       "source_report": "gaps",
-      "source_id": "CODE-0031",
-      "title": "Authentication: authentication: Auth",
-      "category": "authentication",
+      "source_id": "CODE-0002",
+      "title": "Webhook: webhook: webhook",
+      "category": "webhook",
       "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 1585,
-      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "priority": "medium",
+      "frequency": 20,
+      "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "sitemap.xml"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -167,246 +168,46 @@
     },
     {
       "id": "CONS-003",
-      "source_report": "gaps",
-      "source_id": "CODE-0842",
-      "title": "Public Function: public_function: verify_webhook_signature",
-      "category": "public_function",
-      "suggested_doc_type": "reference",
-      "priority": "high",
-      "frequency": 403,
-      "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "source_report": "i18n",
+      "source_id": null,
+      "title": "Missing translation: ru/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "category": "missing_translation",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Create translation at ru/how-to/set-up-real-time-webhook-processing-pipeline.md from source en/how-to/set-up-real-time-webhook-processing-pipeline.md",
       "related_files": [
-        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+        "en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+        "ru/how-to/set-up-real-time-webhook-processing-pipeline.md"
       ],
       "keywords": [],
       "sample_queries": [],
       "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
+        "i18n_related": true,
+        "translation_status": "missing",
+        "target_locale": "ru",
+        "source_hash": "fb1cb6418bc8227a235375ae970225b8f3a69feed0737c4901401a4c0e63574f"
       }
     },
     {
       "id": "CONS-004",
-      "source_report": "gaps",
-      "source_id": "CODE-0021",
-      "title": "Database Schema: database_schema: migration",
-      "category": "database_schema",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 174,
-      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
-      "related_files": [
-        "reports/doc_gaps_report.csv"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-005",
-      "source_report": "gaps",
-      "source_id": "CODE-0001",
-      "title": "Breaking Change: breaking_change:  Change",
-      "category": "breaking_change",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 74,
-      "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
-      "related_files": [
-        "reports/doc_gaps_report.csv"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-006",
-      "source_report": "gaps",
-      "source_id": "CODE-0329",
-      "title": "Removed Function: Function removed: showInfo",
-      "category": "removed_function",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 74,
-      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
-      "related_files": [
-        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-007",
-      "source_report": "gaps",
-      "source_id": "CODE-0920",
-      "title": "Signature Change: Function signature changed: print",
-      "category": "signature_change",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 12,
-      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"Blocking PR: public interface changed but docs were not updated.\") → New: (\"Docs contract drift found (report-only mode). Update documentation and examples.",
-      "related_files": [
-        "scripts/check_docs_contract.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-008",
-      "source_report": "gaps",
-      "source_id": "CODE-5748",
-      "title": "Api Endpoint: api_endpoint: /tasks",
-      "category": "api_endpoint",
+      "source_report": "retrieval_evals",
+      "source_id": null,
+      "title": "Retrieval quality breach: precision_at_k=0.1733 < 0.5",
+      "category": "retrieval_quality",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 1,
-      "action_required": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
-      "related_files": [
-        "tests/test_client_pipeline_coverage.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-009",
-      "source_report": "gaps",
-      "source_id": "CODE-0810",
-      "title": "New Function: New function: showInfo",
-      "category": "new_function",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 546,
-      "action_required": "Document new function: showInfo. Include parameters, return value, and usage example.",
-      "related_files": [
-        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-010",
-      "source_report": "gaps",
-      "source_id": "CODE-1212",
-      "title": "Error Handling: error_handling: RuntimeError",
-      "category": "error_handling",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 71,
-      "action_required": "Document new error type: RuntimeError. Include cause, solution, and error code.",
-      "related_files": [
-        "scripts/ensure_external_mock_server.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-011",
-      "source_report": "gaps",
-      "source_id": "CODE-1804",
-      "title": "Config Option: config_option: billing_mode",
-      "category": "config_option",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 8,
-      "action_required": "Document configuration option: billing_mode. Include allowed values and when to use.",
-      "related_files": [
-        "scripts/configure_ask_ai.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-012",
-      "source_report": "sla",
-      "source_id": null,
-      "title": "SLA breach: Quality score breach: 76 < 82.",
-      "category": "sla_breach",
-      "suggested_doc_type": null,
-      "priority": "high",
       "frequency": 0,
-      "action_required": "Quality score breach: 76 < 82.",
-      "related_files": [],
+      "action_required": "Improve module summaries/intents/aliases and rerun retrieval evals until thresholds pass. Breach: precision_at_k=0.1733 < 0.5",
+      "related_files": [
+        "docs/assets/knowledge-retrieval-index.json",
+        "reports/retrieval_evals_report.json"
+      ],
       "keywords": [],
       "sample_queries": [],
       "context": {
-        "sla_breach_related": true,
-        "breach_details": "Quality score breach: 76 < 82.",
-        "metrics": {
-          "quality_score": 76,
-          "stale_pct": 0.0,
-          "high_priority_gaps": 8
-        }
-      }
-    },
-    {
-      "id": "CONS-013",
-      "source_report": "sla",
-      "source_id": null,
-      "title": "SLA breach: High-priority gap breach: 8 > 6.",
-      "category": "sla_breach",
-      "suggested_doc_type": null,
-      "priority": "high",
-      "frequency": 0,
-      "action_required": "High-priority gap breach: 8 > 6.",
-      "related_files": [],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "sla_breach_related": true,
-        "breach_details": "High-priority gap breach: 8 > 6.",
-        "metrics": {
-          "quality_score": 76,
-          "stale_pct": 0.0,
-          "high_priority_gaps": 8
-        }
+        "retrieval_eval_related": true,
+        "breach": "precision_at_k=0.1733 < 0.5"
       }
     }
   ]

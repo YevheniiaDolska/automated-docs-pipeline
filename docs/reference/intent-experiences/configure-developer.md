@@ -26,7 +26,7 @@ python3 scripts/assemble_intent_experience.py \
 Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### API playground: Overview
@@ -60,7 +60,7 @@ This works for both API-first and code-first teams.
 Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Assemble intent experiences: Assemble intent experiences
@@ -309,7 +309,7 @@ Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating fl
 Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Canonical Flow (Sales + Delivery): Canonical Flow (Sales + Delivery)
@@ -388,7 +388,7 @@ bundle:
 Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Configure Ask AI module: Configure Ask AI module
@@ -592,7 +592,7 @@ git commit -m "docs-ops: update Ask AI configuration"
 Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Configure webhook triggers: Configure webhook triggers
@@ -819,7 +819,6 @@ Auto-generated grpc reference from source contract.
   <label>Payload (JSON)</label><br/><textarea id="grpc-payload" rows="8" style="width:100%; font-family:monospace;">{
   "name": "world"
 }</textarea><br/>
-  <!-- vale on -->
   <button id="grpc-run">Invoke</button>
   <pre id="grpc-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
@@ -866,7 +865,7 @@ run.onclick = async function(){
 Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Install Ask AI runtime pack: Install Ask AI runtime pack
@@ -1103,6 +1102,11 @@ The knowledge lifecycle has six phases:
 
 Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+
 ### Migrate documentation from Confluence: Migrate documentation from Confluence
 
 The Confluence migration tool imports Confluence pages into pipeline-ready
@@ -1130,15 +1134,15 @@ The pipeline provides two ways to import Confluence content:
 | REST API | Ongoing sync, selective spaces, incremental updates | API token, network access to Confluence |
 | ZIP export | One-time migration, air-gapped environments, full space backup | Admin access to export from Confluence |
 
-#### Migrate documentation from Confluence: Method 1: Import with REST API
+### Migrate documentation from Confluence (Part 2)
+
+Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.
+
+#### Migrate documentation from Confluence (Part 2): Method 1: Import with REST API
 
 REST API mode connects directly to your Confluence instance, fetches pages,
 and converts them to Markdown. It supports both Confluence Cloud (API v2) and
 Server/Data Center (API v1).
-
-### Migrate documentation from Confluence (Part 2)
-
-Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.
 
 ##### Migrate documentation from Confluence (Part 2): Step 1: Create an API token
 
@@ -1416,7 +1420,7 @@ After migration completes:
 Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Multi-Protocol Wizard Guide: Multi-Protocol Wizard Guide
@@ -1614,7 +1618,7 @@ tcpdump -r pipeline-traffic.pcap -A | grep -i "POST\|GET\|Host:"
 Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Operator Runbook (Retainer Operations): Operator Runbook (Retainer Operations)
@@ -1625,7 +1629,7 @@ This content follows the active implementation baseline:
 
 1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
 1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
-1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. REST and non-REST flows include generated server stubs with business-logic placeholders.
 1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
@@ -1936,7 +1940,7 @@ private_tuning:
 
 ```
 
-###### Operator Runbook (Retainer Operations) (Part 17): Add protocols (Enterprise only)
+###### Operator Runbook (Retainer Operations) (Part 17): Add protocols (Professional/Enterprise)
 
 ```yaml
 
@@ -2032,14 +2036,14 @@ Plan tiers control which features are available:
 | KPI/SLA reports | No | Yes | Yes |
 | Test assets generation | No | Yes | Yes |
 | Consolidated reports | No | Yes | Yes |
-| All 5 protocols | No | No | Yes |
-| Knowledge modules + RAG | No | No | Yes |
-| Knowledge graph | No | No | Yes |
+| All 5 protocols | No | Yes | Yes |
+| Knowledge modules (RAG prep) | No | Yes | Yes |
+| Knowledge graph (RAG prep) | No | Yes | Yes |
 | FAISS retrieval | No | No | Yes |
-| Executive audit PDF | No | No | Yes |
-| i18n system | No | No | Yes |
-| Custom policy packs | No | No | Yes |
-| TestRail/Zephyr upload | No | No | Yes |
+| Executive audit PDF | No | Yes | Yes |
+| i18n system | No | Yes | Yes |
+| Custom policy packs | No | Yes | Yes |
+| TestRail/Zephyr upload | No | Yes | Yes |
 
 ### Operator Runbook (Retainer Operations) (Part 2)
 
@@ -2064,13 +2068,9 @@ Step-by-step instructions for weekly report review, client questions, new repo s
 
 The pipeline runs in **community mode** (degraded):
 
-- Markdown lint works (no quality scoring)
-- Frontmatter validation works (no quality scoring)
-- SEO/GEO report only (no auto-fix, no scoring)
-- Gap detection code-only (no community/search sources)
-- REST protocol only
-- No PDF reports, no KPI wall, no drift detection
-- Quality gates warn-only (never block)
+- Only free lint defaults are enabled (markdown, frontmatter, SEO/GEO report-only)
+- Advanced modules are disabled (gap detection, glossary sync, lifecycle, API-first, multi-protocol, KPI/SLA, RAG prep/retrieval, PDF/i18n/custom packs)
+- No protocol entitlement is granted in community mode
 
 ##### Operator Runbook (Retainer Operations) (Part 20): License file location
 
@@ -2214,7 +2214,7 @@ Current baseline:
 
 1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
 1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
-1. Non-REST automation includes server stubs with business-logic placeholders.
+1. REST and non-REST automation includes server stubs with business-logic placeholders.
 1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
 1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
 1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
@@ -2427,10 +2427,10 @@ This depends on the client plan:
 | Plan | Protocols |
 | --- | --- |
 | Pilot | REST only |
-| Professional | REST only |
+| Professional | REST, GraphQL, gRPC, AsyncAPI, WebSocket |
 | Enterprise | REST, GraphQL, gRPC, AsyncAPI, WebSocket |
 
-If the client is on Enterprise, add the protocol to their profile under `runtime.api_protocols` and re-provision. If they need to upgrade to Enterprise, that is a sales conversation.
+If the client is on Professional or Enterprise, add the protocol to their profile under `runtime.api_protocols` and re-provision.
 
 ###### Operator Runbook (Retainer Operations) (Part 8): "Can we turn off a specific check?"
 
@@ -2613,7 +2613,7 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Run API-first production flow: Run API-first production flow
@@ -3128,7 +3128,7 @@ GEO optimization improves:
 Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Set up a real-time webhook processing pipeline: Set up a real-time webhook processing pipeline
@@ -3500,6 +3500,10 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
+### Set up a real-time webhook processing pipeline (Part 8)
+
+Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
+
 // Route to appropriate handler
   switch (event.type) {
     case 'order.completed':
@@ -3577,7 +3581,7 @@ sequenceDiagram
 How needs_review works for protocol test assets and where operators review flagged cases.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Smart Merge and Manual Review: Smart Merge and Manual Review
@@ -3678,7 +3682,7 @@ Commercial note:
 Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### TaskStream API playground: TaskStream API playground
@@ -3839,7 +3843,7 @@ Outcome:
 How to use Jinja2 variables and templates in documentation for consistency
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Variables and Templates Guide: Variables and Templates Guide
@@ -4143,13 +4147,11 @@ Auto-generated websocket reference from source contract.
 <!-- vale off -->
 <div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
-  <!-- vale off -->
-<textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
   "type": "subscribe",
   "request_id": "req_001",
   "payload": {"channel": "project.updated", "filters": {"project_id": "prj_abc123"}}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="websocket-send">Connect + Send</button>
   <pre id="websocket-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>

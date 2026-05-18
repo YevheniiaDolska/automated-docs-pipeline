@@ -1,0 +1,246 @@
+{
+  "generated_at": "2026-05-12T11:38:00.935197+00:00",
+  "site_url": "https://directus.io/docs",
+  "site_urls": [
+    "https://directus.io/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://directus.io/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 856,
+          "requested_pages": 948,
+          "urls_examined": 857,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 857,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 856,
+          "crawl_coverage_pct": 100.12,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 856,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 925,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://directus.io/docs/guides/ai/chat"
+          ],
+          "docs_broken_link_samples": [
+            "https://directus.io/docs/guides/ai/chat"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://directus.io/leapweek",
+            "https://directus.io/plus"
+          ],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://directus.io/blog/feedback-powers-extensions-directus-marketplace",
+            "https://directus.io/tv/100-apps-100-hours/feedback-widget"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://directus.io/docs/guides/ai/chat"
+          ],
+          "_all_unverified_links": [
+            "https://directus.io/leapweek",
+            "https://directus.io/plus"
+          ],
+          "_all_excluded_links": [
+            "https://directus.io/blog/feedback-powers-extensions-directus-marketplace",
+            "https://directus.io/tv/100-apps-100-hours/feedback-widget"
+          ],
+          "_all_docs_unverified_links": [
+            "https://directus.io/leapweek",
+            "https://directus.io/plus"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://directus.io/docs/guides/ai/chat": [
+              {
+                "source_page": "https://directus.io/blog/directus-v11-14-release",
+                "anchor_text": "Link to docs \u2197"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 856,
+          "missing_title_count": 52,
+          "missing_description_count": 91,
+          "multiple_h1_count": 17,
+          "heading_hierarchy_jump_count": 291,
+          "seo_geo_issue_rate_pct": 13.17
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 11,
+          "api_pages_detected": 29,
+          "endpoints_with_usage_docs": 7,
+          "reference_endpoints_without_usage_docs": 4,
+          "reference_coverage_pct": 63.64,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:asks",
+            "gql:batching",
+            "gql:getuser",
+            "gql:in"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 4,
+          "total_code_blocks_all": 61,
+          "runnable_without_env": 4,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 100.0,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 566,
+          "pages_without_last_updated_hint": 290,
+          "last_updated_coverage_pct": 66.12,
+          "samples_with_last_updated": [
+            {
+              "url": "https://directus.io/",
+              "hint": "Jan 31, 2025"
+            },
+            {
+              "url": "https://directus.io/blog/10-11-release-notes",
+              "hint": "2024-05-08T07:23:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/10-1-release-notes",
+              "hint": "2023-05-12T21:10:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/10-10-release-notes",
+              "hint": "2024-03-06T08:23:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog",
+              "hint": "2023-11-17T21:43:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/10-2-release-notes",
+              "hint": "2023-05-26T16:42:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/10-12-release-notes",
+              "hint": "2024-06-05T11:00:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/10-4-release-notes",
+              "hint": "2023-06-27T08:22:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/10-3-release-notes",
+              "hint": "2023-06-13T10:05:00.000Z"
+            },
+            {
+              "url": "https://directus.io/blog/100-tools-apps-and-platforms-you-can-build-with-directus",
+              "hint": "2023-06-07T16:05:00.000Z"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://directus.io/docs/guides/ai/chat"
+        ],
+        "docs_broken_link_samples": [
+          "https://directus.io/docs/guides/ai/chat"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://directus.io/leapweek",
+          "https://directus.io/plus"
+        ],
+        "api_uncovered_samples": [
+          "gql:asks",
+          "gql:batching",
+          "gql:getuser",
+          "gql:in"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 856,
+        "requested_pages": 948,
+        "urls_examined": 857,
+        "max_pages_total": 5000,
+        "discovered_pages": 857,
+        "crawl_scope_pages": 856,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.12
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 2,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 13.17
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 63.64,
+        "no_api_pages_found": false,
+        "api_pages_detected": 29,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 100.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 66.12
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 64.83,
+      "links_confidence_pct": 28.33,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 64.83,
+    "links_confidence_pct": 28.33,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 13.17%",
+    "API usage-doc coverage is low: 63.64% (29 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

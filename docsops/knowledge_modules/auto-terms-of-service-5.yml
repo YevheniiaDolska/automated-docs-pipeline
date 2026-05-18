@@ -14,28 +14,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - terms-of-service
-metadata:
-  url: https://docs.example.com/legal/terms-of-service/
-  title: VeriDoc terms of service (Part 5)
-  heading: Termination
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/terms-of-service.md
-semantic:
-  topic: Termination
-  intent: integrate
-  audience: developer
-  keywords:
-  - reference
-  - terms of service
-  status: rule_based
 content:
   docs_markdown: "## Termination\n\nEither party may terminate the agreement:\n\n\
     1. **You** may close your account at any time from account settings. Active\n\
@@ -54,7 +38,7 @@ content:
     - Review the [data processing agreement](data-processing-agreement.md)\n- Review\
     \ the [security policy](security-policy.md)"
   assistant_context: "Use this module when answering questions related to: VeriDoc\
-    \ terms of service (Part 5). Source path: legal/terms-of-service.md. Summary:\
+    \ terms of service (Part 5). Source path: docs/legal/terms-of-service.md. Summary:\
     \ Terms of service governing the use of VeriDoc automated documentation platform,\
     \ including subscription tiers, usage limits, and acceptable use policies.\n\n\
     ## Termination\n\nEither party may terminate the agreement:\n\n1. **You** may\

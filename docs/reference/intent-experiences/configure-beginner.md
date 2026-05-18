@@ -26,7 +26,7 @@ python3 scripts/assemble_intent_experience.py \
 Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Build your first workflow in 5 minutes: Build your first workflow in 5 minutes

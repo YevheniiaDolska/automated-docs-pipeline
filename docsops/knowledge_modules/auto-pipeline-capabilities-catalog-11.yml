@@ -4,7 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -15,110 +14,60 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
-metadata:
-  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
-  title: Pipeline Capabilities Catalog (Part 11)
-  heading: Multi-protocol contract pipeline
-  version: 1.50.0
-  updated_at: '2026-04-17T00:00:00Z'
-  source_site: docs.example.com
-  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
-semantic:
-  topic: Multi-protocol contract pipeline
-  intent: integrate
-  audience: developer
-  keywords:
-  - pipeline capabilities catalog
-  - reference
-  status: rule_based
 content:
-  docs_markdown: '## Multi-protocol contract pipeline
+  docs_markdown: '## Quality checks (32 automated)
 
 
-    The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`).
-    Each protocol has its own contract format, validator, reference template, test
-    generator, and sandbox fallback.
+    The pipeline enforces 32 automated checks on every documentation page across four
+    categories:
 
 
-    | Protocol | Contract format | Validator | Sandbox fallback |
+    | Category | Count | What they verify |
 
-    | --- | --- | --- | --- |
+    | --- | --- | --- |
 
-    | REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly
-    | Prism / Postman mock server |
+    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
+    length, heading hierarchy, fact density |
 
-    | GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post`
-    |
+    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
+    internal links, image alt text, structured data |
 
-    | gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post`
-    (JSON-over-HTTP) |
+    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
+    second person, present tense |
 
-    | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post`
-    + `echo.websocket.events` |
-
-    | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events`
-    |
-
-
-    **9 pipeline stages per protocol:** ingest, contract validation, server stub generation,
-    lint, regression detection, docs generation, quality gates (frontmatter + snippet
-    lint + self-verification), test assets generation with smart merge, publish.
-
-
-    **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates
-    docs and retries semantic consistency checks on failure.
-
-
-    **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
-    generates protocol specs from markdown planning notes.'
+    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
+    self-verification against endpoints |'
   assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 11). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Capabilities Catalog (Part 11). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Multi-protocol contract pipeline
+    ## Quality checks (32 automated)
 
 
-    The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`).
-    Each protocol has its own contract format, validator, reference template, test
-    generator, and sandbox fallback.
+    The pipeline enforces 32 automated checks on every documentation page across four
+    categories:
 
 
-    | Protocol | Contract format | Validator | Sandbox fallback |
+    | Category | Count | What they verify |
 
-    | --- | --- | --- | --- |
+    | --- | --- | --- |
 
-    | REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly
-    | Prism / Postman mock server |
+    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
+    length, heading hierarchy, fact density |
 
-    | GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post`
-    |
+    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
+    internal links, image alt text, structured data |
 
-    | gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post`
-    (JSON-over-HTTP) |
+    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
+    second person, present tense |
 
-    | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post`
-    + `echo.websocket.events` |
-
-    | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events`
-    |
-
-
-    **9 pipeline stages per protocol:** ingest, contract validation, server stub generation,
-    lint, regression detection, docs generation, quality gates (frontmatter + snippet
-    lint + self-verification), test assets generation with smart merge, publish.
-
-
-    **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates
-    docs and retries semantic consistency checks on failure.
-
-
-    **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
-    generates protocol specs from markdown planning notes.'
+    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
+    self-verification against endpoints |'

@@ -9,7 +9,7 @@ if [[ -f ".env.docsops.local" ]]; then
   set +a
 fi
 while true; do
-  if python3 docsops/scripts/run_weekly_gap_batch.py --docsops-root docsops --reports-dir reports --since 7; then
+  if python3 docsops/scripts/run_autopipeline.py --docsops-root docsops --reports-dir reports --since 7 --runtime-config docsops/config/client_runtime.yml --mode operator --auto-generate --local-engine auto; then
     break
   fi
   echo "[docsops] weekly run failed, retrying in 60s..."

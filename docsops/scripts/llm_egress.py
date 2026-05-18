@@ -22,7 +22,7 @@ class LLMEgressPolicy:
     redact_before_external: bool = True
     approval_cache_scope: str = "run"
     local_model: str = "veridoc-writer"
-    local_base_model: str = "qwen2.5:7b"
+    local_base_model: str = "qwen3:30b"
     local_model_command: str = "ollama run {model} \"{prompt}\""
     quality_delta_note: str = "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
 
@@ -35,7 +35,6 @@ class EgressAllowlistPolicy:
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
-    """Internal helper for `_load_yaml`."""
     try:
         raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
@@ -44,7 +43,6 @@ def _load_yaml(path: Path) -> dict[str, Any]:
 
 
 def load_policy(runtime_config: Path | str | None = None) -> LLMEgressPolicy:
-    """Execute `load_policy` workflow."""
     default = LLMEgressPolicy()
     candidates: list[Path] = []
     if runtime_config:
@@ -90,7 +88,6 @@ _SECRET_PATTERNS = [
 
 
 def redact_text(value: str) -> str:
-    """Execute `redact_text` workflow."""
     out = value
     for pattern in _SECRET_PATTERNS:
         out = pattern.sub("[REDACTED]", out)
@@ -98,7 +95,6 @@ def redact_text(value: str) -> str:
 
 
 def redact_payload(value: Any) -> Any:
-    """Execute `redact_payload` workflow."""
     if isinstance(value, str):
         return redact_text(value)
     if isinstance(value, list):
@@ -116,12 +112,10 @@ def redact_payload(value: Any) -> Any:
 
 
 def _egress_log_path(reports_dir: Path) -> Path:
-    """Internal helper for `_egress_log_path`."""
     return reports_dir / "llm_egress_log.json"
 
 
 def _append_egress_log(reports_dir: Path, record: dict[str, Any]) -> None:
-    """Internal helper for `_append_egress_log`."""
     reports_dir.mkdir(parents=True, exist_ok=True)
     path = _egress_log_path(reports_dir)
     existing: list[dict[str, Any]] = []
@@ -151,7 +145,7 @@ def load_egress_allowlist() -> EgressAllowlistPolicy:
     if not isinstance(allowed, list) or not allowed:
         allowed = [
             "tenant_id", "build_id", "version", "platform", "plan",
-            "health", "error_code", "duration_ms", "event", "timestamp_utc", "run_status",
+            "health", "error_code", "duration_ms", "event", "timestamp_utc",
         ]
     blocked = payload.get("blocked_key_patterns", [])
     if not isinstance(blocked, list) or not blocked:
@@ -225,7 +219,6 @@ def ensure_external_allowed(
     approve_for_run: bool = False,
     non_interactive: bool = False,
 ) -> bool:
-    """Execute `ensure_external_allowed` workflow."""
     now = datetime.now(timezone.utc).isoformat()
     if not policy.external_llm_allowed:
         _append_egress_log(
@@ -245,9 +238,6 @@ def ensure_external_allowed(
         approval_flag.write_text("approved\n", encoding="utf-8")
         approved = True
     elif policy.approval_cache_scope == "run" and approval_flag.exists():
-        approved = True
-
-    if not policy.require_explicit_approval:
         approved = True
 
     if policy.require_explicit_approval and not approved:

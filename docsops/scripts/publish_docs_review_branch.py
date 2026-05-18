@@ -10,7 +10,6 @@ Behavior:
 from __future__ import annotations
 
 import argparse
-import json
 import shlex
 import subprocess
 import sys
@@ -21,21 +20,18 @@ import yaml
 
 
 def _run(cmd: list[str], cwd: Path) -> int:
-    """Internal helper for `_run`."""
     print(f"[review-branch] $ {' '.join(cmd)}")
     completed = subprocess.run(cmd, cwd=str(cwd), check=False)
     return int(completed.returncode)
 
 
 def _run_shell(command: str, cwd: Path) -> int:
-    """Internal helper for `_run_shell`."""
     print(f"[review-branch] $ {command}")
     completed = subprocess.run(shlex.split(command), cwd=str(cwd), check=False)
     return int(completed.returncode)
 
 
 def _current_branch(repo_root: Path) -> str:
-    """Internal helper for `_current_branch`."""
     completed = subprocess.run(
         ["git", "rev-parse", "--abbrev-ref", "HEAD"],
         cwd=str(repo_root),
@@ -52,7 +48,6 @@ def _current_branch(repo_root: Path) -> str:
 
 
 def _has_changes(repo_root: Path) -> bool:
-    """Internal helper for `_has_changes`."""
     completed = subprocess.run(
         ["git", "status", "--porcelain"],
         cwd=str(repo_root),
@@ -66,7 +61,6 @@ def _has_changes(repo_root: Path) -> bool:
 
 
 def _read_runtime(path: Path) -> dict:
-    """Internal helper for `_read_runtime`."""
     if not path.exists():
         return {}
     try:
@@ -76,21 +70,7 @@ def _read_runtime(path: Path) -> dict:
     return payload if isinstance(payload, dict) else {}
 
 
-def _has_npm_lint_script(repo_root: Path) -> bool:
-    """Internal helper for `_has_npm_lint_script`."""
-    package_json = repo_root / "package.json"
-    if not package_json.exists():
-        return False
-    try:
-        payload = json.loads(package_json.read_text(encoding="utf-8"))
-    except (RuntimeError, ValueError, TypeError, OSError):
-        return False
-    scripts = payload.get("scripts", {}) if isinstance(payload, dict) else {}
-    return isinstance(scripts, dict) and "lint" in scripts
-
-
 def _resolve_base_branch(repo_root: Path, preferred: str) -> str:
-    """Internal helper for `_resolve_base_branch`."""
     candidate = preferred.strip()
     if candidate:
         return candidate
@@ -101,27 +81,13 @@ def _resolve_base_branch(repo_root: Path, preferred: str) -> str:
     return "main"
 
 
-def _remote_exists(repo_root: Path, remote: str) -> bool:
-    """Internal helper for `_remote_exists`."""
-    completed = subprocess.run(
-        ["git", "remote", "get-url", remote],
-        cwd=str(repo_root),
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    return completed.returncode == 0
-
-
 def _build_review_branch_name(prefix: str) -> str:
-    """Internal helper for `_build_review_branch_name`."""
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     clean_prefix = prefix.strip().strip("/") or "docs/review"
     return f"{clean_prefix}/{stamp}"
 
 
 def parse_args() -> argparse.Namespace:
-    """Execute `parse_args` workflow."""
     parser = argparse.ArgumentParser(description="Publish docs changes to review branch")
     parser.add_argument("--runtime-config", default="docsops/config/client_runtime.yml")
     parser.add_argument("--docs-root", default="docs")
@@ -135,7 +101,6 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
-    """Execute `main` workflow."""
     args = parse_args()
     repo_root = Path.cwd()
     runtime_path = Path(args.runtime_config).resolve()
@@ -170,12 +135,6 @@ def main() -> int:
         or review_cfg.get("commit_message", "docs: autopipeline update for manual review")
     ).strip()
 
-    if lint_command == "npm run lint" and not _has_npm_lint_script(repo_root):
-        lint_command = (
-            f"python3 docsops/scripts/finalize_docs_gate.py --docs-root {shlex.quote(args.docs_root)} "
-            f"--reports-dir reports --runtime-config {shlex.quote(str(args.runtime_config))} --continue-on-error"
-        )
-
     if lint_command:
         lint_rc = _run_shell(lint_command, repo_root)
         if lint_rc != 0:
@@ -203,14 +162,6 @@ def main() -> int:
     if commit_rc != 0:
         print("[review-branch] commit skipped or failed; checking if there is anything to push")
 
-    if not _remote_exists(repo_root, remote):
-        print(
-            f"[review-branch] remote '{remote}' is not configured; "
-            "skipping push in local/clean-room mode",
-        )
-        print(f"[review-branch] local review branch ready: {review_branch}")
-        return 0
-
     push_rc = _run(["git", "push", "-u", remote, review_branch], repo_root)
     if push_rc != 0:
         return push_rc
@@ -222,3 +173,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

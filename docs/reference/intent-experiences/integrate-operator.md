@@ -26,7 +26,7 @@ python3 scripts/assemble_intent_experience.py \
 Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### API playground: Overview
@@ -111,6 +111,11 @@ Interactive API reference with Swagger UI or Redoc and configurable sandbox beha
 ### ASYNCAPI API Reference
 
 Auto-generated asyncapi reference from source contract.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 
 ### ASYNCAPI API Reference: ASYNCAPI Reference
 
@@ -236,7 +241,7 @@ This auto-generated knowledge chunk was expanded to satisfy minimum retrieval mo
 Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating flow, plan mapping, and a detailed client FAQ.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Auto-Doc Pipeline study guide: Auto-Doc Pipeline study guide
@@ -480,12 +485,116 @@ It compresses repetitive documentation and API verification work into a governed
 
 - [Documentation index](index.md)
 
+### Autopipeline Output Index
+
+Auto-generated review index for autopipeline outputs.
+
+### Autopipeline Output Index: Autopipeline Output Index
+
+Generated automatically after autopipeline run.
+
+- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`
+- Stage summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/pipeline_stage_summary.json`
+- Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_MANIFEST.md`
+- Weekly rc: `1`
+- Strictness: `standard`
+- Skip consolidated report: `False`
+
+#### Autopipeline Output Index: Stage Articulation
+
+- `multi_protocol_contract`: **OK**
+- `consolidated_report`: **OK**
+- `audit_scorecard`: **OK**
+- `finalize_gate`: **OK**
+- `docsops_status`: **MISSING**
+- `ready_marker`: **MISSING**
+- `kpi_wall`: **OK**
+- `kpi_sla`: **OK**
+- `glossary_sync`: **OK**
+- `test_assets_json`: **OK**
+- `test_assets_coverage`: **OK**
+- `test_assets_fuzz`: **OK**
+- `test_assets_summary`: **MISSING**
+
+#### Autopipeline Output Index: Docs Links
+
+- Docs index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md` (OK)
+  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/index/
+
+### Autopipeline Output Index (Part 2)
+
+Auto-generated review index for autopipeline outputs.
+
+#### Autopipeline Output Index (Part 2): Protocols Links
+
+- Multi-protocol contract report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json` (OK)
+- REST reference: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/rest-api.md` (OK)
+  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/rest-api/
+- REST playground: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md` (OK)
+  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/taskstream-api-playground/
+
+#### Autopipeline Output Index (Part 2): Quality Links
+
+- Glossary source: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/glossary.yml` (OK)
+- Glossary sync report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/glossary_sync_report.json` (OK)
+- KPI wall: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-wall.json` (OK)
+- KPI SLA report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-sla-report.json` (OK)
+
+### Autopipeline Output Index (Part 3)
+
+Auto-generated review index for autopipeline outputs.
+
+#### Autopipeline Output Index (Part 3): Reports Links
+
+- Consolidated report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/consolidated_report.json` (OK)
+- Audit scorecard (JSON): `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json` (OK)
+- Audit scorecard (HTML): `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.html` (OK)
+- Finalize gate report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/finalize_gate_report.json` (OK)
+- VeriOps status: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json` (MISSING)
+- Ready marker: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt` (MISSING)
+- Generated changes list: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/generated_changes.json` (OK)
+- VeriDoc branding policy report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veridoc_branding_policy_report.json` (OK)
+
+### Autopipeline Output Index (Part 4)
+
+Auto-generated review index for autopipeline outputs.
+
+#### Autopipeline Output Index (Part 4): Search Links
+
+- Faceted search page: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md` (OK)
+  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/
+- Facets index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json` (OK)
+  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json
+
+#### Autopipeline Output Index (Part 4): Tests Links
+
+- API test cases JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/api_test_cases.json` (OK)
+- TestRail CSV: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/testrail_test_cases.csv` (OK)
+- Zephyr JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/zephyr_test_cases.json` (OK)
+- Test coverage report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/coverage_report.json` (OK)
+- Fuzz scenarios: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json` (OK)
+- Test assets summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md` (MISSING)
+
+### Autopipeline Output Index (Part 5)
+
+Auto-generated review index for autopipeline outputs.
+
+#### Autopipeline Output Index (Part 5): Browse/Searchability
+
+- Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable page paths.
+- Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index (`docs/assets/knowledge-retrieval-index.json`).
+- AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval eval reports.
+
+#### Autopipeline Output Index (Part 5): Next steps
+
+- [Documentation index](../index.md)
+
 ### Canonical Flow (Sales + Delivery)
 
 Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Canonical Flow (Sales + Delivery): Canonical Flow (Sales + Delivery)
@@ -591,6 +700,11 @@ powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
 Scheduler timezone is local machine timezone. Monday schedule follows client local time when installed on client machine.
 Default schedule is Monday at `10:00` local time.
 
+Algolia note for one-time setup:
+
+- If `runtime.integrations.algolia.enabled=true`, provisioning now auto-generates advanced search config (`config/algolia.search.yml`) and applies it automatically during bootstrap when Algolia credentials are available.
+- Auto-bootstrap includes index settings, synonyms, query rules, and replica setup, plus initial records upload.
+
 ### Canonical Flow (Sales + Delivery) (Part 4)
 
 Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
@@ -638,6 +752,10 @@ Canonical sales and delivery flow for onboarding and operating client Auto-Doc P
   - `validate_multilang_examples.py`
   - `check_code_examples_smoke.py` (including `expected-output` comparison for tagged blocks)
 - intent bundle assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`
+- Algolia search indexing (if enabled)
+  - generates Algolia records from docs
+  - uploads index records
+  - applies advanced config from `advanced_config_path` (`settings`, `synonyms`, `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`
 - `custom_tasks.weekly` commands
 - consolidated report generation
 
@@ -762,7 +880,7 @@ Commercial note:
 Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 <!-- cspell:disable -->
@@ -1415,12 +1533,215 @@ python3 scripts/onboard_client.py
 
 Перед установкой вы видите preview профиля и подтверждаете запуск.
 
+### VeriDoc data processing agreement
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+
+### VeriDoc data processing agreement: VeriDoc data processing agreement
+
+This data processing agreement ("DPA") forms part of the agreement between
+Liora Tech ("Processor," "we") and the entity subscribing to VeriDoc
+("Controller," "you") for the processing of personal data through the
+VeriDoc platform.
+
+#### VeriDoc data processing agreement: Scope and roles
+
+| Role | Party | Responsibility |
+|------|-------|----------------|
+| **Data Controller** | You (the customer) | Determines the purposes and means of processing documentation content |
+| **Data Processor** | Liora Tech | Processes personal data on your behalf to provide the VeriDoc Service |
+| **Sub-processors** | Third-party providers listed below | Process data under our supervision for specific service functions |
+
+This DPA applies to all personal data processed through the VeriDoc
+platform on your behalf, including documentation content that may contain
+personal data (names, emails, or identifiers in your documentation).
+
+#### VeriDoc data processing agreement: Processing details
+
+##### VeriDoc data processing agreement: Subject matter and duration
+
+We process personal data for the duration of your VeriDoc subscription.
+Processing terminates 30 days after account closure, when all data is
+permanently deleted.
+
+### VeriDoc data processing agreement (Part 2)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+##### VeriDoc data processing agreement (Part 2): Nature and purpose of processing
+
+| Processing activity | Purpose | Data categories |
+|---------------------|---------|-----------------|
+| Pipeline execution | Transform and enhance documentation | Documentation content, metadata |
+| LLM processing (opt-in) | AI-powered quality improvements | Document sections sent to LLM providers |
+| Usage tracking | Quota enforcement and billing | Request counts, timestamps |
+| Authentication | Access control | Email, hashed passwords, JWT tokens |
+| Billing | Payment processing and invoicing | Email, subscription tier, payment history |
+
+##### VeriDoc data processing agreement (Part 2): Categories of data subjects
+
+Data subjects include your employees, contractors, and any individuals
+whose personal data appears in documentation processed through VeriDoc.
+
+### VeriDoc data processing agreement (Part 3)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+#### VeriDoc data processing agreement (Part 3): Processor obligations
+
+We commit to the following obligations:
+
+This auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing.
+
+### VeriDoc data processing agreement (Part 4)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+1. **Process only on your instructions.** We process personal data solely
+   to provide the Service as documented in these Terms and this DPA. We do
+   not process data for our own purposes.
+1. **Confidentiality.** All personnel with access to personal data are
+   bound by confidentiality obligations.
+1. **Security measures.** We implement technical and organizational
+   measures as described in the [security policy](security-policy.md):
+   - TLS 1.3 encryption for all data in transit
+   - AES-256 encryption for all data at rest
+   - PBKDF2-SHA256 password hashing (600,000 iterations)
+   - Daily encrypted database backups with 30-day retention
+   - Rate limiting (60 requests per minute)
+   - Sentry error tracking with PII scrubbing
+1. **Sub-processor management.** We maintain an up-to-date list of
+   sub-processors and notify you 30 days before adding new ones.
+1. **Data subject rights.** We assist you in responding to data subject
+   requests (access, deletion, portability) within 10 business days.
+1. **Breach notification.** We notify you within 72 hours of discovering
+   a personal data breach, with details on the nature, scope, and
+   remediation steps.
+1. **Audit rights.** You may request an audit of our data processing
+   activities once per year with 30 days advance notice.
+1. **Data return and deletion.** Upon termination, we return your data
+   in a standard format (JSON export) and delete all copies within 30 days.
+
+### VeriDoc data processing agreement (Part 5)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+#### VeriDoc data processing agreement (Part 5): Sub-processors
+
+We use the following sub-processors:
+
+| Sub-processor | Purpose | Location | Data processed |
+|---------------|---------|----------|----------------|
+| Hetzner Online | Cloud infrastructure hosting | Germany (EU) | All application data (encrypted) |
+| LemonSqueezy | Payment processing | United States | Email, subscription tier |
+| Mailgun | Transactional email delivery | United States | Email address, email content |
+| Sentry | Error monitoring | United States | Error context (PII scrubbed) |
+
+##### VeriDoc data processing agreement (Part 5): Optional LLM sub-processors (opt-in only)
+
+These sub-processors are engaged only when you explicitly enable AI
+features:
+
+| Sub-processor | Purpose | Location | Data processed |
+|---------------|---------|----------|----------------|
+| Anthropic | Document quality enhancement | United States | Document sections |
+| Groq | Text generation | United States | Document sections |
+| DeepSeek | Text generation | China | Document sections |
+| OpenAI | Embeddings, text generation | United States | Document sections |
+
+You control which LLM providers are used through your pipeline
+configuration. Disable AI features to prevent any content from reaching
+LLM sub-processors.
+
+#### VeriDoc data processing agreement (Part 5): Data transfers
+
+### VeriDoc data processing agreement (Part 6)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+##### VeriDoc data processing agreement (Part 6): EU-US transfers
+
+For sub-processors located in the United States, we rely on:
+
+1. Standard Contractual Clauses (SCCs) approved by the European Commission
+   (June 2021 version).
+1. Supplementary measures including encryption in transit and at rest.
+1. Data minimization -- only the minimum data necessary is transferred.
+
+##### VeriDoc data processing agreement (Part 6): Transfer impact assessment
+
+We have conducted transfer impact assessments for each non-EU
+sub-processor. Assessments are available upon request at
+<privacy@veri-doc.app>.
+
+#### VeriDoc data processing agreement (Part 6): Data breach notification
+
+In the event of a personal data breach:
+
+| Step | Timeline | Action |
+|------|----------|--------|
+| 1 | Within 24 hours | Internal incident response team activated |
+| 2 | Within 72 hours | Written notification to you with breach details |
+| 3 | Within 72 hours | Notification to supervisory authority (if required) |
+| 4 | Ongoing | Regular updates on investigation and remediation |
+
+Breach notification includes:
+
+1. Nature of the breach and categories of data affected.
+1. Estimated number of data subjects affected.
+1. Likely consequences of the breach.
+1. Measures taken to address and mitigate the breach.
+
+### VeriDoc data processing agreement (Part 7)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+#### VeriDoc data processing agreement (Part 7): Data protection impact assessment
+
+We support your data protection impact assessments (DPIAs) by providing:
+
+1. Documentation of processing activities.
+1. Technical details of security measures.
+1. Sub-processor information and transfer mechanisms.
+
+Request DPIA support materials at <privacy@veri-doc.app>.
+
+#### VeriDoc data processing agreement (Part 7): Term and termination
+
+This DPA remains in effect for the duration of your VeriDoc subscription.
+Upon termination:
+
+1. We stop processing personal data within 24 hours.
+1. We provide a JSON data export within 7 business days upon request.
+1. We permanently delete all personal data within 30 days.
+1. We confirm deletion in writing.
+
+#### VeriDoc data processing agreement (Part 7): Contact information
+
+For DPA inquiries:
+
+- Email: <privacy@veri-doc.app>
+- Response time: within 10 business days
+
+**Last updated:** March 28, 2026
+
+#### VeriDoc data processing agreement (Part 7): Next steps
+
+- Review the [terms of service](terms-of-service.md)
+- Review the [privacy policy](privacy-policy.md)
+- Review the [security policy](security-policy.md)
+
 ### Old Webhook API (Deprecated)
 
 This API is deprecated. Use the new Webhook node instead.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Old Webhook API (Deprecated): Old Webhook API
@@ -1454,6 +1775,11 @@ const webhook = new WebhookNode({
 ### GRAPHQL API Reference
 
 Auto-generated graphql reference from source contract.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 
 ### GRAPHQL API Reference: GRAPHQL Reference
 
@@ -1541,7 +1867,7 @@ This auto-generated knowledge chunk was expanded to satisfy minimum retrieval mo
 Auto-generated grpc reference from source contract.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### GRPC API Reference: GRPC Reference
@@ -1579,7 +1905,6 @@ Auto-generated grpc reference from source contract.
   <label>Payload (JSON)</label><br/><textarea id="grpc-payload" rows="8" style="width:100%; font-family:monospace;">{
   "name": "world"
 }</textarea><br/>
-  <!-- vale on -->
   <button id="grpc-run">Invoke</button>
   <pre id="grpc-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
@@ -1631,28 +1956,35 @@ Auto-generated grpc reference from source contract.
 
 This auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing.
 
-### Documentation Pipeline Demo (Part 2)
+### Legal and compliance (Part 2)
 
-Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.
+Legal documents for VeriDoc platform including terms of service, privacy policy, data processing agreement, and security policy.
 
-#### Documentation Pipeline Demo (Part 2): Browse by type
+#### Legal and compliance (Part 2): Quick reference
 
-- **[Getting Started](getting-started/index.md)**—Tutorials to learn from scratch
-- **[How-To Guides](how-to/index.md)**—Step-by-step solutions for specific tasks
-- **[Concepts](concepts/index.md)**—Architecture and design explanations
-- **[Reference](reference/index.md)**—Complete parameter and API docs
-- **[Troubleshooting](troubleshooting/index.md)**—Common problems and fixes
+**Data location:** Hetzner Cloud, Germany (EU)
 
-#### Documentation Pipeline Demo (Part 2): Browse by tag
+**Encryption:** TLS 1.3 in transit, AES-256 at rest
 
-See all [tags](tags.md) for faceted filtering.
+**Password security:** PBKDF2-SHA256, 600,000 iterations
+
+**Data retention:** Account data kept 30 days after closure, then permanently deleted
+
+**LLM processing:** Opt-in only. Disable AI features to keep all content on VeriDoc infrastructure.
+
+**GDPR rights:** Access, correct, delete, export, restrict, object. Email <privacy@veri-doc.app>.
+
+#### Legal and compliance (Part 2): Next steps
+
+- [Terms of service](terms-of-service.md)
+- [Privacy policy](privacy-policy.md)
 
 ### Intelligent knowledge system architecture
 
 Explains how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Intelligent knowledge system architecture: Intelligent knowledge system architecture
@@ -1785,7 +2117,7 @@ Use owner fields and verification dates to enforce accountability.
 Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Multi-Protocol Architecture: VeriDoc/VeriOps Multi-Protocol Architecture
@@ -1956,7 +2288,7 @@ Commercial note:
 Complete list of all outgoing network requests the pipeline makes, with exact payload schemas. No client data leaves your network.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Network transparency reference: Network transparency reference
@@ -2268,7 +2600,7 @@ Your Network                              VeriOps Server
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Pipeline Capabilities Catalog: Pipeline Capabilities Catalog
@@ -2277,7 +2609,13 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 10): Test assets generation and smart merge
+**Self-verification:** `run_protocol_self_verify.py` validates generated docs against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI event publish, WebSocket connection routing).
+
+### Pipeline Capabilities Catalog (Part 11)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 11): Test assets generation and smart merge
 
 `generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
 
@@ -2297,11 +2635,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
 
-### Pipeline Capabilities Catalog (Part 11)
+### Pipeline Capabilities Catalog (Part 12)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 11): Quality checks (32 automated)
+#### Pipeline Capabilities Catalog (Part 12): Quality checks (32 automated)
 
 The pipeline enforces 32 automated checks on every documentation page across four categories:
 
@@ -2312,11 +2650,11 @@ The pipeline enforces 32 automated checks on every documentation page across fou
 | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense |
 | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints |
 
-### Pipeline Capabilities Catalog (Part 12)
+### Pipeline Capabilities Catalog (Part 13)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 12): RAG retrieval pipeline
+#### Pipeline Capabilities Catalog (Part 13): RAG retrieval pipeline
 
 The pipeline generates a knowledge retrieval layer with six advanced features:
 
@@ -2338,11 +2676,11 @@ The pipeline generates a knowledge retrieval layer with six advanced features:
 1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
 1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
 
-### Pipeline Capabilities Catalog (Part 13)
+### Pipeline Capabilities Catalog (Part 14)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 13): Public docs auditor and executive PDF
+#### Pipeline Capabilities Catalog (Part 14): Public docs auditor and executive PDF
 
 The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment.
 
@@ -2361,11 +2699,11 @@ The public docs auditor crawls live documentation sites and generates a comprehe
 
 **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example reliability, glossary health, content freshness, policy compliance.
 
-### Pipeline Capabilities Catalog (Part 14)
+### Pipeline Capabilities Catalog (Part 15)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 14): API-first external sandbox note
+#### Pipeline Capabilities Catalog (Part 15): API-first external sandbox note
 
 For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
 
@@ -2386,7 +2724,7 @@ For Postman auto-prepare mode, provide:
 - optional `POSTMAN_COLLECTION_UID` (if empty, pipeline imports collection from generated OpenAPI)
 - optional `POSTMAN_MOCK_SERVER_ID`
 
-#### Pipeline Capabilities Catalog (Part 14): PR auto-doc workflow capability
+#### Pipeline Capabilities Catalog (Part 15): PR auto-doc workflow capability
 
 Enable in client profile with `runtime.pr_autofix`.
 
@@ -2398,11 +2736,11 @@ Installed workflow behavior:
 1. Commit generated docs into the same PR branch.
 1. Rerun checks automatically.
 
-### Pipeline Capabilities Catalog (Part 15)
+### Pipeline Capabilities Catalog (Part 16)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 15): Templates
+#### Pipeline Capabilities Catalog (Part 16): Templates
 
 These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 
@@ -2439,7 +2777,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `templates/user-guide.md`
 - `templates/webhooks-guide.md`
 
-#### Pipeline Capabilities Catalog (Part 15): Policy Packs
+#### Pipeline Capabilities Catalog (Part 16): Policy Packs
 
 - `api-first.yml`
 - `minimal.yml`
@@ -2447,33 +2785,33 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `multi-product.yml`
 - `plg.yml`
 
-#### Pipeline Capabilities Catalog (Part 15): Knowledge Modules
+#### Pipeline Capabilities Catalog (Part 16): Knowledge Modules
 
 Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
 
 - `webhook-auth-baseline.yml`
 - `webhook-retry-policy.yml`
 
-### Pipeline Capabilities Catalog (Part 16)
+### Pipeline Capabilities Catalog (Part 17)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 16): Docker Compose Profiles
+#### Pipeline Capabilities Catalog (Part 17): Docker Compose Profiles
 
 - `docker-compose.api-sandbox.live.yml`
 - `docker-compose.api-sandbox.prodlike.yml`
 - `docker-compose.api-sandbox.yml`
 - `docker-compose.docs-ops.yml`
 
-#### Pipeline Capabilities Catalog (Part 16): Next steps
+#### Pipeline Capabilities Catalog (Part 17): Next steps
 
 - [Documentation index](../index.md)
 
-### Pipeline Capabilities Catalog (Part 17)
+### Pipeline Capabilities Catalog (Part 18)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 17): Implementation status (2026-03-25)
+#### Pipeline Capabilities Catalog (Part 18): Implementation status (2026-03-25)
 
 This document is aligned to the current production implementation baseline.
 
@@ -2707,7 +3045,7 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
 | `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
-| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia and optionally apply advanced settings, synonyms, rules, and replicas from config. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
 | `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
@@ -2727,7 +3065,50 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 8): Multi-protocol contract pipeline
+#### Pipeline Capabilities Catalog (Part 8): Algolia advanced auto-optimization
+
+When `runtime.integrations.algolia.enabled=true`, the provisioning and weekly flows support advanced zero-manual search optimization.
+
+**Provisioning behavior (`provision_client_repo.py`):**
+
+1. Generates `config/algolia.search.yml` if missing (settings, synonyms, rules, replicas).
+1. Generates search widget helper script.
+1. If credentials exist, auto-bootstraps Algolia index (records + advanced config apply).
+
+**Weekly behavior (`run_weekly_gap_batch.py`):**
+
+1. Builds Algolia records from docs via `seo_geo_optimizer.py --algolia`.
+1. Uploads records with `upload_to_algolia.py`.
+1. Passes advanced config path and applies advanced settings automatically when enabled.
+
+**Runtime configuration keys:**
+
+```yaml
+
+runtime:
+  integrations:
+    algolia:
+      enabled: true
+      docs_dir: docs
+      report_output: reports/seo-report.json
+      upload_on_weekly: true
+      advanced_config_path: config/algolia.search.yml
+      apply_advanced_settings_on_upload: true
+      auto_optimize_on_provision: true
+      ab_test_replica_suffix: docs_ab_variant
+
+```
+
+**Uploader flags (`upload_to_algolia.py`):**
+
+- `--advanced-config <path>`: load YAML/JSON with `settings`, `synonyms`, `rules`, and `replicas`.
+- `--apply-advanced`: enable application of advanced objects in addition to records upload.
+
+### Pipeline Capabilities Catalog (Part 9)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 9): Multi-protocol contract pipeline
 
 The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback.
 
@@ -2745,18 +3126,12 @@ The pipeline supports five API protocols with a unified orchestrator (`run_multi
 
 **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py` generates protocol specs from markdown planning notes.
 
-### Pipeline Capabilities Catalog (Part 9)
-
-Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
-
-**Self-verification:** `run_protocol_self_verify.py` validates generated docs against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI event publish, WebSocket connection routing).
-
 ### Plan Tiers (Basic / Pro / Enterprise)
 
 Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Plan Tiers (Basic / Pro / Enterprise): Plan Tiers (Basic / Pro / Enterprise)
@@ -3214,12 +3589,228 @@ Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plan
 
 This auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing.
 
+### VeriDoc privacy policy
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+
+### VeriDoc privacy policy: VeriDoc privacy policy
+
+This privacy policy explains how Liora Tech ("Company," "we," "us")
+collects, uses, and protects your personal data when you use VeriDoc,
+an automated documentation pipeline platform. This policy applies to
+all users of the VeriDoc web application, API, and CLI tools.
+
+#### VeriDoc privacy policy: Data controller
+
+Liora Tech acts as the data controller for personal data collected through
+the VeriDoc platform.
+
+| Detail | Value |
+|--------|-------|
+| **Company** | Liora Tech |
+| **Contact email** | <privacy@veri-doc.app> |
+| **Data protection inquiries** | <privacy@veri-doc.app> |
+
+#### VeriDoc privacy policy: Data we collect
+
+##### VeriDoc privacy policy: Account data
+
+When you register, we collect:
+
+| Data field | Purpose | Legal basis |
+|------------|---------|-------------|
+| Email address | Authentication, billing notifications, support | Contract performance |
+| Password hash | Authentication (PBKDF2-SHA256, never stored in plaintext) | Contract performance |
+| Subscription tier | Service delivery, usage limit enforcement | Contract performance |
+| Billing records | Payment processing, invoice generation | Contract performance |
+| Referral code | Referral program tracking | Legitimate interest |
+
+### VeriDoc privacy policy (Part 2)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 2): Usage data
+
+When you use the Service, we automatically collect:
+
+| Data field | Purpose | Retention |
+|------------|---------|-----------|
+| Pipeline run metadata | Usage tracking, quota enforcement | 90 days |
+| API request logs | Rate limiting, debugging, abuse prevention | 30 days |
+| Error reports (Sentry) | Bug fixing, reliability improvement | 90 days |
+| Authentication tokens | Session management | Token expiry (24 hours) |
+
+##### VeriDoc privacy policy (Part 2): Documentation content
+
+When you process documentation through the pipeline:
+
+1. Your content is processed in memory during pipeline execution.
+1. Generated outputs (processed Markdown, reports, knowledge modules) are
+   stored in encrypted PostgreSQL databases.
+1. We do not read, analyze, or use your documentation content for any
+   purpose other than providing the Service.
+1. We do not use your content to train machine learning models.
+
+### VeriDoc privacy policy (Part 3)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 3): LLM processing data
+
+When you enable AI features (`--use-llm` flag), your documentation content
+is sent to third-party LLM providers for processing:
+
+| Provider | Data sent | Provider privacy policy |
+|----------|-----------|------------------------|
+| Anthropic (Claude) | Document sections for quality enhancement | [anthropic.com/privacy](https://www.anthropic.com/privacy) |
+| Groq | Document sections for text generation | [groq.com/privacy-policy](https://groq.com/privacy-policy/) |
+| DeepSeek | Document sections for text generation | [deepseek.com/privacy](https://www.deepseek.com/privacy) |
+| OpenAI | Document sections for embeddings and text generation | [openai.com/privacy](https://openai.com/privacy) |
+
+LLM processing is opt-in. Without the AI flag, no content leaves our
+infrastructure.
+
+### VeriDoc privacy policy (Part 4)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+#### VeriDoc privacy policy (Part 4): How we use your data
+
+We use personal data exclusively for:
+
+1. **Service delivery** -- processing your documentation, enforcing usage
+   limits, and managing your subscription.
+1. **Billing** -- processing payments through LemonSqueezy, generating
+   invoices, tracking referral commissions.
+1. **Communication** -- sending transactional emails (subscription
+   confirmations, trial expiry notices, invoice receipts).
+1. **Security** -- detecting unauthorized access, enforcing rate limits,
+   monitoring for abuse.
+1. **Improvement** -- analyzing aggregate, anonymized usage patterns to
+   improve the Service. We never analyze individual content.
+
+#### VeriDoc privacy policy (Part 4): Data storage and security
+
+##### VeriDoc privacy policy (Part 4): Infrastructure
+
+| Component | Location | Encryption |
+|-----------|----------|------------|
+| Application servers | Hetzner Cloud, Germany | TLS 1.3 in transit |
+| PostgreSQL database | Hetzner Cloud, Germany | AES-256 at rest |
+| Redis cache | Hetzner Cloud, Germany | In-memory, no persistence of content |
+| Backups | Hetzner Cloud, Germany | AES-256, 30-day retention |
+
+### VeriDoc privacy policy (Part 5)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 5): Security measures
+
+1. All API communication uses TLS 1.3 encryption.
+1. Passwords are hashed with PBKDF2-SHA256 (600,000 iterations).
+1. JWT authentication tokens expire after 24 hours.
+1. Database backups run daily with 30-day retention and automated restore
+   testing.
+1. Error tracking uses Sentry with PII scrubbing enabled.
+1. Rate limiting enforces 60 requests per minute per user.
+
+#### VeriDoc privacy policy (Part 5): Data retention
+
+| Data type | Retention period | Deletion trigger |
+|-----------|-----------------|------------------|
+| Account data | Account lifetime + 30 days | Account closure |
+| Billing records | 7 years (legal requirement) | Statutory expiry |
+| Pipeline outputs | Account lifetime + 30 days | Account closure |
+| API logs | 30 days | Automatic rotation |
+| Error reports | 90 days | Automatic rotation |
+| Backups | 30 days | Automatic rotation |
+
+After account closure, we retain data for 30 days to allow you to
+reactivate or export. After 30 days, all personal data is permanently
+deleted.
+
+### VeriDoc privacy policy (Part 6)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+#### VeriDoc privacy policy (Part 6): Your rights
+
+Under GDPR and applicable data protection laws, you have the right to:
+
+| Right | How to exercise |
+|-------|-----------------|
+| **Access** your data | Email <privacy@veri-doc.app> or use the API export endpoint |
+| **Correct** inaccurate data | Update your profile in account settings |
+| **Delete** your data | Close your account or email <privacy@veri-doc.app> |
+| **Export** your data | Use the API data export endpoint or email <privacy@veri-doc.app> |
+| **Restrict** processing | Email <privacy@veri-doc.app> |
+| **Object** to processing | Email <privacy@veri-doc.app> |
+| **Withdraw consent** | Disable AI features or close your account |
+
+We respond to data rights requests within 30 days.
+
+#### VeriDoc privacy policy (Part 6): Cookies and tracking
+
+The VeriDoc web application uses only essential cookies for session
+management. We do not use:
+
+1. Third-party analytics cookies
+1. Advertising cookies
+1. Social media tracking pixels
+1. Cross-site tracking
+
+#### VeriDoc privacy policy (Part 6): Third-party processors
+
+We share data with these processors solely for service delivery:
+
+| Processor | Purpose | Data shared |
+|-----------|---------|-------------|
+| LemonSqueezy | Payment processing | Email, subscription tier |
+| Hetzner | Infrastructure hosting | Encrypted application data |
+| Sentry | Error tracking | Error context (PII scrubbed) |
+| Mailgun | Transactional email delivery | Email address, email content |
+
+### VeriDoc privacy policy (Part 7)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+#### VeriDoc privacy policy (Part 7): Age requirements
+
+VeriDoc is not intended for users under 16 years of age. We do not
+knowingly collect data from children.
+
+#### VeriDoc privacy policy (Part 7): Changes to this policy
+
+We notify users of material changes via email 30 days before the effective
+date. Minor clarifications are published directly. The "Last updated" date
+reflects the most recent revision.
+
+#### VeriDoc privacy policy (Part 7): Contact information
+
+For privacy inquiries or data rights requests:
+
+- Email: <privacy@veri-doc.app>
+- Response time: within 30 days
+
+**Last updated:** March 28, 2026
+
+#### VeriDoc privacy policy (Part 7): Next steps
+
+- Review the [terms of service](terms-of-service.md)
+- Review the [data processing agreement](data-processing-agreement.md)
+- Review the [security policy](security-policy.md)
+
 ### REST API Reference
 
 Auto-generated rest reference from source contract.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### REST API Reference: REST Reference
@@ -3250,7 +3841,7 @@ Flow mode: `api-first`
 Search and filter documentation using faceted navigation for quick discovery
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Advanced Search: Advanced Search
@@ -3437,12 +4028,317 @@ Search and filter documentation using faceted navigation for quick discovery
 
 - [Documentation index](index.md)
 
+### VeriDoc security contact policy
+
+Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+
+### VeriDoc security contact policy: VeriDoc security contact policy
+
+This policy defines exactly how to contact VeriDoc for security incidents,
+vulnerability reports, and urgent abuse cases.
+
+#### VeriDoc security contact policy: Official contact channels
+
+| Purpose | Channel | Target response |
+|---------|---------|-----------------|
+| Vulnerability disclosure | <security@veri-doc.app> | Within 24 hours |
+| Incident escalation (active outage or suspected compromise) | <security@veri-doc.app> + <support@veri-doc.app> | Within 1 hour |
+| Privacy and data-protection issues | <privacy@veri-doc.app> | Within 72 hours |
+
+#### VeriDoc security contact policy: What to include in your report
+
+Send a concise report with:
+
+1. Affected endpoint, system, or feature.
+1. Exact reproduction steps.
+1. Expected result and actual result.
+1. Scope estimate (single tenant, multi-tenant, or unknown).
+1. Any logs, timestamps, and request IDs.
+
+### VeriDoc security contact policy (Part 2)
+
+Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports.
+
+#### VeriDoc security contact policy (Part 2): Severity model and SLA
+
+| Severity | Typical examples | First response | Containment target |
+|----------|------------------|----------------|--------------------|
+| Critical | Data exposure, account takeover, production compromise | 1 hour | 4 hours |
+| High | Auth bypass, privilege escalation, sustained API failure | 4 hours | 12 hours |
+| Medium | Non-critical security misconfiguration | 24 hours | 3 business days |
+| Low | Hardening recommendations, low-risk findings | 72 hours | Planned release |
+
+#### VeriDoc security contact policy (Part 2): Disclosure rules
+
+For responsible disclosure:
+
+1. Do not access data that is not yours.
+1. Do not modify or delete customer data.
+1. Do not run denial-of-service tests.
+1. Give VeriDoc up to 90 days before public disclosure.
+
+#### VeriDoc security contact policy (Part 2): Communication and status updates
+
+For confirmed incidents:
+
+1. Initial acknowledgement is sent via email.
+1. Ongoing updates are provided at least every 24 hours for critical incidents.
+1. Final post-incident summary includes root cause and corrective actions.
+
+#### VeriDoc security contact policy (Part 2): Next steps
+
+- Review the [security policy](security-policy.md)
+- Review the [data processing agreement](data-processing-agreement.md)
+- Review the [privacy policy](privacy-policy.md)
+
+### VeriDoc security policy
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+
+### VeriDoc security policy: VeriDoc security policy
+
+VeriDoc is an automated documentation pipeline platform that processes
+customer documentation content. This security policy describes the
+technical and organizational measures we implement to protect your data
+and maintain service integrity.
+
+#### VeriDoc security policy: Infrastructure security
+
+##### VeriDoc security policy: Hosting environment
+
+VeriDoc runs on dedicated infrastructure in Hetzner Cloud data centers
+located in Germany (EU).
+
+| Component | Technology | Security configuration |
+|-----------|------------|----------------------|
+| Application server | Ubuntu 22.04 LTS | Automated security patches, SSH key-only access |
+| API service | FastAPI (Python 3.12) | CORS-restricted, rate-limited, JWT-authenticated |
+| Database | PostgreSQL 16 | Encrypted at rest (AES-256), TLS connections |
+| Cache | Redis 7 | Memory-only, no content persistence, private network |
+| Task queue | Celery + Redis | Isolated worker processes, task timeout enforcement |
+| Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting |
+
+### VeriDoc security policy (Part 2)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 2): Network security
+
+1. All public endpoints require TLS 1.3 encryption. Older TLS versions
+   are rejected.
+1. Database and Redis ports are bound to `127.0.0.1` only -- no external
+   access.
+1. SSH access uses Ed25519 keys exclusively. Password authentication is
+   disabled.
+1. Firewall rules allow only ports 80 (redirect to 443), 443 (HTTPS), and
+   22 (SSH from allowlisted IPs).
+
+#### VeriDoc security policy (Part 2): Authentication and access control
+
+##### VeriDoc security policy (Part 2): User authentication
+
+| Mechanism | Implementation |
+|-----------|---------------|
+| Password hashing | PBKDF2-SHA256 with 600,000 iterations |
+| Token format | JWT (PyJWT) with HS256 signing |
+| Token expiry | 24 hours |
+| Session management | Stateless JWT, no server-side sessions |
+| Rate limiting | 60 requests per minute per user |
+
+##### VeriDoc security policy (Part 2): API authentication
+
+All API endpoints except `/health` and `/auth/register` require a valid
+JWT token in the `Authorization: Bearer <token>` header.
+
+```text
+
+POST /auth/login
+Content-Type: application/json
+
+{"email": "user@example.com", "password": "your-password"}
+
+Response: {"token": "eyJ...", "expires_in": 86400}
+
+```
+
+##### VeriDoc security policy (Part 2): Webhook verification
+
+Incoming LemonSqueezy webhooks are verified using HMAC-SHA256 signatures.
+Requests without a valid `X-Signature` header are rejected with HTTP 403.
+
+#### VeriDoc security policy (Part 2): Encryption
+
+### VeriDoc security policy (Part 3)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 3): Data in transit
+
+All data transmitted between clients and VeriDoc servers is encrypted
+with TLS 1.3. The Nginx configuration enforces:
+
+1. TLS 1.3 only (TLS 1.2 and below are disabled).
+1. Strong cipher suites with forward secrecy.
+1. HSTS headers with 1-year max-age.
+1. OCSP stapling for certificate validation.
+
+##### VeriDoc security policy (Part 3): Data at rest
+
+| Data type | Encryption method |
+|-----------|-------------------|
+| PostgreSQL database | AES-256 (filesystem-level encryption) |
+| Database backups | AES-256 encrypted archives |
+| License files | AES-256-GCM with HKDF key derivation |
+| Application secrets | Environment variables, not stored in code |
+
+#### VeriDoc security policy (Part 3): Data processing security
+
+##### VeriDoc security policy (Part 3): Pipeline execution
+
+When VeriDoc processes your documentation:
+
+1. Content is loaded into memory for processing.
+1. Intermediate results are stored in the encrypted PostgreSQL database.
+1. Pipeline workers run in isolated Celery processes with 1-hour timeouts.
+1. Failed pipeline runs are logged to Sentry with PII scrubbing.
+
+### VeriDoc security policy (Part 4)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 4): LLM processing (opt-in)
+
+When AI features are enabled, document sections are sent to LLM providers
+over TLS-encrypted connections. Each request contains only the minimum
+content necessary for the specific enhancement.
+
+| Provider | Transport | Data retention by provider |
+|----------|-----------|---------------------------|
+| Anthropic (Claude) | HTTPS/TLS 1.3 | Not used for training |
+| Groq | HTTPS/TLS 1.3 | Not used for training |
+| DeepSeek | HTTPS/TLS 1.3 | Refer to provider policy |
+| OpenAI | HTTPS/TLS 1.3 | Not used for training (API usage) |
+
+Disable AI features to ensure no documentation content leaves VeriDoc
+infrastructure.
+
+#### VeriDoc security policy (Part 4): Backup and disaster recovery
+
+| Measure | Configuration |
+|---------|---------------|
+| Backup frequency | Daily at 02:00 UTC |
+| Backup retention | 30 days |
+| Backup encryption | AES-256 |
+| Restore testing | Weekly automated restore verification |
+| Recovery time objective (RTO) | 4 hours |
+| Recovery point objective (RPO) | 24 hours |
+
+#### VeriDoc security policy (Part 4): Monitoring and incident response
+
+### VeriDoc security policy (Part 5)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 5): Monitoring
+
+| System | Purpose | Alert threshold |
+|--------|---------|-----------------|
+| Health checks | Service availability | 2 consecutive failures (every 5 minutes) |
+| Sentry | Error tracking | Real-time error capture |
+| Log rotation | Log management | Daily rotation, 30-day retention |
+| Latency monitoring | Performance tracking | Warning at 2,000 ms, critical at 5,000 ms |
+
+##### VeriDoc security policy (Part 5): Incident response procedure
+
+| Phase | Timeline | Actions |
+|-------|----------|---------|
+| **Detection** | Automated | Health check alerts via email within 10 minutes of failure |
+| **Triage** | Within 1 hour | Assess severity, identify root cause |
+| **Containment** | Within 2 hours | Isolate affected systems, prevent data loss |
+| **Resolution** | Within 4 hours (critical) | Restore service, deploy fix |
+| **Notification** | Within 72 hours | Notify affected customers per DPA obligations |
+| **Post-mortem** | Within 7 days | Document root cause, implement preventive measures |
+
+### VeriDoc security policy (Part 6)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 6): Severity levels
+
+| Level | Definition | Response time | Example |
+|-------|------------|---------------|---------|
+| **Critical** | Service down, data at risk | 1 hour | Database corruption, security breach |
+| **High** | Feature degraded, no data risk | 4 hours | API errors, slow response times |
+| **Medium** | Minor issue, workaround available | 24 hours | Non-critical feature bug |
+| **Low** | Cosmetic or documentation issue | 72 hours | UI display issue |
+
+#### VeriDoc security policy (Part 6): Vulnerability management
+
+1. **Dependency scanning.** Python dependencies are reviewed weekly for
+   known vulnerabilities using `pip-audit`.
+1. **OS patching.** Security patches are applied within 48 hours of
+   release.
+1. **Container updates.** Docker base images are rebuilt monthly with
+   latest security patches.
+1. **Penetration testing.** External penetration testing is conducted
+   annually.
+
+#### VeriDoc security policy (Part 6): Responsible disclosure
+
+If you discover a security vulnerability in VeriDoc:
+
+1. Email <security@veri-doc.app> with a description of the vulnerability.
+1. Include steps to reproduce the issue.
+1. Allow 90 days for remediation before public disclosure.
+1. Do not access or modify other users' data during testing.
+
+We do not pursue legal action against security researchers who follow
+responsible disclosure practices.
+
+### VeriDoc security policy (Part 7)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+#### VeriDoc security policy (Part 7): Compliance standards
+
+| Standard | Status |
+|----------|--------|
+| GDPR | Compliant (EU data processing, DPA available) |
+| TLS 1.3 | Enforced on all endpoints |
+| Password security | PBKDF2-SHA256, 600,000 iterations |
+| Data retention | Defined retention periods with automated deletion |
+
+#### VeriDoc security policy (Part 7): Contact information
+
+For security inquiries or to report a vulnerability:
+
+- Email: <security@veri-doc.app>
+- Response time: within 24 hours for security reports
+
+**Last updated:** March 28, 2026
+
+#### VeriDoc security policy (Part 7): Next steps
+
+- Review the [terms of service](terms-of-service.md)
+- Review the [privacy policy](privacy-policy.md)
+- Review the [data processing agreement](data-processing-agreement.md)
+
 ### SEO/GEO Optimization Guide
 
 Comprehensive guide to SEO and GEO optimization in the documentation pipeline
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### SEO/GEO Optimization Guide: SEO/GEO Optimization Guide
@@ -3750,7 +4646,7 @@ GEO optimization improves:
 Filter documentation by topic tags including tutorials, how-to guides, concepts, and component-specific content.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Browse by tag: Browse documentation by tag
@@ -3768,7 +4664,7 @@ Use the tags below to filter content by topic, type, or component.
 Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### TaskStream API playground: TaskStream API playground
@@ -3908,7 +4804,7 @@ Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-ou
 Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### TaskStream API planning notes: TaskStream API planning notes
@@ -3943,12 +4839,201 @@ Status: Draft for OpenAPI writing
 
 - [API playground](api-playground.md)
 
+### VeriDoc terms of service
+
+Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+
+### VeriDoc terms of service: VeriDoc terms of service
+
+These terms of service ("Terms") govern your access to and use of VeriDoc,
+an automated documentation pipeline platform operated by Liora Tech
+("Company," "we," "us"). By creating an account or using the service, you
+agree to these Terms.
+
+#### VeriDoc terms of service: Key definitions
+
+| Term | Meaning |
+|------|---------|
+| **Service** | The VeriDoc platform, including the API, web interface, and CLI tools |
+| **User** | Any individual or entity that creates an account on the Service |
+| **Subscription** | A paid plan that grants access to premium features and higher usage limits |
+| **Content** | Documentation, code, configuration, and other materials processed by the Service |
+| **Pipeline run** | A single execution of the documentation processing pipeline |
+
+#### VeriDoc terms of service: Account registration
+
+You must provide accurate information when creating an account. Each user
+must maintain one account. Sharing account credentials violates these Terms.
+
+You are responsible for all activity under your account. Notify us at
+<support@veri-doc.app> if you suspect unauthorized access.
+
+### VeriDoc terms of service (Part 2)
+
+Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+
+#### VeriDoc terms of service (Part 2): Subscription tiers and usage limits
+
+VeriDoc offers five subscription tiers with the following usage limits per
+billing period:
+
+| Tier | AI requests | Pages | API calls | Price |
+|------|-------------|-------|-----------|-------|
+| **Free** | 50 | 10 | 100 | $0/month |
+| **Starter** | 500 | 50 | 5,000 | Refer to pricing page |
+| **Pro** | 2,000 | 200 | 20,000 | Refer to pricing page |
+| **Business** | 10,000 | 1,000 | 100,000 | Refer to pricing page |
+| **Enterprise** | Unlimited | Unlimited | Unlimited | Custom pricing |
+
+When you exceed your tier limits, the Service restricts further pipeline
+runs until the next billing period or until you upgrade your plan.
+
+#### VeriDoc terms of service (Part 2): Billing and payments
+
+Subscriptions are billed through LemonSqueezy, our payment processor.
+By subscribing, you also agree to the
+[LemonSqueezy terms of service](https://www.lemonsqueezy.com/terms).
+
+Billing details:
+
+1. Subscriptions renew automatically at the end of each billing period
+   (monthly or annual).
+1. You may cancel at any time from the billing portal. Cancellation takes
+   effect at the end of the current billing period.
+1. Refunds follow our 14-day refund policy. Contact <support@veri-doc.app>
+   within 14 days of purchase for a full refund.
+1. Failed payments are retried up to 3 times over 7 days. After 3 failures,
+   the subscription is canceled automatically.
+
+### VeriDoc terms of service (Part 3)
+
+Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+
+#### VeriDoc terms of service (Part 3): Acceptable use
+
+You agree not to:
+
+1. Use the Service to process content that violates applicable laws.
+1. Attempt to reverse-engineer, decompile, or extract source code from the
+   Service.
+1. Exceed rate limits (60 requests per minute) through automated means.
+1. Share, resell, or sublicense your account access to third parties.
+1. Transmit malware, phishing content, or exploit payloads through the
+   pipeline.
+1. Use the Service to generate documentation that infringes intellectual
+   property rights of others.
+
+Violation of acceptable use policies may result in immediate account
+suspension without prior notice.
+
+#### VeriDoc terms of service (Part 3): Intellectual property
+
+**Your content.** You retain all rights to the documentation, code, and
+configuration you upload to or generate through the Service. We do not claim
+ownership of your content.
+
+**Our service.** The VeriDoc platform, including its pipeline architecture,
+templates, scripts, and methods, is owned by Liora Tech and protected by
+intellectual property laws.
+
+**License grant.** You grant us a limited license to process your content
+solely for providing the Service. This license terminates when you delete
+your content or close your account.
+
+### VeriDoc terms of service (Part 4)
+
+Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+
+#### VeriDoc terms of service (Part 4): Data handling
+
+We process your documentation content to provide the Service. Refer to our
+[privacy policy](privacy-policy.md) for details on data collection, storage,
+and retention.
+
+Key data handling commitments:
+
+1. Your documentation content is processed in memory and stored in encrypted
+   databases.
+1. We do not use your content to train machine learning models.
+1. LLM providers (Anthropic, OpenAI, Groq, DeepSeek) process content only
+   when you enable AI features. Each provider's data handling policies
+   apply to that processing.
+1. You may request data export or deletion at any time per our
+   [data processing agreement](data-processing-agreement.md).
+
+#### VeriDoc terms of service (Part 4): Service availability
+
+We target 99.9% uptime for the production environment. Planned maintenance
+windows are announced 48 hours in advance via email and the status page.
+
+We are not liable for downtime caused by:
+
+1. Third-party service outages (LemonSqueezy, LLM providers, DNS).
+1. Force majeure events.
+1. Your network or infrastructure issues.
+1. Scheduled maintenance communicated in advance.
+
+#### VeriDoc terms of service (Part 4): Limitation of liability
+
+To the maximum extent permitted by law, Liora Tech is not liable for
+indirect, incidental, special, or consequential damages arising from your
+use of the Service. Our total liability is limited to the amount you paid
+for the Service in the 12 months preceding the claim.
+
+### VeriDoc terms of service (Part 5)
+
+Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+
+#### VeriDoc terms of service (Part 5): Termination
+
+Either party may terminate the agreement:
+
+1. **You** may close your account at any time from account settings. Active
+   subscriptions are canceled at the end of the billing period.
+1. **We** may suspend or terminate accounts that violate these Terms, with
+   written notice to your registered email. For severe violations (security
+   threats, illegal activity), we may act immediately.
+
+Upon termination, we retain your data for 30 days to allow export. After
+30 days, all data is permanently deleted.
+
+#### VeriDoc terms of service (Part 5): Changes to these terms
+
+We may update these Terms with 30 days advance notice via email. Continued
+use after the effective date constitutes acceptance. If you disagree, close
+your account before the changes take effect.
+
+#### VeriDoc terms of service (Part 5): Governing law
+
+These Terms are governed by the laws of Israel. Disputes are resolved in
+the courts of Tel Aviv, Israel.
+
+#### VeriDoc terms of service (Part 5): Contact information
+
+For questions about these Terms:
+
+- Email: <support@veri-doc.app>
+- Web: [veri-doc.app/contact](https://veri-doc.app/contact)
+
+**Last updated:** March 28, 2026
+
+#### VeriDoc terms of service (Part 5): Next steps
+
+- Review the [privacy policy](privacy-policy.md)
+- Review the [data processing agreement](data-processing-agreement.md)
+- Review the [security policy](security-policy.md)
+
 ### Unified Client Configuration
 
 Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Unified Client Configuration: Unified Client Configuration
@@ -5149,7 +6234,7 @@ This auto-generated knowledge chunk was expanded to satisfy minimum retrieval mo
 How to use Jinja2 variables and templates in documentation for consistency
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Variables and Templates Guide: Variables and Templates Guide
@@ -5413,7 +6498,7 @@ Contact us at {{ support_email }} or visit [Community Forum]({{ community_url }}
 Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Webhook node reference for: Webhook node reference
@@ -5521,7 +6606,7 @@ Complete parameter reference for the Webhook trigger node including HTTP methods
 Auto-generated websocket reference from source contract.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### WEBSOCKET API Reference: WEBSOCKET Reference
@@ -5554,13 +6639,11 @@ Auto-generated websocket reference from source contract.
 <!-- vale off -->
 <div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
-  <!-- vale off -->
-<textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
   "type": "subscribe",
   "request_id": "req_001",
   "payload": {"channel": "project.updated", "filters": {"project_id": "prj_abc123"}}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="websocket-send">Connect + Send</button>
   <pre id="websocket-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
@@ -5632,7 +6715,7 @@ This auto-generated knowledge chunk was expanded to satisfy minimum retrieval mo
 The workflow engine processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 #### Workflow execution model: Workflow execution model overview

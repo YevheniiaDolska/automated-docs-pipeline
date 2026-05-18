@@ -15,94 +15,64 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-05-18'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 8)
+  heading: Algolia advanced auto-optimization
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Algolia advanced auto-optimization
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
-  docs_markdown: '## Multi-protocol contract pipeline
-
-
-    The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`).
-    Each protocol has its own contract format, validator, reference template, test
-    generator, and sandbox fallback.
-
-
-    | Protocol | Contract format | Validator | Sandbox fallback |
-
-    | --- | --- | --- | --- |
-
-    | REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly
-    | Prism / Postman mock server |
-
-    | GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post`
-    |
-
-    | gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post`
-    (JSON-over-HTTP) |
-
-    | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post`
-    + `echo.websocket.events` |
-
-    | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events`
-    |
-
-
-    **9 pipeline stages per protocol:** ingest, contract validation, server stub generation,
-    lint, regression detection, docs generation, quality gates (frontmatter + snippet
-    lint + self-verification), test assets generation with smart merge, publish.
-
-
-    **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates
-    docs and retries semantic consistency checks on failure.
-
-
-    **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
-    generates protocol specs from markdown planning notes.'
-  assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 8). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
-    Summary: Generated catalog of available pipeline commands, templates, policy packs,
-    and assets for client configuration.
-
-
-    ## Multi-protocol contract pipeline
-
-
-    The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`).
-    Each protocol has its own contract format, validator, reference template, test
-    generator, and sandbox fallback.
-
-
-    | Protocol | Contract format | Validator | Sandbox fallback |
-
-    | --- | --- | --- | --- |
-
-    | REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly
-    | Prism / Postman mock server |
-
-    | GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post`
-    |
-
-    | gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post`
-    (JSON-over-HTTP) |
-
-    | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post`
-    + `echo.websocket.events` |
-
-    | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events`
-    |
-
-
-    **9 pipeline stages per protocol:** ingest, contract validation, server stub generation,
-    lint, regression detection, docs generation, quality gates (frontmatter + snippet
-    lint + self-verification), test assets generation with smart merge, publish.
-
-
-    **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates
-    docs and retries semantic consistency checks on failure.
-
-
-    **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
-    generates protocol specs from markdown planning notes.'
+  docs_markdown: "## Algolia advanced auto-optimization\n\nWhen `runtime.integrations.algolia.enabled=true`,\
+    \ the provisioning and weekly flows support advanced zero-manual search optimization.\n\
+    \n**Provisioning behavior (`provision_client_repo.py`):**\n\n1. Generates `config/algolia.search.yml`\
+    \ if missing (settings, synonyms, rules, replicas).\n1. Generates search widget\
+    \ helper script.\n1. If credentials exist, auto-bootstraps Algolia index (records\
+    \ + advanced config apply).\n\n**Weekly behavior (`run_weekly_gap_batch.py`):**\n\
+    \n1. Builds Algolia records from docs via `seo_geo_optimizer.py --algolia`.\n\
+    1. Uploads records with `upload_to_algolia.py`.\n1. Passes advanced config path\
+    \ and applies advanced settings automatically when enabled.\n\n**Runtime configuration\
+    \ keys:**\n\n```yaml\nruntime:\n  integrations:\n    algolia:\n      enabled:\
+    \ true\n      docs_dir: docs\n      report_output: reports/seo-report.json\n \
+    \     upload_on_weekly: true\n      advanced_config_path: config/algolia.search.yml\n\
+    \      apply_advanced_settings_on_upload: true\n      auto_optimize_on_provision:\
+    \ true\n      ab_test_replica_suffix: docs_ab_variant\n```\n\n**Uploader flags\
+    \ (`upload_to_algolia.py`):**\n\n- `--advanced-config <path>`: load YAML/JSON\
+    \ with `settings`, `synonyms`, `rules`, and `replicas`.\n- `--apply-advanced`:\
+    \ enable application of advanced objects in addition to records upload."
+  assistant_context: "Use this module when answering questions related to: Pipeline\
+    \ Capabilities Catalog (Part 8). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.\
+    \ Summary: Generated catalog of available pipeline commands, templates, policy\
+    \ packs, and assets for client configuration.\n\n## Algolia advanced auto-optimization\n\
+    \nWhen `runtime.integrations.algolia.enabled=true`, the provisioning and weekly\
+    \ flows support advanced zero-manual search optimization.\n\n**Provisioning behavior\
+    \ (`provision_client_repo.py`):**\n\n1. Generates `config/algolia.search.yml`\
+    \ if missing (settings, synonyms, rules, replicas).\n1. Generates search widget\
+    \ helper script.\n1. If credentials exist, auto-bootstraps Algolia index (records\
+    \ + advanced config apply).\n\n**Weekly behavior (`run_weekly_gap_batch.py`):**\n\
+    \n1. Builds Algolia records from docs via `seo_geo_optimizer.py --algolia`.\n\
+    1. Uploads records with `upload_to_algolia.py`.\n1. Passes advanced config path\
+    \ and applies advanced settings automatically when enabled.\n\n**Runtime configuration\
+    \ keys:**\n\n```yaml\nruntime:\n  integrations:\n    algolia:\n      enabled:\
+    \ true\n      docs_dir: docs\n      report_output: reports/seo-report.json\n \
+    \     upload_on_weekly: true\n      advanced_config_path: config/algolia.search.yml\n\
+    \      apply_advanced_settings_on_upload: true\n      auto_optimize_on_provision:\
+    \ true\n      ab_test_replica_suffix: docs_ab_variant\n```\n\n**Uploader flags\
+    \ (`upload_to_algolia.py`):**\n\n- `--advanced-config <path>`: load YAML/JSON\
+    \ with `settings`, `synonyms`, `rules`, and `replicas`.\n- `--apply-advanced`:\
+    \ enable application of advanced objects in addition to records upload."

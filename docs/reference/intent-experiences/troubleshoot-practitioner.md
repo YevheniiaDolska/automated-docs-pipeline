@@ -8,6 +8,10 @@ tags:
   - AI
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 <!-- markdownlint-disable MD001 MD007 MD024 MD025 MD031 -->
 
 # Intent experience: troubleshoot for practitioner
@@ -475,7 +479,7 @@ private_tuning:
 
 ```
 
-###### Operator Runbook (Retainer Operations) (Part 17): Add protocols (Enterprise only)
+###### Operator Runbook (Retainer Operations) (Part 17): Add protocols (Professional/Enterprise)
 
 ```yaml
 
@@ -513,50 +517,14 @@ Plan tiers control which features are available:
 | KPI/SLA reports | No | Yes | Yes |
 | Test assets generation | No | Yes | Yes |
 | Consolidated reports | No | Yes | Yes |
-| All 5 protocols | No | No | Yes |
-| Knowledge modules + RAG | No | No | Yes |
-| Knowledge graph | No | No | Yes |
+| All 5 protocols | No | Yes | Yes |
+| Knowledge modules (RAG prep) | No | Yes | Yes |
+| Knowledge graph (RAG prep) | No | Yes | Yes |
 | FAISS retrieval | No | No | Yes |
-| Executive audit PDF | No | No | Yes |
-| i18n system | No | No | Yes |
-| Custom policy packs | No | No | Yes |
-| TestRail/Zephyr upload | No | No | Yes |
-
-### Operator Runbook (Retainer Operations) (Part 20)
-
-Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
-
-##### Operator Runbook (Retainer Operations) (Part 20): What happens without a license
-
-The pipeline runs in **community mode** (degraded):
-
-- Markdown lint works (no quality scoring)
-- Frontmatter validation works (no quality scoring)
-- SEO/GEO report only (no auto-fix, no scoring)
-- Gap detection code-only (no community/search sources)
-- REST protocol only
-- No PDF reports, no KPI wall, no drift detection
-- Quality gates warn-only (never block)
-
-##### Operator Runbook (Retainer Operations) (Part 20): License file location
-
-License JWT is stored at `<client-repo>/docsops/license.jwt`. The public key for verification is at `<client-repo>/docsops/keys/veriops-licensing.pub`.
-
-##### Operator Runbook (Retainer Operations) (Part 20): Dev/test bypass
-
-For local development and testing, set the environment variable:
-
-```bash
-
-export VERIOPS_LICENSE_PLAN=enterprise
-
-```
-
-This bypasses JWT validation entirely.
-
----
-
-#### Operator Runbook (Retainer Operations) (Part 20): Troubleshooting
+| Executive audit PDF | No | Yes | Yes |
+| i18n system | No | Yes | Yes |
+| Custom policy packs | No | Yes | Yes |
+| TestRail/Zephyr upload | No | Yes | Yes |
 
 ### Operator Runbook (Retainer Operations) (Part 21)
 

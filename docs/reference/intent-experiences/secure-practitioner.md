@@ -26,7 +26,7 @@ python3 scripts/assemble_intent_experience.py \
 Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Configure webhook triggers: Configure webhook triggers
@@ -104,7 +104,7 @@ Add authentication in the webhook node settings:
 Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Install Ask AI runtime pack: Install Ask AI runtime pack
@@ -283,7 +283,7 @@ The workflow now runs automatically for every incoming request, without the edit
 Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Set up a real-time webhook processing pipeline: Set up a real-time webhook processing pipeline

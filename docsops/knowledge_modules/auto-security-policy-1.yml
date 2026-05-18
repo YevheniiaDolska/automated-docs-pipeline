@@ -15,28 +15,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - security-policy
-metadata:
-  url: https://docs.example.com/legal/security-policy/
-  title: VeriDoc security policy
-  heading: Infrastructure security
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/security-policy.md
-semantic:
-  topic: Infrastructure security
-  intent: integrate
-  audience: developer
-  keywords:
-  - reference
-  - security policy
-  status: rule_based
 content:
   docs_markdown: '# VeriDoc security policy
 
@@ -80,8 +64,8 @@ content:
 
     | Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting |'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    security policy. Source path: legal/security-policy.md. Summary: Security policy
-    for VeriDoc platform covering infrastructure security, encryption, authentication,
+    security policy. Source path: docs/legal/security-policy.md. Summary: Security
+    policy for VeriDoc platform covering infrastructure security, encryption, authentication,
     access controls, and incident response procedures.
 
 

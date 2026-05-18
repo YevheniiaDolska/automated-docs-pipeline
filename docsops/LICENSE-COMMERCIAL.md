@@ -11,9 +11,9 @@ tags:
 
 # Commercial License
 
-Licensed to: Auto-Doc Pipeline
-Client ID: auto-doc-pipeline
-Date Issued: 2026-03-26
+Licensed to: VeriOps
+Client ID: veriops
+Date Issued: 2026-05-15
 
 ## Grant of use
 

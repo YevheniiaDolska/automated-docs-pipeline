@@ -15,28 +15,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - operator-runbook
-metadata:
-  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
-  title: Operator Runbook (Retainer Operations) (Part 19)
-  heading: How licensing works
-  version: 1.50.0
-  updated_at: '2026-03-21T00:00:00Z'
-  source_site: docs.example.com
-  source_path: operations/OPERATOR_RUNBOOK.md
-semantic:
-  topic: How licensing works
-  intent: configure
-  audience: practitioner
-  keywords:
-  - how-to
-  - operator runbook
-  status: rule_based
 content:
   docs_markdown: '### How licensing works
 
@@ -72,23 +56,23 @@ content:
 
     | Consolidated reports | No | Yes | Yes |
 
-    | All 5 protocols | No | No | Yes |
+    | All 5 protocols | No | Yes | Yes |
 
-    | Knowledge modules + RAG | No | No | Yes |
+    | Knowledge modules (RAG prep) | No | Yes | Yes |
 
-    | Knowledge graph | No | No | Yes |
+    | Knowledge graph (RAG prep) | No | Yes | Yes |
 
     | FAISS retrieval | No | No | Yes |
 
-    | Executive audit PDF | No | No | Yes |
+    | Executive audit PDF | No | Yes | Yes |
 
-    | i18n system | No | No | Yes |
+    | i18n system | No | Yes | Yes |
 
-    | Custom policy packs | No | No | Yes |
+    | Custom policy packs | No | Yes | Yes |
 
-    | TestRail/Zephyr upload | No | No | Yes |'
+    | TestRail/Zephyr upload | No | Yes | Yes |'
   assistant_context: 'Use this module when answering questions related to: Operator
-    Runbook (Retainer Operations) (Part 19). Source path: operations/OPERATOR_RUNBOOK.md.
+    Runbook (Retainer Operations) (Part 19). Source path: docs/operations/OPERATOR_RUNBOOK.md.
     Summary: Step-by-step instructions for weekly report review, client questions,
     new repo setup, and profile tuning.
 
@@ -127,18 +111,18 @@ content:
 
     | Consolidated reports | No | Yes | Yes |
 
-    | All 5 protocols | No | No | Yes |
+    | All 5 protocols | No | Yes | Yes |
 
-    | Knowledge modules + RAG | No | No | Yes |
+    | Knowledge modules (RAG prep) | No | Yes | Yes |
 
-    | Knowledge graph | No | No | Yes |
+    | Knowledge graph (RAG prep) | No | Yes | Yes |
 
     | FAISS retrieval | No | No | Yes |
 
-    | Executive audit PDF | No | No | Yes |
+    | Executive audit PDF | No | Yes | Yes |
 
-    | i18n system | No | No | Yes |
+    | i18n system | No | Yes | Yes |
 
-    | Custom policy packs | No | No | Yes |
+    | Custom policy packs | No | Yes | Yes |
 
-    | TestRail/Zephyr upload | No | No | Yes |'
+    | TestRail/Zephyr upload | No | Yes | Yes |'

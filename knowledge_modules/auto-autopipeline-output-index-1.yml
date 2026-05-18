@@ -1,0 +1,65 @@
+id: auto-autopipeline-output-index-1
+title: Autopipeline Output Index
+summary: Auto-generated review index for autopipeline outputs.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-05-18'
+dependencies: []
+tags:
+- auto-extracted
+- autopipeline-output-index
+- reference
+metadata:
+  url: https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/
+  title: Autopipeline Output Index
+  heading: Stage Articulation
+  version: 1.50.0
+  updated_at: '2026-05-18T09:11:29.664696Z'
+  source_site: docs.example.com
+  source_path: operations/AUTOPIPELINE_OUTPUT_INDEX.md
+semantic:
+  topic: Stage Articulation
+  intent: integrate
+  audience: developer
+  keywords:
+  - autopipeline output index
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "# Autopipeline Output Index\n\nGenerated automatically after autopipeline\
+    \ run.\n\n- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
+    \ Pipeline/docsops/config/client_runtime.yml`\n- Stage summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
+    \ Pipeline/reports/pipeline_stage_summary.json`\n- Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
+    \ Pipeline/reports/REVIEW_MANIFEST.md`\n- Weekly rc: `1`\n- Strictness: `standard`\n\
+    - Skip consolidated report: `False`\n\n## Stage Articulation\n\n- `multi_protocol_contract`:\
+    \ **OK**\n- `consolidated_report`: **OK**\n- `audit_scorecard`: **OK**\n- `finalize_gate`:\
+    \ **OK**\n- `docsops_status`: **MISSING**\n- `ready_marker`: **MISSING**\n- `kpi_wall`:\
+    \ **OK**\n- `kpi_sla`: **OK**\n- `glossary_sync`: **OK**\n- `test_assets_json`:\
+    \ **OK**\n- `test_assets_coverage`: **OK**\n- `test_assets_fuzz`: **OK**\n- `test_assets_summary`:\
+    \ **MISSING**\n\n## Docs Links\n\n- Docs index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
+    \ Pipeline/docs/index.md` (OK)\n  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/index/"
+  assistant_context: "Use this module when answering questions related to: Autopipeline\
+    \ Output Index. Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md. Summary:\
+    \ Auto-generated review index for autopipeline outputs.\n\n# Autopipeline Output\
+    \ Index\n\nGenerated automatically after autopipeline run.\n\n- Runtime config:\
+    \ `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`\n\
+    - Stage summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/pipeline_stage_summary.json`\n\
+    - Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_MANIFEST.md`\n\
+    - Weekly rc: `1`\n- Strictness: `standard`\n- Skip consolidated report: `False`\n\
+    \n## Stage Articulation\n\n- `multi_protocol_contract`: **OK**\n- `consolidated_report`:\
+    \ **OK**\n- `audit_scorecard`: **OK**\n- `finalize_gate`: **OK**\n- `docsops_status`:\
+    \ **MISSING**\n- `ready_marker`: **MISSING**\n- `kpi_wall`: **OK**\n- `kpi_sla`:\
+    \ **OK**\n- `glossary_sync`: **OK**\n- `test_assets_json`: **OK**\n- `test_assets_coverage`:\
+    \ **OK**\n- `test_assets_fuzz`: **OK**\n- `test_assets_summary`: **MISSING**\n\
+    \n## Docs Links\n\n- Docs index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
+    \ Pipeline/docs/index.md` (OK)\n  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/index/"

@@ -23,34 +23,34 @@
     <div class="hero">
       <h1>Public Documentation Audit</h1>
       <p class="sub">Sites: 1 | topology: single-product</p>
-      <p class="sub">Generated: 2026-04-28T12:50:19.134303+00:00</p>
+      <p class="sub">Generated: 2026-05-12T11:20:07.699807+00:00</p>
       <div class="grid">
-        <div class="card"><div class="label">Pages crawled</div><div class="value">973</div></div>
-        <div class="card"><div class="label">Pages discovered</div><div class="value">973</div></div>
-        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Pages crawled</div><div class="value">979</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">979</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.1%</div></div>
         <div class="card"><div class="label">Broken links (docs)</div><div class="value">3</div></div>
         <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
-        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
-        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">22.43%</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">1</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">22.47%</div></div>
         <div class="card"><div class="label">API reference coverage</div><div class="value">66.67%</div></div>
-        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">83.09%</div></div>
-        <div class="card"><div class="label">Last-updated coverage</div><div class="value">53.65%</div></div>
-        <div class="card"><div class="label">Audit confidence</div><div class="value">91.5%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">83.03%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">53.83%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">81.5%</div></div>
       </div>
     </div>
     <div class="section">
       <h2>Top Findings</h2>
       <ul>
-        <li>Broken internal links: 3</li><li>SEO/GEO issue rate is high: 22.43%</li><li>API usage-doc coverage is low: 66.67% (86 API pages detected)</li>
+        <li>Broken internal links: 3</li><li>Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 22.47%</li><li>API usage-doc coverage is low: 66.67% (86 API pages detected)</li>
       </ul>
     </div>
     <div class="section">
       <h2>Per-site Summary</h2>
       <ul>
-        <li><strong>https://windmill.dev/docs</strong>: pages=973, broken_links=3, api_coverage=66.67%, examples=83.09%</li>
+        <li><strong>https://www.windmill.dev/docs</strong>: pages=979, broken_links=3, api_coverage=66.67%, examples=83.03%</li>
       </ul>
     </div>
-    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit of windmill.dev/docs crawled 973 pages with 100% coverage against discovered scope. Site contains 3 confirmed broken internal links within user-facing documentation. API reference coverage stands at 66.67% across 86 detected API pages. SEO/geo issue rate is elevated at 22.43%, and only 53.65% of pages display last-updated metadata. Example code reliability estimate is 83.09% with overall audit confidence at 91.5%.</p><h3>Strengths</h3><ul><li>Complete crawl coverage (100%) with 973 pages successfully examined</li><li>High overall audit confidence at 91.5% with strong link verification (95% confidence)</li><li>No repository navigation link breakage (repo_broken_links_count: 0)</li><li>Example code reliability estimate above 80% (83.09%)</li><li>Single-product topology provides clear documentation structure</li></ul><h3>Risks</h3><ul><li>3 confirmed broken internal links in user-facing documentation degrade user experience</li><li>API reference coverage gap at 66.67% leaves one-third of API surface undocumented</li><li>SEO/geo issue rate of 22.43% affects discoverability for 218+ pages</li><li>Freshness metadata missing on 46.35% of pages (450+ pages) obscures content currency</li><li>16.91% of examples may contain reliability issues affecting developer onboarding</li><li>130 links excluded from verification may hide additional broken references</li><li>API detection confidence at 85% suggests possible undercounted API surface</li></ul><h3>Prioritized actions</h3><ul><li>Fix 3 confirmed broken internal documentation links immediately <em>[high, low]</em></li><li>Complete API reference documentation for the missing 33.33% of detected API surface (29 pages) <em>[critical, high]</em></li><li>Add last-updated timestamps to 450+ pages missing freshness metadata <em>[medium, medium]</em></li><li>Remediate SEO/geo issues affecting 218+ pages (22.43% of site) <em>[high, medium]</em></li><li>Audit and fix example code reliability issues in the 16.91% flagged subset <em>[high, medium]</em></li></ul></div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Status: blocked. External LLM use blocked by policy/approval gate.</p></div>
   </div>
 </body>
 </html>

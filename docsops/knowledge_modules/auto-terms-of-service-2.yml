@@ -14,28 +14,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - terms-of-service
-metadata:
-  url: https://docs.example.com/legal/terms-of-service/
-  title: VeriDoc terms of service (Part 2)
-  heading: Subscription tiers and usage limits
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/terms-of-service.md
-semantic:
-  topic: Subscription tiers and usage limits
-  intent: integrate
-  audience: developer
-  keywords:
-  - reference
-  - terms of service
-  status: rule_based
 content:
   docs_markdown: "## Subscription tiers and usage limits\n\nVeriDoc offers five subscription\
     \ tiers with the following usage limits per\nbilling period:\n\n| Tier | AI requests\
@@ -56,7 +40,7 @@ content:
     \ up to 3 times over 7 days. After 3 failures,\n   the subscription is canceled\
     \ automatically."
   assistant_context: "Use this module when answering questions related to: VeriDoc\
-    \ terms of service (Part 2). Source path: legal/terms-of-service.md. Summary:\
+    \ terms of service (Part 2). Source path: docs/legal/terms-of-service.md. Summary:\
     \ Terms of service governing the use of VeriDoc automated documentation platform,\
     \ including subscription tiers, usage limits, and acceptable use policies.\n\n\
     ## Subscription tiers and usage limits\n\nVeriDoc offers five subscription tiers\

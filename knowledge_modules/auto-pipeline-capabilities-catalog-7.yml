@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-05-18'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 7)
+  heading: Pipeline Capabilities Catalog (Part 7)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Pipeline Capabilities Catalog (Part 7)
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
   docs_markdown: '| Script | Purpose |
 
@@ -78,7 +94,8 @@ content:
     | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs
     generation flows. |
 
-    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia.
+    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia
+    and optionally apply advanced settings, synonyms, rules, and replicas from config.
     |
 
     | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
@@ -131,7 +148,7 @@ content:
     modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss`
     and `retrieval-metadata.json`. |'
   assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 7). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Capabilities Catalog (Part 7). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
@@ -192,7 +209,8 @@ content:
     | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs
     generation flows. |
 
-    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia.
+    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia
+    and optionally apply advanced settings, synonyms, rules, and replicas from config.
     |
 
     | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |

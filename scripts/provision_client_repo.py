@@ -35,6 +35,15 @@ TEMPLATE_PROFILE = REPO_ROOT / "profiles" / "clients" / "_template.client.yml"
 DOCSOPS_LOCAL_ENV = ".env.docsops.local"
 
 
+def _normalize_path_input(value: str | None) -> str:
+    if value is None:
+        return ""
+    normalized = str(value).strip()
+    if len(normalized) >= 2 and normalized[0] == normalized[-1] and normalized[0] in {'"', "'"}:
+        normalized = normalized[1:-1].strip()
+    return normalized
+
+
 def _prompt_with_default(prompt: str, default: str | None = None) -> str:
     suffix = f" [{default}]" if default else ""
     raw = input(f"{prompt}{suffix}: ").strip()
@@ -158,7 +167,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
 
     client_repo = ""
     if require_repo:
-        client_repo = _prompt_with_default("Path to local client repository")
+        client_repo = _normalize_path_input(_prompt_with_default("Path to local client repository"))
 
     docs_root = _prompt_with_default("Docs path in client repo", str(profile["runtime"].get("docs_root", "docs")))
     api_root = _prompt_with_default("API path in client repo", str(profile["runtime"].get("api_root", "api")))
@@ -485,9 +494,13 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
         print("- profiles/clients/examples/basic.client.yml")
         print("- profiles/clients/examples/pro.client.yml")
         print("- profiles/clients/examples/enterprise.client.yml\n")
-        args.client = _prompt_with_default("Path to client profile (*.client.yml)", args.client or default_profile)
+        args.client = _normalize_path_input(
+            _prompt_with_default("Path to client profile (*.client.yml)", args.client or default_profile)
+        )
         if not bool(args.bundle_only):
-            args.client_repo = _prompt_with_default("Path to local client repository", args.client_repo)
+            args.client_repo = _normalize_path_input(
+                _prompt_with_default("Path to local client repository", args.client_repo)
+            )
             args.install_scheduler = _prompt_choice(
                 "Install scheduler mode",
                 ["none", "linux", "windows"],
@@ -503,6 +516,8 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
 
 
 def _resolve_args(args: argparse.Namespace) -> argparse.Namespace:
+    args.client = _normalize_path_input(getattr(args, "client", ""))
+    args.client_repo = _normalize_path_input(getattr(args, "client_repo", ""))
     bundle_only = bool(getattr(args, "bundle_only", False))
     missing_required = (not args.client) or ((not bundle_only) and (not args.client_repo))
     needs_prompt = args.interactive or missing_required
@@ -853,6 +868,273 @@ echo "[algolia] Search widget generated for {generator}"
     print(f"[algolia] site generator: {generator}")
 
 
+def _ensure_algolia_advanced_config(client_repo: Path, runtime: dict[str, Any]) -> None:
+    integrations = runtime.get("integrations", {})
+    if not isinstance(integrations, dict):
+        return
+    algolia = integrations.get("algolia", {})
+    if not isinstance(algolia, dict):
+        return
+    if not bool(algolia.get("enabled", False)):
+        return
+    if not bool(algolia.get("auto_optimize_on_provision", True)):
+        return
+
+    advanced_path = Path(str(algolia.get("advanced_config_path", "config/algolia.search.yml")))
+    target = client_repo / advanced_path
+    if target.exists():
+        return
+
+    primary_index = str(algolia.get("index_name_default", "docs")).strip() or "docs"
+    replica_suffix = str(algolia.get("ab_test_replica_suffix", "docs_ab_variant")).strip() or "docs_ab_variant"
+    replica_name = f"{primary_index}_{replica_suffix}"
+    suggestions_index = f"{primary_index}_query_suggestions"
+
+    payload = {
+        "settings": {
+            "searchableAttributes": [
+                "unordered(title)",
+                "unordered(heading)",
+                "unordered(content)",
+                "unordered(description)",
+                "tags",
+            ],
+            "attributesForFaceting": [
+                "searchable(product)",
+                "searchable(content_type)",
+                "searchable(component)",
+                "searchable(tags)",
+                "maturity",
+                "version",
+                "has_code",
+            ],
+            "customRanking": [
+                "desc(ranking_boost)",
+                "asc(heading_level)",
+                "desc(word_count)",
+            ],
+            "distinct": True,
+            "attributeForDistinct": "url",
+            "removeWordsIfNoResults": "allOptional",
+            "optionalWords": ["api", "sdk", "guide", "docs", "documentation"],
+            "typoTolerance": True,
+            "advancedSyntax": True,
+            "minWordSizefor1Typo": 4,
+            "minWordSizefor2Typos": 8,
+            "ignorePlurals": True,
+            "queryType": "prefixLast",
+            "replaceSynonymsInHighlight": False,
+            "attributesToSnippet": ["content:40", "description:20"],
+            "attributesToHighlight": ["title", "heading", "content", "tags"],
+            "ranking": [
+                "typo",
+                "geo",
+                "words",
+                "filters",
+                "proximity",
+                "attribute",
+                "exact",
+                "custom",
+            ],
+        },
+        "synonyms": [
+            {
+                "objectID": "sdk_regular",
+                "type": "synonym",
+                "synonyms": ["sdk", "software development kit"],
+            },
+            {
+                "objectID": "rest_regular",
+                "type": "synonym",
+                "synonyms": ["rest", "restful api"],
+            },
+        ],
+        "rules": [
+            {
+                "objectID": "pin_quickstart",
+                "condition": {"pattern": "getting started", "anchoring": "contains"},
+                "consequence": {"promote": [{"objectID": "quickstart"}]},
+            },
+            {
+                "objectID": "boost_auth_401",
+                "condition": {"pattern": "error 401", "anchoring": "contains"},
+                "consequence": {"params": {"optionalFilters": ["tags:Authentication<score=3>"]}},
+            },
+            {
+                "objectID": "trial_context_getting_started",
+                "condition": {"pattern": "", "context": "trial_user"},
+                "consequence": {"params": {"optionalFilters": ["tags:Tutorial<score=4>"]}},
+            },
+            {
+                "objectID": "new_user_onboarding_focus",
+                "condition": {"pattern": "", "context": "new_user"},
+                "consequence": {"params": {"optionalFilters": ["content_type:tutorial<score=4>", "tags:How-To<score=3>"]}},
+            },
+            {
+                "objectID": "returning_user_reference_focus",
+                "condition": {"pattern": "", "context": "returning_user"},
+                "consequence": {"params": {"optionalFilters": ["content_type:reference<score=4>", "tags:Reference<score=3>"]}},
+            },
+            {
+                "objectID": "developer_api_focus",
+                "condition": {"pattern": "", "context": "developer"},
+                "consequence": {"params": {"optionalFilters": ["tags:API<score=4>", "tags:SDK<score=3>"]}},
+            },
+            {
+                "objectID": "operator_troubleshooting_focus",
+                "condition": {"pattern": "", "context": "operator"},
+                "consequence": {"params": {"optionalFilters": ["content_type:troubleshooting<score=4>", "tags:Operations<score=3>"]}},
+            },
+            {
+                "objectID": "production_user_stability_focus",
+                "condition": {"pattern": "", "context": "production_user"},
+                "consequence": {"params": {"optionalFilters": ["tags:Security<score=4>", "tags:Deployment<score=3>"]}},
+            },
+        ],
+        "replicas": [replica_name],
+        "replica_settings": {
+            replica_name: {
+                "customRanking": [
+                    "desc(ranking_boost)",
+                    "desc(has_code)",
+                    "desc(word_count)",
+                ],
+                "removeWordsIfNoResults": "allOptional",
+            }
+        },
+        "per_index": {
+            replica_name: {
+                "settings": {
+                    "searchableAttributes": [
+                        "unordered(title)",
+                        "unordered(heading)",
+                        "unordered(content)",
+                        "unordered(description)",
+                        "tags",
+                    ],
+                    "customRanking": [
+                        "desc(ranking_boost)",
+                        "desc(has_code)",
+                        "desc(word_count)",
+                    ],
+                    "removeWordsIfNoResults": "allOptional",
+                    "optionalWords": ["api", "sdk", "guide", "docs", "documentation"],
+                },
+                "rules": [
+                    {
+                        "objectID": "ab_trial_boost_tutorials",
+                        "condition": {"pattern": "", "context": "trial_user"},
+                        "consequence": {"params": {"optionalFilters": ["content_type:tutorial<score=4>"]}},
+                    },
+                    {
+                        "objectID": "ab_new_user_boost_howto",
+                        "condition": {"pattern": "", "context": "new_user"},
+                        "consequence": {"params": {"optionalFilters": ["content_type:how-to<score=4>"]}},
+                    },
+                    {
+                        "objectID": "ab_developer_boost_api",
+                        "condition": {"pattern": "", "context": "developer"},
+                        "consequence": {"params": {"optionalFilters": ["tags:API<score=4>", "tags:SDK<score=3>"]}},
+                    },
+                ],
+            },
+            suggestions_index: {
+                "settings": {
+                    "searchableAttributes": ["unordered(query)"],
+                    "attributesForFaceting": [
+                        "searchable(locale)",
+                        "searchable(source)",
+                    ],
+                    "removeWordsIfNoResults": "none",
+                    "queryType": "prefixAll",
+                    "minWordSizefor1Typo": 3,
+                    "minWordSizefor2Typos": 7,
+                }
+            },
+        },
+        "query_suggestions": {
+            "source_index": primary_index,
+            "model": {
+                "indexName": suggestions_index,
+                "sourceIndices": [
+                    {
+                        "indexName": primary_index,
+                        "minHits": 3,
+                        "facets": ["content_type", "product", "tags"],
+                    }
+                ],
+                "languages": ["en"],
+            },
+        },
+    }
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(yaml.safe_dump(payload, sort_keys=False, allow_unicode=False), encoding="utf-8")
+    print(f"[algolia] advanced config generated: {target}")
+
+
+def _bootstrap_algolia_index_on_provision(client_repo: Path, docsops_dir: str, runtime: dict[str, Any]) -> None:
+    integrations = runtime.get("integrations", {})
+    if not isinstance(integrations, dict):
+        return
+    algolia = integrations.get("algolia", {})
+    if not isinstance(algolia, dict):
+        return
+    if not bool(algolia.get("enabled", False)):
+        return
+    if not bool(algolia.get("auto_optimize_on_provision", True)):
+        return
+
+    app_id_env = str(algolia.get("app_id_env", "ALGOLIA_APP_ID"))
+    api_key_env = str(algolia.get("api_key_env", "ALGOLIA_API_KEY"))
+    if not os.environ.get(app_id_env) or not os.environ.get(api_key_env):
+        print(f"[algolia] skip auto-bootstrap: missing {app_id_env}/{api_key_env}")
+        return
+
+    docs_dir = str(algolia.get("docs_dir", runtime.get("paths", {}).get("docs_root", "docs")))
+    report_output = str(algolia.get("report_output", "reports/seo-report.json"))
+    records_file = str(Path(report_output).with_suffix("").as_posix() + "-algolia.json")
+    advanced_config = str(algolia.get("advanced_config_path", "config/algolia.search.yml"))
+
+    optimizer_script = client_repo / docsops_dir / "scripts" / "seo_geo_optimizer.py"
+    uploader_script = client_repo / docsops_dir / "scripts" / "upload_to_algolia.py"
+    if not optimizer_script.exists() or not uploader_script.exists():
+        print("[algolia] skip auto-bootstrap: required scripts missing in bundle")
+        return
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(optimizer_script),
+            docs_dir,
+            "--algolia",
+            "--output",
+            report_output,
+        ],
+        cwd=str(client_repo),
+        check=True,
+    )
+    cmd = [
+        sys.executable,
+        str(uploader_script),
+        "--records-file",
+        records_file,
+        "--app-id-env",
+        app_id_env,
+        "--api-key-env",
+        api_key_env,
+        "--index-name-env",
+        str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME")),
+        "--index-name-default",
+        str(algolia.get("index_name_default", "docs")),
+        "--advanced-config",
+        advanced_config,
+    ]
+    if bool(algolia.get("apply_advanced_settings_on_upload", True)):
+        cmd.append("--apply-advanced")
+    subprocess.run(cmd, cwd=str(client_repo), check=True)
+    print("[algolia] auto-bootstrap complete")
+
+
 def apply_integrations(client_repo: Path, docsops_dir: str) -> None:
     runtime_path = client_repo / docsops_dir / "config" / "client_runtime.yml"
     if not runtime_path.exists():
@@ -863,6 +1145,8 @@ def apply_integrations(client_repo: Path, docsops_dir: str) -> None:
         return
 
     _apply_algolia_widget(client_repo, docsops_dir, runtime)
+    _ensure_algolia_advanced_config(client_repo, runtime)
+    _bootstrap_algolia_index_on_provision(client_repo, docsops_dir, runtime)
 
     ask_ai = integrations.get("ask_ai", {})
     if not isinstance(ask_ai, dict):

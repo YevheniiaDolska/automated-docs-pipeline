@@ -146,6 +146,37 @@ Major updates (simple checklist):
 1. Glossary flow uses pre-generation term check plus post-generation glossary sync markers.
 1. Multi-language examples are generated/validated as a standard pattern, with smoke checks and expected-output comparison.
 1. Finalize gate is built-in across flows: iterative lint/fix loop, optional commit confirmation, optional pre-commit rerun.
+1. Algolia integration now supports zero-manual advanced auto-optimization during provisioning: advanced search config, synonyms, query rules, and replica setup are generated and applied automatically when Algolia credentials are present.
+
+### Algolia zero-manual auto-optimization
+
+When `runtime.integrations.algolia.enabled=true`, provisioning now auto-configures advanced search without dashboard handwork.
+
+Provisioning auto-creates `config/algolia.search.yml` (if missing) with:
+
+1. Index settings tuned for docs search (`searchableAttributes` priority, `customRanking`, `distinct`, `attributeForDistinct`, typo/syntax/fallback behavior).
+1. Synonym starters for common docs terminology.
+1. Query rule starters for intent pin/boost behavior.
+1. Replica declaration for A/B test baseline setup.
+
+Provisioning also auto-bootstraps the index when credentials are available:
+
+1. Generates records via `seo_geo_optimizer.py --algolia`.
+1. Uploads records via `upload_to_algolia.py`.
+1. Applies advanced config (`settings`, `synonyms`, `rules`, `replicas`) with `--apply-advanced`.
+
+Runtime keys (defaulted in bundle build):
+
+```yaml
+runtime:
+  integrations:
+    algolia:
+      enabled: true
+      advanced_config_path: config/algolia.search.yml
+      apply_advanced_settings_on_upload: true
+      auto_optimize_on_provision: true
+      ab_test_replica_suffix: docs_ab_variant
+```
 
 ### Finalize Gate: Before Yes / After Yes
 

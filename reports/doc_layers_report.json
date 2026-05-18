@@ -1,0 +1,652 @@
+{
+  "generated_at": "2026-05-18T09:11:26.555961Z",
+  "required_layers": [
+    "concept",
+    "how-to",
+    "reference"
+  ],
+  "violations_count": 49,
+  "violations": [
+    {
+      "file": "--",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "advanced-search",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "api-playground",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "assemble-intent-experiences",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "asyncapi-api-reference",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "auto-doc-pipeline-study-guide",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "autopipeline-output-index",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "browse-by-tag",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "build-your-first-workflow-in-5-minutes",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "tutorial"
+      ]
+    },
+    {
+      "file": "canonical-flow-sales--delivery",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "concepts-and-architecture",
+      "content_type": "feature",
+      "violation": "Missing required layers: how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "concept"
+      ]
+    },
+    {
+      "file": "configure-ask-ai-module",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "configure-webhook-triggers",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "documentation-pipeline-demo",
+      "content_type": "feature",
+      "violation": "Missing required layers: how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "concept"
+      ]
+    },
+    {
+      "file": "fix-webhook-trigger-not-firing",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "troubleshooting"
+      ]
+    },
+    {
+      "file": "getting-started",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "tutorial"
+      ]
+    },
+    {
+      "file": "graphql-api-reference",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "grpc-api-reference",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "how-to-guides-for",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "install-ask-ai-runtime-pack",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "intelligent-knowledge-system-architecture",
+      "content_type": "feature",
+      "violation": "Missing required layers: how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "concept"
+      ]
+    },
+    {
+      "file": "legal-and-compliance",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "migrate-documentation-from-confluence",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "multi-protocol-architecture",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "multi-protocol-wizard-guide",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "network-transparency-reference",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "old-webhook-api-deprecated",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "operator-runbook-retainer-operations",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "pipeline-capabilities-catalog",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "plan-tiers-basic-/-pro-/-enterprise",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "reference-documentation",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "rest-api-reference",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "run-api-first-production-flow",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "seo/geo-optimization-guide",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "set-up-a-real-time-webhook-processing-pipeline",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "smart-merge-and-manual-review",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
+      ]
+    },
+    {
+      "file": "taskstream-api-planning-notes",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "taskstream-api-playground",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "troubleshooting-guide",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "troubleshooting"
+      ]
+    },
+    {
+      "file": "unified-client-configuration",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "variables-and-templates-guide",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "veridoc-data-processing-agreement",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "veridoc-privacy-policy",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "veridoc-security-contact-policy",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "veridoc-security-policy",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "veridoc-terms-of-service",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "webhook-node-reference-for",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "websocket-api-reference",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "workflow-execution-model",
+      "content_type": "feature",
+      "violation": "Missing required layers: how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "concept"
+      ]
+    }
+  ]
+}

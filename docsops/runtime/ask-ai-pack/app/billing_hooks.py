@@ -7,7 +7,6 @@ import hashlib
 
 
 def verify_webhook_signature(body: bytes, signature: str | None, secret: str) -> bool:
-    """Execute `verify_webhook_signature` workflow."""
     if not signature or not secret:
         return False
     digest = hmac.new(secret.encode("utf-8"), body, hashlib.sha256).hexdigest()

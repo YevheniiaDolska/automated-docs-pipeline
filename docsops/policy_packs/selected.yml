@@ -1,24 +1,28 @@
+name: plg
+version: 1
+notes:
+- PLG profile adds value-first documentation patterns and interactive API sandbox
+  controls.
+- Use this pack for self-serve onboarding and adoption-focused docs programs.
 docs_contract:
   interface_patterns:
   - ^api/
   - openapi.*\.(ya?ml|json)$
-  - swagger.*\.(ya?ml|json)$
-  - ^products/.*/api/
-  - ^products/.*/sdk/
+  - ^sdk/
+  - ^clients/
+  - ^src/
   doc_patterns:
-  - ^docs/products/
-  - ^docs/reference/
+  - ^docs/
   - ^templates/
+  - ^\.vscode/docs\.code-snippets$
 drift:
   openapi_patterns:
   - openapi.*\.(ya?ml|json)$
   - swagger.*\.(ya?ml|json)$
-  - ^products/.*/api/
   sdk_patterns:
-  - ^products/.*/sdk/
+  - ^sdk/
   - ^clients/
   reference_doc_patterns:
-  - ^docs/products/.*/reference/
   - ^docs/reference/
   - ^templates/api-reference\.md$
   - ^templates/sdk-reference\.md$
@@ -41,10 +45,20 @@ kpi_sla:
   min_doc_coverage: 80
 terminology:
   glossary_sync_required: true
-  max_new_terms_per_week: 40
+  max_new_terms_per_week: 50
 retrieval_evals:
-  min_precision: 0.55
-  min_recall: 0.55
-  max_hallucination_rate: 0.45
+  min_precision: 0.6
+  min_recall: 0.6
+  max_hallucination_rate: 0.4
 knowledge_graph:
-  min_graph_nodes: 8
+  min_graph_nodes: 10
+plg:
+  mode: mixed
+  try_it_mode: sandbox-only
+  try_it_enabled: false
+  value_first_docs:
+    enabled: true
+    recommended_sections:
+    - time-to-value
+    - expected-outcome
+    - activation-checklist

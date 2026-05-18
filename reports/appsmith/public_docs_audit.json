@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-05-12T09:30:41.459253+00:00",
+  "site_url": "https://docs.appsmith.com/",
+  "site_urls": [
+    "https://docs.appsmith.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.appsmith.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 397,
+          "requested_pages": 407,
+          "urls_examined": 397,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 397,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 397,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 27,
+          "seeded_sitemap_urls": 397,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 407,
+          "broken_internal_links_count": 6,
+          "docs_broken_links_count": 6,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.appsmith.com/build-apps/how-to-guides/server-side-pagination-in-table",
+            "https://docs.appsmith.com/build-apps/how-to-guides/setup-server-side-pagination-on-list",
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/post-window-message",
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/set-interval",
+            "https://docs.appsmith.com/reference/widgets/Table",
+            "https://docs.appsmith.com/reference/widgets/Text"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.appsmith.com/build-apps/how-to-guides/server-side-pagination-in-table",
+            "https://docs.appsmith.com/build-apps/how-to-guides/setup-server-side-pagination-on-list",
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/post-window-message",
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/set-interval",
+            "https://docs.appsmith.com/reference/widgets/Table",
+            "https://docs.appsmith.com/reference/widgets/Text"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 6,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://docs.appsmith.com/build-apps/how-to-guides/search-and-filter-table-data",
+            "https://docs.appsmith.com/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.appsmith.com/build-apps/how-to-guides/server-side-pagination-in-table",
+            "https://docs.appsmith.com/build-apps/how-to-guides/setup-server-side-pagination-on-list",
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/post-window-message",
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/set-interval",
+            "https://docs.appsmith.com/reference/widgets/Table",
+            "https://docs.appsmith.com/reference/widgets/Text"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.appsmith.com/build-apps/how-to-guides/search-and-filter-table-data",
+            "https://docs.appsmith.com/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.appsmith.com/build-apps/how-to-guides/server-side-pagination-in-table": [
+              {
+                "source_page": "https://docs.appsmith.com/build-apps/how-to-guides",
+                "anchor_text": "Setup Server-Side Pagination Implement server-side pagination to optimize table performance."
+              }
+            ],
+            "https://docs.appsmith.com/build-apps/how-to-guides/setup-server-side-pagination-on-list": [
+              {
+                "source_page": "https://docs.appsmith.com/build-apps/how-to-guides",
+                "anchor_text": "Setup Server-Side Pagination on List Implement server-side pagination to optimize list performance."
+              }
+            ],
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/post-window-message": [
+              {
+                "source_page": "https://docs.appsmith.com/reference/appsmith-framework/widget-actions",
+                "anchor_text": "postWindowMessage Posts a message to another window, facilitating communication between multiple windows."
+              }
+            ],
+            "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/set-interval": [
+              {
+                "source_page": "https://docs.appsmith.com/reference/appsmith-framework/widget-actions",
+                "anchor_text": "setInterval Sets a recurring interval, executing a function repeatedly at the specified time intervals."
+              }
+            ],
+            "https://docs.appsmith.com/reference/widgets/Table": [
+              {
+                "source_page": "https://docs.appsmith.com/core-concepts/building-ui/dynamic-ui/widget-visibility",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://docs.appsmith.com/core-concepts/building-ui/dynamic-ui/widget-visibility",
+                "anchor_text": "Table"
+              },
+              {
+                "source_page": "https://docs.appsmith.com/reference/widgets",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://docs.appsmith.com/reference/widgets",
+                "anchor_text": "Table"
+              }
+            ],
+            "https://docs.appsmith.com/reference/widgets/Text": [
+              {
+                "source_page": "https://docs.appsmith.com/core-concepts/building-ui/dynamic-ui/widget-visibility",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://docs.appsmith.com/core-concepts/building-ui/dynamic-ui/widget-visibility",
+                "anchor_text": "Text"
+              },
+              {
+                "source_page": "https://docs.appsmith.com/reference/widgets",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://docs.appsmith.com/reference/widgets",
+                "anchor_text": "Text"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 397,
+          "missing_title_count": 0,
+          "missing_description_count": 3,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 122,
+          "seo_geo_issue_rate_pct": 7.87
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 7,
+          "api_pages_detected": 205,
+          "endpoints_with_usage_docs": 5,
+          "reference_endpoints_without_usage_docs": 2,
+          "reference_coverage_pct": 71.43,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:screen",
+            "gql:variables"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1531,
+          "total_code_blocks_all": 1989,
+          "runnable_without_env": 650,
+          "blocked_by_placeholders": 811,
+          "network_bound_examples": 70,
+          "example_reliability_estimate_pct": 42.46,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 17,
+          "pages_without_last_updated_hint": 380,
+          "last_updated_coverage_pct": 4.28,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.appsmith.com/build-apps/how-to-guides/custom-widget-using-vanillajs",
+              "hint": "\"2024-01-12\""
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/confluence",
+              "hint": "type = \"global\" AND created >= \"2025-01-01\""
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/google-docs",
+              "hint": "Fetches metadata for a specific document, such as name, MIME type, last modified time, and more."
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/gmail",
+              "hint": "\"1985-07-15\""
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/google-drive",
+              "hint": "var1 = \"Project\", var2 < \"2023-12-31\""
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/linear",
+              "hint": "2025-12-31"
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/mixpanel",
+              "hint": "2025-10-01"
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/notion",
+              "hint": "{ \"date\": { \"start\": \"2025-05-27\" } }"
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/querying-amazon-s3",
+              "hint": "\"Version\": \"2012-10-17\","
+            },
+            {
+              "url": "https://docs.appsmith.com/connect-data/reference/slack",
+              "hint": "// from:@U0B123XX after:2025-01-01 before:2025-02-01"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.appsmith.com/build-apps/how-to-guides/server-side-pagination-in-table",
+          "https://docs.appsmith.com/build-apps/how-to-guides/setup-server-side-pagination-on-list",
+          "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/post-window-message",
+          "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/set-interval",
+          "https://docs.appsmith.com/reference/widgets/Table",
+          "https://docs.appsmith.com/reference/widgets/Text"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.appsmith.com/build-apps/how-to-guides/server-side-pagination-in-table",
+          "https://docs.appsmith.com/build-apps/how-to-guides/setup-server-side-pagination-on-list",
+          "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/post-window-message",
+          "https://docs.appsmith.com/reference/appsmith-framework/widget-actions/set-interval",
+          "https://docs.appsmith.com/reference/widgets/Table",
+          "https://docs.appsmith.com/reference/widgets/Text"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:screen",
+          "gql:variables"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 397,
+        "requested_pages": 407,
+        "urls_examined": 397,
+        "max_pages_total": 5000,
+        "discovered_pages": 397,
+        "crawl_scope_pages": 397,
+        "trap_urls_skipped": 27,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 6,
+        "docs_broken_links_count": 6,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 6,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 7.87
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 71.43,
+        "no_api_pages_found": false,
+        "api_pages_detected": 205,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 42.46
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 4.28
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 6",
+    "Example reliability estimate is low: 42.46%",
+    "Freshness visibility is weak: only 4.28% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

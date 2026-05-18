@@ -15,16 +15,32 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-05-18'
 dependencies: []
 tags:
 - auto-extracted
 - canonical-flow
 - reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery)
+  heading: 1. Core promise
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: 1. Core promise
+  intent: configure
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
-    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 
     <!-- VERIDOC_POWERED_BADGE:END -->
 
@@ -51,14 +67,14 @@ content:
 
     \11. Human only reviews report + final docs.'
   assistant_context: 'Use this module when answering questions related to: Canonical
-    Flow (Sales + Delivery). Source path: docs/operations/CANONICAL_FLOW.md. Summary:
-    Canonical sales and delivery flow for onboarding and operating client Auto-Doc
-    Pipeline setups.
+    Flow (Sales + Delivery). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical
+    sales and delivery flow for onboarding and operating client Auto-Doc Pipeline
+    setups.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->
 
-    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 
     <!-- VERIDOC_POWERED_BADGE:END -->
 

@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-04-28T12:55:06.336372+00:00",
+  "generated_at_utc": "2026-05-12T11:20:07.763004+00:00",
   "sites_count": 1,
   "totals": {
     "docs_broken_links_count": 3,
     "repo_broken_links_count": 0,
     "all_confirmed_broken_links_count": 3,
-    "unverified_links_sample_count": 0
+    "unverified_links_sample_count": 1
   },
   "all_docs_broken_links": [
     "https://www.windmill.dev/cdn-cgi/l/email-protection",
@@ -13,10 +13,12 @@
     "https://www.windmill.dev/docs/full_code_apps/index.mdx"
   ],
   "all_repo_broken_links": [],
-  "all_unverified_links_sample": [],
+  "all_unverified_links_sample": [
+    "https://www.windmill.dev/docs/misc/guides/snowflake_app_with_user_roles"
+  ],
   "sites": [
     {
-      "site_url": "https://windmill.dev/docs",
+      "site_url": "https://www.windmill.dev/docs",
       "confirmed_broken_links_count": 3,
       "docs_broken_links_count": 3,
       "repo_broken_links_count": 0,
@@ -74,7 +76,9 @@
           ]
         }
       ],
-      "unverified_links_sample": []
+      "unverified_links_sample": [
+        "https://www.windmill.dev/docs/misc/guides/snowflake_app_with_user_roles"
+      ]
     }
   ]
 }

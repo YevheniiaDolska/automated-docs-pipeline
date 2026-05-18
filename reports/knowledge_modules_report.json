@@ -1,25 +1,78 @@
 {
   "summary": {
-    "module_count": 252,
-    "issue_count": 0,
-    "valid": true
+    "module_count": 286,
+    "issue_count": 13,
+    "valid": false
   },
   "coverage": {
     "intents": {
       "automate": 1,
       "configure": 108,
-      "integrate": 172,
+      "integrate": 206,
       "optimize": 1,
-      "secure": 25,
-      "troubleshoot": 62
+      "secure": 35,
+      "troubleshoot": 68
     },
     "channels": {
-      "assistant": 252,
-      "automation": 252,
-      "docs": 252,
+      "assistant": 286,
+      "automation": 286,
+      "docs": 286,
       "field": 1,
       "in-product": 1
     }
   },
-  "issues": []
+  "issues": [
+    {
+      "module_path": "knowledge_modules/auto-search-faceted-1.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-search-faceted-2.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-search-faceted-3.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-seo-guide-1.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-seo-guide-2.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-seo-guide-3.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-seo-guide-4.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-seo-guide-5.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-seo-guide-6.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-variables-guide-1.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-variables-guide-2.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-variables-guide-3.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    },
+    {
+      "module_path": "knowledge_modules/auto-variables-guide-4.yml",
+      "message": "'metadata.updated_at' must be ISO-like date/time"
+    }
+  ]
 }

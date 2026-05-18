@@ -13,16 +13,32 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-05-18'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - rest-api
+metadata:
+  url: https://docs.example.com/reference/rest-api/
+  title: REST API Reference
+  heading: Top-level Keys
+  version: 1.50.0
+  updated_at: '2026-03-20'
+  source_site: docs.example.com
+  source_path: reference/rest-api.md
+semantic:
+  topic: Top-level Keys
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - rest api
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
-    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 
     <!-- VERIDOC_POWERED_BADGE:END -->
 
@@ -63,13 +79,13 @@ content:
 
     - [Documentation index](index.md)'
   assistant_context: 'Use this module when answering questions related to: REST API
-    Reference. Source path: docs/reference/rest-api.md. Summary: Auto-generated rest
-    reference from source contract.
+    Reference. Source path: reference/rest-api.md. Summary: Auto-generated rest reference
+    from source contract.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->
 
-    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 
     <!-- VERIDOC_POWERED_BADGE:END -->
 

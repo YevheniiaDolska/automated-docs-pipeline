@@ -12,6 +12,8 @@ import sys
 import urllib.request
 from pathlib import Path
 
+import yaml
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Upload records to Algolia")
@@ -40,6 +42,16 @@ def parse_args() -> argparse.Namespace:
         default="docs",
         help="Fallback index name if env variable is not set",
     )
+    parser.add_argument(
+        "--advanced-config",
+        default="",
+        help="Optional path to advanced Algolia config YAML/JSON",
+    )
+    parser.add_argument(
+        "--apply-advanced",
+        action="store_true",
+        help="Apply synonyms/query rules/replicas from --advanced-config",
+    )
     return parser.parse_args()
 
 
@@ -53,6 +65,39 @@ def _algolia_request(app_id: str, api_key: str, method: str, path: str, body=Non
     req.add_header("Content-Type", "application/json")
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read())
+
+
+def _load_advanced_config(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    raw = path.read_text(encoding="utf-8")
+    if path.suffix.lower() in {".yaml", ".yml"}:
+        data = yaml.safe_load(raw) or {}
+    else:
+        data = json.loads(raw or "{}")
+    return data if isinstance(data, dict) else {}
+
+
+def _upsert_synonyms(app_id: str, api_key: str, base: str, synonyms: list[dict]) -> None:
+    for syn in synonyms:
+        if not isinstance(syn, dict):
+            continue
+        object_id = str(syn.get("objectID", "")).strip()
+        if not object_id:
+            continue
+        result = _algolia_request(app_id, api_key, "PUT", f"{base}/synonyms/{object_id}", syn)
+        print(f"Synonym upserted: {object_id} (taskID={result.get('taskID')})")
+
+
+def _upsert_rules(app_id: str, api_key: str, base: str, rules: list[dict]) -> None:
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+        object_id = str(rule.get("objectID", "")).strip()
+        if not object_id:
+            continue
+        result = _algolia_request(app_id, api_key, "PUT", f"{base}/rules/{object_id}", rule)
+        print(f"Rule upserted: {object_id} (taskID={result.get('taskID')})")
 
 
 def main():
@@ -90,11 +135,72 @@ def main():
         return 0
 
     base = f"/1/indexes/{index_name}"
+    advanced_cfg = {}
+    if args.apply_advanced and args.advanced_config.strip():
+        advanced_cfg = _load_advanced_config(Path(args.advanced_config))
 
     # Update index settings
-    if config:
-        result = _algolia_request(app_id, api_key, "PUT", f"{base}/settings", config)
+    settings = {}
+    if isinstance(config, dict):
+        settings.update(config)
+    adv_settings = advanced_cfg.get("settings", {})
+    if isinstance(adv_settings, dict):
+        settings.update(adv_settings)
+    if settings:
+        result = _algolia_request(app_id, api_key, "PUT", f"{base}/settings", settings)
         print(f"Index settings updated (taskID={result.get('taskID')})")
+
+    if advanced_cfg:
+        synonyms = advanced_cfg.get("synonyms", [])
+        if isinstance(synonyms, list):
+            _upsert_synonyms(app_id, api_key, base, synonyms)
+
+        rules = advanced_cfg.get("rules", [])
+        if isinstance(rules, list):
+            _upsert_rules(app_id, api_key, base, rules)
+
+        replicas = advanced_cfg.get("replicas", [])
+        if isinstance(replicas, list):
+            names = [str(v).strip() for v in replicas if str(v).strip()]
+            if names:
+                result = _algolia_request(app_id, api_key, "PUT", f"{base}/settings", {"replicas": names})
+                print(f"Replicas configured: {', '.join(names)} (taskID={result.get('taskID')})")
+                replica_settings = advanced_cfg.get("replica_settings", {})
+                if isinstance(replica_settings, dict):
+                    for replica_name in names:
+                        rs = replica_settings.get(replica_name, {})
+                        if not isinstance(rs, dict) or not rs:
+                            continue
+                        replica_base = f"/1/indexes/{replica_name}"
+                        result = _algolia_request(app_id, api_key, "PUT", f"{replica_base}/settings", rs)
+                        print(f"Replica settings applied: {replica_name} (taskID={result.get('taskID')})")
+
+        per_index = advanced_cfg.get("per_index", {})
+        if isinstance(per_index, dict):
+            for idx_name, idx_cfg in per_index.items():
+                idx = str(idx_name).strip()
+                if not idx or not isinstance(idx_cfg, dict):
+                    continue
+                idx_base = f"/1/indexes/{idx}"
+                idx_settings = idx_cfg.get("settings", {})
+                if isinstance(idx_settings, dict) and idx_settings:
+                    result = _algolia_request(app_id, api_key, "PUT", f"{idx_base}/settings", idx_settings)
+                    print(f"Per-index settings applied: {idx} (taskID={result.get('taskID')})")
+                idx_synonyms = idx_cfg.get("synonyms", [])
+                if isinstance(idx_synonyms, list):
+                    _upsert_synonyms(app_id, api_key, idx_base, idx_synonyms)
+                idx_rules = idx_cfg.get("rules", [])
+                if isinstance(idx_rules, list):
+                    _upsert_rules(app_id, api_key, idx_base, idx_rules)
+
+        query_suggestions = advanced_cfg.get("query_suggestions", {})
+        if isinstance(query_suggestions, dict):
+            source_index = str(query_suggestions.get("source_index", index_name)).strip() or index_name
+            model = query_suggestions.get("model", {})
+            if isinstance(model, dict) and model:
+                path = f"/1/indexes/{source_index}/querySuggestions"
+                result = _algolia_request(app_id, api_key, "POST", path, model)
+                print(f"Query suggestions configured for {source_index} (taskID={result.get('taskID')})")
 
     # Clear existing records
     result = _algolia_request(app_id, api_key, "POST", f"{base}/clear", {})

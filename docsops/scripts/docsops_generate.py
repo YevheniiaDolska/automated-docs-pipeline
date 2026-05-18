@@ -60,7 +60,6 @@ def _advanced_prompts_allowed() -> tuple[bool, str]:
 
 
 def _load_json(path: Path) -> dict[str, Any]:
-    """Internal helper for `_load_json`."""
     if not path.exists():
         return {}
     try:
@@ -71,7 +70,6 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 
 def _resolve_runtime_config(raw: str) -> Path:
-    """Internal helper for `_resolve_runtime_config`."""
     candidate = Path(raw).expanduser()
     if candidate.exists():
         return candidate.resolve()
@@ -87,7 +85,6 @@ def _resolve_runtime_config(raw: str) -> Path:
 
 
 def _load_runtime_map(path: Path) -> dict[str, Any]:
-    """Internal helper for `_load_runtime_map`."""
     try:
         raw = yaml.safe_load(path.read_text(encoding="utf-8"))
     except (OSError, yaml.YAMLError):
@@ -96,7 +93,6 @@ def _load_runtime_map(path: Path) -> dict[str, Any]:
 
 
 def _nested_get(data: dict[str, Any], *keys: str) -> Any:
-    """Internal helper for `_nested_get`."""
     current: Any = data
     for key in keys:
         if not isinstance(current, dict):
@@ -106,7 +102,6 @@ def _nested_get(data: dict[str, Any], *keys: str) -> Any:
 
 
 def _looks_passing(value: Any) -> bool | None:
-    """Internal helper for `_looks_passing`."""
     if isinstance(value, bool):
         return value
     if isinstance(value, str):
@@ -119,7 +114,6 @@ def _looks_passing(value: Any) -> bool | None:
 
 
 def _policy_triggered(reports_dir: Path) -> tuple[bool, list[str]]:
-    """Internal helper for `_policy_triggered`."""
     reasons: list[str] = []
 
     kpi = _load_json(reports_dir / "kpi-sla-report.json")
@@ -149,7 +143,6 @@ def _policy_triggered(reports_dir: Path) -> tuple[bool, list[str]]:
 
 
 def _build_prompt(reports_dir: Path, runtime_config: Path, auto_apply: bool, advanced_prompts: bool) -> str:
-    """Internal helper for `_build_prompt`."""
     consolidated = reports_dir / "consolidated_report.json"
     stage_summary = reports_dir / "pipeline_stage_summary.json"
     review_manifest = reports_dir / "review_manifest.json"
@@ -201,7 +194,6 @@ def _build_prompt(reports_dir: Path, runtime_config: Path, auto_apply: bool, adv
 
 
 def _assert_local_only_security(allow_api_env: bool) -> None:
-    """Internal helper for `_assert_local_only_security`."""
     if allow_api_env:
         return
     present = [name for name in API_KEY_ENV_NAMES if os.getenv(name)]
@@ -214,7 +206,6 @@ def _assert_local_only_security(allow_api_env: bool) -> None:
 
 
 def _wrap_with_egress_guard(cmd: list[str], egress_guard: str) -> list[str]:
-    """Internal helper for `_wrap_with_egress_guard`."""
     if egress_guard == "off":
         return cmd
     if os.name != "posix":
@@ -227,7 +218,6 @@ def _wrap_with_egress_guard(cmd: list[str], egress_guard: str) -> list[str]:
 
 
 def _run_local_cli(engine: str, prompt: str, auto_apply: bool, dry_run: bool, egress_guard: str) -> int:
-    """Internal helper for `_run_local_cli`."""
     engines: list[str]
     if engine == "auto":
         engines = ["codex", "claude"]
@@ -265,7 +255,6 @@ def _run_local_cli(engine: str, prompt: str, auto_apply: bool, dry_run: bool, eg
 
 def _run_local_model_command(command_template: str, model: str, prompt: str, dry_run: bool) -> int:
     # Fast path for Ollama: avoid giant shell argument interpolation issues.
-    """Internal helper for `_run_local_model_command`."""
     if "ollama" in command_template and "{model}" in command_template:
         ollama = shutil.which("ollama") or "ollama"
         cmd = [ollama, "run", model, prompt]
@@ -283,7 +272,6 @@ def _run_local_model_command(command_template: str, model: str, prompt: str, dry
 
 
 def _model_exists_in_ollama(model: str) -> bool:
-    """Internal helper for `_model_exists_in_ollama`."""
     ollama = shutil.which("ollama")
     if not ollama:
         return False
@@ -303,7 +291,6 @@ def _model_exists_in_ollama(model: str) -> bool:
 
 
 def _preflight_local_model(model: str) -> tuple[bool, str]:
-    """Internal helper for `_preflight_local_model`."""
     ollama = shutil.which("ollama")
     if not ollama:
         return (
@@ -343,7 +330,6 @@ def _preflight_local_model(model: str) -> tuple[bool, str]:
 
 
 def _run_api_command(command: str, dry_run: bool) -> int:
-    """Internal helper for `_run_api_command`."""
     cmd = shlex.split(command)
     print(f"[docsops] veridoc API command: {' '.join(shlex.quote(part) for part in cmd)}")
     if dry_run:
@@ -353,7 +339,6 @@ def _run_api_command(command: str, dry_run: bool) -> int:
 
 
 def _resolve_veridoc_api_command(explicit: str, runtime: dict[str, Any]) -> str:
-    """Internal helper for `_resolve_veridoc_api_command`."""
     if explicit.strip():
         return explicit.strip()
 
@@ -376,7 +361,6 @@ def _resolve_veridoc_api_command(explicit: str, runtime: dict[str, Any]) -> str:
 
 
 def cmd_generate(args: argparse.Namespace) -> int:
-    """Execute `cmd_generate` workflow."""
     narrator = FlowNarrator("DocsOps Generate", total_steps=3)
     narrator.start("Local-first generation orchestration")
     reports_dir = Path(args.reports_dir).resolve()
@@ -489,7 +473,6 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    """Execute `main` workflow."""
     parser = argparse.ArgumentParser(description="DocsOps generation orchestrator")
     subparsers = parser.add_subparsers(dest="command", required=True)
 

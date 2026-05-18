@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import logging
 import math
 import re
 import statistics
@@ -20,6 +21,8 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+
+logger = logging.getLogger(__name__)
 
 # -- Pack runtime integration (optional) --------------------------------------
 try:

@@ -12,7 +12,7 @@ original_author: Developer
 ---
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 # Canonical Flow (Sales + Delivery)
@@ -98,6 +98,11 @@ powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
 Scheduler timezone is local machine timezone. Monday schedule follows client local time when installed on client machine.
 Default schedule is Monday at `10:00` local time.
 
+Algolia note for one-time setup:
+
+- If `runtime.integrations.algolia.enabled=true`, provisioning now auto-generates advanced search config (`config/algolia.search.yml`) and applies it automatically during bootstrap when Algolia credentials are available.
+- Auto-bootstrap includes index settings, synonyms, query rules, and replica setup, plus initial records upload.
+
 ## 3. Weekly automation (no manual commands)
 
 Scheduler runs:
@@ -137,6 +142,10 @@ It executes:
   - `validate_multilang_examples.py`
   - `check_code_examples_smoke.py` (including `expected-output` comparison for tagged blocks)
 - intent bundle assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`
+- Algolia search indexing (if enabled)
+  - generates Algolia records from docs
+  - uploads index records
+  - applies advanced config from `advanced_config_path` (`settings`, `synonyms`, `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`
 - `custom_tasks.weekly` commands
 - consolidated report generation
 

@@ -1,18 +1,21 @@
 client:
-  id: auto-doc-pipeline
-  company_name: Auto-Doc Pipeline
-  contact_email: docs-owner@auto-doc-pipeline.local
+  id: veriops
+  company_name: VeriOps
+  contact_email: jane.dolska@gmail.com
 local_use:
   llm_instructions:
   - AGENTS.md
   - CLAUDE.md
+  - LOCAL_MODEL.md
   runtime_config: config/client_runtime.yml
   policy_pack: policy_packs/selected.yml
   automation_runbook: ops/runbook.md
   local_env_template: .env.docsops.local.template
   vale_config: .vale.ini
+  traceability_manifest: TRACEABILITY.yml
 licensing:
   public_key: docsops/keys/veriops-licensing.pub
   license_jwt: docsops/license.jwt
   capability_pack: docsops/.capability_pack.enc
   activation: License key activates features. All plans use the same bundle.
+  binding: 'Optional license claims: tenant_id and company_domain.'

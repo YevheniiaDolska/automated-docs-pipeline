@@ -11,7 +11,7 @@
       "intent": "troubleshoot",
       "audience": "support",
       "channel": "docs",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n## Troubleshooting\n\nProblem \u2192 cause \u2192 solution. Start here when something breaks."
+      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n## Troubleshooting\n\nProblem \u2192 cause \u2192 solution. Start here when something breaks."
     },
     {
       "module_id": "auto-webhook-not-firing-1",
@@ -20,7 +20,7 @@
       "intent": "troubleshoot",
       "audience": "support",
       "channel": "docs",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n## Fix: Webhook trigger not firing\n\nThe Webhook node does not respond to incoming HTTP requests. The sender receives a timeout, connection refused, or 404 error.\n\n## Cause 1: Using Test URL with an inactive editor\n\n**Symptom:** Requests to the Test URL return a timeout or 404 after you close the editor tab.\n\n**Why:** The Test URL (`/webhook-test/<id>`) is only active while the workflow editor is open and the workflow is in Listening mode. Closing the browser tab deactivates it.\n\n**Fix:** Toggle the workflow to **Active** and use the **Production URL** (`/webhook/<id>`) instead. The Production URL remains active as long as the workflow is enabled.\n\n## Cause 2: Workflow not activated\n\n**Symptom:** Requests to the Production URL return 404 Not Found.\n\n**Why:** The Production URL only works when the workflow toggle is set to **Active** (green). An inactive workflow does not register its webhook endpoints.\n\n**Fix:** Open the workflow in the editor. Toggle the **Active** switch in the top-right corner. Verify the Production URL returns a response."
+      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n## Fix: Webhook trigger not firing\n\nThe Webhook node does not respond to incoming HTTP requests. The sender receives a timeout, connection refused, or 404 error.\n\n## Cause 1: Using Test URL with an inactive editor\n\n**Symptom:** Requests to the Test URL return a timeout or 404 after you close the editor tab.\n\n**Why:** The Test URL (`/webhook-test/<id>`) is only active while the workflow editor is open and the workflow is in Listening mode. Closing the browser tab deactivates it.\n\n**Fix:** Toggle the workflow to **Active** and use the **Production URL** (`/webhook/<id>`) instead. The Production URL remains active as long as the workflow is enabled.\n\n## Cause 2: Workflow not activated\n\n**Symptom:** Requests to the Production URL return 404 Not Found.\n\n**Why:** The Production URL only works when the workflow toggle is set to **Active** (green). An inactive workflow does not register its webhook endpoints.\n\n**Fix:** Open the workflow in the editor. Toggle the **Active** switch in the top-right corner. Verify the Production URL returns a response."
     },
     {
       "module_id": "auto-webhook-not-firing-2",

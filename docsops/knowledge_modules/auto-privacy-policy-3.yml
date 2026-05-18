@@ -14,28 +14,12 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-18'
+last_verified: '2026-05-11'
 dependencies: []
 tags:
 - auto-extracted
 - privacy-policy
 - reference
-metadata:
-  url: https://docs.example.com/legal/privacy-policy/
-  title: VeriDoc privacy policy (Part 3)
-  heading: LLM processing data
-  version: 1.50.0
-  updated_at: '2026-03-28T00:00:00Z'
-  source_site: docs.example.com
-  source_path: legal/privacy-policy.md
-semantic:
-  topic: LLM processing data
-  intent: integrate
-  audience: developer
-  keywords:
-  - privacy policy
-  - reference
-  status: rule_based
 content:
   docs_markdown: '### LLM processing data
 
@@ -66,7 +50,7 @@ content:
 
     infrastructure.'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    privacy policy (Part 3). Source path: legal/privacy-policy.md. Summary: Privacy
+    privacy policy (Part 3). Source path: docs/legal/privacy-policy.md. Summary: Privacy
     policy for VeriDoc automated documentation platform, covering data collection,
     processing, storage, retention, and your rights under GDPR.
 

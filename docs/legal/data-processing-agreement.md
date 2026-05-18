@@ -10,6 +10,10 @@ last_reviewed: '2026-03-28'
 original_author: Kroha
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 
 # VeriDoc data processing agreement
 

@@ -374,6 +374,68 @@ git commit -m "docs-ops: update Ask AI configuration"
 - [Assemble intent experiences](./assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
+### VeriDoc data processing agreement (Part 4)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+1. **Process only on your instructions.** We process personal data solely
+   to provide the Service as documented in these Terms and this DPA. We do
+   not process data for our own purposes.
+1. **Confidentiality.** All personnel with access to personal data are
+   bound by confidentiality obligations.
+1. **Security measures.** We implement technical and organizational
+   measures as described in the [security policy](security-policy.md):
+   - TLS 1.3 encryption for all data in transit
+   - AES-256 encryption for all data at rest
+   - PBKDF2-SHA256 password hashing (600,000 iterations)
+   - Daily encrypted database backups with 30-day retention
+   - Rate limiting (60 requests per minute)
+   - Sentry error tracking with PII scrubbing
+1. **Sub-processor management.** We maintain an up-to-date list of
+   sub-processors and notify you 30 days before adding new ones.
+1. **Data subject rights.** We assist you in responding to data subject
+   requests (access, deletion, portability) within 10 business days.
+1. **Breach notification.** We notify you within 72 hours of discovering
+   a personal data breach, with details on the nature, scope, and
+   remediation steps.
+1. **Audit rights.** You may request an audit of our data processing
+   activities once per year with 30 days advance notice.
+1. **Data return and deletion.** Upon termination, we return your data
+   in a standard format (JSON export) and delete all copies within 30 days.
+
+### VeriDoc data processing agreement (Part 5)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+#### VeriDoc data processing agreement (Part 5): Sub-processors
+
+We use the following sub-processors:
+
+| Sub-processor | Purpose | Location | Data processed |
+|---------------|---------|----------|----------------|
+| Hetzner Online | Cloud infrastructure hosting | Germany (EU) | All application data (encrypted) |
+| LemonSqueezy | Payment processing | United States | Email, subscription tier |
+| Mailgun | Transactional email delivery | United States | Email address, email content |
+| Sentry | Error monitoring | United States | Error context (PII scrubbed) |
+
+##### VeriDoc data processing agreement (Part 5): Optional LLM sub-processors (opt-in only)
+
+These sub-processors are engaged only when you explicitly enable AI
+features:
+
+| Sub-processor | Purpose | Location | Data processed |
+|---------------|---------|----------|----------------|
+| Anthropic | Document quality enhancement | United States | Document sections |
+| Groq | Text generation | United States | Document sections |
+| DeepSeek | Text generation | China | Document sections |
+| OpenAI | Embeddings, text generation | United States | Document sections |
+
+You control which LLM providers are used through your pipeline
+configuration. Disable AI features to prevent any content from reaching
+LLM sub-processors.
+
+#### VeriDoc data processing agreement (Part 5): Data transfers
+
 ### GRAPHQL API Reference (Part 3)
 
 Auto-generated graphql reference from source contract.
@@ -435,7 +497,6 @@ Auto-generated grpc reference from source contract.
   <label>Payload (JSON)</label><br/><textarea id="grpc-payload" rows="8" style="width:100%; font-family:monospace;">{
   "name": "world"
 }</textarea><br/>
-  <!-- vale on -->
   <button id="grpc-run">Invoke</button>
   <pre id="grpc-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
@@ -476,22 +537,6 @@ run.onclick = async function(){
 };
 })();
 </script>
-
-### Documentation Pipeline Demo (Part 2)
-
-Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.
-
-#### Documentation Pipeline Demo (Part 2): Browse by type
-
-- **[Getting Started](getting-started/index.md)**—Tutorials to learn from scratch
-- **[How-To Guides](how-to/index.md)**—Step-by-step solutions for specific tasks
-- **[Concepts](concepts/index.md)**—Architecture and design explanations
-- **[Reference](reference/index.md)**—Complete parameter and API docs
-- **[Troubleshooting](troubleshooting/index.md)**—Common problems and fixes
-
-#### Documentation Pipeline Demo (Part 2): Browse by tag
-
-See all [tags](tags.md) for faceted filtering.
 
 ### Migrate documentation from Confluence (Part 5)
 
@@ -818,7 +863,7 @@ private_tuning:
 
 ```
 
-###### Operator Runbook (Retainer Operations) (Part 17): Add protocols (Enterprise only)
+###### Operator Runbook (Retainer Operations) (Part 17): Add protocols (Professional/Enterprise)
 
 ```yaml
 
@@ -856,50 +901,14 @@ Plan tiers control which features are available:
 | KPI/SLA reports | No | Yes | Yes |
 | Test assets generation | No | Yes | Yes |
 | Consolidated reports | No | Yes | Yes |
-| All 5 protocols | No | No | Yes |
-| Knowledge modules + RAG | No | No | Yes |
-| Knowledge graph | No | No | Yes |
+| All 5 protocols | No | Yes | Yes |
+| Knowledge modules (RAG prep) | No | Yes | Yes |
+| Knowledge graph (RAG prep) | No | Yes | Yes |
 | FAISS retrieval | No | No | Yes |
-| Executive audit PDF | No | No | Yes |
-| i18n system | No | No | Yes |
-| Custom policy packs | No | No | Yes |
-| TestRail/Zephyr upload | No | No | Yes |
-
-### Operator Runbook (Retainer Operations) (Part 20)
-
-Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
-
-##### Operator Runbook (Retainer Operations) (Part 20): What happens without a license
-
-The pipeline runs in **community mode** (degraded):
-
-- Markdown lint works (no quality scoring)
-- Frontmatter validation works (no quality scoring)
-- SEO/GEO report only (no auto-fix, no scoring)
-- Gap detection code-only (no community/search sources)
-- REST protocol only
-- No PDF reports, no KPI wall, no drift detection
-- Quality gates warn-only (never block)
-
-##### Operator Runbook (Retainer Operations) (Part 20): License file location
-
-License JWT is stored at `<client-repo>/docsops/license.jwt`. The public key for verification is at `<client-repo>/docsops/keys/veriops-licensing.pub`.
-
-##### Operator Runbook (Retainer Operations) (Part 20): Dev/test bypass
-
-For local development and testing, set the environment variable:
-
-```bash
-
-export VERIOPS_LICENSE_PLAN=enterprise
-
-```
-
-This bypasses JWT validation entirely.
-
----
-
-#### Operator Runbook (Retainer Operations) (Part 20): Troubleshooting
+| Executive audit PDF | No | Yes | Yes |
+| i18n system | No | Yes | Yes |
+| Custom policy packs | No | Yes | Yes |
+| TestRail/Zephyr upload | No | Yes | Yes |
 
 ### Operator Runbook (Retainer Operations) (Part 21)
 
@@ -992,11 +1001,11 @@ The LLM reads the consolidated report and generates/updates documentation based 
 
 **When:** Client asks about their documentation health, a specific report number, or how to adjust pipeline behavior.
 
-### Pipeline Capabilities Catalog (Part 10)
+### Pipeline Capabilities Catalog (Part 11)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 10): Test assets generation and smart merge
+#### Pipeline Capabilities Catalog (Part 11): Test assets generation and smart merge
 
 `generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
 
@@ -1016,11 +1025,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
 
-### Pipeline Capabilities Catalog (Part 14)
+### Pipeline Capabilities Catalog (Part 15)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 14): API-first external sandbox note
+#### Pipeline Capabilities Catalog (Part 15): API-first external sandbox note
 
 For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
 
@@ -1041,7 +1050,7 @@ For Postman auto-prepare mode, provide:
 - optional `POSTMAN_COLLECTION_UID` (if empty, pipeline imports collection from generated OpenAPI)
 - optional `POSTMAN_MOCK_SERVER_ID`
 
-#### Pipeline Capabilities Catalog (Part 14): PR auto-doc workflow capability
+#### Pipeline Capabilities Catalog (Part 15): PR auto-doc workflow capability
 
 Enable in client profile with `runtime.pr_autofix`.
 
@@ -1053,11 +1062,11 @@ Installed workflow behavior:
 1. Commit generated docs into the same PR branch.
 1. Rerun checks automatically.
 
-### Pipeline Capabilities Catalog (Part 15)
+### Pipeline Capabilities Catalog (Part 16)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 15): Templates
+#### Pipeline Capabilities Catalog (Part 16): Templates
 
 These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 
@@ -1094,7 +1103,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `templates/user-guide.md`
 - `templates/webhooks-guide.md`
 
-#### Pipeline Capabilities Catalog (Part 15): Policy Packs
+#### Pipeline Capabilities Catalog (Part 16): Policy Packs
 
 - `api-first.yml`
 - `minimal.yml`
@@ -1102,7 +1111,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `multi-product.yml`
 - `plg.yml`
 
-#### Pipeline Capabilities Catalog (Part 15): Knowledge Modules
+#### Pipeline Capabilities Catalog (Part 16): Knowledge Modules
 
 Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
 
@@ -1151,7 +1160,7 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
 | `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
-| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia and optionally apply advanced settings, synonyms, rules, and replicas from config. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
 | `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
@@ -1171,7 +1180,50 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 8): Multi-protocol contract pipeline
+#### Pipeline Capabilities Catalog (Part 8): Algolia advanced auto-optimization
+
+When `runtime.integrations.algolia.enabled=true`, the provisioning and weekly flows support advanced zero-manual search optimization.
+
+**Provisioning behavior (`provision_client_repo.py`):**
+
+1. Generates `config/algolia.search.yml` if missing (settings, synonyms, rules, replicas).
+1. Generates search widget helper script.
+1. If credentials exist, auto-bootstraps Algolia index (records + advanced config apply).
+
+**Weekly behavior (`run_weekly_gap_batch.py`):**
+
+1. Builds Algolia records from docs via `seo_geo_optimizer.py --algolia`.
+1. Uploads records with `upload_to_algolia.py`.
+1. Passes advanced config path and applies advanced settings automatically when enabled.
+
+**Runtime configuration keys:**
+
+```yaml
+
+runtime:
+  integrations:
+    algolia:
+      enabled: true
+      docs_dir: docs
+      report_output: reports/seo-report.json
+      upload_on_weekly: true
+      advanced_config_path: config/algolia.search.yml
+      apply_advanced_settings_on_upload: true
+      auto_optimize_on_provision: true
+      ab_test_replica_suffix: docs_ab_variant
+
+```
+
+**Uploader flags (`upload_to_algolia.py`):**
+
+- `--advanced-config <path>`: load YAML/JSON with `settings`, `synonyms`, `rules`, and `replicas`.
+- `--apply-advanced`: enable application of advanced objects in addition to records upload.
+
+### Pipeline Capabilities Catalog (Part 9)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 9): Multi-protocol contract pipeline
 
 The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback.
 
@@ -1488,6 +1540,102 @@ private_tuning:
 
 ```
 
+### VeriDoc privacy policy (Part 2)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 2): Usage data
+
+When you use the Service, we automatically collect:
+
+| Data field | Purpose | Retention |
+|------------|---------|-----------|
+| Pipeline run metadata | Usage tracking, quota enforcement | 90 days |
+| API request logs | Rate limiting, debugging, abuse prevention | 30 days |
+| Error reports (Sentry) | Bug fixing, reliability improvement | 90 days |
+| Authentication tokens | Session management | Token expiry (24 hours) |
+
+##### VeriDoc privacy policy (Part 2): Documentation content
+
+When you process documentation through the pipeline:
+
+1. Your content is processed in memory during pipeline execution.
+1. Generated outputs (processed Markdown, reports, knowledge modules) are
+   stored in encrypted PostgreSQL databases.
+1. We do not read, analyze, or use your documentation content for any
+   purpose other than providing the Service.
+1. We do not use your content to train machine learning models.
+
+### VeriDoc privacy policy (Part 5)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 5): Security measures
+
+1. All API communication uses TLS 1.3 encryption.
+1. Passwords are hashed with PBKDF2-SHA256 (600,000 iterations).
+1. JWT authentication tokens expire after 24 hours.
+1. Database backups run daily with 30-day retention and automated restore
+   testing.
+1. Error tracking uses Sentry with PII scrubbing enabled.
+1. Rate limiting enforces 60 requests per minute per user.
+
+#### VeriDoc privacy policy (Part 5): Data retention
+
+| Data type | Retention period | Deletion trigger |
+|-----------|-----------------|------------------|
+| Account data | Account lifetime + 30 days | Account closure |
+| Billing records | 7 years (legal requirement) | Statutory expiry |
+| Pipeline outputs | Account lifetime + 30 days | Account closure |
+| API logs | 30 days | Automatic rotation |
+| Error reports | 90 days | Automatic rotation |
+| Backups | 30 days | Automatic rotation |
+
+After account closure, we retain data for 30 days to allow you to
+reactivate or export. After 30 days, all personal data is permanently
+deleted.
+
+### VeriDoc privacy policy (Part 6)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+#### VeriDoc privacy policy (Part 6): Your rights
+
+Under GDPR and applicable data protection laws, you have the right to:
+
+| Right | How to exercise |
+|-------|-----------------|
+| **Access** your data | Email <privacy@veri-doc.app> or use the API export endpoint |
+| **Correct** inaccurate data | Update your profile in account settings |
+| **Delete** your data | Close your account or email <privacy@veri-doc.app> |
+| **Export** your data | Use the API data export endpoint or email <privacy@veri-doc.app> |
+| **Restrict** processing | Email <privacy@veri-doc.app> |
+| **Object** to processing | Email <privacy@veri-doc.app> |
+| **Withdraw consent** | Disable AI features or close your account |
+
+We respond to data rights requests within 30 days.
+
+#### VeriDoc privacy policy (Part 6): Cookies and tracking
+
+The VeriDoc web application uses only essential cookies for session
+management. We do not use:
+
+1. Third-party analytics cookies
+1. Advertising cookies
+1. Social media tracking pixels
+1. Cross-site tracking
+
+#### VeriDoc privacy policy (Part 6): Third-party processors
+
+We share data with these processors solely for service delivery:
+
+| Processor | Purpose | Data shared |
+|-----------|---------|-------------|
+| LemonSqueezy | Payment processing | Email, subscription tier |
+| Hetzner | Infrastructure hosting | Encrypted application data |
+| Sentry | Error tracking | Error context (PII scrubbed) |
+| Mailgun | Transactional email delivery | Email address, email content |
+
 ### Run API-first production flow (Part 2)
 
 Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.
@@ -1580,6 +1728,66 @@ Open `reports/api-test-assets/api_test_cases.json` and append a case to the `cas
 ```
 
 Set `origin` to `manual` and leave `spec_hash` empty. The merge engine never overwrites or drops manual cases.
+
+### VeriDoc security policy (Part 5)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 5): Monitoring
+
+| System | Purpose | Alert threshold |
+|--------|---------|-----------------|
+| Health checks | Service availability | 2 consecutive failures (every 5 minutes) |
+| Sentry | Error tracking | Real-time error capture |
+| Log rotation | Log management | Daily rotation, 30-day retention |
+| Latency monitoring | Performance tracking | Warning at 2,000 ms, critical at 5,000 ms |
+
+##### VeriDoc security policy (Part 5): Incident response procedure
+
+| Phase | Timeline | Actions |
+|-------|----------|---------|
+| **Detection** | Automated | Health check alerts via email within 10 minutes of failure |
+| **Triage** | Within 1 hour | Assess severity, identify root cause |
+| **Containment** | Within 2 hours | Isolate affected systems, prevent data loss |
+| **Resolution** | Within 4 hours (critical) | Restore service, deploy fix |
+| **Notification** | Within 72 hours | Notify affected customers per DPA obligations |
+| **Post-mortem** | Within 7 days | Document root cause, implement preventive measures |
+
+### VeriDoc security policy (Part 6)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 6): Severity levels
+
+| Level | Definition | Response time | Example |
+|-------|------------|---------------|---------|
+| **Critical** | Service down, data at risk | 1 hour | Database corruption, security breach |
+| **High** | Feature degraded, no data risk | 4 hours | API errors, slow response times |
+| **Medium** | Minor issue, workaround available | 24 hours | Non-critical feature bug |
+| **Low** | Cosmetic or documentation issue | 72 hours | UI display issue |
+
+#### VeriDoc security policy (Part 6): Vulnerability management
+
+1. **Dependency scanning.** Python dependencies are reviewed weekly for
+   known vulnerabilities using `pip-audit`.
+1. **OS patching.** Security patches are applied within 48 hours of
+   release.
+1. **Container updates.** Docker base images are rebuilt monthly with
+   latest security patches.
+1. **Penetration testing.** External penetration testing is conducted
+   annually.
+
+#### VeriDoc security policy (Part 6): Responsible disclosure
+
+If you discover a security vulnerability in VeriDoc:
+
+1. Email <security@veri-doc.app> with a description of the vulnerability.
+1. Include steps to reproduce the issue.
+1. Allow 90 days for remediation before public disclosure.
+1. Do not access or modify other users' data during testing.
+
+We do not pursue legal action against security researchers who follow
+responsible disclosure practices.
 
 ### SEO/GEO Optimization Guide (Part 3)
 
@@ -1887,7 +2095,7 @@ Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-ou
 Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.
 
 <!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
 ### TaskStream API planning notes: TaskStream API planning notes
@@ -2515,13 +2723,11 @@ Auto-generated websocket reference from source contract.
 <!-- vale off -->
 <div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
-  <!-- vale off -->
-<textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
   "type": "subscribe",
   "request_id": "req_001",
   "payload": {"channel": "project.updated", "filters": {"project_id": "prj_abc123"}}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="websocket-send">Connect + Send</button>
   <pre id="websocket-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>

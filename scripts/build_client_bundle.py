@@ -341,6 +341,10 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                     "index_name_default": "docs",
                     "site_generator": "mkdocs",
                     "generate_search_widget": True,
+                    "advanced_config_path": "config/algolia.search.yml",
+                    "apply_advanced_settings_on_upload": True,
+                    "auto_optimize_on_provision": True,
+                    "ab_test_replica_suffix": "docs_ab_variant",
                 },
                 "ask_ai": {
                     "enabled": False,
@@ -665,7 +669,7 @@ def build_automation_files(profile: dict[str, Any], bundle_root: Path) -> None:
     hh, mm = time_24h.split(":")
     cron_day = _cron_day_to_number(day)
     client_id = str(profile.get("client", {}).get("id", "client")).strip()
-    task_name = f"VeriOpsWeekly-{client_id}"
+    task_name_prefix = f"VeriOpsWeekly-{client_id}"
     llm_control = profile.get("runtime", {}).get("llm_control", {})
     if not isinstance(llm_control, Mapping):
         llm_control = {}
@@ -726,20 +730,26 @@ while ($true) {{
     install_cron = f"""#!/usr/bin/env bash
 set -euo pipefail
 REPO_ROOT=\"$(cd \"$(dirname \"${{BASH_SOURCE[0]}}\")/../..\" && pwd)\"
-MARKER=\"# docsops-weekly-{client_id}\"
+REPO_SLUG=\"$(basename \"$REPO_ROOT\" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-')\"
+MARKER=\"# docsops-weekly-{client_id}-$REPO_SLUG\"
 LINE=\"{int(mm)} {int(hh)} * * {cron_day} cd '$REPO_ROOT' && bash {docsops_root}/ops/run_weekly_docsops.sh >> '$REPO_ROOT/reports/docsops-weekly.log' 2>&1 $MARKER\"
 (crontab -l 2>/dev/null | grep -v \"$MARKER\"; echo \"$LINE\") | crontab -
-echo \"Installed weekly cron for {task_name} at {day} {time_24h}\"
+echo \"Installed weekly cron for {task_name_prefix}-$REPO_SLUG at {day} {time_24h}\"
 """
     install_windows = f"""$ErrorActionPreference = \"Stop\"
-$TaskName = \"{task_name}\"
+$TaskNamePrefix = \"{task_name_prefix}\"
+$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot \"..\\..\")).Path
+$RepoLeaf = Split-Path -Path $RepoRoot -Leaf
+$RepoSlug = ($RepoLeaf.ToLower() -replace '[^a-z0-9]+', '-').Trim('-')
+if (-not $RepoSlug) {{ $RepoSlug = \"repo\" }}
+$TaskName = \"$TaskNamePrefix-$RepoSlug\"
 $ScriptPath = (Resolve-Path (Join-Path $PSScriptRoot \"run_weekly_docsops.ps1\")).Path
 $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoProfile -ExecutionPolicy Bypass -File `\"$ScriptPath`\"\"\n"""
     install_windows += (
         f"$Trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek {day.capitalize()} -At \"{time_24h}\"\n"
-        "$Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel LeastPrivilege\n"
+        "$Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited\n"
         "Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Principal $Principal -Force | Out-Null\n"
-        f"Write-Host \"Installed Task Scheduler job: {task_name} ({day} {time_24h})\"\n"
+        f"Write-Host \"Installed Task Scheduler job: $TaskName ({day} {time_24h})\"\n"
     )
 
     (ops_dir / "run_weekly_docsops.sh").write_text(run_sh, encoding="utf-8")

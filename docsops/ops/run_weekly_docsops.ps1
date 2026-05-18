@@ -13,9 +13,9 @@ if (Test-Path ".env.docsops.local") {
 }
 while ($true) {
   if (Get-Command py -ErrorAction SilentlyContinue) {
-    py -3 "docsops/scripts/run_weekly_gap_batch.py" --docsops-root "docsops" --reports-dir "reports" --since 7
+    py -3 "docsops/scripts/run_autopipeline.py" --docsops-root "docsops" --reports-dir "reports" --since 7 --runtime-config "docsops/config/client_runtime.yml" --mode "operator" --auto-generate --local-engine "auto"
   } else {
-    python "docsops/scripts/run_weekly_gap_batch.py" --docsops-root "docsops" --reports-dir "reports" --since 7
+    python "docsops/scripts/run_autopipeline.py" --docsops-root "docsops" --reports-dir "reports" --since 7 --runtime-config "docsops/config/client_runtime.yml" --mode "operator" --auto-generate --local-engine "auto"
   }
   if ($LASTEXITCODE -eq 0) {
     break
