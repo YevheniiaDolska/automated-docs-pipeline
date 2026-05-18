@@ -3,8 +3,8 @@
     {
       "objectID": "e69add76d0c538f8137cc2931a4569b6",
       "title": "ASYNCAPI API Reference",
-      "heading": "ASYNCAPI Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -32,13 +32,50 @@
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "14a7de85b3797e8bf8e8dafad853e7ca",
+      "title": "ASYNCAPI API Reference",
+      "heading": "ASYNCAPI Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
+      "description": "Auto-generated asyncapi reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/assets/protocols/asyncapi/asyncapi-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
+      "ranking_boost": 0,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "14a7de85b3797e8bf8e8dafad853e7ca",
+      "objectID": "fb2af2059d4146e00b7776fad59c34ea",
       "title": "ASYNCAPI API Reference",
       "heading": "Top-level Keys",
       "content": "- asyncapi - channels - info ",
@@ -65,7 +102,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#1",
+      "url": "/assets/protocols/asyncapi/asyncapi-api#2",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
@@ -75,7 +112,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "fb2af2059d4146e00b7776fad59c34ea",
+      "objectID": "6f0f51e59f6bb9bb30400b69f438dd8e",
       "title": "ASYNCAPI API Reference",
       "heading": "Channels",
       "content": "- Channel count: 1 - orders/created ",
@@ -102,7 +139,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#2",
+      "url": "/assets/protocols/asyncapi/asyncapi-api#3",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
@@ -112,7 +149,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6f0f51e59f6bb9bb30400b69f438dd8e",
+      "objectID": "ec9eb14374abd57a39846e97ece5a55a",
       "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
       "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <!-- vale off --> <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <!-- vale on -->   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.get",
@@ -139,7 +176,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#3",
+      "url": "/assets/protocols/asyncapi/asyncapi-api#4",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
@@ -149,7 +186,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ec9eb14374abd57a39846e97ece5a55a",
+      "objectID": "1be6142a3ed145d64f0811053448a66a",
       "title": "ASYNCAPI API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -176,7 +213,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#4",
+      "url": "/assets/protocols/asyncapi/asyncapi-api#5",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
@@ -188,8 +225,8 @@
     {
       "objectID": "12829d221ea8193a1371559296d85f30",
       "title": "GRAPHQL API Reference",
-      "heading": "GRAPHQL Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql Flow mode: api-first ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -217,13 +254,50 @@
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "2a29e101676312ba8c5d0141e7ef017f",
+      "title": "GRAPHQL API Reference",
+      "heading": "GRAPHQL Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql Flow mode: api-first ",
+      "description": "Auto-generated graphql reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Kroha",
+        "Docs",
+        "Users",
+        "Development",
+        "Mnt",
+        "C",
+        "Auto Doc Pipeline",
+        "Documents"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/assets/protocols/graphql/graphql-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/assets/protocols/graphql/graphql-api.md",
+      "ranking_boost": 0,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "2a29e101676312ba8c5d0141e7ef017f",
+      "objectID": "6f3bd96ba785fda87749ae0a9753caca",
       "title": "GRAPHQL API Reference",
       "heading": "Operations",
       "content": "- Query count: 1 - Mutation count: 0 - Subscription count: 0 - Queries: health ",
@@ -250,7 +324,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/graphql/graphql-api#1",
+      "url": "/assets/protocols/graphql/graphql-api#2",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
@@ -260,7 +334,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6f3bd96ba785fda87749ae0a9753caca",
+      "objectID": "2910743634954b458ff0f8227ef7f44d",
       "title": "GRAPHQL API Reference",
       "heading": "Interactive GraphQL Playground",
       "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; function normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase(); } function fallback(queryText){   const q = normalize(queryTex",
@@ -287,7 +361,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/graphql/graphql-api#2",
+      "url": "/assets/protocols/graphql/graphql-api#3",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
@@ -297,7 +371,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2910743634954b458ff0f8227ef7f44d",
+      "objectID": "7821ff31eb6aae9f7a80047b6af695a4",
       "title": "GRAPHQL API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -324,7 +398,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/graphql/graphql-api#3",
+      "url": "/assets/protocols/graphql/graphql-api#4",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
@@ -336,8 +410,8 @@
     {
       "objectID": "3ecafa1dd982d962776ee1e03c3467d1",
       "title": "GRPC API Reference",
-      "heading": "GRPC Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/proto Flow mode: api-first ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -362,13 +436,47 @@
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "2b67278f4f529336ba1cafb7df26eb5b",
+      "title": "GRPC API Reference",
+      "heading": "GRPC Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/proto Flow mode: api-first ",
+      "description": "Auto-generated grpc reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2641",
+        "Pytest Of Eudo",
+        "Docs"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/assets/protocols/grpc/grpc-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/assets/protocols/grpc/grpc-api.md",
+      "ranking_boost": 0,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "2b67278f4f529336ba1cafb7df26eb5b",
+      "objectID": "08038cc3ef47658630b0737dd4cc33e2",
       "title": "GRPC API Reference",
       "heading": "Service Methods",
       "content": "- RPC method count: 4 - AutoDocPipelineService.CreateProject - AutoDocPipelineService.GetProject - AutoDocPipelineService.ListProjects - AutoDocPipelineService.UpdateProject ",
@@ -392,7 +500,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/grpc/grpc-api#1",
+      "url": "/assets/protocols/grpc/grpc-api#2",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
@@ -402,7 +510,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "08038cc3ef47658630b0737dd4cc33e2",
+      "objectID": "403b563cdd26b44964942d6f6d4de687",
       "title": "GRPC API Reference",
       "heading": "Interactive gRPC Tester",
       "content": "This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser. <div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>   <label>Service</label><br/><input id=\"grpc-service\" style=\"width:100%\" placeholder=\"GreeterService\"/><br/>   <label>Method</label><br/><input id=\"grpc-method\" style=\"width:100%\" placeholder=\"SayHello\"/><br/>   <label>Payload (JSON)</label><br/><textarea id=\"grpc-payload\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"name\": \"world\" }</textarea><br/>   <button id=\"grpc-run\">Invoke</button>   <pre id=\"grpc-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('grpc-endpoint-view'); const run = document.getElementById('grpc-run'); const service = document.getElementById",
@@ -426,7 +534,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/grpc/grpc-api#2",
+      "url": "/assets/protocols/grpc/grpc-api#3",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
@@ -436,7 +544,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "403b563cdd26b44964942d6f6d4de687",
+      "objectID": "bb0af8ba6cce5ab0443b05cc2a3b4617",
       "title": "GRPC API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -460,7 +568,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/grpc/grpc-api#3",
+      "url": "/assets/protocols/grpc/grpc-api#4",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
@@ -473,7 +581,7 @@
       "objectID": "979122dc0d84e14cc0e21d52790ec430",
       "title": "REST API Reference",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated rest reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -632,8 +740,8 @@
     {
       "objectID": "42f5f1afb4ed82323fd28299e0fb3b38",
       "title": "WEBSOCKET API Reference",
-      "heading": "WEBSOCKET Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/websocket.yaml Flow mode: api-first ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -658,13 +766,47 @@
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "b3ea3f6b2468585647a8d6b50e7fcd60",
+      "title": "WEBSOCKET API Reference",
+      "heading": "WEBSOCKET Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/websocket.yaml Flow mode: api-first ",
+      "description": "Auto-generated websocket reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Pytest 2641",
+        "Pytest Of Eudo",
+        "Docs",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/assets/protocols/websocket/websocket-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/assets/protocols/websocket/websocket-api.md",
+      "ranking_boost": 0,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "b3ea3f6b2468585647a8d6b50e7fcd60",
+      "objectID": "7b06253a44d801c1ff1c5b912c21b7b7",
       "title": "WEBSOCKET API Reference",
       "heading": "Top-level Keys",
       "content": "- channels - info ",
@@ -688,7 +830,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#1",
+      "url": "/assets/protocols/websocket/websocket-api#2",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -698,7 +840,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "7b06253a44d801c1ff1c5b912c21b7b7",
+      "objectID": "c38c7b42eba482fb7d8fa7d237b92339",
       "title": "WEBSOCKET API Reference",
       "heading": "Channels/Events",
       "content": "- Channel count: 1 - project.updated ",
@@ -722,7 +864,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#2",
+      "url": "/assets/protocols/websocket/websocket-api#3",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -732,7 +874,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c38c7b42eba482fb7d8fa7d237b92339",
+      "objectID": "2d1635372b8172dd898cbebe98ed8cd3",
       "title": "WEBSOCKET API Reference",
       "heading": "Interactive WebSocket Tester",
       "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <!-- vale off --> <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <!-- vale on -->   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('we",
@@ -756,7 +898,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#3",
+      "url": "/assets/protocols/websocket/websocket-api#4",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -766,7 +908,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2d1635372b8172dd898cbebe98ed8cd3",
+      "objectID": "19a9977635049ad315c5d3613c4d99c7",
       "title": "WEBSOCKET API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -790,7 +932,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#4",
+      "url": "/assets/protocols/websocket/websocket-api#5",
       "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -803,7 +945,7 @@
       "objectID": "5967f94058d349ffb25ef1f070d79c85",
       "title": "Concepts and Architecture",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Explanations of internals: workflow execution model, data flow, credential management, and security architecture.",
       "product": "both",
       "content_type": "concept",
@@ -867,7 +1009,7 @@
       "objectID": "55282fc7b4c8cb0fa404a35b63981e47",
       "title": "Intelligent knowledge system architecture",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Explains how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.",
       "product": "both",
       "content_type": "concept",
@@ -1251,7 +1393,7 @@
       "objectID": "17b48dec4d3d3b5786ec000b310bebab",
       "title": "Workflow execution model",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "The workflow engine processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain.",
       "product": "both",
       "content_type": "concept",
@@ -1548,7 +1690,7 @@
       "objectID": "b4cddc40cbe32449b985ead3af0b36c7",
       "title": "Set up a real-time webhook processing pipeline",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
       "product": "both",
       "content_type": "how-to",
@@ -2178,7 +2320,7 @@
       "objectID": "a46db7d0fa6c155b4276e95137436e8c",
       "title": "Getting Started",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Step-by-step tutorials to help you build your first workflow, from installation through your first automation.",
       "product": "both",
       "content_type": "tutorial",
@@ -2242,7 +2384,7 @@
       "objectID": "5afb27b317b5a6aef6e60a7d31b52c45",
       "title": "Build your first workflow in 5 minutes",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required.",
       "product": "both",
       "content_type": "tutorial",
@@ -2539,7 +2681,7 @@
       "objectID": "ce2fe638167459e990e33e353d6c68db",
       "title": "Assemble intent experiences",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.",
       "product": "both",
       "content_type": "how-to",
@@ -2891,7 +3033,7 @@
       "objectID": "dc3632171327b1a6ed87aee9f4dbb53b",
       "title": "Configure Ask AI module",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.",
       "product": "both",
       "content_type": "how-to",
@@ -3275,7 +3417,7 @@
       "objectID": "7cb1eea1a19acc655cb95966f778dc95",
       "title": "Configure webhook triggers",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
       "product": "both",
       "content_type": "how-to",
@@ -3593,7 +3735,7 @@
       "objectID": "c1851fa393138f361be5e04d91868c52",
       "title": "How-To Guides for",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Step-by-step guides for specific tasks including webhook configuration, error handling, and API integration.",
       "product": "both",
       "content_type": "how-to",
@@ -3657,7 +3799,7 @@
       "objectID": "02d69d39241d33ba6ab339edd6db5731",
       "title": "Install Ask AI runtime pack",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -4044,8 +4186,8 @@
     {
       "objectID": "82ce282d7e5fb1ad11be1c3fa51f928a",
       "title": "Migrate documentation from Confluence",
-      "heading": "Migrate documentation from Confluence",
-      "content": "The Confluence migration tool imports Confluence pages into pipeline-ready Markdown with automatic frontmatter, heading hierarchy, SEO/GEO optimization, and knowledge module extraction. It supports two import methods: REST API (direct) and ZIP export (offline). ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.",
       "product": "both",
       "content_type": "how-to",
@@ -4066,13 +4208,43 @@
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e039373e9f357b097140a64e4738a5ff",
+      "title": "Migrate documentation from Confluence",
+      "heading": "Migrate documentation from Confluence",
+      "content": "The Confluence migration tool imports Confluence pages into pipeline-ready Markdown with automatic frontmatter, heading hierarchy, SEO/GEO optimization, and knowledge module extraction. It supports two import methods: REST API (direct) and ZIP export (offline). ",
+      "description": "Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/migrate-from-confluence#1",
+      "last_reviewed": "2026-03-28",
+      "path": "docs/how-to/migrate-from-confluence.md",
+      "ranking_boost": 6,
       "heading_level": 1,
       "word_count": 33,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "e039373e9f357b097140a64e4738a5ff",
+      "objectID": "8f941cf0bbfcef9b8db3c6b3851e891a",
       "title": "Migrate documentation from Confluence",
       "heading": "Before you begin",
       "content": "Verify you have the following before starting the migration: - Python 3.10 or higher installed - The documentation pipeline cloned and dependencies installed - For REST API mode: a Confluence API token (Cloud) or Personal Access Token   (Server/Data Center) - For ZIP export mode: a Confluence HTML+XML export ZIP file - Sufficient disk space for imported Markdown and attachments ",
@@ -4092,7 +4264,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#1",
+      "url": "/how-to/migrate-from-confluence#2",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4102,7 +4274,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8f941cf0bbfcef9b8db3c6b3851e891a",
+      "objectID": "e86767d0fdca2de7e60952704bc368bd",
       "title": "Migrate documentation from Confluence",
       "heading": "Choose a migration method",
       "content": "The pipeline provides two ways to import Confluence content: | Method | Best for | Requirements | | --- | --- | --- | | REST API | Ongoing sync, selective spaces, incremental updates | API token, network access to Confluence | | ZIP export | One-time migration, air-gapped environments, full space backup | Admin access to export from Confluence | ",
@@ -4122,7 +4294,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#2",
+      "url": "/how-to/migrate-from-confluence#3",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4132,7 +4304,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e86767d0fdca2de7e60952704bc368bd",
+      "objectID": "d260149b7e67e7b54226ab079aba7b64",
       "title": "Migrate documentation from Confluence",
       "heading": "Method 1: Import with REST API",
       "content": "REST API mode connects directly to your Confluence instance, fetches pages, and converts them to Markdown. It supports both Confluence Cloud (API v2) and Server/Data Center (API v1). ",
@@ -4152,7 +4324,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#3",
+      "url": "/how-to/migrate-from-confluence#4",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4162,7 +4334,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d260149b7e67e7b54226ab079aba7b64",
+      "objectID": "5063837ccae4f920ef0f0ce19404ca38",
       "title": "Migrate documentation from Confluence",
       "heading": "Step 1: Create an API token",
       "content": "=== \"Cloud\"     1. Go to Atlassian API tokens     1. Select Create API token     1. Enter a label (for example, \"docs-migration\") and select Create     1. Copy the token value === \"Server/Data Center\"     1. Go to your profile in Confluence Server     1. Select Personal Access Tokens and then Create token     1. Enter a name and select Create     1. Copy the token value ",
@@ -4182,7 +4354,7 @@
         "lvl3": "Step 1: Create an API token",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#4",
+      "url": "/how-to/migrate-from-confluence#5",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4192,7 +4364,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "5063837ccae4f920ef0f0ce19404ca38",
+      "objectID": "e0be146ca28173a3f5437992bec3f7ff",
       "title": "Migrate documentation from Confluence",
       "heading": "Step 2: Identify space keys",
       "content": "Find the space keys you want to import. Space keys appear in Confluence URLs after /spaces/ or /display/. For example, in a URL like mycompany.atlassian.net/wiki/spaces/DEV/overview, the space key is DEV. ",
@@ -4212,7 +4384,7 @@
         "lvl3": "Step 2: Identify space keys",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#5",
+      "url": "/how-to/migrate-from-confluence#6",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4222,7 +4394,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e0be146ca28173a3f5437992bec3f7ff",
+      "objectID": "2172a14732f34d58269fff7d95ecd140",
       "title": "Migrate documentation from Confluence",
       "heading": "Step 3: Run the migration",
       "content": "=== \"Cloud\"     ``bash     python3 scripts/run_confluence_migration.py \\       --confluence-url https://mycompany.atlassian.net \\       --confluence-token YOUR_API_TOKEN \\       --confluence-username your-email@company.com \\       --space-keys DEV,OPS \\       --include-attachments     ` === \"Server/Data Center\"     `bash     python3 scripts/run_confluence_migration.py \\       --confluence-url https://confluence.internal.company.com \\       --confluence-token YOUR_PERSONAL_ACCESS_TOKEN \\       --space-keys DEV,OPS \\       --include-attachments     ` The --confluence-username` flag is required for Cloud (your Atlassian email address) but optional for Server/Data Center when using a Personal Access Token. ",
@@ -4242,7 +4414,7 @@
         "lvl3": "Step 3: Run the migration",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#6",
+      "url": "/how-to/migrate-from-confluence#7",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4255,7 +4427,7 @@
       ]
     },
     {
-      "objectID": "2172a14732f34d58269fff7d95ecd140",
+      "objectID": "6c0d6d7e83933b04783a808a3cae6c75",
       "title": "Migrate documentation from Confluence",
       "heading": "Incremental sync",
       "content": "After the initial import, use --incremental to fetch only pages modified since the last sync: python3 scripts/run_confluence_migration.py \\   --confluence-url https://mycompany.atlassian.net \\   --confluence-token YOUR_API_TOKEN \\   --confluence-username your-email@company.com \\   --space-keys DEV \\   --incremental The pipeline stores sync state in .confluence_sync_state.json at the repository root. This file tracks the last sync timestamp and page versions to determine which pages changed. ",
@@ -4275,7 +4447,7 @@
         "lvl3": "Incremental sync",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#7",
+      "url": "/how-to/migrate-from-confluence#8",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4285,7 +4457,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6c0d6d7e83933b04783a808a3cae6c75",
+      "objectID": "aa75b8728e2f21a69aa87d8b04105572",
       "title": "Migrate documentation from Confluence",
       "heading": "Method 2: Import from ZIP export",
       "content": "ZIP export mode processes a Confluence HTML+XML export file offline. Use this method when you do not have API access or need to migrate from an air-gapped environment. ",
@@ -4305,7 +4477,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#8",
+      "url": "/how-to/migrate-from-confluence#9",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4315,7 +4487,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "aa75b8728e2f21a69aa87d8b04105572",
+      "objectID": "6b58a334d8a80a278c7109be7dcc8ad4",
       "title": "Migrate documentation from Confluence",
       "heading": "Step 1: Export from Confluence",
       "content": "1. Open Confluence and go to the space you want to export 1. Select Space settings and then Content Tools and then Export 1. Choose XML export format 1. Select Full Export (includes all pages and attachments) 1. Wait for the export to complete and download the ZIP file ",
@@ -4335,7 +4507,7 @@
         "lvl3": "Step 1: Export from Confluence",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#9",
+      "url": "/how-to/migrate-from-confluence#10",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4345,7 +4517,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6b58a334d8a80a278c7109be7dcc8ad4",
+      "objectID": "fee0a20af1a802a515b840e4b2a94d4d",
       "title": "Migrate documentation from Confluence",
       "heading": "Step 2: Run the migration",
       "content": "python3 scripts/run_confluence_migration.py \\   --export-zip /path/to/confluence-export.zip ",
@@ -4365,7 +4537,7 @@
         "lvl3": "Step 2: Run the migration",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#10",
+      "url": "/how-to/migrate-from-confluence#11",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4375,7 +4547,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "fee0a20af1a802a515b840e4b2a94d4d",
+      "objectID": "affd53ac859ab2813291299e33e0b749",
       "title": "Migrate documentation from Confluence",
       "heading": "Customize the output directory",
       "content": "By default, imported Markdown files go to docs/imported/confluence/<timestamp>/. Override this with --output-dir: python3 scripts/run_confluence_migration.py \\   --export-zip /path/to/confluence-export.zip \\   --output-dir docs/imported/my-space ",
@@ -4395,7 +4567,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#11",
+      "url": "/how-to/migrate-from-confluence#12",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4405,7 +4577,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "affd53ac859ab2813291299e33e0b749",
+      "objectID": "0808ecf3d3c6e45f8dac975ee5c23ded",
       "title": "Migrate documentation from Confluence",
       "heading": "What happens after import",
       "content": "The migration pipeline runs 14 post-processing steps automatically: 1. Normalize check (before) -- detect formatting issues in imported    Markdown 1. SEO/GEO audit (before) -- baseline SEO/GEO score for imported content 1. Normalize fix -- fix list formatting, spacing, and section structure 1. Quality enhancement -- add frontmatter, fix heading hierarchy, fix    code blocks, replace variables 1. SEO/GEO fix -- auto-correct metadata and content issues 1. Validate frontmatter -- verify all required frontmatter fields 1. Normalize check (after) -- confirm formatting issues are resolved 1. SEO/GEO audit (after) -- measure improvement in SEO/GEO scores 1. Code examples smoke test -- validate code blocks have language tags 1. Knowledge extraction -- extract RAG-ready knowledge modules 1. Validate knowledge modules -- check module schema and dependencies 1. Rebuild retrieval index -- update the knowledge retrieval index 1. Glossary sync -- synchronize terminology with the project glossary 1.",
@@ -4425,7 +4597,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#12",
+      "url": "/how-to/migrate-from-confluence#13",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4435,7 +4607,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "0808ecf3d3c6e45f8dac975ee5c23ded",
+      "objectID": "b164386200e0470b3af1884e785698f2",
       "title": "Migrate documentation from Confluence",
       "heading": "Enable LLM-powered quality enhancement",
       "content": "Add --use-llm to enable AI-powered improvements during the quality enhancement step: python3 scripts/run_confluence_migration.py \\   --confluence-url https://mycompany.atlassian.net \\   --confluence-token YOUR_API_TOKEN \\   --confluence-username your-email@company.com \\   --space-keys DEV \\   --use-llm LLM enhancement performs three additional operations: - Replace placeholder code -- detects generic placeholders (foo, bar,   example.com, YOUR_API_KEY) in code blocks and replaces them with   realistic, runnable examples - Add missing sections -- adds essential sections based on content type   (error handling for how-to guides, rate limits for API references,   security considerations for concept pages) - Verify code output -- executes Python code blocks and corrects   documented output comments that do not match actual execution results LLM enhancement requires an LLM provider configured in your environment. Without a provider, the pipeline skips LLM steps and logs a warning. ",
@@ -4455,7 +4627,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#13",
+      "url": "/how-to/migrate-from-confluence#14",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4465,7 +4637,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "b164386200e0470b3af1884e785698f2",
+      "objectID": "d132a5932cdf7d32eb238201bbfd634b",
       "title": "Migrate documentation from Confluence",
       "heading": "Review migration reports",
       "content": "The pipeline generates two report files in the reports directory (default: reports/): - confluence_migration_report.json -- machine-readable report with page   counts, check results, and status - confluence_migration_report.md -- human-readable report with migration   summary, automatic fixes applied, and check results Specify a custom reports directory with --reports-dir: python3 scripts/run_confluence_migration.py \\   --export-zip /path/to/confluence-export.zip \\   --reports-dir /path/to/reports ",
@@ -4485,7 +4657,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#14",
+      "url": "/how-to/migrate-from-confluence#15",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4495,7 +4667,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d132a5932cdf7d32eb238201bbfd634b",
+      "objectID": "2c8af6f3255ad8d428f761cfaa90966f",
       "title": "Migrate documentation from Confluence",
       "heading": "Authentication fails with 401 error",
       "content": "Cause: Invalid or expired API token. Fix: Generate a new token following the steps in Create an API token. For Cloud, verify you use your email address with --confluence-username, not your display name. ",
@@ -4515,7 +4687,7 @@
         "lvl3": "Authentication fails with 401 error",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#15",
+      "url": "/how-to/migrate-from-confluence#16",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4525,7 +4697,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2c8af6f3255ad8d428f761cfaa90966f",
+      "objectID": "f3114a82bd7e3ef956261072503375d0",
       "title": "Migrate documentation from Confluence",
       "heading": "Rate limiting (429 responses)",
       "content": "Cause: Confluence rate limits API requests. Fix: The pipeline automatically retries with exponential backoff (3 retries). For large spaces with more than 1,000 pages, the pipeline paginates requests automatically. If rate limiting persists, wait 60 seconds and retry. ",
@@ -4545,7 +4717,7 @@
         "lvl3": "Rate limiting (429 responses)",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#16",
+      "url": "/how-to/migrate-from-confluence#17",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4555,7 +4727,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f3114a82bd7e3ef956261072503375d0",
+      "objectID": "49b90c93de1da18d5beb7acb21335603",
       "title": "Migrate documentation from Confluence",
       "heading": "Large spaces cause memory issues",
       "content": "Cause: Spaces with more than 5,000 pages consume significant memory during conversion. Fix: Import specific spaces one at a time instead of combining multiple large spaces in a single --space-keys value. ",
@@ -4575,7 +4747,7 @@
         "lvl3": "Large spaces cause memory issues",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#17",
+      "url": "/how-to/migrate-from-confluence#18",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4585,7 +4757,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "49b90c93de1da18d5beb7acb21335603",
+      "objectID": "17b631c9379cff4d1b3b9de9925d4d4b",
       "title": "Migrate documentation from Confluence",
       "heading": "ZIP export missing entities.xml",
       "content": "Cause: The ZIP file does not contain the expected entities.xml file. Fix: Re-export from Confluence using XML format, not HTML-only export. The XML export includes entities.xml which contains page content and metadata. ",
@@ -4605,7 +4777,7 @@
         "lvl3": "ZIP export missing entities.xml",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#18",
+      "url": "/how-to/migrate-from-confluence#19",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4615,7 +4787,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "17b631c9379cff4d1b3b9de9925d4d4b",
+      "objectID": "94fb1cb14b67a9ab51910e266b748a73",
       "title": "Migrate documentation from Confluence",
       "heading": "Encoding errors in imported content",
       "content": "Cause: Confluence pages contain special characters that were not properly encoded during export. Fix: The pipeline uses UTF-8 encoding by default. If you see encoding artifacts, re-export from Confluence and verify the export completed without warnings. ",
@@ -4635,7 +4807,7 @@
         "lvl3": "Encoding errors in imported content",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#19",
+      "url": "/how-to/migrate-from-confluence#20",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4645,7 +4817,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "94fb1cb14b67a9ab51910e266b748a73",
+      "objectID": "61d803715d3c56aee39e7e3414d1c9e9",
       "title": "Migrate documentation from Confluence",
       "heading": "Next steps",
       "content": "After migration completes: - Review the migration report in reports/confluence_migration_report.md - Check imported files in the output directory for content accuracy - Run python3 scripts/seo_geo_optimizer.py docs/imported/ to verify   SEO/GEO scores - Add imported documents to the mkdocs.yml navigation - Run python3 scripts/validate_frontmatter.py --paths docs/imported/ to   confirm frontmatter compliance ",
@@ -4665,7 +4837,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/migrate-from-confluence#20",
+      "url": "/how-to/migrate-from-confluence#21",
       "last_reviewed": "2026-03-28",
       "path": "docs/how-to/migrate-from-confluence.md",
       "ranking_boost": 6,
@@ -4678,7 +4850,7 @@
       "objectID": "4180c301cd03ae9bad327751e729bc5a",
       "title": "Run API-first production flow",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -5258,7 +5430,7 @@
       "objectID": "cc4c7da65cc3273ff967b85150c8c8e0",
       "title": "Documentation Pipeline Demo",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.",
       "product": "both",
       "content_type": "concept",
@@ -5417,8 +5589,8 @@
     {
       "objectID": "f6810ad4bb42af43c7be991e90bbe679",
       "title": "VeriDoc data processing agreement",
-      "heading": "VeriDoc data processing agreement",
-      "content": "This data processing agreement (\"DPA\") forms part of the agreement between Liora Tech (\"Processor,\" \"we\") and the entity subscribing to VeriDoc (\"Controller,\" \"you\") for the processing of personal data through the VeriDoc platform. ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.",
       "product": "cloud",
       "content_type": "reference",
@@ -5439,13 +5611,43 @@
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "d0d194b4c01071ce3e9d4d13402961bd",
+      "title": "VeriDoc data processing agreement",
+      "heading": "VeriDoc data processing agreement",
+      "content": "This data processing agreement (\"DPA\") forms part of the agreement between Liora Tech (\"Processor,\" \"we\") and the entity subscribing to VeriDoc (\"Controller,\" \"you\") for the processing of personal data through the VeriDoc platform. ",
+      "description": "Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.",
+      "product": "cloud",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "cloud",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/legal/data-processing-agreement#1",
+      "last_reviewed": "2026-03-28",
+      "path": "docs/legal/data-processing-agreement.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 33,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "d0d194b4c01071ce3e9d4d13402961bd",
+      "objectID": "7f5a3bac74bf7676e720de42bf69de52",
       "title": "VeriDoc data processing agreement",
       "heading": "Scope and roles",
       "content": "| Role | Party | Responsibility | |------|-------|----------------| | Data Controller | You (the customer) | Determines the purposes and means of processing documentation content | | Data Processor | Liora Tech | Processes personal data on your behalf to provide the VeriDoc Service | | Sub-processors | Third-party providers listed below | Process data under our supervision for specific service functions | This DPA applies to all personal data processed through the VeriDoc platform on your behalf, including documentation content that may contain personal data (names, emails, or identifiers in your documentation). ",
@@ -5465,7 +5667,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#1",
+      "url": "/legal/data-processing-agreement#2",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5475,7 +5677,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "7f5a3bac74bf7676e720de42bf69de52",
+      "objectID": "e11b33fff0ffc3b6c9a07131d19dd60f",
       "title": "VeriDoc data processing agreement",
       "heading": "Subject matter and duration",
       "content": "We process personal data for the duration of your VeriDoc subscription. Processing terminates 30 days after account closure, when all data is permanently deleted. ",
@@ -5495,7 +5697,7 @@
         "lvl3": "Subject matter and duration",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#2",
+      "url": "/legal/data-processing-agreement#3",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5505,7 +5707,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e11b33fff0ffc3b6c9a07131d19dd60f",
+      "objectID": "4277e1afaaea7be4892277b07c1e89f6",
       "title": "VeriDoc data processing agreement",
       "heading": "Nature and purpose of processing",
       "content": "| Processing activity | Purpose | Data categories | |---------------------|---------|-----------------| | Pipeline execution | Transform and enhance documentation | Documentation content, metadata | | LLM processing (opt-in) | AI-powered quality improvements | Document sections sent to LLM providers | | Usage tracking | Quota enforcement and billing | Request counts, timestamps | | Authentication | Access control | Email, hashed passwords, JWT tokens | | Billing | Payment processing and invoicing | Email, subscription tier, payment history | ",
@@ -5525,7 +5727,7 @@
         "lvl3": "Nature and purpose of processing",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#3",
+      "url": "/legal/data-processing-agreement#4",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5535,7 +5737,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "4277e1afaaea7be4892277b07c1e89f6",
+      "objectID": "c579171bfbaa21dd587c283df9cee662",
       "title": "VeriDoc data processing agreement",
       "heading": "Categories of data subjects",
       "content": "Data subjects include your employees, contractors, and any individuals whose personal data appears in documentation processed through VeriDoc. ",
@@ -5555,7 +5757,7 @@
         "lvl3": "Categories of data subjects",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#4",
+      "url": "/legal/data-processing-agreement#5",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5565,7 +5767,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c579171bfbaa21dd587c283df9cee662",
+      "objectID": "d8cc2d18209a4feddc44e23b68620883",
       "title": "VeriDoc data processing agreement",
       "heading": "Processor obligations",
       "content": "We commit to the following obligations: 1. Process only on your instructions. We process personal data solely    to provide the Service as documented in these Terms and this DPA. We do    not process data for our own purposes. 1. Confidentiality. All personnel with access to personal data are    bound by confidentiality obligations. 1. Security measures. We implement technical and organizational    measures as described in the security policy:    - TLS 1.3 encryption for all data in transit    - AES-256 encryption for all data at rest    - PBKDF2-SHA256 password hashing (600,000 iterations)    - Daily encrypted database backups with 30-day retention    - Rate limiting (60 requests per minute)    - Sentry error tracking with PII scrubbing 1. Sub-processor management. We maintain an up-to-date list of    sub-processors and notify you 30 days before adding new ones. 1. Data subject rights. We assist you in responding to data subject    requests (access, deletion, portability) within 10 bu",
@@ -5585,7 +5787,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#5",
+      "url": "/legal/data-processing-agreement#6",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5595,7 +5797,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d8cc2d18209a4feddc44e23b68620883",
+      "objectID": "c356d649004558aaf8b14739ea44f079",
       "title": "VeriDoc data processing agreement",
       "heading": "Sub-processors",
       "content": "We use the following sub-processors: | Sub-processor | Purpose | Location | Data processed | |---------------|---------|----------|----------------| | Hetzner Online | Cloud infrastructure hosting | Germany (EU) | All application data (encrypted) | | LemonSqueezy | Payment processing | United States | Email, subscription tier | | Mailgun | Transactional email delivery | United States | Email address, email content | | Sentry | Error monitoring | United States | Error context (PII scrubbed) | ",
@@ -5615,7 +5817,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#6",
+      "url": "/legal/data-processing-agreement#7",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5625,7 +5827,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c356d649004558aaf8b14739ea44f079",
+      "objectID": "49df7b0a2c92cc86e3a4c11df254b64b",
       "title": "VeriDoc data processing agreement",
       "heading": "Optional LLM sub-processors (opt-in only)",
       "content": "These sub-processors are engaged only when you explicitly enable AI features: | Sub-processor | Purpose | Location | Data processed | |---------------|---------|----------|----------------| | Anthropic | Document quality enhancement | United States | Document sections | | Groq | Text generation | United States | Document sections | | DeepSeek | Text generation | China | Document sections | | OpenAI | Embeddings, text generation | United States | Document sections | You control which LLM providers are used through your pipeline configuration. Disable AI features to prevent any content from reaching LLM sub-processors. ",
@@ -5645,7 +5847,7 @@
         "lvl3": "Optional LLM sub-processors (opt-in only)",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#7",
+      "url": "/legal/data-processing-agreement#8",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5655,7 +5857,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "49df7b0a2c92cc86e3a4c11df254b64b",
+      "objectID": "2d43e91a409187883142835a4330b2d1",
       "title": "VeriDoc data processing agreement",
       "heading": "EU-US transfers",
       "content": "For sub-processors located in the United States, we rely on: 1. Standard Contractual Clauses (SCCs) approved by the European Commission    (June 2021 version). 1. Supplementary measures including encryption in transit and at rest. 1. Data minimization -- only the minimum data necessary is transferred. ",
@@ -5675,7 +5877,7 @@
         "lvl3": "EU-US transfers",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#8",
+      "url": "/legal/data-processing-agreement#9",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5685,7 +5887,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2d43e91a409187883142835a4330b2d1",
+      "objectID": "f61d45dba7ed51b4ad182c995814c7c3",
       "title": "VeriDoc data processing agreement",
       "heading": "Transfer impact assessment",
       "content": "We have conducted transfer impact assessments for each non-EU sub-processor. Assessments are available upon request at <privacy@veri-doc.app>. ",
@@ -5705,7 +5907,7 @@
         "lvl3": "Transfer impact assessment",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#9",
+      "url": "/legal/data-processing-agreement#10",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5715,7 +5917,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f61d45dba7ed51b4ad182c995814c7c3",
+      "objectID": "3d654519391f368783c661325db48a13",
       "title": "VeriDoc data processing agreement",
       "heading": "Data breach notification",
       "content": "In the event of a personal data breach: | Step | Timeline | Action | |------|----------|--------| | 1 | Within 24 hours | Internal incident response team activated | | 2 | Within 72 hours | Written notification to you with breach details | | 3 | Within 72 hours | Notification to supervisory authority (if required) | | 4 | Ongoing | Regular updates on investigation and remediation | Breach notification includes: 1. Nature of the breach and categories of data affected. 1. Estimated number of data subjects affected. 1. Likely consequences of the breach. 1. Measures taken to address and mitigate the breach. ",
@@ -5735,7 +5937,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#10",
+      "url": "/legal/data-processing-agreement#11",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5745,7 +5947,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3d654519391f368783c661325db48a13",
+      "objectID": "12dea18555b6a49d21b59cd88c2c5671",
       "title": "VeriDoc data processing agreement",
       "heading": "Data protection impact assessment",
       "content": "We support your data protection impact assessments (DPIAs) by providing: 1. Documentation of processing activities. 1. Technical details of security measures. 1. Sub-processor information and transfer mechanisms. Request DPIA support materials at <privacy@veri-doc.app>. ",
@@ -5765,7 +5967,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#11",
+      "url": "/legal/data-processing-agreement#12",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5775,7 +5977,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "12dea18555b6a49d21b59cd88c2c5671",
+      "objectID": "dbf2412529d5b491075085bfa6dbb45e",
       "title": "VeriDoc data processing agreement",
       "heading": "Term and termination",
       "content": "This DPA remains in effect for the duration of your VeriDoc subscription. Upon termination: 1. We stop processing personal data within 24 hours. 1. We provide a JSON data export within 7 business days upon request. 1. We permanently delete all personal data within 30 days. 1. We confirm deletion in writing. ",
@@ -5795,7 +5997,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#12",
+      "url": "/legal/data-processing-agreement#13",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5805,7 +6007,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "dbf2412529d5b491075085bfa6dbb45e",
+      "objectID": "e025a24cdbe2626ebf1f75c436ba20ae",
       "title": "VeriDoc data processing agreement",
       "heading": "Contact information",
       "content": "For DPA inquiries: - Email: <privacy@veri-doc.app> - Response time: within 10 business days Last updated: March 28, 2026 ",
@@ -5825,7 +6027,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#13",
+      "url": "/legal/data-processing-agreement#14",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5835,7 +6037,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e025a24cdbe2626ebf1f75c436ba20ae",
+      "objectID": "f558bbb74057ddfdbcc02308967e6b43",
       "title": "VeriDoc data processing agreement",
       "heading": "Next steps",
       "content": "- Review the terms of service - Review the privacy policy - Review the security policy ",
@@ -5855,7 +6057,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/data-processing-agreement#14",
+      "url": "/legal/data-processing-agreement#15",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/data-processing-agreement.md",
       "ranking_boost": 4,
@@ -5867,8 +6069,8 @@
     {
       "objectID": "00f3879ebdc8d620506878c8b1aadc12",
       "title": "Legal and compliance",
-      "heading": "Legal and compliance",
-      "content": "VeriDoc is committed to transparency in how we handle your data and operate our service. This section contains all legal documents governing the use of the VeriDoc automated documentation platform. ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Legal documents for VeriDoc platform including terms of service, privacy policy, data processing agreement, and security policy.",
       "product": "cloud",
       "content_type": "reference",
@@ -5889,13 +6091,43 @@
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/index.md",
       "ranking_boost": 24,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "685f1d199dc21b74e96785784754e03b",
+      "title": "Legal and compliance",
+      "heading": "Legal and compliance",
+      "content": "VeriDoc is committed to transparency in how we handle your data and operate our service. This section contains all legal documents governing the use of the VeriDoc automated documentation platform. ",
+      "description": "Legal documents for VeriDoc platform including terms of service, privacy policy, data processing agreement, and security policy.",
+      "product": "cloud",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "cloud",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/legal/index#1",
+      "last_reviewed": "2026-03-28",
+      "path": "docs/legal/index.md",
+      "ranking_boost": 24,
       "heading_level": 1,
       "word_count": 30,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "685f1d199dc21b74e96785784754e03b",
+      "objectID": "199948c5e03eeca11dce7cc88d47c72d",
       "title": "Legal and compliance",
       "heading": "Legal documents",
       "content": "| Document | Description | |----------|-------------| | Terms of service | Subscription terms, usage limits, acceptable use, and liability | | Privacy policy | Data collection, processing, storage, retention, and your GDPR rights | | Data processing agreement | GDPR-compliant DPA with sub-processor list and breach notification procedures | | Security policy | Infrastructure security, encryption, authentication, and incident response | | Security contact policy | Official security escalation channels, severity SLA, and responsible disclosure | ",
@@ -5915,7 +6147,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/index#1",
+      "url": "/legal/index#2",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/index.md",
       "ranking_boost": 24,
@@ -5925,7 +6157,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "199948c5e03eeca11dce7cc88d47c72d",
+      "objectID": "1aa52e9ec33e9fc5fb0bddd524f52f67",
       "title": "Legal and compliance",
       "heading": "Quick reference",
       "content": "Data location: Hetzner Cloud, Germany (EU) Encryption: TLS 1.3 in transit, AES-256 at rest Password security: PBKDF2-SHA256, 600,000 iterations Data retention: Account data kept 30 days after closure, then permanently deleted LLM processing: Opt-in only. Disable AI features to keep all content on VeriDoc infrastructure. GDPR rights: Access, correct, delete, export, restrict, object. Email <privacy@veri-doc.app>. ",
@@ -5945,7 +6177,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/index#2",
+      "url": "/legal/index#3",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/index.md",
       "ranking_boost": 24,
@@ -5955,7 +6187,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "1aa52e9ec33e9fc5fb0bddd524f52f67",
+      "objectID": "a41e72518c761dead9ab9c6bd7004e5c",
       "title": "Legal and compliance",
       "heading": "Next steps",
       "content": "- Terms of service - Privacy policy ",
@@ -5975,7 +6207,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/index#3",
+      "url": "/legal/index#4",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/index.md",
       "ranking_boost": 24,
@@ -5987,8 +6219,8 @@
     {
       "objectID": "caabab99f3047a2a33496cdc959d591b",
       "title": "VeriDoc privacy policy",
-      "heading": "VeriDoc privacy policy",
-      "content": "This privacy policy explains how Liora Tech (\"Company,\" \"we,\" \"us\") collects, uses, and protects your personal data when you use VeriDoc, an automated documentation pipeline platform. This policy applies to all users of the VeriDoc web application, API, and CLI tools. ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.",
       "product": "cloud",
       "content_type": "reference",
@@ -6009,13 +6241,43 @@
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "272e533921040ce35b412f6db22de7cf",
+      "title": "VeriDoc privacy policy",
+      "heading": "VeriDoc privacy policy",
+      "content": "This privacy policy explains how Liora Tech (\"Company,\" \"we,\" \"us\") collects, uses, and protects your personal data when you use VeriDoc, an automated documentation pipeline platform. This policy applies to all users of the VeriDoc web application, API, and CLI tools. ",
+      "description": "Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.",
+      "product": "cloud",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "cloud",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/legal/privacy-policy#1",
+      "last_reviewed": "2026-03-28",
+      "path": "docs/legal/privacy-policy.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 41,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "272e533921040ce35b412f6db22de7cf",
+      "objectID": "9a12d1e9b5b58974c727ef0763173ac5",
       "title": "VeriDoc privacy policy",
       "heading": "Data controller",
       "content": "Liora Tech acts as the data controller for personal data collected through the VeriDoc platform. | Detail | Value | |--------|-------| | Company | Liora Tech | | Contact email | <privacy@veri-doc.app> | | Data protection inquiries | <privacy@veri-doc.app> | ",
@@ -6035,7 +6297,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#1",
+      "url": "/legal/privacy-policy#2",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6045,7 +6307,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9a12d1e9b5b58974c727ef0763173ac5",
+      "objectID": "28505b6b6c01b31770e3da8cc5efaeab",
       "title": "VeriDoc privacy policy",
       "heading": "Account data",
       "content": "When you register, we collect: | Data field | Purpose | Legal basis | |------------|---------|-------------| | Email address | Authentication, billing notifications, support | Contract performance | | Password hash | Authentication (PBKDF2-SHA256, never stored in plaintext) | Contract performance | | Subscription tier | Service delivery, usage limit enforcement | Contract performance | | Billing records | Payment processing, invoice generation | Contract performance | | Referral code | Referral program tracking | Legitimate interest | ",
@@ -6065,7 +6327,7 @@
         "lvl3": "Account data",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#2",
+      "url": "/legal/privacy-policy#3",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6075,7 +6337,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "28505b6b6c01b31770e3da8cc5efaeab",
+      "objectID": "bea43416699b8946228759d99379fb79",
       "title": "VeriDoc privacy policy",
       "heading": "Usage data",
       "content": "When you use the Service, we automatically collect: | Data field | Purpose | Retention | |------------|---------|-----------| | Pipeline run metadata | Usage tracking, quota enforcement | 90 days | | API request logs | Rate limiting, debugging, abuse prevention | 30 days | | Error reports (Sentry) | Bug fixing, reliability improvement | 90 days | | Authentication tokens | Session management | Token expiry (24 hours) | ",
@@ -6095,7 +6357,7 @@
         "lvl3": "Usage data",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#3",
+      "url": "/legal/privacy-policy#4",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6105,7 +6367,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "bea43416699b8946228759d99379fb79",
+      "objectID": "3bcbe029c23e530ddd8cf984a63c8c61",
       "title": "VeriDoc privacy policy",
       "heading": "Documentation content",
       "content": "When you process documentation through the pipeline: 1. Your content is processed in memory during pipeline execution. 1. Generated outputs (processed Markdown, reports, knowledge modules) are    stored in encrypted PostgreSQL databases. 1. We do not read, analyze, or use your documentation content for any    purpose other than providing the Service. 1. We do not use your content to train machine learning models. ",
@@ -6125,7 +6387,7 @@
         "lvl3": "Documentation content",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#4",
+      "url": "/legal/privacy-policy#5",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6135,7 +6397,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3bcbe029c23e530ddd8cf984a63c8c61",
+      "objectID": "9a62914b5b85d3803eb3ed60667786b6",
       "title": "VeriDoc privacy policy",
       "heading": "LLM processing data",
       "content": "When you enable AI features (--use-llm flag), your documentation content is sent to third-party LLM providers for processing: | Provider | Data sent | Provider privacy policy | |----------|-----------|------------------------| | Anthropic (Claude) | Document sections for quality enhancement | anthropic.com/privacy | | Groq | Document sections for text generation | groq.com/privacy-policy | | DeepSeek | Document sections for text generation | deepseek.com/privacy | | OpenAI | Document sections for embeddings and text generation | openai.com/privacy | LLM processing is opt-in. Without the AI flag, no content leaves our infrastructure. ",
@@ -6155,7 +6417,7 @@
         "lvl3": "LLM processing data",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#5",
+      "url": "/legal/privacy-policy#6",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6165,7 +6427,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9a62914b5b85d3803eb3ed60667786b6",
+      "objectID": "5753001e8876c2712471d12a4bf6a197",
       "title": "VeriDoc privacy policy",
       "heading": "How we use your data",
       "content": "We use personal data exclusively for: 1. Service delivery -- processing your documentation, enforcing usage    limits, and managing your subscription. 1. Billing -- processing payments through LemonSqueezy, generating    invoices, tracking referral commissions. 1. Communication -- sending transactional emails (subscription    confirmations, trial expiry notices, invoice receipts). 1. Security -- detecting unauthorized access, enforcing rate limits,    monitoring for abuse. 1. Improvement -- analyzing aggregate, anonymized usage patterns to    improve the Service. We never analyze individual content. ",
@@ -6185,7 +6447,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#6",
+      "url": "/legal/privacy-policy#7",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6195,7 +6457,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "5753001e8876c2712471d12a4bf6a197",
+      "objectID": "a3fc8c53cfe08fcdbdb5869393ba27ab",
       "title": "VeriDoc privacy policy",
       "heading": "Infrastructure",
       "content": "| Component | Location | Encryption | |-----------|----------|------------| | Application servers | Hetzner Cloud, Germany | TLS 1.3 in transit | | PostgreSQL database | Hetzner Cloud, Germany | AES-256 at rest | | Redis cache | Hetzner Cloud, Germany | In-memory, no persistence of content | | Backups | Hetzner Cloud, Germany | AES-256, 30-day retention | ",
@@ -6215,7 +6477,7 @@
         "lvl3": "Infrastructure",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#7",
+      "url": "/legal/privacy-policy#8",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6225,7 +6487,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "a3fc8c53cfe08fcdbdb5869393ba27ab",
+      "objectID": "e877472a3e8b3cc56bad59cd51381b97",
       "title": "VeriDoc privacy policy",
       "heading": "Security measures",
       "content": "1. All API communication uses TLS 1.3 encryption. 1. Passwords are hashed with PBKDF2-SHA256 (600,000 iterations). 1. JWT authentication tokens expire after 24 hours. 1. Database backups run daily with 30-day retention and automated restore    testing. 1. Error tracking uses Sentry with PII scrubbing enabled. 1. Rate limiting enforces 60 requests per minute per user. ",
@@ -6245,7 +6507,7 @@
         "lvl3": "Security measures",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#8",
+      "url": "/legal/privacy-policy#9",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6255,7 +6517,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e877472a3e8b3cc56bad59cd51381b97",
+      "objectID": "0fd07d48e8c6a4ea24dc9d6d4d75a006",
       "title": "VeriDoc privacy policy",
       "heading": "Data retention",
       "content": "| Data type | Retention period | Deletion trigger | |-----------|-----------------|------------------| | Account data | Account lifetime + 30 days | Account closure | | Billing records | 7 years (legal requirement) | Statutory expiry | | Pipeline outputs | Account lifetime + 30 days | Account closure | | API logs | 30 days | Automatic rotation | | Error reports | 90 days | Automatic rotation | | Backups | 30 days | Automatic rotation | After account closure, we retain data for 30 days to allow you to reactivate or export. After 30 days, all personal data is permanently deleted. ",
@@ -6275,7 +6537,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#9",
+      "url": "/legal/privacy-policy#10",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6285,7 +6547,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "0fd07d48e8c6a4ea24dc9d6d4d75a006",
+      "objectID": "3c9b065985db2c915b590a0c3383c1dd",
       "title": "VeriDoc privacy policy",
       "heading": "Your rights",
       "content": "Under GDPR and applicable data protection laws, you have the right to: | Right | How to exercise | |-------|-----------------| | Access your data | Email <privacy@veri-doc.app> or use the API export endpoint | | Correct inaccurate data | Update your profile in account settings | | Delete your data | Close your account or email <privacy@veri-doc.app> | | Export your data | Use the API data export endpoint or email <privacy@veri-doc.app> | | Restrict processing | Email <privacy@veri-doc.app> | | Object to processing | Email <privacy@veri-doc.app> | | Withdraw consent | Disable AI features or close your account | We respond to data rights requests within 30 days. ",
@@ -6305,7 +6567,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#10",
+      "url": "/legal/privacy-policy#11",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6315,7 +6577,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3c9b065985db2c915b590a0c3383c1dd",
+      "objectID": "4de0532b695f0e32a131e7545903a36a",
       "title": "VeriDoc privacy policy",
       "heading": "Cookies and tracking",
       "content": "The VeriDoc web application uses only essential cookies for session management. We do not use: 1. Third-party analytics cookies 1. Advertising cookies 1. Social media tracking pixels 1. Cross-site tracking ",
@@ -6335,7 +6597,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#11",
+      "url": "/legal/privacy-policy#12",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6345,7 +6607,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "4de0532b695f0e32a131e7545903a36a",
+      "objectID": "8c79eed48e520c98170ac2b255894813",
       "title": "VeriDoc privacy policy",
       "heading": "Third-party processors",
       "content": "We share data with these processors solely for service delivery: | Processor | Purpose | Data shared | |-----------|---------|-------------| | LemonSqueezy | Payment processing | Email, subscription tier | | Hetzner | Infrastructure hosting | Encrypted application data | | Sentry | Error tracking | Error context (PII scrubbed) | | Mailgun | Transactional email delivery | Email address, email content | ",
@@ -6365,7 +6627,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#12",
+      "url": "/legal/privacy-policy#13",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6375,7 +6637,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8c79eed48e520c98170ac2b255894813",
+      "objectID": "8b40f6c8c6087bdd2f64f30249a7f072",
       "title": "VeriDoc privacy policy",
       "heading": "Age requirements",
       "content": "VeriDoc is not intended for users under 16 years of age. We do not knowingly collect data from children. ",
@@ -6395,7 +6657,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#13",
+      "url": "/legal/privacy-policy#14",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6405,7 +6667,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8b40f6c8c6087bdd2f64f30249a7f072",
+      "objectID": "d77660890731a21078bb1d986b3399c5",
       "title": "VeriDoc privacy policy",
       "heading": "Changes to this policy",
       "content": "We notify users of material changes via email 30 days before the effective date. Minor clarifications are published directly. The \"Last updated\" date reflects the most recent revision. ",
@@ -6425,7 +6687,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#14",
+      "url": "/legal/privacy-policy#15",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6435,7 +6697,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d77660890731a21078bb1d986b3399c5",
+      "objectID": "9495e24fd4875c57ea5c0cbdbeecc018",
       "title": "VeriDoc privacy policy",
       "heading": "Contact information",
       "content": "For privacy inquiries or data rights requests: - Email: <privacy@veri-doc.app> - Response time: within 30 days Last updated: March 28, 2026 ",
@@ -6455,7 +6717,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#15",
+      "url": "/legal/privacy-policy#16",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6465,7 +6727,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9495e24fd4875c57ea5c0cbdbeecc018",
+      "objectID": "5845fa054e063d2118f0b8ce6a91696e",
       "title": "VeriDoc privacy policy",
       "heading": "Next steps",
       "content": "- Review the terms of service - Review the data processing agreement - Review the security policy ",
@@ -6485,7 +6747,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/privacy-policy#16",
+      "url": "/legal/privacy-policy#17",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/privacy-policy.md",
       "ranking_boost": 4,
@@ -6497,8 +6759,8 @@
     {
       "objectID": "d6b59b2dcca2f3a735701ad61938c73e",
       "title": "VeriDoc security contact policy",
-      "heading": "VeriDoc security contact policy",
-      "content": "This policy defines exactly how to contact VeriDoc for security incidents, vulnerability reports, and urgent abuse cases. ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports.",
       "product": "cloud",
       "content_type": "reference",
@@ -6520,13 +6782,44 @@
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "00ef75d2c342e9d76d19bc703d53d9cb",
+      "title": "VeriDoc security contact policy",
+      "heading": "VeriDoc security contact policy",
+      "content": "This policy defines exactly how to contact VeriDoc for security incidents, vulnerability reports, and urgent abuse cases. ",
+      "description": "Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports.",
+      "product": "cloud",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Legal"
+      ],
+      "hierarchy": {
+        "lvl0": "cloud",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/legal/security-contact-policy#1",
+      "last_reviewed": "2026-03-31",
+      "path": "docs/legal/security-contact-policy.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 17,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "00ef75d2c342e9d76d19bc703d53d9cb",
+      "objectID": "e9e6b649ef2ee6055fa2254819f5f782",
       "title": "VeriDoc security contact policy",
       "heading": "Official contact channels",
       "content": "| Purpose | Channel | Target response | |---------|---------|-----------------| | Vulnerability disclosure | <security@veri-doc.app> | Within 24 hours | | Incident escalation (active outage or suspected compromise) | <security@veri-doc.app> + <support@veri-doc.app> | Within 1 hour | | Privacy and data-protection issues | <privacy@veri-doc.app> | Within 72 hours | ",
@@ -6547,7 +6840,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-contact-policy#1",
+      "url": "/legal/security-contact-policy#2",
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
@@ -6557,7 +6850,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e9e6b649ef2ee6055fa2254819f5f782",
+      "objectID": "6503db3873efb980f364ba32d0ec8a4b",
       "title": "VeriDoc security contact policy",
       "heading": "What to include in your report",
       "content": "Send a concise report with: 1. Affected endpoint, system, or feature. 1. Exact reproduction steps. 1. Expected result and actual result. 1. Scope estimate (single tenant, multi-tenant, or unknown). 1. Any logs, timestamps, and request IDs. ",
@@ -6578,7 +6871,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-contact-policy#2",
+      "url": "/legal/security-contact-policy#3",
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
@@ -6588,7 +6881,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6503db3873efb980f364ba32d0ec8a4b",
+      "objectID": "fb39a72d4f8b5c97035ed1373a42dd30",
       "title": "VeriDoc security contact policy",
       "heading": "Severity model and SLA",
       "content": "| Severity | Typical examples | First response | Containment target | |----------|------------------|----------------|--------------------| | Critical | Data exposure, account takeover, production compromise | 1 hour | 4 hours | | High | Auth bypass, privilege escalation, sustained API failure | 4 hours | 12 hours | | Medium | Non-critical security misconfiguration | 24 hours | 3 business days | | Low | Hardening recommendations, low-risk findings | 72 hours | Planned release | ",
@@ -6609,7 +6902,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-contact-policy#3",
+      "url": "/legal/security-contact-policy#4",
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
@@ -6619,7 +6912,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "fb39a72d4f8b5c97035ed1373a42dd30",
+      "objectID": "df4567efd8ba049b4c168937966aa9bd",
       "title": "VeriDoc security contact policy",
       "heading": "Disclosure rules",
       "content": "For responsible disclosure: 1. Do not access data that is not yours. 1. Do not modify or delete customer data. 1. Do not run denial-of-service tests. 1. Give VeriDoc up to 90 days before public disclosure. ",
@@ -6640,7 +6933,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-contact-policy#4",
+      "url": "/legal/security-contact-policy#5",
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
@@ -6650,7 +6943,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "df4567efd8ba049b4c168937966aa9bd",
+      "objectID": "ef06197ce272bba934dc2eef7e355d62",
       "title": "VeriDoc security contact policy",
       "heading": "Communication and status updates",
       "content": "For confirmed incidents: 1. Initial acknowledgement is sent via email. 1. Ongoing updates are provided at least every 24 hours for critical incidents. 1. Final post-incident summary includes root cause and corrective actions. ",
@@ -6671,7 +6964,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-contact-policy#5",
+      "url": "/legal/security-contact-policy#6",
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
@@ -6681,7 +6974,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ef06197ce272bba934dc2eef7e355d62",
+      "objectID": "b08aee42f9d9de5dd95728e9ba07deae",
       "title": "VeriDoc security contact policy",
       "heading": "Next steps",
       "content": "- Review the security policy - Review the data processing agreement - Review the privacy policy ",
@@ -6702,7 +6995,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-contact-policy#6",
+      "url": "/legal/security-contact-policy#7",
       "last_reviewed": "2026-03-31",
       "path": "docs/legal/security-contact-policy.md",
       "ranking_boost": 4,
@@ -6714,8 +7007,8 @@
     {
       "objectID": "e46c9dd07c8a7942165371ae5bff04b8",
       "title": "VeriDoc security policy",
-      "heading": "VeriDoc security policy",
-      "content": "VeriDoc is an automated documentation pipeline platform that processes customer documentation content. This security policy describes the technical and organizational measures we implement to protect your data and maintain service integrity. ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.",
       "product": "cloud",
       "content_type": "reference",
@@ -6736,13 +7029,43 @@
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "cf2b3b3a0dbb9ddfd735a7d9e7d5a3f1",
+      "title": "VeriDoc security policy",
+      "heading": "VeriDoc security policy",
+      "content": "VeriDoc is an automated documentation pipeline platform that processes customer documentation content. This security policy describes the technical and organizational measures we implement to protect your data and maintain service integrity. ",
+      "description": "Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.",
+      "product": "cloud",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "cloud",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/legal/security-policy#1",
+      "last_reviewed": "2026-03-28",
+      "path": "docs/legal/security-policy.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 31,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "cf2b3b3a0dbb9ddfd735a7d9e7d5a3f1",
+      "objectID": "930415074feae0d8c7610d2630f938c4",
       "title": "VeriDoc security policy",
       "heading": "Hosting environment",
       "content": "VeriDoc runs on dedicated infrastructure in Hetzner Cloud data centers located in Germany (EU). | Component | Technology | Security configuration | |-----------|------------|----------------------| | Application server | Ubuntu 22.04 LTS | Automated security patches, SSH key-only access | | API service | FastAPI (Python 3.12) | CORS-restricted, rate-limited, JWT-authenticated | | Database | PostgreSQL 16 | Encrypted at rest (AES-256), TLS connections | | Cache | Redis 7 | Memory-only, no content persistence, private network | | Task queue | Celery + Redis | Isolated worker processes, task timeout enforcement | | Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting | ",
@@ -6762,7 +7085,7 @@
         "lvl3": "Hosting environment",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#1",
+      "url": "/legal/security-policy#2",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6772,7 +7095,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "930415074feae0d8c7610d2630f938c4",
+      "objectID": "a9b2aa57d161819db162b2f3edc97da0",
       "title": "VeriDoc security policy",
       "heading": "Network security",
       "content": "1. All public endpoints require TLS 1.3 encryption. Older TLS versions    are rejected. 1. Database and Redis ports are bound to 127.0.0.1 only -- no external    access. 1. SSH access uses Ed25519 keys exclusively. Password authentication is    disabled. 1. Firewall rules allow only ports 80 (redirect to 443), 443 (HTTPS), and    22 (SSH from allowlisted IPs). ",
@@ -6792,7 +7115,7 @@
         "lvl3": "Network security",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#2",
+      "url": "/legal/security-policy#3",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6802,7 +7125,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "a9b2aa57d161819db162b2f3edc97da0",
+      "objectID": "cf4e39d00e5572b9364f096215734b40",
       "title": "VeriDoc security policy",
       "heading": "User authentication",
       "content": "| Mechanism | Implementation | |-----------|---------------| | Password hashing | PBKDF2-SHA256 with 600,000 iterations | | Token format | JWT (PyJWT) with HS256 signing | | Token expiry | 24 hours | | Session management | Stateless JWT, no server-side sessions | | Rate limiting | 60 requests per minute per user | ",
@@ -6822,7 +7145,7 @@
         "lvl3": "User authentication",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#3",
+      "url": "/legal/security-policy#4",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6832,7 +7155,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "cf4e39d00e5572b9364f096215734b40",
+      "objectID": "35096967f53dc96670b324cad85fceea",
       "title": "VeriDoc security policy",
       "heading": "API authentication",
       "content": "All API endpoints except /health and /auth/register require a valid JWT token in the Authorization: Bearer <token> header. POST /auth/login Content-Type: application/json {\"email\": \"user@example.com\", \"password\": \"your-password\"} Response: {\"token\": \"eyJ...\", \"expires_in\": 86400} ",
@@ -6852,7 +7175,7 @@
         "lvl3": "API authentication",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#4",
+      "url": "/legal/security-policy#5",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6862,7 +7185,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "35096967f53dc96670b324cad85fceea",
+      "objectID": "99c2aae80a00bc3cdc3decb61095c95e",
       "title": "VeriDoc security policy",
       "heading": "Webhook verification",
       "content": "Incoming LemonSqueezy webhooks are verified using HMAC-SHA256 signatures. Requests without a valid X-Signature header are rejected with HTTP 403. ",
@@ -6882,7 +7205,7 @@
         "lvl3": "Webhook verification",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#5",
+      "url": "/legal/security-policy#6",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6892,7 +7215,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "99c2aae80a00bc3cdc3decb61095c95e",
+      "objectID": "9db11bc2594a890e80bd076160a3fffb",
       "title": "VeriDoc security policy",
       "heading": "Data in transit",
       "content": "All data transmitted between clients and VeriDoc servers is encrypted with TLS 1.3. The Nginx configuration enforces: 1. TLS 1.3 only (TLS 1.2 and below are disabled). 1. Strong cipher suites with forward secrecy. 1. HSTS headers with 1-year max-age. 1. OCSP stapling for certificate validation. ",
@@ -6912,7 +7235,7 @@
         "lvl3": "Data in transit",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#6",
+      "url": "/legal/security-policy#7",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6922,7 +7245,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9db11bc2594a890e80bd076160a3fffb",
+      "objectID": "b71107056539c916e42e66d6d6e1bc31",
       "title": "VeriDoc security policy",
       "heading": "Data at rest",
       "content": "| Data type | Encryption method | |-----------|-------------------| | PostgreSQL database | AES-256 (filesystem-level encryption) | | Database backups | AES-256 encrypted archives | | License files | AES-256-GCM with HKDF key derivation | | Application secrets | Environment variables, not stored in code | ",
@@ -6942,7 +7265,7 @@
         "lvl3": "Data at rest",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#7",
+      "url": "/legal/security-policy#8",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6952,7 +7275,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "b71107056539c916e42e66d6d6e1bc31",
+      "objectID": "fdaa776a6ef0c37f1963000b41a82952",
       "title": "VeriDoc security policy",
       "heading": "Pipeline execution",
       "content": "When VeriDoc processes your documentation: 1. Content is loaded into memory for processing. 1. Intermediate results are stored in the encrypted PostgreSQL database. 1. Pipeline workers run in isolated Celery processes with 1-hour timeouts. 1. Failed pipeline runs are logged to Sentry with PII scrubbing. ",
@@ -6972,7 +7295,7 @@
         "lvl3": "Pipeline execution",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#8",
+      "url": "/legal/security-policy#9",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -6982,7 +7305,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "fdaa776a6ef0c37f1963000b41a82952",
+      "objectID": "ccd9516c54f86cc87fdd748a9d10f18e",
       "title": "VeriDoc security policy",
       "heading": "LLM processing (opt-in)",
       "content": "When AI features are enabled, document sections are sent to LLM providers over TLS-encrypted connections. Each request contains only the minimum content necessary for the specific enhancement. | Provider | Transport | Data retention by provider | |----------|-----------|---------------------------| | Anthropic (Claude) | HTTPS/TLS 1.3 | Not used for training | | Groq | HTTPS/TLS 1.3 | Not used for training | | DeepSeek | HTTPS/TLS 1.3 | Refer to provider policy | | OpenAI | HTTPS/TLS 1.3 | Not used for training (API usage) | Disable AI features to ensure no documentation content leaves VeriDoc infrastructure. ",
@@ -7002,7 +7325,7 @@
         "lvl3": "LLM processing (opt-in)",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#9",
+      "url": "/legal/security-policy#10",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7012,7 +7335,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ccd9516c54f86cc87fdd748a9d10f18e",
+      "objectID": "95115a1c90d54b9df6a38b95ce451a58",
       "title": "VeriDoc security policy",
       "heading": "Backup and disaster recovery",
       "content": "| Measure | Configuration | |---------|---------------| | Backup frequency | Daily at 02:00 UTC | | Backup retention | 30 days | | Backup encryption | AES-256 | | Restore testing | Weekly automated restore verification | | Recovery time objective (RTO) | 4 hours | | Recovery point objective (RPO) | 24 hours | ",
@@ -7032,7 +7355,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#10",
+      "url": "/legal/security-policy#11",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7042,7 +7365,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "95115a1c90d54b9df6a38b95ce451a58",
+      "objectID": "f792b2814457efeed138a244093a42e1",
       "title": "VeriDoc security policy",
       "heading": "Monitoring",
       "content": "| System | Purpose | Alert threshold | |--------|---------|-----------------| | Health checks | Service availability | 2 consecutive failures (every 5 minutes) | | Sentry | Error tracking | Real-time error capture | | Log rotation | Log management | Daily rotation, 30-day retention | | Latency monitoring | Performance tracking | Warning at 2,000 ms, critical at 5,000 ms | ",
@@ -7062,7 +7385,7 @@
         "lvl3": "Monitoring",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#11",
+      "url": "/legal/security-policy#12",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7072,7 +7395,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f792b2814457efeed138a244093a42e1",
+      "objectID": "9a4fde0871c906eb1c1b25a8676e5474",
       "title": "VeriDoc security policy",
       "heading": "Incident response procedure",
       "content": "| Phase | Timeline | Actions | |-------|----------|---------| | Detection | Automated | Health check alerts via email within 10 minutes of failure | | Triage | Within 1 hour | Assess severity, identify root cause | | Containment | Within 2 hours | Isolate affected systems, prevent data loss | | Resolution | Within 4 hours (critical) | Restore service, deploy fix | | Notification | Within 72 hours | Notify affected customers per DPA obligations | | Post-mortem | Within 7 days | Document root cause, implement preventive measures | ",
@@ -7092,7 +7415,7 @@
         "lvl3": "Incident response procedure",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#12",
+      "url": "/legal/security-policy#13",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7102,7 +7425,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9a4fde0871c906eb1c1b25a8676e5474",
+      "objectID": "be4c46d462d54bc60145d89563381479",
       "title": "VeriDoc security policy",
       "heading": "Severity levels",
       "content": "| Level | Definition | Response time | Example | |-------|------------|---------------|---------| | Critical | Service down, data at risk | 1 hour | Database corruption, security breach | | High | Feature degraded, no data risk | 4 hours | API errors, slow response times | | Medium | Minor issue, workaround available | 24 hours | Non-critical feature bug | | Low | Cosmetic or documentation issue | 72 hours | UI display issue | ",
@@ -7122,7 +7445,7 @@
         "lvl3": "Severity levels",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#13",
+      "url": "/legal/security-policy#14",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7132,7 +7455,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "be4c46d462d54bc60145d89563381479",
+      "objectID": "2413d87fb9d214bee27cde5c7a4a2983",
       "title": "VeriDoc security policy",
       "heading": "Vulnerability management",
       "content": "1. Dependency scanning. Python dependencies are reviewed weekly for    known vulnerabilities using pip-audit. 1. OS patching. Security patches are applied within 48 hours of    release. 1. Container updates. Docker base images are rebuilt monthly with    latest security patches. 1. Penetration testing. External penetration testing is conducted    annually. ",
@@ -7152,7 +7475,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#14",
+      "url": "/legal/security-policy#15",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7162,7 +7485,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2413d87fb9d214bee27cde5c7a4a2983",
+      "objectID": "9dd61759c5f55f8e5652d347286f5c66",
       "title": "VeriDoc security policy",
       "heading": "Responsible disclosure",
       "content": "If you discover a security vulnerability in VeriDoc: 1. Email <security@veri-doc.app> with a description of the vulnerability. 1. Include steps to reproduce the issue. 1. Allow 90 days for remediation before public disclosure. 1. Do not access or modify other users' data during testing. We do not pursue legal action against security researchers who follow responsible disclosure practices. ",
@@ -7182,7 +7505,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#15",
+      "url": "/legal/security-policy#16",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7192,7 +7515,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9dd61759c5f55f8e5652d347286f5c66",
+      "objectID": "5656d849a35a1f04304970dae4eda670",
       "title": "VeriDoc security policy",
       "heading": "Compliance standards",
       "content": "| Standard | Status | |----------|--------| | GDPR | Compliant (EU data processing, DPA available) | | TLS 1.3 | Enforced on all endpoints | | Password security | PBKDF2-SHA256, 600,000 iterations | | Data retention | Defined retention periods with automated deletion | ",
@@ -7212,7 +7535,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#16",
+      "url": "/legal/security-policy#17",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7222,7 +7545,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "5656d849a35a1f04304970dae4eda670",
+      "objectID": "45025dcf3737165f27df1b28e92568b9",
       "title": "VeriDoc security policy",
       "heading": "Contact information",
       "content": "For security inquiries or to report a vulnerability: - Email: <security@veri-doc.app> - Response time: within 24 hours for security reports Last updated: March 28, 2026 ",
@@ -7242,7 +7565,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#17",
+      "url": "/legal/security-policy#18",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7252,7 +7575,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "45025dcf3737165f27df1b28e92568b9",
+      "objectID": "4baaaf80058a144b5e50233ed88e98c9",
       "title": "VeriDoc security policy",
       "heading": "Next steps",
       "content": "- Review the terms of service - Review the privacy policy - Review the data processing agreement ",
@@ -7272,7 +7595,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/security-policy#18",
+      "url": "/legal/security-policy#19",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/security-policy.md",
       "ranking_boost": 4,
@@ -7284,8 +7607,8 @@
     {
       "objectID": "c004677b29a2975ad7fdee162ac6e842",
       "title": "VeriDoc terms of service",
-      "heading": "VeriDoc terms of service",
-      "content": "These terms of service (\"Terms\") govern your access to and use of VeriDoc, an automated documentation pipeline platform operated by Liora Tech (\"Company,\" \"we,\" \"us\"). By creating an account or using the service, you agree to these Terms. ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.",
       "product": "cloud",
       "content_type": "reference",
@@ -7306,13 +7629,43 @@
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "5562284770c5308b711374229367b5c7",
+      "title": "VeriDoc terms of service",
+      "heading": "VeriDoc terms of service",
+      "content": "These terms of service (\"Terms\") govern your access to and use of VeriDoc, an automated documentation pipeline platform operated by Liora Tech (\"Company,\" \"we,\" \"us\"). By creating an account or using the service, you agree to these Terms. ",
+      "description": "Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.",
+      "product": "cloud",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "cloud",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/legal/terms-of-service#1",
+      "last_reviewed": "2026-03-28",
+      "path": "docs/legal/terms-of-service.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 38,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "5562284770c5308b711374229367b5c7",
+      "objectID": "e12a50ce01d1965dc79ce030286f6281",
       "title": "VeriDoc terms of service",
       "heading": "Key definitions",
       "content": "| Term | Meaning | |------|---------| | Service | The VeriDoc platform, including the API, web interface, and CLI tools | | User | Any individual or entity that creates an account on the Service | | Subscription | A paid plan that grants access to premium features and higher usage limits | | Content | Documentation, code, configuration, and other materials processed by the Service | | Pipeline run | A single execution of the documentation processing pipeline | ",
@@ -7332,7 +7685,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#1",
+      "url": "/legal/terms-of-service#2",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7342,7 +7695,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e12a50ce01d1965dc79ce030286f6281",
+      "objectID": "7c1ecc4e1d19f1d30769a0f649fec388",
       "title": "VeriDoc terms of service",
       "heading": "Account registration",
       "content": "You must provide accurate information when creating an account. Each user must maintain one account. Sharing account credentials violates these Terms. You are responsible for all activity under your account. Notify us at <support@veri-doc.app> if you suspect unauthorized access. ",
@@ -7362,7 +7715,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#2",
+      "url": "/legal/terms-of-service#3",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7372,7 +7725,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "7c1ecc4e1d19f1d30769a0f649fec388",
+      "objectID": "613d2d4173707db636fecef51a9eebf9",
       "title": "VeriDoc terms of service",
       "heading": "Subscription tiers and usage limits",
       "content": "VeriDoc offers five subscription tiers with the following usage limits per billing period: | Tier | AI requests | Pages | API calls | Price | |------|-------------|-------|-----------|-------| | Free | 50 | 10 | 100 | $0/month | | Starter | 500 | 50 | 5,000 | Refer to pricing page | | Pro | 2,000 | 200 | 20,000 | Refer to pricing page | | Business | 10,000 | 1,000 | 100,000 | Refer to pricing page | | Enterprise | Unlimited | Unlimited | Unlimited | Custom pricing | When you exceed your tier limits, the Service restricts further pipeline runs until the next billing period or until you upgrade your plan. ",
@@ -7392,7 +7745,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#3",
+      "url": "/legal/terms-of-service#4",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7402,7 +7755,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "613d2d4173707db636fecef51a9eebf9",
+      "objectID": "1bbd2d89cad50b375ccb251be1be280a",
       "title": "VeriDoc terms of service",
       "heading": "Billing and payments",
       "content": "Subscriptions are billed through LemonSqueezy, our payment processor. By subscribing, you also agree to the LemonSqueezy terms of service. Billing details: 1. Subscriptions renew automatically at the end of each billing period    (monthly or annual). 1. You may cancel at any time from the billing portal. Cancellation takes    effect at the end of the current billing period. 1. Refunds follow our 14-day refund policy. Contact <support@veri-doc.app>    within 14 days of purchase for a full refund. 1. Failed payments are retried up to 3 times over 7 days. After 3 failures,    the subscription is canceled automatically. ",
@@ -7422,7 +7775,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#4",
+      "url": "/legal/terms-of-service#5",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7432,7 +7785,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "1bbd2d89cad50b375ccb251be1be280a",
+      "objectID": "71a499845f0d24cedaa78afc9127355c",
       "title": "VeriDoc terms of service",
       "heading": "Acceptable use",
       "content": "You agree not to: 1. Use the Service to process content that violates applicable laws. 1. Attempt to reverse-engineer, decompile, or extract source code from the    Service. 1. Exceed rate limits (60 requests per minute) through automated means. 1. Share, resell, or sublicense your account access to third parties. 1. Transmit malware, phishing content, or exploit payloads through the    pipeline. 1. Use the Service to generate documentation that infringes intellectual    property rights of others. Violation of acceptable use policies may result in immediate account suspension without prior notice. ",
@@ -7452,7 +7805,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#5",
+      "url": "/legal/terms-of-service#6",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7462,7 +7815,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "71a499845f0d24cedaa78afc9127355c",
+      "objectID": "f0c5898332c6ab392fa0a1d9c04f17f2",
       "title": "VeriDoc terms of service",
       "heading": "Intellectual property",
       "content": "Your content. You retain all rights to the documentation, code, and configuration you upload to or generate through the Service. We do not claim ownership of your content. Our service. The VeriDoc platform, including its pipeline architecture, templates, scripts, and methods, is owned by Liora Tech and protected by intellectual property laws. License grant. You grant us a limited license to process your content solely for providing the Service. This license terminates when you delete your content or close your account. ",
@@ -7482,7 +7835,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#6",
+      "url": "/legal/terms-of-service#7",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7492,7 +7845,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f0c5898332c6ab392fa0a1d9c04f17f2",
+      "objectID": "2ddb15fe2121fa28dfad4673926281f9",
       "title": "VeriDoc terms of service",
       "heading": "Data handling",
       "content": "We process your documentation content to provide the Service. Refer to our privacy policy for details on data collection, storage, and retention. Key data handling commitments: 1. Your documentation content is processed in memory and stored in encrypted    databases. 1. We do not use your content to train machine learning models. 1. LLM providers (Anthropic, OpenAI, Groq, DeepSeek) process content only    when you enable AI features. Each provider's data handling policies    apply to that processing. 1. You may request data export or deletion at any time per our    data processing agreement. ",
@@ -7512,7 +7865,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#7",
+      "url": "/legal/terms-of-service#8",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7522,7 +7875,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2ddb15fe2121fa28dfad4673926281f9",
+      "objectID": "56d763cbb43224b3581c3f3aecf59188",
       "title": "VeriDoc terms of service",
       "heading": "Service availability",
       "content": "We target 99.9% uptime for the production environment. Planned maintenance windows are announced 48 hours in advance via email and the status page. We are not liable for downtime caused by: 1. Third-party service outages (LemonSqueezy, LLM providers, DNS). 1. Force majeure events. 1. Your network or infrastructure issues. 1. Scheduled maintenance communicated in advance. ",
@@ -7542,7 +7895,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#8",
+      "url": "/legal/terms-of-service#9",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7552,7 +7905,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "56d763cbb43224b3581c3f3aecf59188",
+      "objectID": "f2f6aaafa9079d82da228661d76d4d63",
       "title": "VeriDoc terms of service",
       "heading": "Limitation of liability",
       "content": "To the maximum extent permitted by law, Liora Tech is not liable for indirect, incidental, special, or consequential damages arising from your use of the Service. Our total liability is limited to the amount you paid for the Service in the 12 months preceding the claim. ",
@@ -7572,7 +7925,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#9",
+      "url": "/legal/terms-of-service#10",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7582,7 +7935,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f2f6aaafa9079d82da228661d76d4d63",
+      "objectID": "870e064337c031c00e5aa3cffb0654fa",
       "title": "VeriDoc terms of service",
       "heading": "Termination",
       "content": "Either party may terminate the agreement: 1. You may close your account at any time from account settings. Active    subscriptions are canceled at the end of the billing period. 1. We may suspend or terminate accounts that violate these Terms, with    written notice to your registered email. For severe violations (security    threats, illegal activity), we may act immediately. Upon termination, we retain your data for 30 days to allow export. After 30 days, all data is permanently deleted. ",
@@ -7602,7 +7955,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#10",
+      "url": "/legal/terms-of-service#11",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7612,7 +7965,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "870e064337c031c00e5aa3cffb0654fa",
+      "objectID": "a54c9bda2bb0492fccd418bf0c5799c8",
       "title": "VeriDoc terms of service",
       "heading": "Changes to these terms",
       "content": "We may update these Terms with 30 days advance notice via email. Continued use after the effective date constitutes acceptance. If you disagree, close your account before the changes take effect. ",
@@ -7632,7 +7985,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#11",
+      "url": "/legal/terms-of-service#12",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7642,7 +7995,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "a54c9bda2bb0492fccd418bf0c5799c8",
+      "objectID": "85d580d51cf16746c56622c667484dea",
       "title": "VeriDoc terms of service",
       "heading": "Governing law",
       "content": "These Terms are governed by the laws of Israel. Disputes are resolved in the courts of Tel Aviv, Israel. ",
@@ -7662,7 +8015,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#12",
+      "url": "/legal/terms-of-service#13",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7672,7 +8025,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "85d580d51cf16746c56622c667484dea",
+      "objectID": "ad6f6a7da94ec5ba3d7a986d6c85c806",
       "title": "VeriDoc terms of service",
       "heading": "Contact information",
       "content": "For questions about these Terms: - Email: <support@veri-doc.app> - Web: veri-doc.app/contact Last updated: March 28, 2026 ",
@@ -7692,7 +8045,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#13",
+      "url": "/legal/terms-of-service#14",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7702,7 +8055,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ad6f6a7da94ec5ba3d7a986d6c85c806",
+      "objectID": "85f263d79e28fd5ab81ae776b8f37865",
       "title": "VeriDoc terms of service",
       "heading": "Next steps",
       "content": "- Review the privacy policy - Review the data processing agreement - Review the security policy ",
@@ -7722,7 +8075,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/legal/terms-of-service#14",
+      "url": "/legal/terms-of-service#15",
       "last_reviewed": "2026-03-28",
       "path": "docs/legal/terms-of-service.md",
       "ranking_boost": 4,
@@ -7732,10 +8085,330 @@
       "code_snippets": []
     },
     {
+      "objectID": "04fbe87c8b94e5745818ec03a06109f1",
+      "title": "Autopipeline Output Index",
+      "heading": "Autopipeline Output Index",
+      "content": "Generated automatically after autopipeline run. - Runtime config: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml - Stage summary: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/pipeline_stage_summary.json - Review manifest: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_MANIFEST.md - Weekly rc: 0 - Strictness: standard - Skip consolidated report: False ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#0",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 32,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "4731c840623ac47c9bb6561c3f831113",
+      "title": "Autopipeline Output Index",
+      "heading": "Stage Articulation",
+      "content": "- multi_protocol_contract: OK - consolidated_report: OK - audit_scorecard: OK - finalize_gate: OK - docsops_status: OK - ready_marker: OK - kpi_wall: OK - kpi_sla: OK - glossary_sync: OK - test_assets_json: OK - test_assets_coverage: OK - test_assets_fuzz: OK - test_assets_summary: MISSING ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Stage Articulation",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#1",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 39,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e194f3f6239f66e637235bc51a0f9050",
+      "title": "Autopipeline Output Index",
+      "heading": "Docs Links",
+      "content": "- Docs index: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md (OK)   Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/index/ ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Docs Links",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#2",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "0fb7f0adf31f8e4e510667516a0c8a86",
+      "title": "Autopipeline Output Index",
+      "heading": "Protocols Links",
+      "content": "- Multi-protocol contract report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json (OK) - REST reference: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/rest-api.md (OK)   Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/rest-api/ - REST playground: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md (OK)   Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/taskstream-api-playground/ ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Protocols Links",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#3",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 25,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e79f802d7e892e2b8a73a8e424d5d28e",
+      "title": "Autopipeline Output Index",
+      "heading": "Quality Links",
+      "content": "- Glossary source: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/glossary.yml (OK) - Glossary sync report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/glossary_sync_report.json (OK) - KPI wall: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-wall.json (OK) - KPI SLA report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-sla-report.json (OK) ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Quality Links",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#4",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 26,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "bdc089ce4275674d74aae4e8bd6736b0",
+      "title": "Autopipeline Output Index",
+      "heading": "Reports Links",
+      "content": "- Consolidated report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/consolidated_report.json (OK) - Audit scorecard (JSON): /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json (OK) - Audit scorecard (HTML): /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.html (OK) - Finalize gate report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/finalize_gate_report.json (OK) - VeriOps status: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json (OK) - Ready marker: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt (OK) - Generated changes list: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/generated_changes.json (OK) - VeriDoc branding policy report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veridoc_branding_policy_report.json (OK) ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Reports Links",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#5",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 54,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "f8cfa9f2fa94ea15949406dd53a10447",
+      "title": "Autopipeline Output Index",
+      "heading": "Search Links",
+      "content": "- Faceted search page: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md (OK)   Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/ - Facets index: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json (OK)   Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Search Links",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#6",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 19,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "47fce1405ccc173cded957a2d2b9cf67",
+      "title": "Autopipeline Output Index",
+      "heading": "Tests Links",
+      "content": "- API test cases JSON: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/api_test_cases.json (OK) - TestRail CSV: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/testrail_test_cases.csv (OK) - Zephyr JSON: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/zephyr_test_cases.json (OK) - Test coverage report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/coverage_report.json (OK) - Fuzz scenarios: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json (OK) - Test assets summary: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md (MISSING) ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Tests Links",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#7",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 40,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "8b275f32b3505df808da96135d229a79",
+      "title": "Autopipeline Output Index",
+      "heading": "Browse/Searchability",
+      "content": "- Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable page paths. - Searchability: faceted index (docs/assets/facets-index.json) + retrieval index (docs/assets/knowledge-retrieval-index.json). - AI retrieval: knowledge graph (docs/assets/knowledge-graph.jsonld) + retrieval eval reports. ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Browse/Searchability",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#8",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 31,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "66ae7db6d0734c3c08beac8c2fee111b",
+      "title": "Autopipeline Output Index",
+      "heading": "Next steps",
+      "content": "- Documentation index ",
+      "description": "Auto-generated review index for autopipeline outputs.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Pipeline",
+        "Review"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Next steps",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#9",
+      "last_reviewed": "",
+      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 3,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
       "objectID": "b1754fa7ea1e5394134f7d93bf7a61f3",
       "title": "Canonical Flow (Sales + Delivery)",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
       "product": "both",
       "content_type": "reference",
@@ -7851,7 +8524,7 @@
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 160,
+      "word_count": 201,
       "has_code": false,
       "code_snippets": []
     },
@@ -7882,7 +8555,7 @@
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 238,
+      "word_count": 266,
       "has_code": false,
       "code_snippets": []
     },
@@ -8169,7 +8842,7 @@
       "objectID": "9559e749e02f20eb2e495f16825804e9",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> <!-- cspell:disable --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> <!-- cspell:disable --> ",
       "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
       "product": "both",
       "content_type": "reference",
@@ -9006,7 +9679,7 @@
       "objectID": "bda53ebd3505e4db00f4993070ac53ba",
       "title": "Multi-Protocol Architecture",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
       "product": "both",
       "content_type": "reference",
@@ -9518,7 +10191,7 @@
       "objectID": "bee0548b4f932ca99c3d5bde057345d9",
       "title": "Multi-Protocol Wizard Guide",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.",
       "product": "both",
       "content_type": "how-to",
@@ -9678,7 +10351,7 @@
       "objectID": "a4d6e17e8be9dd0ccde05864b3c26bf4",
       "title": "Pipeline Capabilities Catalog",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
@@ -9825,12 +10498,43 @@
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 492,
+      "word_count": 503,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "6dc49bf9c79b181cfb55ac31f755f36a",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "Algolia advanced auto-optimization",
+      "content": "When runtime.integrations.algolia.enabled=true, the provisioning and weekly flows support advanced zero-manual search optimization. Provisioning behavior (provision_client_repo.py): 1. Generates config/algolia.search.yml if missing (settings, synonyms, rules, replicas). 1. Generates search widget helper script. 1. If credentials exist, auto-bootstraps Algolia index (records + advanced config apply). Weekly behavior (run_weekly_gap_batch.py): 1. Builds Algolia records from docs via seo_geo_optimizer.py --algolia. 1. Uploads records with upload_to_algolia.py. 1. Passes advanced config path and applies advanced settings automatically when enabled. Runtime configuration keys: runtime:   integrations:     algolia:       enabled: true       docs_dir: docs       report_output: reports/seo-report.json       upload_on_weekly: true       advanced_config_path: config/algolia.search.yml       apply_advanced_settings_on_upload: true       auto_optimize_on_provision: true       ab_test_replica_suffi",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Algolia advanced auto-optimization",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
+      "last_reviewed": "2026-03-24",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 119,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "eee634079c2b9e73e905a2ab0be8b2a2",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Multi-protocol contract pipeline",
       "content": "The pipeline supports five API protocols with a unified orchestrator (run_multi_protocol_contract_flow.py). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback. | Protocol | Contract format | Validator | Sandbox fallback | | --- | --- | --- | --- | | REST | OpenAPI 3.0 YAML | validate_openapi_contract.py + Spectral + Redocly | Prism / Postman mock server | | GraphQL | SDL (.graphql) | validate_graphql_contract.py | postman-echo.com/post | | gRPC | Proto3 (.proto) | validate_proto_contract.py | postman-echo.com/post (JSON-over-HTTP) | | AsyncAPI | AsyncAPI 2.6 YAML | validate_asyncapi_contract.py | postman-echo.com/post + echo.websocket.events | | WebSocket | Channel YAML | validate_websocket_contract.py | echo.websocket.events | 9 pipeline stages per protocol: ingest, contract validation, server stub generation, lint, regression detection, docs generation, quality gates (frontmatter + snippet lint + self-verification), test ass",
@@ -9851,7 +10555,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -9861,7 +10565,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "eee634079c2b9e73e905a2ab0be8b2a2",
+      "objectID": "3d80cd1b18eec86a5be2c4e47e21a89e",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Test assets generation and smart merge",
       "content": "generate_protocol_test_assets.py generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes. Test categories per protocol: | Protocol | Categories | | --- | --- | | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination | | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection, latency | | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization, latency SLO | | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security, throughput | | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency | Output formats: api_test_cases.json, testrail_test_cases.csv (TestRail), zephyr_test_cases.json (Zephyr Scale), test_matrix.json, fuzz_scenarios.json. Smart merge rules: auto-generated cases are replaced on contract change; customized cases (customized: true) are preserved and flagged needs_",
@@ -9882,7 +10586,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#7",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -9892,7 +10596,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3d80cd1b18eec86a5be2c4e47e21a89e",
+      "objectID": "aa9e78f16112870d18f022a796fb498a",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Quality checks (32 automated)",
       "content": "The pipeline enforces 32 automated checks on every documentation page across four categories: | Category | Count | What they verify | | --- | --- | --- | | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density | | SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, image alt text, structured data | | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense | | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints | ",
@@ -9913,7 +10617,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#7",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#8",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -9923,7 +10627,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "aa9e78f16112870d18f022a796fb498a",
+      "objectID": "055a5674bc2ab464feb25cddc9325239",
       "title": "Pipeline Capabilities Catalog",
       "heading": "RAG retrieval pipeline",
       "content": "The pipeline generates a knowledge retrieval layer with six advanced features: | Feature | Description | | --- | --- | | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap (cl100k_base) | | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with Reciprocal Rank Fusion (k=60) | | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding for better retrieval on vague queries | | Cross-encoder reranking | Rescores top 20 candidates with cross-encoder/ms-marco-MiniLM-L-6-v2 | | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for query embeddings | | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank modes across curated queries | Pipeline scripts: 1. extract_knowledge_modules_from_docs.py -- auto-chunk docs into knowledge modules 1. validate_knowledge_modules.py -- schema validation, duplicate ID detection, cycle check 1. generate_knowledge_retrieval_index.py --",
@@ -9944,7 +10648,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#8",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#9",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -9954,7 +10658,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "055a5674bc2ab464feb25cddc9325239",
+      "objectID": "845ed7bd45ee808354c1cc676f7fde79",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Public docs auditor and executive PDF",
       "content": "The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment. Audit modes: | Mode | Command | Description | | --- | --- | --- | | Basic | npm run audit:public | Crawl + evaluate (no LLM) | | Interactive wizard | npm run audit:public:wizard | Step-by-step guided audit | | LLM-powered | npm run audit:public:llm | Full expert analysis with Claude | | LLM summary only | npm run audit:public:llm-summary | Quick LLM summary without full crawl | | Executive PDF | npm run audit:executive-pdf | Consulting-grade PDF from audit results | | Scorecard | npm run audit:scorecard | Comprehensive scoring across all quality dimensions | Executive PDF contents: cover page with headline findings, executive summary with score gauge and grade, per-site metrics table, board-level KPI bars with financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven fallback), methodology appendix, evidence appendix. Audit scorecard dimensions: docs ",
@@ -9975,7 +10679,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#9",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#10",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -9985,7 +10689,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "845ed7bd45ee808354c1cc676f7fde79",
+      "objectID": "49f693208e105f0054465874b170c6aa",
       "title": "Pipeline Capabilities Catalog",
       "heading": "API-first external sandbox note",
       "content": "For public web playground usage, prefer external sandbox mode and a public HTTPS mock URL with CORS: API_FIRST_DEMO_SANDBOX_BACKEND=external \\ API_FIRST_DEMO_MOCK_BASE_URL=\"https://<your-real-public-mock-url>/v1\" \\ bash scripts/api_first_demo_live.sh The pipeline is provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint. For Postman auto-prepare mode, provide: - POSTMAN_API_KEY - POSTMAN_WORKSPACE_ID - optional POSTMAN_COLLECTION_UID (if empty, pipeline imports collection from generated OpenAPI) - optional POSTMAN_MOCK_SERVER_ID ",
@@ -10006,7 +10710,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#10",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#11",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10016,7 +10720,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "49f693208e105f0054465874b170c6aa",
+      "objectID": "62a8bf9c56193ae508a8afb1ffa37303",
       "title": "Pipeline Capabilities Catalog",
       "heading": "PR auto-doc workflow capability",
       "content": "Enable in client profile with runtime.pr_autofix. Installed workflow behavior: 1. Trigger on PR events (opened, synchronize, reopened, labeled). 1. Analyze only current PR diff (base...head). 1. Run docs auto-fix script if docs contract/drift gates require docs updates. 1. Commit generated docs into the same PR branch. 1. Rerun checks automatically. ",
@@ -10037,7 +10741,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#11",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#12",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10047,7 +10751,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "62a8bf9c56193ae508a8afb1ffa37303",
+      "objectID": "127895893df150ed5d73253db13bf26e",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Templates",
       "content": "These can be shipped via bundle.include_paths and used by LLM generation flow. - templates/admin-guide.md - templates/api-endpoint.md - templates/api-reference.md - templates/architecture-overview.md - templates/authentication-guide.md - templates/best-practices.md - templates/changelog.md - templates/concept.md - templates/configuration-guide.md - templates/configuration-reference.md - templates/deployment-guide.md - templates/error-handling-guide.md - templates/faq.md - templates/glossary-page.md - templates/how-to.md - templates/integration-guide.md - templates/interactive-diagram.html - templates/migration-guide.md - templates/plg-persona-guide.md - templates/plg-value-page.md - templates/quickstart.md - templates/reference.md - templates/release-note.md - templates/sdk-reference.md - templates/security-guide.md - templates/testing-guide.md - templates/troubleshooting.md - templates/tutorial.md - templates/upgrade-guide.md - templates/use-case.md - templates/user-guide.md - templat",
@@ -10068,7 +10772,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#13",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10078,7 +10782,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "127895893df150ed5d73253db13bf26e",
+      "objectID": "d004493df6e70b544a75a146a6ec7e1d",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Policy Packs",
       "content": "- api-first.yml - minimal.yml - monorepo.yml - multi-product.yml - plg.yml ",
@@ -10099,7 +10803,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#13",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#14",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10109,7 +10813,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d004493df6e70b544a75a146a6ec7e1d",
+      "objectID": "b3d8f221d272be188e2befe021a299bc",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Knowledge Modules",
       "content": "Can be copied into client bundle with bundle.include_paths: ['knowledge_modules']. - webhook-auth-baseline.yml - webhook-retry-policy.yml ",
@@ -10130,7 +10834,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#14",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#15",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10140,7 +10844,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "b3d8f221d272be188e2befe021a299bc",
+      "objectID": "40527ebb1978d401610c8e7fb3e1ade3",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Docker Compose Profiles",
       "content": "- docker-compose.api-sandbox.live.yml - docker-compose.api-sandbox.prodlike.yml - docker-compose.api-sandbox.yml - docker-compose.docs-ops.yml ",
@@ -10161,7 +10865,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#15",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#16",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10171,7 +10875,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "40527ebb1978d401610c8e7fb3e1ade3",
+      "objectID": "1f4ba1a8009242852e9435daed5d3475",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -10192,7 +10896,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#16",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#17",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10202,7 +10906,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "1f4ba1a8009242852e9435daed5d3475",
+      "objectID": "62192b9fe51ffeaa263fc730f7dd28aa",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Implementation status (2026-03-25)",
       "content": "This document is aligned to the current production implementation baseline. Current baseline: 1. The platform is docs-first and also supports code-first, api-first, and hybrid flows. 1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket. 1. Non-REST automation includes server stubs with business-logic placeholders. 1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode. 1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved. 1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals). 1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans. Canonical execution order reference: - docs/operations/CANONICAL_FLOW.md - docs/operations/UNIFIED_CLIENT_CONFIG.md - RE",
@@ -10223,7 +10927,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#17",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#18",
       "last_reviewed": "2026-03-24",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -10236,7 +10940,7 @@
       "objectID": "998b962110e5961a022b6a282b2a1cf0",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -10608,7 +11312,7 @@
       "objectID": "86ea219f77c204b71f5ce09b98a7bcdb",
       "title": "Smart Merge and Manual Review",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "How needs_review works for protocol test assets and where operators review flagged cases.",
       "product": "both",
       "content_type": "how-to",
@@ -10864,7 +11568,7 @@
       "objectID": "ad2cd4d9985c0e8abfc85e0ace0f0211",
       "title": "Unified Client Configuration",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
       "product": "both",
       "content_type": "reference",
@@ -12073,7 +12777,7 @@
       "objectID": "5908e24995ffa947468b040d687d2fe4",
       "title": "API playground",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.",
       "product": "both",
       "content_type": "reference",
@@ -12296,8 +13000,8 @@
     {
       "objectID": "5e33ae0e926d1f3bba3b2c5c58f76e17",
       "title": "ASYNCAPI API Reference",
-      "heading": "ASYNCAPI Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -12325,13 +13029,50 @@
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "6f7ee39fe973d5c8f5d68d1069700b62",
+      "title": "ASYNCAPI API Reference",
+      "heading": "ASYNCAPI Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
+      "description": "Auto-generated asyncapi reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/asyncapi-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/reference/asyncapi-api.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "6f7ee39fe973d5c8f5d68d1069700b62",
+      "objectID": "791d97fad07ad16dadc8f512d484dd7a",
       "title": "ASYNCAPI API Reference",
       "heading": "Top-level Keys",
       "content": "- asyncapi - channels - info ",
@@ -12358,7 +13099,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#1",
+      "url": "/reference/asyncapi-api#2",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
@@ -12368,7 +13109,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "791d97fad07ad16dadc8f512d484dd7a",
+      "objectID": "b8cd7a25cf9a0b685875ad4c63ce7aa0",
       "title": "ASYNCAPI API Reference",
       "heading": "Channels",
       "content": "- Channel count: 1 - orders/created ",
@@ -12395,7 +13136,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#2",
+      "url": "/reference/asyncapi-api#3",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
@@ -12405,7 +13146,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "b8cd7a25cf9a0b685875ad4c63ce7aa0",
+      "objectID": "d04653ec752f2965a30574cbc4858175",
       "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
       "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <!-- vale off --> <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <!-- vale on -->   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.get",
@@ -12432,7 +13173,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#3",
+      "url": "/reference/asyncapi-api#4",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
@@ -12442,7 +13183,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d04653ec752f2965a30574cbc4858175",
+      "objectID": "a9a71c88134899f56f63593bdf3a75e3",
       "title": "ASYNCAPI API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -12469,7 +13210,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#4",
+      "url": "/reference/asyncapi-api#5",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
@@ -12482,7 +13223,7 @@
       "objectID": "7371acd029f4372c17fba4de3774b302",
       "title": "Auto-Doc Pipeline study guide",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating flow, plan mapping, and a detailed client FAQ.",
       "product": "both",
       "content_type": "reference",
@@ -13660,7 +14401,7 @@
       "objectID": "d0a28c1b7000df3a33c6579de8f22893",
       "title": "Old Webhook API (Deprecated)",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "This API is deprecated. Use the new Webhook node instead.",
       "product": "both",
       "content_type": "reference",
@@ -13783,8 +14524,8 @@
     {
       "objectID": "46c7727287ef2aab8638701178e5a7c1",
       "title": "GRAPHQL API Reference",
-      "heading": "GRAPHQL Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql Flow mode: api-first ",
+      "heading": "",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -13812,13 +14553,50 @@
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
+      "heading_level": 0,
+      "word_count": 9,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "b17497bd298628432c45c62091712050",
+      "title": "GRAPHQL API Reference",
+      "heading": "GRAPHQL Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql Flow mode: api-first ",
+      "description": "Auto-generated graphql reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Kroha",
+        "Docs",
+        "Users",
+        "Development",
+        "Mnt",
+        "C",
+        "Auto Doc Pipeline",
+        "Documents"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/graphql-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/reference/graphql-api.md",
+      "ranking_boost": 4,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "b17497bd298628432c45c62091712050",
+      "objectID": "4a8199a7c3605912f02a5255da2dbcd5",
       "title": "GRAPHQL API Reference",
       "heading": "Operations",
       "content": "- Query count: 1 - Mutation count: 0 - Subscription count: 0 - Queries: health ",
@@ -13845,7 +14623,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/graphql-api#1",
+      "url": "/reference/graphql-api#2",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
@@ -13855,7 +14633,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "4a8199a7c3605912f02a5255da2dbcd5",
+      "objectID": "560f98b8da67e9896a7d68c549c11585",
       "title": "GRAPHQL API Reference",
       "heading": "Interactive GraphQL Playground",
       "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; function normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase(); } function fallback(queryText){   const q = normalize(queryTex",
@@ -13882,7 +14660,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/graphql-api#2",
+      "url": "/reference/graphql-api#3",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
@@ -13892,7 +14670,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "560f98b8da67e9896a7d68c549c11585",
+      "objectID": "d3f123e8a21ece786ccc3f788b578486",
       "title": "GRAPHQL API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -13919,7 +14697,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/graphql-api#3",
+      "url": "/reference/graphql-api#4",
       "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
@@ -13932,7 +14710,7 @@
       "objectID": "8a299d7096cf4c26ac7ce5cf4a15f7c1",
       "title": "GRPC API Reference",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -14092,7 +14870,7 @@
       "objectID": "80dc8ef9cc542476ba825ebfed5a3197",
       "title": "Reference Documentation",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Complete reference for nodes, parameters, environment variables, CLI commands, and REST API endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -14158,7 +14936,7 @@
       "objectID": "5380b571ce3b8ae0edb78df289d2d4f1",
       "title": "Network transparency reference",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Complete list of all outgoing network requests the pipeline makes, with exact payload schemas. No client data leaves your network.",
       "product": "both",
       "content_type": "reference",
@@ -14968,7 +15746,7 @@
       "objectID": "7eeb1ef1f41b7eb3bb661c97f104be9d",
       "title": "Webhook node reference for",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling.",
       "product": "both",
       "content_type": "reference",
@@ -15308,7 +16086,7 @@
       "objectID": "3a902e391fb6c0961c067f3551cd2acf",
       "title": "REST API Reference",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated rest reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -15448,7 +16226,7 @@
       "objectID": "bcbdd48758171f5408c1ad754867c72d",
       "title": "TaskStream API playground",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -15708,7 +16486,7 @@
       "objectID": "e2223689faa74c446f806030af547e44",
       "title": "TaskStream API planning notes",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.",
       "product": "both",
       "content_type": "reference",
@@ -15900,7 +16678,7 @@
       "objectID": "b07659ba26df76cb93e5c927e17a1572",
       "title": "WEBSOCKET API Reference",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -16068,7 +16846,7 @@
       "objectID": "e066ceea6f6bd17752baebdc0ceadbf4",
       "title": "Advanced Search",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Search and filter documentation using faceted navigation for quick discovery",
       "product": "both",
       "content_type": "reference",
@@ -16161,7 +16939,7 @@
       "objectID": "bf187b2339a44308cc60be43ae93fa40",
       "title": "Browse by tag",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Filter documentation by topic tags including tutorials, how-to guides, concepts, and component-specific content.",
       "product": "both",
       "content_type": "reference",
@@ -16251,7 +17029,7 @@
       "objectID": "e7a46c7e126bccb2090753e286543aa8",
       "title": "Troubleshooting Guide",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Solutions for common problems including webhook failures, credential errors, execution timeouts, and memory issues.",
       "product": "both",
       "content_type": "troubleshooting",
@@ -16315,7 +17093,7 @@
       "objectID": "962e99ee11d9ed6c0c2ab5c787933408",
       "title": "Fix: Webhook trigger not firing",
       "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veri-doc.app/) <!-- VERIDOC_POWERED_BADGE:END --> ",
       "description": "Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.",
       "product": "both",
       "content_type": "troubleshooting",

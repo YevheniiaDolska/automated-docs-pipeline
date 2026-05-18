@@ -23,6 +23,7 @@ Processing docs/legal/privacy-policy.md...
 Processing docs/legal/security-contact-policy.md...
 Processing docs/legal/security-policy.md...
 Processing docs/legal/terms-of-service.md...
+Processing docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md...
 Processing docs/operations/CANONICAL_FLOW.md...
 Processing docs/operations/CENTRALIZED_CLIENT_BUNDLES.md...
 Processing docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md...
@@ -75,30 +76,30 @@ Processing docs/search-faceted.md...
 Processing docs/tags.md...
 Processing docs/troubleshooting/index.md...
 Processing docs/troubleshooting/webhook-not-firing.md...
-Generated sitemap with 77 URLs
-Saved 527 Algolia records
+Generated sitemap with 78 URLs
+Saved 551 Algolia records
 
 ============================================================
 SEO/GEO OPTIMIZATION REPORT
 ============================================================
 
-GEO Findings: 0 errors, 44 warnings, 56 suggestions
-  docs/assets/protocols/asyncapi/asyncapi-api.md:56 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
-  docs/assets/protocols/graphql/graphql-api.md:45 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
-  docs/assets/protocols/grpc/grpc-api.md:49 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
+GEO Findings: 0 errors, 50 warnings, 71 suggestions
+  docs/assets/protocols/asyncapi/asyncapi-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
+  docs/assets/protocols/asyncapi/asyncapi-api.md:60 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
+  docs/assets/protocols/graphql/graphql-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
+  docs/assets/protocols/graphql/graphql-api.md:49 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
+  docs/assets/protocols/grpc/grpc-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
+  docs/assets/protocols/grpc/grpc-api.md:53 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
   docs/assets/protocols/rest/rest-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
   docs/assets/protocols/rest/rest-api.md:33 [warning] heading-generic: Generic heading '## Notes'. Use descriptive headings for LLM retrieval (e.g., 'Configure SASL authentication' not 'Configuration').
   docs/assets/protocols/rest/rest-api.md:1 [suggestion] seo-heading-keyword-gap: No H2 headings share keywords with the title. Align headings with title for better ranking.
   docs/assets/protocols/rest/rest-api.md:1 [warning] seo-thin-content: Only 45 words. Pages under 100 words rank poorly.
-  docs/concepts/index.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
-  docs/concepts/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
-  docs/concepts/index.md:1 [warning] seo-thin-content: Only 28 words. Pages under 100 words rank poorly.
-  ... and 90 more findings
+  ... and 111 more findings
 
-Search Records: 527 records generated
+Search Records: 551 records generated
   By content type:
     - concept: 28
-    - how-to: 118
-    - reference: 359
+    - how-to: 119
+    - reference: 382
     - troubleshooting: 11
     - tutorial: 11
