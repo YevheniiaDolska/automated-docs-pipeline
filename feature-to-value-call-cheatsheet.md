@@ -28,6 +28,7 @@ Internal call-prep sheet. Each capability family appears once (no repeated featu
 | Structural quality normalization | Automated normalization enforces consistent Markdown structure and formatting conventions. | Noisy diffs and formatting entropy -> cleaner changes and lower maintenance overhead. |
 | Metadata and policy enforcement | Frontmatter schema/lifecycle validation enforces required fields, states, dates, and replacement controls. | Inconsistent standards break discoverability/compliance -> governance-ready documentation outputs. |
 | Search/AI readability controls | SEO/GEO checks enforce machine-readable, retrieval-friendly docs structure. | Docs are hard to discover/use in AI contexts -> higher discoverability and better machine consumption. |
+| Algolia auto-optimization on provisioning | With Algolia enabled and credentials present, provisioning auto-generates `algolia.search.yml`, builds search records, uploads index data, and applies advanced search config (`settings`, `synonyms`, `rules`, `replicas`) without manual dashboard tuning. | Search relevance tuning usually takes repeated manual iterations -> faster go-live with better default relevance and lower ops overhead. |
 | Freshness and terminology control | Weekly lifecycle scans + glossary/term sync reduce stale/conflicting wording over time. | Content decays after release -> sustained content quality and consistency. |
 
 ## 3) API-first delivery acceleration
