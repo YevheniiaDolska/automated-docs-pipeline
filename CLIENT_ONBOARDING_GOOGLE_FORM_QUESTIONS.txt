@@ -1,414 +1,111 @@
 Auto-Doc Pipeline Client Onboarding Form (Google Forms)
-Version: 2026-05-01
-Purpose: collect all required inputs for interactive provisioning wizard and profile generation.
+Version: 2026-05-19
+Purpose: collect only client-facing inputs required for Pilot or Full Implementation onboarding.
 
-SECTION 1. Client Identity
+IMPORTANT
+- Do not ask technical/internal operator questions.
+- Do not ask client for client_id slug, docs/api/sdk paths, repo branch/path internals.
+- Ask AI runtime is a paid add-on and is off by default.
 
-Q1. Company name
+SECTION 1. Engagement Type
+
+Q1. Engagement type
+Type: Multiple choice
+Required: Yes
+Options:
+- Pilot (Recommended for first rollout)
+- Full implementation
+
+SECTION 2. Identity and Contacts
+
+Q2. Company legal name
 Type: Short answer
 Required: Yes
 Validation: text, 2-120 chars
-Example: VeriDoc
 
-Q2. Client ID (slug)
+Q3. Product name
 Type: Short answer
 Required: Yes
-Validation: lowercase letters, numbers, hyphen only
-Regex: ^[a-z0-9-]+$
-Example: veridoc
+Validation: text, 2-120 chars
 
-Q3. Primary contact email
+Q4. Primary docs owner email
 Type: Short answer
 Required: Yes
 Validation: email
-Example: jane.dolska@gmail.com
 
-Q4. Tenant ID (license binding)
+Q5. Technical fallback contact email
 Type: Short answer
 Required: Yes
-Validation: lowercase letters, numbers, hyphen only
-Regex: ^[a-z0-9-]+$
-Example: veridoc
+Validation: email
 
-Q5. Company primary domain (optional)
-Type: Short answer
-Required: No
-Validation: domain format (no protocol)
-Example: veridoc.com
+SECTION 3. Schedule and Environment
 
-SECTION 2. Packaging and Security
-
-Q6. Delivery mode
+Q6. Weekly schedule confirmation
 Type: Multiple choice
 Required: Yes
 Options:
-- bundle-only (Recommended)
-- install-local
+- Use default (Monday 10:00 local time) (Recommended)
+- I need a custom schedule
 
-Q7. Profile source
+Q7. Scheduler OS
 Type: Multiple choice
 Required: Yes
 Options:
-- preset (Recommended)
-- existing profile
+- Linux
+- Windows
+- macOS
 
-Q8. Preset (only if profile source = preset)
-Type: Multiple choice
-Required: Yes (conditional)
-Options:
-- small
-- startup (Recommended)
-- enterprise
-- pilot-evidence
-
-Q9. LLM mode
-Type: Multiple choice
+Q8. Required documentation languages
+Type: Checkbox
 Required: Yes
 Options:
-- fully-local
-- hybrid (Recommended)
-- cloud
+- English (always required)
+- German
+- Spanish
+- French
+- Japanese
+- Other (free text)
 
-Q10. Security hardening profile
-Type: Multiple choice
+SECTION 4. Scope Confirmation (Pilot)
+(Show only if Q1 = Pilot)
+
+Q9. Pilot scope confirmation
+Type: Checkbox
 Required: Yes
 Options:
-- production (Recommended)
-- relaxed
+- Pilot only (limited scope)
+- No PR auto-fix/automerge during pilot
+- No Ask AI runtime add-on unless separately purchased
+- No external mock provider setup unless explicitly requested
 
-Q11. Commercial package
-Type: Multiple choice
-Required: Yes
-Options:
-- pilot
-- full (Recommended)
-- full+rag
+SECTION 5. Integrations (Full implementation)
+(Show only if Q1 = Full implementation)
 
-Q12. License validity (days)
-Type: Short answer
-Required: Yes
-Validation: integer 1..3650
-Default: 30
-
-SECTION 3. Repository Paths and Docs Flow
-
-Q13. Docs path in client repo
-Type: Short answer
-Required: Yes
-Example: docs
-
-Q14. API path in client repo
-Type: Short answer
-Required: Yes
-Default: api
-
-Q15. SDK path in client repo
-Type: Short answer
-Required: Yes
-Default: sdk
-
-Q16. Docs flow mode
-Type: Multiple choice
-Required: Yes
-Options:
-- code-first
-- api-first
-- hybrid (Recommended)
-
-Q17. Vale style guide
-Type: Multiple choice
-Required: Yes
-Options:
-- google (Recommended)
-- microsoft
-- hybrid
-
-Q18. Publish targets (comma-separated)
-Type: Checkbox grid is NOT required; use Short answer
-Required: Yes
-Validation hint: comma-separated list
-Example: mkdocs,github
-
-Q19. Additional documentation locales (comma-separated)
+Q10. Existing production docs URL (if available)
 Type: Short answer
 Required: No
-Hint: English is always enabled by default. Example: ru,de,es
+Example: https://docs.example.com
 
-SECTION 4. Integrations
-
-Q20. Enable PR auto-fix workflow?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No (Recommended)
-
-Q21. API sandbox backend
-Type: Multiple choice
-Required: Yes
-Options:
-- docker
-- prism (Recommended)
-- external
-
-Q22. API user-path verification target (code-first/api-first/hybrid)
-Type: Multiple choice
-Required: Yes
-Options:
-- real endpoints (Recommended for code-first)
-- mock/sandbox endpoint
-
-Q23. API user-path verification base URL
-Type: Short answer
-Required: Yes
-Hint:
-- if Q22=real endpoints: production-like/staging API base URL
-- if Q22=mock/sandbox endpoint: sandbox/mock base URL
-Examples:
-- https://staging-api.example.com/v1
-- http://localhost:4010/v1
-
-Q24. Enable API test asset upload (TestRail/Zephyr)?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No (Recommended)
-
-Q25. Enable Algolia integration?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No (Recommended)
-
-Q26. Algolia site generator (only if Algolia enabled)
-Type: Multiple choice
-Required: Yes (conditional)
-Options:
-- mkdocs (Recommended)
-- docusaurus
-- hugo
-- vitepress
-- custom
-
-Q27. Enable Ask AI integration?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No (Recommended)
-
-Q28. Ask AI provider (only if Ask AI enabled)
-Type: Multiple choice
-Required: Yes (conditional)
-Options:
-- openai (Recommended)
-- anthropic
-- azure-openai
-- custom
-- local
-- ollama
-
-Q29. Ask AI billing mode (only if Ask AI enabled)
-Type: Multiple choice
-Required: Yes (conditional)
-Options:
-- disabled (Recommended)
-- user-subscription
-- platform-paid
-
-Q30. Ask AI runtime pack install during provisioning? (only if Ask AI enabled)
-Type: Multiple choice
-Required: Yes (conditional)
-Options:
-- Yes
-- No (Recommended)
-
-SECTION 5. Branding and Finalize Gate
-
-Q31. Enable mandatory Powered by VeriDoc badge?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No
-
-Q32. Branding landing URL (only if badge enabled)
-Type: Short answer
-Required: Yes (conditional)
-Default: https://veri-doc.app/
-
-Q33. Enable weekly intent experience build?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes (Recommended)
-- No
-
-Q34. Finalize gate: ask interactive confirmation before commit?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No (Recommended)
-
-SECTION 6. Advanced Configuration
-
-Q35. Configure full advanced options now?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No
-
-Q36. Enable module: diagram_validation
-Type: Multiple choice
-Required: Yes (conditional: if Q33=Yes)
-Options: Yes / No
-
-Q37. Enable module: docs_contract
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q38. Enable module: drift_detection
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q39. Enable module: fact_checks
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q40. Enable module: gap_detection
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q41. Enable module: i18n_sync
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q42. Enable module: knowledge_validation
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q43. Enable module: kpi_sla
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q44. Enable module: lifecycle_management
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q45. Enable module: multilang_examples
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q46. Enable module: normalization
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q47. Enable module: release_pack
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q48. Enable module: self_checks
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q49. Enable module: snippet_lint
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q50. Enable module: terminology_management
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q51. Bundle include_paths (comma-separated)
-Type: Short answer
+Q11. Integrations needed now
+Type: Checkbox
 Required: No
-Example: knowledge_modules,templates/interactive-diagram.html
-
-Q52. Extra include_scripts to append (comma-separated)
-Type: Short answer
-Required: No
-Example: scripts/custom_check.py,scripts/custom_publish.py
-
-Q53. Extra weekly task commands to append (comma-separated)
-Type: Paragraph
-Required: No
-Example: python3 docsops/scripts/my_task.py --flag
-
-SECTION 7. API and Ops Advanced Toggles
-
-Q54. Enable API user-path verification?
-Type: Multiple choice
-Required: Yes (conditional: if Q33=Yes and docs flow in {api-first,hybrid})
-Options: Yes / No
-
-Q55. Sync sandbox URL into docs playground config?
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q56. Generate API test assets from API contracts?
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q57. Enable git sync (auto pull before weekly run)?
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-Q58. Algolia: upload index on weekly run? (only if Algolia enabled and Q33=Yes)
-Type: Multiple choice
-Required: Yes (conditional)
-Options: Yes / No
-
-SECTION 8. Install-local Only
-
-Q59. Local path to client repository (only if delivery mode = install-local)
-Type: Short answer
-Required: Yes (conditional)
-Example: C:\Users\Kroha\Documents\development\git_wrapper
-
-Q60. Target folder name inside client repo
-Type: Short answer
-Required: Yes
-Default: docsops
-
-Q61. Scheduler mode (only if delivery mode = install-local)
-Type: Multiple choice
-Required: Yes (conditional)
 Options:
-- none (Recommended)
-- linux
-- windows
+- Algolia
+- TestRail
+- Zephyr
+- Ask AI runtime add-on (paid)
 
-SECTION 9. Final Confirmation
+SECTION 6. Compliance Constraints
 
-Q62. Continue with bundle build only?
-Type: Multiple choice
-Required: Yes
-Options:
-- Yes
-- No
-
-Q63. Notes for operator (optional)
-Type: Paragraph
+Q12. Any compliance constraints?
+Type: Checkbox
 Required: No
-Hint: Add any constraints, compliance requirements, or custom delivery expectations.
+Options:
+- Strict-local only
+- No external data egress
+- Custom security policy requirements
+
+Operator notes (not for client-facing form)
+- client_id slug is auto-generated from company + product.
+- Repo structure/path discovery is auto-detected during bootstrap.
+- Knowledge/retrieval prep and quality gates are enabled by plan/policy defaults.

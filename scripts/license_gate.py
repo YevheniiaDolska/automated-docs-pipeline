@@ -14,6 +14,7 @@ subscription status and download a fresh JWT.
 from __future__ import annotations
 
 import base64
+import argparse
 import hashlib
 import json
 import logging
@@ -45,6 +46,9 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
     "pilot": {
         "markdown_lint": True,
         "frontmatter_validation": True,
+        "vale_lint": True,
+        "cspell_lint": True,
+        "spectral_lint": True,
         "seo_geo_report_only": True,
         "gap_detection_code": True,
         "glossary_sync": True,
@@ -70,6 +74,9 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
     "professional": {
         "markdown_lint": True,
         "frontmatter_validation": True,
+        "vale_lint": True,
+        "cspell_lint": True,
+        "spectral_lint": True,
         "seo_geo_report_only": True,
         "gap_detection_code": True,
         "glossary_sync": True,
@@ -95,6 +102,9 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
     "enterprise": {
         "markdown_lint": True,
         "frontmatter_validation": True,
+        "vale_lint": True,
+        "cspell_lint": True,
+        "spectral_lint": True,
         "seo_geo_report_only": True,
         "gap_detection_code": True,
         "glossary_sync": True,
@@ -123,11 +133,14 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
 COMMUNITY_FEATURES: dict[str, bool] = {
     "markdown_lint": True,
     "frontmatter_validation": True,
+    "vale_lint": True,
+    "cspell_lint": True,
+    "spectral_lint": True,
     "seo_geo_report_only": True,
-    "gap_detection_code": True,
-    "glossary_sync": True,
-    "lifecycle_management": True,
-    "rest_protocol": True,
+    "gap_detection_code": False,
+    "glossary_sync": False,
+    "lifecycle_management": False,
+    "rest_protocol": False,
     "advanced_prompts": False,
 }
 
@@ -138,7 +151,7 @@ PLAN_PROTOCOLS: dict[str, list[str]] = {
     "enterprise": ["rest", "graphql", "grpc", "asyncapi", "websocket"],
 }
 
-COMMUNITY_PROTOCOLS: list[str] = ["rest"]
+COMMUNITY_PROTOCOLS: list[str] = []
 
 # Default offline grace days per plan
 DEFAULT_GRACE_DAYS: dict[str, int] = {
@@ -168,6 +181,8 @@ PHONE_HOME_TIMEOUT_SECONDS = int(
 HEARTBEAT_PATH = REPO_ROOT / "docsops" / ".license_heartbeat.json"
 REPORTS_DIR = REPO_ROOT / "reports"
 VERSION_FILE = REPO_ROOT / "docsops" / ".version.json"
+REPO_BINDING_PATH = REPO_ROOT / "docsops" / ".repo_binding.json"
+INTEGRITY_MANIFEST_PATH = REPO_ROOT / "docsops" / ".integrity_manifest.json"
 REVOCATION_CHECK_ENABLED = os.environ.get(
     "VERIOPS_REVOCATION_CHECK_ENABLED", "false"
 ).strip().lower() in ("true", "1", "yes")
@@ -321,6 +336,122 @@ def _current_bundle_version() -> str:
         value = str(payload.get("version", "0.0.0")).strip()
         return value or "0.0.0"
     return "0.0.0"
+
+
+def _repo_path_hash(repo_root: Path) -> str:
+    """Stable hash of canonical repository path used for local binding."""
+    canonical = str(repo_root.resolve())
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _load_repo_binding(path: Path = REPO_BINDING_PATH) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        return payload if isinstance(payload, dict) else {}
+    except (OSError, json.JSONDecodeError, ValueError):
+        return {}
+
+
+def _save_repo_binding(payload: dict[str, Any], path: Path = REPO_BINDING_PATH) -> None:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
+    except OSError as exc:
+        logger.debug("Cannot write repo binding file %s: %s", path, exc)
+
+
+def _load_integrity_manifest(path: Path = INTEGRITY_MANIFEST_PATH) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        return payload if isinstance(payload, dict) else {}
+    except (OSError, json.JSONDecodeError, ValueError):
+        return {}
+
+
+def _sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _enforce_integrity_manifest(claims_obj: dict[str, Any]) -> str:
+    """Validate hash manifest for protected files.
+
+    If manifest is missing or any protected file hash mismatches, degrade.
+    """
+    plan = str(claims_obj.get("plan", "pilot")).strip().lower()
+    # Community mode has no paid integrity enforcement.
+    if plan == "community":
+        return ""
+
+    manifest = _load_integrity_manifest()
+    if not manifest:
+        return "Integrity manifest missing. Reinstall/provisioning is required."
+
+    files = manifest.get("files", {})
+    if not isinstance(files, dict) or not files:
+        return "Integrity manifest is invalid or empty."
+
+    root_hash = str(manifest.get("repo_path_hash", "")).strip()
+    expected_hash = _repo_path_hash(REPO_ROOT)
+    if root_hash and root_hash != expected_hash:
+        return "Integrity manifest repository binding mismatch."
+
+    for rel, expected in files.items():
+        rel_path = str(rel).strip()
+        expected_hex = str(expected).strip().lower()
+        if not rel_path or not expected_hex:
+            return "Integrity manifest has malformed entries."
+        target = REPO_ROOT / rel_path
+        if not target.exists() or not target.is_file():
+            return f"Integrity check failed: missing protected file '{rel_path}'."
+        try:
+            actual = _sha256_file(target).lower()
+        except OSError:
+            return f"Integrity check failed: cannot read protected file '{rel_path}'."
+        if actual != expected_hex:
+            return f"Integrity check failed: protected file changed '{rel_path}'."
+
+    return ""
+
+
+def _enforce_repo_binding(claims_obj: dict[str, Any], *, client_id: str) -> str:
+    """Enforce local repository binding for paid/pilot bundles.
+
+    - Binding file is expected to be created during install/provisioning.
+    - If missing, validation degrades to community to prevent bundle cloning.
+    - If path hash mismatches current repo, validation degrades to community.
+    """
+    binding = _load_repo_binding()
+    expected_hash = _repo_path_hash(REPO_ROOT)
+    expected_tenant = str(claims_obj.get("tenant_id", "")).strip()
+    expected_sub = str(claims_obj.get("sub", client_id)).strip()
+
+    if not binding:
+        return (
+            "Repository binding file missing. This bundle is locked to its original "
+            "repository path and requires reinstall/provisioning."
+        )
+
+    bound_hash = str(binding.get("repo_path_hash", "")).strip()
+    if not bound_hash or bound_hash != expected_hash:
+        return "Repository binding mismatch: bundle moved to another repository path."
+
+    bound_sub = str(binding.get("client_id", "")).strip()
+    if bound_sub and expected_sub and bound_sub != expected_sub:
+        return "Repository binding mismatch: client_id differs from license subject."
+
+    bound_tenant = str(binding.get("tenant_id", "")).strip()
+    if bound_tenant and expected_tenant and bound_tenant != expected_tenant:
+        return "Repository binding mismatch: tenant_id differs from license."
+
+    return ""
 
 
 def _metadata_payload(
@@ -656,6 +787,13 @@ def validate(
     if binding_error:
         return _community_license(binding_error)
 
+    repo_binding_error = _enforce_repo_binding(claims, client_id=str(claims.get("sub", "")))
+    if repo_binding_error:
+        return _community_license(repo_binding_error)
+    integrity_error = _enforce_integrity_manifest(claims)
+    if integrity_error:
+        return _community_license(integrity_error)
+
     # Check expiration
     now = current_time if current_time is not None else time.time()
     exp = claims.get("exp", 0)
@@ -763,20 +901,143 @@ def _pilot_trial_expired(info: LicenseInfo) -> bool:
     )
 
 
+def _remove_paid_llm_instruction_files() -> None:
+    """Remove paid LLM instruction files after pilot expiry."""
+    candidates = [
+        REPO_ROOT / "AGENTS.md",
+        REPO_ROOT / "CLAUDE.md",
+        REPO_ROOT / "docsops" / "AGENTS.md",
+        REPO_ROOT / "docsops" / "CLAUDE.md",
+    ]
+    for path in candidates:
+        try:
+            if path.exists():
+                path.unlink()
+        except OSError:
+            logger.debug("Cannot remove paid instruction file: %s", path)
+
+
+def _remove_proprietary_assets_after_expiry() -> None:
+    """Remove proprietary paid scripts/assets after pilot expiry.
+
+    Keeps only baseline community assets (free lint stack, templates, glossary,
+    shared vars, and core license/runtime skeleton).
+    """
+    # Keep these script basenames available in degraded community mode.
+    keep_script_basenames = {
+        "license_gate.py",
+        "normalize_docs.py",
+        "validate_frontmatter.py",
+        "seo_geo_optimizer.py",
+    }
+
+    # Remove premium instruction packs and runtime add-ons.
+    hard_remove_paths = [
+        REPO_ROOT / "LOCAL_MODEL.md",
+        REPO_ROOT / "docsops" / "LOCAL_MODEL.md",
+        REPO_ROOT / "docsops" / "runtime" / "ask-ai-pack",
+        REPO_ROOT / "runtime" / "ask-ai-pack",
+        REPO_ROOT / "instructions" / "llm_plans" / "pilot",
+        REPO_ROOT / "instructions" / "llm_plans" / "basic",
+        REPO_ROOT / "instructions" / "llm_plans" / "pro",
+        REPO_ROOT / "instructions" / "llm_plans" / "enterprise",
+    ]
+
+    # Remove script files except keep-list in both possible roots.
+    script_roots = [
+        REPO_ROOT / "scripts",
+        REPO_ROOT / "docsops" / "scripts",
+    ]
+
+    for root in script_roots:
+        if not root.exists() or not root.is_dir():
+            continue
+        for path in root.glob("*.py"):
+            if path.name in keep_script_basenames:
+                continue
+            try:
+                path.unlink()
+            except OSError:
+                logger.debug("Cannot remove proprietary script: %s", path)
+
+    for path in hard_remove_paths:
+        try:
+            if path.is_dir():
+                import shutil
+
+                shutil.rmtree(path, ignore_errors=True)
+            elif path.exists():
+                path.unlink()
+        except OSError:
+            logger.debug("Cannot remove proprietary asset: %s", path)
+
+
+def _collect_proprietary_cleanup_targets() -> dict[str, list[str]]:
+    """Collect files/dirs that are subject to post-pilot cleanup."""
+    llm_instruction_candidates = [
+        REPO_ROOT / "AGENTS.md",
+        REPO_ROOT / "CLAUDE.md",
+        REPO_ROOT / "docsops" / "AGENTS.md",
+        REPO_ROOT / "docsops" / "CLAUDE.md",
+        REPO_ROOT / "LOCAL_MODEL.md",
+        REPO_ROOT / "docsops" / "LOCAL_MODEL.md",
+    ]
+    proprietary_dirs = [
+        REPO_ROOT / "docsops" / "runtime" / "ask-ai-pack",
+        REPO_ROOT / "runtime" / "ask-ai-pack",
+        REPO_ROOT / "instructions" / "llm_plans" / "pilot",
+        REPO_ROOT / "instructions" / "llm_plans" / "basic",
+        REPO_ROOT / "instructions" / "llm_plans" / "pro",
+        REPO_ROOT / "instructions" / "llm_plans" / "enterprise",
+    ]
+    script_roots = [
+        REPO_ROOT / "scripts",
+        REPO_ROOT / "docsops" / "scripts",
+    ]
+    keep_script_basenames = {
+        "license_gate.py",
+        "normalize_docs.py",
+        "validate_frontmatter.py",
+        "seo_geo_optimizer.py",
+    }
+
+    files = [str(p) for p in llm_instruction_candidates if p.exists()]
+    dirs = [str(p) for p in proprietary_dirs if p.exists()]
+    scripts: list[str] = []
+    for root in script_roots:
+        if not root.exists() or not root.is_dir():
+            continue
+        for path in root.glob("*.py"):
+            if path.name in keep_script_basenames:
+                continue
+            scripts.append(str(path))
+    return {
+        "files": sorted(files),
+        "dirs": sorted(dirs),
+        "scripts": sorted(scripts),
+    }
+
+
 def _effective_plan(info: LicenseInfo) -> str:
     if _pilot_trial_expired(info):
+        _remove_paid_llm_instruction_files()
+        _remove_proprietary_assets_after_expiry()
         return "community"
     return info.plan
 
 
 def _effective_features(info: LicenseInfo) -> dict[str, bool]:
     if _pilot_trial_expired(info):
+        _remove_paid_llm_instruction_files()
+        _remove_proprietary_assets_after_expiry()
         return dict(COMMUNITY_FEATURES)
     return dict(info.features)
 
 
 def _effective_protocols(info: LicenseInfo) -> list[str]:
     if _pilot_trial_expired(info):
+        _remove_paid_llm_instruction_files()
+        _remove_proprietary_assets_after_expiry()
         return list(COMMUNITY_PROTOCOLS)
     return list(info.protocols)
 
@@ -903,6 +1164,37 @@ def reset_cache() -> None:
 
 def main() -> int:
     """CLI entry point: validate and print license info."""
+    parser = argparse.ArgumentParser(description="Validate license and report feature entitlements.")
+    parser.add_argument(
+        "--simulate-pilot-expiry",
+        action="store_true",
+        help="Dry-run: show what would be removed and which community entitlements would remain after pilot expiry.",
+    )
+    args = parser.parse_args()
+
+    if bool(args.simulate_pilot_expiry):
+        targets = _collect_proprietary_cleanup_targets()
+        print("Pilot expiry dry-run (no files removed)")
+        print(f"Repo root: {REPO_ROOT}")
+        print("Community entitlements after expiry:")
+        community_enabled = sorted([k for k, v in COMMUNITY_FEATURES.items() if bool(v)])
+        community_disabled = sorted([k for k, v in COMMUNITY_FEATURES.items() if not bool(v)])
+        print(f"  Enabled ({len(community_enabled)}): {', '.join(community_enabled)}")
+        print(f"  Disabled ({len(community_disabled)}): {', '.join(community_disabled)}")
+        print(f"  Protocols: {', '.join(COMMUNITY_PROTOCOLS) if COMMUNITY_PROTOCOLS else '(none)'}")
+        print(f"  Remove files ({len(targets['files'])})")
+        for item in targets["files"]:
+            print(f"    - {item}")
+        print(f"  Remove directories ({len(targets['dirs'])})")
+        for item in targets["dirs"]:
+            print(f"    - {item}")
+        print(f"  Remove proprietary scripts ({len(targets['scripts'])})")
+        for item in targets["scripts"][:30]:
+            print(f"    - {item}")
+        if len(targets["scripts"]) > 30:
+            print(f"    ... and {len(targets['scripts']) - 30} more")
+        return 0
+
     info = validate()
     print(get_license_summary(info))
     if info.error:

@@ -14,7 +14,7 @@ Usage:
   python3 build/generate_license.py \\
     --client-id startup-xyz \\
     --plan pilot \\
-    --days 90 \\
+    --days 21 \\
     --max-docs 100 \\
     --output docsops/license.jwt
 """

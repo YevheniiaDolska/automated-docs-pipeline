@@ -3,7 +3,7 @@ title: "Master Services Agreement Template"
 description: "Master template used to generate Pilot, Full, and Full+RAG implementation agreements."
 content_type: reference
 product: both
-last_reviewed: "2026-04-28"
+last_reviewed: "2026-05-19"
 tags:
   - Legal
   - Template
@@ -53,9 +53,7 @@ For pilot engagements (where applicable), repository scope is:
 9. Either Party may terminate the retainer with `{{RETAINER_TERMINATION_NOTICE_DAYS}}` days written notice (implementation work already accepted remains payable).
 10. If retainer is not paid, not renewed, or is terminated, Provider may downgrade runtime entitlement to `community` mode after written notice and grace period of `{{RETAINER_DEGRADE_GRACE_DAYS}}` days.
 11. Community mode includes only:
-    - Markdown/content hygiene defaults (normalization and snippet checks).
-    - Frontmatter and SEO/GEO validation (`fact_checks` path).
-    - Example smoke checks (`self_checks`) for generated docs.
+    - Community-grade lint stack and validation checks (Markdownlint, Vale, cSpell, Spectral, frontmatter validation, and SEO/GEO validation).
     - Minimal weekly status outputs (`reports/consolidated_report.json` fallback, `reports/docsops_status.json`, and `reports/READY_FOR_REVIEW.txt`).
     - Templates previously delivered in bundle/repository for manual use.
 12. In community mode, advanced features are disabled, including:
@@ -64,6 +62,8 @@ For pilot engagements (where applicable), repository scope is:
     - API-first and multi-protocol pipelines (REST/GraphQL/gRPC/AsyncAPI/WebSocket).
     - Knowledge extraction/index/graph/retrieval evals and retrieval-time Ask AI runtime.
     - Custom weekly premium tasks and premium integrations (including Algolia upload and Ask AI billing runtime).
+13. If a pilot expires without paid upgrade, provider-managed proprietary paid assets are removed or disabled, while client-created documentation content remains.
+14. Bundle rights are repository-bound and non-transferable. Copying the bundle to another repository or filesystem path is outside entitlement and may trigger community fallback.
 
 ## 4. Deliverables and acceptance
 
@@ -112,9 +112,9 @@ Each Party will protect the other Party's Confidential Information with reasonab
 
 ## 12. Remedies and injunctive relief
 
-1. Client acknowledges that breach of Section 6 or Section 8 may cause irreparable harm to Provider for which monetary damages may be insufficient.
+1. Client acknowledges that breach of Section 8 or Section 9 may cause irreparable harm to Provider for which monetary damages may be insufficient.
 2. Provider is entitled to seek immediate injunctive or equitable relief, in addition to any other remedies available at law or in equity, without waiving other rights.
-3. Client shall indemnify Provider for reasonable legal fees and enforcement costs arising from proven willful breach of Section 8 by Client.
+3. Client shall indemnify Provider for reasonable legal fees and enforcement costs arising from proven willful breach of Section 9 by Client.
 
 ## 13. Termination
 

@@ -73,6 +73,7 @@
     .grid { display: grid; gap: 14px; margin-top: 16px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
     .grid-3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .grid-3-fixed { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
@@ -140,6 +141,7 @@
       .hero { padding: 22px; }
       .wrap { padding: 16px; }
       .hero p { font-size: 16px; }
+      .grid-3-fixed { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -257,6 +259,7 @@
       <p>Documentation automation is where most teams stop. VeriOps goes further across delivery, QA, and support workflows.</p>
       <div class="card" style="margin:14px 0 16px">
         <h3>But that's just the start</h3>
+<<<<<<< HEAD
         <div class="grid grid-2">
           <div>
             <p><strong>Stop writing docs for code that is still moving</strong><br>Generate contracts, endpoint stubs, and test assets in one flow, so engineering and docs stop waiting on each other.</p>
@@ -274,6 +277,25 @@
             <p><strong>RAG add-on for docs, code, and test artifacts</strong><br>Optional add-on for higher-quality AI answers and faster internal support without exposing sensitive data.</p>
           </div>
           <div>
+=======
+        <div class="grid grid-3-fixed">
+          <div class="card">
+            <p><strong>Stop writing docs for code that is still moving</strong><br>Generate contracts, endpoint stubs, and test assets in one flow, so engineering and docs stop waiting on each other.</p>
+          </div>
+          <div class="card">
+            <p><strong>Catch breaking changes before they hit production docs</strong><br>Drift and regression gates detect API/docs mismatches early, reducing rework and last-minute fixes.</p>
+          </div>
+          <div class="card">
+            <p><strong>Protect QA work from auto-generation churn</strong><br>Smart merge keeps manual and customized test cases, flags only what needs review, and avoids rewriting QA assets every release.</p>
+          </div>
+          <div class="card">
+            <p><strong>Validate against real or mock endpoints, not assumptions</strong><br>Self-verify checks live or mock environments, so published docs and examples reflect real behavior.</p>
+          </div>
+          <div class="card">
+            <p><strong>RAG add-on for docs, code, and test artifacts</strong><br>Optional add-on for higher-quality AI answers and faster internal support without exposing sensitive data.</p>
+          </div>
+          <div class="card">
+>>>>>>> 86cbf7e (Harden pilot licensing and sync legal templates with runtime enforcement)
             <p><strong>Strict-local mode for regulated teams</strong><br>Run inside your infrastructure with policy-controlled gates and no external data exposure.</p>
           </div>
         </div>
@@ -281,9 +303,15 @@
       <div class="card" style="margin-bottom:16px">
         <h3>Typical outcomes teams report after rollout</h3>
         <ul style="margin:0;padding-left:18px;color:var(--muted)">
+<<<<<<< HEAD
           <li>30-50% less docs and QA maintenance time from automation, smart merge, and generated test assets.</li>
           <li>20-40% faster doc-to-release cycle due to earlier drift detection and self-verify gates.</li>
           <li>30-60% fewer support and escalation loops from stronger retrieval quality and contradiction controls.</li>
+=======
+          <li><strong>30-50%</strong> less docs and QA maintenance time, plus lower developer routine load on endpoint scaffolding and contract-sync updates.</li>
+          <li><strong>65-75%</strong> faster doc-to-release cycle due to earlier drift detection and self-verify gates.</li>
+          <li><strong>30-60%</strong> fewer support and escalation loops from stronger retrieval quality and contradiction controls.</li>
+>>>>>>> 86cbf7e (Harden pilot licensing and sync legal templates with runtime enforcement)
           <li>Lower cost of wrong answers by blocking stale or conflicting evidence before response time.</li>
         </ul>
       </div>

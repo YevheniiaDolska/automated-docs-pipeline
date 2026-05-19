@@ -8,6 +8,8 @@ Run from client repository root after unpacking docsops bundle:
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import platform
 import shutil
 import subprocess
@@ -275,6 +277,12 @@ def _install_scheduler(repo_root: Path) -> None:
             "-File",
             str(script),
         ]
+    elif system == "darwin":
+        script = docsops_root / "ops" / "install_macos_launchd.sh"
+        if not script.exists():
+            print(f"[env-wizard] scheduler installer not found: {script}")
+            return
+        cmd = ["bash", str(script)]
     else:
         script = docsops_root / "ops" / "install_cron_weekly.sh"
         if not script.exists():
@@ -289,6 +297,61 @@ def _install_scheduler(repo_root: Path) -> None:
     else:
         print(f"[env-wizard] scheduler install failed (exit {res.returncode})")
         print(f"[env-wizard] run manually: {' '.join(cmd)}")
+
+
+def _write_repo_binding(repo_root: Path, runtime: dict[str, Any]) -> None:
+    docsops_root = repo_root / "docsops"
+    if not docsops_root.exists():
+        docsops_root = repo_root
+    binding_path = docsops_root / ".repo_binding.json"
+    tenant_id = ""
+    env_path = repo_root / ENV_FILE
+    if env_path.exists():
+        raw_env = _read_existing(env_path)
+        tenant_id = str(raw_env.get("VERIOPS_TENANT_ID", "")).strip()
+    payload = {
+        "repo_path_hash": hashlib.sha256(str(repo_root.resolve()).encode("utf-8")).hexdigest(),
+        "repo_path_hint": str(repo_root.resolve()),
+        "tenant_id": tenant_id,
+        "client_id": "",
+        "docs_root": str(runtime.get("docs_root", "docs")) if isinstance(runtime, dict) else "docs",
+    }
+    binding_path.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
+    print(f"[env-wizard] repo binding written: {binding_path}")
+
+
+def _write_integrity_manifest(repo_root: Path) -> None:
+    docsops_root = repo_root / "docsops"
+    if not docsops_root.exists():
+        docsops_root = repo_root
+    out = docsops_root / ".integrity_manifest.json"
+
+    protected_relpaths = [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "LOCAL_MODEL.md",
+        "scripts/license_gate.py",
+        "docsops/scripts/license_gate.py",
+        "docsops/.repo_binding.json",
+    ]
+    files: dict[str, str] = {}
+    for rel in protected_relpaths:
+        path = repo_root / rel
+        if not path.exists() or not path.is_file():
+            continue
+        h = hashlib.sha256()
+        with path.open("rb") as fh:
+            for chunk in iter(lambda: fh.read(65536), b""):
+                h.update(chunk)
+        files[rel] = h.hexdigest()
+
+    payload = {
+        "schema": "integrity-manifest/v1",
+        "repo_path_hash": hashlib.sha256(str(repo_root.resolve()).encode("utf-8")).hexdigest(),
+        "files": files,
+    }
+    out.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
+    print(f"[env-wizard] integrity manifest written: {out}")
 
 
 def main() -> int:
@@ -342,6 +405,8 @@ def main() -> int:
     _ensure_ip_protection_defaults(values)
     _write_env(env_path, values)
     print(f"\n[env-wizard] wrote {env_path}")
+    _write_repo_binding(repo_root, runtime)
+    _write_integrity_manifest(repo_root)
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     llm_mode = str(llm_control.get("llm_mode", "local_default")).strip().lower()
     model = str(llm_control.get("local_model", "veridoc-writer")).strip() or "veridoc-writer"

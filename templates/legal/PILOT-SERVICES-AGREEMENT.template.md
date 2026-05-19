@@ -3,7 +3,7 @@ title: "Pilot Services Agreement Template"
 description: "Template agreement for a 21-day single-repository pilot implementation of the Auto-Doc Pipeline."
 content_type: reference
 product: both
-last_reviewed: "2026-04-28"
+last_reviewed: "2026-05-19"
 tags:
   - Legal
   - Template
@@ -30,17 +30,16 @@ Provider and Client are each a "Party" and together the "Parties."
 1. Included:
    - One-repository onboarding (`bundle-only` or `install-local`).
    - Baseline configuration and policy pack setup.
-   - Full documentation pipeline capability set for the pilot tier.
+   - Full documentation and API automation capability set for pilot (including code/docs drift, KPI/SLA, API-first flow, contract test assets, and server stubs with business-logic placeholders).
    - Unlimited documentation and API-first cycles during the 21-day term within the same repository.
    - Knowledge preparation for RAG (document cleanup, normalization, structuring, module extraction, metadata enrichment, and quality gates before indexing).
    - Weekly automation check and consolidated report review.
    - KPI baseline and handoff session at pilot completion.
 2. Excluded from pilot:
-   - Multi-repository rollout.
    - Organization-wide change management rollout.
    - Retrieval-time production RAG runtime (unless purchased as add-on or in Full+RAG).
    - 24/7 SLA support.
-   - Premium features listed in Exhibit A.
+   - Multi-repository rollout and organization-wide enablement beyond one repository.
 
 ## 3. Deliverables
 
@@ -104,6 +103,9 @@ Provider and Client are each a "Party" and together the "Parties."
 
 1. Either Party may terminate for material breach not cured within ten (10) business days after written notice.
 2. Either Party may terminate for convenience with seven (7) calendar days written notice; fees for completed work remain due.
+3. If pilot is not upgraded after pilot end plus contractual grace (if any), runtime entitlement automatically degrades to community mode.
+4. On pilot expiry without paid upgrade, provider-managed proprietary paid assets are removed or disabled, while client-created content and existing templates remain.
+5. Pilot bundle is repository-bound to the agreed repository path; copying the bundle to another repository or path is outside license scope and may trigger immediate community-mode fallback.
 
 ## 13. Governing law and dispute resolution
 
@@ -123,10 +125,10 @@ Provider and Client are each a "Party" and together the "Parties."
 
 ## Exhibit A: Pilot premium exclusions (example placeholders)
 
-- Contract test generation with business-logic stubs.
+- Retrieval-time production RAG runtime add-on.
 - Enterprise SLA package.
-- Advanced organization-wide governance rollout.
-- Dedicated on-prem/air-gapped deployment hardening package.
+- Advanced organization-wide governance rollout across multiple repositories.
+- Dedicated on-prem/air-gapped hardening package beyond pilot scope.
 
 ## Signatures
 
@@ -145,4 +147,3 @@ Title: {{CLIENT_SIGNATORY_TITLE}}
 Email: {{CLIENT_SIGNATORY_EMAIL}}  
 Signature: ________________________  
 Date: ________________________
-
