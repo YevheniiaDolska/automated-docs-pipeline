@@ -11,10 +11,12 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 
@@ -43,6 +45,19 @@ def _run(cmd: list[str], cwd: Path) -> int:
     print(f"[autopipeline] $ {' '.join(cmd)}")
     completed = subprocess.run(cmd, cwd=str(cwd), check=False)
     return completed.returncode
+
+
+def _git_remote_url(cwd: Path, remote: str) -> str:
+    completed = subprocess.run(
+        ["git", "remote", "get-url", remote],
+        cwd=str(cwd),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return ""
+    return completed.stdout.strip()
 
 
 def _git_changed_files(cwd: Path) -> list[str]:
@@ -91,6 +106,89 @@ def _load_site_url(repo_root: Path) -> str:
     if not isinstance(payload, dict):
         return ""
     return str(payload.get("site_url", "")).rstrip("/")
+
+
+def _remote_repo_web_url(remote_url: str) -> str:
+    raw = remote_url.strip()
+    if not raw:
+        return ""
+    if raw.startswith("git@"):
+        # git@github.com:org/repo.git
+        m = re.match(r"^git@([^:]+):(.+)$", raw)
+        if not m:
+            return ""
+        host = m.group(1).strip().lower()
+        path = m.group(2).strip()
+        if path.endswith(".git"):
+            path = path[:-4]
+        return f"https://{host}/{path}"
+    parsed = urlparse(raw)
+    if parsed.scheme in {"http", "https"} and parsed.netloc:
+        path = parsed.path.strip("/")
+        if path.endswith(".git"):
+            path = path[:-4]
+        return f"https://{parsed.netloc.lower()}/{path}"
+    return ""
+
+
+def _infer_preview_url_pattern(repo_root: Path, runtime: dict[str, Any]) -> str:
+    review_cfg = runtime.get("review_branch", {})
+    if not isinstance(review_cfg, dict):
+        review_cfg = {}
+    remote = str(review_cfg.get("remote", "origin")).strip() or "origin"
+    docs_root = str(runtime.get("paths", {}).get("docs_root", "docs")).strip().strip("/") or "docs"
+    remote_url = _git_remote_url(repo_root, remote)
+    web_url = _remote_repo_web_url(remote_url)
+    if not web_url:
+        return ""
+    parsed = urlparse(web_url)
+    host = parsed.netloc.lower()
+    path = parsed.path.strip("/")
+    if not host or not path:
+        return ""
+    if "github.com" in host:
+        return f"https://{host}/{path}/tree/{{branch}}/{docs_root}/"
+    if "gitlab" in host:
+        return f"https://{host}/{path}/-/tree/{{branch}}/{docs_root}/"
+    return f"{web_url}/tree/{{branch}}/{docs_root}/"
+
+
+def _auto_persist_docs_urls(repo_root: Path, runtime_path: Path, runtime: dict[str, Any], reports_dir: Path) -> None:
+    docs_site = runtime.get("docs_site", {})
+    if not isinstance(docs_site, dict):
+        docs_site = {}
+    changed = False
+
+    production_url = str(docs_site.get("production_url", "")).strip()
+    if not production_url:
+        site_url = _load_site_url(repo_root).strip()
+        if site_url:
+            docs_site["production_url"] = site_url
+            production_url = site_url
+            changed = True
+
+    preview_pattern = str(docs_site.get("preview_url_pattern", "")).strip()
+    if not preview_pattern:
+        inferred = _infer_preview_url_pattern(repo_root, runtime).strip()
+        if inferred:
+            docs_site["preview_url_pattern"] = inferred
+            preview_pattern = inferred
+            changed = True
+
+    if changed:
+        runtime["docs_site"] = docs_site
+        runtime_path.write_text(yaml.safe_dump(runtime, sort_keys=False, allow_unicode=False), encoding="utf-8")
+
+    report = {
+        "updated": bool(changed),
+        "docs_site.production_url": production_url,
+        "docs_site.preview_url_pattern": preview_pattern,
+        "runtime_config": str(runtime_path),
+    }
+    (reports_dir / "auto_detected_docs_urls.json").write_text(
+        json.dumps(report, ensure_ascii=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _normalize_site_url(site_url: str) -> str:
@@ -951,6 +1049,14 @@ def main() -> int:
     else:
         _say(f"Stage {stage_no}/{total_stages} done", "docs/operations not present")
         narrator.note("docs/operations not present, publish step skipped")
+
+    _auto_persist_docs_urls(
+        repo_root=repo_root,
+        runtime_path=runtime_path,
+        runtime=runtime,
+        reports_dir=reports_dir,
+    )
+
     _say("Done", "all outputs indexed for review")
     narrator.finish(True, "All outputs indexed and ready for review")
     return rc
