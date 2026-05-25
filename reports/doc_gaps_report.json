@@ -1,17 +1,22 @@
 {
   "summary": {
-    "total_gaps": 2,
-    "high_priority": 1,
-    "medium_priority": 1,
+    "total_gaps": 6,
+    "high_priority": 2,
+    "medium_priority": 4,
     "low_priority": 0,
     "by_source": {
-      "code": 2
+      "code": 6
     },
     "by_doc_type": {
-      "how-to": 2
+      "how-to": 5,
+      "reference": 1
     },
     "by_category": {
       "authentication": 1,
+      "signature_change": 1,
+      "new_function": 1,
+      "error_handling": 1,
+      "public_function": 1,
       "webhook": 1
     }
   },
@@ -19,35 +24,107 @@
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-05-04T10:04:22.901402",
+  "generated_at": "2026-05-25T11:40:50.627428",
   "gaps": [
     {
       "id": "CODE-0001",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
+      "description": "Update authentication documentation for changes in docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 17,
+      "frequency": 61,
       "keywords": [],
       "related_files": [
-        "seo-summary.md"
+        "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-05-04T10:04:22.901427"
+      "created_at": "2026-05-25T11:40:50.627447"
     },
     {
-      "id": "CODE-0002",
+      "id": "CODE-0158",
+      "title": "Signature Change: Function signature changed: print",
+      "description": "UPDATE REQUIRED: Function print signature changed. Old: (\"3) → New: (f\"[ok] integrity manifest: {integrity_path}\"). Update documentation and examples.",
+      "source": "code",
+      "category": "signature_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 1,
+      "keywords": [],
+      "related_files": [
+        "scripts/provision_client_repo.py"
+      ],
+      "sample_queries": [],
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"3) → New: (f\"[ok] integrity manifest: {integrity_path}\"). Update documentation and examples.",
+      "status": "new",
+      "created_at": "2026-05-25T11:40:50.628038"
+    },
+    {
+      "id": "CODE-0010",
+      "title": "New Function: New function: _remote_repo_web_url",
+      "description": "Document new function: _remote_repo_web_url. Include parameters, return value, and usage example.",
+      "source": "code",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 86,
+      "keywords": [],
+      "related_files": [
+        "scripts/run_autopipeline.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new function: _remote_repo_web_url. Include parameters, return value, and usage example.",
+      "status": "new",
+      "created_at": "2026-05-25T11:40:50.627523"
+    },
+    {
+      "id": "CODE-0015",
+      "title": "Error Handling: error_handling: ValueError",
+      "description": "Document new error type: ValueError. Include cause, solution, and error code.",
+      "source": "code",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 25,
+      "keywords": [],
+      "related_files": [
+        "scripts/run_autopipeline.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
+      "status": "new",
+      "created_at": "2026-05-25T11:40:50.627538"
+    },
+    {
+      "id": "CODE-0071",
+      "title": "Public Function: public_function: copy_bundle_to_repo",
+      "description": "Consider documenting public API: copy_bundle_to_repo. Include parameters, return value, and example usage.",
+      "source": "code",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 19,
+      "keywords": [],
+      "related_files": [
+        "docsops/scripts/provision_client_repo.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Consider documenting public API: copy_bundle_to_repo. Include parameters, return value, and example usage.",
+      "status": "new",
+      "created_at": "2026-05-25T11:40:50.627784"
+    },
+    {
+      "id": "CODE-0007",
       "title": "Webhook: webhook: webhook",
       "description": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 20,
+      "frequency": 1,
       "keywords": [],
       "related_files": [
         "sitemap.xml"
@@ -55,7 +132,7 @@
       "sample_queries": [],
       "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-05-04T10:04:22.901434"
+      "created_at": "2026-05-25T11:40:50.627503"
     }
   ]
 }
