@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-18T09:11:36.822424+00:00",
+  "generated_at": "2026-05-25T12:27:50.516122+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-05-04T10:04:22.901402",
+      "generated_at": "2026-05-25T12:27:50.125665",
       "details": {
-        "total_gaps": 2,
-        "high_priority": 1,
-        "medium_priority": 1,
+        "total_gaps": 6,
+        "high_priority": 2,
+        "medium_priority": 4,
         "low_priority": 0
       }
     },
@@ -19,36 +19,31 @@
       }
     },
     "docs_contract": {
-      "found": true,
+      "found": false,
       "generated_at": "",
-      "details": {
-        "status": "ok",
-        "mismatch_count": 0,
-        "new_or_changed_count": 0,
-        "closed_count": 0,
-        "emitted_count": 0,
-        "deduplicated_count": 0
-      }
+      "details": {}
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-05-18T09:11:36Z",
+      "generated_at": "2026-05-25T12:27:50Z",
       "details": {
-        "quality_score": 97,
-        "stale_docs": 0,
-        "stale_files_count": 0
+        "quality_score": 89,
+        "stale_docs": 13,
+        "stale_files_count": 13
       }
     },
     "sla": {
       "found": true,
       "generated_at": "",
       "details": {
-        "status": "ok",
-        "breaches": [],
+        "status": "breach",
+        "breaches": [
+          "Stale docs breach: 17.8% > 12.0%."
+        ],
         "metrics": {
-          "quality_score": 97,
-          "stale_pct": 0.0,
-          "high_priority_gaps": 1
+          "quality_score": 89,
+          "stale_pct": 17.8,
+          "high_priority_gaps": 2
         }
       }
     },
@@ -104,14 +99,16 @@
     }
   },
   "health_summary": {
-    "quality_score": 97,
-    "stale_pct": 0.0,
-    "total_docs": 76,
+    "quality_score": 89,
+    "stale_pct": 17.8,
+    "total_docs": 73,
     "metadata_completeness_pct": 100.0,
     "drift_status": "ok",
-    "sla_status": "ok",
-    "sla_breaches": [],
-    "total_action_items": 4,
+    "sla_status": "breach",
+    "sla_breaches": [
+      "Stale docs breach: 17.8% > 12.0%."
+    ],
+    "total_action_items": 22,
     "translation_coverage": {
       "ru": 0.0
     },
@@ -125,15 +122,15 @@
     {
       "id": "CONS-001",
       "source_report": "gaps",
-      "source_id": "CODE-0001",
+      "source_id": "CODE-0013",
       "title": "Authentication: authentication: Auth",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 17,
-      "action_required": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
+      "frequency": 84,
+      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
-        "seo-summary.md"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -147,15 +144,15 @@
     {
       "id": "CONS-002",
       "source_report": "gaps",
-      "source_id": "CODE-0002",
-      "title": "Webhook: webhook: webhook",
-      "category": "webhook",
+      "source_id": "CODE-0200",
+      "title": "Signature Change: Function signature changed: print",
+      "category": "signature_change",
       "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 20,
-      "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
+      "priority": "high",
+      "frequency": 1,
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"3) → New: (f\"[ok] integrity manifest: {integrity_path}\"). Update documentation and examples.",
       "related_files": [
-        "sitemap.xml"
+        "scripts/provision_client_repo.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -168,6 +165,364 @@
     },
     {
       "id": "CONS-003",
+      "source_report": "gaps",
+      "source_id": "CODE-0052",
+      "title": "New Function: New function: _remote_repo_web_url",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 86,
+      "action_required": "Document new function: _remote_repo_web_url. Include parameters, return value, and usage example.",
+      "related_files": [
+        "scripts/run_autopipeline.py"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-004",
+      "source_report": "gaps",
+      "source_id": "CODE-0057",
+      "title": "Error Handling: error_handling: ValueError",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 25,
+      "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
+      "related_files": [
+        "scripts/run_autopipeline.py"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-005",
+      "source_report": "gaps",
+      "source_id": "CODE-0001",
+      "title": "Webhook: webhook: Webhook",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 20,
+      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "related_files": [
+        "reports/doc_gaps_report.csv"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-006",
+      "source_report": "gaps",
+      "source_id": "CODE-0113",
+      "title": "Public Function: public_function: copy_bundle_to_repo",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 19,
+      "action_required": "Consider documenting public API: copy_bundle_to_repo. Include parameters, return value, and example usage.",
+      "related_files": [
+        "docsops/scripts/provision_client_repo.py"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-007",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: concepts/index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review concepts/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "concepts/index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-008",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: concepts/workflow-execution-model.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review concepts/workflow-execution-model.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "concepts/workflow-execution-model.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-009",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: getting-started/index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review getting-started/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "getting-started/index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-010",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: getting-started/quickstart.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review getting-started/quickstart.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "getting-started/quickstart.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-011",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: how-to/index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review how-to/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "how-to/index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-012",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-013",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: reference/api-playground.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review reference/api-playground.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "reference/api-playground.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-014",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: reference/deprecated-example.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review reference/deprecated-example.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "reference/deprecated-example.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-015",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: reference/index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review reference/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "reference/index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-016",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: reference/nodes/webhook.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review reference/nodes/webhook.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "reference/nodes/webhook.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-017",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: tags.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review tags.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "tags.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-018",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: troubleshooting/index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review troubleshooting/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "troubleshooting/index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-019",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: troubleshooting/webhook-not-firing.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review troubleshooting/webhook-not-firing.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "troubleshooting/webhook-not-firing.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-020",
+      "source_report": "sla",
+      "source_id": null,
+      "title": "SLA breach: Stale docs breach: 17.8% > 12.0%.",
+      "category": "sla_breach",
+      "suggested_doc_type": null,
+      "priority": "high",
+      "frequency": 0,
+      "action_required": "Stale docs breach: 17.8% > 12.0%.",
+      "related_files": [],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "sla_breach_related": true,
+        "breach_details": "Stale docs breach: 17.8% > 12.0%.",
+        "metrics": {
+          "quality_score": 89,
+          "stale_pct": 17.8,
+          "high_priority_gaps": 2
+        }
+      }
+    },
+    {
+      "id": "CONS-021",
       "source_report": "i18n",
       "source_id": null,
       "title": "Missing translation: ru/how-to/set-up-real-time-webhook-processing-pipeline.md",
@@ -190,7 +545,7 @@
       }
     },
     {
-      "id": "CONS-004",
+      "id": "CONS-022",
       "source_report": "retrieval_evals",
       "source_id": null,
       "title": "Retrieval quality breach: precision_at_k=0.1733 < 0.5",

@@ -16,36 +16,36 @@
       "signature_change": 1,
       "new_function": 1,
       "error_handling": 1,
-      "public_function": 1,
-      "webhook": 1
+      "webhook": 1,
+      "public_function": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-05-25T11:40:50.627428",
+  "generated_at": "2026-05-25T12:27:50.125665",
   "gaps": [
     {
-      "id": "CODE-0001",
+      "id": "CODE-0013",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md. Include security considerations.",
+      "description": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 61,
+      "frequency": 84,
       "keywords": [],
       "related_files": [
-        "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "status": "new",
-      "created_at": "2026-05-25T11:40:50.627447"
+      "created_at": "2026-05-25T12:27:50.125791"
     },
     {
-      "id": "CODE-0158",
+      "id": "CODE-0200",
       "title": "Signature Change: Function signature changed: print",
       "description": "UPDATE REQUIRED: Function print signature changed. Old: (\"3) → New: (f\"[ok] integrity manifest: {integrity_path}\"). Update documentation and examples.",
       "source": "code",
@@ -60,10 +60,10 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"3) → New: (f\"[ok] integrity manifest: {integrity_path}\"). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-05-25T11:40:50.628038"
+      "created_at": "2026-05-25T12:27:50.128126"
     },
     {
-      "id": "CODE-0010",
+      "id": "CODE-0052",
       "title": "New Function: New function: _remote_repo_web_url",
       "description": "Document new function: _remote_repo_web_url. Include parameters, return value, and usage example.",
       "source": "code",
@@ -78,10 +78,10 @@
       "sample_queries": [],
       "action_required": "Document new function: _remote_repo_web_url. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-05-25T11:40:50.627523"
+      "created_at": "2026-05-25T12:27:50.126006"
     },
     {
-      "id": "CODE-0015",
+      "id": "CODE-0057",
       "title": "Error Handling: error_handling: ValueError",
       "description": "Document new error type: ValueError. Include cause, solution, and error code.",
       "source": "code",
@@ -96,10 +96,28 @@
       "sample_queries": [],
       "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-05-25T11:40:50.627538"
+      "created_at": "2026-05-25T12:27:50.126034"
     },
     {
-      "id": "CODE-0071",
+      "id": "CODE-0001",
+      "title": "Webhook: webhook: Webhook",
+      "description": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "source": "code",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 20,
+      "keywords": [],
+      "related_files": [
+        "reports/doc_gaps_report.csv"
+      ],
+      "sample_queries": [],
+      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "status": "new",
+      "created_at": "2026-05-25T12:27:50.125699"
+    },
+    {
+      "id": "CODE-0113",
       "title": "Public Function: public_function: copy_bundle_to_repo",
       "description": "Consider documenting public API: copy_bundle_to_repo. Include parameters, return value, and example usage.",
       "source": "code",
@@ -114,25 +132,7 @@
       "sample_queries": [],
       "action_required": "Consider documenting public API: copy_bundle_to_repo. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-05-25T11:40:50.627784"
-    },
-    {
-      "id": "CODE-0007",
-      "title": "Webhook: webhook: webhook",
-      "description": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
-      "source": "code",
-      "category": "webhook",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 1,
-      "keywords": [],
-      "related_files": [
-        "sitemap.xml"
-      ],
-      "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
-      "status": "new",
-      "created_at": "2026-05-25T11:40:50.627503"
+      "created_at": "2026-05-25T12:27:50.126368"
     }
   ]
 }
