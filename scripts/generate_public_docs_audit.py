@@ -1291,6 +1291,133 @@ def _last_updated_metrics(pages: list[PageData]) -> dict[str, Any]:
     }
 
 
+def _retrieval_readiness_metrics(
+    pages: list[PageData],
+    seo_geo: dict[str, Any],
+    api_coverage: dict[str, Any],
+    freshness: dict[str, Any],
+) -> dict[str, Any]:
+    total = max(1, len(pages))
+    structured_pages = 0
+    answerable_pages = 0
+    citable_pages = 0
+    for page in pages:
+        has_structure = len(page.heading_levels) >= 2 and _heading_violations(page.heading_levels) == 0
+        if has_structure:
+            structured_pages += 1
+        text = page.text[:12000]
+        has_direct_answer_signal = bool(re.search(r"\b(is|allows|enables|provides)\b", text, flags=re.IGNORECASE))
+        has_code_or_endpoint = bool(page.code_blocks) or bool(ENDPOINT_PATTERN.search(text))
+        if has_direct_answer_signal and has_code_or_endpoint:
+            answerable_pages += 1
+        has_numeric_fact = bool(re.search(r"\b\d+(?:\.\d+)?\b", text))
+        has_link_evidence = len(page.internal_links) + len(page.external_links) > 0
+        if has_numeric_fact and (has_link_evidence or has_code_or_endpoint):
+            citable_pages += 1
+
+    chunkability = _safe_pct(structured_pages, total)
+    answerability = _safe_pct(answerable_pages, total)
+    citationability = _safe_pct(citable_pages, total)
+    freshness_cov = float(freshness.get("last_updated_coverage_pct", 0.0) or 0.0)
+    api_cov_raw = float(api_coverage.get("reference_coverage_pct", -1.0) or -1.0)
+    api_cov = 45.0 if api_cov_raw < 0 else max(0.0, min(100.0, api_cov_raw))
+    seo_issue = float(seo_geo.get("seo_geo_issue_rate_pct", 0.0) or 0.0)
+    stale_risk = round(max(0.0, min(100.0, (100.0 - freshness_cov) * 0.7 + max(0.0, 70.0 - api_cov) * 0.3)), 2)
+    overall = round(
+        max(
+            0.0,
+            min(
+                100.0,
+                chunkability * 0.30
+                + answerability * 0.25
+                + citationability * 0.20
+                + (100.0 - stale_risk) * 0.15
+                + max(0.0, 100.0 - min(100.0, seo_issue * 4.0)) * 0.10,
+            ),
+        ),
+        2,
+    )
+    return {
+        "chunkability_pct": round(chunkability, 2),
+        "answerability_pct": round(answerability, 2),
+        "citationability_pct": round(citationability, 2),
+        "stale_risk_pct": stale_risk,
+        "overall_score_0_100": overall,
+        "overall_band": "strong" if overall >= 80 else ("moderate" if overall >= 60 else "weak"),
+    }
+
+
+def _evidence_coverage_metrics(pages: list[PageData]) -> dict[str, Any]:
+    claim_total = 0
+    claim_with_evidence = 0
+    claim_pattern = re.compile(r"\b(must|should|requires|supports|guarantees|returns|provides|ensures)\b", re.IGNORECASE)
+    evidence_pattern = re.compile(
+        r"(https?://|\bGET\b|\bPOST\b|\bPUT\b|\bPATCH\b|\bDELETE\b|\b\d{3}\b|\bopenapi\b|\bgraphql\b|\bproto\b|\basyncapi\b|\bws://|\bwss://)",
+        re.IGNORECASE,
+    )
+    for page in pages:
+        sentences = re.split(r"(?<=[.!?])\s+", page.text[:20000])
+        for sentence in sentences:
+            s = sentence.strip()
+            if not s:
+                continue
+            if claim_pattern.search(s):
+                claim_total += 1
+                if evidence_pattern.search(s) or page.code_blocks:
+                    claim_with_evidence += 1
+    return {
+        "key_claims_detected": claim_total,
+        "claims_with_evidence": claim_with_evidence,
+        "coverage_pct": _safe_pct(claim_with_evidence, claim_total) if claim_total > 0 else 0.0,
+    }
+
+
+def _protocol_actionability_metrics(pages: list[PageData]) -> dict[str, Any]:
+    protocols: dict[str, dict[str, Any]] = {
+        "rest": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
+        "graphql": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
+        "grpc": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
+        "asyncapi": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
+        "websocket": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
+    }
+    protocol_patterns = {
+        "rest": re.compile(r"\b(openapi|swagger|rest|endpoint|http)\b", re.IGNORECASE),
+        "graphql": re.compile(r"\b(graphql|graphiql|query|mutation|subscription|__schema)\b", re.IGNORECASE),
+        "grpc": re.compile(r"\b(grpc|proto3|protobuf|\brpc\b|descriptor)\b", re.IGNORECASE),
+        "asyncapi": re.compile(r"\b(asyncapi|channels|publish|subscribe|event)\b", re.IGNORECASE),
+        "websocket": re.compile(r"\b(websocket|\bws://|\bwss://|socket)\b", re.IGNORECASE),
+    }
+    check_patterns = {
+        "auth_model": re.compile(r"\b(auth|authentication|authorization|oauth|api\s*key|bearer|jwt|mTLS|token)\b", re.IGNORECASE),
+        "error_semantics": re.compile(r"\b(error|status\s*code|status\b|fault|exception|codes?)\b", re.IGNORECASE),
+        "retry_idempotency": re.compile(r"\b(retry|backoff|idempotent|idempotency|dedup|at-least-once|exactly-once)\b", re.IGNORECASE),
+        "schema_evolution": re.compile(r"\b(version|deprecat|backward\s*compat|schema\s*evolution|migration|breaking\s*change)\b", re.IGNORECASE),
+    }
+    for page in pages:
+        corpus = page.url + " " + page.text[:12000] + " " + " ".join(b.get("code", "") for b in page.code_blocks[:8])
+        for protocol, p_pat in protocol_patterns.items():
+            if not p_pat.search(corpus):
+                continue
+            protocols[protocol]["pages"] += 1
+            for check, c_pat in check_patterns.items():
+                if c_pat.search(corpus):
+                    protocols[protocol]["checks"][check] += 1
+    total_possible = 0
+    total_passed = 0
+    for pdata in protocols.values():
+        pages_count = int(pdata["pages"])
+        if pages_count <= 0:
+            continue
+        total_possible += 4
+        for check_name in ("auth_model", "error_semantics", "retry_idempotency", "schema_evolution"):
+            if int(pdata["checks"].get(check_name, 0)) > 0:
+                total_passed += 1
+    return {
+        "protocols": protocols,
+        "coverage_pct": round(_safe_pct(total_passed, total_possible) if total_possible > 0 else 0.0, 2),
+    }
+
+
 def _browser_verify_links(
     urls: list[str],
     timeout: int,
@@ -1819,6 +1946,14 @@ def _site_payload(
     seeded_sitemap_urls = int(crawl_stats.get("seeded_sitemap_urls", 0) or 0)
     scope_basis = "sitemap" if seeded_sitemap_urls > 0 else "discovered"
     scope_pages = seeded_sitemap_urls if seeded_sitemap_urls > 0 else discovered_pages
+    seo_geo = _seo_geo_metrics(pages)
+    api_coverage = _api_coverage_from_public_docs(
+        pages,
+        timeout=int(timeout),
+        auth_headers=auth_headers or {},
+    )
+    examples = _estimate_example_reliability(pages)
+    freshness = _last_updated_metrics(pages)
     metrics = {
         "crawl": {
             "pages_crawled": pages_crawled,
@@ -1837,14 +1972,18 @@ def _site_payload(
             "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
         },
         "links": _link_health(pages, status_map),
-        "seo_geo": _seo_geo_metrics(pages),
-        "api_coverage": _api_coverage_from_public_docs(
+        "seo_geo": seo_geo,
+        "api_coverage": api_coverage,
+        "examples": examples,
+        "freshness": freshness,
+        "retrieval_readiness": _retrieval_readiness_metrics(
             pages,
-            timeout=int(timeout),
-            auth_headers=auth_headers or {},
+            seo_geo=seo_geo,
+            api_coverage=api_coverage,
+            freshness=freshness,
         ),
-        "examples": _estimate_example_reliability(pages),
-        "freshness": _last_updated_metrics(pages),
+        "evidence_coverage": _evidence_coverage_metrics(pages),
+        "actionability": _protocol_actionability_metrics(pages),
     }
     return {
         "site_url": site_url,
@@ -2043,7 +2182,27 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         "freshness": {
             "last_updated_coverage_pct": wavg(["freshness", "last_updated_coverage_pct"]),
         },
+        "retrieval_readiness": {
+            "chunkability_pct": wavg(["retrieval_readiness", "chunkability_pct"]),
+            "answerability_pct": wavg(["retrieval_readiness", "answerability_pct"]),
+            "citationability_pct": wavg(["retrieval_readiness", "citationability_pct"]),
+            "stale_risk_pct": wavg(["retrieval_readiness", "stale_risk_pct"]),
+            "overall_score_0_100": wavg(["retrieval_readiness", "overall_score_0_100"]),
+        },
+        "evidence_coverage": {
+            "key_claims_detected": sum(int(s["metrics"].get("evidence_coverage", {}).get("key_claims_detected", 0)) for s in sites),
+            "claims_with_evidence": sum(int(s["metrics"].get("evidence_coverage", {}).get("claims_with_evidence", 0)) for s in sites),
+        },
+        "actionability": {
+            "coverage_pct": wavg(["actionability", "coverage_pct"]),
+        },
     }
+    metrics["evidence_coverage"]["coverage_pct"] = _safe_pct(
+        metrics["evidence_coverage"]["claims_with_evidence"],
+        metrics["evidence_coverage"]["key_claims_detected"],
+    ) if int(metrics["evidence_coverage"]["key_claims_detected"]) > 0 else 0.0
+    rr_score = float(metrics["retrieval_readiness"].get("overall_score_0_100", 0.0) or 0.0)
+    metrics["retrieval_readiness"]["overall_band"] = "strong" if rr_score >= 80 else ("moderate" if rr_score >= 60 else "weak")
     pages = int(metrics["crawl"]["pages_crawled"] or 0)
     urls_examined = int(metrics["crawl"].get("urls_examined", metrics["crawl"]["requested_pages"]) or 0)
     scope_pages = int(metrics["crawl"].get("crawl_scope_pages", metrics["crawl"].get("discovered_pages", metrics["crawl"]["requested_pages"])) or 0)
@@ -2064,6 +2223,133 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         "crawl_confidence_pct": round(crawl_conf, 2),
     }
     return {"metrics": metrics, "confidence": confidence}
+
+
+def _build_pipeline_solution_fit(metrics: dict[str, Any]) -> dict[str, Any]:
+    """Map deterministic public-audit signals to pipeline-solvable problem areas."""
+    crawl = metrics.get("crawl", {}) if isinstance(metrics.get("crawl"), dict) else {}
+    links = metrics.get("links", {}) if isinstance(metrics.get("links"), dict) else {}
+    seo_geo = metrics.get("seo_geo", {}) if isinstance(metrics.get("seo_geo"), dict) else {}
+    api_cov = metrics.get("api_coverage", {}) if isinstance(metrics.get("api_coverage"), dict) else {}
+    examples = metrics.get("examples", {}) if isinstance(metrics.get("examples"), dict) else {}
+    freshness = metrics.get("freshness", {}) if isinstance(metrics.get("freshness"), dict) else {}
+    retrieval = metrics.get("retrieval_readiness", {}) if isinstance(metrics.get("retrieval_readiness"), dict) else {}
+
+    pages = int(crawl.get("pages_crawled", 0) or 0)
+    crawl_cov = float(crawl.get("crawl_coverage_pct", 0.0) or 0.0)
+    docs_broken = int(links.get("docs_broken_links_count", 0) or 0)
+    unverified_links = int(links.get("unverified_links_count", 0) or 0)
+    seo_issue = float(seo_geo.get("seo_geo_issue_rate_pct", 0.0) or 0.0)
+    ex_rel = float(examples.get("example_reliability_estimate_pct", 0.0) or 0.0)
+    fresh_cov = float(freshness.get("last_updated_coverage_pct", 0.0) or 0.0)
+
+    api_na = bool(api_cov.get("no_api_pages_found", False)) or float(api_cov.get("reference_coverage_pct", 0.0) or 0.0) < 0
+    api_cov_pct = 0.0 if api_na else float(api_cov.get("reference_coverage_pct", 0.0) or 0.0)
+
+    # Readiness toward LLM retrieval (deterministic proxy from available signals only).
+    retrieval_readiness_score = float(retrieval.get("overall_score_0_100", 0.0) or 0.0)
+    if retrieval_readiness_score <= 0:
+        retrieval_readiness_score = round(
+            max(
+                0.0,
+                min(
+                    100.0,
+                    (
+                        (100.0 - min(100.0, seo_issue * 4.0)) * 0.35
+                        + ex_rel * 0.25
+                        + fresh_cov * 0.20
+                        + (api_cov_pct if not api_na else 45.0) * 0.20
+                    ),
+                ),
+            ),
+            2,
+        )
+
+    opportunities: list[dict[str, Any]] = []
+
+    if docs_broken > 0:
+        opportunities.append(
+            {
+                "id": "OPS-LINK-INTEGRITY",
+                "problem": "Internal documentation link integrity issues",
+                "signal": {
+                    "docs_broken_links_count": docs_broken,
+                    "unverified_links_count": unverified_links,
+                },
+                "severity": "high" if docs_broken > 10 else "medium",
+                "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+                "pipeline_modules": ["gap_detection", "kpi_sla", "consolidated_report"],
+            }
+        )
+
+    if seo_issue > 5:
+        opportunities.append(
+            {
+                "id": "OPS-SEO-GEO",
+                "problem": "Search and AI readability quality gaps",
+                "signal": {"seo_geo_issue_rate_pct": round(seo_issue, 2)},
+                "severity": "high" if seo_issue > 15 else "medium",
+                "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+                "pipeline_modules": ["seo_geo_optimizer", "finalize_gate"],
+            }
+        )
+
+    if ex_rel < 85:
+        opportunities.append(
+            {
+                "id": "OPS-EXAMPLE-RELIABILITY",
+                "problem": "Code example reliability risk",
+                "signal": {"example_reliability_estimate_pct": round(ex_rel, 2)},
+                "severity": "high" if ex_rel < 60 else "medium",
+                "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+                "pipeline_modules": ["snippet_lint", "check_code_examples_smoke", "self_checks"],
+            }
+        )
+
+    if fresh_cov < 70:
+        opportunities.append(
+            {
+                "id": "OPS-FRESHNESS-GOVERNANCE",
+                "problem": "Weak freshness and lifecycle visibility",
+                "signal": {"last_updated_coverage_pct": round(fresh_cov, 2)},
+                "severity": "medium",
+                "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+                "pipeline_modules": ["lifecycle_management", "kpi_sla", "release_pack"],
+            }
+        )
+
+    if api_na or api_cov_pct < 80:
+        opportunities.append(
+            {
+                "id": "OPS-API-DOC-COVERAGE",
+                "problem": "API reference coverage and drift risk",
+                "signal": {
+                    "reference_coverage_pct": None if api_na else round(api_cov_pct, 2),
+                    "no_api_pages_found": bool(api_na),
+                },
+                "severity": "high" if api_na or api_cov_pct < 60 else "medium",
+                "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+                "pipeline_modules": ["api_first", "multi_protocol_contract_flow", "drift_detection", "docs_contract"],
+            }
+        )
+
+    # Confidence of cold audit data itself.
+    audit_confidence = "high" if crawl_cov >= 90 else ("medium" if crawl_cov >= 75 else "low")
+
+    return {
+        "retrieval_readiness_score_0_100": retrieval_readiness_score,
+        "retrieval_readiness_band": (
+            "strong" if retrieval_readiness_score >= 80 else
+            "moderate" if retrieval_readiness_score >= 60 else
+            "weak"
+        ),
+        "audit_confidence": audit_confidence,
+        "audit_signal": {
+            "pages_crawled": pages,
+            "crawl_coverage_pct": round(crawl_cov, 2),
+        },
+        "opportunities": opportunities,
+    }
 
 
 def _resolve_cross_platform_path(p: Path) -> Path:
@@ -2424,7 +2710,6 @@ def _build_html(payload: dict[str, Any]) -> str:
                 f"<p>Status: {html.escape(status)}. {reason}</p>"
                 "</div>"
             )
-
     return f"""<!DOCTYPE html>
 <html lang=\"en\">
 <head>
@@ -2964,6 +3249,7 @@ def main() -> int:
                 sites.append(future.result())
     aggregate = _aggregate_sites(sites)
     m = aggregate["metrics"]
+    pipeline_solution_fit = _build_pipeline_solution_fit(m)
 
     findings = []
     total_pages = m["crawl"]["pages_crawled"]
@@ -3057,6 +3343,7 @@ def main() -> int:
         "verification_modes": sorted(list(verification_modes)),
         "sites": sites,
         "aggregate": aggregate,
+        "pipeline_solution_fit": pipeline_solution_fit,
         "confidence": aggregate.get("confidence", {}),
         "top_findings": findings,
     }

@@ -711,6 +711,194 @@ def _per_site_table(public_audit: dict[str, Any]) -> list[Flowable]:
     return [table]
 
 
+def _pipeline_solution_fit_section(
+    public_audit: dict[str, Any],
+    section_style: ParagraphStyle,
+    body_style: ParagraphStyle,
+    bar_width: int,
+) -> list[Flowable]:
+    fit = public_audit.get("pipeline_solution_fit", {})
+    if not isinstance(fit, dict):
+        fit = {}
+    agg = public_audit.get("aggregate", {}).get("metrics", {})
+    if not isinstance(agg, dict):
+        agg = {}
+    seo_issue = float(agg.get("seo_geo", {}).get("seo_geo_issue_rate_pct", 0) or 0)
+    ex_rel = float(agg.get("examples", {}).get("example_reliability_estimate_pct", 0) or 0)
+    fresh_cov = float(agg.get("freshness", {}).get("last_updated_coverage_pct", 0) or 0)
+    rr = agg.get("retrieval_readiness", {})
+    ev = agg.get("evidence_coverage", {})
+    act = agg.get("actionability", {})
+    api_cov_raw = agg.get("api_coverage", {}).get("reference_coverage_pct", 0)
+    api_na = bool(agg.get("api_coverage", {}).get("no_api_pages_found", False)) or float(api_cov_raw or 0) < 0
+    api_cov = 0.0 if api_na else float(api_cov_raw or 0)
+
+    score = float(fit.get("retrieval_readiness_score_0_100", 0) or 0)
+    band = str(fit.get("retrieval_readiness_band", "unknown")).strip().lower()
+    confidence = str(fit.get("audit_confidence", "unknown")).strip().lower()
+    opportunities = fit.get("opportunities", [])
+    if not isinstance(opportunities, list):
+        opportunities = []
+
+    out: list[Flowable] = []
+    out.extend(_section_header("Pipeline Opportunity Fit (Deterministic)", section_style))
+    out.append(Paragraph(
+        "This section maps cold-audit signals to problem classes that the pipeline can remediate directly. "
+        "No LLM inference is used in this mapping.",
+        body_style,
+    ))
+    out.append(Spacer(1, 2 * mm))
+
+    # Readiness and confidence bars
+    out.append(DrawingFlowable(_draw_progress_bar(
+        "LLM Retrieval Readiness (deterministic proxy)",
+        score,
+        100,
+        _score_color(score),
+        width=bar_width,
+    )))
+    conf_score = 90.0 if confidence == "high" else (70.0 if confidence == "medium" else 45.0)
+    out.append(DrawingFlowable(_draw_progress_bar(
+        "Audit Confidence (crawl scope + verification quality)",
+        conf_score,
+        100,
+        _score_color(conf_score),
+        width=bar_width,
+    )))
+    out.append(Spacer(1, 2 * mm))
+    out.append(Paragraph(
+        "Readiness band: <b>{}</b>. Confidence: <b>{}</b>. Open remediation opportunities: <b>{}</b>.".format(
+            band.capitalize(), confidence.capitalize(), len(opportunities)
+        ),
+        body_style,
+    ))
+    out.append(Spacer(1, 3 * mm))
+
+    # Signal decomposition bars
+    api_label = "API Coverage Signal (N/A fallback)" if api_na else "API Coverage Signal"
+    api_value = 45.0 if api_na else api_cov
+    bars = [
+        ("SEO/GEO Quality Signal (inverse issue rate)", max(0.0, 100.0 - min(100.0, seo_issue * 4.0))),
+        ("Example Reliability Signal", ex_rel),
+        ("Freshness Visibility Signal", fresh_cov),
+        (api_label, api_value),
+    ]
+    for label, val in bars:
+        out.append(DrawingFlowable(_draw_progress_bar(label, val, 100, _score_color(val), width=bar_width)))
+    out.append(Spacer(1, 3 * mm))
+
+    # Deterministic retrieval-readiness breakdown
+    if isinstance(rr, dict) and rr:
+        out.append(Paragraph(
+            "<b>LLM retrieval readiness breakdown (deterministic)</b>",
+            ParagraphStyle("RrHdr", parent=body_style, fontName="Helvetica-Bold", fontSize=10.5, textColor=colors.HexColor("#1e3a8a")),
+        ))
+        rr_bars = [
+            ("Chunkability", float(rr.get("chunkability_pct", 0) or 0)),
+            ("Answerability", float(rr.get("answerability_pct", 0) or 0)),
+            ("Citationability", float(rr.get("citationability_pct", 0) or 0)),
+            ("Stale Risk (inverse)", max(0.0, 100.0 - float(rr.get("stale_risk_pct", 0) or 0))),
+        ]
+        for label, val in rr_bars:
+            out.append(DrawingFlowable(_draw_progress_bar(label, val, 100, _score_color(val), width=bar_width)))
+        out.append(Spacer(1, 2 * mm))
+
+    # Evidence coverage block
+    if isinstance(ev, dict):
+        claims = int(ev.get("key_claims_detected", 0) or 0)
+        covered = int(ev.get("claims_with_evidence", 0) or 0)
+        cov_pct = float(ev.get("coverage_pct", 0) or 0)
+        out.append(Paragraph(
+            "Evidence coverage: <b>{:.1f}%</b> ({}/{} key claims backed by deterministic evidence signals).".format(
+                cov_pct, covered, claims
+            ),
+            body_style,
+        ))
+        out.append(Spacer(1, 2 * mm))
+
+    # Protocol actionability matrix
+    if isinstance(act, dict):
+        protocols = act.get("protocols", {})
+        if isinstance(protocols, dict) and protocols:
+            out.append(Paragraph(
+                "<b>Protocol actionability audit</b>",
+                ParagraphStyle("ActHdr", parent=body_style, fontName="Helvetica-Bold", fontSize=10.5, textColor=colors.HexColor("#1e3a8a")),
+            ))
+            rows = [[
+                Paragraph("Protocol", ParagraphStyle("ActTH1", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE)),
+                Paragraph("Auth", ParagraphStyle("ActTH2", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE, alignment=TA_CENTER)),
+                Paragraph("Errors", ParagraphStyle("ActTH3", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE, alignment=TA_CENTER)),
+                Paragraph("Retry/Idemp.", ParagraphStyle("ActTH4", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE, alignment=TA_CENTER)),
+                Paragraph("Schema evol.", ParagraphStyle("ActTH5", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE, alignment=TA_CENTER)),
+            ]]
+            for protocol_name in ("rest", "graphql", "grpc", "asyncapi", "websocket"):
+                pdata = protocols.get(protocol_name, {})
+                pages_seen = int(pdata.get("pages", 0) or 0) if isinstance(pdata, dict) else 0
+                checks = pdata.get("checks", {}) if isinstance(pdata, dict) and isinstance(pdata.get("checks"), dict) else {}
+                if pages_seen <= 0:
+                    continue
+                rows.append([
+                    Paragraph(protocol_name.upper(), _CELL_STYLE),
+                    Paragraph("Yes" if int(checks.get("auth_model", 0) or 0) > 0 else "Gap", _CELL_STYLE),
+                    Paragraph("Yes" if int(checks.get("error_semantics", 0) or 0) > 0 else "Gap", _CELL_STYLE),
+                    Paragraph("Yes" if int(checks.get("retry_idempotency", 0) or 0) > 0 else "Gap", _CELL_STYLE),
+                    Paragraph("Yes" if int(checks.get("schema_evolution", 0) or 0) > 0 else "Gap", _CELL_STYLE),
+                ])
+            if len(rows) > 1:
+                table = Table(rows, colWidths=[34 * mm, 20 * mm, 20 * mm, 24 * mm, 24 * mm])
+                cmds: list[tuple[Any, ...]] = [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1e3a8a")),
+                    ("BOX", (0, 0), (-1, -1), 0.8, colors.HexColor("#1e3a8a")),
+                    ("INNERGRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#93c5fd")),
+                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 5),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+                    ("TOPPADDING", (0, 0), (-1, -1), 5),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                ]
+                cmds = _alt_row_style(cmds, len(rows))
+                table.setStyle(TableStyle(cmds))
+                out.append(table)
+                out.append(Spacer(1, 2 * mm))
+
+    # Opportunities table
+    if opportunities:
+        out.append(Spacer(1, 4 * mm))
+        out.append(Paragraph(
+            "<b>Highest-value remediation targets</b>",
+            ParagraphStyle("FitHdr", parent=body_style, fontName="Helvetica-Bold", fontSize=10.5, textColor=colors.HexColor("#1e3a8a")),
+        ))
+        rows = [[
+            Paragraph("Problem", ParagraphStyle("FitTH1", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE)),
+            Paragraph("Severity", ParagraphStyle("FitTH2", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE, alignment=TA_CENTER)),
+            Paragraph("Pipeline solution path", ParagraphStyle("FitTH3", fontName="Helvetica-Bold", fontSize=8.5, textColor=WHITE)),
+        ]]
+        for item in opportunities[:6]:
+            problem = str(item.get("problem", ""))[:90]
+            sev = str(item.get("severity", "medium")).upper()
+            path = str(item.get("pipeline_solution", ""))[:130]
+            rows.append([
+                Paragraph(problem, _CELL_STYLE),
+                _severity_badge(sev),
+                Paragraph(path, _CELL_STYLE),
+            ])
+        table = Table(rows, colWidths=[58 * mm, 20 * mm, 92 * mm])
+        cmds: list[tuple[Any, ...]] = [
+            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1e3a8a")),
+            ("BOX", (0, 0), (-1, -1), 0.8, colors.HexColor("#1e3a8a")),
+            ("INNERGRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#93c5fd")),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 6),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+            ("TOPPADDING", (0, 0), (-1, -1), 6),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ]
+        cmds = _alt_row_style(cmds, len(rows))
+        table.setStyle(TableStyle(cmds))
+        out.append(table)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Synthetic findings from public audit (when scorecard has no findings)
 # ---------------------------------------------------------------------------
@@ -2172,6 +2360,9 @@ def _build_pdf(
 
     # Financial exposure on same page
     content.append(Spacer(1, 6 * mm))
+    if mode != "internal":
+        content.extend(_pipeline_solution_fit_section(public_audit, section_style, body_style, bar_width))
+        content.append(Spacer(1, 4 * mm))
     content.extend(_section_header("Financial Exposure Model", section_style))
     if mode == "internal":
         content.extend(_internal_financial_cards(scorecard))
