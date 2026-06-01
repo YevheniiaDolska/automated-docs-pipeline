@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-25T12:27:50.516122+00:00",
+  "generated_at": "2026-06-01T14:58:31.059265+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-05-25T12:27:50.125665",
+      "generated_at": "2026-06-01T14:58:30.663417",
       "details": {
-        "total_gaps": 6,
+        "total_gaps": 4,
         "high_priority": 2,
-        "medium_priority": 4,
+        "medium_priority": 2,
         "low_priority": 0
       }
     },
@@ -25,7 +25,7 @@
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-05-25T12:27:50Z",
+      "generated_at": "2026-06-01T14:58:30Z",
       "details": {
         "quality_score": 89,
         "stale_docs": 13,
@@ -108,7 +108,7 @@
     "sla_breaches": [
       "Stale docs breach: 17.8% > 12.0%."
     ],
-    "total_action_items": 22,
+    "total_action_items": 20,
     "translation_coverage": {
       "ru": 0.0
     },
@@ -122,12 +122,12 @@
     {
       "id": "CONS-001",
       "source_report": "gaps",
-      "source_id": "CODE-0013",
+      "source_id": "CODE-0014",
       "title": "Authentication: authentication: Auth",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 84,
+      "frequency": 50,
       "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -144,15 +144,15 @@
     {
       "id": "CONS-002",
       "source_report": "gaps",
-      "source_id": "CODE-0200",
-      "title": "Signature Change: Function signature changed: print",
-      "category": "signature_change",
+      "source_id": "CODE-0013",
+      "title": "Database Schema: database_schema: migration",
+      "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1,
-      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"3) → New: (f\"[ok] integrity manifest: {integrity_path}\"). Update documentation and examples.",
+      "frequency": 3,
+      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "related_files": [
-        "scripts/provision_client_repo.py"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -166,56 +166,12 @@
     {
       "id": "CONS-003",
       "source_report": "gaps",
-      "source_id": "CODE-0052",
-      "title": "New Function: New function: _remote_repo_web_url",
-      "category": "new_function",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 86,
-      "action_required": "Document new function: _remote_repo_web_url. Include parameters, return value, and usage example.",
-      "related_files": [
-        "scripts/run_autopipeline.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-004",
-      "source_report": "gaps",
-      "source_id": "CODE-0057",
-      "title": "Error Handling: error_handling: ValueError",
-      "category": "error_handling",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 25,
-      "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
-      "related_files": [
-        "scripts/run_autopipeline.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-005",
-      "source_report": "gaps",
       "source_id": "CODE-0001",
       "title": "Webhook: webhook: Webhook",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 20,
+      "frequency": 33,
       "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -230,17 +186,17 @@
       }
     },
     {
-      "id": "CONS-006",
+      "id": "CONS-004",
       "source_report": "gaps",
-      "source_id": "CODE-0113",
-      "title": "Public Function: public_function: copy_bundle_to_repo",
-      "category": "public_function",
-      "suggested_doc_type": "reference",
+      "source_id": "CODE-0051",
+      "title": "New Function: New function: Paragraph",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 19,
-      "action_required": "Consider documenting public API: copy_bundle_to_repo. Include parameters, return value, and example usage.",
+      "frequency": 7,
+      "action_required": "Document new function: Paragraph. Include parameters, return value, and usage example.",
       "related_files": [
-        "docsops/scripts/provision_client_repo.py"
+        "scripts/generate_executive_audit_pdf.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -252,7 +208,7 @@
       }
     },
     {
-      "id": "CONS-007",
+      "id": "CONS-005",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: concepts/index.md",
@@ -271,7 +227,7 @@
       }
     },
     {
-      "id": "CONS-008",
+      "id": "CONS-006",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: concepts/workflow-execution-model.md",
@@ -290,7 +246,7 @@
       }
     },
     {
-      "id": "CONS-009",
+      "id": "CONS-007",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: getting-started/index.md",
@@ -309,7 +265,7 @@
       }
     },
     {
-      "id": "CONS-010",
+      "id": "CONS-008",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: getting-started/quickstart.md",
@@ -328,7 +284,7 @@
       }
     },
     {
-      "id": "CONS-011",
+      "id": "CONS-009",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: how-to/index.md",
@@ -347,7 +303,7 @@
       }
     },
     {
-      "id": "CONS-012",
+      "id": "CONS-010",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: index.md",
@@ -366,7 +322,7 @@
       }
     },
     {
-      "id": "CONS-013",
+      "id": "CONS-011",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/api-playground.md",
@@ -385,7 +341,7 @@
       }
     },
     {
-      "id": "CONS-014",
+      "id": "CONS-012",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/deprecated-example.md",
@@ -404,7 +360,7 @@
       }
     },
     {
-      "id": "CONS-015",
+      "id": "CONS-013",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/index.md",
@@ -423,7 +379,7 @@
       }
     },
     {
-      "id": "CONS-016",
+      "id": "CONS-014",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/nodes/webhook.md",
@@ -442,7 +398,7 @@
       }
     },
     {
-      "id": "CONS-017",
+      "id": "CONS-015",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: tags.md",
@@ -461,7 +417,7 @@
       }
     },
     {
-      "id": "CONS-018",
+      "id": "CONS-016",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: troubleshooting/index.md",
@@ -480,7 +436,7 @@
       }
     },
     {
-      "id": "CONS-019",
+      "id": "CONS-017",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: troubleshooting/webhook-not-firing.md",
@@ -499,7 +455,7 @@
       }
     },
     {
-      "id": "CONS-020",
+      "id": "CONS-018",
       "source_report": "sla",
       "source_id": null,
       "title": "SLA breach: Stale docs breach: 17.8% > 12.0%.",
@@ -522,7 +478,7 @@
       }
     },
     {
-      "id": "CONS-021",
+      "id": "CONS-019",
       "source_report": "i18n",
       "source_id": null,
       "title": "Missing translation: ru/how-to/set-up-real-time-webhook-processing-pipeline.md",
@@ -545,7 +501,7 @@
       }
     },
     {
-      "id": "CONS-022",
+      "id": "CONS-020",
       "source_report": "retrieval_evals",
       "source_id": null,
       "title": "Retrieval quality breach: precision_at_k=0.1733 < 0.5",
