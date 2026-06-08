@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-01T14:58:31.059265+00:00",
+  "generated_at": "2026-06-08T13:04:42.760931+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-06-01T14:58:30.663417",
+      "generated_at": "2026-06-08T13:04:42.374275",
       "details": {
-        "total_gaps": 4,
+        "total_gaps": 3,
         "high_priority": 2,
-        "medium_priority": 2,
+        "medium_priority": 1,
         "low_priority": 0
       }
     },
@@ -25,11 +25,11 @@
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-06-01T14:58:30Z",
+      "generated_at": "2026-06-08T13:04:42Z",
       "details": {
-        "quality_score": 89,
-        "stale_docs": 13,
-        "stale_files_count": 13
+        "quality_score": 87,
+        "stale_docs": 17,
+        "stale_files_count": 17
       }
     },
     "sla": {
@@ -38,11 +38,11 @@
       "details": {
         "status": "breach",
         "breaches": [
-          "Stale docs breach: 17.8% > 12.0%."
+          "Stale docs breach: 23.3% > 12.0%."
         ],
         "metrics": {
-          "quality_score": 89,
-          "stale_pct": 17.8,
+          "quality_score": 87,
+          "stale_pct": 23.3,
           "high_priority_gaps": 2
         }
       }
@@ -99,16 +99,16 @@
     }
   },
   "health_summary": {
-    "quality_score": 89,
-    "stale_pct": 17.8,
+    "quality_score": 87,
+    "stale_pct": 23.3,
     "total_docs": 73,
     "metadata_completeness_pct": 100.0,
     "drift_status": "ok",
     "sla_status": "breach",
     "sla_breaches": [
-      "Stale docs breach: 17.8% > 12.0%."
+      "Stale docs breach: 23.3% > 12.0%."
     ],
-    "total_action_items": 20,
+    "total_action_items": 23,
     "translation_coverage": {
       "ru": 0.0
     },
@@ -122,12 +122,12 @@
     {
       "id": "CONS-001",
       "source_report": "gaps",
-      "source_id": "CODE-0014",
+      "source_id": "CODE-0015",
       "title": "Authentication: authentication: Auth",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 50,
+      "frequency": 77,
       "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -149,7 +149,7 @@
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 3,
+      "frequency": 9,
       "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -171,7 +171,7 @@
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 33,
+      "frequency": 91,
       "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -187,28 +187,6 @@
     },
     {
       "id": "CONS-004",
-      "source_report": "gaps",
-      "source_id": "CODE-0051",
-      "title": "New Function: New function: Paragraph",
-      "category": "new_function",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 7,
-      "action_required": "Document new function: Paragraph. Include parameters, return value, and usage example.",
-      "related_files": [
-        "scripts/generate_executive_audit_pdf.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-005",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: concepts/index.md",
@@ -227,7 +205,7 @@
       }
     },
     {
-      "id": "CONS-006",
+      "id": "CONS-005",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: concepts/workflow-execution-model.md",
@@ -246,7 +224,7 @@
       }
     },
     {
-      "id": "CONS-007",
+      "id": "CONS-006",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: getting-started/index.md",
@@ -265,7 +243,7 @@
       }
     },
     {
-      "id": "CONS-008",
+      "id": "CONS-007",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: getting-started/quickstart.md",
@@ -284,7 +262,45 @@
       }
     },
     {
+      "id": "CONS-008",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: how-to/assemble-intent-experiences.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review how-to/assemble-intent-experiences.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "how-to/assemble-intent-experiences.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
       "id": "CONS-009",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: how-to/configure-webhook-trigger.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review how-to/configure-webhook-trigger.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "how-to/configure-webhook-trigger.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-010",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: how-to/index.md",
@@ -303,7 +319,7 @@
       }
     },
     {
-      "id": "CONS-010",
+      "id": "CONS-011",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: index.md",
@@ -322,7 +338,7 @@
       }
     },
     {
-      "id": "CONS-011",
+      "id": "CONS-012",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/api-playground.md",
@@ -341,7 +357,7 @@
       }
     },
     {
-      "id": "CONS-012",
+      "id": "CONS-013",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/deprecated-example.md",
@@ -360,7 +376,7 @@
       }
     },
     {
-      "id": "CONS-013",
+      "id": "CONS-014",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/index.md",
@@ -379,7 +395,26 @@
       }
     },
     {
-      "id": "CONS-014",
+      "id": "CONS-015",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: reference/intent-experiences/index.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review reference/intent-experiences/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "reference/intent-experiences/index.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-016",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: reference/nodes/webhook.md",
@@ -398,7 +433,26 @@
       }
     },
     {
-      "id": "CONS-015",
+      "id": "CONS-017",
+      "source_report": "kpi",
+      "source_id": null,
+      "title": "Stale document needs review: reference/taskstream-planning-notes.md",
+      "category": "stale_doc",
+      "suggested_doc_type": null,
+      "priority": "medium",
+      "frequency": 0,
+      "action_required": "Review reference/taskstream-planning-notes.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
+      "related_files": [
+        "reference/taskstream-planning-notes.md"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "stale_related": true
+      }
+    },
+    {
+      "id": "CONS-018",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: tags.md",
@@ -417,7 +471,7 @@
       }
     },
     {
-      "id": "CONS-016",
+      "id": "CONS-019",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: troubleshooting/index.md",
@@ -436,7 +490,7 @@
       }
     },
     {
-      "id": "CONS-017",
+      "id": "CONS-020",
       "source_report": "kpi",
       "source_id": null,
       "title": "Stale document needs review: troubleshooting/webhook-not-firing.md",
@@ -455,30 +509,30 @@
       }
     },
     {
-      "id": "CONS-018",
+      "id": "CONS-021",
       "source_report": "sla",
       "source_id": null,
-      "title": "SLA breach: Stale docs breach: 17.8% > 12.0%.",
+      "title": "SLA breach: Stale docs breach: 23.3% > 12.0%.",
       "category": "sla_breach",
       "suggested_doc_type": null,
       "priority": "high",
       "frequency": 0,
-      "action_required": "Stale docs breach: 17.8% > 12.0%.",
+      "action_required": "Stale docs breach: 23.3% > 12.0%.",
       "related_files": [],
       "keywords": [],
       "sample_queries": [],
       "context": {
         "sla_breach_related": true,
-        "breach_details": "Stale docs breach: 17.8% > 12.0%.",
+        "breach_details": "Stale docs breach: 23.3% > 12.0%.",
         "metrics": {
-          "quality_score": 89,
-          "stale_pct": 17.8,
+          "quality_score": 87,
+          "stale_pct": 23.3,
           "high_priority_gaps": 2
         }
       }
     },
     {
-      "id": "CONS-019",
+      "id": "CONS-022",
       "source_report": "i18n",
       "source_id": null,
       "title": "Missing translation: ru/how-to/set-up-real-time-webhook-processing-pipeline.md",
@@ -501,7 +555,7 @@
       }
     },
     {
-      "id": "CONS-020",
+      "id": "CONS-023",
       "source_report": "retrieval_evals",
       "source_id": null,
       "title": "Retrieval quality breach: precision_at_k=0.1733 < 0.5",
