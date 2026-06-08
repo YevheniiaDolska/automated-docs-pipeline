@@ -1,99 +1,80 @@
 {
   "summary": {
-    "total_gaps": 4,
+    "total_gaps": 3,
     "high_priority": 2,
-    "medium_priority": 2,
+    "medium_priority": 1,
     "low_priority": 0,
     "by_source": {
-      "code": 4
+      "code": 3
     },
     "by_doc_type": {
-      "how-to": 4
+      "how-to": 3
     },
     "by_category": {
       "authentication": 1,
       "database_schema": 1,
-      "webhook": 1,
-      "new_function": 1
+      "webhook": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-06-01T14:58:30.663417",
+  "generated_at": "2026-06-08T12:20:09.847539",
   "gaps": [
     {
-      "id": "CODE-0014",
+      "id": "CODE-0001",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "description": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 50,
+      "frequency": 54,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "seo-summary.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in seo-summary.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-06-01T14:58:30.663523"
+      "created_at": "2026-06-08T12:20:09.847558"
     },
     {
-      "id": "CODE-0013",
+      "id": "CODE-0020",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
+      "description": "Document database schema change in reports/consolidated_report.json. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 3,
+      "frequency": 6,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "reports/consolidated_report.json"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
+      "action_required": "Document database schema change in reports/consolidated_report.json. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-06-01T14:58:30.663508"
+      "created_at": "2026-06-08T12:20:09.847633"
     },
     {
-      "id": "CODE-0001",
-      "title": "Webhook: webhook: Webhook",
-      "description": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "id": "CODE-0002",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 33,
+      "frequency": 66,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "sitemap.xml"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-06-01T14:58:30.663448"
-    },
-    {
-      "id": "CODE-0051",
-      "title": "New Function: New function: Paragraph",
-      "description": "Document new function: Paragraph. Include parameters, return value, and usage example.",
-      "source": "code",
-      "category": "new_function",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 7,
-      "keywords": [],
-      "related_files": [
-        "scripts/generate_executive_audit_pdf.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Document new function: Paragraph. Include parameters, return value, and usage example.",
-      "status": "new",
-      "created_at": "2026-06-01T14:58:30.663641"
+      "created_at": "2026-06-08T12:20:09.847565"
     }
   ]
 }
