@@ -7,6 +7,7 @@ and rollback mechanics. Targets 70+ tests with exact weight verification.
 from __future__ import annotations
 
 import json
+import subprocess
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -1470,3 +1471,191 @@ class TestRollbackMain:
         monkeypatch.setattr(sys, "argv", ["x"])
         rc = rollback_mod.main()
         assert rc == 1
+
+
+class TestSalesTeardown:
+    """Tests for sales teardown payload and HTML rendering."""
+
+    def test_build_sales_teardown_payload_uses_public_and_llm_inputs(self) -> None:
+        """Payload should fuse scorecard, public audit, broken links, and LLM summary."""
+        score_payload = {
+            "generated_at": "2026-06-09T10:00:00+00:00",
+            "score": {"audit_score_0_100": 61.2, "grade": "D"},
+            "kpis": _make_kpis(
+                undocumented_pct=42.0,
+                coverage_pct=58.0,
+                stale_docs_pct=12.0,
+                layers_missing_pct=66.0,
+                features_missing=4,
+                total_features=6,
+                precision_at_k=0.24,
+                recall_at_k=0.72,
+            ),
+            "findings": [
+                {
+                    "title": "Undocumented API operations",
+                    "metric": "API undocumented %",
+                    "current_value": 42.0,
+                    "target_value": 5.0,
+                    "unit": "%",
+                    "note": "Generate/update reference + how-to from OpenAPI and enforce drift checks.",
+                    "severity": "high",
+                    "effort_hours_base": 8.0,
+                }
+            ],
+            "findings_totals": {
+                "monthly_loss_usd_base_total": 5200.0,
+                "remediation_cost_usd_base_total": 1800.0,
+                "pilot_fixable_count": 1,
+                "findings_count": 1,
+            },
+            "business_impact": {
+                "scenarios": {
+                    "base": {
+                        "monthly_cost_usd": 4200.0,
+                        "engineering_hours": 20.0,
+                        "support_hours": 11.0,
+                        "release_delay_hours": 3.0,
+                    }
+                }
+            },
+        }
+        public_audit = {
+            "site_url": "https://example.com/docs",
+            "sites": [
+                {
+                    "site_url": "https://example.com/docs",
+                    "metrics": {
+                        "crawl": {"pages_crawled": 120, "crawl_coverage_pct": 97.0, "urls_examined": 140},
+                        "links": {"confirmed_broken_links_count": 7, "unverified_links_count": 23},
+                        "coverage": {"api_reference_coverage_pct": 58.0},
+                        "quality": {"example_code_reliability_pct": 88.0},
+                        "seo_geo": {"issue_page_pct": 35.0},
+                        "metadata": {"last_updated_coverage_pct": 61.0},
+                    },
+                }
+            ],
+        }
+        broken_links = {"totals": {"docs_broken_links_count": 7}}
+        llm_summary = {
+            "analysis": {
+                "executive_summary": "Public docs show structural gaps likely affecting onboarding.",
+                "strengths": ["Crawl coverage is high"],
+                "risks": ["API coverage remains incomplete"],
+                "limitations": ["External audit cannot see private docs"],
+                "prioritized_actions": [
+                    {"action": "Backfill missing API reference coverage", "impact": "critical", "effort": "medium"}
+                ],
+            }
+        }
+
+        payload = scorecard._build_sales_teardown_payload(
+            score_payload,
+            public_audit=public_audit,
+            broken_links=broken_links,
+            llm_summary=llm_summary,
+        )
+
+        assert payload["site_url"] == "https://example.com/docs"
+        assert payload["summary"]["broken_links_count"] == 7
+        assert payload["summary"]["pages_crawled"] == 120
+        assert payload["priority_actions"][0]["title"] == "Backfill missing API reference coverage"
+        assert payload["strengths"] == ["Crawl coverage is high"]
+        assert payload["key_findings"][0]["headline"] == "Undocumented API operations"
+
+    def test_build_sales_teardown_html_contains_key_sections(self) -> None:
+        """Rendered HTML should contain the core sales teardown sections."""
+        payload = {
+            "generated_at": "2026-06-09T10:00:00+00:00",
+            "site_url": "https://example.com/docs",
+            "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+            "score": {"audit_score_0_100": 64.5, "grade": "D"},
+            "summary": {
+                "executive_summary": "A short summary.",
+                "pages_crawled": 88,
+                "crawl_coverage_pct": 95.0,
+                "broken_links_count": 4,
+                "unverified_links_count": 10,
+                "estimated_monthly_cost_usd": 3900.0,
+            },
+            "signal_cards": [
+                {"label": "Audit Score", "value": "64.5 / 100", "accent": "teal", "detail": "Grade D"}
+            ],
+            "key_findings": [
+                {
+                    "headline": "Broken internal documentation paths",
+                    "evidence": "4 confirmed broken internal links",
+                    "business_consequence": "Developers lose trust faster when self-serve navigation fails.",
+                }
+            ],
+            "priority_actions": [
+                {"title": "Fix broken links first", "impact": "high", "effort": "low"}
+            ],
+            "strengths": ["Good crawl coverage"],
+            "risks": ["Coverage gaps remain"],
+            "automation_first": ["Scheduled docs quality checks"],
+            "commercial_snapshot": {
+                "monthly_loss_usd_base_total": 5200.0,
+                "remediation_cost_usd_base_total": 1800.0,
+                "pilot_fixable_count": 2,
+                "findings_count": 3,
+            },
+        }
+
+        rendered = scorecard._build_sales_teardown_html(payload)
+
+        assert "VeriOps Sales Teardown" in rendered
+        assert "What We Found" in rendered
+        assert "What I’d Prioritize First" in rendered
+        assert "Automation Layer To Add First" in rendered
+        assert "Broken internal documentation paths" in rendered
+
+    def test_render_html_to_pdf_with_browser_success(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        """PDF renderer helper should report success on zero exit."""
+        html_path = tmp_path / "x.html"
+        pdf_path = tmp_path / "x.pdf"
+        html_path.write_text("<html></html>", encoding="utf-8")
+
+        completed = MagicMock()
+        completed.returncode = 0
+        completed.stdout = "ok"
+        completed.stderr = ""
+        monkeypatch.setattr(scorecard.subprocess, "run", lambda *args, **kwargs: completed)
+
+        ok, message = scorecard._render_html_to_pdf_with_browser(html_path, pdf_path)
+
+        assert ok is True
+        assert message == "ok"
+
+    def test_render_html_to_pdf_with_browser_failure(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        """PDF renderer helper should surface stderr on failure."""
+        html_path = tmp_path / "x.html"
+        pdf_path = tmp_path / "x.pdf"
+        html_path.write_text("<html></html>", encoding="utf-8")
+
+        completed = MagicMock()
+        completed.returncode = 1
+        completed.stdout = ""
+        completed.stderr = "chromium missing"
+        monkeypatch.setattr(scorecard.subprocess, "run", lambda *args, **kwargs: completed)
+
+        ok, message = scorecard._render_html_to_pdf_with_browser(html_path, pdf_path)
+
+        assert ok is False
+        assert message == "chromium missing"
+
+    def test_render_html_to_pdf_with_browser_timeout(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        """PDF renderer helper should return a readable timeout hint."""
+        html_path = tmp_path / "x.html"
+        pdf_path = tmp_path / "x.pdf"
+        html_path.write_text("<html></html>", encoding="utf-8")
+
+        def _raise_timeout(*args: Any, **kwargs: Any) -> Any:
+            raise subprocess.TimeoutExpired(cmd="x", timeout=25)
+
+        monkeypatch.setattr(scorecard.subprocess, "run", _raise_timeout)
+
+        ok, message = scorecard._render_html_to_pdf_with_browser(html_path, pdf_path)
+
+        assert ok is False
+        assert "playwright install chromium" in message

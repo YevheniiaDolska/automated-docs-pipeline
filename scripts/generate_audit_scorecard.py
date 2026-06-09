@@ -91,6 +91,10 @@ CAPABILITY_MAP: dict[str, dict[str, Any]] = {
     },
 }
 
+DEFAULT_SALES_JSON_FILENAME = "sales_teardown.json"
+DEFAULT_SALES_HTML_FILENAME = "sales_teardown.html"
+DEFAULT_SALES_PDF_FILENAME = "sales_teardown.pdf"
+
 
 def _read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
@@ -100,6 +104,42 @@ def _read_json(path: Path) -> dict[str, Any]:
         return payload if isinstance(payload, dict) else {}
     except (yaml.YAMLError, ValueError, TypeError, OSError):  # noqa: BLE001
         return {}
+
+
+def _resolve_optional_report_path(raw_path: str) -> Path | None:
+    """Resolve an optional report path and ignore empty values."""
+    value = str(raw_path).strip()
+    if not value:
+        return None
+    return Path(value)
+
+
+def _default_sales_output_path(base_output: Path, filename: str) -> Path:
+    """Build a default sales asset path next to the main scorecard outputs."""
+    return base_output.parent / filename
+
+
+def _render_html_to_pdf_with_browser(html_input: Path, pdf_output: Path) -> tuple[bool, str]:
+    """Render HTML to PDF through the browser-based export helper."""
+    cmd = [
+        "python3",
+        "scripts/render_html_to_pdf_browser.py",
+        "--html-input",
+        str(html_input),
+        "--pdf-output",
+        str(pdf_output),
+    ]
+    try:
+        result = subprocess.run(cmd, check=False, capture_output=True, text=True, timeout=25)
+    except subprocess.TimeoutExpired:
+        return False, (
+            "browser PDF export timed out; ensure Playwright Chromium is installed and runnable "
+            "(try `npx playwright install chromium` or the interpreter-specific install command)"
+        )
+    if result.returncode == 0:
+        return True, result.stdout.strip()
+    message = result.stderr.strip() or result.stdout.strip() or f"browser PDF export failed with exit {result.returncode}"
+    return False, message
 
 
 def _safe_pct(numerator: float, denominator: float) -> float:
@@ -968,6 +1008,603 @@ def _capability_matrix() -> list[dict[str, Any]]:
     return matrix
 
 
+def _extract_public_audit_metrics(public_audit: dict[str, Any]) -> dict[str, Any]:
+    """Extract stable public-audit metrics used by the sales teardown."""
+    sites = public_audit.get("sites", [])
+    if not isinstance(sites, list) or not sites:
+        return {}
+    site = sites[0] if isinstance(sites[0], dict) else {}
+    metrics = site.get("metrics", {}) if isinstance(site.get("metrics"), dict) else {}
+    crawl = metrics.get("crawl", {}) if isinstance(metrics.get("crawl"), dict) else {}
+    links = metrics.get("links", {}) if isinstance(metrics.get("links"), dict) else {}
+    coverage = metrics.get("coverage", {}) if isinstance(metrics.get("coverage"), dict) else {}
+    quality = metrics.get("quality", {}) if isinstance(metrics.get("quality"), dict) else {}
+    seo_geo = metrics.get("seo_geo", {}) if isinstance(metrics.get("seo_geo"), dict) else {}
+    metadata = metrics.get("metadata", {}) if isinstance(metrics.get("metadata"), dict) else {}
+    return {
+        "site_url": str(site.get("site_url", public_audit.get("site_url", ""))).strip(),
+        "pages_crawled": int(crawl.get("pages_crawled", 0) or 0),
+        "urls_examined": int(crawl.get("urls_examined", 0) or 0),
+        "crawl_coverage_pct": float(crawl.get("crawl_coverage_pct", 0.0) or 0.0),
+        "confirmed_broken_links_count": int(links.get("confirmed_broken_links_count", 0) or 0),
+        "unverified_links_count": int(links.get("unverified_links_count", 0) or 0),
+        "api_coverage_pct": float(coverage.get("api_reference_coverage_pct", 0.0) or 0.0),
+        "example_reliability_pct": float(quality.get("example_code_reliability_pct", 0.0) or 0.0),
+        "seo_geo_issue_pct": float(seo_geo.get("issue_page_pct", 0.0) or 0.0),
+        "freshness_metadata_pct": float(metadata.get("last_updated_coverage_pct", 0.0) or 0.0),
+    }
+
+
+def _extract_llm_analysis(llm_summary: dict[str, Any]) -> dict[str, Any]:
+    """Extract normalized LLM analysis sections for presentation."""
+    analysis = llm_summary.get("analysis", {}) if isinstance(llm_summary.get("analysis"), dict) else {}
+    strengths = analysis.get("strengths", []) if isinstance(analysis.get("strengths"), list) else []
+    risks = analysis.get("risks", []) if isinstance(analysis.get("risks"), list) else []
+    limitations = analysis.get("limitations", []) if isinstance(analysis.get("limitations"), list) else []
+    prioritized_actions = analysis.get("prioritized_actions", []) if isinstance(analysis.get("prioritized_actions"), list) else []
+    return {
+        "executive_summary": str(analysis.get("executive_summary", "")).strip(),
+        "strengths": [str(item).strip() for item in strengths if str(item).strip()],
+        "risks": [str(item).strip() for item in risks if str(item).strip()],
+        "limitations": [str(item).strip() for item in limitations if str(item).strip()],
+        "prioritized_actions": [
+            {
+                "action": str(item.get("action", "")).strip(),
+                "impact": str(item.get("impact", "")).strip(),
+                "effort": str(item.get("effort", "")).strip(),
+            }
+            for item in prioritized_actions
+            if isinstance(item, dict) and str(item.get("action", "")).strip()
+        ],
+    }
+
+
+def _sales_signal_cards(
+    scorecard_payload: dict[str, Any],
+    public_metrics: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Build compact visual cards for the sales teardown."""
+    kpis = scorecard_payload.get("kpis", {})
+    api_coverage = kpis.get("api_coverage", {}) if isinstance(kpis.get("api_coverage"), dict) else {}
+    freshness = kpis.get("freshness", {}) if isinstance(kpis.get("freshness"), dict) else {}
+    layer_completeness = kpis.get("layer_completeness", {}) if isinstance(kpis.get("layer_completeness"), dict) else {}
+    retrieval = kpis.get("retrieval_quality", {}) if isinstance(kpis.get("retrieval_quality"), dict) else {}
+    cards = [
+        {
+            "label": "Audit Score",
+            "value": f"{scorecard_payload.get('score', {}).get('audit_score_0_100', 0)} / 100",
+            "accent": "teal",
+            "detail": f"Grade {scorecard_payload.get('score', {}).get('grade', 'n/a')}",
+        },
+        {
+            "label": "Broken Links",
+            "value": str(public_metrics.get("confirmed_broken_links_count", 0)),
+            "accent": "amber",
+            "detail": f"{public_metrics.get('unverified_links_count', 0)} unverified",
+        },
+        {
+            "label": "API Coverage",
+            "value": f"{api_coverage.get('coverage_pct', 0.0)}%",
+            "accent": "blue",
+            "detail": f"{api_coverage.get('undocumented_operations', 0)} undocumented ops",
+        },
+        {
+            "label": "Freshness Coverage",
+            "value": f"{public_metrics.get('freshness_metadata_pct', freshness.get('dated_docs', 0))}%",
+            "accent": "slate",
+            "detail": f"{freshness.get('missing_date_docs', 0)} docs missing dates",
+        },
+        {
+            "label": "Layer Completeness",
+            "value": f"{round(100.0 - float(layer_completeness.get('features_missing_required_layers_pct', 0.0) or 0.0), 2)}%",
+            "accent": "violet",
+            "detail": f"{layer_completeness.get('features_missing_required_layers', 0)} features missing required layers",
+        },
+        {
+            "label": "Retrieval Precision",
+            "value": f"{round(float(retrieval.get('precision_at_k', 0.0) or 0.0) * 100.0, 1)}%",
+            "accent": "rose",
+            "detail": f"Recall {round(float(retrieval.get('recall_at_k', 0.0) or 0.0) * 100.0, 1)}%",
+        },
+    ]
+    return cards
+
+
+def _sales_key_findings(
+    scorecard_payload: dict[str, Any],
+    public_metrics: dict[str, Any],
+    llm_analysis: dict[str, Any],
+) -> list[dict[str, str]]:
+    """Build concise findings with business consequences for follow-up conversations."""
+    findings = scorecard_payload.get("findings", [])
+    top_findings = findings[:3] if isinstance(findings, list) else []
+    mapped_findings: list[dict[str, str]] = []
+    for item in top_findings:
+        if not isinstance(item, dict):
+            continue
+        mapped_findings.append(
+            {
+                "headline": str(item.get("title", "")).strip(),
+                "evidence": (
+                    f"{item.get('metric', '')}: {item.get('current_value', 0)} -> "
+                    f"{item.get('target_value', 0)} {item.get('unit', '')}"
+                ).strip(),
+                "business_consequence": str(item.get("note", "")).strip(),
+            }
+        )
+    if mapped_findings:
+        return mapped_findings
+    fallback: list[dict[str, str]] = []
+    if public_metrics.get("confirmed_broken_links_count", 0) > 0:
+        fallback.append(
+            {
+                "headline": "Broken internal documentation paths",
+                "evidence": f"{public_metrics.get('confirmed_broken_links_count', 0)} confirmed broken internal links",
+                "business_consequence": "Developers lose trust faster when self-serve navigation fails at the moment of implementation.",
+            }
+        )
+    risks = llm_analysis.get("risks", [])
+    for risk in risks[: max(0, 3 - len(fallback))]:
+        fallback.append(
+            {
+                "headline": risk,
+                "evidence": "Derived from automated public-docs analysis",
+                "business_consequence": "This usually shows up as slower onboarding, more support dependency, or weaker AI answer quality.",
+            }
+        )
+    return fallback
+
+
+def _sales_next_steps(scorecard_payload: dict[str, Any], llm_analysis: dict[str, Any]) -> list[dict[str, str]]:
+    """Build short prioritized actions for the sales teardown."""
+    prioritized = llm_analysis.get("prioritized_actions", [])
+    actions: list[dict[str, str]] = []
+    for item in prioritized[:3]:
+        if not isinstance(item, dict):
+            continue
+        actions.append(
+            {
+                "title": str(item.get("action", "")).strip(),
+                "impact": str(item.get("impact", "")).strip() or "high",
+                "effort": str(item.get("effort", "")).strip() or "medium",
+            }
+        )
+    if actions:
+        return actions
+    findings = scorecard_payload.get("findings", [])
+    for item in findings[:3] if isinstance(findings, list) else []:
+        if not isinstance(item, dict):
+            continue
+        actions.append(
+            {
+                "title": str(item.get("note", "")).strip() or str(item.get("title", "")).strip(),
+                "impact": str(item.get("severity", "")).strip() or "medium",
+                "effort": f"{item.get('effort_hours_base', 0)}h est.",
+            }
+        )
+    return actions
+
+
+def _build_sales_teardown_payload(
+    scorecard_payload: dict[str, Any],
+    *,
+    public_audit: dict[str, Any],
+    broken_links: dict[str, Any],
+    llm_summary: dict[str, Any],
+) -> dict[str, Any]:
+    """Build a concise sales teardown payload from existing audit artifacts."""
+    public_metrics = _extract_public_audit_metrics(public_audit)
+    llm_analysis = _extract_llm_analysis(llm_summary)
+    findings_totals = scorecard_payload.get("findings_totals", {})
+    business_impact = scorecard_payload.get("business_impact", {})
+    base_impact = business_impact.get("scenarios", {}).get("base", {}) if isinstance(business_impact.get("scenarios"), dict) else {}
+    site_url = str(public_metrics.get("site_url", public_audit.get("site_url", ""))).strip()
+    key_findings = _sales_key_findings(scorecard_payload, public_metrics, llm_analysis)
+    payload = {
+        "generated_at": scorecard_payload.get("generated_at", datetime.now(timezone.utc).isoformat()),
+        "site_url": site_url,
+        "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+        "score": scorecard_payload.get("score", {}),
+        "summary": {
+            "executive_summary": llm_analysis.get("executive_summary", ""),
+            "pages_crawled": int(public_metrics.get("pages_crawled", 0) or 0),
+            "crawl_coverage_pct": float(public_metrics.get("crawl_coverage_pct", 0.0) or 0.0),
+            "broken_links_count": int(public_metrics.get("confirmed_broken_links_count", broken_links.get("totals", {}).get("docs_broken_links_count", 0)) or 0),
+            "unverified_links_count": int(public_metrics.get("unverified_links_count", 0) or 0),
+            "estimated_monthly_cost_usd": float(base_impact.get("monthly_cost_usd", 0.0) or 0.0),
+        },
+        "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
+        "key_findings": key_findings,
+        "priority_actions": _sales_next_steps(scorecard_payload, llm_analysis),
+        "strengths": llm_analysis.get("strengths", [])[:3],
+        "risks": llm_analysis.get("risks", [])[:4],
+        "limitations": llm_analysis.get("limitations", [])[:3],
+        "automation_first": [
+            "Scheduled docs quality checks for link health, freshness, and layer completeness.",
+            "Drift and docs-contract visibility so code changes stop outpacing reference docs.",
+            "RAG-ready normalization and retrieval quality controls for AI-facing documentation.",
+        ],
+        "commercial_snapshot": {
+            "monthly_loss_usd_base_total": float(findings_totals.get("monthly_loss_usd_base_total", 0.0) or 0.0),
+            "remediation_cost_usd_base_total": float(findings_totals.get("remediation_cost_usd_base_total", 0.0) or 0.0),
+            "pilot_fixable_count": int(findings_totals.get("pilot_fixable_count", 0) or 0),
+            "findings_count": int(findings_totals.get("findings_count", 0) or 0),
+        },
+    }
+    return payload
+
+
+def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
+    """Render a polished one-page sales teardown HTML asset."""
+    score = payload.get("score", {})
+    summary = payload.get("summary", {})
+    cards = payload.get("signal_cards", [])
+    findings = payload.get("key_findings", [])
+    actions = payload.get("priority_actions", [])
+    strengths = payload.get("strengths", [])
+    risks = payload.get("risks", [])
+    automation_first = payload.get("automation_first", [])
+    snapshot = payload.get("commercial_snapshot", {})
+    generated_at = html.escape(str(payload.get("generated_at", "")))
+    site_url = html.escape(str(payload.get("site_url", "")))
+
+    def _accent_class(accent: str) -> str:
+        safe = str(accent or "teal").strip().lower()
+        return safe if safe in {"teal", "blue", "amber", "slate", "violet", "rose"} else "teal"
+
+    cards_html = "".join(
+        (
+            f"<div class='metric-card {_accent_class(item.get('accent', 'teal'))}'>"
+            f"<div class='metric-label'>{html.escape(str(item.get('label', '')))}</div>"
+            f"<div class='metric-value'>{html.escape(str(item.get('value', '')))}</div>"
+            f"<div class='metric-detail'>{html.escape(str(item.get('detail', '')))}</div>"
+            "</div>"
+        )
+        for item in cards
+        if isinstance(item, dict)
+    )
+    findings_html = "".join(
+        (
+            "<div class='finding'>"
+            "<div class='finding-tag'>Highest-impact issue</div>"
+            f"<h3>{html.escape(str(item.get('headline', '')))}</h3>"
+            f"<p class='evidence'>{html.escape(str(item.get('evidence', '')))}</p>"
+            f"<p>{html.escape(str(item.get('business_consequence', '')))}</p>"
+            "</div>"
+        )
+        for item in findings
+        if isinstance(item, dict)
+    ) or "<div class='finding'><h3>No major findings extracted</h3><p>Review the full audit bundle for more detail.</p></div>"
+    actions_html = "".join(
+        (
+            "<li>"
+            f"<strong>{html.escape(str(item.get('title', '')))}</strong>"
+            f"<span>{html.escape(str(item.get('impact', '')))} impact · {html.escape(str(item.get('effort', '')))}</span>"
+            "</li>"
+        )
+        for item in actions
+        if isinstance(item, dict)
+    ) or "<li><strong>No prioritized actions extracted</strong><span>Use the full audit findings matrix as fallback.</span></li>"
+    strengths_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in strengths) or "<li>No strengths extracted.</li>"
+    risks_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in risks) or "<li>No risks extracted.</li>"
+    automation_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in automation_first) or "<li>No automation priorities extracted.</li>"
+
+    bar_definitions = [
+        ("Audit score", float(score.get("audit_score_0_100", 0.0) or 0.0)),
+        ("Crawl coverage", float(summary.get("crawl_coverage_pct", 0.0) or 0.0)),
+        ("Pilot fixability", 100.0 * (
+            float(snapshot.get("pilot_fixable_count", 0) or 0.0) / max(1.0, float(snapshot.get("findings_count", 0) or 1.0))
+        )),
+    ]
+    bars_html = "".join(
+        (
+            "<div class='bar-row'>"
+            f"<div class='bar-meta'><span>{html.escape(label)}</span><strong>{round(value, 1)}%</strong></div>"
+            f"<div class='bar-track'><div class='bar-fill' style='width:{min(max(value, 0.0), 100.0)}%'></div></div>"
+            "</div>"
+        )
+        for label, value in bar_definitions
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VeriOps Sales Teardown</title>
+<style>
+  :root {{
+    --bg:#f3f6fb;
+    --text:#142033;
+    --muted:#66758f;
+    --surface:#ffffff;
+    --surface-2:#f8fbff;
+    --border:#dbe4f0;
+    --border-strong:#bfd0e6;
+    --shadow:0 30px 80px rgba(15,23,42,.10);
+    --shadow-soft:0 16px 36px rgba(15,23,42,.06);
+    --teal:#0f766e;
+    --blue:#1d4ed8;
+    --amber:#b45309;
+    --slate:#334155;
+    --violet:#6d28d9;
+    --rose:#be123c;
+    --ink-inverse:#eff6ff;
+  }}
+  * {{ box-sizing:border-box; }}
+  body {{
+    margin:0;
+    font-family:"Avenir Next", "Segoe UI", Arial, sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(20,184,166,.12), transparent 28%),
+      radial-gradient(circle at top right, rgba(59,130,246,.14), transparent 24%),
+      linear-gradient(180deg, #eef4ff 0%, #f8fafc 55%, #edf2f8 100%);
+  }}
+  .wrap {{ max-width:1180px; margin:0 auto; padding:32px 20px 48px; }}
+  .hero {{
+    background:
+      linear-gradient(135deg, rgba(11,23,46,.98), rgba(14,116,144,.96) 58%, rgba(29,78,216,.94));
+    border-radius:28px;
+    color:#fff;
+    padding:32px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }}
+  .hero::before {{
+    content:"";
+    position:absolute;
+    inset:auto -60px -80px auto;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.20), rgba(255,255,255,0));
+    pointer-events:none;
+  }}
+  .eyebrow {{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; opacity:.82; }}
+  h1, h2 {{
+    font-family:Georgia, "Times New Roman", serif;
+    letter-spacing:-0.03em;
+  }}
+  h1 {{ margin:10px 0 8px; font-size:42px; line-height:1.02; max-width:920px; }}
+  .hero-grid {{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns: 1.3fr .9fr;
+    gap:20px;
+  }}
+  .hero-panel, .surface {{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow:var(--shadow-soft);
+  }}
+  .hero-panel {{
+    background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.10));
+    border:1px solid rgba(255,255,255,.20);
+    box-shadow:none;
+    padding:20px;
+    color:var(--ink-inverse);
+    backdrop-filter: blur(10px);
+  }}
+  .hero-panel .big {{ font-size:50px; font-weight:800; line-height:1; }}
+  .hero-panel .sub {{ font-size:14px; opacity:.92; }}
+  .surface {{ padding:24px; margin-top:20px; background:linear-gradient(180deg, #ffffff, var(--surface-2)); }}
+  .advisory-strip {{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    align-items:center;
+    margin-top:18px;
+    padding:14px 16px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;
+    background:rgba(255,255,255,.08);
+    color:rgba(255,255,255,.9);
+  }}
+  .advisory-label {{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    opacity:.76;
+  }}
+  .advisory-copy {{
+    font-size:14px;
+    line-height:1.55;
+    max-width:760px;
+  }}
+  .metrics {{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:14px;
+    margin-top:20px;
+  }}
+  .metric-card {{
+    border-radius:20px;
+    padding:16px;
+    background:linear-gradient(180deg, #ffffff, #f8fbff);
+    border:1px solid var(--border);
+    box-shadow:0 12px 28px rgba(15,23,42,.05);
+  }}
+  .metric-card.teal {{ border-top:4px solid var(--teal); }}
+  .metric-card.blue {{ border-top:4px solid var(--blue); }}
+  .metric-card.amber {{ border-top:4px solid var(--amber); }}
+  .metric-card.slate {{ border-top:4px solid var(--slate); }}
+  .metric-card.violet {{ border-top:4px solid var(--violet); }}
+  .metric-card.rose {{ border-top:4px solid var(--rose); }}
+  .metric-label {{ font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }}
+  .metric-value {{ margin-top:8px; font-size:30px; font-weight:800; }}
+  .metric-detail {{ margin-top:6px; font-size:13px; color:var(--muted); }}
+  .split {{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:20px;
+    margin-top:20px;
+  }}
+  .finding {{
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+  }}
+  .finding:last-child {{ border-bottom:none; }}
+  .finding-tag {{
+    display:inline-flex;
+    margin-bottom:10px;
+    padding:5px 10px;
+    border-radius:999px;
+    background:#ecfeff;
+    border:1px solid #bfdbfe;
+    color:#155e75;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }}
+  .finding h3 {{ margin:0 0 6px; font-size:20px; }}
+  .finding .evidence {{ margin:0 0 8px; color:var(--blue); font-weight:600; }}
+  .section-title {{ margin:0 0 14px; font-size:24px; }}
+  .summary-text {{ color:var(--muted); line-height:1.6; }}
+  .bar-row {{ margin-bottom:14px; }}
+  .bar-meta {{ display:flex; justify-content:space-between; gap:12px; margin-bottom:6px; font-size:14px; }}
+  .bar-track {{ height:12px; border-radius:999px; background:#e2e8f0; overflow:hidden; }}
+  .bar-fill {{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--teal), var(--blue)); }}
+  ul.clean {{ margin:0; padding-left:18px; }}
+  ul.clean li {{ margin-bottom:10px; color:var(--text); }}
+  ul.action-list {{ list-style:none; margin:0; padding:0; }}
+  ul.action-list li {{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+  }}
+  ul.action-list li:last-child {{ border-bottom:none; }}
+  ul.action-list span {{ color:var(--muted); font-size:13px; }}
+  .mini-grid {{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+    margin-top:14px;
+  }}
+  .mini {{
+    border-radius:18px;
+    background:linear-gradient(180deg, #ffffff, #f6faff);
+    border:1px solid var(--border-strong);
+    padding:14px;
+  }}
+  .mini .k {{ font-size:12px; text-transform:uppercase; color:var(--muted); }}
+  .mini .v {{ margin-top:8px; font-size:26px; font-weight:800; }}
+  .footnote {{ margin-top:10px; color:var(--muted); font-size:12px; }}
+  @media (max-width: 920px) {{
+    .hero-grid, .split {{ grid-template-columns:1fr; }}
+    .mini-grid {{ grid-template-columns:1fr; }}
+    h1 {{ font-size:30px; }}
+  }}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">VeriOps Sales Teardown</div>
+      <h1>{html.escape(str(payload.get("headline", "")))}</h1>
+      <p class="summary-text" style="color:rgba(255,255,255,.88); margin:0;">{html.escape(str(summary.get("executive_summary", "") or "Automated public-docs scan converted into a sales-friendly teardown for follow-up conversations."))}</p>
+      <div class="advisory-strip">
+        <div>
+          <div class="advisory-label">Advisory readout</div>
+          <div class="advisory-copy">Prepared for premium follow-up conversations: what the public docs surface reveals, where commercial risk concentrates first, and which automation layer would remove the most friction earliest.</div>
+        </div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-panel">
+          <div class="sub">Site</div>
+          <div style="font-size:22px; font-weight:700; margin-top:8px;">{site_url or "N/A"}</div>
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="k">Audit Score</div>
+              <div class="v">{html.escape(str(score.get("audit_score_0_100", 0)))}</div>
+            </div>
+            <div class="mini">
+              <div class="k">Grade</div>
+              <div class="v">{html.escape(str(score.get("grade", "n/a")))}</div>
+            </div>
+            <div class="mini">
+              <div class="k">Monthly Cost Signal</div>
+              <div class="v">${html.escape(str(int(float(summary.get("estimated_monthly_cost_usd", 0.0) or 0.0))))}</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="sub">Generated</div>
+          <div style="font-size:18px; font-weight:600; margin-top:8px;">{generated_at}</div>
+          <div class="footnote" style="color:rgba(255,255,255,.78);">Built automatically from the existing audit bundle: scorecard, public-docs crawl, broken links, and LLM summary.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics">
+      {cards_html}
+    </section>
+
+    <section class="split">
+      <div class="surface">
+        <h2 class="section-title">What We Found</h2>
+        {findings_html}
+      </div>
+      <div class="surface">
+        <h2 class="section-title">Readout Snapshot</h2>
+        {bars_html}
+        <div class="mini-grid">
+          <div class="mini">
+            <div class="k">Pages Crawled</div>
+            <div class="v">{html.escape(str(summary.get("pages_crawled", 0)))}</div>
+          </div>
+          <div class="mini">
+            <div class="k">Broken Links</div>
+            <div class="v">{html.escape(str(summary.get("broken_links_count", 0)))}</div>
+          </div>
+          <div class="mini">
+            <div class="k">Unverified Links</div>
+            <div class="v">{html.escape(str(summary.get("unverified_links_count", 0)))}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="surface">
+        <h2 class="section-title">What I’d Prioritize First</h2>
+        <ul class="action-list">
+          {actions_html}
+        </ul>
+      </div>
+      <div class="surface">
+        <h2 class="section-title">Automation Layer To Add First</h2>
+        <ul class="clean">
+          {automation_html}
+        </ul>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="surface">
+        <h2 class="section-title">What Looks Strong</h2>
+        <ul class="clean">
+          {strengths_html}
+        </ul>
+      </div>
+      <div class="surface">
+        <h2 class="section-title">Main Risks</h2>
+        <ul class="clean">
+          {risks_html}
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+"""
+
+
 def _build_html(payload: dict[str, Any]) -> str:
     score = payload["score"]["audit_score_0_100"]
     grade = payload["score"]["grade"]
@@ -1155,6 +1792,13 @@ def main() -> int:
     parser.add_argument("--auto-run-smoke", action="store_true")
     parser.add_argument("--json-output", default="reports/audit_scorecard.json")
     parser.add_argument("--html-output", default="reports/audit_scorecard.html")
+    parser.add_argument("--public-audit-json", default="")
+    parser.add_argument("--public-broken-links-json", default="")
+    parser.add_argument("--llm-summary-json", default="")
+    parser.add_argument("--sales-json-output", default="")
+    parser.add_argument("--sales-html-output", default="")
+    parser.add_argument("--sales-pdf-output", default="")
+    parser.add_argument("--skip-sales-pdf", action="store_true")
     args = parser.parse_args()
 
     docs_dir = Path(args.docs_dir)
@@ -1191,8 +1835,47 @@ def main() -> int:
     json_out.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
     html_out.write_text(_build_html(payload), encoding="utf-8")
 
+    public_audit_path = _resolve_optional_report_path(args.public_audit_json)
+    broken_links_path = _resolve_optional_report_path(args.public_broken_links_json)
+    llm_summary_path = _resolve_optional_report_path(args.llm_summary_json)
+    sales_json_out = (
+        Path(args.sales_json_output)
+        if str(args.sales_json_output).strip()
+        else _default_sales_output_path(json_out, DEFAULT_SALES_JSON_FILENAME)
+    )
+    sales_html_out = (
+        Path(args.sales_html_output)
+        if str(args.sales_html_output).strip()
+        else _default_sales_output_path(html_out, DEFAULT_SALES_HTML_FILENAME)
+    )
+    sales_pdf_out = (
+        Path(args.sales_pdf_output)
+        if str(args.sales_pdf_output).strip()
+        else _default_sales_output_path(html_out, DEFAULT_SALES_PDF_FILENAME)
+    )
+    sales_json_out.parent.mkdir(parents=True, exist_ok=True)
+    sales_html_out.parent.mkdir(parents=True, exist_ok=True)
+    sales_pdf_out.parent.mkdir(parents=True, exist_ok=True)
+
+    sales_payload = _build_sales_teardown_payload(
+        payload,
+        public_audit=_read_json(public_audit_path) if public_audit_path is not None else {},
+        broken_links=_read_json(broken_links_path) if broken_links_path is not None else {},
+        llm_summary=_read_json(llm_summary_path) if llm_summary_path is not None else {},
+    )
+    sales_json_out.write_text(json.dumps(sales_payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+    sales_html_out.write_text(_build_sales_teardown_html(sales_payload), encoding="utf-8")
+    if not bool(args.skip_sales_pdf):
+        ok, message = _render_html_to_pdf_with_browser(sales_html_out, sales_pdf_out)
+        if ok:
+            print(f"[ok] sales teardown PDF: {sales_pdf_out}")
+        else:
+            print(f"[warn] sales teardown PDF generation failed: {message}")
+
     print(f"[ok] audit scorecard JSON: {json_out}")
     print(f"[ok] audit scorecard HTML: {html_out}")
+    print(f"[ok] sales teardown JSON: {sales_json_out}")
+    print(f"[ok] sales teardown HTML: {sales_html_out}")
     print(
         "[ok] summary: "
         f"score={payload['score']['audit_score_0_100']} "

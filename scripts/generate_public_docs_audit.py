@@ -3504,6 +3504,12 @@ def main() -> int:
                 "--glossary-path", "glossary.yml",
                 "--json-output", scorecard_json,
                 "--html-output", "reports/audit_scorecard.html",
+                "--public-audit-json", str(args.json_output),
+                "--public-broken-links-json", str(args.broken_links_output),
+                "--llm-summary-json", str(args.llm_summary_output),
+                "--sales-json-output", str(Path(scorecard_json).with_name("sales_teardown.json")),
+                "--sales-html-output", str(Path(scorecard_json).with_name("sales_teardown.html")),
+                "--sales-pdf-output", str(Path(scorecard_json).with_name("sales_teardown.pdf")),
             ]
             if assumptions_path:
                 scorecard_cmd.extend(["--assumptions-json", assumptions_path])
