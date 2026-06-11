@@ -8373,38 +8373,6 @@
       "code_snippets": []
     },
     {
-      "objectID": "66ae7db6d0734c3c08beac8c2fee111b",
-      "title": "Autopipeline Output Index",
-      "heading": "Next steps",
-      "content": "- Documentation index ",
-      "description": "Auto-generated review index for autopipeline outputs.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Reference",
-        "Pipeline",
-        "Review"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "Next steps",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/operations/AUTOPIPELINE_OUTPUT_INDEX#9",
-      "last_reviewed": "2026-05-18",
-      "path": "docs/operations/AUTOPIPELINE_OUTPUT_INDEX.md",
-      "ranking_boost": 4,
-      "heading_level": 2,
-      "word_count": 3,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
       "objectID": "b1754fa7ea1e5394134f7d93bf7a61f3",
       "title": "Canonical Flow (Sales + Delivery)",
       "heading": "",
@@ -8555,7 +8523,7 @@
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 266,
+      "word_count": 408,
       "has_code": false,
       "code_snippets": []
     },
@@ -10413,7 +10381,7 @@
       "objectID": "b3f4b51a59fb8bda192a0a9a54985285",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Non-API documentation flows (docs-first scope)",
-      "content": "The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content: 1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes. 1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs). 1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories. 1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence). 1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages. 1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work. ",
+      "content": "The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content: 1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes. 1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs). 1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories. 1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence). 1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages. 1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work. 1. Places screens",
       "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
@@ -10436,7 +10404,7 @@
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 124,
+      "word_count": 140,
       "has_code": false,
       "code_snippets": []
     },
@@ -10498,7 +10466,7 @@
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 503,
+      "word_count": 542,
       "has_code": false,
       "code_snippets": []
     },
@@ -10599,7 +10567,7 @@
       "objectID": "aa9e78f16112870d18f022a796fb498a",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Quality checks (32 automated)",
-      "content": "The pipeline enforces 32 automated checks on every documentation page across four categories: | Category | Count | What they verify | | --- | --- | --- | | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density | | SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, image alt text, structured data | | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense | | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints | ",
+      "content": "The pipeline enforces 32 automated checks on every documentation page across four categories: | Category | Count | What they verify | | --- | --- | --- | | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density | | SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, image alt text, structured data | | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense | | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints | Screenshot automation behavior: 1. Capture metadata in reports/screenshot_capture_manifest.json is converted automatically into docs/screenshots.yml. 1. Placement uses deterministic priority: anchor -> heading -> h1 fallback. 1. alt text is optional; when missing, pipeline derives it from matched heading or record id. 1. Optional target.doc, target.anch",
       "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
@@ -10622,7 +10590,7 @@
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 107,
+      "word_count": 174,
       "has_code": false,
       "code_snippets": []
     },
@@ -11188,7 +11156,7 @@
       "objectID": "37671d11d5ba4f04fb949bc14922cd60",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "4. License enforcement",
-      "content": "Plan tiers are enforced at runtime by scripts/license_gate.py. Every gated script calls license_gate.require(\"feature_name\") before executing protected logic. The license is validated offline using an Ed25519-signed JWT stored at docsops/license.jwt. Without a valid license, the pipeline runs in community mode (degraded): - Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol. - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol. - Quality gates warn-only (never block). License features per plan: | Feature gate | Pilot | Professional | Enterprise | | --- | --- | --- | --- | | seo_geo_scoring | No | Yes | Yes | | api_first_flow | No | Yes | Yes | | drift_detection | No | Yes | Yes | | kpi_wall_sla | No | Yes | Yes | | test_assets_generation | No | Yes | Yes | | consolidated_reports | No | Yes | Yes | | multi_protocol_pipeline | No | No | Yes | | knowledge_modules | ",
+      "content": "Plan tiers are enforced at runtime by scripts/license_gate.py. Every gated script calls license_gate.require(\"feature_name\") before executing protected logic. The license is validated offline using an Ed25519-signed JWT stored at docsops/license.jwt. Without a valid license, the pipeline runs in community mode (degraded): - Markdown lint, frontmatter validation, SEO/GEO report-only. - Advanced runtime modules are disabled in community mode (including glossary sync, lifecycle management, API-first/REST protocol automation, multi-protocol flow, drift detection, KPI/SLA, and RAG layers). - Existing client artifacts remain on disk (docs content, templates, glossary, shared variables), but pipeline execution falls back to the reduced community feature surface. - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol. - Quality gates warn-only (never block). License features per plan: | Feature gate | Pilot | Professional | Enterprise | | --- | --- | --- |",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -11211,7 +11179,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 261,
+      "word_count": 301,
       "has_code": false,
       "code_snippets": []
     },
