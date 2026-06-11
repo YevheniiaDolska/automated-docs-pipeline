@@ -48,6 +48,7 @@ The platform is not limited to API-first automation. In active production usage,
 1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
 1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
 1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
+1. Places screenshots into relevant sections automatically with deterministic mapping and `needs_review` reporting for ambiguous targets.
 
 ## How to enable any capability for a client
 
@@ -208,6 +209,8 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
 | `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
 | `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and optional anchor/heading targets. |
+| `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
 | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
 | `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
 | `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
@@ -304,6 +307,14 @@ The pipeline enforces 32 automated checks on every documentation page across fou
 | SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, image alt text, structured data |
 | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense |
 | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints |
+
+Screenshot automation behavior:
+
+1. Capture metadata in `reports/screenshot_capture_manifest.json` is converted automatically into `docs/screenshots.yml`.
+1. Placement uses deterministic priority: `anchor -> heading -> h1 fallback`.
+1. `alt` text is optional; when missing, pipeline derives it from matched heading or record id.
+1. Optional `target.doc`, `target.anchor`, and `target.heading` fields can override automatic mapping when needed.
+1. Placement outcomes are written to `reports/screenshot_injection_report.json`; manifest build outcomes are written to `reports/screenshot_manifest_build_report.json`.
 
 ## RAG retrieval pipeline
 

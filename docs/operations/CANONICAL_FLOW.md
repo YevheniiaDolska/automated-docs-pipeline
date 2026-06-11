@@ -135,6 +135,37 @@ It executes:
   - `generate_knowledge_retrieval_index.py`
   - `generate_knowledge_graph_jsonld.py`
   - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)
+- Screenshot placement tasks:
+  - `generate_screenshot_capture_plan.py` auto-refreshes `docs/screenshots.capture.yml` from current docs tree
+  - `capture_screenshots.py` captures screenshots via Playwright using `docs/screenshots.capture.yml`
+  - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json` into `docs/screenshots.yml`
+  - `insert_screenshots_into_docs.py` inserts screenshots by `target.doc` + `target.anchor`/`target.heading`
+  - fallback placement after `h1` for unresolved section headings
+  - unresolved targets are reported in `reports/screenshot_injection_report.json` under `needs_review`
+
+Private pages (authenticated screenshot capture):
+
+1. Open `docs/screenshots.capture.yml`.
+1. Set `auth.enabled: true`.
+1. Set `auth.login_url` to your sign-in URL.
+1. Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`) to match your login form.
+1. Export credentials before run:
+
+```bash
+export SCREENSHOT_LOGIN_EMAIL="your-login@example.com"
+export SCREENSHOT_LOGIN_PASSWORD="your-password"
+```
+
+1. Run pipeline normally (`run_autopipeline.py`); it will:
+   - execute auth once,
+   - save Playwright session state to `reports/playwright_storage_state.json`,
+   - reuse it for capture targets in the same run.
+
+Playwright bootstrap:
+
+```bash
+python3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright
+```
 - terminology governance:
   - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
 - multi-language examples standard:
@@ -154,6 +185,8 @@ Output:
 - `reports/consolidated_report.json`
 - related reports are regenerated to the same filenames each run (no manual cleanup required)
 - `reports/docsops_status.json` (quick freshness/status check for non-technical users)
+- `reports/screenshot_manifest_build_report.json` (capture metadata -> placement manifest build status)
+- `reports/screenshot_injection_report.json` (screenshot placement status and `needs_review` queue)
 
 Client repo `.gitignore` recommendation:
 

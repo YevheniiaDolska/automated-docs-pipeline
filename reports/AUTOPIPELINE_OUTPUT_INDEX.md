@@ -77,3 +77,4 @@ Generated automatically after autopipeline run.
 - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable page paths.
 - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index (`docs/assets/knowledge-retrieval-index.json`).
 - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval eval reports.
+

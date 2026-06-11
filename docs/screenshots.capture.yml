@@ -1,0 +1,684 @@
+version: 1
+defaults:
+  storage_state: reports/playwright_storage_state.json
+  viewport:
+    width: 1440
+    height: 900
+  wait_for: networkidle
+  full_page: false
+auth:
+  enabled: false
+  login_url: ''
+  storage_state_output: reports/playwright_storage_state.json
+  steps:
+  - type: fill
+    selector: input[name='email']
+    value: ${SCREENSHOT_LOGIN_EMAIL}
+  - type: fill
+    selector: input[name='password']
+    value: ${SCREENSHOT_LOGIN_PASSWORD}
+  - type: click
+    selector: button[type='submit']
+  - type: wait_for_selector
+    selector: '[data-testid=''dashboard'']'
+captures:
+- id: doc-seo-guide
+  url: http://localhost:3000/SEO_GUIDE/
+  output: docs/assets/screenshots/seo-guide.png
+  doc_path: SEO_GUIDE.md
+  section_heading: Overview
+  section_anchor: overview
+  alt: SEO/GEO Optimization Guide screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-variables-guide
+  url: http://localhost:3000/VARIABLES_GUIDE/
+  output: docs/assets/screenshots/variables-guide.png
+  doc_path: VARIABLES_GUIDE.md
+  section_heading: Overview
+  section_anchor: overview
+  alt: Variables and Templates Guide screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-assets-protocols-asyncapi-asyncapi-api
+  url: http://localhost:3000/assets/protocols/asyncapi/asyncapi-api/
+  output: docs/assets/screenshots/assets-protocols-asyncapi-asyncapi-api.png
+  doc_path: assets/protocols/asyncapi/asyncapi-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: ASYNCAPI API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-assets-protocols-graphql-graphql-api
+  url: http://localhost:3000/assets/protocols/graphql/graphql-api/
+  output: docs/assets/screenshots/assets-protocols-graphql-graphql-api.png
+  doc_path: assets/protocols/graphql/graphql-api.md
+  section_heading: Operations
+  section_anchor: operations
+  alt: GRAPHQL API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-assets-protocols-grpc-grpc-api
+  url: http://localhost:3000/assets/protocols/grpc/grpc-api/
+  output: docs/assets/screenshots/assets-protocols-grpc-grpc-api.png
+  doc_path: assets/protocols/grpc/grpc-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: GRPC API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-assets-protocols-rest-rest-api
+  url: http://localhost:3000/assets/protocols/rest/rest-api/
+  output: docs/assets/screenshots/assets-protocols-rest-rest-api.png
+  doc_path: assets/protocols/rest/rest-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: REST API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-assets-protocols-websocket-websocket-api
+  url: http://localhost:3000/assets/protocols/websocket/websocket-api/
+  output: docs/assets/screenshots/assets-protocols-websocket-websocket-api.png
+  doc_path: assets/protocols/websocket/websocket-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: WEBSOCKET API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-concepts-intelligent-knowledge-system
+  url: http://localhost:3000/concepts/intelligent-knowledge-system/
+  output: docs/assets/screenshots/concepts-intelligent-knowledge-system.png
+  doc_path: concepts/intelligent-knowledge-system.md
+  section_heading: Core components
+  section_anchor: core-components
+  alt: Intelligent knowledge system architecture screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-concepts-workflow-execution-model
+  url: http://localhost:3000/concepts/workflow-execution-model/
+  output: docs/assets/screenshots/concepts-workflow-execution-model.png
+  doc_path: concepts/workflow-execution-model.md
+  section_heading: Workflow execution model overview
+  section_anchor: workflow-execution-model-overview
+  alt: Workflow execution model screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-en-how-to-set-up-real-time-webhook-processing-pipeline
+  url: http://localhost:3000/en/how-to/set-up-real-time-webhook-processing-pipeline/
+  output: docs/assets/screenshots/en-how-to-set-up-real-time-webhook-processing-pipeline.png
+  doc_path: en/how-to/set-up-real-time-webhook-processing-pipeline.md
+  section_heading: Prerequisites for webhook pipeline setup
+  section_anchor: prerequisites-for-webhook-pipeline-setup
+  alt: Set up a real-time webhook processing pipeline screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-getting-started-quickstart
+  url: http://localhost:3000/getting-started/quickstart/
+  output: docs/assets/screenshots/getting-started-quickstart.png
+  doc_path: getting-started/quickstart.md
+  section_heading: Build your first workflow in 5 minutes
+  section_anchor: build-your-first-workflow-in-5-minutes
+  alt: Build your first workflow in 5 minutes screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-assemble-intent-experiences
+  url: http://localhost:3000/how-to/assemble-intent-experiences/
+  output: docs/assets/screenshots/how-to-assemble-intent-experiences.png
+  doc_path: how-to/assemble-intent-experiences.md
+  section_heading: Before you start
+  section_anchor: before-you-start
+  alt: Assemble intent experiences screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-configure-ask-ai-module
+  url: http://localhost:3000/how-to/configure-ask-ai-module/
+  output: docs/assets/screenshots/how-to-configure-ask-ai-module.png
+  doc_path: how-to/configure-ask-ai-module.md
+  section_heading: Before you start
+  section_anchor: before-you-start
+  alt: Configure Ask AI module screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-configure-webhook-trigger
+  url: http://localhost:3000/how-to/configure-webhook-trigger/
+  output: docs/assets/screenshots/how-to-configure-webhook-trigger.png
+  doc_path: how-to/configure-webhook-trigger.md
+  section_heading: Before you start
+  section_anchor: before-you-start
+  alt: Configure webhook triggers screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-install-ask-ai-runtime-pack
+  url: http://localhost:3000/how-to/install-ask-ai-runtime-pack/
+  output: docs/assets/screenshots/how-to-install-ask-ai-runtime-pack.png
+  doc_path: how-to/install-ask-ai-runtime-pack.md
+  section_heading: Before you start
+  section_anchor: before-you-start
+  alt: Install Ask AI runtime pack screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-migrate-from-confluence
+  url: http://localhost:3000/how-to/migrate-from-confluence/
+  output: docs/assets/screenshots/how-to-migrate-from-confluence.png
+  doc_path: how-to/migrate-from-confluence.md
+  section_heading: Before you begin
+  section_anchor: before-you-begin
+  alt: Migrate documentation from Confluence screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-run-api-first-production-flow
+  url: http://localhost:3000/how-to/run-api-first-production-flow/
+  output: docs/assets/screenshots/how-to-run-api-first-production-flow.png
+  doc_path: how-to/run-api-first-production-flow.md
+  section_heading: 'Step 1: Prepare planning notes'
+  section_anchor: step-1-prepare-planning-notes
+  alt: Run API-first production flow screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-legal-data-processing-agreement
+  url: http://localhost:3000/legal/data-processing-agreement/
+  output: docs/assets/screenshots/legal-data-processing-agreement.png
+  doc_path: legal/data-processing-agreement.md
+  section_heading: Scope and roles
+  section_anchor: scope-and-roles
+  alt: VeriDoc data processing agreement screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-legal-privacy-policy
+  url: http://localhost:3000/legal/privacy-policy/
+  output: docs/assets/screenshots/legal-privacy-policy.png
+  doc_path: legal/privacy-policy.md
+  section_heading: Data controller
+  section_anchor: data-controller
+  alt: VeriDoc privacy policy screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-legal-security-contact-policy
+  url: http://localhost:3000/legal/security-contact-policy/
+  output: docs/assets/screenshots/legal-security-contact-policy.png
+  doc_path: legal/security-contact-policy.md
+  section_heading: Official contact channels
+  section_anchor: official-contact-channels
+  alt: VeriDoc security contact policy screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-legal-security-policy
+  url: http://localhost:3000/legal/security-policy/
+  output: docs/assets/screenshots/legal-security-policy.png
+  doc_path: legal/security-policy.md
+  section_heading: Infrastructure security
+  section_anchor: infrastructure-security
+  alt: VeriDoc security policy screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-legal-terms-of-service
+  url: http://localhost:3000/legal/terms-of-service/
+  output: docs/assets/screenshots/legal-terms-of-service.png
+  doc_path: legal/terms-of-service.md
+  section_heading: Key definitions
+  section_anchor: key-definitions
+  alt: VeriDoc terms of service screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-autopipeline-output-index
+  url: http://localhost:3000/operations/AUTOPIPELINE_OUTPUT_INDEX/
+  output: docs/assets/screenshots/operations-autopipeline-output-index.png
+  doc_path: operations/AUTOPIPELINE_OUTPUT_INDEX.md
+  section_heading: Stage Articulation
+  section_anchor: stage-articulation
+  alt: Autopipeline Output Index screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-canonical-flow
+  url: http://localhost:3000/operations/CANONICAL_FLOW/
+  output: docs/assets/screenshots/operations-canonical-flow.png
+  doc_path: operations/CANONICAL_FLOW.md
+  section_heading: 1. Core promise
+  section_anchor: 1-core-promise
+  alt: Canonical Flow (Sales + Delivery) screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-centralized-client-bundles
+  url: http://localhost:3000/operations/CENTRALIZED_CLIENT_BUNDLES/
+  output: docs/assets/screenshots/operations-centralized-client-bundles.png
+  doc_path: operations/CENTRALIZED_CLIENT_BUNDLES.md
+  section_heading: "\u0413\u043B\u0430\u0432\u043D\u043E\u0435 \u043F\u0440\u0430\u0432\
+    \u0438\u043B\u043E"
+  section_anchor: ''
+  alt: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\
+    \u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\
+    \u043B\u0438\u0435\u043D\u0442\u043E\u0432 screenshot"
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-multi-protocol-architecture
+  url: http://localhost:3000/operations/MULTI_PROTOCOL_ARCHITECTURE/
+  output: docs/assets/screenshots/operations-multi-protocol-architecture.png
+  doc_path: operations/MULTI_PROTOCOL_ARCHITECTURE.md
+  section_heading: Supported protocols (core-5)
+  section_anchor: supported-protocols-core-5
+  alt: Multi-Protocol Architecture screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-multi-protocol-wizard-guide
+  url: http://localhost:3000/operations/MULTI_PROTOCOL_WIZARD_GUIDE/
+  output: docs/assets/screenshots/operations-multi-protocol-wizard-guide.png
+  doc_path: operations/MULTI_PROTOCOL_WIZARD_GUIDE.md
+  section_heading: Current product definition (2026-03-25)
+  section_anchor: current-product-definition-2026-03-25
+  alt: Multi-Protocol Wizard Guide screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-operator-runbook
+  url: http://localhost:3000/operations/OPERATOR_RUNBOOK/
+  output: docs/assets/screenshots/operations-operator-runbook.png
+  doc_path: operations/OPERATOR_RUNBOOK.md
+  section_heading: Current product definition (2026-03-25)
+  section_anchor: current-product-definition-2026-03-25
+  alt: Operator Runbook (Retainer Operations) screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-pipeline-capabilities-catalog
+  url: http://localhost:3000/operations/PIPELINE_CAPABILITIES_CATALOG/
+  output: docs/assets/screenshots/operations-pipeline-capabilities-catalog.png
+  doc_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+  section_heading: Current product definition (2026-03-25)
+  section_anchor: current-product-definition-2026-03-25
+  alt: Pipeline Capabilities Catalog screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-plan-tiers
+  url: http://localhost:3000/operations/PLAN_TIERS/
+  output: docs/assets/screenshots/operations-plan-tiers.png
+  doc_path: operations/PLAN_TIERS.md
+  section_heading: Current product definition (2026-03-25)
+  section_anchor: current-product-definition-2026-03-25
+  alt: Plan Tiers (Basic / Pro / Enterprise) screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-smart-merge-review
+  url: http://localhost:3000/operations/SMART_MERGE_REVIEW/
+  output: docs/assets/screenshots/operations-smart-merge-review.png
+  doc_path: operations/SMART_MERGE_REVIEW.md
+  section_heading: Current product definition (2026-03-25)
+  section_anchor: current-product-definition-2026-03-25
+  alt: Smart Merge and Manual Review screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-operations-unified-client-config
+  url: http://localhost:3000/operations/UNIFIED_CLIENT_CONFIG/
+  output: docs/assets/screenshots/operations-unified-client-config.png
+  doc_path: operations/UNIFIED_CLIENT_CONFIG.md
+  section_heading: Current product definition (2026-03-25)
+  section_anchor: current-product-definition-2026-03-25
+  alt: Unified Client Configuration screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-api-playground
+  url: http://localhost:3000/reference/api-playground/
+  output: docs/assets/screenshots/reference-api-playground.png
+  doc_path: reference/api-playground.md
+  section_heading: Overview
+  section_anchor: overview
+  alt: API playground screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-asyncapi-api
+  url: http://localhost:3000/reference/asyncapi-api/
+  output: docs/assets/screenshots/reference-asyncapi-api.png
+  doc_path: reference/asyncapi-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: ASYNCAPI API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-auto-doc-pipeline-study-guide
+  url: http://localhost:3000/reference/auto-doc-pipeline-study-guide/
+  output: docs/assets/screenshots/reference-auto-doc-pipeline-study-guide.png
+  doc_path: reference/auto-doc-pipeline-study-guide.md
+  section_heading: One-minute mental model
+  section_anchor: one-minute-mental-model
+  alt: Auto-Doc Pipeline study guide screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-deprecated-example
+  url: http://localhost:3000/reference/deprecated-example/
+  output: docs/assets/screenshots/reference-deprecated-example.png
+  doc_path: reference/deprecated-example.md
+  section_heading: Old Webhook API
+  section_anchor: old-webhook-api
+  alt: Old Webhook API (Deprecated) screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-graphql-api
+  url: http://localhost:3000/reference/graphql-api/
+  output: docs/assets/screenshots/reference-graphql-api.png
+  doc_path: reference/graphql-api.md
+  section_heading: Operations
+  section_anchor: operations
+  alt: GRAPHQL API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-grpc-api
+  url: http://localhost:3000/reference/grpc-api/
+  output: docs/assets/screenshots/reference-grpc-api.png
+  doc_path: reference/grpc-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: GRPC API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-automate-developer
+  url: http://localhost:3000/reference/intent-experiences/automate-developer/
+  output: docs/assets/screenshots/reference-intent-experiences-automate-developer.png
+  doc_path: reference/intent-experiences/automate-developer.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: automate for developer screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-automate-operator
+  url: http://localhost:3000/reference/intent-experiences/automate-operator/
+  output: docs/assets/screenshots/reference-intent-experiences-automate-operator.png
+  doc_path: reference/intent-experiences/automate-operator.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: automate for operator screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-automate-support
+  url: http://localhost:3000/reference/intent-experiences/automate-support/
+  output: docs/assets/screenshots/reference-intent-experiences-automate-support.png
+  doc_path: reference/intent-experiences/automate-support.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: automate for support screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-configure-beginner
+  url: http://localhost:3000/reference/intent-experiences/configure-beginner/
+  output: docs/assets/screenshots/reference-intent-experiences-configure-beginner.png
+  doc_path: reference/intent-experiences/configure-beginner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: configure for beginner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-configure-developer
+  url: http://localhost:3000/reference/intent-experiences/configure-developer/
+  output: docs/assets/screenshots/reference-intent-experiences-configure-developer.png
+  doc_path: reference/intent-experiences/configure-developer.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: configure for developer screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-configure-operator
+  url: http://localhost:3000/reference/intent-experiences/configure-operator/
+  output: docs/assets/screenshots/reference-intent-experiences-configure-operator.png
+  doc_path: reference/intent-experiences/configure-operator.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: configure for operator screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-configure-practitioner
+  url: http://localhost:3000/reference/intent-experiences/configure-practitioner/
+  output: docs/assets/screenshots/reference-intent-experiences-configure-practitioner.png
+  doc_path: reference/intent-experiences/configure-practitioner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: configure for practitioner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-configure-support
+  url: http://localhost:3000/reference/intent-experiences/configure-support/
+  output: docs/assets/screenshots/reference-intent-experiences-configure-support.png
+  doc_path: reference/intent-experiences/configure-support.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: configure for support screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-integrate-beginner
+  url: http://localhost:3000/reference/intent-experiences/integrate-beginner/
+  output: docs/assets/screenshots/reference-intent-experiences-integrate-beginner.png
+  doc_path: reference/intent-experiences/integrate-beginner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: integrate for beginner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-integrate-developer
+  url: http://localhost:3000/reference/intent-experiences/integrate-developer/
+  output: docs/assets/screenshots/reference-intent-experiences-integrate-developer.png
+  doc_path: reference/intent-experiences/integrate-developer.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: integrate for developer screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-integrate-operator
+  url: http://localhost:3000/reference/intent-experiences/integrate-operator/
+  output: docs/assets/screenshots/reference-intent-experiences-integrate-operator.png
+  doc_path: reference/intent-experiences/integrate-operator.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: integrate for operator screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-integrate-practitioner
+  url: http://localhost:3000/reference/intent-experiences/integrate-practitioner/
+  output: docs/assets/screenshots/reference-intent-experiences-integrate-practitioner.png
+  doc_path: reference/intent-experiences/integrate-practitioner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: integrate for practitioner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-integrate-support
+  url: http://localhost:3000/reference/intent-experiences/integrate-support/
+  output: docs/assets/screenshots/reference-intent-experiences-integrate-support.png
+  doc_path: reference/intent-experiences/integrate-support.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: integrate for support screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-optimize-developer
+  url: http://localhost:3000/reference/intent-experiences/optimize-developer/
+  output: docs/assets/screenshots/reference-intent-experiences-optimize-developer.png
+  doc_path: reference/intent-experiences/optimize-developer.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: optimize for developer screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-optimize-operator
+  url: http://localhost:3000/reference/intent-experiences/optimize-operator/
+  output: docs/assets/screenshots/reference-intent-experiences-optimize-operator.png
+  doc_path: reference/intent-experiences/optimize-operator.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: optimize for operator screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-optimize-support
+  url: http://localhost:3000/reference/intent-experiences/optimize-support/
+  output: docs/assets/screenshots/reference-intent-experiences-optimize-support.png
+  doc_path: reference/intent-experiences/optimize-support.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: optimize for support screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-secure-beginner
+  url: http://localhost:3000/reference/intent-experiences/secure-beginner/
+  output: docs/assets/screenshots/reference-intent-experiences-secure-beginner.png
+  doc_path: reference/intent-experiences/secure-beginner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: secure for beginner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-secure-developer
+  url: http://localhost:3000/reference/intent-experiences/secure-developer/
+  output: docs/assets/screenshots/reference-intent-experiences-secure-developer.png
+  doc_path: reference/intent-experiences/secure-developer.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: secure for developer screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-secure-operator
+  url: http://localhost:3000/reference/intent-experiences/secure-operator/
+  output: docs/assets/screenshots/reference-intent-experiences-secure-operator.png
+  doc_path: reference/intent-experiences/secure-operator.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: secure for operator screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-secure-practitioner
+  url: http://localhost:3000/reference/intent-experiences/secure-practitioner/
+  output: docs/assets/screenshots/reference-intent-experiences-secure-practitioner.png
+  doc_path: reference/intent-experiences/secure-practitioner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: secure for practitioner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-secure-support
+  url: http://localhost:3000/reference/intent-experiences/secure-support/
+  output: docs/assets/screenshots/reference-intent-experiences-secure-support.png
+  doc_path: reference/intent-experiences/secure-support.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: secure for support screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-troubleshoot-beginner
+  url: http://localhost:3000/reference/intent-experiences/troubleshoot-beginner/
+  output: docs/assets/screenshots/reference-intent-experiences-troubleshoot-beginner.png
+  doc_path: reference/intent-experiences/troubleshoot-beginner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: troubleshoot for beginner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-troubleshoot-developer
+  url: http://localhost:3000/reference/intent-experiences/troubleshoot-developer/
+  output: docs/assets/screenshots/reference-intent-experiences-troubleshoot-developer.png
+  doc_path: reference/intent-experiences/troubleshoot-developer.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: troubleshoot for developer screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-troubleshoot-operator
+  url: http://localhost:3000/reference/intent-experiences/troubleshoot-operator/
+  output: docs/assets/screenshots/reference-intent-experiences-troubleshoot-operator.png
+  doc_path: reference/intent-experiences/troubleshoot-operator.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: troubleshoot for operator screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-troubleshoot-practitioner
+  url: http://localhost:3000/reference/intent-experiences/troubleshoot-practitioner/
+  output: docs/assets/screenshots/reference-intent-experiences-troubleshoot-practitioner.png
+  doc_path: reference/intent-experiences/troubleshoot-practitioner.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: troubleshoot for practitioner screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-intent-experiences-troubleshoot-support
+  url: http://localhost:3000/reference/intent-experiences/troubleshoot-support/
+  output: docs/assets/screenshots/reference-intent-experiences-troubleshoot-support.png
+  doc_path: reference/intent-experiences/troubleshoot-support.md
+  section_heading: Included modules
+  section_anchor: included-modules
+  alt: 'Intent experience: troubleshoot for support screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-network-transparency
+  url: http://localhost:3000/reference/network-transparency/
+  output: docs/assets/screenshots/reference-network-transparency.png
+  doc_path: reference/network-transparency.md
+  section_heading: Zero client data guarantee
+  section_anchor: zero-client-data-guarantee
+  alt: Network transparency reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-nodes-webhook
+  url: http://localhost:3000/reference/nodes/webhook/
+  output: docs/assets/screenshots/reference-nodes-webhook.png
+  doc_path: reference/nodes/webhook.md
+  section_heading: Webhook node reference
+  section_anchor: webhook-node-reference
+  alt: Webhook node reference for screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-rest-api
+  url: http://localhost:3000/reference/rest-api/
+  output: docs/assets/screenshots/reference-rest-api.png
+  doc_path: reference/rest-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: REST API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-taskstream-api-playground
+  url: http://localhost:3000/reference/taskstream-api-playground/
+  output: docs/assets/screenshots/reference-taskstream-api-playground.png
+  doc_path: reference/taskstream-api-playground.md
+  section_heading: Start a sandbox endpoint
+  section_anchor: start-a-sandbox-endpoint
+  alt: TaskStream API playground screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-taskstream-planning-notes
+  url: http://localhost:3000/reference/taskstream-planning-notes/
+  output: docs/assets/screenshots/reference-taskstream-planning-notes.png
+  doc_path: reference/taskstream-planning-notes.md
+  section_heading: Input artifact location
+  section_anchor: input-artifact-location
+  alt: TaskStream API planning notes screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-reference-websocket-api
+  url: http://localhost:3000/reference/websocket-api/
+  output: docs/assets/screenshots/reference-websocket-api.png
+  doc_path: reference/websocket-api.md
+  section_heading: Top-level Keys
+  section_anchor: top-level-keys
+  alt: WEBSOCKET API Reference screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-search-faceted
+  url: http://localhost:3000/search-faceted/
+  output: docs/assets/screenshots/search-faceted.png
+  doc_path: search-faceted.md
+  section_heading: Next steps
+  section_anchor: next-steps
+  alt: Advanced Search screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-tags
+  url: http://localhost:3000/tags/
+  output: docs/assets/screenshots/tags.png
+  doc_path: tags.md
+  section_heading: Browse documentation by tag
+  section_anchor: browse-documentation-by-tag
+  alt: Browse by tag screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-troubleshooting-webhook-not-firing
+  url: http://localhost:3000/troubleshooting/webhook-not-firing/
+  output: docs/assets/screenshots/troubleshooting-webhook-not-firing.png
+  doc_path: troubleshooting/webhook-not-firing.md
+  section_heading: 'Fix: Webhook trigger not firing'
+  section_anchor: fix-webhook-trigger-not-firing
+  alt: 'Fix: Webhook trigger not firing screenshot'
+  wait_for: networkidle
+  full_page: false

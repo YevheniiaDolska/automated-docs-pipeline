@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-18'
+last_verified: '2026-05-26'
 dependencies: []
 tags:
 - auto-extracted
@@ -47,6 +47,12 @@ content:
 
     - `reports/docsops_status.json` (quick freshness/status check for non-technical
     users)
+
+    - `reports/screenshot_manifest_build_report.json` (capture metadata -> placement
+    manifest build status)
+
+    - `reports/screenshot_injection_report.json` (screenshot placement status and
+    `needs_review` queue)
 
 
     Client repo `.gitignore` recommendation:
@@ -102,6 +108,12 @@ content:
 
     - `reports/docsops_status.json` (quick freshness/status check for non-technical
     users)
+
+    - `reports/screenshot_manifest_build_report.json` (capture metadata -> placement
+    manifest build status)
+
+    - `reports/screenshot_injection_report.json` (screenshot placement status and
+    `needs_review` queue)
 
 
     Client repo `.gitignore` recommendation:

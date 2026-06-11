@@ -147,6 +147,27 @@ Major updates (simple checklist):
 1. Multi-language examples are generated/validated as a standard pattern, with smoke checks and expected-output comparison.
 1. Finalize gate is built-in across flows: iterative lint/fix loop, optional commit confirmation, optional pre-commit rerun.
 1. Algolia integration now supports zero-manual advanced auto-optimization during provisioning: advanced search config, synonyms, query rules, and replica setup are generated and applied automatically when Algolia credentials are present.
+1. Screenshot placement now supports zero-touch insertion from capture metadata: pipeline auto-builds screenshot manifest, maps sections, and inserts images automatically.
+
+### Screenshot placement (zero-touch)
+
+The autopipeline can place screenshots into relevant documentation sections automatically from capture metadata.
+
+How it resolves automatically:
+
+1. `build_screenshot_manifest.py` reads `reports/screenshot_capture_manifest.json` and generates `docs/screenshots.yml`.
+1. Placement prefers `target.anchor`, then `target.heading`, then fallback after page `h1`.
+1. If no reliable target is found, item is listed in `reports/screenshot_injection_report.json` under `needs_review`.
+1. Placement is idempotent: repeated runs update existing screenshot blocks by stable `id`, not duplicate them.
+
+What is still optional manual input:
+
+1. `alt` text is optional; pipeline auto-generates it from matched heading or record id.
+1. `target.doc`, `target.anchor`, and `target.heading` are optional overrides for ambiguous cases.
+
+Reference example:
+
+1. `reports/screenshot_capture_manifest.example.json`
 
 ### Algolia zero-manual auto-optimization
 

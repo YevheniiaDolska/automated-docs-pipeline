@@ -489,6 +489,9 @@ It compresses repetitive documentation and API verification work into a governed
 
 Auto-generated review index for autopipeline outputs.
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
 ### Autopipeline Output Index: Autopipeline Output Index
 
 Generated automatically after autopipeline run.
@@ -496,7 +499,7 @@ Generated automatically after autopipeline run.
 - Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`
 - Stage summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/pipeline_stage_summary.json`
 - Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_MANIFEST.md`
-- Weekly rc: `1`
+- Weekly rc: `0`
 - Strictness: `standard`
 - Skip consolidated report: `False`
 
@@ -506,8 +509,8 @@ Generated automatically after autopipeline run.
 - `consolidated_report`: **OK**
 - `audit_scorecard`: **OK**
 - `finalize_gate`: **OK**
-- `docsops_status`: **MISSING**
-- `ready_marker`: **MISSING**
+- `docsops_status`: **OK**
+- `ready_marker`: **OK**
 - `kpi_wall`: **OK**
 - `kpi_sla`: **OK**
 - `glossary_sync`: **OK**
@@ -550,8 +553,8 @@ Auto-generated review index for autopipeline outputs.
 - Audit scorecard (JSON): `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json` (OK)
 - Audit scorecard (HTML): `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.html` (OK)
 - Finalize gate report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/finalize_gate_report.json` (OK)
-- VeriOps status: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json` (MISSING)
-- Ready marker: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt` (MISSING)
+- VeriOps status: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json` (OK)
+- Ready marker: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt` (OK)
 - Generated changes list: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/generated_changes.json` (OK)
 - VeriDoc branding policy report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veridoc_branding_policy_report.json` (OK)
 
@@ -745,6 +748,11 @@ Canonical sales and delivery flow for onboarding and operating client Auto-Doc P
   - `generate_knowledge_retrieval_index.py`
   - `generate_knowledge_graph_jsonld.py`
   - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)
+- Screenshot placement tasks:
+  - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json` into `docs/screenshots.yml`
+  - `insert_screenshots_into_docs.py` inserts screenshots by `target.doc` + `target.anchor`/`target.heading`
+  - fallback placement after `h1` for unresolved section headings
+  - unresolved targets are reported in `reports/screenshot_injection_report.json` under `needs_review`
 - terminology governance:
   - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
 - multi-language examples standard:
@@ -768,6 +776,8 @@ Output:
 - `reports/consolidated_report.json`
 - related reports are regenerated to the same filenames each run (no manual cleanup required)
 - `reports/docsops_status.json` (quick freshness/status check for non-technical users)
+- `reports/screenshot_manifest_build_report.json` (capture metadata -> placement manifest build status)
+- `reports/screenshot_injection_report.json` (screenshot placement status and `needs_review` queue)
 
 Client repo `.gitignore` recommendation:
 
@@ -2650,6 +2660,14 @@ The pipeline enforces 32 automated checks on every documentation page across fou
 | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense |
 | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints |
 
+Screenshot automation behavior:
+
+1. Capture metadata in `reports/screenshot_capture_manifest.json` is converted automatically into `docs/screenshots.yml`.
+1. Placement uses deterministic priority: `anchor -> heading -> h1 fallback`.
+1. `alt` text is optional; when missing, pipeline derives it from matched heading or record id.
+1. Optional `target.doc`, `target.anchor`, and `target.heading` fields can override automatic mapping when needed.
+1. Placement outcomes are written to `reports/screenshot_injection_report.json`; manifest build outcomes are written to `reports/screenshot_manifest_build_report.json`.
+
 ### Pipeline Capabilities Catalog (Part 13)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
@@ -2874,6 +2892,7 @@ The platform is not limited to API-first automation. In active production usage,
 1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
 1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
 1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
+1. Places screenshots into relevant sections automatically with deterministic mapping and `needs_review` reporting for ambiguous targets.
 
 ### Pipeline Capabilities Catalog (Part 4)
 
@@ -3052,6 +3071,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
 | `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
 | `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and optional anchor/heading targets. |
+| `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
 | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
 | `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
 | `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |

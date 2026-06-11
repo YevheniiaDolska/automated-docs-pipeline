@@ -59,6 +59,16 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Do not install scheduler.",
     )
+    parser.add_argument(
+        "--install-playwright",
+        action="store_true",
+        help="Install Python Playwright package and Chromium browser without prompt.",
+    )
+    parser.add_argument(
+        "--skip-screenshot-setup",
+        action="store_true",
+        help="Skip screenshot automation bootstrap (plan generation + Playwright check).",
+    )
     return parser.parse_args()
 
 
@@ -299,6 +309,61 @@ def _install_scheduler(repo_root: Path) -> None:
         print(f"[env-wizard] run manually: {' '.join(cmd)}")
 
 
+def _install_playwright_stack(repo_root: Path) -> None:
+    py = sys.executable
+    print("[env-wizard] checking Playwright Python package...")
+    probe = subprocess.run([py, "-c", "import playwright"], check=False)
+    if probe.returncode != 0:
+        print("[env-wizard] installing playwright package...")
+        pip_cmd = [py, "-m", "pip", "install", "playwright"]
+        res = subprocess.run(pip_cmd, cwd=str(repo_root), check=False)
+        if res.returncode != 0:
+            print("[env-wizard] failed to install playwright package.")
+            print(f"[env-wizard] run manually: {' '.join(pip_cmd)}")
+            return
+    print("[env-wizard] installing Chromium browser for Playwright...")
+    browser_cmd = [py, "-m", "playwright", "install", "chromium"]
+    browser_res = subprocess.run(browser_cmd, cwd=str(repo_root), check=False)
+    if browser_res.returncode == 0:
+        print("[env-wizard] playwright chromium ready")
+    else:
+        print("[env-wizard] failed to install playwright chromium")
+        print(f"[env-wizard] run manually: {' '.join(browser_cmd)}")
+
+
+def _bootstrap_screenshot_plan(repo_root: Path, runtime: dict[str, Any]) -> None:
+    docs_root = str(runtime.get("docs_root", "docs")) if isinstance(runtime, dict) else "docs"
+    docs_site = runtime.get("docs_site", {}) if isinstance(runtime.get("docs_site"), dict) else {}
+    base_url = str(docs_site.get("production_url", "")).strip() or "http://localhost:3000"
+    cmd = [
+        sys.executable,
+        str(repo_root / "docsops" / "scripts" / "generate_screenshot_capture_plan.py"),
+        "--docs-root",
+        docs_root,
+        "--output",
+        "docs/screenshots.capture.yml",
+        "--base-url",
+        base_url,
+    ]
+    if not (repo_root / "docsops" / "scripts" / "generate_screenshot_capture_plan.py").exists():
+        cmd = [
+            sys.executable,
+            str(repo_root / "scripts" / "generate_screenshot_capture_plan.py"),
+            "--docs-root",
+            docs_root,
+            "--output",
+            "docs/screenshots.capture.yml",
+            "--base-url",
+            base_url,
+        ]
+    res = subprocess.run(cmd, cwd=str(repo_root), check=False)
+    if res.returncode == 0:
+        print("[env-wizard] screenshots capture plan generated: docs/screenshots.capture.yml")
+    else:
+        print("[env-wizard] failed to generate screenshots capture plan")
+        print(f"[env-wizard] run manually: {' '.join(cmd)}")
+
+
 def _write_repo_binding(repo_root: Path, runtime: dict[str, Any]) -> None:
     docsops_root = repo_root / "docsops"
     if not docsops_root.exists():
@@ -435,6 +500,14 @@ def main() -> int:
     install_scheduler = (not args.skip_scheduler) and (args.auto or _prompt_yes_no("Install weekly scheduler now (auto-detect OS)?", default_yes=True))
     if install_scheduler:
         _install_scheduler(repo_root)
+
+    if not args.skip_screenshot_setup:
+        _bootstrap_screenshot_plan(repo_root, runtime)
+        install_playwright = bool(args.install_playwright)
+        if not install_playwright and not args.auto:
+            install_playwright = _prompt_yes_no("Install Playwright + Chromium for automatic screenshots now?", default_yes=True)
+        if install_playwright:
+            _install_playwright_stack(repo_root)
 
     print("[env-wizard] next: run docsops/ops/run_weekly_docsops.sh (or .ps1)")
     return 0

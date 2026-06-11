@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-18'
+last_verified: '2026-05-26'
 dependencies: []
 tags:
 - auto-extracted
@@ -119,6 +119,14 @@ content:
     | `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock
     endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket
     connection and message routing. |
+
+    | `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture
+    metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and
+    optional anchor/heading targets. |
+
+    | `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement
+    into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent
+    update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
 
     | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax,
     semantics, operation types). |
@@ -234,6 +242,14 @@ content:
     | `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock
     endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket
     connection and message routing. |
+
+    | `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture
+    metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and
+    optional anchor/heading targets. |
+
+    | `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement
+    into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent
+    update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
 
     | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax,
     semantics, operation types). |

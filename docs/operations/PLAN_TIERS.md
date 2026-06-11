@@ -339,7 +339,9 @@ Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated scr
 
 Without a valid license, the pipeline runs in **community mode** (degraded):
 
-- Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol.
+- Markdown lint, frontmatter validation, SEO/GEO report-only.
+- Advanced runtime modules are disabled in community mode (including glossary sync, lifecycle management, API-first/REST protocol automation, multi-protocol flow, drift detection, KPI/SLA, and RAG layers).
+- Existing client artifacts remain on disk (docs content, templates, glossary, shared variables), but pipeline execution falls back to the reduced community feature surface.
 - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol.
 - Quality gates warn-only (never block).
 

@@ -587,6 +587,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
 | `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
 | `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and optional anchor/heading targets. |
+| `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
 | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
 | `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
 | `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |

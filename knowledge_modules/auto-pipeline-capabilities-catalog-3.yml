@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-18'
+last_verified: '2026-05-26'
 dependencies: []
 tags:
 - auto-extracted
@@ -62,7 +62,10 @@ content:
     API pages.
 
     1. Produces consolidated review artifacts so human input is focused on approval
-    and business accuracy, not repetitive formatting and synchronization work.'
+    and business accuracy, not repetitive formatting and synchronization work.
+
+    1. Places screenshots into relevant sections automatically with deterministic
+    mapping and `needs_review` reporting for ambiguous targets.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 3). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
@@ -94,4 +97,7 @@ content:
     API pages.
 
     1. Produces consolidated review artifacts so human input is focused on approval
-    and business accuracy, not repetitive formatting and synchronization work.'
+    and business accuracy, not repetitive formatting and synchronization work.
+
+    1. Places screenshots into relevant sections automatically with deterministic
+    mapping and `needs_review` reporting for ambiguous targets.'

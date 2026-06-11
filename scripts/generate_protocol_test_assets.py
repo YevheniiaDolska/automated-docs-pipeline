@@ -21,6 +21,53 @@ if str(REPO_ROOT) not in sys.path:
 from scripts.api_protocols import normalize_protocols
 
 
+def _load_rag_style_index(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _derive_style_hints(index_payload: dict[str, Any]) -> dict[str, str]:
+    """Infer light-weight company style hints from RAG test index."""
+    records = index_payload.get("records", [])
+    if not isinstance(records, list) or not records:
+        return {}
+
+    suites: dict[str, int] = {}
+    phrases: dict[str, int] = {}
+    for rec in records[:800]:
+        if not isinstance(rec, dict):
+            continue
+        desc = str(rec.get("description", "")).strip()
+        framework = str(rec.get("framework", "")).strip().lower()
+        if framework:
+            suites[framework] = suites.get(framework, 0) + 1
+        for phrase in (
+            "Given valid credentials",
+            "Given a seeded test project",
+            "When the request is executed",
+            "Then the response status",
+            "Then the error envelope",
+        ):
+            if phrase.lower() in desc.lower():
+                phrases[phrase] = phrases.get(phrase, 0) + 1
+
+    dominant_framework = ""
+    if suites:
+        dominant_framework = max(suites.items(), key=lambda item: item[1])[0]
+    preferred_phrase = ""
+    if phrases:
+        preferred_phrase = max(phrases.items(), key=lambda item: item[1])[0]
+    return {
+        "dominant_framework": dominant_framework,
+        "preferred_precondition": preferred_phrase,
+    }
+
+
 def _source_hash(source: str) -> str:
     path = Path(source)
     if path.exists() and path.is_file():
@@ -128,6 +175,22 @@ def _mk_case(
         "check_type": check,
         "spec_signature": signature,
     }
+
+
+def _apply_style(case: dict[str, Any], hints: dict[str, str]) -> dict[str, Any]:
+    if not hints:
+        return case
+    out = dict(case)
+    preconditions = list(out.get("preconditions", []))
+    preferred = str(hints.get("preferred_precondition", "")).strip()
+    if preferred and preferred not in preconditions:
+        preconditions.insert(0, preferred + ".")
+        out["preconditions"] = preconditions
+    framework = str(hints.get("dominant_framework", "")).strip()
+    if framework:
+        suite = str(out.get("suite", "")).strip()
+        out["suite"] = f"{suite} [{framework}]"
+    return out
 
 
 def _graphql_cases(source: str, signature: str, payload: Any) -> list[dict[str, Any]]:
@@ -503,6 +566,11 @@ def main() -> int:
     parser.add_argument("--output-dir", default="reports/api-test-assets")
     parser.add_argument("--testrail-csv", default="reports/api-test-assets/testrail_test_cases.csv")
     parser.add_argument("--zephyr-json", default="reports/api-test-assets/zephyr_test_cases.json")
+    parser.add_argument(
+        "--rag-style-index",
+        default="reports/test-rag-index.json",
+        help="Optional RAG test index to infer company-specific test style.",
+    )
     args = parser.parse_args()
 
     protocols = [p for p in normalize_protocols(args.protocols.split(","), default=[]) if p != "rest"]
@@ -513,9 +581,12 @@ def main() -> int:
     source_path = Path(args.source)
     payload = _load_payload(source_path)
     signature = _source_hash(args.source)
+    style_hints = _derive_style_hints(_load_rag_style_index(Path(args.rag_style_index)))
     new_cases: list[dict[str, Any]] = []
     for protocol in protocols:
         new_cases.extend(_default_cases(protocol, args.source, signature, payload, source_path))
+    if style_hints:
+        new_cases = [_apply_style(case, style_hints) for case in new_cases]
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -530,6 +601,7 @@ def main() -> int:
         "needs_review_count": len(needs_review),
         "needs_review_ids": [str(case.get("id", "")) for case in needs_review],
         "source_signature": signature,
+        "style_hints": style_hints,
     }
     cases_path.write_text(json.dumps(payload_out, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 

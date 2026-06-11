@@ -24,6 +24,8 @@ docs_site:
   generator: mkdocs
   build_enabled: true
   build_command: ''
+  production_url: https://yevheniiadolska.github.io/automated-docs-pipeline
+  preview_url_pattern: https://github.com/YevheniiaDolska/automated-docs-pipeline/tree/{branch}/docs/
 paths:
   docs_root: docs
   api_root: api

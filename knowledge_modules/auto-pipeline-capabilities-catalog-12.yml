@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-18'
+last_verified: '2026-05-26'
 dependencies: []
 tags:
 - auto-extracted
@@ -58,7 +58,25 @@ content:
     second person, present tense |
 
     | Contract checks | 4 | Schema validation, regression detection, snippet lint,
-    self-verification against endpoints |'
+    self-verification against endpoints |
+
+
+    Screenshot automation behavior:
+
+
+    1. Capture metadata in `reports/screenshot_capture_manifest.json` is converted
+    automatically into `docs/screenshots.yml`.
+
+    1. Placement uses deterministic priority: `anchor -> heading -> h1 fallback`.
+
+    1. `alt` text is optional; when missing, pipeline derives it from matched heading
+    or record id.
+
+    1. Optional `target.doc`, `target.anchor`, and `target.heading` fields can override
+    automatic mapping when needed.
+
+    1. Placement outcomes are written to `reports/screenshot_injection_report.json`;
+    manifest build outcomes are written to `reports/screenshot_manifest_build_report.json`.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 12). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
@@ -86,4 +104,22 @@ content:
     second person, present tense |
 
     | Contract checks | 4 | Schema validation, regression detection, snippet lint,
-    self-verification against endpoints |'
+    self-verification against endpoints |
+
+
+    Screenshot automation behavior:
+
+
+    1. Capture metadata in `reports/screenshot_capture_manifest.json` is converted
+    automatically into `docs/screenshots.yml`.
+
+    1. Placement uses deterministic priority: `anchor -> heading -> h1 fallback`.
+
+    1. `alt` text is optional; when missing, pipeline derives it from matched heading
+    or record id.
+
+    1. Optional `target.doc`, `target.anchor`, and `target.heading` fields can override
+    automatic mapping when needed.
+
+    1. Placement outcomes are written to `reports/screenshot_injection_report.json`;
+    manifest build outcomes are written to `reports/screenshot_manifest_build_report.json`.'

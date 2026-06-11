@@ -636,6 +636,41 @@ def main() -> int:
         action="store_true",
         help="Allow API key environment variables in operator generation mode.",
     )
+    parser.add_argument(
+        "--screenshot-capture-plan",
+        default="docs/screenshots.capture.yml",
+        help="Screenshot capture plan (YAML/JSON) for browser automation.",
+    )
+    parser.add_argument(
+        "--screenshot-base-url",
+        default="",
+        help="Base URL used when auto-generating screenshot capture plan.",
+    )
+    parser.add_argument(
+        "--screenshots-manifest",
+        default="docs/screenshots.yml",
+        help="Screenshot placement manifest path.",
+    )
+    parser.add_argument(
+        "--screenshot-capture-manifest",
+        default="reports/screenshot_capture_manifest.json",
+        help="Screenshot capture metadata JSON used to auto-build placement manifest.",
+    )
+    parser.add_argument(
+        "--skip-screenshot-capture",
+        action="store_true",
+        help="Skip automatic screenshot capture stage.",
+    )
+    parser.add_argument(
+        "--skip-screenshot-plan-refresh",
+        action="store_true",
+        help="Skip auto-refresh of docs/screenshots.capture.yml from current docs tree.",
+    )
+    parser.add_argument(
+        "--skip-screenshot-placement",
+        action="store_true",
+        help="Skip automatic screenshot placement into docs.",
+    )
     args = parser.parse_args()
 
     repo_root = Path.cwd()
@@ -687,6 +722,8 @@ def main() -> int:
         execution_stages.append("local review packet")
     if args.auto_generate:
         execution_stages.append("automatic docs generation")
+    if not args.skip_screenshot_placement:
+        execution_stages.append("screenshot placement")
     review_branch_cfg = runtime.get("review_branch", {})
     if not isinstance(review_branch_cfg, dict):
         review_branch_cfg = {}
@@ -908,6 +945,82 @@ def main() -> int:
             print("[autopipeline] automatic docs generation failed in enterprise-strict mode")
             narrator.finish(False, "Automatic docs generation failed in enterprise-strict mode")
             return int(generate_rc)
+
+    if not args.skip_screenshot_placement:
+        stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Insert screenshots into relevant doc sections")
+        _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
+        docs_root_cfg = str(runtime.get("paths", {}).get("docs_root", "docs")).strip() or "docs"
+        screenshot_capture_report = reports_dir / "screenshot_capture_report.json"
+        screenshot_report = reports_dir / "screenshot_injection_report.json"
+        screenshot_build_report = reports_dir / "screenshot_manifest_build_report.json"
+        if not args.skip_screenshot_plan_refresh:
+            base_url = str(args.screenshot_base_url).strip()
+            if not base_url:
+                docs_site_cfg = runtime.get("docs_site", {}) if isinstance(runtime.get("docs_site"), dict) else {}
+                base_url = str(docs_site_cfg.get("production_url", "")).strip() or "http://localhost:3000"
+            refresh_cmd = [
+                sys.executable,
+                str(PROJECT_ROOT / "scripts" / "generate_screenshot_capture_plan.py"),
+                "--docs-root",
+                docs_root_cfg,
+                "--output",
+                str(args.screenshot_capture_plan),
+                "--base-url",
+                base_url,
+            ]
+            refresh_rc = _run(refresh_cmd, cwd=PROJECT_ROOT)
+            _say("Screenshot plan refresh", f"rc={refresh_rc}, plan={args.screenshot_capture_plan}")
+            if refresh_rc != 0 and strictness == "enterprise-strict":
+                print("[autopipeline] screenshot plan refresh failed in enterprise-strict mode")
+                narrator.finish(False, "Screenshot plan refresh failed in enterprise-strict mode")
+                return int(refresh_rc)
+        if not args.skip_screenshot_capture:
+            capture_cmd = [
+                sys.executable,
+                str(PROJECT_ROOT / "scripts" / "capture_screenshots.py"),
+                "--plan",
+                str(args.screenshot_capture_plan),
+                "--output-manifest",
+                str(args.screenshot_capture_manifest),
+                "--report",
+                str(screenshot_capture_report),
+            ]
+            capture_rc = _run(capture_cmd, cwd=PROJECT_ROOT)
+            _say("Screenshot capture", f"rc={capture_rc}, report={screenshot_capture_report}")
+            if capture_rc != 0 and strictness == "enterprise-strict":
+                print("[autopipeline] screenshot capture failed in enterprise-strict mode")
+                narrator.finish(False, "Screenshot capture failed in enterprise-strict mode")
+                return int(capture_rc)
+        build_manifest_cmd = [
+            sys.executable,
+            str(PROJECT_ROOT / "scripts" / "build_screenshot_manifest.py"),
+            "--capture-manifest",
+            str(args.screenshot_capture_manifest),
+            "--output-manifest",
+            str(args.screenshots_manifest),
+            "--report",
+            str(screenshot_build_report),
+        ]
+        build_rc = _run(build_manifest_cmd, cwd=PROJECT_ROOT)
+        _say("Screenshot manifest build", f"rc={build_rc}, report={screenshot_build_report}")
+        screenshot_cmd = [
+            sys.executable,
+            str(PROJECT_ROOT / "scripts" / "insert_screenshots_into_docs.py"),
+            "--manifest",
+            str(args.screenshots_manifest),
+            "--docs-root",
+            docs_root_cfg,
+            "--report",
+            str(screenshot_report),
+        ]
+        screenshot_rc = _run(screenshot_cmd, cwd=PROJECT_ROOT)
+        _say(f"Stage {stage_no}/{total_stages} done", f"rc={screenshot_rc}, report={screenshot_report}")
+        narrator.done(f"screenshot placement rc={screenshot_rc}")
+        if screenshot_rc != 0 and strictness == "enterprise-strict":
+            print("[autopipeline] screenshot placement failed in enterprise-strict mode")
+            narrator.finish(False, "Screenshot placement failed in enterprise-strict mode")
+            return int(screenshot_rc)
 
     review_branch_cfg = runtime.get("review_branch", {})
     if not isinstance(review_branch_cfg, dict):

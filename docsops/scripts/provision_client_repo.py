@@ -1497,6 +1497,22 @@ def execute_provision(args: argparse.Namespace) -> int:
     checklist = generate_env_checklist(client_repo, args.docsops_dir)
     dotenv_path = _collect_secret_inputs(client_repo, args.docsops_dir)
     run_scheduler_install(client_repo, args.docsops_dir, args.install_scheduler)
+    if bool(getattr(args, "install_playwright", False)):
+        wizard_script = client_repo / args.docsops_dir / "scripts" / "setup_client_env_wizard.py"
+        if wizard_script.exists():
+            subprocess.run(
+                [
+                    sys.executable,
+                    str(wizard_script),
+                    "--auto",
+                    "--install-playwright",
+                    "--skip-scheduler",
+                ],
+                cwd=str(client_repo),
+                check=False,
+            )
+        else:
+            print(f"[warn] setup wizard not found for Playwright install: {wizard_script}")
 
     print(f"[ok] bundle built: {bundle_root}")
     print(f"[ok] bundle installed: {installed_path}")
@@ -1571,6 +1587,11 @@ def parse_args() -> argparse.Namespace:
         "--bundle-only",
         action="store_true",
         help="Build client bundle only (no install into local client repository).",
+    )
+    parser.add_argument(
+        "--install-playwright",
+        action="store_true",
+        help="After provisioning, run setup wizard in auto mode to install Playwright + Chromium.",
     )
     return parser.parse_args()
 
