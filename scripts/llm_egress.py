@@ -11,7 +11,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import yaml
+try:
+    import yaml  # type: ignore
+except ImportError:
+    yaml = None  # type: ignore
 
 
 @dataclass
@@ -35,6 +38,8 @@ class EgressAllowlistPolicy:
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
+    if yaml is None:
+        return {}
     try:
         raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001

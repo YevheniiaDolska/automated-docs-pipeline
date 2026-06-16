@@ -6,9 +6,9 @@ project:
   - mkdocs
   - github
 llm_control:
-  llm_mode: local_default
-  external_llm_allowed: false
-  require_explicit_approval: true
+  llm_mode: external_preferred
+  external_llm_allowed: true
+  require_explicit_approval: false
   approval_cache_scope: run
   redact_before_external: true
   local_model: veridoc-writer

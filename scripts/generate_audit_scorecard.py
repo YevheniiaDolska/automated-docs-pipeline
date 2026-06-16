@@ -1245,7 +1245,6 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
     risks = payload.get("risks", [])
     automation_first = payload.get("automation_first", [])
     snapshot = payload.get("commercial_snapshot", {})
-    generated_at = html.escape(str(payload.get("generated_at", "")))
     site_url = html.escape(str(payload.get("site_url", "")))
 
     def _accent_class(accent: str) -> str:
@@ -1285,9 +1284,21 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         for item in actions
         if isinstance(item, dict)
     ) or "<li><strong>No prioritized actions extracted</strong><span>Use the full audit findings matrix as fallback.</span></li>"
-    strengths_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in strengths) or "<li>No strengths extracted.</li>"
-    risks_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in risks) or "<li>No risks extracted.</li>"
+    strengths_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in strengths)
+    risks_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in risks)
     automation_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in automation_first) or "<li>No automation priorities extracted.</li>"
+    strengths_section_html = (
+        "<section class='split'>"
+        "<div class='surface'>"
+        "<h2 class='section-title'>What Looks Strong</h2>"
+        f"<ul class='clean'>{strengths_html}</ul>"
+        "</div>"
+        "<div class='surface'>"
+        "<h2 class='section-title'>Main Risks</h2>"
+        f"<ul class='clean'>{risks_html}</ul>"
+        "</div>"
+        "</section>"
+    ) if strengths_html and risks_html else ""
 
     bar_definitions = [
         ("Audit score", float(score.get("audit_score_0_100", 0.0) or 0.0)),
@@ -1391,29 +1402,6 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
   .hero-panel .big {{ font-size:50px; font-weight:800; line-height:1; }}
   .hero-panel .sub {{ font-size:14px; opacity:.92; }}
   .surface {{ padding:24px; margin-top:20px; background:linear-gradient(180deg, #ffffff, var(--surface-2)); }}
-  .advisory-strip {{
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    align-items:center;
-    margin-top:18px;
-    padding:14px 16px;
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:18px;
-    background:rgba(255,255,255,.08);
-    color:rgba(255,255,255,.9);
-  }}
-  .advisory-label {{
-    font-size:12px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    opacity:.76;
-  }}
-  .advisory-copy {{
-    font-size:14px;
-    line-height:1.55;
-    max-width:760px;
-  }}
   .metrics {{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
@@ -1488,12 +1476,13 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
   }}
   .mini {{
     border-radius:18px;
-    background:linear-gradient(180deg, #ffffff, #f6faff);
-    border:1px solid var(--border-strong);
+    background:rgba(255,255,255,.96);
+    border:1px solid rgba(255,255,255,.28);
     padding:14px;
+    box-shadow:0 14px 30px rgba(2,6,23,.14);
   }}
-  .mini .k {{ font-size:12px; text-transform:uppercase; color:var(--muted); }}
-  .mini .v {{ margin-top:8px; font-size:26px; font-weight:800; }}
+  .mini .k {{ font-size:12px; text-transform:uppercase; color:#475569; font-weight:700; letter-spacing:.06em; }}
+  .mini .v {{ margin-top:8px; font-size:28px; font-weight:900; color:#0f172a; }}
   .footnote {{ margin-top:10px; color:var(--muted); font-size:12px; }}
   @media (max-width: 920px) {{
     .hero-grid, .split {{ grid-template-columns:1fr; }}
@@ -1508,12 +1497,6 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
       <div class="eyebrow">VeriOps Sales Teardown</div>
       <h1>{html.escape(str(payload.get("headline", "")))}</h1>
       <p class="summary-text" style="color:rgba(255,255,255,.88); margin:0;">{html.escape(str(summary.get("executive_summary", "") or "Automated public-docs scan converted into a sales-friendly teardown for follow-up conversations."))}</p>
-      <div class="advisory-strip">
-        <div>
-          <div class="advisory-label">Advisory readout</div>
-          <div class="advisory-copy">Prepared for premium follow-up conversations: what the public docs surface reveals, where commercial risk concentrates first, and which automation layer would remove the most friction earliest.</div>
-        </div>
-      </div>
       <div class="hero-grid">
         <div class="hero-panel">
           <div class="sub">Site</div>
@@ -1532,11 +1515,6 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
               <div class="v">${html.escape(str(int(float(summary.get("estimated_monthly_cost_usd", 0.0) or 0.0))))}</div>
             </div>
           </div>
-        </div>
-        <div class="hero-panel">
-          <div class="sub">Generated</div>
-          <div style="font-size:18px; font-weight:600; margin-top:8px;">{generated_at}</div>
-          <div class="footnote" style="color:rgba(255,255,255,.78);">Built automatically from the existing audit bundle: scorecard, public-docs crawl, broken links, and LLM summary.</div>
         </div>
       </div>
     </section>
@@ -1585,20 +1563,7 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
       </div>
     </section>
 
-    <section class="split">
-      <div class="surface">
-        <h2 class="section-title">What Looks Strong</h2>
-        <ul class="clean">
-          {strengths_html}
-        </ul>
-      </div>
-      <div class="surface">
-        <h2 class="section-title">Main Risks</h2>
-        <ul class="clean">
-          {risks_html}
-        </ul>
-      </div>
-    </section>
+    {strengths_section_html}
   </div>
 </body>
 </html>

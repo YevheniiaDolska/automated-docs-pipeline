@@ -1,0 +1,1079 @@
+{
+  "generated_at": "2026-06-12T14:08:23.033949+00:00",
+  "site_url": "https://upstash.com/docs",
+  "site_urls": [
+    "https://upstash.com/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://upstash.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1805,
+          "requested_pages": 2035,
+          "urls_examined": 1896,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1896,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1895,
+          "crawl_coverage_pct": 100.05,
+          "trap_urls_skipped": 3449,
+          "seeded_sitemap_urls": 1895,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 1955,
+          "broken_internal_links_count": 49,
+          "docs_broken_links_count": 49,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
+            "https://upstash.com/blog/%5Bhttps:/ably.com%5D(https:/ably.com)",
+            "https://upstash.com/blog/%5Bhttps:/ably.com/docs/auth/token",
+            "https://upstash.com/blog/%5Bhttps:/app.launchdarkly.com/%5D(https:/app.launchdarkly.com/)",
+            "https://upstash.com/blog/%5Bhttps:/console.upstash.com/%5D(https:/console.upstash.com/)",
+            "https://upstash.com/blog/%5Bhttps:/docs.launchdarkly.com/sdk/server-side/java",
+            "https://upstash.com/blog/%5Bhttps:/github.com/launchdarkly/java-server-sdk-redis%5D(https:/github.com/launchdarkly/java-server-sdk-redis)",
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/%5D(https:/launchdarkly.com/)",
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/use-cases/%5D(https:/launchdarkly.com/use-cases/)",
+            "https://upstash.com/blog/%5Bhttps:/redis.io/commands/hset",
+            "https://upstash.com/blog/%5Bhttps:/start.spring.io/%5D(https:/start.spring.io/)",
+            "https://upstash.com/blog/console.upstash.com",
+            "https://upstash.com/dashboard/redis",
+            "https://upstash.com/docs/docs/workflow/howto/changes",
+            "https://upstash.com/docs/features/edgecaching",
+            "https://upstash.com/docs/features/globaldatabase",
+            "https://upstash.com/docs/graphql/aboutgraphqlapi",
+            "https://upstash.com/docs/kafka",
+            "https://upstash.com/docs/kafka/aivenjdbcsink",
+            "https://upstash.com/docs/kafka/aivenjdbcsource"
+          ],
+          "docs_broken_link_samples": [
+            "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
+            "https://upstash.com/blog/%5Bhttps:/ably.com%5D(https:/ably.com)",
+            "https://upstash.com/blog/%5Bhttps:/ably.com/docs/auth/token",
+            "https://upstash.com/blog/%5Bhttps:/app.launchdarkly.com/%5D(https:/app.launchdarkly.com/)",
+            "https://upstash.com/blog/%5Bhttps:/console.upstash.com/%5D(https:/console.upstash.com/)",
+            "https://upstash.com/blog/%5Bhttps:/docs.launchdarkly.com/sdk/server-side/java",
+            "https://upstash.com/blog/%5Bhttps:/github.com/launchdarkly/java-server-sdk-redis%5D(https:/github.com/launchdarkly/java-server-sdk-redis)",
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/%5D(https:/launchdarkly.com/)",
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/use-cases/%5D(https:/launchdarkly.com/use-cases/)",
+            "https://upstash.com/blog/%5Bhttps:/redis.io/commands/hset",
+            "https://upstash.com/blog/%5Bhttps:/start.spring.io/%5D(https:/start.spring.io/)",
+            "https://upstash.com/blog/console.upstash.com",
+            "https://upstash.com/dashboard/redis",
+            "https://upstash.com/docs/docs/workflow/howto/changes",
+            "https://upstash.com/docs/features/edgecaching",
+            "https://upstash.com/docs/features/globaldatabase",
+            "https://upstash.com/docs/graphql/aboutgraphqlapi",
+            "https://upstash.com/docs/kafka",
+            "https://upstash.com/docs/kafka/aivenjdbcsink",
+            "https://upstash.com/docs/kafka/aivenjdbcsource",
+            "https://upstash.com/docs/kafka/connect",
+            "https://upstash.com/docs/kafka/connect/debeziumpsql",
+            "https://upstash.com/docs/kafka/connect/mongosource",
+            "https://upstash.com/docs/kafka/credentials",
+            "https://upstash.com/docs/kafka/debeziummongo",
+            "https://upstash.com/docs/kafka/debeziummysql",
+            "https://upstash.com/docs/kafka/debeziumpsql",
+            "https://upstash.com/docs/kafka/howto/kafka-with-lambda",
+            "https://upstash.com/docs/kafka/integrations/spark",
+            "https://upstash.com/docs/kafka/kafkaapi"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 6,
+          "unverified_links_count": 8,
+          "unverified_link_samples": [
+            "http://upstash.com/blog/tag/python",
+            "https://upstash.com/docs/qstash/migrating/v2",
+            "https://upstash.com/docs/vector/api/endpoints/query",
+            "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
+            "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
+            "https://upstash.com/docs/vector/api/endpoints/upsert",
+            "https://upstash.com/docs/vector/api/endpoints/upsert-data",
+            "https://upstash.com/docs/vector/api/get-started"
+          ],
+          "confirmed_broken_links_count": 49,
+          "excluded_links_count": 139,
+          "excluded_link_samples": [
+            "https://upstash.com/blog/benchmark-deno/global.png",
+            "https://upstash.com/blog/benchmark-deno/regional.png",
+            "https://upstash.com/blog/feedback-widget",
+            "https://upstash.com/blog/kv-benchmark/global.png",
+            "https://upstash.com/blog/kv-benchmark/single-region-annotation.png",
+            "https://upstash.com/blog/kv-benchmark/single-region.png",
+            "https://upstash.com/blog/tag/auth.js",
+            "https://upstash.com/blog/tag/search",
+            "https://upstash.com/docs/api-reference/search/create-search-index",
+            "https://upstash.com/docs/api-reference/search/delete-search-index",
+            "https://upstash.com/docs/api-reference/search/get-index-stats",
+            "https://upstash.com/docs/api-reference/search/get-search-index",
+            "https://upstash.com/docs/api-reference/search/get-search-stats",
+            "https://upstash.com/docs/api-reference/search/list-search-indexes",
+            "https://upstash.com/docs/api-reference/search/rename-search-index",
+            "https://upstash.com/docs/api-reference/search/reset-password",
+            "https://upstash.com/docs/api-reference/search/transfer-search-index",
+            "https://upstash.com/docs/img/bg-color-codes",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/eval",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/eval_ro",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/evalsha",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/evalsha_ro",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/script_exists",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/script_flush",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/script_load",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/eval",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/eval_ro",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/evalsha",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/evalsha_ro",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/script_exists"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
+            "https://upstash.com/blog/%5Bhttps:/ably.com%5D(https:/ably.com)",
+            "https://upstash.com/blog/%5Bhttps:/ably.com/docs/auth/token",
+            "https://upstash.com/blog/%5Bhttps:/app.launchdarkly.com/%5D(https:/app.launchdarkly.com/)",
+            "https://upstash.com/blog/%5Bhttps:/console.upstash.com/%5D(https:/console.upstash.com/)",
+            "https://upstash.com/blog/%5Bhttps:/docs.launchdarkly.com/sdk/server-side/java",
+            "https://upstash.com/blog/%5Bhttps:/github.com/launchdarkly/java-server-sdk-redis%5D(https:/github.com/launchdarkly/java-server-sdk-redis)",
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/%5D(https:/launchdarkly.com/)",
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/use-cases/%5D(https:/launchdarkly.com/use-cases/)",
+            "https://upstash.com/blog/%5Bhttps:/redis.io/commands/hset",
+            "https://upstash.com/blog/%5Bhttps:/start.spring.io/%5D(https:/start.spring.io/)",
+            "https://upstash.com/blog/console.upstash.com",
+            "https://upstash.com/dashboard/redis",
+            "https://upstash.com/docs/docs/workflow/howto/changes",
+            "https://upstash.com/docs/features/edgecaching",
+            "https://upstash.com/docs/features/globaldatabase",
+            "https://upstash.com/docs/graphql/aboutgraphqlapi",
+            "https://upstash.com/docs/kafka",
+            "https://upstash.com/docs/kafka/aivenjdbcsink",
+            "https://upstash.com/docs/kafka/aivenjdbcsource",
+            "https://upstash.com/docs/kafka/connect",
+            "https://upstash.com/docs/kafka/connect/debeziumpsql",
+            "https://upstash.com/docs/kafka/connect/mongosource",
+            "https://upstash.com/docs/kafka/credentials",
+            "https://upstash.com/docs/kafka/debeziummongo",
+            "https://upstash.com/docs/kafka/debeziummysql",
+            "https://upstash.com/docs/kafka/debeziumpsql",
+            "https://upstash.com/docs/kafka/howto/kafka-with-lambda",
+            "https://upstash.com/docs/kafka/integrations/spark",
+            "https://upstash.com/docs/kafka/kafkaapi",
+            "https://upstash.com/docs/kafka/mongosink",
+            "https://upstash.com/docs/kafka/mongosource",
+            "https://upstash.com/docs/kafka/overall/getstarted",
+            "https://upstash.com/docs/kafka/pricing",
+            "https://upstash.com/docs/kafka/real-time-analytics/realtime_analytics_serverless_kafka_setup",
+            "https://upstash.com/docs/kafka/rest",
+            "https://upstash.com/docs/kafka/schema-registry/schemahowto",
+            "https://upstash.com/docs/kafka/schema-registry/schemaintroduction",
+            "https://upstash.com/docs/kafka/webhook",
+            "https://upstash.com/docs/overall/compare",
+            "https://upstash.com/docs/overall/databasetypes",
+            "https://upstash.com/docs/redis/sdks/edge-flags/overview",
+            "https://upstash.com/docs/redis/sdks/edge-flags/percentage",
+            "https://upstash.com/docs/redis/sdks/edge-flags/rules",
+            "https://upstash.com/docs/redis/sdks/javascriptsdk/modules/json",
+            "https://upstash.com/docs/redis/sdks/javascriptsdk/pipeline",
+            "https://upstash.com/docs/vector/features/roadmap",
+            "https://upstash.com/kafka",
+            "https://upstash.com/pricing/support@upstash.com"
+          ],
+          "_all_unverified_links": [
+            "http://upstash.com/blog/tag/python",
+            "https://upstash.com/docs/qstash/migrating/v2",
+            "https://upstash.com/docs/vector/api/endpoints/query",
+            "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
+            "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
+            "https://upstash.com/docs/vector/api/endpoints/upsert",
+            "https://upstash.com/docs/vector/api/endpoints/upsert-data",
+            "https://upstash.com/docs/vector/api/get-started"
+          ],
+          "_all_excluded_links": [
+            "https://upstash.com/blog/benchmark-deno/global.png",
+            "https://upstash.com/blog/benchmark-deno/regional.png",
+            "https://upstash.com/blog/feedback-widget",
+            "https://upstash.com/blog/kv-benchmark/global.png",
+            "https://upstash.com/blog/kv-benchmark/single-region-annotation.png",
+            "https://upstash.com/blog/kv-benchmark/single-region.png",
+            "https://upstash.com/blog/tag/auth.js",
+            "https://upstash.com/blog/tag/search",
+            "https://upstash.com/docs/api-reference/search/create-search-index",
+            "https://upstash.com/docs/api-reference/search/delete-search-index",
+            "https://upstash.com/docs/api-reference/search/get-index-stats",
+            "https://upstash.com/docs/api-reference/search/get-search-index",
+            "https://upstash.com/docs/api-reference/search/get-search-stats",
+            "https://upstash.com/docs/api-reference/search/list-search-indexes",
+            "https://upstash.com/docs/api-reference/search/rename-search-index",
+            "https://upstash.com/docs/api-reference/search/reset-password",
+            "https://upstash.com/docs/api-reference/search/transfer-search-index",
+            "https://upstash.com/docs/img/bg-color-codes",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/eval",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/eval_ro",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/evalsha",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/evalsha_ro",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/script_exists",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/script_flush",
+            "https://upstash.com/docs/redis/sdks/py/commands/scripts/script_load",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/eval",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/eval_ro",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/evalsha",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/evalsha_ro",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/script_exists",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/script_flush",
+            "https://upstash.com/docs/redis/sdks/ts/commands/scripts/script_load",
+            "https://upstash.com/docs/redis/search/adapters/ioredis",
+            "https://upstash.com/docs/redis/search/adapters/node-redis",
+            "https://upstash.com/docs/redis/search/aggregation-operators/bucket-aggregations/date-histogram",
+            "https://upstash.com/docs/redis/search/aggregation-operators/bucket-aggregations/facet",
+            "https://upstash.com/docs/redis/search/aggregation-operators/bucket-aggregations/histogram",
+            "https://upstash.com/docs/redis/search/aggregation-operators/bucket-aggregations/overview",
+            "https://upstash.com/docs/redis/search/aggregation-operators/bucket-aggregations/range",
+            "https://upstash.com/docs/redis/search/aggregation-operators/bucket-aggregations/terms",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/avg",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/cardinality",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/count",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/extended-stats",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/max",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/min",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/overview",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/percentiles",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/stats",
+            "https://upstash.com/docs/redis/search/aggregation-operators/metric-aggregations/sum",
+            "https://upstash.com/docs/redis/search/aggregations",
+            "https://upstash.com/docs/redis/search/aliases",
+            "https://upstash.com/docs/redis/search/command-reference",
+            "https://upstash.com/docs/redis/search/counting",
+            "https://upstash.com/docs/redis/search/document-updates",
+            "https://upstash.com/docs/redis/search/getting-started",
+            "https://upstash.com/docs/redis/search/index-management",
+            "https://upstash.com/docs/redis/search/introduction",
+            "https://upstash.com/docs/redis/search/query-operators/boolean-operators/boost",
+            "https://upstash.com/docs/redis/search/query-operators/boolean-operators/must",
+            "https://upstash.com/docs/redis/search/query-operators/boolean-operators/must-not",
+            "https://upstash.com/docs/redis/search/query-operators/boolean-operators/overview",
+            "https://upstash.com/docs/redis/search/query-operators/boolean-operators/should",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/boost",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/eq",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/fuzzy",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/in",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/overview",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/phrase",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/range-operators",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/regex",
+            "https://upstash.com/docs/redis/search/query-operators/field-operators/smart-matching",
+            "https://upstash.com/docs/redis/search/querying",
+            "https://upstash.com/docs/redis/search/recipes/blog-search",
+            "https://upstash.com/docs/redis/search/recipes/e-commerce-search",
+            "https://upstash.com/docs/redis/search/recipes/overview",
+            "https://upstash.com/docs/redis/search/recipes/user-directory",
+            "https://upstash.com/docs/redis/search/schema-definition",
+            "https://upstash.com/docs/redis/search/troubleshooting",
+            "https://upstash.com/docs/search/features/advanced-settings",
+            "https://upstash.com/docs/search/features/algorithm",
+            "https://upstash.com/docs/search/features/content-and-metadata",
+            "https://upstash.com/docs/search/features/filtering",
+            "https://upstash.com/docs/search/features/indexes",
+            "https://upstash.com/docs/search/features/reranking",
+            "https://upstash.com/docs/search/help/faq",
+            "https://upstash.com/docs/search/integrations/docusaurus",
+            "https://upstash.com/docs/search/overall/getstarted",
+            "https://upstash.com/docs/search/overall/pricing",
+            "https://upstash.com/docs/search/overall/whatisupstashsearch",
+            "https://upstash.com/docs/search/sdks/py/commands/delete",
+            "https://upstash.com/docs/search/sdks/py/commands/fetch",
+            "https://upstash.com/docs/search/sdks/py/commands/info",
+            "https://upstash.com/docs/search/sdks/py/commands/range",
+            "https://upstash.com/docs/search/sdks/py/commands/reset",
+            "https://upstash.com/docs/search/sdks/py/commands/search",
+            "https://upstash.com/docs/search/sdks/py/commands/upsert",
+            "https://upstash.com/docs/search/sdks/py/gettingstarted",
+            "https://upstash.com/docs/search/sdks/ts/commands/delete",
+            "https://upstash.com/docs/search/sdks/ts/commands/fetch",
+            "https://upstash.com/docs/search/sdks/ts/commands/info",
+            "https://upstash.com/docs/search/sdks/ts/commands/range",
+            "https://upstash.com/docs/search/sdks/ts/commands/reset",
+            "https://upstash.com/docs/search/sdks/ts/commands/search",
+            "https://upstash.com/docs/search/sdks/ts/commands/upsert",
+            "https://upstash.com/docs/search/sdks/ts/contributing",
+            "https://upstash.com/docs/search/sdks/ts/getting-started",
+            "https://upstash.com/docs/search/tools/databasemigrator",
+            "https://upstash.com/docs/search/tools/documentationcrawler",
+            "https://upstash.com/docs/search/tutorials/buildsearchbar",
+            "https://upstash.com/docs/search/tutorials/nextjs",
+            "https://upstash.com/docs/search/ui/search-bar",
+            "https://upstash.com/logo/qstash-icon.png",
+            "https://upstash.com/logo/qstash-icon.svg",
+            "https://upstash.com/logo/redis-icon.png",
+            "https://upstash.com/logo/redis-icon.svg",
+            "https://upstash.com/logo/upstash-dark-bg.png",
+            "https://upstash.com/logo/upstash-dark-bg.svg",
+            "https://upstash.com/logo/upstash-icon-dark-bg.png",
+            "https://upstash.com/logo/upstash-icon-dark-bg.svg",
+            "https://upstash.com/logo/upstash-icon-white-bg.png",
+            "https://upstash.com/logo/upstash-icon-white-bg.svg",
+            "https://upstash.com/logo/upstash-white-bg.png",
+            "https://upstash.com/logo/upstash-white-bg.svg",
+            "https://upstash.com/logo/vector-icon.png",
+            "https://upstash.com/logo/vector-icon.svg",
+            "https://upstash.com/logo/workflow-icon.png",
+            "https://upstash.com/logo/workflow-icon.svg",
+            "https://upstash.com/pricing/search",
+            "https://upstash.com/pricing/search.md",
+            "https://upstash.com/static/trust/dpa.pdf",
+            "https://upstash.com/static/trust/privacy.pdf",
+            "https://upstash.com/static/trust/security-measures.pdf",
+            "https://upstash.com/static/trust/subprocessors.pdf",
+            "https://upstash.com/static/trust/terms.pdf",
+            "https://upstash.com/trust/context7addendum.pdf",
+            "https://upstash.com/trust/privacy.pdf",
+            "https://upstash.com/trust/subprocessors.pdf",
+            "https://upstash.com/trust/terms.pdf"
+          ],
+          "_all_docs_unverified_links": [
+            "http://upstash.com/blog/tag/python",
+            "https://upstash.com/docs/qstash/migrating/v2",
+            "https://upstash.com/docs/vector/api/endpoints/query",
+            "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
+            "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
+            "https://upstash.com/docs/vector/api/endpoints/upsert",
+            "https://upstash.com/docs/vector/api/endpoints/upsert-data",
+            "https://upstash.com/docs/vector/api/get-started"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "Upstash docs"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/ably.com%5D(https:/ably.com)": [
+              {
+                "source_page": "https://upstash.com/blog/ably-chat",
+                "anchor_text": "website"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/ably.com/docs/auth/token": [
+              {
+                "source_page": "https://upstash.com/blog/ably-chat",
+                "anchor_text": "token docs"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/app.launchdarkly.com/%5D(https:/app.launchdarkly.com/)": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "LaunchDarkly"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/console.upstash.com/%5D(https:/console.upstash.com/)": [
+              {
+                "source_page": "https://upstash.com/blog/ably-chat",
+                "anchor_text": "Upstash Console"
+              },
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "console"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/docs.launchdarkly.com/sdk/server-side/java": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "LaunchDarkly docs"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/github.com/launchdarkly/java-server-sdk-redis%5D(https:/github.com/launchdarkly/java-server-sdk-redis)": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "library"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/%5D(https:/launchdarkly.com/)": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "website"
+              },
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "LaunchDarkly"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/use-cases/%5D(https:/launchdarkly.com/use-cases/)": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "use cases"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/redis.io/commands/hset": [
+              {
+                "source_page": "https://upstash.com/blog/realtime-emergency-response",
+                "anchor_text": "HSET"
+              }
+            ],
+            "https://upstash.com/blog/%5Bhttps:/start.spring.io/%5D(https:/start.spring.io/)": [
+              {
+                "source_page": "https://upstash.com/blog/launchdarkly-redis",
+                "anchor_text": "Spring"
+              }
+            ],
+            "https://upstash.com/blog/console.upstash.com": [
+              {
+                "source_page": "https://upstash.com/blog/next-chatapp-with-kafka",
+                "anchor_text": "Upstash Console"
+              }
+            ],
+            "https://upstash.com/dashboard/redis": [
+              {
+                "source_page": "https://upstash.com/docs/redis/overall/enterprise",
+                "anchor_text": "Upstash Console"
+              }
+            ],
+            "https://upstash.com/docs/docs/workflow/howto/changes": [
+              {
+                "source_page": "https://upstash.com/docs/workflow/api-reference/dlq/resume-workflow-from-dlq",
+                "anchor_text": "Handle workflow route code changes"
+              }
+            ],
+            "https://upstash.com/docs/features/edgecaching": [
+              {
+                "source_page": "https://upstash.com/blog/edge-redis-database",
+                "anchor_text": "edge caching"
+              }
+            ],
+            "https://upstash.com/docs/features/globaldatabase": [
+              {
+                "source_page": "https://upstash.com/blog/edge-redis-database",
+                "anchor_text": "global database offering"
+              }
+            ],
+            "https://upstash.com/docs/graphql/aboutgraphqlapi": [
+              {
+                "source_page": "https://upstash.com/blog/serverless-database-connections",
+                "anchor_text": "GraphQL API"
+              }
+            ],
+            "https://upstash.com/docs/kafka": [
+              {
+                "source_page": "https://upstash.com/blog/cdc-postgesql-kafka-tinybird",
+                "anchor_text": "Kafka docs"
+              },
+              {
+                "source_page": "https://upstash.com/blog/cdc-postgesql-kafka-vector-quix-python",
+                "anchor_text": "Upstash Kafka docs"
+              },
+              {
+                "source_page": "https://upstash.com/blog/kafka-fluentbit",
+                "anchor_text": "Upstash Kafka"
+              },
+              {
+                "source_page": "https://upstash.com/blog/kafka-http-QStash",
+                "anchor_text": "Kafka docs"
+              },
+              {
+                "source_page": "https://upstash.com/blog/kafka-tinybird-vercel-edge",
+                "anchor_text": "here"
+              }
+            ],
+            "https://upstash.com/docs/kafka/aivenjdbcsink": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Aiven JDBC Sink Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/aivenjdbcsource": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Aiven JDBC Source Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/connect": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Upstash Kafka Connectors"
+              },
+              {
+                "source_page": "https://upstash.com/blog/mongodb-kafka-analytics",
+                "anchor_text": "this guide"
+              }
+            ],
+            "https://upstash.com/docs/kafka/connect/debeziumpsql": [
+              {
+                "source_page": "https://upstash.com/blog/cdc-postgesql-kafka-tinybird",
+                "anchor_text": "Debezium PostgreSQL Source Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/connect/mongosource": [
+              {
+                "source_page": "https://upstash.com/blog/segmentation-kafka-mongodb",
+                "anchor_text": "Upstash MongoDB Source"
+              },
+              {
+                "source_page": "https://upstash.com/blog/segmentation-kafka-mongodb",
+                "anchor_text": "Upstash MongoDB Source Connector"
+              },
+              {
+                "source_page": "https://upstash.com/blog/segmentation-kafka-mongodb",
+                "anchor_text": "Upstash provides hosted versions of connectors"
+              }
+            ],
+            "https://upstash.com/docs/kafka/credentials": [
+              {
+                "source_page": "https://upstash.com/blog/react-native-logs-kafka",
+                "anchor_text": "docs"
+              }
+            ],
+            "https://upstash.com/docs/kafka/debeziummongo": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Debezium Mongo Source Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/debeziummysql": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Debezium Mysql Source Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/debeziumpsql": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Debezium PostgreSql Source Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/howto/kafka-with-lambda": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-content-moderation",
+                "anchor_text": "here."
+              }
+            ],
+            "https://upstash.com/docs/kafka/integrations/spark": [
+              {
+                "source_page": "https://upstash.com/blog/segmentation-kafka-mongodb",
+                "anchor_text": "By integrating Upstash Kafka with Apache Spark"
+              }
+            ],
+            "https://upstash.com/docs/kafka/kafkaapi": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-spark",
+                "anchor_text": "Kafka API"
+              },
+              {
+                "source_page": "https://upstash.com/blog/serverless-kafka-launch",
+                "anchor_text": "this"
+              }
+            ],
+            "https://upstash.com/docs/kafka/mongosink": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Mongo Sink Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/mongosource": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-connectors",
+                "anchor_text": "Mongo Source Connector"
+              }
+            ],
+            "https://upstash.com/docs/kafka/overall/getstarted": [
+              {
+                "source_page": "https://upstash.com/blog/implementing-upstash-kafka-with-cloudflare-workers",
+                "anchor_text": "Upstash Kafka"
+              },
+              {
+                "source_page": "https://upstash.com/blog/segmentation-kafka-mongodb",
+                "anchor_text": "Upstash Kafka"
+              }
+            ],
+            "https://upstash.com/docs/kafka/pricing": [
+              {
+                "source_page": "https://upstash.com/blog/aws-msk-confluent-serverless",
+                "anchor_text": "/docs/kafka/pricing"
+              },
+              {
+                "source_page": "https://upstash.com/blog/kafka-fluentbit",
+                "anchor_text": "scales to zero"
+              },
+              {
+                "source_page": "https://upstash.com/blog/serverless-kafka-launch",
+                "anchor_text": "our pricing page"
+              }
+            ],
+            "https://upstash.com/docs/kafka/real-time-analytics/realtime_analytics_serverless_kafka_setup": [
+              {
+                "source_page": "https://upstash.com/blog/kafka-tinybird-vercel-edge",
+                "anchor_text": ""
+              }
+            ],
+            "https://upstash.com/docs/kafka/rest": [
+              {
+                "source_page": "https://upstash.com/blog/cloudflare-workers-logs-kafka",
+                "anchor_text": "REST API"
+              },
+              {
+                "source_page": "https://upstash.com/blog/serverless-kafka-launch",
+                "anchor_text": "a built-in REST API"
+              }
+            ],
+            "https://upstash.com/docs/kafka/schema-registry/schemahowto": [
+              {
+                "source_page": "https://upstash.com/blog/schema-registry",
+                "anchor_text": "documentation here"
+              }
+            ],
+            "https://upstash.com/docs/kafka/schema-registry/schemaintroduction": [
+              {
+                "source_page": "https://upstash.com/blog/schema-registry",
+                "anchor_text": "documentation here"
+              }
+            ],
+            "https://upstash.com/docs/kafka/webhook": [
+              {
+                "source_page": "https://upstash.com/blog/stripe-kafka-webhook",
+                "anchor_text": "Webhook API"
+              }
+            ],
+            "https://upstash.com/docs/overall/compare": [
+              {
+                "source_page": "https://upstash.com/blog/serverless-with-flutter",
+                "anchor_text": "detailed document"
+              }
+            ],
+            "https://upstash.com/docs/overall/databasetypes": [
+              {
+                "source_page": "https://upstash.com/blog/serverless-database-connections",
+                "anchor_text": "Upstash docs"
+              }
+            ],
+            "https://upstash.com/docs/redis/sdks/edge-flags/overview": [
+              {
+                "source_page": "https://upstash.com/blog/edge-flags-beta",
+                "anchor_text": "Documentation"
+              },
+              {
+                "source_page": "https://upstash.com/blog/vercel-edge-block",
+                "anchor_text": "Upstash Edge Flags"
+              }
+            ],
+            "https://upstash.com/docs/redis/sdks/edge-flags/percentage": [
+              {
+                "source_page": "https://upstash.com/blog/edge-flags-beta",
+                "anchor_text": "percentage"
+              }
+            ],
+            "https://upstash.com/docs/redis/sdks/edge-flags/rules": [
+              {
+                "source_page": "https://upstash.com/blog/edge-flags-beta",
+                "anchor_text": "rules documentation"
+              }
+            ],
+            "https://upstash.com/docs/redis/sdks/javascriptsdk/modules/json": [
+              {
+                "source_page": "https://upstash.com/blog/redis-json",
+                "anchor_text": "Upstash SDK for Redis"
+              }
+            ],
+            "https://upstash.com/docs/redis/sdks/javascriptsdk/pipeline": [
+              {
+                "source_page": "https://upstash.com/blog/nextjs-kafka-upstash-cqrs",
+                "anchor_text": "A pipeline"
+              }
+            ],
+            "https://upstash.com/docs/vector/features/roadmap": [
+              {
+                "source_page": "https://upstash.com/blog/introducing-vector-database",
+                "anchor_text": "Roadmap"
+              }
+            ],
+            "https://upstash.com/kafka": [
+              {
+                "source_page": "https://upstash.com/blog/introducing-vector-database",
+                "anchor_text": "Kafka"
+              },
+              {
+                "source_page": "https://upstash.com/blog/kafka-url-shortener",
+                "anchor_text": "Upstash Kafka"
+              },
+              {
+                "source_page": "https://upstash.com/blog/vercel-integration-v2",
+                "anchor_text": "Managed Serverless Kafka"
+              }
+            ],
+            "https://upstash.com/pricing/support@upstash.com": [
+              {
+                "source_page": "https://upstash.com/pricing/search",
+                "anchor_text": "support@upstash.com"
+              },
+              {
+                "source_page": "https://upstash.com/pricing/vector",
+                "anchor_text": "support@upstash.com"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1805,
+          "missing_title_count": 0,
+          "missing_description_count": 508,
+          "multiple_h1_count": 24,
+          "heading_hierarchy_jump_count": 958,
+          "seo_geo_issue_rate_pct": 20.64
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 9,
+          "api_pages_detected": 383,
+          "endpoints_with_usage_docs": 8,
+          "reference_endpoints_without_usage_docs": 1,
+          "reference_coverage_pct": 88.89,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:paths"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1834,
+          "total_code_blocks_all": 5510,
+          "runnable_without_env": 1550,
+          "blocked_by_placeholders": 89,
+          "network_bound_examples": 195,
+          "example_reliability_estimate_pct": 84.51,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 663,
+          "pages_without_last_updated_hint": 1142,
+          "last_updated_coverage_pct": 36.73,
+          "samples_with_last_updated": [
+            {
+              "url": "https://upstash.com/blog/QStash-rateLimit",
+              "hint": "2025-02-20T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/add-ratelimit-to-n8n",
+              "hint": "2025-10-05T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ably-chat",
+              "hint": "2023-11-29T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/about-upstash-realtime",
+              "hint": "2025-10-29T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ahi",
+              "hint": "2026-04-12T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/add-ai-assistant-to-docs",
+              "hint": "2025-09-17T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ai-chatbot-nextjs",
+              "hint": "2023-11-13T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ai-sdk-and-upstash",
+              "hint": "2025-08-18T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ai-postcard-qstash",
+              "hint": "2023-11-09T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ai-sdk-chat-history",
+              "hint": "2025-08-04T00:00:00.000Z"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 46.59,
+          "answerability_pct": 99.89,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 44.29,
+          "overall_score_0_100": 69.05,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1958,
+          "claims_with_evidence": 1749,
+          "coverage_pct": 89.33
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 723,
+              "checks": {
+                "auth_model": 473,
+                "error_semantics": 716,
+                "retry_idempotency": 76,
+                "schema_evolution": 70
+              }
+            },
+            "graphql": {
+              "pages": 250,
+              "checks": {
+                "auth_model": 126,
+                "error_semantics": 246,
+                "retry_idempotency": 8,
+                "schema_evolution": 26
+              }
+            },
+            "grpc": {
+              "pages": 1,
+              "checks": {
+                "auth_model": 0,
+                "error_semantics": 1,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            },
+            "asyncapi": {
+              "pages": 371,
+              "checks": {
+                "auth_model": 226,
+                "error_semantics": 368,
+                "retry_idempotency": 51,
+                "schema_evolution": 40
+              }
+            },
+            "websocket": {
+              "pages": 13,
+              "checks": {
+                "auth_model": 5,
+                "error_semantics": 12,
+                "retry_idempotency": 0,
+                "schema_evolution": 3
+              }
+            }
+          },
+          "coverage_pct": 80.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
+          "https://upstash.com/blog/%5Bhttps:/ably.com%5D(https:/ably.com)",
+          "https://upstash.com/blog/%5Bhttps:/ably.com/docs/auth/token",
+          "https://upstash.com/blog/%5Bhttps:/app.launchdarkly.com/%5D(https:/app.launchdarkly.com/)",
+          "https://upstash.com/blog/%5Bhttps:/console.upstash.com/%5D(https:/console.upstash.com/)",
+          "https://upstash.com/blog/%5Bhttps:/docs.launchdarkly.com/sdk/server-side/java",
+          "https://upstash.com/blog/%5Bhttps:/github.com/launchdarkly/java-server-sdk-redis%5D(https:/github.com/launchdarkly/java-server-sdk-redis)",
+          "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/%5D(https:/launchdarkly.com/)",
+          "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/use-cases/%5D(https:/launchdarkly.com/use-cases/)",
+          "https://upstash.com/blog/%5Bhttps:/redis.io/commands/hset",
+          "https://upstash.com/blog/%5Bhttps:/start.spring.io/%5D(https:/start.spring.io/)",
+          "https://upstash.com/blog/console.upstash.com",
+          "https://upstash.com/dashboard/redis",
+          "https://upstash.com/docs/docs/workflow/howto/changes",
+          "https://upstash.com/docs/features/edgecaching",
+          "https://upstash.com/docs/features/globaldatabase",
+          "https://upstash.com/docs/graphql/aboutgraphqlapi",
+          "https://upstash.com/docs/kafka",
+          "https://upstash.com/docs/kafka/aivenjdbcsink",
+          "https://upstash.com/docs/kafka/aivenjdbcsource"
+        ],
+        "docs_broken_link_samples": [
+          "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
+          "https://upstash.com/blog/%5Bhttps:/ably.com%5D(https:/ably.com)",
+          "https://upstash.com/blog/%5Bhttps:/ably.com/docs/auth/token",
+          "https://upstash.com/blog/%5Bhttps:/app.launchdarkly.com/%5D(https:/app.launchdarkly.com/)",
+          "https://upstash.com/blog/%5Bhttps:/console.upstash.com/%5D(https:/console.upstash.com/)",
+          "https://upstash.com/blog/%5Bhttps:/docs.launchdarkly.com/sdk/server-side/java",
+          "https://upstash.com/blog/%5Bhttps:/github.com/launchdarkly/java-server-sdk-redis%5D(https:/github.com/launchdarkly/java-server-sdk-redis)",
+          "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/%5D(https:/launchdarkly.com/)",
+          "https://upstash.com/blog/%5Bhttps:/launchdarkly.com/use-cases/%5D(https:/launchdarkly.com/use-cases/)",
+          "https://upstash.com/blog/%5Bhttps:/redis.io/commands/hset",
+          "https://upstash.com/blog/%5Bhttps:/start.spring.io/%5D(https:/start.spring.io/)",
+          "https://upstash.com/blog/console.upstash.com",
+          "https://upstash.com/dashboard/redis",
+          "https://upstash.com/docs/docs/workflow/howto/changes",
+          "https://upstash.com/docs/features/edgecaching",
+          "https://upstash.com/docs/features/globaldatabase",
+          "https://upstash.com/docs/graphql/aboutgraphqlapi",
+          "https://upstash.com/docs/kafka",
+          "https://upstash.com/docs/kafka/aivenjdbcsink",
+          "https://upstash.com/docs/kafka/aivenjdbcsource",
+          "https://upstash.com/docs/kafka/connect",
+          "https://upstash.com/docs/kafka/connect/debeziumpsql",
+          "https://upstash.com/docs/kafka/connect/mongosource",
+          "https://upstash.com/docs/kafka/credentials",
+          "https://upstash.com/docs/kafka/debeziummongo",
+          "https://upstash.com/docs/kafka/debeziummysql",
+          "https://upstash.com/docs/kafka/debeziumpsql",
+          "https://upstash.com/docs/kafka/howto/kafka-with-lambda",
+          "https://upstash.com/docs/kafka/integrations/spark",
+          "https://upstash.com/docs/kafka/kafkaapi"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "http://upstash.com/blog/tag/python",
+          "https://upstash.com/docs/qstash/migrating/v2",
+          "https://upstash.com/docs/vector/api/endpoints/query",
+          "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
+          "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
+          "https://upstash.com/docs/vector/api/endpoints/upsert",
+          "https://upstash.com/docs/vector/api/endpoints/upsert-data",
+          "https://upstash.com/docs/vector/api/get-started"
+        ],
+        "api_uncovered_samples": [
+          "gql:paths"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1805,
+        "requested_pages": 2035,
+        "urls_examined": 1896,
+        "max_pages_total": 2500,
+        "discovered_pages": 1896,
+        "crawl_scope_pages": 1895,
+        "trap_urls_skipped": 3449,
+        "crawl_coverage_pct": 100.05
+      },
+      "links": {
+        "broken_internal_links_count": 49,
+        "docs_broken_links_count": 49,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 8,
+        "confirmed_broken_links_count": 49,
+        "excluded_links_count": 139
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 20.64
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 88.89,
+        "no_api_pages_found": false,
+        "api_pages_detected": 383,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 84.51
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 36.73
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 46.59,
+        "answerability_pct": 99.89,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 44.29,
+        "overall_score_0_100": 69.05,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1958,
+        "claims_with_evidence": 1749,
+        "coverage_pct": 89.33
+      },
+      "actionability": {
+        "coverage_pct": 80.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 85.89,
+      "links_confidence_pct": 80.96,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 69.05,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 1805,
+      "crawl_coverage_pct": 100.05
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 49,
+          "unverified_links_count": 8
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 20.64
+        },
+        "severity": "high",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 84.51
+        },
+        "severity": "medium",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 36.73
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 85.89,
+    "links_confidence_pct": 80.96,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 49",
+    "Link verification inconclusive for 8 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 20.64%",
+    "Freshness visibility is weak: only 36.73% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

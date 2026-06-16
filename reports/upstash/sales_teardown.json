@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-06-12T14:08:24.322210+00:00",
+  "site_url": "https://upstash.com/docs",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 59.47,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "",
+    "pages_crawled": 1805,
+    "crawl_coverage_pct": 100.05,
+    "broken_links_count": 49,
+    "unverified_links_count": 8,
+    "estimated_monthly_cost_usd": 7436.0
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "59.47 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "49",
+      "accent": "amber",
+      "detail": "8 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "0.0%",
+      "accent": "blue",
+      "detail": "0 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "0.0%",
+      "accent": "slate",
+      "detail": "27 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "0.0%",
+      "accent": "violet",
+      "detail": "76 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "17.3%",
+      "accent": "rose",
+      "detail": "Recall 52.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Missing required doc layers",
+      "evidence": "Features missing required layers %: 100.0 -> 5.0 %",
+      "business_consequence": "Backfill concept/how-to/reference coverage for key capabilities."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 0.0 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "headline": "RAG retrieval quality risk",
+      "evidence": "Hallucination rate %: 0.0 -> 10.0 %",
+      "business_consequence": "Improve module metadata, index quality, and retrieval eval thresholds."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Backfill concept/how-to/reference coverage for key capabilities.",
+      "impact": "high",
+      "effort": "7.5h est."
+    },
+    {
+      "title": "Prioritize stale pages via weekly SLA loop and lifecycle policies.",
+      "impact": "medium",
+      "effort": "5.0h est."
+    },
+    {
+      "title": "Improve module metadata, index quality, and retrieval eval thresholds.",
+      "impact": "medium",
+      "effort": "9.0h est."
+    }
+  ],
+  "strengths": [],
+  "risks": [],
+  "limitations": [],
+  "automation_first": [
+    "Scheduled docs quality checks for link health, freshness, and layer completeness.",
+    "Drift and docs-contract visibility so code changes stop outpacing reference docs.",
+    "RAG-ready normalization and retrieval quality controls for AI-facing documentation."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 12903.0,
+    "remediation_cost_usd_base_total": 5445.0,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}
