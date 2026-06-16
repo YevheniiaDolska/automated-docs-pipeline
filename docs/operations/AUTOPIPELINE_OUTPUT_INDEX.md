@@ -91,3 +91,7 @@ Generated automatically after autopipeline run.
 - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index (`docs/assets/knowledge-retrieval-index.json`).
 - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval eval reports.
 
+
+## Next steps
+
+- [Documentation index](../index.md)

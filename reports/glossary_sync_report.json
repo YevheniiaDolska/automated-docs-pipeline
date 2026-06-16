@@ -1,10 +1,19 @@
 {
-  "generated_at": "2026-05-26T09:49:38.975135+00:00",
+  "generated_at": "2026-06-16T09:15:25.926608+00:00",
   "glossary_path": "glossary.yml",
-  "scanned_files": 81,
-  "markers_found": 3,
-  "added_count": 0,
+  "scanned_files": 85,
+  "markers_found": 4,
+  "added_count": 1,
   "updated_count": 0,
-  "added_terms": [],
+  "added_terms": [
+    {
+      "term": "strict-local mode",
+      "description": "LLM execution mode that keeps llm_mode local_default and blocks external LLM egress by setting external_llm_allowed to false.",
+      "aliases": [
+        "local-only mode"
+      ],
+      "source": "docs/concepts/pipeline-configuration-combinations.md"
+    }
+  ],
   "updated_terms": []
 }

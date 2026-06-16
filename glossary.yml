@@ -102,6 +102,13 @@ terms:
     - docs\reference\intent-experiences\integrate-operator.md
     - docs/reference/intent-experiences/integrate-developer.md
     - docs/reference/intent-experiences/integrate-operator.md
+  strict-local mode:
+    description: LLM execution mode that keeps llm_mode local_default and blocks external
+      LLM egress by setting external_llm_allowed to false.
+    aliases:
+    - local-only mode
+    usage_context:
+    - docs/concepts/pipeline-configuration-combinations.md
 forbidden:
 - term: simple
   reason: Subjective - what's simple to one user isn't to another

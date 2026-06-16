@@ -20,3 +20,7 @@ original_author: JaneDo
 ## Reference
 
 Precise technical details. No tutorials—parameters, types, and defaults.
+
+- [Pipeline configuration reference](pipeline-configuration-reference.md)
+- [API playground](api-playground.md)
+- [Network transparency](network-transparency.md)

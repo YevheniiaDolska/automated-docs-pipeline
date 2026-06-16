@@ -88,6 +88,59 @@ def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]
     return merged
 
 
+def _as_mapping(value: Any) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}
+
+
+def _extend_unique(items: list[str], values: list[str]) -> list[str]:
+    for value in values:
+        if value not in items:
+            items.append(value)
+    return items
+
+
+def _collect_bundle_docs(runtime_cfg: dict[str, Any]) -> list[str]:
+    docs = [
+        "README_SETUP.md",
+        "POLICY_PACKS.md",
+        "docs/getting-started/choose-pipeline-configuration.md",
+        "docs/how-to/apply-pipeline-configuration.md",
+        "docs/concepts/pipeline-configuration-combinations.md",
+        "docs/reference/pipeline-configuration-reference.md",
+    ]
+
+    docs_flow = _as_mapping(runtime_cfg.get("docs_flow", {}))
+    api_first = _as_mapping(runtime_cfg.get("api_first", {}))
+    llm_control = _as_mapping(runtime_cfg.get("llm_control", {}))
+    modules = _as_mapping(runtime_cfg.get("modules", {}))
+    integrations = _as_mapping(runtime_cfg.get("integrations", {}))
+    ask_ai = _as_mapping(integrations.get("ask_ai", {}))
+
+    docs_flow_mode = str(docs_flow.get("mode", "")).strip().lower()
+    llm_mode = str(llm_control.get("llm_mode", "")).strip().lower()
+    external_llm_allowed = bool(llm_control.get("external_llm_allowed", False))
+    rag_enabled = all(
+        bool(modules.get(key, False))
+        for key in ("rag_optimization", "ontology_graph", "retrieval_evals")
+    )
+
+    if docs_flow_mode in {"api-first", "hybrid"} or bool(api_first.get("enabled", False)):
+        docs.append("docs/how-to/run-api-first-production-flow.md")
+    if rag_enabled:
+        docs.append("docs/concepts/intelligent-knowledge-system.md")
+    if bool(ask_ai.get("enabled", False)) or bool(ask_ai.get("install_runtime_pack", False)):
+        docs.extend(
+            [
+                "docs/how-to/configure-ask-ai-module.md",
+                "docs/how-to/install-ask-ai-runtime-pack.md",
+            ]
+        )
+    if llm_mode == "local_default" or not external_llm_allowed:
+        docs.append("docs/reference/network-transparency.md")
+
+    return docs
+
+
 def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
     runtime = profile.get("runtime", {})
     private = profile.get("private_tuning", {})
@@ -1075,6 +1128,9 @@ def create_bundle(profile_path: Path) -> Path:
             )
 
     include_scripts = [str(rel) for rel in bundle_cfg.get("include_scripts", [])]
+    include_docs = [str(rel) for rel in bundle_cfg.get("include_docs", [])]
+    include_docs = _extend_unique(include_docs, _collect_bundle_docs(runtime_cfg))
+    bundle_cfg["include_docs"] = include_docs
     required_scripts: list[str] = []
     # License gate and pack runtime are always required (all gated scripts depend on them)
     required_scripts.append("scripts/license_gate.py")

@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-26'
+last_verified: '2026-06-16'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/CANONICAL_FLOW/
   title: Canonical Flow (Sales + Delivery) (Part 7)
-  heading: 6. Licensing
+  heading: Canonical Flow (Sales + Delivery) (Part 7)
   version: 1.50.0
   updated_at: '2026-03-24'
   source_site: docs.example.com
   source_path: operations/CANONICAL_FLOW.md
 semantic:
-  topic: 6. Licensing
+  topic: Canonical Flow (Sales + Delivery) (Part 7)
   intent: integrate
   audience: developer
   keywords:
@@ -37,113 +37,38 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## 6. Licensing
-
-
-    Every pipeline run validates the license locally using an Ed25519-signed JWT.
-    No client data is ever sent to any server.
-
-
-    - License file: `<client-repo>/docsops/license.jwt`
-
-    - Public key: `<client-repo>/docsops/keys/veriops-licensing.pub`
-
-    - Capability pack: `<client-repo>/docsops/.capability_pack.enc` (encrypted scoring
-    weights)
-
-
-    Plan tiers control feature access (Pilot, Professional, Enterprise). Without a
-    valid license, the pipeline runs in community mode (degraded: lint-only, no scoring,
-    no drift, REST only).
-
-
-    Check license status: `python3 docsops/scripts/license_gate.py`.
-
-
-    Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
-
-
-    Details: `docs/operations/PLAN_TIERS.md`, `docs/operations/OPERATOR_RUNBOOK.md`.
-
-
-    ## 7. Plan packaging
-
-
-    - Basic: essential quality + gaps + stale.
-
-    - Pro: adds drift/contract, KPI/SLA, RAG/knowledge, hybrid/API-first.
-
-    - Enterprise: strict policy, full automation surface, advanced verification.
-
-
-    Details: `docs/operations/PLAN_TIERS.md`.
-
-
-    ## 8. What to say in sales calls
-
-
-    \11. "You get one-time setup, then weekly documentation ops on autopilot."
-
-    \11. "Your team stops doing doc plumbing and only reviews final output."
-
-    \11. "Quality is controlled by policy packs and automated gates."
-
-    \11. "RAG/knowledge is maintained automatically, so AI outputs stay grounded."'
-  assistant_context: 'Use this module when answering questions related to: Canonical
-    Flow (Sales + Delivery) (Part 7). Source path: operations/CANONICAL_FLOW.md. Summary:
-    Canonical sales and delivery flow for onboarding and operating client Auto-Doc
-    Pipeline setups.
-
-
-    ## 6. Licensing
-
-
-    Every pipeline run validates the license locally using an Ed25519-signed JWT.
-    No client data is ever sent to any server.
-
-
-    - License file: `<client-repo>/docsops/license.jwt`
-
-    - Public key: `<client-repo>/docsops/keys/veriops-licensing.pub`
-
-    - Capability pack: `<client-repo>/docsops/.capability_pack.enc` (encrypted scoring
-    weights)
-
-
-    Plan tiers control feature access (Pilot, Professional, Enterprise). Without a
-    valid license, the pipeline runs in community mode (degraded: lint-only, no scoring,
-    no drift, REST only).
-
-
-    Check license status: `python3 docsops/scripts/license_gate.py`.
-
-
-    Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
-
-
-    Details: `docs/operations/PLAN_TIERS.md`, `docs/operations/OPERATOR_RUNBOOK.md`.
-
-
-    ## 7. Plan packaging
-
-
-    - Basic: essential quality + gaps + stale.
-
-    - Pro: adds drift/contract, KPI/SLA, RAG/knowledge, hybrid/API-first.
-
-    - Enterprise: strict policy, full automation surface, advanced verification.
-
-
-    Details: `docs/operations/PLAN_TIERS.md`.
-
-
-    ## 8. What to say in sales calls
-
-
-    \11. "You get one-time setup, then weekly documentation ops on autopilot."
-
-    \11. "Your team stops doing doc plumbing and only reviews final output."
-
-    \11. "Quality is controlled by policy packs and automated gates."
-
-    \11. "RAG/knowledge is maintained automatically, so AI outputs stay grounded."'
+  docs_markdown: "```bash\npython3 docsops/scripts/setup_client_env_wizard.py --auto\
+    \ --install-playwright\n```\n- terminology governance:\n  - `sync_project_glossary.py`\
+    \ (syncs glossary markers to `glossary.yml`)\n- multi-language examples standard:\n\
+    \  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py`\
+    \ (including `expected-output` comparison for tagged blocks)\n- intent bundle\
+    \ assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`\n\
+    - Algolia search indexing (if enabled)\n  - generates Algolia records from docs\n\
+    \  - uploads index records\n  - applies advanced config from `advanced_config_path`\
+    \ (`settings`, `synonyms`, `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`\n\
+    - `custom_tasks.weekly` commands\n- consolidated report generation\n\nOutput:\n\
+    \n- `reports/consolidated_report.json`\n- related reports are regenerated to the\
+    \ same filenames each run (no manual cleanup required)\n- `reports/docsops_status.json`\
+    \ (quick freshness/status check for non-technical users)\n- `reports/screenshot_manifest_build_report.json`\
+    \ (capture metadata -> placement manifest build status)\n- `reports/screenshot_injection_report.json`\
+    \ (screenshot placement status and `needs_review` queue)\n\nClient repo `.gitignore`\
+    \ recommendation:\n\n```gitignore\nreports/docsops-weekly.log\n```"
+  assistant_context: "Use this module when answering questions related to: Canonical\
+    \ Flow (Sales + Delivery) (Part 7). Source path: operations/CANONICAL_FLOW.md.\
+    \ Summary: Canonical sales and delivery flow for onboarding and operating client\
+    \ Auto-Doc Pipeline setups.\n\n```bash\npython3 docsops/scripts/setup_client_env_wizard.py\
+    \ --auto --install-playwright\n```\n- terminology governance:\n  - `sync_project_glossary.py`\
+    \ (syncs glossary markers to `glossary.yml`)\n- multi-language examples standard:\n\
+    \  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py`\
+    \ (including `expected-output` comparison for tagged blocks)\n- intent bundle\
+    \ assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`\n\
+    - Algolia search indexing (if enabled)\n  - generates Algolia records from docs\n\
+    \  - uploads index records\n  - applies advanced config from `advanced_config_path`\
+    \ (`settings`, `synonyms`, `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`\n\
+    - `custom_tasks.weekly` commands\n- consolidated report generation\n\nOutput:\n\
+    \n- `reports/consolidated_report.json`\n- related reports are regenerated to the\
+    \ same filenames each run (no manual cleanup required)\n- `reports/docsops_status.json`\
+    \ (quick freshness/status check for non-technical users)\n- `reports/screenshot_manifest_build_report.json`\
+    \ (capture metadata -> placement manifest build status)\n- `reports/screenshot_injection_report.json`\
+    \ (screenshot placement status and `needs_review` queue)\n\nClient repo `.gitignore`\
+    \ recommendation:\n\n```gitignore\nreports/docsops-weekly.log\n```"

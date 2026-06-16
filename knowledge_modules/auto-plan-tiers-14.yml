@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-26'
+last_verified: '2026-06-16'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PLAN_TIERS/
   title: Plan Tiers (Basic / Pro / Enterprise) (Part 14)
-  heading: Implementation status (2026-03-25)
+  heading: Next steps
   version: 1.50.0
   updated_at: '2026-03-24'
   source_site: docs.example.com
   source_path: operations/PLAN_TIERS.md
 semantic:
-  topic: Implementation status (2026-03-25)
+  topic: Next steps
   intent: integrate
   audience: developer
   keywords:
@@ -37,7 +37,15 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Implementation status (2026-03-25)
+  docs_markdown: '## Next steps
+
+
+    - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
+
+    - [Documentation index](../index.md)
+
+
+    ## Implementation status (2026-03-25)
 
 
     This document is aligned to the current production implementation baseline.
@@ -85,6 +93,14 @@ content:
   assistant_context: 'Use this module when answering questions related to: Plan Tiers
     (Basic / Pro / Enterprise) (Part 14). Source path: operations/PLAN_TIERS.md. Summary:
     Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+
+    ## Next steps
+
+
+    - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
+
+    - [Documentation index](../index.md)
 
 
     ## Implementation status (2026-03-25)

@@ -1,0 +1,85 @@
+id: auto-pipeline-configuration-reference-5
+title: Pipeline configuration reference (Part 5)
+summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud,
+  strict-local, and hybrid pipeline configurations.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-16'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-configuration-reference
+- reference
+metadata:
+  url: https://docs.example.com/reference/pipeline-configuration-reference/
+  title: Pipeline configuration reference (Part 5)
+  heading: Related files
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: reference/pipeline-configuration-reference.md
+semantic:
+  topic: Related files
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline configuration reference
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Related files
+
+
+    - `profiles/clients/presets/pilot-evidence.yml`
+
+    - `profiles/clients/presets/small.yml`
+
+    - `profiles/clients/presets/startup.yml`
+
+    - `profiles/clients/presets/enterprise.yml`
+
+    - `scripts/build_client_bundle.py`
+
+    - `scripts/provision_client_repo.py`
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    configuration reference (Part 5). Source path: reference/pipeline-configuration-reference.md.
+    Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG,
+    cloud, strict-local, and hybrid pipeline configurations.
+
+
+    ## Related files
+
+
+    - `profiles/clients/presets/pilot-evidence.yml`
+
+    - `profiles/clients/presets/small.yml`
+
+    - `profiles/clients/presets/startup.yml`
+
+    - `profiles/clients/presets/enterprise.yml`
+
+    - `scripts/build_client_bundle.py`
+
+    - `scripts/provision_client_repo.py`
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

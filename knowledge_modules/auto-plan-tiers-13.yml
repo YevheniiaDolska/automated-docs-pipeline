@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-26'
+last_verified: '2026-06-16'
 dependencies: []
 tags:
 - auto-extracted
@@ -37,42 +37,37 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: 'Protocols per plan: Pilot and Professional allow REST only. Enterprise
-    allows all 5 protocols.
+  docs_markdown: '| Feature gate | Pilot | Professional | Enterprise |
 
+    | --- | --- | --- | --- |
 
-    Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
+    | `seo_geo_scoring` | No | Yes | Yes |
 
+    | `api_first_flow` | No | Yes | Yes |
 
-    Check license status: `python3 docsops/scripts/license_gate.py`.
+    | `drift_detection` | No | Yes | Yes |
 
+    | `kpi_wall_sla` | No | Yes | Yes |
 
-    Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
+    | `test_assets_generation` | No | Yes | Yes |
 
+    | `consolidated_reports` | No | Yes | Yes |
 
-    ## 5. Plan upgrade path
+    | `multi_protocol_pipeline` | No | No | Yes |
 
+    | `knowledge_modules` | No | No | Yes |
 
-    - `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`,
-    `knowledge_validation`, set `api_first.enabled=true`. Update `licensing.plan`
-    to `professional`.
+    | `knowledge_graph` | No | No | Yes |
 
-    - `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`,
-    add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
+    | `faiss_retrieval` | No | No | Yes |
 
+    | `executive_audit_pdf` | No | No | Yes |
 
-    After any plan change, rebuild the bundle and re-provision.
+    | `i18n_system` | No | No | Yes |
 
+    | `custom_policy_packs` | No | No | Yes |
 
-    ## Next steps
-
-
-    - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
-
-    - [Documentation index](../index.md)'
-  assistant_context: 'Use this module when answering questions related to: Plan Tiers
-    (Basic / Pro / Enterprise) (Part 13). Source path: operations/PLAN_TIERS.md. Summary:
-    Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+    | `testrail_zephyr_upload` | No | No | Yes |
 
 
     Protocols per plan: Pilot and Professional allow REST only. Enterprise allows
@@ -99,12 +94,67 @@ content:
     add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
 
 
-    After any plan change, rebuild the bundle and re-provision.
+    After any plan change, rebuild the bundle and re-provision.'
+  assistant_context: 'Use this module when answering questions related to: Plan Tiers
+    (Basic / Pro / Enterprise) (Part 13). Source path: operations/PLAN_TIERS.md. Summary:
+    Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
 
 
-    ## Next steps
+    | Feature gate | Pilot | Professional | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | `seo_geo_scoring` | No | Yes | Yes |
+
+    | `api_first_flow` | No | Yes | Yes |
+
+    | `drift_detection` | No | Yes | Yes |
+
+    | `kpi_wall_sla` | No | Yes | Yes |
+
+    | `test_assets_generation` | No | Yes | Yes |
+
+    | `consolidated_reports` | No | Yes | Yes |
+
+    | `multi_protocol_pipeline` | No | No | Yes |
+
+    | `knowledge_modules` | No | No | Yes |
+
+    | `knowledge_graph` | No | No | Yes |
+
+    | `faiss_retrieval` | No | No | Yes |
+
+    | `executive_audit_pdf` | No | No | Yes |
+
+    | `i18n_system` | No | No | Yes |
+
+    | `custom_policy_packs` | No | No | Yes |
+
+    | `testrail_zephyr_upload` | No | No | Yes |
 
 
-    - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
+    Protocols per plan: Pilot and Professional allow REST only. Enterprise allows
+    all 5 protocols.
 
-    - [Documentation index](../index.md)'
+
+    Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
+
+
+    Check license status: `python3 docsops/scripts/license_gate.py`.
+
+
+    Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
+
+
+    ## 5. Plan upgrade path
+
+
+    - `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`,
+    `knowledge_validation`, set `api_first.enabled=true`. Update `licensing.plan`
+    to `professional`.
+
+    - `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`,
+    add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
+
+
+    After any plan change, rebuild the bundle and re-provision.'

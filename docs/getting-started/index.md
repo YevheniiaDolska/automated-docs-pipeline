@@ -19,3 +19,6 @@ original_author: JaneDo
 ## Getting Started
 
 Tutorials walk you through from zero to a working automation. Each tutorial produces a concrete result.
+
+- [Quickstart: Your first workflow](quickstart.md)
+- [Choose a pipeline configuration](choose-pipeline-configuration.md)

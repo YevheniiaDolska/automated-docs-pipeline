@@ -1,0 +1,68 @@
+id: auto-choose-pipeline-configuration-3
+title: Choose a pipeline configuration (Part 3)
+summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+  or hybrid execution in one guided setup.
+intents:
+- configure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-16'
+dependencies: []
+tags:
+- auto-extracted
+- choose-pipeline-configuration
+- tutorial
+metadata:
+  url: https://docs.example.com/getting-started/choose-pipeline-configuration/
+  title: Choose a pipeline configuration (Part 3)
+  heading: 'Step 2: Pick the execution mode'
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: getting-started/choose-pipeline-configuration.md
+semantic:
+  topic: 'Step 2: Pick the execution mode'
+  intent: configure
+  audience: beginner
+  keywords:
+  - choose pipeline configuration
+  - tutorial
+  status: rule_based
+content:
+  docs_markdown: "## Step 2: Pick the execution mode\n\nExecution mode controls how\
+    \ the bundle handles LLM work.\n\n| Execution mode | Use this when | `llm_control`\
+    \ pattern |\n| --- | --- | --- |\n| `cloud` | You want the fastest external-model\
+    \ path | `llm_mode: external_preferred`, `external_llm_allowed: true` |\n| `strict-local`\
+    \ | You cannot allow external LLM egress | `llm_mode: local_default`, `external_llm_allowed:\
+    \ false` |\n| `hybrid` | You want local-first execution with external fallback\
+    \ | `llm_mode: local_default`, `external_llm_allowed: true` |\n\nRecommended starting\
+    \ values:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\
+    \n    external_llm_allowed: true\n    require_explicit_approval: true\n    redact_before_external:\
+    \ true\n```\n\nUse `cloud` when response quality and speed matter more than local-only\
+    \ controls. Use `strict-local` when policy blocks external LLM traffic. Use `hybrid`\
+    \ when you want local-first behavior but still need fallback for harder synthesis\
+    \ tasks."
+  assistant_context: "Use this module when answering questions related to: Choose\
+    \ a pipeline configuration (Part 3). Source path: getting-started/choose-pipeline-configuration.md.\
+    \ Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,\
+    \ or hybrid execution in one guided setup.\n\n## Step 2: Pick the execution mode\n\
+    \nExecution mode controls how the bundle handles LLM work.\n\n| Execution mode\
+    \ | Use this when | `llm_control` pattern |\n| --- | --- | --- |\n| `cloud` |\
+    \ You want the fastest external-model path | `llm_mode: external_preferred`, `external_llm_allowed:\
+    \ true` |\n| `strict-local` | You cannot allow external LLM egress | `llm_mode:\
+    \ local_default`, `external_llm_allowed: false` |\n| `hybrid` | You want local-first\
+    \ execution with external fallback | `llm_mode: local_default`, `external_llm_allowed:\
+    \ true` |\n\nRecommended starting values:\n\n```yaml\nruntime:\n  llm_control:\n\
+    \    llm_mode: \"local_default\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ true\n    redact_before_external: true\n```\n\nUse `cloud` when response quality\
+    \ and speed matter more than local-only controls. Use `strict-local` when policy\
+    \ blocks external LLM traffic. Use `hybrid` when you want local-first behavior\
+    \ but still need fallback for harder synthesis tasks."

@@ -1,0 +1,167 @@
+id: auto-choose-pipeline-configuration-4
+title: Choose a pipeline configuration (Part 4)
+summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+  or hybrid execution in one guided setup.
+intents:
+- configure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-16'
+dependencies: []
+tags:
+- auto-extracted
+- choose-pipeline-configuration
+- tutorial
+metadata:
+  url: https://docs.example.com/getting-started/choose-pipeline-configuration/
+  title: Choose a pipeline configuration (Part 4)
+  heading: 'Step 3: Generate or edit the client profile'
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: getting-started/choose-pipeline-configuration.md
+semantic:
+  topic: 'Step 3: Generate or edit the client profile'
+  intent: configure
+  audience: beginner
+  keywords:
+  - choose pipeline configuration
+  - tutorial
+  status: rule_based
+content:
+  docs_markdown: '## Step 3: Generate or edit the client profile
+
+
+    The interactive path is the fastest way to create the profile:
+
+
+    ```bash
+
+    python3 scripts/provision_client_repo.py --interactive --generate-profile
+
+    ```
+
+
+    When the wizard asks for a preset, map your selection as follows:
+
+
+    - `pilot` -> `pilot-evidence`
+
+    - `full` -> `small`, `startup`, or `enterprise`
+
+    - `full+RAG` -> `startup` or `enterprise`
+
+
+    Then set the LLM section to match your execution mode.
+
+
+    If you prefer editing YAML directly, copy a preset and adjust it:
+
+
+    ```bash
+
+    cp profiles/clients/presets/startup.yml profiles/clients/acme.client.yml
+
+    python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+    ```
+
+
+    ## Step 4: Verify the resulting configuration
+
+
+    Before you install the bundle, verify these fields in the final profile:
+
+
+    - `licensing.plan`
+
+    - `runtime.docs_flow.mode`
+
+    - `runtime.modules.rag_optimization`
+
+    - `runtime.modules.ontology_graph`
+
+    - `runtime.modules.retrieval_evals`
+
+    - `runtime.llm_control.llm_mode`
+
+    - `runtime.llm_control.external_llm_allowed`
+
+
+    For a `full+RAG` bundle, the three RAG module flags must all be `true`. For a
+    `strict-local` bundle, `external_llm_allowed` must be `false`.'
+  assistant_context: 'Use this module when answering questions related to: Choose
+    a pipeline configuration (Part 4). Source path: getting-started/choose-pipeline-configuration.md.
+    Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+    or hybrid execution in one guided setup.
+
+
+    ## Step 3: Generate or edit the client profile
+
+
+    The interactive path is the fastest way to create the profile:
+
+
+    ```bash
+
+    python3 scripts/provision_client_repo.py --interactive --generate-profile
+
+    ```
+
+
+    When the wizard asks for a preset, map your selection as follows:
+
+
+    - `pilot` -> `pilot-evidence`
+
+    - `full` -> `small`, `startup`, or `enterprise`
+
+    - `full+RAG` -> `startup` or `enterprise`
+
+
+    Then set the LLM section to match your execution mode.
+
+
+    If you prefer editing YAML directly, copy a preset and adjust it:
+
+
+    ```bash
+
+    cp profiles/clients/presets/startup.yml profiles/clients/acme.client.yml
+
+    python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+    ```
+
+
+    ## Step 4: Verify the resulting configuration
+
+
+    Before you install the bundle, verify these fields in the final profile:
+
+
+    - `licensing.plan`
+
+    - `runtime.docs_flow.mode`
+
+    - `runtime.modules.rag_optimization`
+
+    - `runtime.modules.ontology_graph`
+
+    - `runtime.modules.retrieval_evals`
+
+    - `runtime.llm_control.llm_mode`
+
+    - `runtime.llm_control.external_llm_allowed`
+
+
+    For a `full+RAG` bundle, the three RAG module flags must all be `true`. For a
+    `strict-local` bundle, `external_llm_allowed` must be `false`.'

@@ -7,7 +7,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -52,7 +52,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -96,7 +96,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -134,6 +134,227 @@
     "source_file": "knowledge_modules/auto-api-playground-3.yml"
   },
   {
+    "objectID": "auto-apply-pipeline-configuration-1",
+    "id": "auto-apply-pipeline-configuration-1",
+    "title": "Apply a pilot, full, or RAG configuration",
+    "summary": "Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "apply-pipeline-configuration",
+      "auto-extracted",
+      "how-to"
+    ],
+    "docs_excerpt": "# Apply a pilot, full, or RAG configuration\n\nThis guide shows you how to take an existing client profile and switch it to `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`, `strict-local`, or `hybrid` policy.\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval: false\n```\n\nUse this guide when ",
+    "assistant_excerpt": "Use this module when answering questions related to: Apply a pilot, full, or RAG configuration. Source path: how-to/apply-pipeline-configuration.md. Summary: Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.\n\n# Apply a p",
+    "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+    "heading": "Prerequisites",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Prerequisites",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "apply pipeline configuration",
+      "how-to"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-apply-pipeline-configuration-1.yml"
+  },
+  {
+    "objectID": "auto-apply-pipeline-configuration-2",
+    "id": "auto-apply-pipeline-configuration-2",
+    "title": "Apply a pilot, full, or RAG configuration (Part 2)",
+    "summary": "Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "apply-pipeline-configuration",
+      "auto-extracted",
+      "how-to"
+    ],
+    "docs_excerpt": "### Pilot\n\nUse `pilot` when you need a narrow proof bundle.\n\n```yaml\nlicensing:\n  plan: \"pilot\"\nruntime:\n  modules:\n    gap_detection: true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n    rag_optimization: false\n    ontology_graph: false\n    retrieval_evals: false\n```\n\n### Full\n\nUse `full` when you want full docs operations without forcing retrieval features.\n\n```yaml\nlicen",
+    "assistant_excerpt": "Use this module when answering questions related to: Apply a pilot, full, or RAG configuration (Part 2). Source path: how-to/apply-pipeline-configuration.md. Summary: Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.\n\n##",
+    "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+    "heading": "Pilot",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Pilot",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "apply pipeline configuration",
+      "how-to"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-apply-pipeline-configuration-2.yml"
+  },
+  {
+    "objectID": "auto-apply-pipeline-configuration-3",
+    "id": "auto-apply-pipeline-configuration-3",
+    "title": "Apply a pilot, full, or RAG configuration (Part 3)",
+    "summary": "Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "apply-pipeline-configuration",
+      "auto-extracted",
+      "how-to"
+    ],
+    "docs_excerpt": "### Strict-local\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: false\n    require_explicit_approval: true\n    redact_before_external: true\n```\n\n### Hybrid\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: true\n    require_explicit_approval: true\n    redact_before_external: true\n```\n\nUse `require_explicit_approval: fal",
+    "assistant_excerpt": "Use this module when answering questions related to: Apply a pilot, full, or RAG configuration (Part 3). Source path: how-to/apply-pipeline-configuration.md. Summary: Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.\n\n##",
+    "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+    "heading": "Strict-local",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Strict-local",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "apply pipeline configuration",
+      "how-to"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-apply-pipeline-configuration-3.yml"
+  },
+  {
+    "objectID": "auto-apply-pipeline-configuration-4",
+    "id": "auto-apply-pipeline-configuration-4",
+    "title": "Apply a pilot, full, or RAG configuration (Part 4)",
+    "summary": "Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure",
+      "troubleshoot"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "apply-pipeline-configuration",
+      "auto-extracted",
+      "how-to"
+    ],
+    "docs_excerpt": "## Step 5: Rebuild the bundle\n\nAfter editing the profile, rebuild the bundle:\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n```\n\nIf you are installing directly into a repo, reprovision it:\n\n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n``",
+    "assistant_excerpt": "Use this module when answering questions related to: Apply a pilot, full, or RAG configuration (Part 4). Source path: how-to/apply-pipeline-configuration.md. Summary: Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.\n\n##",
+    "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+    "heading": "Step 5: Rebuild the bundle",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Step 5: Rebuild the bundle",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "apply pipeline configuration",
+      "how-to"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-apply-pipeline-configuration-4.yml"
+  },
+  {
+    "objectID": "auto-apply-pipeline-configuration-5",
+    "id": "auto-apply-pipeline-configuration-5",
+    "title": "Apply a pilot, full, or RAG configuration (Part 5)",
+    "summary": "Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "apply-pipeline-configuration",
+      "auto-extracted",
+      "how-to"
+    ],
+    "docs_excerpt": "### Issue: Full+RAG bundle does not ship retrieval guidance\n\nRebuild the bundle after changing the profile. The bundle builder selects configuration docs from the final runtime config, not from stale outputs.\n\n## Validation checklist\n\n- [ ] `licensing.plan` matches the intended scope tier\n- [ ] Retrieval flags match the intended scope tier\n- [ ] `llm_control` matches the intended execution mode\n- ",
+    "assistant_excerpt": "Use this module when answering questions related to: Apply a pilot, full, or RAG configuration (Part 5). Source path: how-to/apply-pipeline-configuration.md. Summary: Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.\n\n##",
+    "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+    "heading": "Issue: Full+RAG bundle does not ship retrieval guidance",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Issue: Full+RAG bundle does not ship retrieval guidance",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "apply pipeline configuration",
+      "how-to"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-apply-pipeline-configuration-5.yml"
+  },
+  {
     "objectID": "auto-assemble-intent-experiences-1",
     "id": "auto-assemble-intent-experiences-1",
     "title": "Assemble intent experiences",
@@ -141,7 +362,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -185,7 +406,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -230,7 +451,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -274,7 +495,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -318,7 +539,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -362,7 +583,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -408,7 +629,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -452,7 +673,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -496,7 +717,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -540,7 +761,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -584,7 +805,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -628,7 +849,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -674,7 +895,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -719,7 +940,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -763,7 +984,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -808,7 +1029,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -827,12 +1048,12 @@
       "autopipeline-output-index",
       "reference"
     ],
-    "docs_excerpt": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n<!-- VERIDOC_POWERED_BADGE:END -->\n# Autopipeline Output Index\n\nGenerated automatically after autopipeline run.\n\n- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`\n- Stage summar",
-    "assistant_excerpt": "Use this module when answering questions related to: Autopipeline Output Index. Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md. Summary: Auto-generated review index for autopipeline outputs.\n\n<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-",
+    "docs_excerpt": "# Autopipeline Output Index\n\nGenerated automatically after autopipeline run.\n\n- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`\n- Stage summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/pipeline_stage_summary.json`\n- Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_M",
+    "assistant_excerpt": "Use this module when answering questions related to: Autopipeline Output Index. Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md. Summary: Auto-generated review index for autopipeline outputs.\n\n# Autopipeline Output Index\n\nGenerated automatically after autopipeline run.\n\n- Runtime config: `/mnt/",
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Stage Articulation",
     "version": "1.50.0",
-    "updated_at": "2026-05-26T09:49:29.250168Z",
+    "updated_at": "2026-05-18",
     "source_site": "docs.example.com",
     "topic": "Stage Articulation",
     "semantic_intent": "integrate",
@@ -852,7 +1073,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -876,7 +1097,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Protocols Links",
     "version": "1.50.0",
-    "updated_at": "2026-05-26T09:49:29.265387Z",
+    "updated_at": "2026-05-18",
     "source_site": "docs.example.com",
     "topic": "Protocols Links",
     "semantic_intent": "integrate",
@@ -896,7 +1117,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -920,7 +1141,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Reports Links",
     "version": "1.50.0",
-    "updated_at": "2026-05-26T09:49:29.281342Z",
+    "updated_at": "2026-05-18",
     "source_site": "docs.example.com",
     "topic": "Reports Links",
     "semantic_intent": "integrate",
@@ -940,7 +1161,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -964,7 +1185,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Search Links",
     "version": "1.50.0",
-    "updated_at": "2026-05-26T09:49:29.297198Z",
+    "updated_at": "2026-05-18",
     "source_site": "docs.example.com",
     "topic": "Search Links",
     "semantic_intent": "integrate",
@@ -984,7 +1205,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1008,7 +1229,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Browse/Searchability",
     "version": "1.50.0",
-    "updated_at": "2026-05-26T09:49:29.311087Z",
+    "updated_at": "2026-05-18",
     "source_site": "docs.example.com",
     "topic": "Browse/Searchability",
     "semantic_intent": "integrate",
@@ -1028,7 +1249,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -1066,6 +1287,94 @@
     "source_file": "knowledge_modules/auto-canonical-flow-1.yml"
   },
   {
+    "objectID": "auto-canonical-flow-10",
+    "id": "auto-canonical-flow-10",
+    "title": "Canonical Flow (Sales + Delivery) (Part 10)",
+    "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "canonical-flow",
+      "reference"
+    ],
+    "docs_excerpt": "## 9. Compatibility mode\n\nIf needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and companion workflows). Recommended mode remains local scheduler automation in client repo.\n\n## 10. Deep references\n\n- `docs/operations/OPERATOR_RUNBOOK.md`\n- `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`\n- `docs/operations/UNIFIED_CLIENT_CONFIG.md`\n- `docs/operations/PLAN_TIERS.",
+    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 10). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## 9. Compatibility mode\n\nIf needed, run equivalent w",
+    "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+    "heading": "9. Compatibility mode",
+    "version": "1.50.0",
+    "updated_at": "2026-03-24",
+    "source_site": "docs.example.com",
+    "topic": "9. Compatibility mode",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "canonical flow",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-canonical-flow-10.yml"
+  },
+  {
+    "objectID": "auto-canonical-flow-11",
+    "id": "auto-canonical-flow-11",
+    "title": "Canonical Flow (Sales + Delivery) (Part 11)",
+    "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "canonical-flow",
+      "reference"
+    ],
+    "docs_excerpt": "## Implementation status (2026-03-25)\n\nThis document is aligned to the current production implementation baseline.\n\nCurrent baseline:\n\n1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.\n1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n1. Non-REST automation includes server stubs with busi",
+    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 11). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## Implementation status (2026-03-25)\n\nThis document ",
+    "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+    "heading": "Implementation status (2026-03-25)",
+    "version": "1.50.0",
+    "updated_at": "2026-03-24",
+    "source_site": "docs.example.com",
+    "topic": "Implementation status (2026-03-25)",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "canonical flow",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-canonical-flow-11.yml"
+  },
+  {
     "objectID": "auto-canonical-flow-2",
     "id": "auto-canonical-flow-2",
     "title": "Canonical Flow (Sales + Delivery) (Part 2)",
@@ -1073,7 +1382,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1117,7 +1426,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1161,7 +1470,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1205,7 +1514,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1249,7 +1558,52 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate",
+      "secure"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "canonical-flow",
+      "reference"
+    ],
+    "docs_excerpt": "Private pages (authenticated screenshot capture):\n\n1. Open `docs/screenshots.capture.yml`.\n1. Set `auth.enabled: true`.\n1. Set `auth.login_url` to your sign-in URL.\n1. Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`) to match your login form.\n1. Export credentials before run:\n\n```bash\nexport SCREENSHOT_LOGIN_EMAIL=\"your-login@example.com\"\nexport SCREENSHOT_LOGIN_PASSWORD=\"your-pass",
+    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 6). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\nPrivate pages (authenticated screenshot capture):\n\n1. ",
+    "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+    "heading": "Canonical Flow (Sales + Delivery) (Part 6)",
+    "version": "1.50.0",
+    "updated_at": "2026-03-24",
+    "source_site": "docs.example.com",
+    "topic": "Canonical Flow (Sales + Delivery) (Part 6)",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "canonical flow",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-canonical-flow-6.yml"
+  },
+  {
+    "objectID": "auto-canonical-flow-7",
+    "id": "auto-canonical-flow-7",
+    "title": "Canonical Flow (Sales + Delivery) (Part 7)",
+    "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1268,8 +1622,52 @@
       "canonical-flow",
       "reference"
     ],
-    "docs_excerpt": "Output:\n\n- `reports/consolidated_report.json`\n- related reports are regenerated to the same filenames each run (no manual cleanup required)\n- `reports/docsops_status.json` (quick freshness/status check for non-technical users)\n- `reports/screenshot_manifest_build_report.json` (capture metadata -> placement manifest build status)\n- `reports/screenshot_injection_report.json` (screenshot placement st",
-    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 6). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\nOutput:\n\n- `reports/consolidated_report.json`\n- relate",
+    "docs_excerpt": "```bash\npython3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright\n```\n- terminology governance:\n  - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)\n- multi-language examples standard:\n  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py` (including `expected-output` comparison for tagged blocks)\n- intent ",
+    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 7). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n```bash\npython3 docsops/scripts/setup_client_env_wizar",
+    "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+    "heading": "Canonical Flow (Sales + Delivery) (Part 7)",
+    "version": "1.50.0",
+    "updated_at": "2026-03-24",
+    "source_site": "docs.example.com",
+    "topic": "Canonical Flow (Sales + Delivery) (Part 7)",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "canonical flow",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-canonical-flow-7.yml"
+  },
+  {
+    "objectID": "auto-canonical-flow-8",
+    "id": "auto-canonical-flow-8",
+    "title": "Canonical Flow (Sales + Delivery) (Part 8)",
+    "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "canonical-flow",
+      "reference"
+    ],
+    "docs_excerpt": "## 4. Human role\n\n\\11. In file explorer, check Modified date of `reports/consolidated_report.json`.\n\\11. If date/time is fresh, ask local LLM to process the report.\n\\11. Review generated docs quickly.\n\\11. Publish/merge.\n\n## 5. Operator manual checks after setup\n\n\\11. Check `<client-repo>/docsops/config/client_runtime.yml` for correct client values.\n\\11. Check `<client-repo>/docsops/policy_packs/s",
+    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 8). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## 4. Human role\n\n\\11. In file explorer, check Modifie",
     "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
     "heading": "4. Human role",
     "version": "1.50.0",
@@ -1283,17 +1681,17 @@
       "reference"
     ],
     "semantic_status": "rule_based",
-    "source_file": "knowledge_modules/auto-canonical-flow-6.yml"
+    "source_file": "knowledge_modules/auto-canonical-flow-8.yml"
   },
   {
-    "objectID": "auto-canonical-flow-7",
-    "id": "auto-canonical-flow-7",
-    "title": "Canonical Flow (Sales + Delivery) (Part 7)",
+    "objectID": "auto-canonical-flow-9",
+    "id": "auto-canonical-flow-9",
+    "title": "Canonical Flow (Sales + Delivery) (Part 9)",
     "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1313,101 +1711,13 @@
       "reference"
     ],
     "docs_excerpt": "## 6. Licensing\n\nEvery pipeline run validates the license locally using an Ed25519-signed JWT. No client data is ever sent to any server.\n\n- License file: `<client-repo>/docsops/license.jwt`\n- Public key: `<client-repo>/docsops/keys/veriops-licensing.pub`\n- Capability pack: `<client-repo>/docsops/.capability_pack.enc` (encrypted scoring weights)\n\nPlan tiers control feature access (Pilot, Professio",
-    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 7). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## 6. Licensing\n\nEvery pipeline run validates the lice",
+    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 9). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## 6. Licensing\n\nEvery pipeline run validates the lice",
     "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
     "heading": "6. Licensing",
     "version": "1.50.0",
     "updated_at": "2026-03-24",
     "source_site": "docs.example.com",
     "topic": "6. Licensing",
-    "semantic_intent": "integrate",
-    "semantic_audience": "developer",
-    "keywords": [
-      "canonical flow",
-      "reference"
-    ],
-    "semantic_status": "rule_based",
-    "source_file": "knowledge_modules/auto-canonical-flow-7.yml"
-  },
-  {
-    "objectID": "auto-canonical-flow-8",
-    "id": "auto-canonical-flow-8",
-    "title": "Canonical Flow (Sales + Delivery) (Part 8)",
-    "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
-    "status": "active",
-    "priority": 60,
-    "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
-    "intents": [
-      "integrate"
-    ],
-    "audiences": [
-      "developer",
-      "operator"
-    ],
-    "channels": [
-      "docs",
-      "assistant",
-      "automation"
-    ],
-    "dependencies": [],
-    "tags": [
-      "auto-extracted",
-      "canonical-flow",
-      "reference"
-    ],
-    "docs_excerpt": "## 9. Compatibility mode\n\nIf needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and companion workflows). Recommended mode remains local scheduler automation in client repo.\n\n## 10. Deep references\n\n- `docs/operations/OPERATOR_RUNBOOK.md`\n- `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`\n- `docs/operations/UNIFIED_CLIENT_CONFIG.md`\n- `docs/operations/PLAN_TIERS.",
-    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 8). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## 9. Compatibility mode\n\nIf needed, run equivalent we",
-    "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
-    "heading": "9. Compatibility mode",
-    "version": "1.50.0",
-    "updated_at": "2026-03-24",
-    "source_site": "docs.example.com",
-    "topic": "9. Compatibility mode",
-    "semantic_intent": "integrate",
-    "semantic_audience": "developer",
-    "keywords": [
-      "canonical flow",
-      "reference"
-    ],
-    "semantic_status": "rule_based",
-    "source_file": "knowledge_modules/auto-canonical-flow-8.yml"
-  },
-  {
-    "objectID": "auto-canonical-flow-9",
-    "id": "auto-canonical-flow-9",
-    "title": "Canonical Flow (Sales + Delivery) (Part 9)",
-    "summary": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
-    "status": "active",
-    "priority": 60,
-    "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
-    "intents": [
-      "integrate"
-    ],
-    "audiences": [
-      "developer",
-      "operator"
-    ],
-    "channels": [
-      "docs",
-      "assistant",
-      "automation"
-    ],
-    "dependencies": [],
-    "tags": [
-      "auto-extracted",
-      "canonical-flow",
-      "reference"
-    ],
-    "docs_excerpt": "## Implementation status (2026-03-25)\n\nThis document is aligned to the current production implementation baseline.\n\nCurrent baseline:\n\n1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.\n1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n1. Non-REST automation includes server stubs with busi",
-    "assistant_excerpt": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 9). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\n## Implementation status (2026-03-25)\n\nThis document i",
-    "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
-    "heading": "Implementation status (2026-03-25)",
-    "version": "1.50.0",
-    "updated_at": "2026-03-24",
-    "source_site": "docs.example.com",
-    "topic": "Implementation status (2026-03-25)",
     "semantic_intent": "integrate",
     "semantic_audience": "developer",
     "keywords": [
@@ -1425,7 +1735,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1469,7 +1779,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1513,7 +1823,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1557,7 +1867,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1601,7 +1911,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1645,7 +1955,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1689,7 +1999,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1733,7 +2043,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1777,7 +2087,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1821,7 +2131,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -1866,7 +2176,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1910,7 +2220,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -1954,7 +2264,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -1999,7 +2309,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -2044,7 +2354,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2088,7 +2398,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2125,6 +2435,226 @@
     "source_file": "knowledge_modules/auto-centralized-client-bundles-9.yml"
   },
   {
+    "objectID": "auto-choose-pipeline-configuration-1",
+    "id": "auto-choose-pipeline-configuration-1",
+    "title": "Choose a pipeline configuration",
+    "summary": "Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "beginner",
+      "practitioner"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "choose-pipeline-configuration",
+      "tutorial"
+    ],
+    "docs_excerpt": "# Choose a pipeline configuration\n\nThe pipeline combines one scope tier with one execution mode. Start with that pair, then build or provision the matching bundle from a single client profile.\n\n```yaml\nlicensing:\n  plan: \"pilot\"\nruntime:\n  modules:\n    rag_optimization: false\n    ontology_graph: false\n    retrieval_evals: false\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed:",
+    "assistant_excerpt": "Use this module when answering questions related to: Choose a pipeline configuration. Source path: getting-started/choose-pipeline-configuration.md. Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.\n\n# Choose a pipeline ",
+    "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+    "heading": "Choose a pipeline configuration",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Choose a pipeline configuration",
+    "semantic_intent": "configure",
+    "semantic_audience": "beginner",
+    "keywords": [
+      "choose pipeline configuration",
+      "tutorial"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-choose-pipeline-configuration-1.yml"
+  },
+  {
+    "objectID": "auto-choose-pipeline-configuration-2",
+    "id": "auto-choose-pipeline-configuration-2",
+    "title": "Choose a pipeline configuration (Part 2)",
+    "summary": "Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "beginner",
+      "practitioner"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "choose-pipeline-configuration",
+      "tutorial"
+    ],
+    "docs_excerpt": "## Step 1: Pick the scope tier\n\nChoose the tier that matches the rollout depth you want in the client repository.\n\n| Scope tier | Use this when | Starting point | Key module pattern |\n| --- | --- | --- | --- |\n| `pilot` | You need proof in one week with a reduced script surface | `profiles/clients/presets/pilot-evidence.yml` | Core quality modules on, RAG modules off |\n| `full` | You want full doc",
+    "assistant_excerpt": "Use this module when answering questions related to: Choose a pipeline configuration (Part 2). Source path: getting-started/choose-pipeline-configuration.md. Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.\n\n## Step 1: ",
+    "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+    "heading": "Step 1: Pick the scope tier",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Step 1: Pick the scope tier",
+    "semantic_intent": "configure",
+    "semantic_audience": "beginner",
+    "keywords": [
+      "choose pipeline configuration",
+      "tutorial"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-choose-pipeline-configuration-2.yml"
+  },
+  {
+    "objectID": "auto-choose-pipeline-configuration-3",
+    "id": "auto-choose-pipeline-configuration-3",
+    "title": "Choose a pipeline configuration (Part 3)",
+    "summary": "Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "beginner",
+      "practitioner"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "choose-pipeline-configuration",
+      "tutorial"
+    ],
+    "docs_excerpt": "## Step 2: Pick the execution mode\n\nExecution mode controls how the bundle handles LLM work.\n\n| Execution mode | Use this when | `llm_control` pattern |\n| --- | --- | --- |\n| `cloud` | You want the fastest external-model path | `llm_mode: external_preferred`, `external_llm_allowed: true` |\n| `strict-local` | You cannot allow external LLM egress | `llm_mode: local_default`, `external_llm_allowed: f",
+    "assistant_excerpt": "Use this module when answering questions related to: Choose a pipeline configuration (Part 3). Source path: getting-started/choose-pipeline-configuration.md. Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.\n\n## Step 2: ",
+    "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+    "heading": "Step 2: Pick the execution mode",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Step 2: Pick the execution mode",
+    "semantic_intent": "configure",
+    "semantic_audience": "beginner",
+    "keywords": [
+      "choose pipeline configuration",
+      "tutorial"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-choose-pipeline-configuration-3.yml"
+  },
+  {
+    "objectID": "auto-choose-pipeline-configuration-4",
+    "id": "auto-choose-pipeline-configuration-4",
+    "title": "Choose a pipeline configuration (Part 4)",
+    "summary": "Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "beginner",
+      "practitioner"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "choose-pipeline-configuration",
+      "tutorial"
+    ],
+    "docs_excerpt": "## Step 3: Generate or edit the client profile\n\nThe interactive path is the fastest way to create the profile:\n\n```bash\npython3 scripts/provision_client_repo.py --interactive --generate-profile\n```\n\nWhen the wizard asks for a preset, map your selection as follows:\n\n- `pilot` -> `pilot-evidence`\n- `full` -> `small`, `startup`, or `enterprise`\n- `full+RAG` -> `startup` or `enterprise`\n\nThen set the ",
+    "assistant_excerpt": "Use this module when answering questions related to: Choose a pipeline configuration (Part 4). Source path: getting-started/choose-pipeline-configuration.md. Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.\n\n## Step 3: ",
+    "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+    "heading": "Step 3: Generate or edit the client profile",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Step 3: Generate or edit the client profile",
+    "semantic_intent": "configure",
+    "semantic_audience": "beginner",
+    "keywords": [
+      "choose pipeline configuration",
+      "tutorial"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-choose-pipeline-configuration-4.yml"
+  },
+  {
+    "objectID": "auto-choose-pipeline-configuration-5",
+    "id": "auto-choose-pipeline-configuration-5",
+    "title": "Choose a pipeline configuration (Part 5)",
+    "summary": "Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "beginner",
+      "practitioner"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "choose-pipeline-configuration",
+      "tutorial"
+    ],
+    "docs_excerpt": "## Step 5: Build or provision the bundle\n\nBuild a distributable bundle:\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n```\n\nProvision directly into a client repository:\n\n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n```\n\n## Validation chec",
+    "assistant_excerpt": "Use this module when answering questions related to: Choose a pipeline configuration (Part 5). Source path: getting-started/choose-pipeline-configuration.md. Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.\n\n## Step 5: ",
+    "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+    "heading": "Step 5: Build or provision the bundle",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Step 5: Build or provision the bundle",
+    "semantic_intent": "configure",
+    "semantic_audience": "beginner",
+    "keywords": [
+      "choose pipeline configuration",
+      "tutorial"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-choose-pipeline-configuration-5.yml"
+  },
+  {
     "objectID": "auto-configure-ask-ai-module-1",
     "id": "auto-configure-ask-ai-module-1",
     "title": "Configure Ask AI module",
@@ -2132,7 +2662,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -2176,7 +2706,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -2220,7 +2750,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -2264,7 +2794,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -2309,7 +2839,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure"
@@ -2354,7 +2884,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure"
@@ -2399,7 +2929,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -2443,7 +2973,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -2487,7 +3017,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2531,7 +3061,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -2576,7 +3106,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2620,7 +3150,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -2665,7 +3195,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -2710,7 +3240,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -2755,7 +3285,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2799,7 +3329,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2843,7 +3373,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2887,7 +3417,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -2931,7 +3461,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -2977,7 +3507,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3021,7 +3551,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3065,7 +3595,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3109,7 +3639,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -3155,7 +3685,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3199,7 +3729,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "troubleshoot"
     ],
@@ -3243,7 +3773,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3287,7 +3817,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure"
@@ -3332,7 +3862,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -3376,7 +3906,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -3420,7 +3950,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -3465,7 +3995,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -3511,7 +4041,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3555,7 +4085,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3599,7 +4129,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3643,7 +4173,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -3687,7 +4217,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -3731,7 +4261,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -3775,7 +4305,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -3819,7 +4349,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -3863,7 +4393,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -3908,7 +4438,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -3953,7 +4483,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure",
@@ -3999,7 +4529,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -4044,7 +4574,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4088,7 +4618,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4132,7 +4662,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4176,7 +4706,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4220,7 +4750,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4264,7 +4794,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4308,7 +4838,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -4352,7 +4882,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -4397,7 +4927,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -4441,7 +4971,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -4485,7 +5015,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -4529,7 +5059,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -4574,7 +5104,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4618,7 +5148,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4662,7 +5192,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -4707,7 +5237,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -4752,7 +5282,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -4797,7 +5327,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4841,7 +5371,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4885,7 +5415,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4929,7 +5459,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -4973,7 +5503,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -5018,7 +5548,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5062,7 +5592,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -5108,7 +5638,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5152,7 +5682,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -5197,7 +5727,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -5242,7 +5772,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5286,7 +5816,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -5332,7 +5862,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -5377,7 +5907,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5421,7 +5951,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -5466,7 +5996,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5510,7 +6040,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5554,7 +6084,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -5599,7 +6129,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5643,7 +6173,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5687,7 +6217,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -5732,7 +6262,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5776,7 +6306,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5820,7 +6350,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure"
@@ -5865,7 +6395,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -5910,7 +6440,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5954,7 +6484,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -5998,7 +6528,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -6042,7 +6572,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6086,7 +6616,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6130,7 +6660,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure",
@@ -6176,7 +6706,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6220,7 +6750,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6264,7 +6794,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6308,7 +6838,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -6353,7 +6883,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure",
@@ -6399,7 +6929,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6443,7 +6973,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6487,7 +7017,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6531,7 +7061,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6575,7 +7105,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -6620,7 +7150,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -6665,7 +7195,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6709,7 +7239,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -6754,7 +7284,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -6799,7 +7329,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -6837,6 +7367,447 @@
     "source_file": "knowledge_modules/auto-pipeline-capabilities-catalog-9.yml"
   },
   {
+    "objectID": "auto-pipeline-configuration-combinations-1",
+    "id": "auto-pipeline-configuration-combinations-1",
+    "title": "How pipeline configurations compose",
+    "summary": "Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "concept",
+      "pipeline-configuration-combinations"
+    ],
+    "docs_excerpt": "# How pipeline configurations compose\n\nPipeline configuration is a two-axis model. One axis defines rollout scope, and the other defines how LLM work is executed and governed.\n\n```yaml\nruntime:\n  modules:\n    rag_optimization: true\n    ontology_graph: true\n    retrieval_evals: true\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: true\n```\n\n<!-- glossary:add: strict-local mode",
+    "assistant_excerpt": "Use this module when answering questions related to: How pipeline configurations compose. Source path: concepts/pipeline-configuration-combinations.md. Summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.\n\n#",
+    "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+    "heading": "The two axes",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "The two axes",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "concept",
+      "pipeline configuration combinations"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-combinations-1.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-combinations-2",
+    "id": "auto-pipeline-configuration-combinations-2",
+    "title": "How pipeline configurations compose (Part 2)",
+    "summary": "Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "concept",
+      "pipeline-configuration-combinations"
+    ],
+    "docs_excerpt": "### Pilot\n\n`pilot` narrows the surface to proof-oriented signals:\n\n- weekly gap and drift evidence\n- docs quality gates\n- API-first generation if enabled\n- reduced bundle script surface\n\nPilot intentionally keeps retrieval features off by default because the goal is short proof cycles, not full knowledge-system rollout.\n\n### Full\n\n`full` turns on the standard docs operations surface:\n\n- governance",
+    "assistant_excerpt": "Use this module when answering questions related to: How pipeline configurations compose (Part 2). Source path: concepts/pipeline-configuration-combinations.md. Summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled del",
+    "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+    "heading": "Pilot",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Pilot",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "concept",
+      "pipeline configuration combinations"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-combinations-2.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-combinations-3",
+    "id": "auto-pipeline-configuration-combinations-3",
+    "title": "How pipeline configurations compose (Part 3)",
+    "summary": "Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "concept",
+      "pipeline-configuration-combinations"
+    ],
+    "docs_excerpt": "### Strict-local\n\nStrict-local mode keeps execution local and blocks external egress:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: false\n    require_explicit_approval: true\n```\n\nUse this mode when policy requires local inference or forbids external LLM traffic.\n\n### Hybrid\n\nHybrid mode keeps local-first behavior but permits controlled fallback:\n\n```yaml\n",
+    "assistant_excerpt": "Use this module when answering questions related to: How pipeline configurations compose (Part 3). Source path: concepts/pipeline-configuration-combinations.md. Summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled del",
+    "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+    "heading": "Strict-local",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Strict-local",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "concept",
+      "pipeline configuration combinations"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-combinations-3.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-combinations-4",
+    "id": "auto-pipeline-configuration-combinations-4",
+    "title": "How pipeline configurations compose (Part 4)",
+    "summary": "Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "concept",
+      "pipeline-configuration-combinations"
+    ],
+    "docs_excerpt": "## Why bundles need configuration-specific docs\n\nThe same scripts are not enough across every configuration. Users need configuration-specific instructions because:\n\n- `pilot` users need proof-oriented operating steps\n- `full` users need broader automation and governance guidance\n- `full+RAG` users need retrieval quality and knowledge-system guidance\n- `strict-local` users need egress and local ru",
+    "assistant_excerpt": "Use this module when answering questions related to: How pipeline configurations compose (Part 4). Source path: concepts/pipeline-configuration-combinations.md. Summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled del",
+    "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+    "heading": "Why bundles need configuration-specific docs",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Why bundles need configuration-specific docs",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "concept",
+      "pipeline configuration combinations"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-combinations-4.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-combinations-5",
+    "id": "auto-pipeline-configuration-combinations-5",
+    "title": "How pipeline configurations compose (Part 5)",
+    "summary": "Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "concept",
+      "pipeline-configuration-combinations"
+    ],
+    "docs_excerpt": "## Next steps\n\n- Use [Choose a pipeline configuration](../getting-started/choose-pipeline-configuration.md) to select the starting combination.\n- Follow [Apply a pilot, full, or RAG configuration](../how-to/apply-pipeline-configuration.md) to edit a profile.\n- Check [Pipeline configuration reference](../reference/pipeline-configuration-reference.md) for exact field values.",
+    "assistant_excerpt": "Use this module when answering questions related to: How pipeline configurations compose (Part 5). Source path: concepts/pipeline-configuration-combinations.md. Summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled del",
+    "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+    "heading": "Next steps",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Next steps",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "concept",
+      "pipeline configuration combinations"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-combinations-5.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-reference-1",
+    "id": "auto-pipeline-configuration-reference-1",
+    "title": "Pipeline configuration reference",
+    "summary": "Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "pipeline-configuration-reference",
+      "reference"
+    ],
+    "docs_excerpt": "# Pipeline configuration reference\n\nThis page defines the exact fields that distinguish `pilot`, `full`, and `full+RAG`, plus the `cloud`, `strict-local`, and `hybrid` execution modes.\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval: false\n```\n\nUse this page when you need exact values, not rollout guidance.\n\n## Scope ",
+    "assistant_excerpt": "Use this module when answering questions related to: Pipeline configuration reference. Source path: reference/pipeline-configuration-reference.md. Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.\n\n# Pipeline con",
+    "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+    "heading": "Scope tier reference",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Scope tier reference",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "pipeline configuration reference",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-reference-1.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-reference-2",
+    "id": "auto-pipeline-configuration-reference-2",
+    "title": "Pipeline configuration reference (Part 2)",
+    "summary": "Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "pipeline-configuration-reference",
+      "reference"
+    ],
+    "docs_excerpt": "## Execution mode reference\n\n| Execution mode | `llm_mode` | `external_llm_allowed` | `require_explicit_approval` | Typical use |\n| --- | --- | --- | --- | --- |\n| `cloud` | `external_preferred` | `true` | `false` | hosted model path |\n| `strict-local` | `local_default` | `false` | `true` | no external egress |\n| `hybrid` | `local_default` | `true` | `true` or `false` | local-first with fallback |",
+    "assistant_excerpt": "Use this module when answering questions related to: Pipeline configuration reference (Part 2). Source path: reference/pipeline-configuration-reference.md. Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.\n\n## Ex",
+    "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+    "heading": "Execution mode reference",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Execution mode reference",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "pipeline configuration reference",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-reference-2.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-reference-3",
+    "id": "auto-pipeline-configuration-reference-3",
+    "title": "Pipeline configuration reference (Part 3)",
+    "summary": "Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "pipeline-configuration-reference",
+      "reference"
+    ],
+    "docs_excerpt": "### Full minimum\n\n```yaml\nruntime:\n  modules:\n    gap_detection: true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n    terminology_management: true\n    normalization: true\n    snippet_lint: true\n    self_checks: true\n    fact_checks: true\n    lifecycle_management: true\n    knowledge_validation: true\n```\n\n### Full+RAG minimum\n\n```yaml\nruntime:\n  modules:\n    gap_detection: tr",
+    "assistant_excerpt": "Use this module when answering questions related to: Pipeline configuration reference (Part 3). Source path: reference/pipeline-configuration-reference.md. Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.\n\n### F",
+    "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+    "heading": "Full minimum",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Full minimum",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "pipeline configuration reference",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-reference-3.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-reference-4",
+    "id": "auto-pipeline-configuration-reference-4",
+    "title": "Pipeline configuration reference (Part 4)",
+    "summary": "Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "configure",
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "pipeline-configuration-reference",
+      "reference"
+    ],
+    "docs_excerpt": "## Bundle documentation selection rules\n\nThe bundle builder now auto-includes configuration docs from the final runtime config.\n\nBase configuration docs:\n\n- `docs/getting-started/choose-pipeline-configuration.md`\n- `docs/how-to/apply-pipeline-configuration.md`\n- `docs/concepts/pipeline-configuration-combinations.md`\n- `docs/reference/pipeline-configuration-reference.md`\n\nAdditional docs are added ",
+    "assistant_excerpt": "Use this module when answering questions related to: Pipeline configuration reference (Part 4). Source path: reference/pipeline-configuration-reference.md. Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.\n\n## Bu",
+    "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+    "heading": "Bundle documentation selection rules",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Bundle documentation selection rules",
+    "semantic_intent": "configure",
+    "semantic_audience": "developer",
+    "keywords": [
+      "pipeline configuration reference",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-reference-4.yml"
+  },
+  {
+    "objectID": "auto-pipeline-configuration-reference-5",
+    "id": "auto-pipeline-configuration-reference-5",
+    "title": "Pipeline configuration reference (Part 5)",
+    "summary": "Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-06-16",
+    "intents": [
+      "integrate"
+    ],
+    "audiences": [
+      "developer",
+      "operator"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "pipeline-configuration-reference",
+      "reference"
+    ],
+    "docs_excerpt": "## Related files\n\n- `profiles/clients/presets/pilot-evidence.yml`\n- `profiles/clients/presets/small.yml`\n- `profiles/clients/presets/startup.yml`\n- `profiles/clients/presets/enterprise.yml`\n- `scripts/build_client_bundle.py`\n- `scripts/provision_client_repo.py`\n\n## Next steps\n\n- [Documentation index](index.md)",
+    "assistant_excerpt": "Use this module when answering questions related to: Pipeline configuration reference (Part 5). Source path: reference/pipeline-configuration-reference.md. Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.\n\n## Re",
+    "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+    "heading": "Related files",
+    "version": "1.50.0",
+    "updated_at": "2026-06-16",
+    "source_site": "docs.example.com",
+    "topic": "Related files",
+    "semantic_intent": "integrate",
+    "semantic_audience": "developer",
+    "keywords": [
+      "pipeline configuration reference",
+      "reference"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules/auto-pipeline-configuration-reference-5.yml"
+  },
+  {
     "objectID": "auto-plan-tiers-1",
     "id": "auto-plan-tiers-1",
     "title": "Plan Tiers (Basic / Pro / Enterprise)",
@@ -6844,7 +7815,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6888,7 +7859,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -6933,7 +7904,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -6977,7 +7948,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -7022,7 +7993,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7041,8 +8012,8 @@
       "plan-tiers",
       "reference"
     ],
-    "docs_excerpt": "Protocols per plan: Pilot and Professional allow REST only. Enterprise allows all 5 protocols.\n\nOffline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.\n\nCheck license status: `python3 docsops/scripts/license_gate.py`.\n\nDev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.\n\n## 5. Plan upgrade path\n\n- `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `r",
-    "assistant_excerpt": "Use this module when answering questions related to: Plan Tiers (Basic / Pro / Enterprise) (Part 13). Source path: operations/PLAN_TIERS.md. Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.\n\nProtocols per plan: Pilot and Professional allow REST only. Enterp",
+    "docs_excerpt": "| Feature gate | Pilot | Professional | Enterprise |\n| --- | --- | --- | --- |\n| `seo_geo_scoring` | No | Yes | Yes |\n| `api_first_flow` | No | Yes | Yes |\n| `drift_detection` | No | Yes | Yes |\n| `kpi_wall_sla` | No | Yes | Yes |\n| `test_assets_generation` | No | Yes | Yes |\n| `consolidated_reports` | No | Yes | Yes |\n| `multi_protocol_pipeline` | No | No | Yes |\n| `knowledge_modules` | No | No |",
+    "assistant_excerpt": "Use this module when answering questions related to: Plan Tiers (Basic / Pro / Enterprise) (Part 13). Source path: operations/PLAN_TIERS.md. Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.\n\n| Feature gate | Pilot | Professional | Enterprise |\n| --- | --- |",
     "url": "https://docs.example.com/operations/PLAN_TIERS/",
     "heading": "5. Plan upgrade path",
     "version": "1.50.0",
@@ -7066,7 +8037,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7085,14 +8056,14 @@
       "plan-tiers",
       "reference"
     ],
-    "docs_excerpt": "## Implementation status (2026-03-25)\n\nThis document is aligned to the current production implementation baseline.\n\nCurrent baseline:\n\n1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.\n1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n1. Non-REST automation includes server stubs with busi",
-    "assistant_excerpt": "Use this module when answering questions related to: Plan Tiers (Basic / Pro / Enterprise) (Part 14). Source path: operations/PLAN_TIERS.md. Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.\n\n## Implementation status (2026-03-25)\n\nThis document is aligned to",
+    "docs_excerpt": "## Next steps\n\n- [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures\n- [Documentation index](../index.md)\n\n## Implementation status (2026-03-25)\n\nThis document is aligned to the current production implementation baseline.\n\nCurrent baseline:\n\n1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.\n1. REST and non-REST protocols are supp",
+    "assistant_excerpt": "Use this module when answering questions related to: Plan Tiers (Basic / Pro / Enterprise) (Part 14). Source path: operations/PLAN_TIERS.md. Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.\n\n## Next steps\n\n- [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-b",
     "url": "https://docs.example.com/operations/PLAN_TIERS/",
-    "heading": "Implementation status (2026-03-25)",
+    "heading": "Next steps",
     "version": "1.50.0",
     "updated_at": "2026-03-24",
     "source_site": "docs.example.com",
-    "topic": "Implementation status (2026-03-25)",
+    "topic": "Next steps",
     "semantic_intent": "integrate",
     "semantic_audience": "developer",
     "keywords": [
@@ -7110,7 +8081,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7154,7 +8125,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7198,7 +8169,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7242,7 +8213,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -7287,7 +8258,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -7332,7 +8303,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7376,7 +8347,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -7421,7 +8392,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7465,7 +8436,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -7510,7 +8481,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure",
@@ -7556,7 +8527,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7600,7 +8571,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -7645,7 +8616,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure",
@@ -7691,7 +8662,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -7736,7 +8707,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7780,7 +8751,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -7824,7 +8795,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure"
@@ -7869,7 +8840,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -7913,7 +8884,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -7957,7 +8928,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8001,7 +8972,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8045,7 +9016,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -8090,7 +9061,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8134,7 +9105,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8178,7 +9149,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -8223,7 +9194,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8267,7 +9238,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8311,7 +9282,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8355,7 +9326,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -8399,7 +9370,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8423,7 +9394,7 @@
     "url": "https://docs.example.com/search-faceted/",
     "heading": "Advanced Search",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Advanced Search",
     "semantic_intent": "integrate",
@@ -8443,7 +9414,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8467,7 +9438,7 @@
     "url": "https://docs.example.com/search-faceted/",
     "heading": "Advanced Search (Part 2)",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Advanced Search (Part 2)",
     "semantic_intent": "integrate",
@@ -8487,7 +9458,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8511,7 +9482,7 @@
     "url": "https://docs.example.com/search-faceted/",
     "heading": "Next steps",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Next steps",
     "semantic_intent": "integrate",
@@ -8531,7 +9502,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8575,7 +9546,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -8620,7 +9591,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -8665,7 +9636,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -8710,7 +9681,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8754,7 +9725,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8798,7 +9769,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -8843,7 +9814,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -8888,7 +9859,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8932,7 +9903,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -8956,7 +9927,7 @@
     "url": "https://docs.example.com/SEO_GUIDE/",
     "heading": "Overview",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Overview",
     "semantic_intent": "integrate",
@@ -8976,7 +9947,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -9000,7 +9971,7 @@
     "url": "https://docs.example.com/SEO_GUIDE/",
     "heading": "2. SEO Enhancement",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "2. SEO Enhancement",
     "semantic_intent": "integrate",
@@ -9020,7 +9991,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -9045,7 +10016,7 @@
     "url": "https://docs.example.com/SEO_GUIDE/",
     "heading": "Command Line",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Command Line",
     "semantic_intent": "integrate",
@@ -9065,7 +10036,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -9090,7 +10061,7 @@
     "url": "https://docs.example.com/SEO_GUIDE/",
     "heading": "Critical (Blocks PR)",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Critical (Blocks PR)",
     "semantic_intent": "integrate",
@@ -9110,7 +10081,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -9136,7 +10107,7 @@
     "url": "https://docs.example.com/SEO_GUIDE/",
     "heading": "Weekly Reports",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Weekly Reports",
     "semantic_intent": "configure",
@@ -9156,7 +10127,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -9183,7 +10154,7 @@
     "url": "https://docs.example.com/SEO_GUIDE/",
     "heading": "Common Issues",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Common Issues",
     "semantic_intent": "configure",
@@ -9203,7 +10174,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure"
@@ -9248,7 +10219,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9292,7 +10263,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9336,7 +10307,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9380,7 +10351,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9424,7 +10395,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -9470,7 +10441,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9514,7 +10485,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9558,7 +10529,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9602,7 +10573,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9646,7 +10617,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9690,7 +10661,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9734,7 +10705,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9778,7 +10749,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "troubleshoot"
@@ -9823,7 +10794,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9867,7 +10838,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -9912,7 +10883,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -9956,7 +10927,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure"
     ],
@@ -10000,7 +10971,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -10045,7 +11016,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10089,7 +11060,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -10134,7 +11105,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10178,7 +11149,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -10223,7 +11194,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure",
@@ -10269,7 +11240,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -10314,7 +11285,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10358,7 +11329,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10402,7 +11373,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10446,7 +11417,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10490,7 +11461,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10534,7 +11505,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10578,7 +11549,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10622,7 +11593,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -10667,7 +11638,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -10712,7 +11683,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -10757,7 +11728,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10801,7 +11772,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10845,7 +11816,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10889,7 +11860,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -10934,7 +11905,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -10978,7 +11949,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11022,7 +11993,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11067,7 +12038,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11112,7 +12083,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11157,7 +12128,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -11202,7 +12173,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11247,7 +12218,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11292,7 +12263,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11337,7 +12308,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11382,7 +12353,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11426,7 +12397,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11471,7 +12442,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -11516,7 +12487,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -11561,7 +12532,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11605,7 +12576,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11649,7 +12620,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11693,7 +12664,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11737,7 +12708,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11781,7 +12752,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -11826,7 +12797,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -11870,7 +12841,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -11895,7 +12866,7 @@
     "url": "https://docs.example.com/VARIABLES_GUIDE/",
     "heading": "Overview",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Overview",
     "semantic_intent": "configure",
@@ -11915,7 +12886,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate"
@@ -11940,7 +12911,7 @@
     "url": "https://docs.example.com/VARIABLES_GUIDE/",
     "heading": "URLs",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "URLs",
     "semantic_intent": "configure",
@@ -11960,7 +12931,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -11986,7 +12957,7 @@
     "url": "https://docs.example.com/VARIABLES_GUIDE/",
     "heading": "3. Create New Variables When",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "3. Create New Variables When",
     "semantic_intent": "configure",
@@ -12006,7 +12977,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -12030,7 +13001,7 @@
     "url": "https://docs.example.com/VARIABLES_GUIDE/",
     "heading": "Configuration",
     "version": "1.50.0",
-    "updated_at": "None",
+    "updated_at": "2026-06-16",
     "source_site": "docs.example.com",
     "topic": "Configuration",
     "semantic_intent": "integrate",
@@ -12050,7 +13021,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "secure"
@@ -12095,7 +13066,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -12141,7 +13112,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -12187,7 +13158,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "troubleshoot"
     ],
@@ -12231,7 +13202,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "troubleshoot"
     ],
@@ -12275,7 +13246,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "secure",
@@ -12321,7 +13292,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -12365,7 +13336,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -12409,7 +13380,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "configure",
       "integrate",
@@ -12455,7 +13426,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -12499,7 +13470,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],
@@ -12543,7 +13514,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate",
       "troubleshoot"
@@ -12588,7 +13559,7 @@
     "status": "active",
     "priority": 60,
     "owner": "docsops-auto",
-    "last_verified": "2026-05-26",
+    "last_verified": "2026-06-16",
     "intents": [
       "integrate"
     ],

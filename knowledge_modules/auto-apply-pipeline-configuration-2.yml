@@ -1,0 +1,77 @@
+id: auto-apply-pipeline-configuration-2
+title: Apply a pilot, full, or RAG configuration (Part 2)
+summary: Update a client profile for pilot, full, or RAG-enabled operation and align
+  it with cloud, strict-local, or hybrid LLM execution.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-16'
+dependencies: []
+tags:
+- apply-pipeline-configuration
+- auto-extracted
+- how-to
+metadata:
+  url: https://docs.example.com/how-to/apply-pipeline-configuration/
+  title: Apply a pilot, full, or RAG configuration (Part 2)
+  heading: Pilot
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: how-to/apply-pipeline-configuration.md
+semantic:
+  topic: Pilot
+  intent: configure
+  audience: practitioner
+  keywords:
+  - apply pipeline configuration
+  - how-to
+  status: rule_based
+content:
+  docs_markdown: "### Pilot\n\nUse `pilot` when you need a narrow proof bundle.\n\n\
+    ```yaml\nlicensing:\n  plan: \"pilot\"\nruntime:\n  modules:\n    gap_detection:\
+    \ true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n\
+    \    rag_optimization: false\n    ontology_graph: false\n    retrieval_evals:\
+    \ false\n```\n\n### Full\n\nUse `full` when you want full docs operations without\
+    \ forcing retrieval features.\n\n```yaml\nlicensing:\n  plan: \"professional\"\
+    \nruntime:\n  modules:\n    gap_detection: true\n    drift_detection: true\n \
+    \   docs_contract: true\n    kpi_sla: true\n    normalization: true\n    snippet_lint:\
+    \ true\n    self_checks: true\n    fact_checks: true\n    rag_optimization: false\n\
+    \    ontology_graph: false\n    retrieval_evals: false\n```\n\n### Full+RAG\n\n\
+    Use `full+RAG` when retrieval quality is part of the contract.\n\n```yaml\nlicensing:\n\
+    \  plan: \"enterprise\"\nruntime:\n  modules:\n    gap_detection: true\n    drift_detection:\
+    \ true\n    docs_contract: true\n    kpi_sla: true\n    rag_optimization: true\n\
+    \    ontology_graph: true\n    retrieval_evals: true\n```\n\n## Step 3: Set the\
+    \ execution mode\n\n### Cloud\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode:\
+    \ \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n    redact_before_external: true\n```"
+  assistant_context: "Use this module when answering questions related to: Apply a\
+    \ pilot, full, or RAG configuration (Part 2). Source path: how-to/apply-pipeline-configuration.md.\
+    \ Summary: Update a client profile for pilot, full, or RAG-enabled operation and\
+    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n### Pilot\n\n\
+    Use `pilot` when you need a narrow proof bundle.\n\n```yaml\nlicensing:\n  plan:\
+    \ \"pilot\"\nruntime:\n  modules:\n    gap_detection: true\n    drift_detection:\
+    \ true\n    docs_contract: true\n    kpi_sla: true\n    rag_optimization: false\n\
+    \    ontology_graph: false\n    retrieval_evals: false\n```\n\n### Full\n\nUse\
+    \ `full` when you want full docs operations without forcing retrieval features.\n\
+    \n```yaml\nlicensing:\n  plan: \"professional\"\nruntime:\n  modules:\n    gap_detection:\
+    \ true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n\
+    \    normalization: true\n    snippet_lint: true\n    self_checks: true\n    fact_checks:\
+    \ true\n    rag_optimization: false\n    ontology_graph: false\n    retrieval_evals:\
+    \ false\n```\n\n### Full+RAG\n\nUse `full+RAG` when retrieval quality is part\
+    \ of the contract.\n\n```yaml\nlicensing:\n  plan: \"enterprise\"\nruntime:\n\
+    \  modules:\n    gap_detection: true\n    drift_detection: true\n    docs_contract:\
+    \ true\n    kpi_sla: true\n    rag_optimization: true\n    ontology_graph: true\n\
+    \    retrieval_evals: true\n```\n\n## Step 3: Set the execution mode\n\n### Cloud\n\
+    \n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"external_preferred\"\n  \
+    \  external_llm_allowed: true\n    require_explicit_approval: false\n    redact_before_external:\
+    \ true\n```"

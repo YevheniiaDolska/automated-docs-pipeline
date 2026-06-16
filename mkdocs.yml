@@ -84,9 +84,11 @@ nav:
 - Home: index.md
 - Getting Started:
   - getting-started/index.md
+  - Choose a pipeline configuration: getting-started/choose-pipeline-configuration.md
   - 'Quickstart: Your first workflow': getting-started/quickstart.md
 - How-To Guides:
   - how-to/index.md
+  - Apply a pilot, full, or RAG configuration: how-to/apply-pipeline-configuration.md
   - Assemble intent experiences: how-to/assemble-intent-experiences.md
   - Configure Ask AI module: how-to/configure-ask-ai-module.md
   - Install Ask AI runtime pack: how-to/install-ask-ai-runtime-pack.md
@@ -95,12 +97,14 @@ nav:
   - Run API-first production flow: how-to/run-api-first-production-flow.md
 - Concepts:
   - concepts/index.md
+  - How pipeline configurations compose: concepts/pipeline-configuration-combinations.md
   - Intelligent knowledge system architecture: concepts/intelligent-knowledge-system.md
   - Workflow execution model: concepts/workflow-execution-model.md
 - Reference:
   - reference/index.md
   - API playground: reference/api-playground.md
   - Network transparency: reference/network-transparency.md
+  - Pipeline configuration reference: reference/pipeline-configuration-reference.md
   - TaskStream API planning notes: reference/taskstream-planning-notes.md
   - TaskStream API playground: reference/taskstream-api-playground.md
   - Deprecated examples: reference/deprecated-example.md

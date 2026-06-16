@@ -19,3 +19,7 @@ original_author: JaneDo
 ## Concepts
 
 Understand how works under the hood. Read these when you need to understand *why*, not just *how*.
+
+- [How pipeline configurations compose](pipeline-configuration-combinations.md)
+- [Intelligent knowledge system architecture](intelligent-knowledge-system.md)
+- [Workflow execution model](workflow-execution-model.md)

@@ -1,0 +1,97 @@
+id: auto-canonical-flow-10
+title: Canonical Flow (Sales + Delivery) (Part 10)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-16'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 10)
+  heading: 9. Compatibility mode
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: 9. Compatibility mode
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## 9. Compatibility mode
+
+
+    If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml`
+    and companion workflows). Recommended mode remains local scheduler automation
+    in client repo.
+
+
+    ## 10. Deep references
+
+
+    - `docs/operations/OPERATOR_RUNBOOK.md`
+
+    - `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`
+
+    - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+
+    - `docs/operations/PLAN_TIERS.md`
+
+    - `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Canonical
+    Flow (Sales + Delivery) (Part 10). Source path: operations/CANONICAL_FLOW.md.
+    Summary: Canonical sales and delivery flow for onboarding and operating client
+    Auto-Doc Pipeline setups.
+
+
+    ## 9. Compatibility mode
+
+
+    If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml`
+    and companion workflows). Recommended mode remains local scheduler automation
+    in client repo.
+
+
+    ## 10. Deep references
+
+
+    - `docs/operations/OPERATOR_RUNBOOK.md`
+
+    - `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`
+
+    - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+
+    - `docs/operations/PLAN_TIERS.md`
+
+    - `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

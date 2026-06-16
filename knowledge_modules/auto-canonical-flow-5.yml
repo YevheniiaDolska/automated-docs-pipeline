@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-26'
+last_verified: '2026-06-16'
 dependencies: []
 tags:
 - auto-extracted
@@ -55,20 +55,14 @@ content:
     \ Postman mock endpoint\n- RAG/knowledge tasks:\n  - `extract_knowledge_modules_from_docs.py`\n\
     \  - `validate_knowledge_modules.py`\n  - `generate_knowledge_retrieval_index.py`\n\
     \  - `generate_knowledge_graph_jsonld.py`\n  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)\n\
-    - Screenshot placement tasks:\n  - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json`\
+    - Screenshot placement tasks:\n  - `generate_screenshot_capture_plan.py` auto-refreshes\
+    \ `docs/screenshots.capture.yml` from current docs tree\n  - `capture_screenshots.py`\
+    \ captures screenshots via Playwright using `docs/screenshots.capture.yml`\n \
+    \ - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json`\
     \ into `docs/screenshots.yml`\n  - `insert_screenshots_into_docs.py` inserts screenshots\
     \ by `target.doc` + `target.anchor`/`target.heading`\n  - fallback placement after\
     \ `h1` for unresolved section headings\n  - unresolved targets are reported in\
-    \ `reports/screenshot_injection_report.json` under `needs_review`\n- terminology\
-    \ governance:\n  - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)\n\
-    - multi-language examples standard:\n  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n\
-    \  - `check_code_examples_smoke.py` (including `expected-output` comparison for\
-    \ tagged blocks)\n- intent bundle assembly via `build_all_intent_experiences.py`\
-    \ when enabled in `runtime.custom_tasks.weekly`\n- Algolia search indexing (if\
-    \ enabled)\n  - generates Algolia records from docs\n  - uploads index records\n\
-    \  - applies advanced config from `advanced_config_path` (`settings`, `synonyms`,\
-    \ `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`\n- `custom_tasks.weekly`\
-    \ commands\n- consolidated report generation"
+    \ `reports/screenshot_injection_report.json` under `needs_review`"
   assistant_context: "Use this module when answering questions related to: Canonical\
     \ Flow (Sales + Delivery) (Part 5). Source path: operations/CANONICAL_FLOW.md.\
     \ Summary: Canonical sales and delivery flow for onboarding and operating client\
@@ -90,17 +84,11 @@ content:
     \ Postman mock endpoint\n- RAG/knowledge tasks:\n  - `extract_knowledge_modules_from_docs.py`\n\
     \  - `validate_knowledge_modules.py`\n  - `generate_knowledge_retrieval_index.py`\n\
     \  - `generate_knowledge_graph_jsonld.py`\n  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)\n\
-    - Screenshot placement tasks:\n  - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json`\
+    - Screenshot placement tasks:\n  - `generate_screenshot_capture_plan.py` auto-refreshes\
+    \ `docs/screenshots.capture.yml` from current docs tree\n  - `capture_screenshots.py`\
+    \ captures screenshots via Playwright using `docs/screenshots.capture.yml`\n \
+    \ - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json`\
     \ into `docs/screenshots.yml`\n  - `insert_screenshots_into_docs.py` inserts screenshots\
     \ by `target.doc` + `target.anchor`/`target.heading`\n  - fallback placement after\
     \ `h1` for unresolved section headings\n  - unresolved targets are reported in\
-    \ `reports/screenshot_injection_report.json` under `needs_review`\n- terminology\
-    \ governance:\n  - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)\n\
-    - multi-language examples standard:\n  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n\
-    \  - `check_code_examples_smoke.py` (including `expected-output` comparison for\
-    \ tagged blocks)\n- intent bundle assembly via `build_all_intent_experiences.py`\
-    \ when enabled in `runtime.custom_tasks.weekly`\n- Algolia search indexing (if\
-    \ enabled)\n  - generates Algolia records from docs\n  - uploads index records\n\
-    \  - applies advanced config from `advanced_config_path` (`settings`, `synonyms`,\
-    \ `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`\n- `custom_tasks.weekly`\
-    \ commands\n- consolidated report generation"
+    \ `reports/screenshot_injection_report.json` under `needs_review`"
