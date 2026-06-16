@@ -1042,6 +1042,7 @@ def _extract_llm_analysis(llm_summary: dict[str, Any]) -> dict[str, Any]:
     risks = analysis.get("risks", []) if isinstance(analysis.get("risks"), list) else []
     limitations = analysis.get("limitations", []) if isinstance(analysis.get("limitations"), list) else []
     prioritized_actions = analysis.get("prioritized_actions", []) if isinstance(analysis.get("prioritized_actions"), list) else []
+    automation_first = analysis.get("automation_first", []) if isinstance(analysis.get("automation_first"), list) else []
     return {
         "executive_summary": str(analysis.get("executive_summary", "")).strip(),
         "strengths": [str(item).strip() for item in strengths if str(item).strip()],
@@ -1056,6 +1057,7 @@ def _extract_llm_analysis(llm_summary: dict[str, Any]) -> dict[str, Any]:
             for item in prioritized_actions
             if isinstance(item, dict) and str(item.get("action", "")).strip()
         ],
+        "automation_first": [str(item).strip() for item in automation_first if str(item).strip()],
     }
 
 
@@ -1155,34 +1157,151 @@ def _sales_key_findings(
     return fallback
 
 
-def _sales_next_steps(scorecard_payload: dict[str, Any], llm_analysis: dict[str, Any]) -> list[dict[str, str]]:
-    """Build short prioritized actions for the sales teardown."""
-    prioritized = llm_analysis.get("prioritized_actions", [])
+def _public_audit_priority_actions(public_metrics: dict[str, Any]) -> list[dict[str, str]]:
+    """Build site-specific actions from public audit metrics first."""
     actions: list[dict[str, str]] = []
+
+    broken_links = int(public_metrics.get("confirmed_broken_links_count", 0) or 0)
+    seo_issue_pct = float(public_metrics.get("seo_geo_issue_pct", 0.0) or 0.0)
+    example_reliability = float(public_metrics.get("example_reliability_pct", 0.0) or 0.0)
+    freshness_coverage = float(public_metrics.get("freshness_metadata_pct", 0.0) or 0.0)
+    api_coverage = float(public_metrics.get("api_coverage_pct", 0.0) or 0.0)
+
+    if broken_links > 0:
+        actions.append(
+            {
+                "title": f"Fix {broken_links} confirmed broken internal links in the public docs path first.",
+                "impact": "high",
+                "effort": "2.0h est.",
+            }
+        )
+    if seo_issue_pct >= 20.0:
+        actions.append(
+            {
+                "title": f"Rewrite pages failing SEO/GEO structural checks and reduce issue coverage from {round(seo_issue_pct, 1)}%.",
+                "impact": "high",
+                "effort": "4.0h est.",
+            }
+        )
+    if example_reliability < 60.0:
+        actions.append(
+            {
+                "title": "Replace non-runnable or placeholder-heavy examples in the public docs surface.",
+                "impact": "medium",
+                "effort": "3.0h est.",
+            }
+        )
+    if freshness_coverage < 50.0:
+        actions.append(
+            {
+                "title": f"Add last-reviewed metadata to pages until freshness coverage exceeds {round(freshness_coverage, 1)}%.",
+                "impact": "medium",
+                "effort": "2.0h est.",
+            }
+        )
+    if api_coverage > 0.0 and api_coverage < 80.0:
+        actions.append(
+            {
+                "title": f"Backfill missing public API coverage and raise reference coverage from {round(api_coverage, 1)}%.",
+                "impact": "medium",
+                "effort": "5.0h est.",
+            }
+        )
+    return actions
+
+
+def _sales_next_steps(
+    scorecard_payload: dict[str, Any],
+    public_metrics: dict[str, Any],
+    llm_analysis: dict[str, Any],
+) -> list[dict[str, str]]:
+    """Build short prioritized actions for the sales teardown."""
+    actions: list[dict[str, str]] = []
+    prioritized = llm_analysis.get("prioritized_actions", [])
     for item in prioritized[:3]:
         if not isinstance(item, dict):
             continue
-        actions.append(
-            {
-                "title": str(item.get("action", "")).strip(),
-                "impact": str(item.get("impact", "")).strip() or "high",
-                "effort": str(item.get("effort", "")).strip() or "medium",
-            }
-        )
-    if actions:
-        return actions
+        candidate = {
+            "title": str(item.get("action", "")).strip(),
+            "impact": str(item.get("impact", "")).strip() or "high",
+            "effort": str(item.get("effort", "")).strip() or "medium",
+        }
+        if candidate["title"] and all(candidate["title"] != existing["title"] for existing in actions):
+            actions.append(candidate)
+    if len(actions) >= 3:
+        return actions[:3]
+
+    for candidate in _public_audit_priority_actions(public_metrics):
+        if candidate["title"] and all(candidate["title"] != existing["title"] for existing in actions):
+            actions.append(candidate)
+    if len(actions) >= 3:
+        return actions[:3]
+
     findings = scorecard_payload.get("findings", [])
     for item in findings[:3] if isinstance(findings, list) else []:
         if not isinstance(item, dict):
             continue
-        actions.append(
-            {
-                "title": str(item.get("note", "")).strip() or str(item.get("title", "")).strip(),
-                "impact": str(item.get("severity", "")).strip() or "medium",
-                "effort": f"{item.get('effort_hours_base', 0)}h est.",
-            }
-        )
-    return actions
+        candidate = {
+            "title": str(item.get("note", "")).strip() or str(item.get("title", "")).strip(),
+            "impact": str(item.get("severity", "")).strip() or "medium",
+            "effort": f"{item.get('effort_hours_base', 0)}h est.",
+        }
+        if candidate["title"] and all(candidate["title"] != existing["title"] for existing in actions):
+            actions.append(candidate)
+    return actions[:3]
+
+
+def _sales_automation_priorities(
+    scorecard_payload: dict[str, Any],
+    public_metrics: dict[str, Any],
+    llm_analysis: dict[str, Any],
+) -> list[str]:
+    """Map real audit findings to the automation layer that should be added first."""
+    llm_priorities = llm_analysis.get("automation_first", [])
+    if isinstance(llm_priorities, list):
+        normalized = [str(item).strip() for item in llm_priorities if str(item).strip()]
+        if normalized:
+            return normalized[:3]
+
+    finding_map = {
+        "layer_completeness": "Add doc-layer coverage checks so concept, how-to, and reference gaps are blocked before publish.",
+        "freshness_lifecycle": "Add weekly freshness and lifecycle automation so stale pages are queued and reviewed on schedule.",
+        "retrieval_quality_control": "Add retrieval evals and index-quality gates so AI-facing answers are measured before rollout.",
+        "api_coverage_sync": "Add API drift and reference generation automation so contract changes update docs before gaps accumulate.",
+        "example_execution_quality": "Add snippet smoke and expected-output checks so broken examples fail before release.",
+        "drift_contract_visibility": "Add docs-contract drift reporting so code changes stop outpacing reference docs.",
+        "terminology_governance": "Add glossary sync and terminology governance so the published language stays consistent across surfaces.",
+    }
+    priorities: list[str] = []
+    findings = scorecard_payload.get("findings", [])
+    for item in findings:
+        if not isinstance(item, dict):
+            continue
+        capability_id = str(item.get("capability_id", "")).strip()
+        mapped = finding_map.get(capability_id)
+        if mapped and mapped not in priorities:
+            priorities.append(mapped)
+        if len(priorities) >= 3:
+            return priorities
+
+    if int(public_metrics.get("confirmed_broken_links_count", 0) or 0) > 0:
+        priorities.append("Add scheduled link health checks so broken internal navigation is caught before users hit dead ends.")
+    if float(public_metrics.get("seo_geo_issue_pct", 0.0) or 0.0) >= 20.0:
+        priorities.append("Add SEO/GEO structural checks so weak headings, metadata, and answer-first formatting are fixed automatically.")
+    if float(public_metrics.get("freshness_metadata_pct", 0.0) or 0.0) < 50.0:
+        priorities.append("Add metadata enforcement for last-reviewed coverage so stale content is visible and measurable.")
+
+    fallback = [
+        "Add scheduled docs quality checks for link health, freshness, and layer completeness.",
+        "Add docs-contract visibility so code changes stop outpacing reference docs.",
+        "Add retrieval quality controls so AI-facing documentation quality is measured, not assumed.",
+    ]
+    for item in fallback:
+        if item not in priorities:
+            priorities.append(item)
+        if len(priorities) >= 3:
+            break
+    return priorities[:3]
 
 
 def _build_sales_teardown_payload(
@@ -1215,15 +1334,11 @@ def _build_sales_teardown_payload(
         },
         "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
         "key_findings": key_findings,
-        "priority_actions": _sales_next_steps(scorecard_payload, llm_analysis),
+        "priority_actions": _sales_next_steps(scorecard_payload, public_metrics, llm_analysis),
         "strengths": llm_analysis.get("strengths", [])[:3],
         "risks": llm_analysis.get("risks", [])[:4],
         "limitations": llm_analysis.get("limitations", [])[:3],
-        "automation_first": [
-            "Scheduled docs quality checks for link health, freshness, and layer completeness.",
-            "Drift and docs-contract visibility so code changes stop outpacing reference docs.",
-            "RAG-ready normalization and retrieval quality controls for AI-facing documentation.",
-        ],
+        "automation_first": _sales_automation_priorities(scorecard_payload, public_metrics, llm_analysis),
         "commercial_snapshot": {
             "monthly_loss_usd_base_total": float(findings_totals.get("monthly_loss_usd_base_total", 0.0) or 0.0),
             "remediation_cost_usd_base_total": float(findings_totals.get("remediation_cost_usd_base_total", 0.0) or 0.0),
