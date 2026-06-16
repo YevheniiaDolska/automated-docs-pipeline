@@ -1053,12 +1053,56 @@ def _extract_llm_analysis(llm_summary: dict[str, Any]) -> dict[str, Any]:
                 "action": str(item.get("action", "")).strip(),
                 "impact": str(item.get("impact", "")).strip(),
                 "effort": str(item.get("effort", "")).strip(),
+                "expected_value": str(item.get("expected_value", "")).strip(),
+                "confidence": str(item.get("confidence", "")).strip(),
+                "why_this_first": str(item.get("why_this_first", "")).strip(),
             }
             for item in prioritized_actions
             if isinstance(item, dict) and str(item.get("action", "")).strip()
         ],
         "automation_first": [str(item).strip() for item in automation_first if str(item).strip()],
     }
+
+
+def _priority_bucket_score(value: str, *, inverse: bool = False) -> float:
+    """Convert qualitative priority buckets into sortable numeric weights."""
+    mapping = {
+        "critical": 4.0,
+        "high": 3.0,
+        "medium": 2.0,
+        "low": 1.0,
+    }
+    normalized = str(value or "").strip().lower()
+    base = mapping.get(normalized, 0.0)
+    if not inverse:
+        return base
+    inverse_mapping = {
+        "low": 4.0,
+        "medium": 2.5,
+        "high": 1.0,
+    }
+    return inverse_mapping.get(normalized, 0.0)
+
+
+def _llm_action_priority_score(action: dict[str, str]) -> float:
+    """Rank LLM actions by expected near-term value, then impact, then effort."""
+    return (
+        _priority_bucket_score(action.get("expected_value", ""))
+        * 4.0
+        + _priority_bucket_score(action.get("impact", "")) * 2.0
+        + _priority_bucket_score(action.get("confidence", "")) * 1.5
+        + _priority_bucket_score(action.get("effort", ""), inverse=True)
+    )
+
+
+def _finding_priority_score(item: dict[str, Any]) -> float:
+    """Estimate value-per-effort so deterministic fallback favors likely ROI-first fixes."""
+    monthly_loss = float(item.get("estimated_monthly_loss_usd_base", 0.0) or 0.0)
+    effort_hours = max(1.0, float(item.get("effort_hours_base", 0.0) or 1.0))
+    confidence = _priority_bucket_score(str(item.get("estimation_confidence", "")))
+    severity = _priority_bucket_score(str(item.get("severity", "")))
+    recommended_window = max(1.0, float(item.get("recommended_window_days", 30) or 30.0))
+    return (monthly_loss / effort_hours) + (confidence * 120.0) + (severity * 80.0) + (30.0 / recommended_window) * 20.0
 
 
 def _sales_signal_cards(
@@ -1173,6 +1217,9 @@ def _public_audit_priority_actions(public_metrics: dict[str, Any]) -> list[dict[
                 "title": f"Fix {broken_links} confirmed broken internal links in the public docs path first.",
                 "impact": "high",
                 "effort": "2.0h est.",
+                "expected_value": "high",
+                "confidence": "high",
+                "why_this_first": "Broken navigation blocks self-serve progress immediately and is usually cheap to recover.",
             }
         )
     if seo_issue_pct >= 20.0:
@@ -1181,6 +1228,9 @@ def _public_audit_priority_actions(public_metrics: dict[str, Any]) -> list[dict[
                 "title": f"Rewrite pages failing SEO/GEO structural checks and reduce issue coverage from {round(seo_issue_pct, 1)}%.",
                 "impact": "high",
                 "effort": "4.0h est.",
+                "expected_value": "high",
+                "confidence": "medium",
+                "why_this_first": "This improves answerability, discoverability, and onboarding quality across many pages at once.",
             }
         )
     if example_reliability < 60.0:
@@ -1189,6 +1239,9 @@ def _public_audit_priority_actions(public_metrics: dict[str, Any]) -> list[dict[
                 "title": "Replace non-runnable or placeholder-heavy examples in the public docs surface.",
                 "impact": "medium",
                 "effort": "3.0h est.",
+                "expected_value": "high",
+                "confidence": "medium",
+                "why_this_first": "Runnable examples remove implementation friction faster than broad copy edits when users are actively integrating.",
             }
         )
     if freshness_coverage < 50.0:
@@ -1197,6 +1250,9 @@ def _public_audit_priority_actions(public_metrics: dict[str, Any]) -> list[dict[
                 "title": f"Add last-reviewed metadata to pages until freshness coverage exceeds {round(freshness_coverage, 1)}%.",
                 "impact": "medium",
                 "effort": "2.0h est.",
+                "expected_value": "medium",
+                "confidence": "medium",
+                "why_this_first": "Freshness visibility helps users trust the docs and lets teams prioritize stale pages with less manual triage.",
             }
         )
     if api_coverage > 0.0 and api_coverage < 80.0:
@@ -1205,8 +1261,12 @@ def _public_audit_priority_actions(public_metrics: dict[str, Any]) -> list[dict[
                 "title": f"Backfill missing public API coverage and raise reference coverage from {round(api_coverage, 1)}%.",
                 "impact": "medium",
                 "effort": "5.0h est.",
+                "expected_value": "high",
+                "confidence": "medium",
+                "why_this_first": "Coverage gaps create repeated support demand and slow time-to-first-success for technical evaluators.",
             }
         )
+    actions.sort(key=_llm_action_priority_score, reverse=True)
     return actions
 
 
@@ -1218,13 +1278,21 @@ def _sales_next_steps(
     """Build short prioritized actions for the sales teardown."""
     actions: list[dict[str, str]] = []
     prioritized = llm_analysis.get("prioritized_actions", [])
-    for item in prioritized[:3]:
+    prioritized_sorted = sorted(
+        [item for item in prioritized if isinstance(item, dict)],
+        key=_llm_action_priority_score,
+        reverse=True,
+    )
+    for item in prioritized_sorted[:5]:
         if not isinstance(item, dict):
             continue
         candidate = {
             "title": str(item.get("action", "")).strip(),
             "impact": str(item.get("impact", "")).strip() or "high",
             "effort": str(item.get("effort", "")).strip() or "medium",
+            "expected_value": str(item.get("expected_value", "")).strip() or "medium",
+            "confidence": str(item.get("confidence", "")).strip() or "medium",
+            "why_this_first": str(item.get("why_this_first", "")).strip(),
         }
         if candidate["title"] and all(candidate["title"] != existing["title"] for existing in actions):
             actions.append(candidate)
@@ -1238,13 +1306,20 @@ def _sales_next_steps(
         return actions[:3]
 
     findings = scorecard_payload.get("findings", [])
-    for item in findings[:3] if isinstance(findings, list) else []:
+    sorted_findings = sorted(findings if isinstance(findings, list) else [], key=_finding_priority_score, reverse=True)
+    for item in sorted_findings[:5]:
         if not isinstance(item, dict):
             continue
         candidate = {
             "title": str(item.get("note", "")).strip() or str(item.get("title", "")).strip(),
             "impact": str(item.get("severity", "")).strip() or "medium",
             "effort": f"{item.get('effort_hours_base', 0)}h est.",
+            "expected_value": "high" if float(item.get("estimated_monthly_loss_usd_base", 0.0) or 0.0) >= 500.0 else "medium",
+            "confidence": str(item.get("estimation_confidence", "")).strip() or "medium",
+            "why_this_first": (
+                f"Estimated monthly loss is ${round(float(item.get('estimated_monthly_loss_usd_base', 0.0) or 0.0))} "
+                f"with about {float(item.get('effort_hours_base', 0.0) or 0.0):.1f}h of remediation effort."
+            ),
         }
         if candidate["title"] and all(candidate["title"] != existing["title"] for existing in actions):
             actions.append(candidate)
@@ -1263,18 +1338,53 @@ def _sales_automation_priorities(
         if normalized:
             return normalized[:3]
 
+    kpis = scorecard_payload.get("kpis", {}) if isinstance(scorecard_payload.get("kpis"), dict) else {}
+    layer_completeness = kpis.get("layer_completeness", {}) if isinstance(kpis.get("layer_completeness"), dict) else {}
+    freshness = kpis.get("freshness", {}) if isinstance(kpis.get("freshness"), dict) else {}
+    retrieval = kpis.get("retrieval_quality", {}) if isinstance(kpis.get("retrieval_quality"), dict) else {}
+    api_coverage = kpis.get("api_coverage", {}) if isinstance(kpis.get("api_coverage"), dict) else {}
+    example_reliability = kpis.get("example_reliability", {}) if isinstance(kpis.get("example_reliability"), dict) else {}
+
     finding_map = {
-        "layer_completeness": "Add doc-layer coverage checks so concept, how-to, and reference gaps are blocked before publish.",
-        "freshness_lifecycle": "Add weekly freshness and lifecycle automation so stale pages are queued and reviewed on schedule.",
-        "retrieval_quality_control": "Add retrieval evals and index-quality gates so AI-facing answers are measured before rollout.",
-        "api_coverage_sync": "Add API drift and reference generation automation so contract changes update docs before gaps accumulate.",
-        "example_execution_quality": "Add snippet smoke and expected-output checks so broken examples fail before release.",
-        "drift_contract_visibility": "Add docs-contract drift reporting so code changes stop outpacing reference docs.",
-        "terminology_governance": "Add glossary sync and terminology governance so the published language stays consistent across surfaces.",
+        "layer_completeness": (
+            "Add doc-layer coverage checks because "
+            f"{int(layer_completeness.get('features_missing_required_layers', 0) or 0)} features are missing required concept, how-to, or reference layers, "
+            "so new gaps are blocked before publish and fewer evaluators get stuck in incomplete journeys."
+        ),
+        "freshness_lifecycle": (
+            "Add weekly freshness and lifecycle automation because "
+            f"{int(freshness.get('missing_date_docs', 0) or 0)} docs are missing review dates and freshness coverage is "
+            f"{round(float(public_metrics.get('freshness_metadata_pct', 0.0) or 0.0), 1)}%, "
+            "so stale content can be queued before trust drops."
+        ),
+        "retrieval_quality_control": (
+            "Add retrieval evals and index-quality gates because retrieval precision is "
+            f"{round(float(retrieval.get('precision_at_k', 0.0) or 0.0) * 100.0, 1)}% "
+            f"and recall is {round(float(retrieval.get('recall_at_k', 0.0) or 0.0) * 100.0, 1)}%, "
+            "so AI-facing answers are measured before weak grounding reaches users."
+        ),
+        "api_coverage_sync": (
+            "Add API drift and reference-generation automation because public API coverage is "
+            f"{round(float(api_coverage.get('coverage_pct', 0.0) or 0.0), 1)}% with "
+            f"{int(api_coverage.get('undocumented_operations', 0) or 0)} undocumented operations, "
+            "so contract changes stop creating repeat support demand."
+        ),
+        "example_execution_quality": (
+            "Add snippet smoke and expected-output checks because example reliability is "
+            f"{round(float(example_reliability.get('reliable_pct', public_metrics.get('example_reliability_pct', 0.0)) or 0.0), 1)}%, "
+            "so broken examples fail before they derail implementation attempts."
+        ),
+        "drift_contract_visibility": (
+            "Add docs-contract drift reporting on every change so reference docs stop lagging behind shipped behavior and teams see mismatches before release."
+        ),
+        "terminology_governance": (
+            "Add glossary sync and terminology governance so inconsistent language stops fragmenting search, onboarding, and AI retrieval across the docs surface."
+        ),
     }
     priorities: list[str] = []
     findings = scorecard_payload.get("findings", [])
-    for item in findings:
+    sorted_findings = sorted(findings if isinstance(findings, list) else [], key=_finding_priority_score, reverse=True)
+    for item in sorted_findings:
         if not isinstance(item, dict):
             continue
         capability_id = str(item.get("capability_id", "")).strip()
@@ -1285,16 +1395,28 @@ def _sales_automation_priorities(
             return priorities
 
     if int(public_metrics.get("confirmed_broken_links_count", 0) or 0) > 0:
-        priorities.append("Add scheduled link health checks so broken internal navigation is caught before users hit dead ends.")
+        priorities.append(
+            "Add scheduled link health checks because "
+            f"{int(public_metrics.get('confirmed_broken_links_count', 0) or 0)} confirmed broken links are already blocking user navigation, "
+            "so dead-end journeys are caught before they hit high-intent readers."
+        )
     if float(public_metrics.get("seo_geo_issue_pct", 0.0) or 0.0) >= 20.0:
-        priorities.append("Add SEO/GEO structural checks so weak headings, metadata, and answer-first formatting are fixed automatically.")
+        priorities.append(
+            "Add SEO/GEO structural checks because "
+            f"{round(float(public_metrics.get('seo_geo_issue_pct', 0.0) or 0.0), 1)}% of sampled pages fail answer-first or metadata quality checks, "
+            "so discoverability and first-answer quality improve across the public surface."
+        )
     if float(public_metrics.get("freshness_metadata_pct", 0.0) or 0.0) < 50.0:
-        priorities.append("Add metadata enforcement for last-reviewed coverage so stale content is visible and measurable.")
+        priorities.append(
+            "Add metadata enforcement for review-date coverage because freshness metadata is present on only "
+            f"{round(float(public_metrics.get('freshness_metadata_pct', 0.0) or 0.0), 1)}% of pages, "
+            "so stale content becomes visible and measurable instead of silently aging."
+        )
 
     fallback = [
-        "Add scheduled docs quality checks for link health, freshness, and layer completeness.",
-        "Add docs-contract visibility so code changes stop outpacing reference docs.",
-        "Add retrieval quality controls so AI-facing documentation quality is measured, not assumed.",
+        "Add scheduled docs quality checks targeted at the measured weak points in this audit so repeated regressions are caught before publish.",
+        "Add docs-contract visibility around the highest-loss findings in this audit so code and reference drift stop compounding support demand.",
+        "Add retrieval quality controls tied to the concrete documentation gaps in this audit so AI-facing answer quality improves where users are already failing.",
     ]
     for item in fallback:
         if item not in priorities:
@@ -1393,7 +1515,8 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         (
             "<li>"
             f"<strong>{html.escape(str(item.get('title', '')))}</strong>"
-            f"<span>{html.escape(str(item.get('impact', '')))} impact · {html.escape(str(item.get('effort', '')))}</span>"
+            f"<span>{html.escape(str(item.get('expected_value', '')))} value · {html.escape(str(item.get('impact', '')))} impact · {html.escape(str(item.get('effort', '')))}</span>"
+            f"<p>{html.escape(str(item.get('why_this_first', '')))}</p>"
             "</li>"
         )
         for item in actions
