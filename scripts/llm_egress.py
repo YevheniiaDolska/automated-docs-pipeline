@@ -237,7 +237,7 @@ def ensure_external_allowed(
         )
         return False
 
-    approved = bool(approve_once)
+    approved = bool(approve_once) or not policy.require_explicit_approval
     approval_flag = reports_dir / ".external_llm_approved_for_run"
     if approve_for_run:
         approval_flag.write_text("approved\n", encoding="utf-8")

@@ -403,6 +403,7 @@ def _fetch(
     head_only: bool = False,
     _ua_idx: int = 0,
     extra_headers: dict[str, str] | None = None,
+    max_bytes: int = _MAX_FETCH_BYTES,
 ) -> tuple[int, str, str]:
     if not _is_http_url(url):
         return 0, "", ""
@@ -429,13 +430,25 @@ def _fetch(
             if head_only:
                 return status, content_type, ""
             try:
-                raw = resp.read()
+                content_length = int(str(resp.headers.get("Content-Length", "0") or "0"))
+            except ValueError:
+                content_length = 0
+            try:
+                raw = _read_limited_response(resp, max_bytes=max_bytes)
             except IncompleteRead as exc:
                 # Keep crawl resilient on flaky chunked responses:
                 # use the partial body instead of aborting the whole audit run.
                 raw = bytes(exc.partial or b"")
                 logger.debug(
                     "Partial HTTP body read for %s: got %d bytes", url, len(raw),
+                )
+            except MemoryError:
+                logger.warning("MemoryError while reading %s; skipping body", url)
+                return status, content_type, ""
+            if content_length > max_bytes or len(raw) >= max_bytes:
+                logger.debug(
+                    "Truncated large response for %s (content_length=%d, read=%d, limit=%d)",
+                    url, content_length, len(raw), max_bytes,
                 )
             # Handle gzip payloads in a robust way:
             # - explicit *.gz URLs,
@@ -449,9 +462,15 @@ def _fetch(
             if is_gzip_payload:
                 try:
                     raw = gzip.decompress(raw)
-                except (OSError, EOFError, ValueError) as exc:
+                    if len(raw) > max_bytes:
+                        raw = raw[:max_bytes]
+                except (OSError, EOFError, ValueError, MemoryError) as exc:
                     logger.debug("Failed to decompress gzip payload for %s: %s", url, exc)
-            body = raw.decode("utf-8", errors="ignore")
+            try:
+                body = raw.decode("utf-8", errors="ignore")
+            except MemoryError:
+                logger.warning("MemoryError while decoding %s; skipping body", url)
+                return status, content_type, ""
             return status, content_type, body
     except HTTPError as exc:
         code = int(exc.code)
@@ -462,7 +481,14 @@ def _fetch(
                 return 200, "text/html", ""  # redirect = alive
             if location and not head_only:
                 try:
-                    return _fetch(location, timeout, head_only=False, _ua_idx=_ua_idx, extra_headers=extra_headers)
+                    return _fetch(
+                        location,
+                        timeout,
+                        head_only=False,
+                        _ua_idx=_ua_idx,
+                        extra_headers=extra_headers,
+                        max_bytes=max_bytes,
+                    )
                 except (RuntimeError, ValueError, TypeError, OSError) as redir_exc:  # noqa: BLE001
                     logger.debug(
                         "Redirect fetch failed for %s: %s", location, redir_exc,
@@ -512,6 +538,23 @@ _HIGHLIGHT_CLASS_PATTERN = re.compile(
     r"highlight|codehilite|prism-code|hljs|shiki|code-block|sourceCode",
     flags=re.IGNORECASE,
 )
+
+_MAX_FETCH_BYTES = 4 * 1024 * 1024
+_MAX_HTML_PARSE_CHARS = 2 * 1024 * 1024
+_FETCH_READ_CHUNK_BYTES = 256 * 1024
+
+
+def _read_limited_response(resp: Any, *, max_bytes: int) -> bytes:
+    """Read at most *max_bytes* from an HTTP response to avoid OOM on huge pages."""
+    chunks: list[bytes] = []
+    total = 0
+    while total < max_bytes:
+        chunk = resp.read(min(_FETCH_READ_CHUNK_BYTES, max_bytes - total))
+        if not chunk:
+            break
+        chunks.append(chunk)
+        total += len(chunk)
+    return b"".join(chunks)
 
 
 class _DocsHTMLParser(HTMLParser):
@@ -1690,11 +1733,14 @@ def _crawl_site(
             st, ct, body = _fetch(url, timeout, _ua_idx=_ua, extra_headers=auth_headers)
             if st < 200 or st >= 400 or "html" not in ct.lower():
                 return url, st, None, []
+            if len(body) > _MAX_HTML_PARSE_CHARS:
+                body = body[:_MAX_HTML_PARSE_CHARS]
             parser_html = _DocsHTMLParser(url)
             try:
                 parser_html.feed(body)
-            except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
+            except (RuntimeError, ValueError, TypeError, OSError, MemoryError):  # noqa: BLE001
                 # Never fail the whole crawl due to one malformed page.
+                logger.warning("Skipping parse for %s due to parser failure", url)
                 return url, st, None, []
             page = parser_html.as_page(url, st)
             return url, st, page, page.internal_links
@@ -2493,9 +2539,11 @@ def _autofill_assumptions_with_llm(
         "engineer_hourly_usd,support_hourly_usd,release_count_per_month,"
         "baseline_manual_sync_hours_per_week,avg_release_delay_hours,"
         "monthly_support_tickets,docs_related_ticket_share,avg_ticket_handling_minutes,"
+        "monthly_doc_influenced_evals,eval_to_customer_rate,avg_customer_monthly_value_usd,"
+        "docs_friction_revenue_sensitivity,"
         "assumptions_confidence_pct,provenance. "
         "Use realistic enterprise software ranges, do not invent precise facts. "
-        "Prefer conservative base-case values for B2B SaaS docs operations. "
+        "Prefer conservative base-case values for B2B SaaS docs operations and docs-influenced commercial risk. "
         "provenance must be an array of short strings describing rationale. "
         f"Company: {company_name}. Sites: {site_urls}. "
         f"Audit metrics: {json.dumps(aggregate_metrics, ensure_ascii=True)}"
@@ -2516,6 +2564,10 @@ def _autofill_assumptions_with_llm(
         "monthly_support_tickets": round(_clamp(out.get("monthly_support_tickets"), 20, 50000, 1200), 2),
         "docs_related_ticket_share": round(_clamp(out.get("docs_related_ticket_share"), 0.02, 0.8, 0.22), 4),
         "avg_ticket_handling_minutes": round(_clamp(out.get("avg_ticket_handling_minutes"), 5, 240, 25), 2),
+        "monthly_doc_influenced_evals": round(_clamp(out.get("monthly_doc_influenced_evals"), 5, 10000, 40), 2),
+        "eval_to_customer_rate": round(_clamp(out.get("eval_to_customer_rate"), 0.005, 0.5, 0.08), 4),
+        "avg_customer_monthly_value_usd": round(_clamp(out.get("avg_customer_monthly_value_usd"), 100, 100000, 2500), 2),
+        "docs_friction_revenue_sensitivity": round(_clamp(out.get("docs_friction_revenue_sensitivity"), 0.02, 0.9, 0.35), 4),
         "assumptions_confidence_pct": round(_clamp(out.get("assumptions_confidence_pct"), 20, 90, 55), 2),
         "provenance": out.get("provenance", []) if isinstance(out.get("provenance"), list) else [],
     }
@@ -3470,7 +3522,10 @@ def main() -> int:
                 profiles_dir=str(getattr(args, "assumptions_profiles_dir", "config/company_assumptions")),
             )
             assumptions_autofill_enabled = bool(getattr(args, "assumptions_autofill", False) or bool(getattr(args, "generate_pdf", False)))
-            if not assumptions_path and assumptions_autofill_enabled:
+            use_autofill = assumptions_autofill_enabled and (
+                not assumptions_path or Path(assumptions_path).name == "default.json"
+            )
+            if use_autofill:
                 llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
                 if not llm_api_key:
                     llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))

@@ -517,6 +517,10 @@ class CostAssumptions:
     monthly_support_tickets: float = 300.0
     docs_related_ticket_share: float = 0.25
     avg_ticket_handling_minutes: float = 18.0
+    monthly_doc_influenced_evals: float = 40.0
+    eval_to_customer_rate: float = 0.08
+    avg_customer_monthly_value_usd: float = 2500.0
+    docs_friction_revenue_sensitivity: float = 0.35
 
 
 def _load_assumptions(path: Path | None) -> CostAssumptions:
@@ -537,6 +541,12 @@ def _load_assumptions(path: Path | None) -> CostAssumptions:
         monthly_support_tickets=float(payload.get("monthly_support_tickets", defaults.monthly_support_tickets)),
         docs_related_ticket_share=float(payload.get("docs_related_ticket_share", defaults.docs_related_ticket_share)),
         avg_ticket_handling_minutes=float(payload.get("avg_ticket_handling_minutes", defaults.avg_ticket_handling_minutes)),
+        monthly_doc_influenced_evals=float(payload.get("monthly_doc_influenced_evals", defaults.monthly_doc_influenced_evals)),
+        eval_to_customer_rate=float(payload.get("eval_to_customer_rate", defaults.eval_to_customer_rate)),
+        avg_customer_monthly_value_usd=float(payload.get("avg_customer_monthly_value_usd", defaults.avg_customer_monthly_value_usd)),
+        docs_friction_revenue_sensitivity=float(
+            payload.get("docs_friction_revenue_sensitivity", defaults.docs_friction_revenue_sensitivity)
+        ),
     )
 
 
@@ -546,6 +556,14 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     drift_pct = float(kpis["drift"]["docs_contract_drift_pct"])
     example_reliability = float(kpis["example_reliability"]["example_reliability_pct"])
     terminology_violation_pct = float(kpis["terminology"]["terminology_violation_pct"])
+    layers_missing_pct = float(kpis["layer_completeness"]["features_missing_required_layers_pct"])
+    retrieval = kpis["retrieval_quality"]
+    retrieval_quality_pct = (
+        (float(retrieval["precision_at_k"]) * 100.0 + float(retrieval["recall_at_k"]) * 100.0) / 2.0
+        if retrieval.get("report_found")
+        else 65.0
+    )
+    hallucination_penalty_pct = float(retrieval["hallucination_rate"]) * 100.0 if retrieval.get("report_found") else 10.0
 
     rw = _pack_rt.get_risk_weights(_pack) if _pack_rt is not None else None
     if rw is None:
@@ -580,18 +598,46 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     )
     release_delay_hours = assumptions.release_count_per_month * assumptions.avg_release_delay_hours * risk_index
 
-    base_cost = engineering_hours * assumptions.engineer_hourly_usd + support_hours * assumptions.support_hourly_usd
+    operational_cost = engineering_hours * assumptions.engineer_hourly_usd + support_hours * assumptions.support_hourly_usd
+
+    commercial_friction_index = min(
+        max(
+            (
+                0.20 * (undocumented_pct / 100.0)
+                + 0.10 * (stale_pct / 100.0)
+                + 0.10 * (drift_pct / 100.0)
+                + 0.20 * (layers_missing_pct / 100.0)
+                + 0.20 * ((100.0 - example_reliability) / 100.0)
+                + 0.10 * ((100.0 - retrieval_quality_pct) / 100.0)
+                + 0.10 * (hallucination_penalty_pct / 100.0)
+            ),
+            0.0,
+        ),
+        1.0,
+    )
+    customers_at_risk = (
+        assumptions.monthly_doc_influenced_evals
+        * assumptions.eval_to_customer_rate
+        * assumptions.docs_friction_revenue_sensitivity
+        * commercial_friction_index
+    )
+    revenue_risk_usd = customers_at_risk * assumptions.avg_customer_monthly_value_usd
+    total_signal_usd = operational_cost + revenue_risk_usd
 
     def _scenario(multiplier: float) -> dict[str, float]:
         return {
-            "monthly_cost_usd": round(base_cost * multiplier, 2),
+            "monthly_cost_usd": round(operational_cost * multiplier, 2),
+            "revenue_risk_usd": round(revenue_risk_usd * multiplier, 2),
+            "total_signal_usd": round(total_signal_usd * multiplier, 2),
             "engineering_hours": round(engineering_hours * multiplier, 2),
             "support_hours": round(support_hours * multiplier, 2),
             "release_delay_hours": round(release_delay_hours * multiplier, 2),
+            "potential_customers_lost": round(customers_at_risk * multiplier, 2),
         }
 
     return {
         "risk_index_0_to_1": round(risk_index, 3),
+        "commercial_friction_index_0_to_1": round(commercial_friction_index, 3),
         "engineering_support_hours_lost_estimate": _scenario(1.0),
         "scenarios": {
             "conservative": _scenario(0.7),
@@ -1011,16 +1057,22 @@ def _capability_matrix() -> list[dict[str, Any]]:
 def _extract_public_audit_metrics(public_audit: dict[str, Any]) -> dict[str, Any]:
     """Extract stable public-audit metrics used by the sales teardown."""
     sites = public_audit.get("sites", [])
-    if not isinstance(sites, list) or not sites:
+    site = sites[0] if isinstance(sites, list) and sites and isinstance(sites[0], dict) else {}
+    site_metrics = site.get("metrics", {}) if isinstance(site.get("metrics"), dict) else {}
+    aggregate = public_audit.get("aggregate", {}) if isinstance(public_audit.get("aggregate"), dict) else {}
+    aggregate_metrics = aggregate.get("metrics", {}) if isinstance(aggregate.get("metrics"), dict) else {}
+    metrics = site_metrics or aggregate_metrics
+    if not metrics:
         return {}
-    site = sites[0] if isinstance(sites[0], dict) else {}
-    metrics = site.get("metrics", {}) if isinstance(site.get("metrics"), dict) else {}
     crawl = metrics.get("crawl", {}) if isinstance(metrics.get("crawl"), dict) else {}
     links = metrics.get("links", {}) if isinstance(metrics.get("links"), dict) else {}
-    coverage = metrics.get("coverage", {}) if isinstance(metrics.get("coverage"), dict) else {}
-    quality = metrics.get("quality", {}) if isinstance(metrics.get("quality"), dict) else {}
+    coverage = metrics.get("api_coverage", {}) if isinstance(metrics.get("api_coverage"), dict) else {}
+    quality = metrics.get("examples", {}) if isinstance(metrics.get("examples"), dict) else {}
     seo_geo = metrics.get("seo_geo", {}) if isinstance(metrics.get("seo_geo"), dict) else {}
-    metadata = metrics.get("metadata", {}) if isinstance(metrics.get("metadata"), dict) else {}
+    metadata = metrics.get("freshness", {}) if isinstance(metrics.get("freshness"), dict) else {}
+    retrieval = metrics.get("retrieval_readiness", {}) if isinstance(metrics.get("retrieval_readiness"), dict) else {}
+    evidence = metrics.get("evidence_coverage", {}) if isinstance(metrics.get("evidence_coverage"), dict) else {}
+    actionability = metrics.get("actionability", {}) if isinstance(metrics.get("actionability"), dict) else {}
     return {
         "site_url": str(site.get("site_url", public_audit.get("site_url", ""))).strip(),
         "pages_crawled": int(crawl.get("pages_crawled", 0) or 0),
@@ -1028,11 +1080,94 @@ def _extract_public_audit_metrics(public_audit: dict[str, Any]) -> dict[str, Any
         "crawl_coverage_pct": float(crawl.get("crawl_coverage_pct", 0.0) or 0.0),
         "confirmed_broken_links_count": int(links.get("confirmed_broken_links_count", 0) or 0),
         "unverified_links_count": int(links.get("unverified_links_count", 0) or 0),
-        "api_coverage_pct": float(coverage.get("api_reference_coverage_pct", 0.0) or 0.0),
-        "example_reliability_pct": float(quality.get("example_code_reliability_pct", 0.0) or 0.0),
-        "seo_geo_issue_pct": float(seo_geo.get("issue_page_pct", 0.0) or 0.0),
+        "api_coverage_pct": float(coverage.get("reference_coverage_pct", 0.0) or 0.0),
+        "api_pages_detected": int(coverage.get("api_pages_detected", 0) or 0),
+        "example_reliability_pct": float(quality.get("example_reliability_estimate_pct", 0.0) or 0.0),
+        "seo_geo_issue_pct": float(seo_geo.get("seo_geo_issue_rate_pct", 0.0) or 0.0),
         "freshness_metadata_pct": float(metadata.get("last_updated_coverage_pct", 0.0) or 0.0),
+        "retrieval_chunkability_pct": float(retrieval.get("chunkability_pct", 0.0) or 0.0),
+        "retrieval_answerability_pct": float(retrieval.get("answerability_pct", 0.0) or 0.0),
+        "retrieval_citationability_pct": float(retrieval.get("citationability_pct", 0.0) or 0.0),
+        "retrieval_stale_risk_pct": float(retrieval.get("stale_risk_pct", 0.0) or 0.0),
+        "evidence_coverage_pct": float(evidence.get("coverage_pct", 0.0) or 0.0),
+        "actionability_coverage_pct": float(actionability.get("coverage_pct", 0.0) or 0.0),
     }
+
+
+def _merge_kpis_with_public_audit(base_kpis: dict[str, Any], public_audit: dict[str, Any]) -> dict[str, Any]:
+    """Override repo-local KPI sources with site-specific public audit metrics when available."""
+    public_metrics = _extract_public_audit_metrics(public_audit)
+    if not public_metrics:
+        return base_kpis
+
+    pages_crawled = max(1, int(public_metrics.get("pages_crawled", 0) or 0))
+    api_coverage_pct = float(public_metrics.get("api_coverage_pct", 0.0) or 0.0)
+    example_reliability_pct = float(public_metrics.get("example_reliability_pct", 0.0) or 0.0)
+    freshness_coverage_pct = float(public_metrics.get("freshness_metadata_pct", 0.0) or 0.0)
+    retrieval_chunkability_pct = float(public_metrics.get("retrieval_chunkability_pct", 0.0) or 0.0)
+    retrieval_answerability_pct = float(public_metrics.get("retrieval_answerability_pct", 0.0) or 0.0)
+    retrieval_citationability_pct = float(public_metrics.get("retrieval_citationability_pct", 0.0) or 0.0)
+    retrieval_stale_risk_pct = float(public_metrics.get("retrieval_stale_risk_pct", 0.0) or 0.0)
+    evidence_coverage_pct = float(public_metrics.get("evidence_coverage_pct", 0.0) or 0.0)
+    actionability_coverage_pct = float(public_metrics.get("actionability_coverage_pct", 0.0) or 0.0)
+
+    merged = dict(base_kpis)
+    merged["api_coverage"] = {
+        "spec_found": True,
+        "total_operations": max(1, int(public_metrics.get("api_pages_detected", 0) or 0)),
+        "documented_operations": int(round(max(0.0, min(100.0, api_coverage_pct)) / 100.0 * max(1, int(public_metrics.get("api_pages_detected", 0) or 0)))),
+        "undocumented_operations": int(round((100.0 - max(0.0, min(100.0, api_coverage_pct))) / 100.0 * max(1, int(public_metrics.get("api_pages_detected", 0) or 0)))),
+        "coverage_pct": round(api_coverage_pct, 2),
+        "undocumented_pct": round(max(0.0, 100.0 - api_coverage_pct), 2),
+    }
+    merged["example_reliability"] = {
+        "report_found": True,
+        "report_path": "public-audit-proxy",
+        "executed_examples": pages_crawled,
+        "failed_examples": int(round((100.0 - max(0.0, min(100.0, example_reliability_pct))) / 100.0 * pages_crawled)),
+        "example_reliability_pct": round(example_reliability_pct, 2),
+    }
+    merged["freshness"] = {
+        "total_docs": pages_crawled,
+        "dated_docs": int(round((freshness_coverage_pct / 100.0) * pages_crawled)),
+        "missing_date_docs": int(round(((100.0 - freshness_coverage_pct) / 100.0) * pages_crawled)),
+        "average_age_days": float(base_kpis.get("freshness", {}).get("average_age_days", 0.0) or 0.0),
+        "median_age_days": float(base_kpis.get("freshness", {}).get("median_age_days", 0.0) or 0.0),
+        "stale_days_threshold": int(base_kpis.get("freshness", {}).get("stale_days_threshold", 180) or 180),
+        "stale_docs_count": int(round((retrieval_stale_risk_pct / 100.0) * pages_crawled)),
+        "stale_docs_pct": round(retrieval_stale_risk_pct, 2),
+    }
+    merged["drift"] = {
+        "docs_contract_report_found": True,
+        "api_drift_report_found": False,
+        "docs_contract_mismatch_count": int(round(((100.0 - evidence_coverage_pct) / 100.0) * pages_crawled)),
+        "docs_contract_interface_count": pages_crawled,
+        "docs_contract_drift_pct": round(max(0.0, 100.0 - evidence_coverage_pct), 2),
+        "api_drift_status": "public-audit-proxy",
+    }
+    missing_layers_pct = max(0.0, 100.0 - actionability_coverage_pct)
+    merged["layer_completeness"] = {
+        "required_layers": ["concept", "how-to", "reference"],
+        "total_features": pages_crawled,
+        "features_missing_required_layers": int(round((missing_layers_pct / 100.0) * pages_crawled)),
+        "features_missing_required_layers_pct": round(missing_layers_pct, 2),
+        "sample_missing_features": [],
+    }
+    merged["retrieval_quality"] = {
+        "report_found": True,
+        "status": "public-audit-proxy",
+        "precision_at_k": round(retrieval_chunkability_pct / 100.0, 4),
+        "recall_at_k": round(min(retrieval_answerability_pct, retrieval_citationability_pct) / 100.0, 4),
+        "hallucination_rate": round(max(0.0, min(1.0, (100.0 - evidence_coverage_pct) / 100.0)), 4),
+        "top_k": 3,
+    }
+    merged["terminology"] = {
+        "glossary_found": False,
+        "forbidden_term_occurrences": int(round((max(0.0, public_metrics.get("seo_geo_issue_pct", 0.0) or 0.0) / 100.0) * pages_crawled * 0.25)),
+        "terminology_violation_pct": round(max(0.0, min(100.0, (public_metrics.get("seo_geo_issue_pct", 0.0) or 0.0) * 0.4)), 2),
+        "terminology_consistency_pct": round(100.0 - max(0.0, min(100.0, (public_metrics.get("seo_geo_issue_pct", 0.0) or 0.0) * 0.4)), 2),
+    }
+    return merged
 
 
 def _extract_llm_analysis(llm_summary: dict[str, Any]) -> dict[str, Any]:
@@ -1452,7 +1587,7 @@ def _build_sales_teardown_payload(
             "crawl_coverage_pct": float(public_metrics.get("crawl_coverage_pct", 0.0) or 0.0),
             "broken_links_count": int(public_metrics.get("confirmed_broken_links_count", broken_links.get("totals", {}).get("docs_broken_links_count", 0)) or 0),
             "unverified_links_count": int(public_metrics.get("unverified_links_count", 0) or 0),
-            "estimated_monthly_cost_usd": float(base_impact.get("monthly_cost_usd", 0.0) or 0.0),
+            "estimated_monthly_cost_usd": float(base_impact.get("total_signal_usd", base_impact.get("monthly_cost_usd", 0.0)) or 0.0),
         },
         "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
         "key_findings": key_findings,
@@ -1934,7 +2069,10 @@ def _build_html(payload: dict[str, Any]) -> str:
         <tr><td>Engineering hours lost</td><td>{impact['engineering_hours']} h</td></tr>
         <tr><td>Support hours burden</td><td>{impact['support_hours']} h</td></tr>
         <tr><td>Release delay risk</td><td>{impact['release_delay_hours']} h</td></tr>
-        <tr><td>Opportunity cost</td><td>${impact['monthly_cost_usd']}</td></tr>
+        <tr><td>Operational cost</td><td>${impact['monthly_cost_usd']}</td></tr>
+        <tr><td>Revenue at risk</td><td>${impact.get('revenue_risk_usd', 0)}</td></tr>
+        <tr><td>Potential customers lost</td><td>{impact.get('potential_customers_lost', 0)}</td></tr>
+        <tr><td>Total monthly signal</td><td>${impact.get('total_signal_usd', impact['monthly_cost_usd'])}</td></tr>
       </table>
       <p class="foot">Per-finding totals (low/base/high): remediation ${findings_totals.get('remediation_cost_usd_low_total', 0)} / ${findings_totals.get('remediation_cost_usd_base_total', 0)} / ${findings_totals.get('remediation_cost_usd_high_total', 0)}, monthly loss ${findings_totals.get('monthly_loss_usd_low_total', 0)} / ${findings_totals.get('monthly_loss_usd_base_total', 0)} / ${findings_totals.get('monthly_loss_usd_high_total', 0)}.</p>
       <p class="foot">Fixability coverage: pilot can close {findings_totals.get('pilot_fixable_count', 0)} of {findings_totals.get('findings_count', 0)} findings; full implementation can close {findings_totals.get('full_fixable_count', 0)} of {findings_totals.get('findings_count', 0)}.</p>
@@ -2007,6 +2145,8 @@ def main() -> int:
     docs_dir = Path(args.docs_dir)
     reports_dir = Path(args.reports_dir)
     reports_dir.mkdir(parents=True, exist_ok=True)
+    public_audit_path = _resolve_optional_report_path(args.public_audit_json)
+    public_audit = _read_json(public_audit_path) if public_audit_path else {}
 
     kpis = {
         "api_coverage": _api_coverage_metrics(docs_dir, Path(args.spec_path)),
@@ -2017,10 +2157,13 @@ def main() -> int:
         "retrieval_quality": _retrieval_metrics(reports_dir),
         "terminology": _terminology_metrics(docs_dir, Path(args.glossary_path), reports_dir),
     }
+    if public_audit:
+        kpis = _merge_kpis_with_public_audit(kpis, public_audit)
     assumptions = _load_assumptions(Path(args.assumptions_json) if str(args.assumptions_json).strip() else None)
     findings = _build_findings(kpis, assumptions)
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "source_mode": "external_public_audit_bundle" if public_audit else "repo_local_docs",
         "score": _overall_score(kpis),
         "kpis": kpis,
         "business_impact": _business_impact(kpis, assumptions),
@@ -2038,7 +2181,6 @@ def main() -> int:
     json_out.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
     html_out.write_text(_build_html(payload), encoding="utf-8")
 
-    public_audit_path = _resolve_optional_report_path(args.public_audit_json)
     broken_links_path = _resolve_optional_report_path(args.public_broken_links_json)
     llm_summary_path = _resolve_optional_report_path(args.llm_summary_json)
     sales_json_out = (
