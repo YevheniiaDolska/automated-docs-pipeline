@@ -6,15 +6,18 @@ from __future__ import annotations
 import argparse
 import gzip
 import hashlib
+import heapq
 import html
 from http.client import IncompleteRead
 import json
 import logging
 import os
 import re
+import sqlite3
 import subprocess
 import sys
 import statistics
+import tempfile
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
@@ -93,6 +96,7 @@ _MAX_TEXT_CHUNKS_PER_PAGE = 5000
 _MAX_TEXT_CHARS_PER_PAGE = 200_000
 _MAX_LINKS_PER_PAGE = 1_500
 _MAX_LINK_HEALTH_CHECKS = 60_000
+_LINK_CHECK_BATCH_SIZE = 500
 _MAX_CODE_BUFFER_CHARS = 400_000
 _MAX_CODE_BLOCK_CHARS = 100_000
 _MAX_CODE_BLOCKS_PER_PAGE = 300
@@ -358,6 +362,144 @@ def _deterministic_link_sample(urls: set[str], limit: int) -> set[str]:
         key=lambda u: hashlib.sha1(u.encode("utf-8", errors="ignore")).hexdigest(),
     )
     return set(ranked[:limit])
+
+
+def _sha1_rank(url: str) -> int:
+    return int(hashlib.sha1(url.encode("utf-8", errors="ignore")).hexdigest(), 16)
+
+
+def _sample_urls_streaming(urls: Any, limit: int) -> list[str]:
+    """Select a deterministic sample without materializing every candidate in RAM."""
+    if limit <= 0:
+        return []
+    heap: list[tuple[int, str]] = []
+    for url in urls:
+        rank = _sha1_rank(url)
+        item = (-rank, url)
+        if len(heap) < limit:
+            heapq.heappush(heap, item)
+            continue
+        if item > heap[0]:
+            heapq.heapreplace(heap, item)
+    return sorted(url for _, url in heap)
+
+
+class _LinkAuditStore:
+    """Disk-backed unique-link store for large audits."""
+
+    def __init__(self) -> None:
+        fd, path = tempfile.mkstemp(prefix="public-docs-link-audit-", suffix=".sqlite3")
+        os.close(fd)
+        self._path = path
+        self._conn = sqlite3.connect(self._path)
+        self._conn.execute("PRAGMA journal_mode=OFF")
+        self._conn.execute("PRAGMA synchronous=OFF")
+        self._conn.execute("PRAGMA temp_store=FILE")
+        self._conn.execute(
+            "CREATE TABLE links (url TEXT PRIMARY KEY)"
+        )
+        self._conn.execute(
+            "CREATE TABLE provenance ("
+            " url TEXT NOT NULL,"
+            " source_page TEXT NOT NULL,"
+            " anchor_text TEXT NOT NULL,"
+            " PRIMARY KEY (url, source_page, anchor_text)"
+            ")"
+        )
+        self._conn.execute(
+            "CREATE INDEX idx_provenance_url ON provenance(url)"
+        )
+
+    def close(self) -> None:
+        try:
+            self._conn.close()
+        finally:
+            try:
+                os.remove(self._path)
+            except OSError:
+                logger.debug("Failed to remove temp link-audit store: %s", self._path)
+
+    def add_page(self, page: PageData) -> None:
+        if page.internal_links:
+            self._conn.executemany(
+                "INSERT OR IGNORE INTO links(url) VALUES (?)",
+                ((link,) for link in page.internal_links if str(link).strip()),
+            )
+        if page.internal_link_refs:
+            self._conn.executemany(
+                "INSERT OR IGNORE INTO provenance(url, source_page, anchor_text) VALUES (?, ?, ?)",
+                (
+                    (
+                        str(ref.get("url", "")).strip(),
+                        page.url,
+                        str(ref.get("anchor_text", "")).strip(),
+                    )
+                    for ref in page.internal_link_refs
+                    if str(ref.get("url", "")).strip()
+                ),
+            )
+
+    def commit(self) -> None:
+        self._conn.commit()
+
+    def unique_count(self) -> int:
+        row = self._conn.execute("SELECT COUNT(*) FROM links").fetchone()
+        return int(row[0] if row else 0)
+
+    def iter_links(self, batch_size: int = _LINK_CHECK_BATCH_SIZE) -> Any:
+        cursor = self._conn.execute("SELECT url FROM links ORDER BY url")
+        while True:
+            rows = cursor.fetchmany(batch_size)
+            if not rows:
+                break
+            for (url,) in rows:
+                yield str(url)
+
+    def provenance_for(self, url: str, limit: int = 5) -> list[dict[str, str]]:
+        rows = self._conn.execute(
+            "SELECT source_page, anchor_text FROM provenance WHERE url = ? ORDER BY source_page, anchor_text LIMIT ?",
+            (url, int(limit)),
+        ).fetchall()
+        return [
+            {"source_page": str(source_page), "anchor_text": str(anchor_text)}
+            for source_page, anchor_text in rows
+            if str(source_page).strip()
+        ]
+
+
+def _build_link_audit_store(pages: list[PageData]) -> _LinkAuditStore:
+    store = _LinkAuditStore()
+    for page in pages:
+        store.add_page(page)
+    store.commit()
+    return store
+
+
+def _select_unchecked_links(
+    store: _LinkAuditStore,
+    status_map: dict[str, int],
+    limit: int,
+) -> tuple[int, list[str]]:
+    sample_buffer: list[str] = []
+    sample_heap: list[tuple[int, str]] = []
+    total_unchecked = 0
+    for url in store.iter_links():
+        if url in status_map:
+            continue
+        total_unchecked += 1
+        if total_unchecked <= limit:
+            sample_buffer.append(url)
+            continue
+        if total_unchecked == limit + 1:
+            sample_heap = [(-_sha1_rank(candidate), candidate) for candidate in sample_buffer]
+            heapq.heapify(sample_heap)
+            sample_buffer = []
+        item = (-_sha1_rank(url), url)
+        if item > sample_heap[0]:
+            heapq.heapreplace(sample_heap, item)
+    if total_unchecked <= limit:
+        return total_unchecked, sample_buffer
+    return total_unchecked, sorted(url for _, url in sample_heap)
 
 
 def _sanitize_url(url: str) -> str:
@@ -1326,6 +1468,79 @@ def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str,
     }
 
 
+def _link_health_from_store(store: _LinkAuditStore, status_map: dict[str, int]) -> dict[str, Any]:
+    broken: list[str] = []
+    unverified: list[str] = []
+    excluded: list[str] = []
+    docs_broken: list[str] = []
+    repo_broken: list[str] = []
+    docs_unverified: list[str] = []
+    repo_unverified: list[str] = []
+    docs_broken_samples: list[str] = []
+    repo_broken_samples: list[str] = []
+    unverified_samples: list[str] = []
+    excluded_samples: list[str] = []
+    broken_provenance: dict[str, list[dict[str, str]]] = {}
+    internal_links_checked = 0
+    unreachable_count = 0
+
+    for url in store.iter_links():
+        internal_links_checked += 1
+        if _is_excluded_link(url):
+            excluded.append(url)
+            if len(excluded_samples) < 30:
+                excluded_samples.append(url)
+            continue
+        st = int(status_map.get(url, 0) or 0)
+        if st == 0:
+            unreachable_count += 1
+        if st in _INCONCLUSIVE_HTTP_STATUSES:
+            unverified.append(url)
+            if len(unverified_samples) < 30:
+                unverified_samples.append(url)
+            if _is_repo_link(url):
+                repo_unverified.append(url)
+            else:
+                docs_unverified.append(url)
+            continue
+        if st >= 400:
+            broken.append(url)
+            refs = store.provenance_for(url, limit=5)
+            if refs:
+                broken_provenance[url] = refs
+            is_repo = _is_repo_link(url)
+            if is_repo:
+                repo_broken.append(url)
+                if len(repo_broken_samples) < 30:
+                    repo_broken_samples.append(url)
+            else:
+                docs_broken.append(url)
+                if len(docs_broken_samples) < 30:
+                    docs_broken_samples.append(url)
+
+    return {
+        "internal_links_checked": internal_links_checked,
+        "broken_internal_links_count": len(broken),
+        "docs_broken_links_count": len(docs_broken),
+        "repo_broken_links_count": len(repo_broken),
+        "broken_internal_link_samples": docs_broken[:20] + repo_broken[:10],
+        "docs_broken_link_samples": docs_broken_samples,
+        "repo_broken_link_samples": repo_broken_samples,
+        "unreachable_links_count": unreachable_count,
+        "unverified_links_count": len(unverified),
+        "unverified_link_samples": unverified_samples,
+        "confirmed_broken_links_count": len(broken),
+        "excluded_links_count": len(excluded),
+        "excluded_link_samples": excluded_samples,
+        "_all_confirmed_broken_links": broken,
+        "_all_unverified_links": unverified,
+        "_all_excluded_links": excluded,
+        "_all_docs_unverified_links": docs_unverified,
+        "_all_repo_unverified_links": repo_unverified,
+        "_broken_link_provenance": broken_provenance,
+    }
+
+
 def _last_updated_metrics(pages: list[PageData]) -> dict[str, Any]:
     with_hint = [p for p in pages if p.last_updated_hint.strip()]
     return {
@@ -1840,15 +2055,17 @@ def _crawl_site(
     link_timeout = min(timeout, 3)
     link_workers = 50
     total_unchecked = 0
-    unchecked: set[str] = set()
-    for page in pages:
-        for link in page.internal_links:
-            if link not in status_map:
-                unchecked.add(link)
-
-    total_unchecked = len(unchecked)
-    if total_unchecked > _MAX_LINK_HEALTH_CHECKS:
-        unchecked = _deterministic_link_sample(unchecked, _MAX_LINK_HEALTH_CHECKS)
+    unchecked: list[str] = []
+    link_store = _build_link_audit_store(pages)
+    try:
+        total_unchecked, unchecked = _select_unchecked_links(
+            link_store,
+            status_map,
+            _MAX_LINK_HEALTH_CHECKS,
+        )
+    finally:
+        link_store.close()
+    if total_unchecked > len(unchecked):
         print(
             "[audit] link-check sample mode: checking {}/{} unique links".format(
                 len(unchecked),
@@ -2002,6 +2219,11 @@ def _site_payload(
     )
     examples = _estimate_example_reliability(pages)
     freshness = _last_updated_metrics(pages)
+    link_store = _build_link_audit_store(pages)
+    try:
+        links_metrics = _link_health_from_store(link_store, status_map)
+    finally:
+        link_store.close()
     metrics = {
         "crawl": {
             "pages_crawled": pages_crawled,
@@ -2019,7 +2241,7 @@ def _site_payload(
             "seeded_sitemap_urls": seeded_sitemap_urls,
             "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
         },
-        "links": _link_health(pages, status_map),
+        "links": links_metrics,
         "seo_geo": seo_geo,
         "api_coverage": api_coverage,
         "examples": examples,

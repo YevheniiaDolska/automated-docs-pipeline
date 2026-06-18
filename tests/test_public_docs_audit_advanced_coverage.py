@@ -206,3 +206,83 @@ def test_run_llm_analysis_and_build_html(monkeypatch: pytest.MonkeyPatch) -> Non
     )
     with pytest.raises(RuntimeError):
         mod._run_llm_analysis(payload={}, model="claude", api_key="k", timeout=2)
+
+
+def test_link_health_from_store_matches_in_memory() -> None:
+    from scripts import generate_public_docs_audit as mod
+
+    pages = [
+        mod.PageData(
+            url="https://docs.example.com/a",
+            status=200,
+            title="A",
+            meta_description="desc",
+            h1_count=1,
+            heading_levels=[1, 2],
+            internal_links=[
+                "https://docs.example.com/live",
+                "https://docs.example.com/broken",
+                "https://github.com/org/repo/blob/main/README.md",
+            ],
+            external_links=[],
+            text="A page",
+            code_blocks=[],
+            last_updated_hint="",
+            internal_link_refs=[
+                {"url": "https://docs.example.com/broken", "anchor_text": "Broken"},
+                {"url": "https://github.com/org/repo/blob/main/README.md", "anchor_text": "Repo"},
+            ],
+        )
+    ]
+    status_map = {
+        "https://docs.example.com/live": 200,
+        "https://docs.example.com/broken": 404,
+        "https://github.com/org/repo/blob/main/README.md": 404,
+    }
+
+    expected = mod._link_health(pages, status_map)
+    store = mod._build_link_audit_store(pages)
+    try:
+        actual = mod._link_health_from_store(store, status_map)
+    finally:
+        store.close()
+
+    assert actual["confirmed_broken_links_count"] == expected["confirmed_broken_links_count"]
+    assert actual["docs_broken_links_count"] == expected["docs_broken_links_count"]
+    assert actual["repo_broken_links_count"] == expected["repo_broken_links_count"]
+    assert actual["_all_confirmed_broken_links"] == expected["_all_confirmed_broken_links"]
+    assert actual["_broken_link_provenance"]["https://docs.example.com/broken"][0]["source_page"] == "https://docs.example.com/a"
+
+
+def test_select_unchecked_links_streams_without_materializing_all() -> None:
+    from scripts import generate_public_docs_audit as mod
+
+    pages = [
+        mod.PageData(
+            url="https://docs.example.com/root",
+            status=200,
+            title="Root",
+            meta_description="desc",
+            h1_count=1,
+            heading_levels=[1],
+            internal_links=[f"https://docs.example.com/page-{idx}" for idx in range(25)],
+            external_links=[],
+            text="Root page",
+            code_blocks=[],
+            last_updated_hint="",
+            internal_link_refs=[],
+        )
+    ]
+    store = mod._build_link_audit_store(pages)
+    try:
+        total, selected = mod._select_unchecked_links(
+            store,
+            status_map={"https://docs.example.com/page-0": 200},
+            limit=5,
+        )
+    finally:
+        store.close()
+
+    assert total == 24
+    assert len(selected) == 5
+    assert selected == sorted(selected)
