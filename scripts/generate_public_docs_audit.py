@@ -403,7 +403,7 @@ def _fetch(
     head_only: bool = False,
     _ua_idx: int = 0,
     extra_headers: dict[str, str] | None = None,
-    max_bytes: int = _MAX_FETCH_BYTES,
+    max_bytes: int | None = None,
 ) -> tuple[int, str, str]:
     if not _is_http_url(url):
         return 0, "", ""
@@ -418,6 +418,8 @@ def _fetch(
         for k, v in extra_headers.items():
             if str(k).strip() and str(v).strip():
                 headers[str(k)] = str(v)
+    if max_bytes is None:
+        max_bytes = _MAX_FETCH_BYTES
     req = Request(
         url=url,
         method="HEAD" if head_only else "GET",

@@ -1335,7 +1335,7 @@ def _financial_cards(base: dict[str, Any], totals: dict[str, Any]) -> list[Flowa
     loss_low = float(totals.get("monthly_loss_usd_low_total", 0) or 0)
     loss_base = float(totals.get("monthly_loss_usd_base_total", 0) or 0)
     loss_high = float(totals.get("monthly_loss_usd_high_total", 0) or 0)
-    opp = float(base.get("monthly_cost_usd", 0) or 0)
+    opp = float(base.get("total_signal_usd", base.get("monthly_cost_usd", 0)) or 0)
 
     elements: list[Flowable] = []
 
@@ -1919,7 +1919,7 @@ def _internal_financial_cards(
     card_w = CONTENT_W / 3 - 2 * mm
     card_cells = []
     for label, data, title_fg, card_bg in scenario_list:
-        monthly = float(data.get("monthly_cost_usd", 0) or 0)
+        monthly = float(data.get("total_signal_usd", data.get("monthly_cost_usd", 0)) or 0)
         eng_h = float(data.get("engineering_hours", 0) or 0)
         sup_h = float(data.get("support_hours", 0) or 0)
         annual = monthly * 12
@@ -2028,8 +2028,10 @@ def _build_pdf(
     public_ex_rel = float(public_metrics.get("examples", {}).get("example_reliability_estimate_pct", 0) or 0)
     freshness_pct = float(public_metrics.get("freshness", {}).get("last_updated_coverage_pct", 0) or 0)
 
-    # Score derivation: mode-aware
-    if mode == "internal":
+    has_scorecard_score = bool(isinstance(score_data, dict) and score_data.get("audit_score_0_100") is not None)
+
+    # Prefer scorecard as canonical source whenever it exists, even for public bundles.
+    if has_scorecard_score:
         score_value = float(score_data.get("audit_score_0_100", 0) or 0)
     else:
         score_value = _derive_public_score(
@@ -2040,6 +2042,9 @@ def _build_pdf(
             example_rel_pct=public_ex_rel,
         )
 
+    grade_label = str(score_data.get("grade", "")).strip() if has_scorecard_score else ""
+    if not grade_label:
+        grade_label = _grade_from_score(score_value)
     risk_band_label = _risk_band(score_value)
     gen_date = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     top_findings = public_audit.get("top_findings", []) or []
@@ -2055,7 +2060,7 @@ def _build_pdf(
                 "{} documentation infrastructure scores <b>{:.0f}/100</b> (grade: {}). "
                 "This internal audit evaluates 7 quality pillars and identifies {} findings "
                 "across API coverage, examples, freshness, drift, and retrieval quality."
-            ).format(company_name, score_value, score_data.get("grade", _grade_from_score(score_value)),
+            ).format(company_name, score_value, grade_label,
                      len(findings))
         else:
             summary_text = (
@@ -2168,8 +2173,6 @@ def _build_pdf(
 
     # Key metrics cards (3 columns x 2 rows, bold values with color indicators)
     content.append(Spacer(1, 4 * mm))
-    grade_label = _grade_from_score(score_value)
-
     def _card_cell(label: str, value: str, color: colors.Color) -> list[Paragraph]:
         return [
             Paragraph(value, ParagraphStyle(
