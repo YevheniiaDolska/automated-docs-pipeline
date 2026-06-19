@@ -7,7 +7,7 @@ product: both
 tags:
 - Operations
 - Reference
-last_reviewed: '2026-03-24'
+last_reviewed: '2026-06-19'
 original_author: Developer
 ---
 
@@ -184,8 +184,8 @@ These are part of the current implementation and are invoked directly by operato
 
 | Script | Purpose |
 | --- | --- |
-| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
-| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`, with target-platform filtering for `linux`, `windows`, `macos`, `all`, or mixed estates such as `linux,windows`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). Supports `--install-scheduler auto` and auto-detects the correct local installer for Linux, macOS, or Windows. |
 | `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
 | `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
 | `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
@@ -202,6 +202,8 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
 | `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/runtime_config_loader.py` | Load protected runtime config, enforce integrity manifest for base runtime, and merge signed operator runtime overrides. |
+| `scripts/sign_operator_runtime_overrides.py` | Sign `operator_runtime_overrides.yml` so operator-only live changes can be applied after bundle delivery. |
 | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia and optionally apply advanced settings, synonyms, rules, and replicas from config. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
@@ -215,7 +217,7 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
 | `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
 | `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
-| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Uses disk-backed link storage for large crawls, so broken-link analysis stays complete without high RAM spikes. Supports interactive wizard and LLM-powered expert analysis. |
 | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
 | `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
 | `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
@@ -341,6 +343,8 @@ The pipeline generates a knowledge retrieval layer with six advanced features:
 ## Public docs auditor and executive PDF
 
 The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment.
+
+Large link sets are processed through disk-backed storage instead of one in-memory batch, so the auditor preserves full broken-link coverage and provenance while reducing RAM pressure on operator machines.
 
 **Audit modes:**
 

@@ -12,11 +12,9 @@ This content follows the active implementation baseline:
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
 
-
 An automated documentation operations system for technical products with docs-first, code-first, and API-first flows.
 
 Install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates consolidated reports, and enables LLM assistants (Claude Code, Codex) to produce high-quality documentation from the first draft with built-in self-verification. API-first and multi-protocol branches are integrated into the same smooth autopipeline, including non-REST stub generation, Postman-ready mock sandbox resolution, and contract-test smart merge.
-
 
 ## Non-API documentation flows (docs-first scope)
 
@@ -105,6 +103,8 @@ Primary outputs:
 Preset-aware behavior:
 
 - bundle includes plan-matched LLM instructions automatically (`pilot/basic/pro/enterprise` mapping).
+- bundle can target `linux`, `windows`, `macos`, `all`, or any mixed set such as `linux,windows`.
+- platform-specific scheduler installers are included only for the selected target platforms.
 
 Client installs bundle locally and creates:
 
@@ -113,18 +113,22 @@ Client installs bundle locally and creates:
 For same-machine provisioning (operator has local access to client repo), one-shot command is available:
 
 ```bash
-python3 scripts/provision_client_repo.py --client <profile> --client-repo <path> --docsops-dir docsops --install-scheduler linux
+python3 scripts/provision_client_repo.py --client <profile> --client-repo <path> --docsops-dir docsops --install-scheduler auto
 ```
 
 Detailed role-separated setup guide:
 
 - `SETUP_FOR_PROJECTS.md`
 
-Current standard (as of 2026-03-12):
+Current standard (as of 2026-06-19):
 
 - Weekly automation runs locally in client repo, default Monday at `10:00` local time.
 - `git_sync` is enabled by default and pulls the repo before weekly checks.
 - Scheduler user must already have git access to the repository (SSH key or credential helper/PAT), otherwise pre-sync fails.
+- Provisioning supports `--install-scheduler auto` and picks the correct local installer for Linux, macOS, or Windows.
+- Bundle generation supports platform-aware output with `bundle.target_platforms`, including mixed estates such as `linux,windows`.
+- macOS scheduler installation is supported through a generated `launchd` installer.
+- Base runtime is protected by integrity manifest, and post-build live changes are applied through signed `operator_runtime_overrides.yml`.
 - API-first sandbox supports `docker`, `prism`, and `external` modes.
 - In `external` mode, use any public HTTPS mock URL with CORS (for example Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or self-hosted Prism).
 - API-first flow can auto-sync playground sandbox URL from `mock_base_url`.
@@ -148,6 +152,18 @@ Major updates (simple checklist):
 1. Finalize gate is built-in across flows: iterative lint/fix loop, optional commit confirmation, optional pre-commit rerun.
 1. Algolia integration now supports zero-manual advanced auto-optimization during provisioning: advanced search config, synonyms, query rules, and replica setup are generated and applied automatically when Algolia credentials are present.
 1. Screenshot placement now supports zero-touch insertion from capture metadata: pipeline auto-builds screenshot manifest, maps sections, and inserts images automatically.
+1. Public docs audit now streams large link inventories through disk-backed storage, so broken-link analysis stays complete without loading the full link graph into RAM.
+
+### Operator-only runtime changes after bundle build
+
+The bundle supports live post-build changes without reopening the code surface for clients.
+
+1. `docsops/config/client_runtime.yml` is the protected base runtime and is covered by the integrity manifest.
+1. Operator live changes go into `docsops/config/operator_runtime_overrides.yml`.
+1. Overrides are applied only when the matching signature file is present and valid.
+1. Clients are not expected to edit protected runtime files or bundle scripts directly.
+
+This keeps runtime tuning editable after bundle build for the operator while reducing client-side code tampering and reverse engineering.
 
 ### Screenshot placement (zero-touch)
 
