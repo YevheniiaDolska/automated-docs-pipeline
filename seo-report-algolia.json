@@ -11657,7 +11657,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#0",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 0,
@@ -11688,7 +11688,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#1",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11719,7 +11719,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#2",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11750,7 +11750,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#3",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11762,7 +11762,7 @@
       "objectID": "57c1b51b71bb86c008fa915edbdee9c3",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Direct CLI entry points (not exposed as npm scripts)",
-      "content": "These are part of the current implementation and are invoked directly by operator/provisioning/weekly flows. | Script | Purpose | | --- | --- | | scripts/build_client_bundle.py | Build client-specific bundle in generated/client_bundles/<client_id>/. | | scripts/provision_client_repo.py | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). | | scripts/init_pipeline.py | Bootstrap pipeline directly from source into another repo (self-install path). | | scripts/run_weekly_gap_batch.py | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). | | scripts/auto_fix_pr_docs.py | PR branch docs autofix helper for optional GitHub workflow. | | scripts/ensure_external_mock_server.py | Resolve/create external mock endpoint (Postman-supported flow). | | scripts/extract_knowledge_modules_from_docs.py | Auto-extract knowledge modules from docs markdown. | | scripts/gap_detector.py | Legacy/direct gap detector entry used in",
+      "content": "These are part of the current implementation and are invoked directly by operator/provisioning/weekly flows. | Script | Purpose | | --- | --- | | scripts/build_client_bundle.py | Build client-specific bundle in generated/client_bundles/<client_id>/, with target-platform filtering for linux, windows, macos, all, or mixed estates such as linux,windows. | | scripts/provision_client_repo.py | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). Supports --install-scheduler auto and auto-detects the correct local installer for Linux, macOS, or Windows. | | scripts/init_pipeline.py | Bootstrap pipeline directly from source into another repo (self-install path). | | scripts/run_weekly_gap_batch.py | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). | | scripts/auto_fix_pr_docs.py | PR branch docs autofix helper for optional GitHub workflow. | | scripts/ensure_external_mock_server.py | Resolve/create external mo",
       "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
@@ -11781,11 +11781,11 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#4",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 542,
+      "word_count": 622,
       "has_code": false,
       "code_snippets": []
     },
@@ -11812,7 +11812,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11843,7 +11843,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11874,7 +11874,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#7",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11905,7 +11905,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#8",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11936,7 +11936,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#9",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11948,7 +11948,7 @@
       "objectID": "845ed7bd45ee808354c1cc676f7fde79",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Public docs auditor and executive PDF",
-      "content": "The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment. Audit modes: | Mode | Command | Description | | --- | --- | --- | | Basic | npm run audit:public | Crawl + evaluate (no LLM) | | Interactive wizard | npm run audit:public:wizard | Step-by-step guided audit | | LLM-powered | npm run audit:public:llm | Full expert analysis with Claude | | LLM summary only | npm run audit:public:llm-summary | Quick LLM summary without full crawl | | Executive PDF | npm run audit:executive-pdf | Consulting-grade PDF from audit results | | Scorecard | npm run audit:scorecard | Comprehensive scoring across all quality dimensions | Executive PDF contents: cover page with headline findings, executive summary with score gauge and grade, per-site metrics table, board-level KPI bars with financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven fallback), methodology appendix, evidence appendix. Audit scorecard dimensions: docs ",
+      "content": "The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment. Large link sets are processed through disk-backed storage instead of one in-memory batch, so the auditor preserves full broken-link coverage and provenance while reducing RAM pressure on operator machines. Audit modes: | Mode | Command | Description | | --- | --- | --- | | Basic | npm run audit:public | Crawl + evaluate (no LLM) | | Interactive wizard | npm run audit:public:wizard | Step-by-step guided audit | | LLM-powered | npm run audit:public:llm | Full expert analysis with Claude | | LLM summary only | npm run audit:public:llm-summary | Quick LLM summary without full crawl | | Executive PDF | npm run audit:executive-pdf | Consulting-grade PDF from audit results | | Scorecard | npm run audit:scorecard | Comprehensive scoring across all quality dimensions | Executive PDF contents: cover page with headline findings, executive summary with score gauge and grade, per-site metrics t",
       "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
@@ -11967,11 +11967,11 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#10",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 168,
+      "word_count": 197,
       "has_code": false,
       "code_snippets": []
     },
@@ -11998,7 +11998,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#11",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12029,7 +12029,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#12",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12060,7 +12060,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#13",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12091,7 +12091,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#14",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12122,7 +12122,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#15",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12153,7 +12153,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#16",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12184,7 +12184,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#17",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -12215,7 +12215,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#18",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-06-19",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
