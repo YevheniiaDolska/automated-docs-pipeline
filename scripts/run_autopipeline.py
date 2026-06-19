@@ -32,13 +32,11 @@ except ModuleNotFoundError:
 
 
 from scripts.flow_feedback import FlowNarrator
+from scripts.runtime_config_loader import load_runtime_config, read_yaml_mapping, sibling_override_paths
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
-    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected YAML mapping: {path}")
-    return payload
+    return read_yaml_mapping(path)
 
 
 def _run(cmd: list[str], cwd: Path) -> int:
@@ -175,15 +173,15 @@ def _auto_persist_docs_urls(repo_root: Path, runtime_path: Path, runtime: dict[s
             preview_pattern = inferred
             changed = True
 
-    if changed:
-        runtime["docs_site"] = docs_site
-        runtime_path.write_text(yaml.safe_dump(runtime, sort_keys=False, allow_unicode=False), encoding="utf-8")
+    operator_override_path, _ = sibling_override_paths(runtime_path)
 
     report = {
-        "updated": bool(changed),
+        "updated": False,
         "docs_site.production_url": production_url,
         "docs_site.preview_url_pattern": preview_pattern,
         "runtime_config": str(runtime_path),
+        "operator_override_path": str(operator_override_path),
+        "pending_operator_override": bool(changed),
     }
     (reports_dir / "auto_detected_docs_urls.json").write_text(
         json.dumps(report, ensure_ascii=True, indent=2) + "\n",
@@ -778,7 +776,7 @@ def main() -> int:
     if not runtime_path.exists():
         raise FileNotFoundError(f"Runtime config not found: {runtime_path}")
 
-    runtime = _read_yaml(runtime_path)
+    runtime = load_runtime_config(runtime_path)
     strictness = str(runtime.get("api_governance", {}).get("strictness", "standard")).strip().lower() or "standard"
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})

@@ -24,10 +24,12 @@ except ImportError:
 
 try:
     from scripts.docs_ci_bootstrap import install_docs_ci_files
+    from scripts.runtime_config_loader import load_runtime_config
 except ModuleNotFoundError:
     # Allow running from client repo where docsops/ is not installed as a package.
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from docs_ci_bootstrap import install_docs_ci_files
+    from runtime_config_loader import load_runtime_config
 
 
 ENV_FILE = ".env.docsops.local"
@@ -144,8 +146,6 @@ def _is_key_relevant(key: str, algolia_enabled: bool, ask_ai_enabled: bool, ask_
 
 
 def _load_runtime(repo_root: Path) -> dict[str, Any]:
-    if yaml is None:
-        return {}
     candidates = [
         repo_root / "docsops" / "config" / "client_runtime.yml",
         repo_root / "config" / "client_runtime.yml",
@@ -153,8 +153,8 @@ def _load_runtime(repo_root: Path) -> dict[str, Any]:
     for candidate in candidates:
         if candidate.exists():
             try:
-                raw = yaml.safe_load(candidate.read_text(encoding="utf-8")) or {}
-            except (AttributeError, TypeError, ValueError, OSError):
+                raw = load_runtime_config(candidate)
+            except (AttributeError, TypeError, ValueError, OSError, RuntimeError):
                 raw = {}
             if isinstance(raw, dict):
                 return raw

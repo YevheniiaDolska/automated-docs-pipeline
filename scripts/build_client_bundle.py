@@ -30,6 +30,7 @@ from scripts.api_protocols import merge_protocol_settings, normalize_protocols
 
 MANAGED_START = "<!-- VERIOPS_MANAGED_BLOCK:START -->"
 MANAGED_END = "<!-- VERIOPS_MANAGED_BLOCK:END -->"
+SUPPORTED_TARGET_PLATFORMS = {"linux", "windows", "macos"}
 
 
 def read_yaml(path: Path) -> dict[str, Any]:
@@ -97,6 +98,26 @@ def _extend_unique(items: list[str], values: list[str]) -> list[str]:
         if value not in items:
             items.append(value)
     return items
+
+
+def _normalize_target_platforms(value: Any) -> list[str]:
+    if isinstance(value, str):
+        raw_items = [value]
+    elif isinstance(value, list):
+        raw_items = [str(item).strip().lower() for item in value if str(item).strip()]
+    else:
+        raw_items = []
+    if not raw_items:
+        return ["linux", "windows", "macos"]
+    normalized: list[str] = []
+    for item in raw_items:
+        if item == "all":
+            return ["linux", "windows", "macos"]
+        if item not in SUPPORTED_TARGET_PLATFORMS:
+            raise ValueError(f"Unsupported target platform: {item}")
+        if item not in normalized:
+            normalized.append(item)
+    return normalized
 
 
 def _collect_bundle_docs(runtime_cfg: dict[str, Any]) -> list[str]:
@@ -706,7 +727,7 @@ def _cron_day_to_number(day: str) -> str:
     return mapping[key]
 
 
-def build_automation_files(profile: dict[str, Any], bundle_root: Path) -> None:
+def build_automation_files(profile: dict[str, Any], bundle_root: Path, target_platforms: list[str]) -> None:
     bundle_cfg = profile.get("bundle", {})
     llm_cfg = bundle_cfg.get("llm", {})
     auto_cfg = bundle_cfg.get("automation", {})
@@ -804,12 +825,78 @@ $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoPro
         "Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Principal $Principal -Force | Out-Null\n"
         f"Write-Host \"Installed Task Scheduler job: $TaskName ({day} {time_24h})\"\n"
     )
+    weekday_map = {
+        "sunday": 1,
+        "monday": 2,
+        "tuesday": 3,
+        "wednesday": 4,
+        "thursday": 5,
+        "friday": 6,
+        "saturday": 7,
+    }
+    macos_weekday = weekday_map[day]
+    install_macos = f"""#!/usr/bin/env bash
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "${{BASH_SOURCE[0]}}")/../.." && pwd)"
+REPO_SLUG="$(basename "$REPO_ROOT" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-')"
+if [[ -z "$REPO_SLUG" ]]; then REPO_SLUG="repo"; fi
+LABEL="dev.veriops.weekly.{client_id}.$REPO_SLUG"
+PLIST_DIR="$HOME/Library/LaunchAgents"
+PLIST_PATH="$PLIST_DIR/$LABEL.plist"
+mkdir -p "$PLIST_DIR"
+cat > "$PLIST_PATH" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>$LABEL</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>$REPO_ROOT/{docsops_root}/ops/run_weekly_docsops.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>$REPO_ROOT</string>
+  <key>StandardOutPath</key>
+  <string>$REPO_ROOT/reports/docsops-weekly.log</string>
+  <key>StandardErrorPath</key>
+  <string>$REPO_ROOT/reports/docsops-weekly.log</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>{macos_weekday}</integer>
+    <key>Hour</key>
+    <integer>{int(hh)}</integer>
+    <key>Minute</key>
+    <integer>{int(mm)}</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>
+PLIST
+launchctl unload "$PLIST_PATH" >/dev/null 2>&1 || true
+launchctl load "$PLIST_PATH"
+echo "Installed launchd job: $LABEL ({day} {time_24h})"
+"""
 
     (ops_dir / "run_weekly_docsops.sh").write_text(run_sh, encoding="utf-8")
     (ops_dir / "run_weekly_docsops.ps1").write_text(run_ps1, encoding="utf-8")
-    (ops_dir / "install_cron_weekly.sh").write_text(install_cron, encoding="utf-8")
-    (ops_dir / "install_windows_task.ps1").write_text(install_windows, encoding="utf-8")
+    if "linux" in target_platforms:
+        (ops_dir / "install_cron_weekly.sh").write_text(install_cron, encoding="utf-8")
+    if "windows" in target_platforms:
+        (ops_dir / "install_windows_task.ps1").write_text(install_windows, encoding="utf-8")
+    if "macos" in target_platforms:
+        (ops_dir / "install_macos_launchd.sh").write_text(install_macos, encoding="utf-8")
 
+    scheduler_sections: list[str] = []
+    if "linux" in target_platforms:
+        scheduler_sections.append("Linux:\n1. Run `bash docsops/ops/install_cron_weekly.sh` once.\n")
+    if "macos" in target_platforms:
+        scheduler_sections.append("macOS:\n1. Run `bash docsops/ops/install_macos_launchd.sh` once.\n")
+    if "windows" in target_platforms:
+        scheduler_sections.append("Windows:\n1. Run `powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1` once.\n")
     (ops_dir / "runbook.md").write_text(
         (
             "# Weekly automation runbook\n\n"
@@ -817,17 +904,19 @@ $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoPro
             "1. Run `python3 docsops/scripts/setup_client_env_wizard.py` once.\n\n"
             "If fully-local mode is selected, setup wizard can also install Ollama,\n"
             "pull the base model, and create `veridoc-writer` from `docsops/LOCAL_MODEL.md`.\n\n"
-            "Linux/macOS:\n"
-            "1. Run `bash docsops/ops/install_cron_weekly.sh` once.\n\n"
-            "Windows:\n"
-            "1. Run `powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1` once.\n\n"
-            "Scheduled run executes full chain:\n"
-            "`run_autopipeline -> consolidated report -> docsops_generate`.\n"
+            + "\n".join(scheduler_sections) + "\n"
+            + "Scheduled run executes full chain:\n"
+            + "`run_autopipeline -> consolidated report -> docsops_generate`.\n"
         ),
         encoding="utf-8",
     )
 
-    for f in (ops_dir / "run_weekly_docsops.sh", ops_dir / "install_cron_weekly.sh"):
+    chmod_targets = [ops_dir / "run_weekly_docsops.sh"]
+    if "linux" in target_platforms:
+        chmod_targets.append(ops_dir / "install_cron_weekly.sh")
+    if "macos" in target_platforms:
+        chmod_targets.append(ops_dir / "install_macos_launchd.sh")
+    for f in chmod_targets:
         f.chmod(0o755)
 
 
@@ -1055,10 +1144,33 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
     out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
-def create_bundle(profile_path: Path) -> Path:
+def build_operator_override_template(bundle_root: Path) -> None:
+    template = (
+        "# Operator-only live overrides\n"
+        "# 1. Copy this file to operator_runtime_overrides.yml\n"
+        "# 2. Edit only the settings you want to override.\n"
+        "# 3. Sign it with: python3 docsops/scripts/sign_operator_runtime_overrides.py --runtime-config docsops/config/client_runtime.yml\n"
+        "# 4. Do not edit client_runtime.yml directly; it is integrity-protected.\n"
+        "\n"
+        "docs_flow:\n"
+        "  mode: hybrid\n"
+        "\n"
+        "modules:\n"
+        "  drift_detection: true\n"
+        "\n"
+        "finalize_gate:\n"
+        "  max_iterations: 5\n"
+    )
+    target = bundle_root / "config" / "operator_runtime_overrides.example.yml"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(template, encoding="utf-8")
+
+
+def create_bundle(profile_path: Path, target_platforms: list[str] | None = None) -> Path:
     profile = read_yaml(profile_path)
     client = profile.get("client", {})
     bundle_cfg = profile.get("bundle", {})
+    resolved_target_platforms = target_platforms or _normalize_target_platforms(bundle_cfg.get("target_platforms", ["linux", "windows", "macos"]))
 
     client_id = str(client.get("id", "")).strip()
     company = str(client.get("company_name", "")).strip()
@@ -1146,6 +1258,8 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/docsops_generate.py")
     required_scripts.append("scripts/llm_egress.py")
     required_scripts.append("scripts/flow_feedback.py")
+    required_scripts.append("scripts/runtime_config_loader.py")
+    required_scripts.append("scripts/sign_operator_runtime_overrides.py")
     if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)):
         required_scripts.append("scripts/apply_veridoc_branding_policy.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
@@ -1254,8 +1368,9 @@ def create_bundle(profile_path: Path) -> Path:
     write_yaml(bundle_root / "config" / "client_runtime.yml", runtime_cfg)
 
     build_llm_instruction_files(profile, bundle_root)
-    build_automation_files(profile, bundle_root)
+    build_automation_files(profile, bundle_root, resolved_target_platforms)
     build_local_env_template(runtime_cfg, bundle_root)
+    build_operator_override_template(bundle_root)
     build_vale_config(profile, bundle_root)
     build_licensing_infrastructure(profile, bundle_root)
 
@@ -1268,12 +1383,16 @@ def create_bundle(profile_path: Path) -> Path:
         "local_use": {
             "llm_instructions": ["AGENTS.md", "CLAUDE.md", "LOCAL_MODEL.md"],
             "runtime_config": "config/client_runtime.yml",
+            "operator_runtime_overrides": "config/operator_runtime_overrides.yml",
+            "operator_runtime_overrides_template": "config/operator_runtime_overrides.example.yml",
+            "operator_override_signer": "scripts/sign_operator_runtime_overrides.py",
             "policy_pack": "policy_packs/selected.yml",
             "automation_runbook": "ops/runbook.md",
             "local_env_template": ".env.docsops.local.template",
             "vale_config": ".vale.ini",
             "traceability_manifest": "TRACEABILITY.yml",
         },
+        "target_platforms": resolved_target_platforms,
         "licensing": {
             "public_key": "docsops/keys/veriops-licensing.pub",
             "license_jwt": "docsops/license.jwt",
@@ -1329,6 +1448,12 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Path to *.client.yml profile (relative to repo or absolute)",
     )
+    parser.add_argument(
+        "--target-platform",
+        action="append",
+        default=[],
+        help="Target platform to include in bundle; repeat for multiple values. Supported: linux, windows, macos, all.",
+    )
     return parser.parse_args()
 
 
@@ -1341,7 +1466,7 @@ def main() -> int:
     if not profile_path.exists():
         raise FileNotFoundError(f"Profile not found: {profile_path}")
 
-    bundle = create_bundle(profile_path)
+    bundle = create_bundle(profile_path, target_platforms=_normalize_target_platforms(args.target_platform or ["all"]))
     print(f"[ok] bundle created: {bundle}")
     return 0
 

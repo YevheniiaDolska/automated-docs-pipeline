@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
 import subprocess
 import sys
@@ -59,10 +61,15 @@ class TestBuildClientBundle:
         (repo / "scripts" / "rollback.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "setup_client_env_wizard.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "run_autopipeline.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "publish_docs_review_branch.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "docs_ci_bootstrap.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "run_docs_ci_checks.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "docsops_generate.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "llm_egress.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "flow_feedback.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "configure_ask_ai.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "runtime_config_loader.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "sign_operator_runtime_overrides.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "docsops" / "keys").mkdir(parents=True)
         (repo / "docsops" / "keys" / "veriops-licensing.pub").write_text("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n", encoding="utf-8")
         (repo / "docs").mkdir()
@@ -106,6 +113,7 @@ class TestBuildClientBundle:
                         "since_days": 9,
                     }
                 },
+                "target_platforms": ["linux", "windows", "macos"],
             },
         }
         profile_path = repo / "profiles" / "clients" / "acme.client.yml"
@@ -140,6 +148,10 @@ class TestBuildClientBundle:
         assert (out / "docs" / "operations" / "UNIFIED_CLIENT_CONFIG.md").exists()
         assert (out / "templates" / "legal" / "NOTICE.template.md").exists()
         assert (out / "ops" / "run_weekly_docsops.sh").exists()
+        assert (out / "ops" / "install_cron_weekly.sh").exists()
+        assert (out / "ops" / "install_windows_task.ps1").exists()
+        assert (out / "ops" / "install_macos_launchd.sh").exists()
+        assert (out / "config" / "operator_runtime_overrides.example.yml").exists()
         assert "VeriOps Managed Local Workflow" in (out / "AGENTS.md").read_text(encoding="utf-8")
         assert "BasedOnStyles = Google, Microsoft" in (out / ".vale.ini").read_text(encoding="utf-8")
         # Licensing infrastructure
@@ -151,6 +163,7 @@ class TestBuildClientBundle:
         assert (out / "docsops" / "license.jwt").exists()
         bundle_info = yaml.safe_load((out / "BUNDLE_INFO.yml").read_text(encoding="utf-8"))
         assert "licensing" in bundle_info
+        assert bundle_info["target_platforms"] == ["linux", "windows", "macos"]
         assert bundle_info["licensing"]["public_key"] == "docsops/keys/veriops-licensing.pub"
         env_template = (out / ".env.docsops.local.template").read_text(encoding="utf-8")
         assert "VERIOPS_LICENSE_KEY" in env_template
@@ -176,10 +189,15 @@ class TestBuildClientBundle:
             "rollback.py",
             "setup_client_env_wizard.py",
             "run_autopipeline.py",
+            "publish_docs_review_branch.py",
+            "docs_ci_bootstrap.py",
+            "run_docs_ci_checks.py",
             "docsops_generate.py",
             "llm_egress.py",
             "flow_feedback.py",
             "configure_ask_ai.py",
+            "runtime_config_loader.py",
+            "sign_operator_runtime_overrides.py",
         ]:
             (repo / "scripts" / s).write_text("print('ok')\n", encoding="utf-8")
         (repo / "templates" / "legal").mkdir(parents=True)
@@ -189,7 +207,6 @@ class TestBuildClientBundle:
         (repo / "CLAUDE.md").write_text("x\n", encoding="utf-8")
 
         # Generate a real keypair
-        import base64
         build_dir = str(ROOT / "build")
         if build_dir not in sys.path:
             sys.path.insert(0, build_dir)
@@ -225,11 +242,141 @@ class TestBuildClientBundle:
         assert claims["sub"] == "testcorp"
         assert claims["plan"] == "enterprise"
 
+    def test_create_bundle_target_platform_filter(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import build_client_bundle as mod
+
+        repo = tmp_path / "repo"
+        repo.mkdir()
+        monkeypatch.setattr(mod, "REPO_ROOT", repo)
+
+        (repo / "policy_packs").mkdir()
+        (repo / "policy_packs" / "minimal.yml").write_text("docs_contract: {}\n", encoding="utf-8")
+        (repo / "scripts").mkdir()
+        for s in [
+            "license_gate.py",
+            "pack_runtime.py",
+            "check_updates.py",
+            "rollback.py",
+            "finalize_docs_gate.py",
+            "setup_client_env_wizard.py",
+            "run_autopipeline.py",
+            "publish_docs_review_branch.py",
+            "docs_ci_bootstrap.py",
+            "run_docs_ci_checks.py",
+            "docsops_generate.py",
+            "llm_egress.py",
+            "flow_feedback.py",
+            "runtime_config_loader.py",
+            "sign_operator_runtime_overrides.py",
+        ]:
+            (repo / "scripts" / s).write_text("print('ok')\n", encoding="utf-8")
+        (repo / "templates" / "legal").mkdir(parents=True)
+        (repo / "templates" / "legal" / "LICENSE-COMMERCIAL.template.md").write_text("{{COMPANY_NAME}}\n", encoding="utf-8")
+        (repo / "templates" / "legal" / "NOTICE.template.md").write_text("{{COMPANY_NAME}}\n", encoding="utf-8")
+        (repo / "AGENTS.md").write_text("x\n", encoding="utf-8")
+        (repo / "CLAUDE.md").write_text("x\n", encoding="utf-8")
+        (repo / "docsops" / "keys").mkdir(parents=True)
+        (repo / "docsops" / "keys" / "veriops-licensing.pub").write_text("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n", encoding="utf-8")
+
+        profile_path = repo / "client.yml"
+        profile_path.write_text(yaml.safe_dump({"client": {"id": "acme", "company_name": "Acme"}}, sort_keys=False), encoding="utf-8")
+        out = mod.create_bundle(profile_path, target_platforms=["macos"])
+
+        assert not (out / "ops" / "install_cron_weekly.sh").exists()
+        assert not (out / "ops" / "install_windows_task.ps1").exists()
+        assert (out / "ops" / "install_macos_launchd.sh").exists()
+        info = yaml.safe_load((out / "BUNDLE_INFO.yml").read_text(encoding="utf-8"))
+        assert info["target_platforms"] == ["macos"]
+
     def test_build_vale_invalid_style(self, tmp_path: Path) -> None:
         from scripts import build_client_bundle as mod
 
         with pytest.raises(ValueError):
             mod.build_vale_config({"bundle": {"style_guide": "invalid"}}, tmp_path)
+
+
+class TestRuntimeConfigLoader:
+    def test_signed_operator_override_is_merged(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import runtime_config_loader as mod
+        from scripts import sign_operator_runtime_overrides as signer
+
+        try:
+            from generate_license import _generate_ed25519_keypair
+        except ImportError:
+            build_dir = str(ROOT / "build")
+            if build_dir not in sys.path:
+                sys.path.insert(0, build_dir)
+            try:
+                from generate_license import _generate_ed25519_keypair
+            except ImportError:
+                pytest.skip("No Ed25519 library available")
+
+        repo = tmp_path / "repo"
+        docsops = repo / "docsops"
+        config_dir = docsops / "config"
+        keys_dir = docsops / "keys"
+        config_dir.mkdir(parents=True)
+        keys_dir.mkdir(parents=True)
+        runtime_path = config_dir / "client_runtime.yml"
+        runtime_path.write_text(
+            yaml.safe_dump({"docs_flow": {"mode": "code-first"}, "modules": {"gap_detection": True}}, sort_keys=False),
+            encoding="utf-8",
+        )
+        override_path, sig_path = mod.sibling_override_paths(runtime_path)
+        override_path.write_text(
+            yaml.safe_dump({"docs_flow": {"mode": "hybrid"}, "modules": {"gap_detection": False}}, sort_keys=False),
+            encoding="utf-8",
+        )
+        priv_key, pub_key = _generate_ed25519_keypair()
+        (keys_dir / "veriops-licensing.key").write_bytes(base64.b64encode(priv_key))
+        (keys_dir / "veriops-licensing.pub").write_bytes(base64.b64encode(pub_key))
+        signature = signer._sign_ed25519(override_path.read_bytes(), priv_key)
+        sig_path.write_text(base64.b64encode(signature).decode("ascii") + "\n", encoding="utf-8")
+
+        monkeypatch.setattr(mod, "INTEGRITY_MANIFEST_PATH", docsops / ".integrity_manifest.json")
+        monkeypatch.setattr(mod, "_load_public_key", lambda path=None: pub_key)
+        loaded = mod.load_runtime_config(runtime_path)
+        assert loaded["docs_flow"]["mode"] == "hybrid"
+        assert loaded["modules"]["gap_detection"] is False
+
+    def test_override_missing_signature_is_rejected(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import runtime_config_loader as mod
+
+        repo = tmp_path / "repo"
+        docsops = repo / "docsops"
+        config_dir = docsops / "config"
+        config_dir.mkdir(parents=True)
+        runtime_path = config_dir / "client_runtime.yml"
+        runtime_path.write_text(yaml.safe_dump({"docs_flow": {"mode": "code-first"}}, sort_keys=False), encoding="utf-8")
+        override_path, _ = mod.sibling_override_paths(runtime_path)
+        override_path.write_text(yaml.safe_dump({"docs_flow": {"mode": "hybrid"}}, sort_keys=False), encoding="utf-8")
+
+        monkeypatch.setattr(mod, "INTEGRITY_MANIFEST_PATH", docsops / ".integrity_manifest.json")
+        with pytest.raises(RuntimeError):
+            mod.load_runtime_config(runtime_path)
+
+    def test_protected_base_runtime_tamper_is_rejected(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import runtime_config_loader as mod
+
+        repo = tmp_path / "repo"
+        docsops = repo / "docsops"
+        config_dir = docsops / "config"
+        config_dir.mkdir(parents=True)
+        runtime_path = config_dir / "client_runtime.yml"
+        runtime_path.write_text(yaml.safe_dump({"docs_flow": {"mode": "code-first"}}, sort_keys=False), encoding="utf-8")
+        manifest_path = docsops / ".integrity_manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "repo_path_hash": hashlib.sha256(str(repo.resolve()).encode("utf-8")).hexdigest(),
+                    "files": {"docsops/config/client_runtime.yml": "deadbeef"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(mod, "INTEGRITY_MANIFEST_PATH", manifest_path)
+        with pytest.raises(RuntimeError):
+            mod.load_runtime_config(runtime_path)
 
 
 class TestProvisionClientRepo:
@@ -257,6 +404,7 @@ class TestProvisionClientRepo:
         (repo / "docsops" / "ops").mkdir(parents=True)
         (repo / "docsops" / "ops" / "install_cron_weekly.sh").write_text("#!/bin/bash\n", encoding="utf-8")
         (repo / "docsops" / "ops" / "install_windows_task.ps1").write_text("Write-Host ok\n", encoding="utf-8")
+        (repo / "docsops" / "ops" / "install_macos_launchd.sh").write_text("#!/bin/bash\n", encoding="utf-8")
 
         calls: list[list[str]] = []
 
@@ -267,13 +415,18 @@ class TestProvisionClientRepo:
             return SimpleNamespace(returncode=0)
 
         monkeypatch.setattr(mod.subprocess, "run", fake_run)
+        monkeypatch.setattr(mod, "_detect_scheduler_mode", lambda: "macos")
 
-        mod.run_scheduler_install(repo, "docsops", "none")
-        mod.run_scheduler_install(repo, "docsops", "linux")
-        mod.run_scheduler_install(repo, "docsops", "windows")
+        assert mod.run_scheduler_install(repo, "docsops", "none") == "none"
+        assert mod.run_scheduler_install(repo, "docsops", "linux") == "linux"
+        assert mod.run_scheduler_install(repo, "docsops", "windows") == "windows"
+        assert mod.run_scheduler_install(repo, "docsops", "macos") == "macos"
+        assert mod.run_scheduler_install(repo, "docsops", "auto") == "macos"
 
         assert calls[0][0] == "bash"
         assert calls[1][0] == "powershell"
+        assert calls[2][0] == "bash"
+        assert calls[3][0] == "bash"
 
         with pytest.raises(ValueError):
             mod.run_scheduler_install(repo, "docsops", "bad")
@@ -343,7 +496,7 @@ class TestProvisionClientRepo:
         repo = tmp_path / "repo"
         repo.mkdir()
         profile = "profiles/clients/examples/basic.client.yml"
-        answers = iter(["existing", profile, str(repo), "linux", "docsops"])
+        answers = iter(["existing", profile, str(repo), "auto", "docsops"])
         monkeypatch.setattr(mod.sys.stdin, "isatty", lambda: True)
         monkeypatch.setattr("builtins.input", lambda *_a, **_k: next(answers))
         args2 = SimpleNamespace(
@@ -356,7 +509,55 @@ class TestProvisionClientRepo:
         resolved = mod._resolve_args(args2)
         assert resolved.client == profile
         assert resolved.client_repo == str(repo)
-        assert resolved.install_scheduler == "linux"
+        assert resolved.install_scheduler == "auto"
+
+    def test_create_profile_wizard_saves_mixed_bundle_platforms(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import provision_client_repo as mod
+
+        generated_path = tmp_path / "generated.client.yml"
+
+        def fake_save(profile: dict[str, object], _client_id: str) -> Path:
+            generated_path.write_text(yaml.safe_dump(profile, sort_keys=False), encoding="utf-8")
+            return generated_path
+
+        answers = iter(
+            [
+                "startup",
+                "Acme",
+                "Docs",
+                "docs@example.com",
+                "fully-local",
+                "acme-docs",
+                "",
+                "professional",
+                "365",
+                "/tmp/client-repo",
+                "docs",
+                "api",
+                "sdk",
+                "code-first",
+                "google",
+                "linux,windows",
+                "mkdocs",
+                "n",
+                "n",
+                "n",
+                "n",
+                "n",
+                "n",
+                "n",
+                "auto",
+            ]
+        )
+        monkeypatch.setattr(mod, "_save_generated_profile", fake_save)
+        monkeypatch.setattr("builtins.input", lambda *_a, **_k: next(answers))
+
+        out_path, client_repo, scheduler = mod._create_profile_via_wizard("auto", require_repo=True)
+        profile = yaml.safe_load(out_path.read_text(encoding="utf-8"))
+
+        assert client_repo == "/tmp/client-repo"
+        assert scheduler == "auto"
+        assert profile["bundle"]["target_platforms"] == ["linux", "windows"]
 
     def test_apply_integrations_ask_ai(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import provision_client_repo as mod

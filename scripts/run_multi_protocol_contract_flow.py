@@ -27,13 +27,11 @@ from scripts.flow_feedback import FlowNarrator
 from scripts.api_protocols import apply_realtime_sandbox_defaults, merge_protocol_settings, normalize_protocols
 from scripts.license_gate import require as _license_require, require_protocol as _license_require_protocol
 from scripts.multi_protocol_engine import ProtocolAdapter, StageResult
+from scripts.runtime_config_loader import load_runtime_config, read_yaml_mapping
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
-    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected YAML mapping: {path}")
-    return payload
+    return read_yaml_mapping(path)
 
 
 def _result_to_json(result: StageResult) -> dict[str, Any]:
@@ -200,7 +198,7 @@ def main() -> int:
     runtime_path = Path(args.runtime_config)
     if not runtime_path.is_absolute():
         runtime_path = (Path.cwd() / runtime_path).resolve()
-    runtime = _read_yaml(runtime_path)
+    runtime = load_runtime_config(runtime_path)
     narrator.stage(1, "Load runtime and enforce license", f"Runtime config: {runtime_path}")
 
     # -- License gate: multi-protocol requires enterprise plan --

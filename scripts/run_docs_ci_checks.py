@@ -7,10 +7,17 @@ import argparse
 import os
 import shlex
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+try:
+    from scripts.runtime_config_loader import load_runtime_config
+except ModuleNotFoundError:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from runtime_config_loader import load_runtime_config
 
 
 def _run_shell(command: str, cwd: Path) -> int:
@@ -23,7 +30,7 @@ def _read_runtime(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
     try:
-        payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        payload = load_runtime_config(path)
     except (RuntimeError, ValueError, TypeError, OSError):
         return {}
     return payload if isinstance(payload, dict) else {}
