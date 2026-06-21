@@ -1,15 +1,18 @@
 ---
-title: "Pipeline configuration reference"
-description: "Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations."
+title: Pipeline configuration reference
+description: Exact preset, module, and llm_control values for pilot, full, full+RAG,
+  cloud, strict-local, and hybrid pipeline configurations.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - Cloud
-  - Self-hosted
-  - AI
-last_reviewed: "2026-06-16"
+- Reference
+- Cloud
+- Self-hosted
+- AI
+last_reviewed: '2026-06-16'
+original_author: Kroha
 ---
+
 
 # Pipeline configuration reference
 

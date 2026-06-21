@@ -1,15 +1,18 @@
 ---
-title: "Choose a pipeline configuration"
-description: "Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup."
+title: Choose a pipeline configuration
+description: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+  or hybrid execution in one guided setup.
 content_type: tutorial
 product: both
 tags:
-  - Tutorial
-  - Cloud
-  - Self-hosted
-  - AI
-last_reviewed: "2026-06-16"
+- Tutorial
+- Cloud
+- Self-hosted
+- AI
+last_reviewed: '2026-06-16'
+original_author: Kroha
 ---
+
 
 # Choose a pipeline configuration
 

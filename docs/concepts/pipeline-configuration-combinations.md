@@ -1,15 +1,18 @@
 ---
-title: "How pipeline configurations compose"
-description: "Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery."
+title: How pipeline configurations compose
+description: Learn how the pipeline combines rollout scope and LLM execution mode
+  so bundles stay aligned with proof, full, and RAG-enabled delivery.
 content_type: concept
 product: both
 tags:
-  - Concept
-  - Cloud
-  - Self-hosted
-  - AI
-last_reviewed: "2026-06-16"
+- Concept
+- Cloud
+- Self-hosted
+- AI
+last_reviewed: '2026-06-16'
+original_author: Kroha
 ---
+
 
 # How pipeline configurations compose
 

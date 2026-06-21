@@ -1,15 +1,18 @@
 ---
-title: "Apply a pilot, full, or RAG configuration"
-description: "Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution."
+title: Apply a pilot, full, or RAG configuration
+description: Update a client profile for pilot, full, or RAG-enabled operation and
+  align it with cloud, strict-local, or hybrid LLM execution.
 content_type: how-to
 product: both
 tags:
-  - How-To
-  - Cloud
-  - Self-hosted
-  - AI
-last_reviewed: "2026-06-16"
+- How-To
+- Cloud
+- Self-hosted
+- AI
+last_reviewed: '2026-06-16'
+original_author: Kroha
 ---
+
 
 # Apply a pilot, full, or RAG configuration
 
