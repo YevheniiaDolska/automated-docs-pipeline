@@ -112,6 +112,7 @@ def _format_command(command: str, docs_root: str, reports_dir: str, iteration: i
 
 def _default_auto_fix_commands(docs_root: str) -> list[str]:
     return [
+        f"python3 scripts/fix_markdown_links.py {shlex.quote(docs_root)} --write --check-external",
         f"python3 scripts/normalize_docs.py {shlex.quote(docs_root)}",
         f"python3 scripts/seo_geo_optimizer.py {shlex.quote(docs_root)} --fix",
     ]

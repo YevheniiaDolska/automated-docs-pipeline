@@ -343,6 +343,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "max_iterations": 5,
                 "continue_on_error": True,
                 "auto_fix_commands": [
+                    "python3 scripts/fix_markdown_links.py {docs_root} --write --check-external",
                     "python3 scripts/normalize_docs.py {docs_root}",
                     "python3 scripts/seo_geo_optimizer.py {docs_root} --fix",
                 ],
@@ -1250,6 +1251,7 @@ def create_bundle(profile_path: Path, target_platforms: list[str] | None = None)
     required_scripts.append("scripts/check_updates.py")
     required_scripts.append("scripts/rollback.py")
     required_scripts.append("scripts/finalize_docs_gate.py")
+    required_scripts.append("scripts/fix_markdown_links.py")
     required_scripts.append("scripts/setup_client_env_wizard.py")
     required_scripts.append("scripts/run_autopipeline.py")
     required_scripts.append("scripts/publish_docs_review_branch.py")

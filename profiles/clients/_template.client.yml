@@ -250,6 +250,7 @@ runtime:
     max_iterations: 5
     continue_on_error: true
     auto_fix_commands:
+      - "python3 scripts/fix_markdown_links.py {docs_root} --write --check-external"
       - "python3 scripts/normalize_docs.py {docs_root}"
       - "python3 scripts/seo_geo_optimizer.py {docs_root} --fix"
     llm_fix_command: ""

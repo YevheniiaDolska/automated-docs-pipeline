@@ -335,8 +335,9 @@ class TestMergeConfig:
 
         args = self._make_args()
         merged = _merge_config(args, {})
-        assert len(merged["auto_fix_commands"]) == 2
-        assert "normalize_docs" in merged["auto_fix_commands"][0]
+        assert len(merged["auto_fix_commands"]) == 3
+        assert "fix_markdown_links" in merged["auto_fix_commands"][0]
+        assert "normalize_docs" in merged["auto_fix_commands"][1]
 
     def test_custom_auto_fix_preserved(self) -> None:
         """When auto_fix_command is provided via CLI, defaults are not added."""

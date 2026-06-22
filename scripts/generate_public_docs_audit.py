@@ -79,6 +79,19 @@ _CONTRACT_PATH_CANDIDATES = (
     "/asyncapi.json", "/asyncapi.yaml", "/asyncapi.yml",
     "/ws", "/websocket",
 )
+_DEFAULT_CPU_COUNT = max(1, int(os.cpu_count() or 1))
+
+
+def _adaptive_worker_count(total_items: int, *, hard_cap: int, reserve_one: bool = False) -> int:
+    """Choose a conservative worker count for local operator machines.
+
+    This audit often runs on laptops. Large default thread pools can trigger
+    MemoryError even for modest workloads when the environment is already under
+    pressure, so keep concurrency intentionally low and bounded by actual work.
+    """
+    total = max(1, int(total_items))
+    cpu_cap = max(1, min(hard_cap, _DEFAULT_CPU_COUNT if reserve_one else _DEFAULT_CPU_COUNT * 2))
+    return max(1, min(total, cpu_cap, hard_cap))
 
 _SITEMAP_HINT_RE = re.compile(r"(?im)^\s*sitemap\s*:\s*(\S+)\s*$")
 _URLSET_LOC_RE = re.compile(r"(?is)<loc>\s*(.*?)\s*</loc>")
@@ -1890,7 +1903,7 @@ def _crawl_site(
     timeout = int(timeout)
     auto_mode = max_pages <= 0
     effective_limit = max_pages if max_pages > 0 else max(200, int(auto_max_pages))
-    workers = min(max(1, effective_limit), 10)  # parallel crawl workers
+    workers = _adaptive_worker_count(effective_limit, hard_cap=6, reserve_one=True)
     batch_size = max(10, int(crawl_batch_size))
     convergence_rounds = max(2, int(crawl_convergence_rounds))
 
@@ -1900,6 +1913,8 @@ def _crawl_site(
     seeded_sitemap_urls = 0
     robots_sitemaps = 0
     stop_reason = "limit_reached" if not auto_mode else "converged"
+
+    resource_pressure_error = False
 
     # Try up to len(_USER_AGENTS) User-Agent variants for the start page
     for ua_attempt in range(len(_USER_AGENTS)):
@@ -1962,59 +1977,79 @@ def _crawl_site(
             page = parser_html.as_page(url, st)
             return url, st, page, page.internal_links
 
-        with ThreadPoolExecutor(max_workers=workers) as pool:
-            while queue and len(seen) < effective_limit:
-                # Submit a batch of URLs (up to remaining budget)
-                batch: list[str] = []
-                round_discovered_before = len(discovered)
-                while queue and len(seen) + len(batch) < effective_limit and len(batch) < batch_size:
-                    candidate = queue.popleft()
-                    if candidate not in seen:
-                        seen.add(candidate)
-                        batch.append(candidate)
-                if not batch:
-                    break
-
-                futures = {pool.submit(_crawl_one, u): u for u in batch}
-                for future in as_completed(futures):
-                    url, st, page, new_links = future.result()
-                    status_map[url] = st
-                    if page is not None:
-                        pages.append(page)
-                        print("[audit] page {}/{}: {}".format(len(pages), progress_total, url[:80]), flush=True)
-                        for link in new_links:
-                            if not _is_http_url(link):
-                                continue
-                            if not _same_host(link, start_url):
-                                continue
-                            if _is_probable_crawl_trap(link):
-                                trap_urls_skipped += 1
-                                continue
-                            # In sitemap-scoped mode, keep crawl strictly within sitemap/feed seeds.
-                            if sitemap_scope and link not in seed_urls:
-                                continue
-                            if link not in discovered:
-                                discovered.add(link)
-                                if len(seen) + len(queue) < effective_limit * 2:
-                                    queue.append(link)
-
-                if auto_mode:
-                    found_new = len(discovered) > round_discovered_before
-                    crawled_new = len(pages) > prior_crawled
-                    if found_new or crawled_new:
-                        rounds_without_new = 0
-                    else:
-                        rounds_without_new += 1
-                    prior_crawled = len(pages)
-                    if rounds_without_new >= convergence_rounds:
-                        stop_reason = "converged"
+        try:
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                while queue and len(seen) < effective_limit:
+                    # Submit a batch of URLs (up to remaining budget)
+                    batch: list[str] = []
+                    round_discovered_before = len(discovered)
+                    while queue and len(seen) + len(batch) < effective_limit and len(batch) < batch_size:
+                        candidate = queue.popleft()
+                        if candidate not in seen:
+                            seen.add(candidate)
+                            batch.append(candidate)
+                    if not batch:
                         break
-            else:
-                # Loop finished without break.
-                if not auto_mode and not queue:
-                    stop_reason = "queue_exhausted"
+
+                    try:
+                        futures = {pool.submit(_crawl_one, u): u for u in batch}
+                    except MemoryError:
+                        resource_pressure_error = True
+                        print("[warn] Memory pressure while scheduling crawl workers; aborting retry loop.", flush=True)
+                        break
+                    for future in as_completed(futures):
+                        try:
+                            url, st, page, new_links = future.result()
+                        except MemoryError:
+                            resource_pressure_error = True
+                            print("[warn] Memory pressure during crawl worker execution; aborting retry loop.", flush=True)
+                            break
+                        status_map[url] = st
+                        if page is not None:
+                            pages.append(page)
+                            print("[audit] page {}/{}: {}".format(len(pages), progress_total, url[:80]), flush=True)
+                            for link in new_links:
+                                if not _is_http_url(link):
+                                    continue
+                                if not _same_host(link, start_url):
+                                    continue
+                                if _is_probable_crawl_trap(link):
+                                    trap_urls_skipped += 1
+                                    continue
+                                # In sitemap-scoped mode, keep crawl strictly within sitemap/feed seeds.
+                                if sitemap_scope and link not in seed_urls:
+                                    continue
+                                if link not in discovered:
+                                    discovered.add(link)
+                                    if len(seen) + len(queue) < effective_limit * 2:
+                                        queue.append(link)
+                    if resource_pressure_error:
+                        break
+
+                    if auto_mode:
+                        found_new = len(discovered) > round_discovered_before
+                        crawled_new = len(pages) > prior_crawled
+                        if found_new or crawled_new:
+                            rounds_without_new = 0
+                        else:
+                            rounds_without_new += 1
+                        prior_crawled = len(pages)
+                        if rounds_without_new >= convergence_rounds:
+                            stop_reason = "converged"
+                            break
                 else:
-                    stop_reason = "limit_reached"
+                    # Loop finished without break.
+                    if not auto_mode and not queue:
+                        stop_reason = "queue_exhausted"
+                    else:
+                        stop_reason = "limit_reached"
+        except MemoryError:
+            resource_pressure_error = True
+            print("[warn] Memory pressure while starting crawl workers; aborting retry loop.", flush=True)
+
+        if resource_pressure_error:
+            stop_reason = "resource_pressure"
+            break
 
         # If we got at least 1 page, stop retrying
         if pages:
@@ -2028,6 +2063,9 @@ def _crawl_site(
         # Log what happened with the start URL
         start_status = status_map.get(start_url, 0)
         print("[warn] 0 pages fetched (start URL status={}). ".format(start_status), end="", flush=True)
+        if resource_pressure_error:
+            print("Not retrying with alternative User-Agent because this is a local resource failure.", flush=True)
+            break
         if ua_attempt < len(_USER_AGENTS) - 1:
             print("Retrying...", flush=True)
         else:
@@ -2053,7 +2091,6 @@ def _crawl_site(
 
     # -- Parallel link-health check (HEAD-only, short timeout, 50 workers) ------
     link_timeout = min(timeout, 3)
-    link_workers = 50
     total_unchecked = 0
     unchecked: list[str] = []
     link_store = _build_link_audit_store(pages)
@@ -2065,6 +2102,7 @@ def _crawl_site(
         )
     finally:
         link_store.close()
+    link_workers = _adaptive_worker_count(len(unchecked), hard_cap=12, reserve_one=True) if unchecked else 1
     if total_unchecked > len(unchecked):
         print(
             "[audit] link-check sample mode: checking {}/{} unique links".format(
@@ -2106,11 +2144,20 @@ def _crawl_site(
                 return link, -2
             return link, st
 
-        with ThreadPoolExecutor(max_workers=link_workers) as pool:
-            futures = {pool.submit(_check_one, lnk): lnk for lnk in unchecked}
-            for future in as_completed(futures):
-                link, st = future.result()
-                status_map[link] = st
+        try:
+            with ThreadPoolExecutor(max_workers=link_workers) as pool:
+                futures = {pool.submit(_check_one, lnk): lnk for lnk in unchecked}
+                for future in as_completed(futures):
+                    link, st = future.result()
+                    status_map[link] = st
+                    done += 1
+                    if done % 100 == 0 or done == total:
+                        print("[audit] links: {}/{}".format(done, total), flush=True)
+        except MemoryError:
+            print("[warn] Memory pressure during parallel link check; falling back to sequential mode.", flush=True)
+            for link in unchecked:
+                checked_link, st = _check_one(link)
+                status_map[checked_link] = st
                 done += 1
                 if done % 100 == 0 or done == total:
                     print("[audit] links: {}/{}".format(done, total), flush=True)

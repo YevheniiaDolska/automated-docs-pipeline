@@ -1254,7 +1254,7 @@ class TestFinalizeMergeConfig:
         merged = _merge_config(args, {})
         assert merged["docs_root"] == "docs"
         # Empty auto_fix_commands -> filled with defaults
-        assert len(merged["auto_fix_commands"]) == 2
+        assert len(merged["auto_fix_commands"]) == 3
 
     def test_runtime_config_overrides(self) -> None:
         """Runtime config values override CLI defaults."""
@@ -1351,14 +1351,15 @@ class TestFinalizeSafeGitAdd:
 class TestFinalizeDefaultAutoFixCommands:
     """Cover _default_auto_fix_commands function."""
 
-    def test_returns_two_commands(self) -> None:
-        """Returns normalize and seo_geo_optimizer commands."""
+    def test_returns_three_commands(self) -> None:
+        """Returns link-fix, normalize, and seo_geo_optimizer commands."""
         from scripts.finalize_docs_gate import _default_auto_fix_commands
 
         cmds = _default_auto_fix_commands("docs")
-        assert len(cmds) == 2
-        assert "normalize_docs" in cmds[0]
-        assert "seo_geo_optimizer" in cmds[1]
+        assert len(cmds) == 3
+        assert "fix_markdown_links" in cmds[0]
+        assert "normalize_docs" in cmds[1]
+        assert "seo_geo_optimizer" in cmds[2]
 
 
 # ===========================================================================
