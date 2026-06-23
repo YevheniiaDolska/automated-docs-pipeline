@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sqlite3
 from pathlib import Path
 from typing import Any
 
@@ -254,6 +255,17 @@ def test_link_health_from_store_matches_in_memory() -> None:
     assert actual["_broken_link_provenance"]["https://docs.example.com/broken"][0]["source_page"] == "https://docs.example.com/a"
 
 
+def test_link_audit_store_uses_managed_local_tempdir() -> None:
+    from scripts import generate_public_docs_audit as mod
+
+    store = mod._LinkAuditStore()
+    try:
+        assert Path(store._path).parent == mod._LINK_AUDIT_LOCAL_TMPDIR
+        assert Path(store._path).suffix == ".sqlite3"
+    finally:
+        store.close()
+
+
 def test_select_unchecked_links_streams_without_materializing_all() -> None:
     from scripts import generate_public_docs_audit as mod
 
@@ -286,3 +298,44 @@ def test_select_unchecked_links_streams_without_materializing_all() -> None:
     assert total == 24
     assert len(selected) == 5
     assert selected == sorted(selected)
+
+
+def test_site_payload_falls_back_when_link_audit_store_unavailable(monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import generate_public_docs_audit as mod
+
+    pages = [
+        mod.PageData(
+            url="https://docs.example.com/a",
+            status=200,
+            title="A",
+            meta_description="desc",
+            h1_count=1,
+            heading_levels=[1],
+            internal_links=["https://docs.example.com/broken"],
+            external_links=[],
+            text="A page",
+            code_blocks=[],
+            last_updated_hint="",
+            internal_link_refs=[{"url": "https://docs.example.com/broken", "anchor_text": "Broken"}],
+        )
+    ]
+    status_map = {"https://docs.example.com/broken": 404}
+
+    monkeypatch.setattr(mod, "_crawl_site", lambda *a, **k: (pages, status_map))
+    monkeypatch.setattr(mod, "_seo_geo_metrics", lambda pages: {"geo_score": 80.0, "seo_geo_issue_rate_pct": 0.0})
+    monkeypatch.setattr(
+        mod,
+        "_api_coverage_from_public_docs",
+        lambda *a, **k: {"reference_coverage_pct": 0.0, "uncovered_endpoint_samples": []},
+    )
+    monkeypatch.setattr(mod, "_estimate_example_reliability", lambda pages: {"example_reliability_estimate_pct": 0.0})
+    monkeypatch.setattr(mod, "_last_updated_metrics", lambda pages: {"last_updated_coverage_pct": 0.0})
+    monkeypatch.setattr(
+        mod,
+        "_build_link_audit_store",
+        lambda pages: (_ for _ in ()).throw(sqlite3.OperationalError("disk I/O error")),
+    )
+
+    payload = mod._site_payload("https://docs.example.com", 5, 2)
+    assert payload["metrics"]["links"]["broken_internal_links_count"] == 1
+    assert payload["metrics"]["links"]["_broken_link_provenance"]["https://docs.example.com/broken"][0]["anchor_text"] == "Broken"

@@ -20,11 +20,11 @@ import statistics
 import tempfile
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Iterable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse, urlunparse
 from urllib.request import Request, urlopen
@@ -113,6 +113,8 @@ _LINK_CHECK_BATCH_SIZE = 500
 _MAX_CODE_BUFFER_CHARS = 400_000
 _MAX_CODE_BLOCK_CHARS = 100_000
 _MAX_CODE_BLOCKS_PER_PAGE = 300
+_LINK_AUDIT_LOCAL_TMPDIR = REPO_ROOT / ".tmp" / "public-docs-link-audit"
+_PAGE_AUDIT_LOCAL_TMPDIR = REPO_ROOT / ".tmp" / "public-docs-page-audit"
 
 
 def _slugify(text: str) -> str:
@@ -149,6 +151,20 @@ def _normalize_url(raw: str) -> str:
         path = path[:-1]
     clean = parsed._replace(fragment="", query="", path=path)
     return urlunparse(clean)
+
+
+def _is_valid_site_root_url(url: str) -> bool:
+    parsed = urlparse(str(url or "").strip())
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc.strip():
+        return False
+    host = parsed.hostname or ""
+    if not host or any(ch.isspace() for ch in host):
+        return False
+    if host == "localhost":
+        return True
+    if re.match(r"^\d{1,3}(?:\.\d{1,3}){3}$", host):
+        return True
+    return "." in host
 
 
 def _safe_join_normalize_url(base_url: str, href: str) -> str:
@@ -397,42 +413,124 @@ def _sample_urls_streaming(urls: Any, limit: int) -> list[str]:
     return sorted(url for _, url in heap)
 
 
+def _link_audit_tempdir_candidates() -> list[Path]:
+    candidates: list[Path] = []
+    configured = str(os.environ.get("DOCS_AUDIT_TMPDIR", "")).strip()
+    if configured:
+        candidates.append(Path(configured).expanduser())
+    candidates.append(_LINK_AUDIT_LOCAL_TMPDIR)
+    system_tmp = Path(tempfile.gettempdir()) / "public-docs-link-audit"
+    if system_tmp not in candidates:
+        candidates.append(system_tmp)
+    return candidates
+
+
+def _page_audit_tempdir_candidates() -> list[Path]:
+    candidates: list[Path] = []
+    configured = str(os.environ.get("DOCS_AUDIT_PAGE_TMPDIR", "")).strip()
+    if configured:
+        candidates.append(Path(configured).expanduser())
+    candidates.append(_PAGE_AUDIT_LOCAL_TMPDIR)
+    system_tmp = Path(tempfile.gettempdir()) / "public-docs-page-audit"
+    if system_tmp not in candidates:
+        candidates.append(system_tmp)
+    return candidates
+
+
+def _prepare_link_audit_tempdir(directory: Path) -> Path:
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
+
+
+def _warn_link_audit_store_failure(exc: BaseException, *, fallback_mode: str) -> None:
+    print(
+        "[warn] link-audit SQLite store unavailable ({}). Falling back to {}.".format(
+            str(exc).strip() or exc.__class__.__name__,
+            fallback_mode,
+        ),
+        flush=True,
+    )
+
+
+def _warn_page_audit_store_failure(exc: BaseException, *, fallback_mode: str) -> None:
+    print(
+        "[warn] page-audit SQLite store unavailable ({}). Falling back to {}.".format(
+            str(exc).strip() or exc.__class__.__name__,
+            fallback_mode,
+        ),
+        flush=True,
+    )
+
+
 class _LinkAuditStore:
     """Disk-backed unique-link store for large audits."""
 
     def __init__(self) -> None:
-        fd, path = tempfile.mkstemp(prefix="public-docs-link-audit-", suffix=".sqlite3")
-        os.close(fd)
-        self._path = path
-        self._conn = sqlite3.connect(self._path)
-        self._conn.execute("PRAGMA journal_mode=OFF")
-        self._conn.execute("PRAGMA synchronous=OFF")
-        self._conn.execute("PRAGMA temp_store=FILE")
-        self._conn.execute(
-            "CREATE TABLE links (url TEXT PRIMARY KEY)"
-        )
-        self._conn.execute(
-            "CREATE TABLE provenance ("
-            " url TEXT NOT NULL,"
-            " source_page TEXT NOT NULL,"
-            " anchor_text TEXT NOT NULL,"
-            " PRIMARY KEY (url, source_page, anchor_text)"
-            ")"
-        )
-        self._conn.execute(
-            "CREATE INDEX idx_provenance_url ON provenance(url)"
-        )
+        self._path = ""
+        self._conn: sqlite3.Connection | None = None
+        errors: list[str] = []
+        for candidate in _link_audit_tempdir_candidates():
+            try:
+                directory = _prepare_link_audit_tempdir(candidate)
+                fd, path = tempfile.mkstemp(
+                    prefix="public-docs-link-audit-",
+                    suffix=".sqlite3",
+                    dir=str(directory),
+                )
+                os.close(fd)
+                conn = sqlite3.connect(path)
+                conn.execute("PRAGMA journal_mode=OFF")
+                conn.execute("PRAGMA synchronous=OFF")
+                # Keep SQLite temp structures in memory. The table itself remains disk-backed,
+                # but this avoids fragile extra temp-file I/O on Windows operator laptops.
+                conn.execute("PRAGMA temp_store=MEMORY")
+                conn.execute(
+                    "CREATE TABLE links (url TEXT PRIMARY KEY)"
+                )
+                conn.execute(
+                    "CREATE TABLE provenance ("
+                    " url TEXT NOT NULL,"
+                    " source_page TEXT NOT NULL,"
+                    " anchor_text TEXT NOT NULL,"
+                    " PRIMARY KEY (url, source_page, anchor_text)"
+                    ")"
+                )
+                conn.execute(
+                    "CREATE INDEX idx_provenance_url ON provenance(url)"
+                )
+                self._path = path
+                self._conn = conn
+                break
+            except (OSError, sqlite3.Error) as exc:
+                errors.append(f"{candidate}: {exc}")
+                try:
+                    if "conn" in locals():
+                        conn.close()
+                except sqlite3.Error:
+                    pass
+                try:
+                    if "path" in locals() and path:
+                        os.remove(path)
+                except OSError:
+                    pass
+        if self._conn is None or not self._path:
+            details = "; ".join(errors) if errors else "no temp directories available"
+            raise sqlite3.OperationalError(f"unable to initialize link-audit SQLite store: {details}")
 
     def close(self) -> None:
         try:
-            self._conn.close()
+            if self._conn is not None:
+                self._conn.close()
         finally:
             try:
-                os.remove(self._path)
+                if self._path:
+                    os.remove(self._path)
             except OSError:
                 logger.debug("Failed to remove temp link-audit store: %s", self._path)
 
     def add_page(self, page: PageData) -> None:
+        if self._conn is None:
+            raise sqlite3.OperationalError("link-audit store is closed")
         if page.internal_links:
             self._conn.executemany(
                 "INSERT OR IGNORE INTO links(url) VALUES (?)",
@@ -453,13 +551,19 @@ class _LinkAuditStore:
             )
 
     def commit(self) -> None:
+        if self._conn is None:
+            raise sqlite3.OperationalError("link-audit store is closed")
         self._conn.commit()
 
     def unique_count(self) -> int:
+        if self._conn is None:
+            raise sqlite3.OperationalError("link-audit store is closed")
         row = self._conn.execute("SELECT COUNT(*) FROM links").fetchone()
         return int(row[0] if row else 0)
 
     def iter_links(self, batch_size: int = _LINK_CHECK_BATCH_SIZE) -> Any:
+        if self._conn is None:
+            raise sqlite3.OperationalError("link-audit store is closed")
         cursor = self._conn.execute("SELECT url FROM links ORDER BY url")
         while True:
             rows = cursor.fetchmany(batch_size)
@@ -469,6 +573,8 @@ class _LinkAuditStore:
                 yield str(url)
 
     def provenance_for(self, url: str, limit: int = 5) -> list[dict[str, str]]:
+        if self._conn is None:
+            raise sqlite3.OperationalError("link-audit store is closed")
         rows = self._conn.execute(
             "SELECT source_page, anchor_text FROM provenance WHERE url = ? ORDER BY source_page, anchor_text LIMIT ?",
             (url, int(limit)),
@@ -480,12 +586,134 @@ class _LinkAuditStore:
         ]
 
 
-def _build_link_audit_store(pages: list[PageData]) -> _LinkAuditStore:
+class _PageAuditStore:
+    """Disk-backed page store to avoid keeping the whole crawl corpus in RAM."""
+
+    def __init__(self) -> None:
+        self._path = ""
+        self._conn: sqlite3.Connection | None = None
+        errors: list[str] = []
+        for candidate in _page_audit_tempdir_candidates():
+            try:
+                directory = _prepare_link_audit_tempdir(candidate)
+                fd, path = tempfile.mkstemp(
+                    prefix="public-docs-page-audit-",
+                    suffix=".sqlite3",
+                    dir=str(directory),
+                )
+                os.close(fd)
+                conn = sqlite3.connect(path)
+                conn.execute("PRAGMA journal_mode=OFF")
+                conn.execute("PRAGMA synchronous=OFF")
+                conn.execute("PRAGMA temp_store=MEMORY")
+                conn.execute(
+                    "CREATE TABLE pages ("
+                    " url TEXT PRIMARY KEY,"
+                    " payload_json TEXT NOT NULL"
+                    ")"
+                )
+                self._path = path
+                self._conn = conn
+                break
+            except (OSError, sqlite3.Error) as exc:
+                errors.append(f"{candidate}: {exc}")
+                try:
+                    if "conn" in locals():
+                        conn.close()
+                except sqlite3.Error:
+                    pass
+                try:
+                    if "path" in locals() and path:
+                        os.remove(path)
+                except OSError:
+                    pass
+        if self._conn is None or not self._path:
+            details = "; ".join(errors) if errors else "no temp directories available"
+            raise sqlite3.OperationalError(f"unable to initialize page-audit SQLite store: {details}")
+
+    def close(self) -> None:
+        try:
+            if self._conn is not None:
+                self._conn.close()
+        finally:
+            try:
+                if self._path:
+                    os.remove(self._path)
+            except OSError:
+                logger.debug("Failed to remove temp page-audit store: %s", self._path)
+
+    def upsert_page(self, page: PageData) -> None:
+        if self._conn is None:
+            raise sqlite3.OperationalError("page-audit store is closed")
+        payload_json = json.dumps(asdict(page), ensure_ascii=False, separators=(",", ":"))
+        self._conn.execute(
+            "INSERT OR REPLACE INTO pages(url, payload_json) VALUES (?, ?)",
+            (page.url, payload_json),
+        )
+
+    def commit(self) -> None:
+        if self._conn is None:
+            raise sqlite3.OperationalError("page-audit store is closed")
+        self._conn.commit()
+
+    def count(self) -> int:
+        if self._conn is None:
+            raise sqlite3.OperationalError("page-audit store is closed")
+        row = self._conn.execute("SELECT COUNT(*) FROM pages").fetchone()
+        return int(row[0] if row else 0)
+
+    def iter_pages(self, batch_size: int = 100) -> Iterable[PageData]:
+        if self._conn is None:
+            raise sqlite3.OperationalError("page-audit store is closed")
+        cursor = self._conn.execute("SELECT payload_json FROM pages ORDER BY url")
+        while True:
+            rows = cursor.fetchmany(batch_size)
+            if not rows:
+                break
+            for (payload_json,) in rows:
+                payload = json.loads(str(payload_json))
+                yield PageData(**payload)
+
+
+def _page_iter_factory_from_list(pages: list[PageData]) -> Callable[[], Iterable[PageData]]:
+    return lambda: iter(pages)
+
+
+def _coerce_page_iter_factory(
+    pages_or_factory: Iterable[PageData] | Callable[[], Iterable[PageData]],
+) -> Callable[[], Iterable[PageData]]:
+    if callable(pages_or_factory):
+        return pages_or_factory
+    if isinstance(pages_or_factory, list):
+        return _page_iter_factory_from_list(pages_or_factory)
+    materialized = list(pages_or_factory)
+    return _page_iter_factory_from_list(materialized)
+
+
+def _build_link_audit_store(pages: Iterable[PageData]) -> _LinkAuditStore:
     store = _LinkAuditStore()
     for page in pages:
         store.add_page(page)
     store.commit()
     return store
+
+
+def _select_unchecked_links_from_pages(
+    pages: Iterable[PageData],
+    status_map: dict[str, int],
+    limit: int,
+) -> tuple[int, list[str]]:
+    unique_links = {
+        str(link).strip()
+        for page in pages
+        for link in page.internal_links
+        if str(link).strip()
+    }
+    unchecked = [url for url in sorted(unique_links) if url not in status_map]
+    total_unchecked = len(unchecked)
+    if total_unchecked <= limit:
+        return total_unchecked, unchecked
+    return total_unchecked, _sample_urls_streaming(unchecked, limit)
 
 
 def _select_unchecked_links(
@@ -1011,7 +1239,7 @@ _DATA_ONLY_LANGS = {"text", "yaml", "json", "toml", "ini", "xml", "csv", "diff",
                      "log", "plaintext", "txt", "properties", "env", "conf", "cfg"}
 
 
-def _estimate_example_reliability(pages: list[PageData]) -> dict[str, Any]:
+def _estimate_example_reliability(pages: Iterable[PageData]) -> dict[str, Any]:
     total = 0
     runnable = 0
     blocked_by_placeholders = 0
@@ -1171,7 +1399,7 @@ def _is_api_page(page: PageData) -> bool:
     return _api_signal_score(combined) >= 2
 
 
-def _discover_contract_urls(pages: list[PageData]) -> list[str]:
+def _discover_contract_urls(pages: Iterable[PageData]) -> list[str]:
     pattern = re.compile(
         r"(openapi|swagger|api-docs|graphql|schema|asyncapi|\.proto|protobuf|descriptor)",
         flags=re.IGNORECASE,
@@ -1291,11 +1519,12 @@ def _parse_structured_contract_identifiers(contract_text: str) -> set[str]:
 
 
 def _source_of_truth_identifiers(
-    pages: list[PageData],
+    page_iter_factory: Callable[[], Iterable[PageData]] | Iterable[PageData],
     timeout: int,
     auth_headers: dict[str, str] | None = None,
 ) -> tuple[set[str], str]:
-    candidates = _discover_contract_urls(pages)
+    page_iter_factory = _coerce_page_iter_factory(page_iter_factory)
+    candidates = _discover_contract_urls(page_iter_factory())
     if not candidates:
         return set(), "No contract URLs discovered in crawled pages"
     ids: set[str] = set()
@@ -1316,15 +1545,16 @@ def _source_of_truth_identifiers(
 
 
 def _api_coverage_from_public_docs(
-    pages: list[PageData],
+    page_iter_factory: Callable[[], Iterable[PageData]] | Iterable[PageData],
     timeout: int = 15,
     auth_headers: dict[str, str] | None = None,
 ) -> dict[str, Any]:
+    page_iter_factory = _coerce_page_iter_factory(page_iter_factory)
     reference_ids: set[str] = set()
     non_reference_ids: set[str] = set()
 
     api_page_count = 0
-    for page in pages:
+    for page in page_iter_factory():
         is_api = _is_api_page(page)
         if is_api:
             api_page_count += 1
@@ -1334,7 +1564,7 @@ def _api_coverage_from_public_docs(
             bucket.update(_extract_api_identifiers(src))
 
     source_ids, source_note = _source_of_truth_identifiers(
-        pages=pages,
+        page_iter_factory=page_iter_factory,
         timeout=int(timeout),
         auth_headers=auth_headers or {},
     )
@@ -1370,12 +1600,22 @@ def _api_coverage_from_public_docs(
     }
 
 
-def _seo_geo_metrics(pages: list[PageData]) -> dict[str, Any]:
-    total = len(pages)
-    missing_title = sum(1 for p in pages if not p.title.strip())
-    missing_description = sum(1 for p in pages if not p.meta_description.strip())
-    multi_h1 = sum(1 for p in pages if p.h1_count > 1)
-    heading_jump = sum(1 for p in pages if _heading_violations(p.heading_levels) > 0)
+def _seo_geo_metrics(pages: Iterable[PageData]) -> dict[str, Any]:
+    total = 0
+    missing_title = 0
+    missing_description = 0
+    multi_h1 = 0
+    heading_jump = 0
+    for page in pages:
+        total += 1
+        if not page.title.strip():
+            missing_title += 1
+        if not page.meta_description.strip():
+            missing_description += 1
+        if page.h1_count > 1:
+            multi_h1 += 1
+        if _heading_violations(page.heading_levels) > 0:
+            heading_jump += 1
 
     return {
         "pages_scanned": total,
@@ -1420,7 +1660,7 @@ def _is_excluded_link(url: str) -> bool:
     return False
 
 
-def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str, Any]:
+def _link_health(pages: Iterable[PageData], status_map: dict[str, int]) -> dict[str, Any]:
     internal_links = set()
     link_provenance: dict[str, list[dict[str, str]]] = {}
     for page in pages:
@@ -1554,27 +1794,36 @@ def _link_health_from_store(store: _LinkAuditStore, status_map: dict[str, int]) 
     }
 
 
-def _last_updated_metrics(pages: list[PageData]) -> dict[str, Any]:
-    with_hint = [p for p in pages if p.last_updated_hint.strip()]
+def _last_updated_metrics(pages: Iterable[PageData]) -> dict[str, Any]:
+    total = 0
+    with_hint: list[PageData] = []
+    with_hint_count = 0
+    for page in pages:
+        total += 1
+        if page.last_updated_hint.strip():
+            with_hint_count += 1
+            if len(with_hint) < 10:
+                with_hint.append(page)
     return {
-        "pages_with_last_updated_hint": len(with_hint),
-        "pages_without_last_updated_hint": len(pages) - len(with_hint),
-        "last_updated_coverage_pct": _safe_pct(len(with_hint), len(pages)),
-        "samples_with_last_updated": [{"url": p.url, "hint": p.last_updated_hint[:120]} for p in with_hint[:10]],
+        "pages_with_last_updated_hint": with_hint_count,
+        "pages_without_last_updated_hint": max(0, total - with_hint_count),
+        "last_updated_coverage_pct": _safe_pct(with_hint_count, total),
+        "samples_with_last_updated": [{"url": p.url, "hint": p.last_updated_hint[:120]} for p in with_hint],
     }
 
 
 def _retrieval_readiness_metrics(
-    pages: list[PageData],
+    pages: Iterable[PageData],
     seo_geo: dict[str, Any],
     api_coverage: dict[str, Any],
     freshness: dict[str, Any],
 ) -> dict[str, Any]:
-    total = max(1, len(pages))
+    total_pages = 0
     structured_pages = 0
     answerable_pages = 0
     citable_pages = 0
     for page in pages:
+        total_pages += 1
         has_structure = len(page.heading_levels) >= 2 and _heading_violations(page.heading_levels) == 0
         if has_structure:
             structured_pages += 1
@@ -1588,6 +1837,7 @@ def _retrieval_readiness_metrics(
         if has_numeric_fact and (has_link_evidence or has_code_or_endpoint):
             citable_pages += 1
 
+    total = max(1, total_pages)
     chunkability = _safe_pct(structured_pages, total)
     answerability = _safe_pct(answerable_pages, total)
     citationability = _safe_pct(citable_pages, total)
@@ -1620,7 +1870,7 @@ def _retrieval_readiness_metrics(
     }
 
 
-def _evidence_coverage_metrics(pages: list[PageData]) -> dict[str, Any]:
+def _evidence_coverage_metrics(pages: Iterable[PageData]) -> dict[str, Any]:
     claim_total = 0
     claim_with_evidence = 0
     claim_pattern = re.compile(r"\b(must|should|requires|supports|guarantees|returns|provides|ensures)\b", re.IGNORECASE)
@@ -1645,7 +1895,7 @@ def _evidence_coverage_metrics(pages: list[PageData]) -> dict[str, Any]:
     }
 
 
-def _protocol_actionability_metrics(pages: list[PageData]) -> dict[str, Any]:
+def _protocol_actionability_metrics(pages: Iterable[PageData]) -> dict[str, Any]:
     protocols: dict[str, dict[str, Any]] = {
         "rest": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
         "graphql": {"pages": 0, "checks": {"auth_model": 0, "error_semantics": 0, "retry_idempotency": 0, "schema_evolution": 0}},
@@ -1892,6 +2142,7 @@ def _crawl_site(
     crawl_batch_size: int = 60,
     auto_max_pages: int = 100000,
     return_stats: bool = False,
+    page_store: _PageAuditStore | None = None,
 ) -> tuple[list[PageData], dict[str, int]] | tuple[list[PageData], dict[str, int], dict[str, Any]]:
     """Crawl *start_url* up to *max_pages* with parallel BFS + parallel link check.
 
@@ -1920,6 +2171,8 @@ def _crawl_site(
     for ua_attempt in range(len(_USER_AGENTS)):
         seen: set[str] = set()
         pages: list[PageData] = []
+        stored_page_urls: set[str] = set()
+        pages_crawled_count = 0
         status_map: dict[str, int] = {}
         discovered: set[str] = {start_url}
         seed_urls: set[str] = {start_url}
@@ -2006,8 +2259,15 @@ def _crawl_site(
                             break
                         status_map[url] = st
                         if page is not None:
-                            pages.append(page)
-                            print("[audit] page {}/{}: {}".format(len(pages), progress_total, url[:80]), flush=True)
+                            if page_store is not None:
+                                page_store.upsert_page(page)
+                                if page.url not in stored_page_urls:
+                                    stored_page_urls.add(page.url)
+                                    pages_crawled_count += 1
+                            else:
+                                pages.append(page)
+                                pages_crawled_count = len(pages)
+                            print("[audit] page {}/{}: {}".format(pages_crawled_count, progress_total, url[:80]), flush=True)
                             for link in new_links:
                                 if not _is_http_url(link):
                                     continue
@@ -2025,15 +2285,17 @@ def _crawl_site(
                                         queue.append(link)
                     if resource_pressure_error:
                         break
+                    if page_store is not None:
+                        page_store.commit()
 
                     if auto_mode:
                         found_new = len(discovered) > round_discovered_before
-                        crawled_new = len(pages) > prior_crawled
+                        crawled_new = pages_crawled_count > prior_crawled
                         if found_new or crawled_new:
                             rounds_without_new = 0
                         else:
                             rounds_without_new += 1
-                        prior_crawled = len(pages)
+                        prior_crawled = pages_crawled_count
                         if rounds_without_new >= convergence_rounds:
                             stop_reason = "converged"
                             break
@@ -2052,7 +2314,7 @@ def _crawl_site(
             break
 
         # If we got at least 1 page, stop retrying
-        if pages:
+        if pages_crawled_count > 0:
             if not auto_mode and len(seen) >= effective_limit:
                 stop_reason = "limit_reached"
             elif not auto_mode and not queue:
@@ -2081,10 +2343,19 @@ def _crawl_site(
             storage_state_path=storage_state_path,
         )
         if b_pages:
-            by_url = {p.url: p for p in pages}
-            for p in b_pages:
-                by_url[p.url] = p
-            pages = list(by_url.values())
+            if page_store is not None:
+                for p in b_pages:
+                    page_store.upsert_page(p)
+                    if p.url not in stored_page_urls:
+                        stored_page_urls.add(p.url)
+                        pages_crawled_count += 1
+                page_store.commit()
+            else:
+                by_url = {p.url: p for p in pages}
+                for p in b_pages:
+                    by_url[p.url] = p
+                pages = list(by_url.values())
+                pages_crawled_count = len(pages)
             for u, st in b_status.items():
                 if u not in status_map or status_map.get(u, 0) in {0, -2}:
                     status_map[u] = st
@@ -2093,15 +2364,25 @@ def _crawl_site(
     link_timeout = min(timeout, 3)
     total_unchecked = 0
     unchecked: list[str] = []
-    link_store = _build_link_audit_store(pages)
     try:
-        total_unchecked, unchecked = _select_unchecked_links(
-            link_store,
+        link_store = _build_link_audit_store(
+            page_store.iter_pages() if page_store is not None else pages,
+        )
+        try:
+            total_unchecked, unchecked = _select_unchecked_links(
+                link_store,
+                status_map,
+                _MAX_LINK_HEALTH_CHECKS,
+            )
+        finally:
+            link_store.close()
+    except (OSError, sqlite3.Error) as exc:
+        _warn_link_audit_store_failure(exc, fallback_mode="in-memory link sampling")
+        total_unchecked, unchecked = _select_unchecked_links_from_pages(
+            page_store.iter_pages() if page_store is not None else pages,
             status_map,
             _MAX_LINK_HEALTH_CHECKS,
         )
-    finally:
-        link_store.close()
     link_workers = _adaptive_worker_count(len(unchecked), hard_cap=12, reserve_one=True) if unchecked else 1
     if total_unchecked > len(unchecked):
         print(
@@ -2189,7 +2470,7 @@ def _crawl_site(
         # Use crawl frontier discovery, not all in-page links, for coverage denominator.
         "discovered_pages": len(discovered),
         "urls_examined": len(seen),
-        "pages_crawled": len(pages),
+        "pages_crawled": pages_crawled_count,
         "requested_pages": len(status_map),
         "stop_reason": stop_reason,
         "trap_urls_skipped": int(trap_urls_skipped),
@@ -2200,8 +2481,8 @@ def _crawl_site(
         "link_checks_sampled": bool(total_unchecked > len(unchecked)),
     }
     if return_stats:
-        return pages, status_map, crawl_stats
-    return pages, status_map
+        return pages if page_store is None else [], status_map, crawl_stats
+    return (pages if page_store is None else []), status_map
 
 
 def _site_payload(
@@ -2217,102 +2498,136 @@ def _site_payload(
     crawl_batch_size: int = 60,
     auto_max_pages: int = 100000,
 ) -> dict[str, Any]:
-    crawl_result = _crawl_site(
-        site_url,
-        max_pages,
-        timeout,
-        verification_modes=verification_modes,
-        auth_headers=auth_headers,
-        browser_verify_sample=browser_verify_sample,
-        browser_discovery_pages=browser_discovery_pages,
-        storage_state_path=storage_state_path,
-        crawl_convergence_rounds=crawl_convergence_rounds,
-        crawl_batch_size=crawl_batch_size,
-        auto_max_pages=auto_max_pages,
-        return_stats=True,
-    )
-    if isinstance(crawl_result, tuple) and len(crawl_result) == 3:
-        pages, status_map, crawl_stats = crawl_result
-    else:
-        pages, status_map = crawl_result  # type: ignore[misc]
-        crawl_stats = {
-            "auto_mode": int(max_pages) <= 0,
-            "configured_max_pages": int(max_pages),
-            "effective_limit": int(max_pages),
-            # Legacy fallback path: count discovered pages by crawled page URLs only.
-            # Including all in-page links here inflates denominator and breaks coverage.
-            "discovered_pages": len({p.url for p in pages}),
-            "urls_examined": len({p.url for p in pages}),
-            "pages_crawled": len(pages),
-            "requested_pages": len(status_map),
-            "stop_reason": "unknown",
-            "trap_urls_skipped": 0,
-            "seeded_sitemap_urls": 0,
-            "robots_sitemaps_declared": 0,
-        }
-
-    discovered_pages = int(crawl_stats.get("discovered_pages", 0) or 0)
-    urls_examined = int(crawl_stats.get("urls_examined", len(status_map)) or 0)
-    requested_pages = int(crawl_stats.get("requested_pages", len(status_map)) or 0)
-    pages_crawled = int(crawl_stats.get("pages_crawled", len(pages)) or 0)
-    seeded_sitemap_urls = int(crawl_stats.get("seeded_sitemap_urls", 0) or 0)
-    scope_basis = "sitemap" if seeded_sitemap_urls > 0 else "discovered"
-    scope_pages = seeded_sitemap_urls if seeded_sitemap_urls > 0 else discovered_pages
-    seo_geo = _seo_geo_metrics(pages)
-    api_coverage = _api_coverage_from_public_docs(
-        pages,
-        timeout=int(timeout),
-        auth_headers=auth_headers or {},
-    )
-    examples = _estimate_example_reliability(pages)
-    freshness = _last_updated_metrics(pages)
-    link_store = _build_link_audit_store(pages)
+    page_store: _PageAuditStore | None = None
     try:
-        links_metrics = _link_health_from_store(link_store, status_map)
+        try:
+            page_store = _PageAuditStore()
+        except (OSError, sqlite3.Error) as exc:
+            _warn_page_audit_store_failure(exc, fallback_mode="in-memory page list")
+        crawl_result = _crawl_site(
+            site_url,
+            max_pages,
+            timeout,
+            verification_modes=verification_modes,
+            auth_headers=auth_headers,
+            browser_verify_sample=browser_verify_sample,
+            browser_discovery_pages=browser_discovery_pages,
+            storage_state_path=storage_state_path,
+            crawl_convergence_rounds=crawl_convergence_rounds,
+            crawl_batch_size=crawl_batch_size,
+            auto_max_pages=auto_max_pages,
+            return_stats=True,
+            page_store=page_store,
+        )
+        if isinstance(crawl_result, tuple) and len(crawl_result) == 3:
+            pages, status_map, crawl_stats = crawl_result  # type: ignore[misc]
+        else:
+            pages, status_map = crawl_result  # type: ignore[misc]
+            crawl_stats = {
+                "auto_mode": int(max_pages) <= 0,
+                "configured_max_pages": int(max_pages),
+                "effective_limit": int(max_pages),
+                "discovered_pages": len({p.url for p in pages}),
+                "urls_examined": len({p.url for p in pages}),
+                "pages_crawled": len(pages),
+                "requested_pages": len(status_map),
+                "stop_reason": "unknown",
+                "trap_urls_skipped": 0,
+                "seeded_sitemap_urls": 0,
+                "robots_sitemaps_declared": 0,
+            }
+        if page_store is not None and pages:
+            for page in pages:
+                page_store.upsert_page(page)
+            page_store.commit()
+        if page_store is None:
+            crawl_stats = {
+                "auto_mode": int(max_pages) <= 0,
+                "configured_max_pages": int(max_pages),
+                "effective_limit": int(max_pages),
+                "discovered_pages": len({p.url for p in pages}),
+                "urls_examined": len({p.url for p in pages}),
+                "pages_crawled": len(pages),
+                "requested_pages": len(status_map),
+                "stop_reason": str(crawl_stats.get("stop_reason", "unknown")),
+                "trap_urls_skipped": int(crawl_stats.get("trap_urls_skipped", 0) or 0),
+                "seeded_sitemap_urls": int(crawl_stats.get("seeded_sitemap_urls", 0) or 0),
+                "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
+            }
+            page_iter_factory = _page_iter_factory_from_list(pages)
+        else:
+            page_store.commit()
+            page_iter_factory = page_store.iter_pages
+
+        discovered_pages = int(crawl_stats.get("discovered_pages", 0) or 0)
+        urls_examined = int(crawl_stats.get("urls_examined", len(status_map)) or 0)
+        requested_pages = int(crawl_stats.get("requested_pages", len(status_map)) or 0)
+        pages_crawled = int(crawl_stats.get("pages_crawled", page_store.count() if page_store is not None else 0) or 0)
+        seeded_sitemap_urls = int(crawl_stats.get("seeded_sitemap_urls", 0) or 0)
+        scope_basis = "sitemap" if seeded_sitemap_urls > 0 else "discovered"
+        scope_pages = seeded_sitemap_urls if seeded_sitemap_urls > 0 else discovered_pages
+        seo_geo = _seo_geo_metrics(page_iter_factory())
+        api_coverage = _api_coverage_from_public_docs(
+            page_iter_factory,
+            timeout=int(timeout),
+            auth_headers=auth_headers or {},
+        )
+        examples = _estimate_example_reliability(page_iter_factory())
+        freshness = _last_updated_metrics(page_iter_factory())
+        try:
+            link_store = _build_link_audit_store(page_iter_factory())
+            try:
+                links_metrics = _link_health_from_store(link_store, status_map)
+            finally:
+                link_store.close()
+        except (OSError, sqlite3.Error) as exc:
+            _warn_link_audit_store_failure(exc, fallback_mode="in-memory link metrics")
+            links_metrics = _link_health(page_iter_factory(), status_map)
+        metrics = {
+            "crawl": {
+                "pages_crawled": pages_crawled,
+                "requested_pages": requested_pages,
+                "urls_examined": urls_examined,
+                "max_pages": int(max_pages),
+                "effective_limit": int(crawl_stats.get("effective_limit", max_pages) or 0),
+                "auto_mode": bool(crawl_stats.get("auto_mode", int(max_pages) <= 0)),
+                "stop_reason": str(crawl_stats.get("stop_reason", "unknown")),
+                "discovered_pages": discovered_pages,
+                "crawl_scope_basis": scope_basis,
+                "crawl_scope_pages": scope_pages,
+                "crawl_coverage_pct": _safe_pct(urls_examined, scope_pages),
+                "trap_urls_skipped": int(crawl_stats.get("trap_urls_skipped", 0) or 0),
+                "seeded_sitemap_urls": seeded_sitemap_urls,
+                "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
+            },
+            "links": links_metrics,
+            "seo_geo": seo_geo,
+            "api_coverage": api_coverage,
+            "examples": examples,
+            "freshness": freshness,
+            "retrieval_readiness": _retrieval_readiness_metrics(
+                page_iter_factory(),
+                seo_geo=seo_geo,
+                api_coverage=api_coverage,
+                freshness=freshness,
+            ),
+            "evidence_coverage": _evidence_coverage_metrics(page_iter_factory()),
+            "actionability": _protocol_actionability_metrics(page_iter_factory()),
+        }
+        return {
+            "site_url": site_url,
+            "metrics": metrics,
+            "samples": {
+                "broken_links": metrics["links"]["broken_internal_link_samples"],
+                "docs_broken_link_samples": metrics["links"].get("docs_broken_link_samples", []),
+                "repo_broken_link_samples": metrics["links"].get("repo_broken_link_samples", []),
+                "unverified_link_samples": metrics["links"].get("unverified_link_samples", []),
+                "api_uncovered_samples": metrics["api_coverage"]["uncovered_endpoint_samples"],
+            },
+        }
     finally:
-        link_store.close()
-    metrics = {
-        "crawl": {
-            "pages_crawled": pages_crawled,
-            "requested_pages": requested_pages,
-            "urls_examined": urls_examined,
-            "max_pages": int(max_pages),
-            "effective_limit": int(crawl_stats.get("effective_limit", max_pages) or 0),
-            "auto_mode": bool(crawl_stats.get("auto_mode", int(max_pages) <= 0)),
-            "stop_reason": str(crawl_stats.get("stop_reason", "unknown")),
-            "discovered_pages": discovered_pages,
-            "crawl_scope_basis": scope_basis,
-            "crawl_scope_pages": scope_pages,
-            "crawl_coverage_pct": _safe_pct(urls_examined, scope_pages),
-            "trap_urls_skipped": int(crawl_stats.get("trap_urls_skipped", 0) or 0),
-            "seeded_sitemap_urls": seeded_sitemap_urls,
-            "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
-        },
-        "links": links_metrics,
-        "seo_geo": seo_geo,
-        "api_coverage": api_coverage,
-        "examples": examples,
-        "freshness": freshness,
-        "retrieval_readiness": _retrieval_readiness_metrics(
-            pages,
-            seo_geo=seo_geo,
-            api_coverage=api_coverage,
-            freshness=freshness,
-        ),
-        "evidence_coverage": _evidence_coverage_metrics(pages),
-        "actionability": _protocol_actionability_metrics(pages),
-    }
-    return {
-        "site_url": site_url,
-        "metrics": metrics,
-        "samples": {
-            "broken_links": metrics["links"]["broken_internal_link_samples"],
-            "docs_broken_link_samples": metrics["links"].get("docs_broken_link_samples", []),
-            "repo_broken_link_samples": metrics["links"].get("repo_broken_link_samples", []),
-            "unverified_link_samples": metrics["links"].get("unverified_link_samples", []),
-            "api_uncovered_samples": metrics["api_coverage"]["uncovered_endpoint_samples"],
-        },
-    }
+        if page_store is not None:
+            page_store.close()
 
 
 def _aggregate_api_coverage(sites: list[dict[str, Any]]) -> dict[str, Any]:
@@ -2464,8 +2779,14 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         weight = 0
         for site in sites:
             cur: Any = site["metrics"]
+            missing = False
             for key in key_path:
+                if not isinstance(cur, dict) or key not in cur:
+                    missing = True
+                    break
                 cur = cur[key]
+            if missing:
+                continue
             pages = int(site["metrics"]["crawl"]["pages_crawled"])
             acc += float(cur) * pages
             weight += pages
@@ -3489,7 +3810,7 @@ def main() -> int:
     normalized_urls: list[str] = []
     for raw in site_urls:
         u = _normalize_url(raw)
-        if not _is_http_url(u):
+        if not _is_http_url(u) or not _is_valid_site_root_url(u):
             raise SystemExit(f"Invalid --site-url: {raw}")
         if u not in normalized_urls:
             normalized_urls.append(u)
