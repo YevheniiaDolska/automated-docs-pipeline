@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-06-18T10:09:58.406239+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">465</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">473</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">8</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">22.37%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">64.09%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">99.63%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">99.57%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Link verification inconclusive for 8 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 22.37%</li><li>API usage-doc coverage is low: 64.09% (136 API pages detected)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.ton.org/</strong>: pages=465, broken_links=0, api_coverage=64.09%, examples=99.63%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>TON documentation spans 465 crawled pages with 100% crawl coverage and zero confirmed broken links. API reference coverage stands at 64.09% across 136 detected API pages, leaving over one-third of API surface undocumented. SEO/geo issues affect 22.37% of pages, risking organic discovery and regional reach. Retrieval readiness scores 82.85/100 (strong band), with 90.09% of 1,463 key claims backed by evidence. Overall audit confidence is 63.5%, constrained by link verification limitations (8 unverified URLs due to auth/rate-limit blocks).</p><h3>Strengths</h3><ul><li>100% crawl coverage (465 of 473 in-scope pages) with zero broken internal or repository navigation links</li><li>99.57% of pages include last-updated metadata, supporting freshness transparency</li><li>90.09% of 1,463 detected claims are backed by evidence, strengthening trust and AI answer quality</li><li>Example reliability estimate at 99.63%, indicating minimal code-rot risk in tutorials</li><li>Retrieval readiness overall score of 82.85 (strong band) with 100% citationability and 88.39% chunkability</li></ul><h3>Risks</h3><ul><li>35.91% of API surface lacks usage documentation (136 API pages detected, 64.09% coverage), blocking developer onboarding for uncovered endpoints</li><li>22.37% SEO/geo issue rate threatens organic search visibility and regional discoverability, directly impacting inbound developer acquisition</li><li>8 unverified links (auth/rate-limit/server blocks) introduce unknown broken-link exposure; link confidence is only 25%</li><li>17.63% of pages fail answerability checks, limiting effectiveness in LLM-powered search and chatbot contexts</li><li>11.61% of pages have chunkability issues, risking poor semantic retrieval in vector search and RAG pipelines</li><li>2.07% stale-risk pages may contain outdated guidance, eroding trust if not flagged or refreshed</li><li>Overall audit confidence at 63.5% means findings may undercount issues in link health and edge-case API detection</li></ul><h3>Prioritized actions</h3><ul><li>Close the 35.91% API documentation gap by generating usage examples and parameter guides for the 49 undocumented API pages (out of 136 detected) <em>[critical, high]</em></li><li>Remediate SEO/geo issues on the 104 affected pages (22.37% of 465) by adding missing meta descriptions, fixing duplicate titles, and ensuring regional hreflang tags <em>[high, medium]</em></li><li>Improve answerability for the 82 pages (17.63%) failing LLM-readiness checks by adding explicit Q&amp;A pairs, summary sections, or structured how-to blocks <em>[high, medium]</em></li><li>Resolve chunkability issues on 54 pages (11.61%) by breaking long prose into subsections, adding headings, and splitting dense tables <em>[medium, low]</em></li><li>Verify the 8 unverified links (auth/rate-limit blocked) manually or via authenticated crawl, then fix or document any confirmed breaks <em>[medium, low]</em></li></ul></div>
+  </div>
+</body>
+</html>

@@ -93,6 +93,11 @@ def _adaptive_worker_count(total_items: int, *, hard_cap: int, reserve_one: bool
     cpu_cap = max(1, min(hard_cap, _DEFAULT_CPU_COUNT if reserve_one else _DEFAULT_CPU_COUNT * 2))
     return max(1, min(total, cpu_cap, hard_cap))
 
+
+def _is_thread_start_failure(exc: BaseException) -> bool:
+    """Return True when executor startup fails because the process cannot open another thread."""
+    return isinstance(exc, RuntimeError) and "can't start new thread" in str(exc).lower()
+
 _SITEMAP_HINT_RE = re.compile(r"(?im)^\s*sitemap\s*:\s*(\S+)\s*$")
 _URLSET_LOC_RE = re.compile(r"(?is)<loc>\s*(.*?)\s*</loc>")
 _RSS_LINK_RE = re.compile(r"(?is)<link>\s*(https?://[^<\s]+)\s*</link>")
@@ -2250,6 +2255,44 @@ def _crawl_site(
                         resource_pressure_error = True
                         print("[warn] Memory pressure while scheduling crawl workers; aborting retry loop.", flush=True)
                         break
+                    except RuntimeError as exc:
+                        if not _is_thread_start_failure(exc):
+                            raise
+                        print("[warn] Thread limit reached while scheduling crawl workers; falling back to sequential mode.", flush=True)
+                        for u in batch:
+                            try:
+                                url, st, page, new_links = _crawl_one(u)
+                            except MemoryError:
+                                print("[warn] Memory pressure during sequential crawl fallback; aborting retry loop.", flush=True)
+                                break
+                            status_map[url] = st
+                            if page is not None:
+                                if page_store is not None:
+                                    page_store.upsert_page(page)
+                                    if page.url not in stored_page_urls:
+                                        stored_page_urls.add(page.url)
+                                        pages_crawled_count += 1
+                                else:
+                                    pages.append(page)
+                                    pages_crawled_count = len(pages)
+                                print("[audit] page {}/{}: {}".format(pages_crawled_count, progress_total, url[:80]), flush=True)
+                                for link in new_links:
+                                    if not _is_http_url(link):
+                                        continue
+                                    if not _same_host(link, start_url):
+                                        continue
+                                    if _is_probable_crawl_trap(link):
+                                        trap_urls_skipped += 1
+                                        continue
+                                    if sitemap_scope and link not in seed_urls:
+                                        continue
+                                    if link not in discovered:
+                                        discovered.add(link)
+                                        if len(seen) + len(queue) < effective_limit * 2:
+                                            queue.append(link)
+                        if page_store is not None:
+                            page_store.commit()
+                        continue
                     for future in as_completed(futures):
                         try:
                             url, st, page, new_links = future.result()
@@ -2308,6 +2351,60 @@ def _crawl_site(
         except MemoryError:
             resource_pressure_error = True
             print("[warn] Memory pressure while starting crawl workers; aborting retry loop.", flush=True)
+        except RuntimeError as exc:
+            if not _is_thread_start_failure(exc):
+                raise
+            print("[warn] Thread limit reached while starting crawl workers; falling back to sequential mode.", flush=True)
+            while queue and len(seen) < effective_limit:
+                round_discovered_before = len(discovered)
+                candidate = queue.popleft()
+                if candidate in seen:
+                    continue
+                seen.add(candidate)
+                url, st, page, new_links = _crawl_one(candidate)
+                status_map[url] = st
+                if page is not None:
+                    if page_store is not None:
+                        page_store.upsert_page(page)
+                        if page.url not in stored_page_urls:
+                            stored_page_urls.add(page.url)
+                            pages_crawled_count += 1
+                    else:
+                        pages.append(page)
+                        pages_crawled_count = len(pages)
+                    print("[audit] page {}/{}: {}".format(pages_crawled_count, progress_total, url[:80]), flush=True)
+                    for link in new_links:
+                        if not _is_http_url(link):
+                            continue
+                        if not _same_host(link, start_url):
+                            continue
+                        if _is_probable_crawl_trap(link):
+                            trap_urls_skipped += 1
+                            continue
+                        if sitemap_scope and link not in seed_urls:
+                            continue
+                        if link not in discovered:
+                            discovered.add(link)
+                            if len(seen) + len(queue) < effective_limit * 2:
+                                queue.append(link)
+                if page_store is not None:
+                    page_store.commit()
+                if auto_mode:
+                    found_new = len(discovered) > round_discovered_before
+                    crawled_new = pages_crawled_count > prior_crawled
+                    if found_new or crawled_new:
+                        rounds_without_new = 0
+                    else:
+                        rounds_without_new += 1
+                    prior_crawled = pages_crawled_count
+                    if rounds_without_new >= convergence_rounds:
+                        stop_reason = "converged"
+                        break
+            else:
+                if not auto_mode and not queue:
+                    stop_reason = "queue_exhausted"
+                else:
+                    stop_reason = "limit_reached"
 
         if resource_pressure_error:
             stop_reason = "resource_pressure"
@@ -2436,6 +2533,16 @@ def _crawl_site(
                         print("[audit] links: {}/{}".format(done, total), flush=True)
         except MemoryError:
             print("[warn] Memory pressure during parallel link check; falling back to sequential mode.", flush=True)
+            for link in unchecked:
+                checked_link, st = _check_one(link)
+                status_map[checked_link] = st
+                done += 1
+                if done % 100 == 0 or done == total:
+                    print("[audit] links: {}/{}".format(done, total), flush=True)
+        except RuntimeError as exc:
+            if not _is_thread_start_failure(exc):
+                raise
+            print("[warn] Thread limit reached during link check; falling back to sequential mode.", flush=True)
             for link in unchecked:
                 checked_link, st = _check_one(link)
                 status_map[checked_link] = st
@@ -3898,10 +4005,17 @@ def main() -> int:
     else:
         print("[audit] processing {} sites in parallel...".format(len(normalized_urls)), flush=True)
         sites = []
-        with ThreadPoolExecutor(max_workers=min(len(normalized_urls), 4)) as pool:
-            futures = {pool.submit(_run_site, url): url for url in normalized_urls}
-            for future in as_completed(futures):
-                sites.append(future.result())
+        try:
+            with ThreadPoolExecutor(max_workers=min(len(normalized_urls), 4)) as pool:
+                futures = {pool.submit(_run_site, url): url for url in normalized_urls}
+                for future in as_completed(futures):
+                    sites.append(future.result())
+        except RuntimeError as exc:
+            if not _is_thread_start_failure(exc):
+                raise
+            print("[warn] Thread limit reached while dispatching sites; falling back to sequential mode.", flush=True)
+            for url in normalized_urls:
+                sites.append(_run_site(url))
     aggregate = _aggregate_sites(sites)
     m = aggregate["metrics"]
     pipeline_solution_fit = _build_pipeline_solution_fit(m)

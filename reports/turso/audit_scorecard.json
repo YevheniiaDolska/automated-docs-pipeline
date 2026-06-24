@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-06-17T09:47:15.312932+00:00",
+  "generated_at": "2026-06-17T10:05:14.371223+00:00",
   "source_mode": "external_public_audit_bundle",
   "score": {
-    "audit_score_0_100": 80.26,
-    "grade": "B"
+    "audit_score_0_100": 51.14,
+    "grade": "F"
   },
   "kpis": {
     "api_coverage": {
       "spec_found": true,
-      "total_operations": 389,
-      "documented_operations": 346,
-      "undocumented_operations": 43,
-      "coverage_pct": 88.89,
-      "undocumented_pct": 11.11
+      "total_operations": 168,
+      "documented_operations": 74,
+      "undocumented_operations": 94,
+      "coverage_pct": 43.75,
+      "undocumented_pct": 56.25
     },
     "example_reliability": {
       "report_found": true,
       "report_path": "public-audit-proxy",
-      "executed_examples": 1809,
-      "failed_examples": 279,
-      "example_reliability_pct": 84.6
+      "executed_examples": 266,
+      "failed_examples": 266,
+      "example_reliability_pct": 0.0
     },
     "freshness": {
-      "total_docs": 1809,
-      "dated_docs": 668,
-      "missing_date_docs": 1141,
+      "total_docs": 266,
+      "dated_docs": 15,
+      "missing_date_docs": 251,
       "average_age_days": 83.54,
       "median_age_days": 85.0,
       "stale_days_threshold": 180,
-      "stale_docs_count": 799,
-      "stale_docs_pct": 44.15
+      "stale_docs_count": 197,
+      "stale_docs_pct": 73.93
     },
     "drift": {
       "docs_contract_report_found": true,
       "api_drift_report_found": false,
-      "docs_contract_mismatch_count": 192,
-      "docs_contract_interface_count": 1809,
-      "docs_contract_drift_pct": 10.64,
+      "docs_contract_mismatch_count": 7,
+      "docs_contract_interface_count": 266,
+      "docs_contract_drift_pct": 2.72,
       "api_drift_status": "public-audit-proxy"
     },
     "layer_completeness": {
@@ -45,80 +45,80 @@
         "how-to",
         "reference"
       ],
-      "total_features": 1809,
-      "features_missing_required_layers": 362,
-      "features_missing_required_layers_pct": 20.0,
+      "total_features": 266,
+      "features_missing_required_layers": 89,
+      "features_missing_required_layers_pct": 33.33,
       "sample_missing_features": []
     },
     "retrieval_quality": {
       "report_found": true,
       "status": "public-audit-proxy",
-      "precision_at_k": 0.4649,
-      "recall_at_k": 0.9989,
-      "hallucination_rate": 0.1064,
+      "precision_at_k": 0.8195,
+      "recall_at_k": 1.0,
+      "hallucination_rate": 0.0272,
       "top_k": 3
     },
     "terminology": {
       "glossary_found": false,
-      "forbidden_term_occurrences": 93,
-      "terminology_violation_pct": 8.24,
-      "terminology_consistency_pct": 91.76
+      "forbidden_term_occurrences": 11,
+      "terminology_violation_pct": 6.84,
+      "terminology_consistency_pct": 93.16
     }
   },
   "business_impact": {
-    "risk_index_0_to_1": 0.182,
-    "commercial_friction_index_0_to_1": 0.185,
+    "risk_index_0_to_1": 0.529,
+    "commercial_friction_index_0_to_1": 0.468,
     "engineering_support_hours_lost_estimate": {
-      "monthly_cost_usd": 6288.9,
-      "revenue_risk_usd": 192.08,
-      "total_signal_usd": 6480.97,
-      "engineering_hours": 54.96,
-      "support_hours": 29.41,
-      "release_delay_hours": 26.2,
-      "potential_customers_lost": 0.6
+      "monthly_cost_usd": 10479.5,
+      "revenue_risk_usd": 751.13,
+      "total_signal_usd": 11230.63,
+      "engineering_hours": 110.99,
+      "support_hours": 19.01,
+      "release_delay_hours": 76.16,
+      "potential_customers_lost": 0.88
     },
     "scenarios": {
       "conservative": {
-        "monthly_cost_usd": 4402.23,
-        "revenue_risk_usd": 134.45,
-        "total_signal_usd": 4536.68,
-        "engineering_hours": 38.47,
-        "support_hours": 20.58,
-        "release_delay_hours": 18.34,
-        "potential_customers_lost": 0.42
+        "monthly_cost_usd": 7335.65,
+        "revenue_risk_usd": 525.79,
+        "total_signal_usd": 7861.44,
+        "engineering_hours": 77.69,
+        "support_hours": 13.31,
+        "release_delay_hours": 53.31,
+        "potential_customers_lost": 0.62
       },
       "base": {
-        "monthly_cost_usd": 6288.9,
-        "revenue_risk_usd": 192.08,
-        "total_signal_usd": 6480.97,
-        "engineering_hours": 54.96,
-        "support_hours": 29.41,
-        "release_delay_hours": 26.2,
-        "potential_customers_lost": 0.6
+        "monthly_cost_usd": 10479.5,
+        "revenue_risk_usd": 751.13,
+        "total_signal_usd": 11230.63,
+        "engineering_hours": 110.99,
+        "support_hours": 19.01,
+        "release_delay_hours": 76.16,
+        "potential_customers_lost": 0.88
       },
       "aggressive": {
-        "monthly_cost_usd": 8804.45,
-        "revenue_risk_usd": 268.91,
-        "total_signal_usd": 9073.36,
-        "engineering_hours": 76.94,
-        "support_hours": 41.17,
-        "release_delay_hours": 36.68,
-        "potential_customers_lost": 0.84
+        "monthly_cost_usd": 14671.3,
+        "revenue_risk_usd": 1051.58,
+        "total_signal_usd": 15722.88,
+        "engineering_hours": 155.38,
+        "support_hours": 26.62,
+        "release_delay_hours": 106.62,
+        "potential_customers_lost": 1.24
       }
     },
     "assumptions": {
       "engineer_hourly_usd": 85.0,
       "support_hourly_usd": 55.0,
       "release_count_per_month": 8.0,
-      "baseline_manual_sync_hours_per_week": 6.0,
+      "baseline_manual_sync_hours_per_week": 4.0,
       "avg_release_delay_hours": 18.0,
-      "monthly_support_tickets": 420.0,
+      "monthly_support_tickets": 180.0,
       "docs_related_ticket_share": 0.28,
       "avg_ticket_handling_minutes": 22.0,
-      "monthly_doc_influenced_evals": 180.0,
+      "monthly_doc_influenced_evals": 45.0,
       "eval_to_customer_rate": 0.12,
-      "avg_customer_monthly_value_usd": 320.0,
-      "docs_friction_revenue_sensitivity": 0.15
+      "avg_customer_monthly_value_usd": 850.0,
+      "docs_friction_revenue_sensitivity": 0.35
     }
   },
   "capability_matrix": [
@@ -204,16 +204,85 @@
   ],
   "findings": [
     {
+      "id": "F-API-COVERAGE",
+      "title": "Undocumented API operations",
+      "capability_id": "api_coverage_sync",
+      "capability_label": "API coverage sync",
+      "pipeline_related_flow": "api_first",
+      "metric": "API undocumented %",
+      "current_value": 56.25,
+      "target_value": 5.0,
+      "unit": "%",
+      "gap_value": 51.25,
+      "severity": "high",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 4.0,
+      "effort_hours_base": 10.0,
+      "effort_hours_high": 16.0,
+      "estimated_remediation_cost_usd_low": 340.0,
+      "estimated_remediation_cost_usd_base": 850.0,
+      "estimated_remediation_cost_usd_high": 1360.0,
+      "estimated_monthly_loss_usd_low": 748.0,
+      "estimated_monthly_loss_usd_base": 2244.0,
+      "estimated_monthly_loss_usd_high": 4787.2,
+      "recommended_window_days": 7,
+      "evidence_source": "OpenAPI + docs text scan",
+      "estimation_confidence": "high",
+      "note": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "id": "F-EXAMPLES-RELIABILITY",
+      "title": "Code examples fail or are non-runnable",
+      "capability_id": "example_execution_quality",
+      "capability_label": "Executable examples quality",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Example reliability %",
+      "current_value": 100.0,
+      "target_value": 5.0,
+      "unit": "% shortfall",
+      "gap_value": 95.0,
+      "severity": "high",
+      "pipeline_modules": [
+        "self_checks",
+        "snippet_lint",
+        "normalization"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 3.0,
+      "effort_hours_base": 8.5,
+      "effort_hours_high": 14.0,
+      "estimated_remediation_cost_usd_low": 255.0,
+      "estimated_remediation_cost_usd_base": 722.5,
+      "estimated_remediation_cost_usd_high": 1190.0,
+      "estimated_monthly_loss_usd_low": 510.0,
+      "estimated_monthly_loss_usd_base": 1734.0,
+      "estimated_monthly_loss_usd_high": 3808.0,
+      "recommended_window_days": 7,
+      "evidence_source": "examples_smoke_report.json",
+      "estimation_confidence": "high",
+      "note": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
       "id": "F-FRESHNESS",
       "title": "Documentation freshness debt",
       "capability_id": "freshness_lifecycle",
       "capability_label": "Freshness + lifecycle management",
       "pipeline_related_flow": "weekly",
       "metric": "Stale docs %",
-      "current_value": 44.15,
+      "current_value": 73.93,
       "target_value": 10.0,
       "unit": "%",
-      "gap_value": 34.15,
+      "gap_value": 63.93,
       "severity": "high",
       "pipeline_modules": [
         "kpi_sla",
@@ -238,52 +307,17 @@
       "note": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
     },
     {
-      "id": "F-EXAMPLES-RELIABILITY",
-      "title": "Code examples fail or are non-runnable",
-      "capability_id": "example_execution_quality",
-      "capability_label": "Executable examples quality",
-      "pipeline_related_flow": "docs_flow",
-      "metric": "Example reliability %",
-      "current_value": 15.4,
-      "target_value": 5.0,
-      "unit": "% shortfall",
-      "gap_value": 10.4,
-      "severity": "medium",
-      "pipeline_modules": [
-        "self_checks",
-        "snippet_lint",
-        "normalization"
-      ],
-      "fixability": {
-        "pilot": true,
-        "full": true
-      },
-      "effort_hours_low": 3.0,
-      "effort_hours_base": 8.5,
-      "effort_hours_high": 14.0,
-      "estimated_remediation_cost_usd_low": 255.0,
-      "estimated_remediation_cost_usd_base": 722.5,
-      "estimated_remediation_cost_usd_high": 1190.0,
-      "estimated_monthly_loss_usd_low": 510.0,
-      "estimated_monthly_loss_usd_base": 1734.0,
-      "estimated_monthly_loss_usd_high": 3808.0,
-      "recommended_window_days": 14,
-      "evidence_source": "examples_smoke_report.json",
-      "estimation_confidence": "high",
-      "note": "Run smoke + expected-output checks and auto-fix broken snippets."
-    },
-    {
       "id": "F-LAYERS",
       "title": "Missing required doc layers",
       "capability_id": "layer_completeness",
       "capability_label": "Doc layer completeness",
       "pipeline_related_flow": "docs_flow",
       "metric": "Features missing required layers %",
-      "current_value": 20.0,
+      "current_value": 33.33,
       "target_value": 5.0,
       "unit": "%",
-      "gap_value": 15.0,
-      "severity": "medium",
+      "gap_value": 28.33,
+      "severity": "high",
       "pipeline_modules": [
         "gap_detection",
         "fact_checks"
@@ -301,44 +335,10 @@
       "estimated_monthly_loss_usd_low": 459.0,
       "estimated_monthly_loss_usd_base": 1377.0,
       "estimated_monthly_loss_usd_high": 2937.6,
-      "recommended_window_days": 14,
+      "recommended_window_days": 7,
       "evidence_source": "policy pack + frontmatter layer scan",
       "estimation_confidence": "high",
       "note": "Backfill concept/how-to/reference coverage for key capabilities."
-    },
-    {
-      "id": "F-API-COVERAGE",
-      "title": "Undocumented API operations",
-      "capability_id": "api_coverage_sync",
-      "capability_label": "API coverage sync",
-      "pipeline_related_flow": "api_first",
-      "metric": "API undocumented %",
-      "current_value": 11.11,
-      "target_value": 5.0,
-      "unit": "%",
-      "gap_value": 6.11,
-      "severity": "low",
-      "pipeline_modules": [
-        "drift_detection",
-        "docs_contract"
-      ],
-      "fixability": {
-        "pilot": true,
-        "full": true
-      },
-      "effort_hours_low": 4.0,
-      "effort_hours_base": 10.0,
-      "effort_hours_high": 16.0,
-      "estimated_remediation_cost_usd_low": 340.0,
-      "estimated_remediation_cost_usd_base": 850.0,
-      "estimated_remediation_cost_usd_high": 1360.0,
-      "estimated_monthly_loss_usd_low": 748.0,
-      "estimated_monthly_loss_usd_base": 2244.0,
-      "estimated_monthly_loss_usd_high": 4787.2,
-      "recommended_window_days": 30,
-      "evidence_source": "OpenAPI + docs text scan",
-      "estimation_confidence": "high",
-      "note": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
     },
     {
       "id": "F-DRIFT",
@@ -347,10 +347,10 @@
       "capability_label": "Code/docs drift contract visibility",
       "pipeline_related_flow": "weekly",
       "metric": "Drift %",
-      "current_value": 10.64,
+      "current_value": 2.72,
       "target_value": 2.0,
       "unit": "%",
-      "gap_value": 8.64,
+      "gap_value": 0.72,
       "severity": "low",
       "pipeline_modules": [
         "drift_detection",
@@ -381,10 +381,10 @@
       "capability_label": "Terminology governance",
       "pipeline_related_flow": "docs_flow",
       "metric": "Terminology violations %",
-      "current_value": 8.24,
+      "current_value": 6.84,
       "target_value": 3.0,
       "unit": "%",
-      "gap_value": 5.24,
+      "gap_value": 3.84,
       "severity": "low",
       "pipeline_modules": [
         "terminology_management",
@@ -415,10 +415,10 @@
       "capability_label": "RAG retrieval quality control",
       "pipeline_related_flow": "knowledge",
       "metric": "Hallucination rate %",
-      "current_value": 10.64,
+      "current_value": 2.72,
       "target_value": 10.0,
       "unit": "%",
-      "gap_value": 0.64,
+      "gap_value": 7.28,
       "severity": "low",
       "pipeline_modules": [
         "rag_optimization",
@@ -446,9 +446,9 @@
   ],
   "findings_totals": {
     "findings_count": 7,
-    "high_count": 1,
-    "medium_count": 2,
-    "low_count": 4,
+    "high_count": 4,
+    "medium_count": 0,
+    "low_count": 3,
     "pilot_fixable_count": 7,
     "full_fixable_count": 7,
     "remediation_cost_usd_low_total": 1615.0,

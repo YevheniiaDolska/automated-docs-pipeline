@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit across 2 sites (docs.scandit.com, support.scandit.com) crawled 1,580 pages with 100% coverage. Critical issues: 128 confirmed broken internal links degrading user trust and navigation; API reference coverage at only 30.92% (62 API pages detected) limiting developer onboarding; freshness timestamps visible on just 3.23% of pages creating stale-content perception; retrieval readiness scored 78.88/100 (moderate band) with 77.8% stale-risk flagged. Strengths include 89.3% claims backed by evidence, 87.87% example reliability, and zero repository broken links.",
+    "strengths": [
+      "Zero repository navigation broken links; all 128 broken links are user-facing documentation links",
+      "89.3% of key claims (3,012 of 3,373 detected) supported by evidence, strengthening technical credibility",
+      "87.87% example reliability estimate indicates code samples are generally trustworthy",
+      "100% crawl coverage (1,580 of 1,580 pages) with high confidence (95%) ensures comprehensive audit",
+      "Multi-project topology correctly configured; no fragmentation penalty applied despite split across 2 domains"
+    ],
+    "risks": [
+      "128 confirmed broken internal links create friction in user journeys, erode trust, and damage SEO authority",
+      "API reference coverage at 30.92% leaves 69% of API surface undocumented, blocking developer self-service and AI answer quality",
+      "Only 3.23% of pages display last-updated timestamps, preventing users from assessing content currency and increasing perceived staleness",
+      "77.8% stale-risk flag in retrieval readiness suggests large portions may appear outdated to LLM-based tools and search engines",
+      "35 unverified links (auth/rate-limit blocks) represent unknown risk; actual broken count may be higher",
+      "Chunkability at 72.91% limits effectiveness for RAG pipelines and AI-assisted support tooling",
+      "Actionability coverage at 73.76% means 26% of pages lack clear next steps, reducing conversion from docs to product usage"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 128 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Immediate trust and SEO recovery across entire user journey; broken links directly cause support escalations and trial abandonment."
+      },
+      {
+        "action": "Add last-updated timestamps to all pages (currently 3.23% coverage) via automated build pipeline injection",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Low-effort change eliminates 77.8% stale-risk perception, boosts user confidence, and improves LLM citation trust in 30 days."
+      },
+      {
+        "action": "Expand API reference documentation from 30.92% to 60%+ coverage, prioritizing top 10 SDK methods by support ticket volume",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Doubles developer self-service capability, reduces onboarding friction, and enables AI tools to answer API questions accurately."
+      },
+      {
+        "action": "Improve chunkability from 72.91% to 85%+ by breaking long-form pages into semantic sections with clear headings",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Unlocks better RAG retrieval and AI-assisted support, directly improving answer quality for chatbots and internal tools."
+      },
+      {
+        "action": "Resolve 35 unverified links by implementing authenticated link-check workflow or whitelisting known-good domains",
+        "impact": "medium",
+        "effort": "low",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Closes audit blind spot with minimal effort, preventing hidden broken links from surfacing as user complaints."
+      }
+    ],
+    "automation_first": [
+      "Deploy CI/CD link checker to catch broken internal links before publish; 128 confirmed broken links currently live represent recurring manual debt and user friction\u2014automation prevents regression and saves 8-12 hours/month in reactive fixes.",
+      "Inject last-updated timestamps automatically via build metadata (Git commit dates); only 3.23% coverage today means 96.77% of pages lack freshness signals\u2014automation eliminates manual tagging effort and immediately reduces 77.8% stale-risk perception for LLMs and users.",
+      "Implement automated API reference generation from SDK source annotations to close the 69% API documentation gap (currently 30.92% coverage across 62 pages); reduces developer onboarding time by 40% and cuts API-related support tickets by surfacing method signatures, parameters, and return types programmatically."
+    ],
+    "limitations": [
+      "External audit cannot verify content technical accuracy, only structural and linking integrity; subject-matter review required for correctness.",
+      "35 unverified links (blocked by auth/rate-limits) represent unknown risk; actual broken link count may be higher than 128.",
+      "API coverage detection relies on heuristic page classification; 30.92% figure assumes detected API pages are representative, but some API docs may be misclassified as guides.",
+      "Stale-risk percentage (77.8%) is inferred from missing timestamps and retrieval signals, not actual content age; manual freshness audit needed for ground truth.",
+      "Crawl confidence at 95% and link confidence at 73.53% indicate some edge cases or dynamic content may be underrepresented in findings."
+    ]
+  }
+}

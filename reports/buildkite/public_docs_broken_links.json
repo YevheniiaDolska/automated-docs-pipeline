@@ -1,0 +1,230 @@
+{
+  "generated_at_utc": "2026-06-17T12:32:11.692438+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 8,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 8,
+    "unverified_links_sample_count": 30
+  },
+  "all_docs_broken_links": [
+    "https://buildkite.com/blog/category/changelog",
+    "https://buildkite.com/blog/introducing-buildkite-macos-ci-managed-service",
+    "https://buildkite.com/docs/integrations/buildkite-plugins",
+    "https://buildkite.com/docs/plugins/writinghttps://buildkite.com/docs/plugins/writing",
+    "https://buildkite.com/docs/test-engine/test-collection/oidc",
+    "https://buildkite.com/resources/blog/tag/infrastructure",
+    "https://buildkite.com/resources/resources",
+    "https://buildkite.com/resources/webinars//monorepos-at-scale"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "http://buildkite.com/organizations/-/pipeline-settings",
+    "https://buildkite.com/",
+    "https://buildkite.com/_secret/version",
+    "https://buildkite.com/about/legal/subprocessors",
+    "https://buildkite.com/bazel/bazel-bazel/builds/31650/summary/annotations",
+    "https://buildkite.com/blog",
+    "https://buildkite.com/blog/best-practices-for-terraform-ci-cd",
+    "https://buildkite.com/blog/buildkite-has-joined-the-mobile-native-foundation",
+    "https://buildkite.com/blog/buildkite-or-jenkins-choosing-the-right-tool-for-you",
+    "https://buildkite.com/blog/buildkites-transition-to-arm",
+    "https://buildkite.com/blog/continuous-integration-for-monorepos",
+    "https://buildkite.com/blog/fixing-flaky-tests",
+    "https://buildkite.com/blog/getting-started-with-kubernetes-and-buildkite-a-bubbly-trip-in-the-clouds",
+    "https://buildkite.com/blog/how-to-build-ci-cd-pipelines-dynamically",
+    "https://buildkite.com/blog/introducing-a-new-continuous-integration-stack-for-aws-the-elastic-ci-stack",
+    "https://buildkite.com/blog/keeping-the-agile-in-agile-engineering",
+    "https://buildkite.com/blog/making-magick-with-javascript",
+    "https://buildkite.com/blog/monorepo-polyrepo-choosing",
+    "https://buildkite.com/blog/moving-pinterest-s-ios-builds-to-autoscaled-ec2-mac",
+    "https://buildkite.com/blog/observability-in-the-agent-via-datadog",
+    "https://buildkite.com/blog/pipeline-metrics",
+    "https://buildkite.com/blog/tag/best-practices",
+    "https://buildkite.com/blog/unifying-the-buildkite-experience-visually",
+    "https://buildkite.com/blog/visualize-your-ci-cd-pipeline-on-a-canvas",
+    "https://buildkite.com/buildkite/airplane-plugins-aviator",
+    "https://buildkite.com/buildkite/aws-secretsmanager-to-bazelrc",
+    "https://buildkite.com/buildkite/bazel-python-package-example/builds/latest",
+    "https://buildkite.com/buildkite/block-step-example/builds/latest",
+    "https://buildkite.com/buildkite/dynamic-pipeline-example/builds/latest",
+    "https://buildkite.com/buildkite/golang-example/builds/latest"
+  ],
+  "sites": [
+    {
+      "site_url": "https://buildkite.com/docs",
+      "confirmed_broken_links_count": 8,
+      "docs_broken_links_count": 8,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://buildkite.com/blog/category/changelog",
+        "https://buildkite.com/blog/introducing-buildkite-macos-ci-managed-service",
+        "https://buildkite.com/docs/integrations/buildkite-plugins",
+        "https://buildkite.com/docs/plugins/writinghttps://buildkite.com/docs/plugins/writing",
+        "https://buildkite.com/docs/test-engine/test-collection/oidc",
+        "https://buildkite.com/resources/blog/tag/infrastructure",
+        "https://buildkite.com/resources/resources",
+        "https://buildkite.com/resources/webinars//monorepos-at-scale"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://buildkite.com/blog/category/changelog",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/blog/changelog-roundup-october-2025-edition",
+              "anchor_text": "Changelog roundup"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/blog/introducing-buildkite-macos-ci-managed-service",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/changelog/114-introducing-early-access-to-buildkites-managed-macos-ci",
+              "anchor_text": "blog post about the announcement"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/changelog/page/13",
+              "anchor_text": "blog post about the announcement"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/changelog/tag/feature/page/8",
+              "anchor_text": "blog post about the announcement"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/docs/integrations/buildkite-plugins",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/plugins/endorlabs/endorlabs-buildkite-plugin",
+              "anchor_text": "directory sync"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/docs/plugins/writinghttps://buildkite.com/docs/plugins/writing",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/blog/buildkite-plugins-docker-and-shared-environment-variables",
+              "anchor_text": "create your own"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/docs/test-engine/test-collection/oidc",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/changelog",
+              "anchor_text": "OIDC policy"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/changelog",
+              "anchor_text": "test collectors to use temporary OIDC tokens"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/changelog/357-oidc-authentication-in-bktec",
+              "anchor_text": "OIDC policy"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/changelog/357-oidc-authentication-in-bktec",
+              "anchor_text": "test collectors to use temporary OIDC tokens"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/changelog/tag/feature",
+              "anchor_text": "OIDC policy"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/resources/blog/tag/infrastructure",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/blog/best-practices-for-terraform-ci-cd",
+              "anchor_text": "Infrastructure"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/blog/best-practices-for-running-ci-cd-on-kubernetes",
+              "anchor_text": "Infrastructure"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/blog/ci-cd-best-practices",
+              "anchor_text": "Infrastructure"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/blog/continuous-integration-for-monorepos",
+              "anchor_text": "Infrastructure"
+            },
+            {
+              "source_page": "https://buildkite.com/resources/blog/how-rippling-reduced-ci-cd-costs-by-50-with-aws-spot-instances",
+              "anchor_text": "Infrastructure"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/resources/resources",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/resources/changelog",
+              "anchor_text": "Resources"
+            }
+          ]
+        },
+        {
+          "target_url": "https://buildkite.com/resources/webinars//monorepos-at-scale",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://buildkite.com/solutions/monorepos",
+              "anchor_text": "40 minutes Monorepos at scale: Building CI for 1,000 daily commits at Uber Learn the strategies Uber uses to keep their builds fast and the challenges they\u2019ve faced along the way. Mike Morgan"
+            },
+            {
+              "source_page": "https://buildkite.com/solutions/monorepos",
+              "anchor_text": ""
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "http://buildkite.com/organizations/-/pipeline-settings",
+        "https://buildkite.com/",
+        "https://buildkite.com/_secret/version",
+        "https://buildkite.com/about/legal/subprocessors",
+        "https://buildkite.com/bazel/bazel-bazel/builds/31650/summary/annotations",
+        "https://buildkite.com/blog",
+        "https://buildkite.com/blog/best-practices-for-terraform-ci-cd",
+        "https://buildkite.com/blog/buildkite-has-joined-the-mobile-native-foundation",
+        "https://buildkite.com/blog/buildkite-or-jenkins-choosing-the-right-tool-for-you",
+        "https://buildkite.com/blog/buildkites-transition-to-arm",
+        "https://buildkite.com/blog/continuous-integration-for-monorepos",
+        "https://buildkite.com/blog/fixing-flaky-tests",
+        "https://buildkite.com/blog/getting-started-with-kubernetes-and-buildkite-a-bubbly-trip-in-the-clouds",
+        "https://buildkite.com/blog/how-to-build-ci-cd-pipelines-dynamically",
+        "https://buildkite.com/blog/introducing-a-new-continuous-integration-stack-for-aws-the-elastic-ci-stack",
+        "https://buildkite.com/blog/keeping-the-agile-in-agile-engineering",
+        "https://buildkite.com/blog/making-magick-with-javascript",
+        "https://buildkite.com/blog/monorepo-polyrepo-choosing",
+        "https://buildkite.com/blog/moving-pinterest-s-ios-builds-to-autoscaled-ec2-mac",
+        "https://buildkite.com/blog/observability-in-the-agent-via-datadog",
+        "https://buildkite.com/blog/pipeline-metrics",
+        "https://buildkite.com/blog/tag/best-practices",
+        "https://buildkite.com/blog/unifying-the-buildkite-experience-visually",
+        "https://buildkite.com/blog/visualize-your-ci-cd-pipeline-on-a-canvas",
+        "https://buildkite.com/buildkite/airplane-plugins-aviator",
+        "https://buildkite.com/buildkite/aws-secretsmanager-to-bazelrc",
+        "https://buildkite.com/buildkite/bazel-python-package-example/builds/latest",
+        "https://buildkite.com/buildkite/block-step-example/builds/latest",
+        "https://buildkite.com/buildkite/dynamic-pipeline-example/builds/latest",
+        "https://buildkite.com/buildkite/golang-example/builds/latest"
+      ]
+    }
+  ]
+}

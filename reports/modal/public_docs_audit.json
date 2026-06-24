@@ -1,0 +1,878 @@
+{
+  "generated_at": "2026-06-17T10:29:06.758897+00:00",
+  "site_url": "https://modal.com/docs",
+  "site_urls": [
+    "https://modal.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://modal.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1049,
+          "requested_pages": 1091,
+          "urls_examined": 1091,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1091,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 1091,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 1091,
+          "broken_internal_links_count": 38,
+          "docs_broken_links_count": 38,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://modal.com/composio-lh5g",
+            "http://modal.com/discover",
+            "http://modal.com/how-to-benchmark",
+            "http://modal.com/join",
+            "http://modal.com/modal-aie",
+            "http://modal.com/modal-aie-dinner",
+            "http://modal.com/modal-icml",
+            "http://modal.com/modal-icml-HH",
+            "http://modal.com/modal-labs",
+            "http://modal.com/modal-labs/map",
+            "http://modal.com/modal-raisesummit",
+            "http://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18",
+            "http://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7",
+            "http://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e",
+            "http://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od",
+            "http://modal.com/password_reset",
+            "http://modal.com/signin",
+            "http://modal.com/the-agent-open",
+            "https://modal.com/composio-lh5g",
+            "https://modal.com/discover"
+          ],
+          "docs_broken_link_samples": [
+            "http://modal.com/composio-lh5g",
+            "http://modal.com/discover",
+            "http://modal.com/how-to-benchmark",
+            "http://modal.com/join",
+            "http://modal.com/modal-aie",
+            "http://modal.com/modal-aie-dinner",
+            "http://modal.com/modal-icml",
+            "http://modal.com/modal-icml-HH",
+            "http://modal.com/modal-labs",
+            "http://modal.com/modal-labs/map",
+            "http://modal.com/modal-raisesummit",
+            "http://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18",
+            "http://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7",
+            "http://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e",
+            "http://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od",
+            "http://modal.com/password_reset",
+            "http://modal.com/signin",
+            "http://modal.com/the-agent-open",
+            "https://modal.com/composio-lh5g",
+            "https://modal.com/discover",
+            "https://modal.com/docs/gpu-glossary/device-hardware/tensor-cores",
+            "https://modal.com/docs/guide/sandbox/snapshots",
+            "https://modal.com/how-to-benchmark",
+            "https://modal.com/join",
+            "https://modal.com/modal-aie",
+            "https://modal.com/modal-aie-dinner",
+            "https://modal.com/modal-icml",
+            "https://modal.com/modal-icml-HH",
+            "https://modal.com/modal-labs",
+            "https://modal.com/modal-labs/map"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "http://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr",
+            "https://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr"
+          ],
+          "confirmed_broken_links_count": 38,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "http://modal.com/api/signup",
+            "https://modal.com/api/signup"
+          ],
+          "_all_confirmed_broken_links": [
+            "http://modal.com/composio-lh5g",
+            "http://modal.com/discover",
+            "http://modal.com/how-to-benchmark",
+            "http://modal.com/join",
+            "http://modal.com/modal-aie",
+            "http://modal.com/modal-aie-dinner",
+            "http://modal.com/modal-icml",
+            "http://modal.com/modal-icml-HH",
+            "http://modal.com/modal-labs",
+            "http://modal.com/modal-labs/map",
+            "http://modal.com/modal-raisesummit",
+            "http://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18",
+            "http://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7",
+            "http://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e",
+            "http://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od",
+            "http://modal.com/password_reset",
+            "http://modal.com/signin",
+            "http://modal.com/the-agent-open",
+            "https://modal.com/composio-lh5g",
+            "https://modal.com/discover",
+            "https://modal.com/docs/gpu-glossary/device-hardware/tensor-cores",
+            "https://modal.com/docs/guide/sandbox/snapshots",
+            "https://modal.com/how-to-benchmark",
+            "https://modal.com/join",
+            "https://modal.com/modal-aie",
+            "https://modal.com/modal-aie-dinner",
+            "https://modal.com/modal-icml",
+            "https://modal.com/modal-icml-HH",
+            "https://modal.com/modal-labs",
+            "https://modal.com/modal-labs/map",
+            "https://modal.com/modal-raisesummit",
+            "https://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18",
+            "https://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7",
+            "https://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e",
+            "https://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od",
+            "https://modal.com/password_reset",
+            "https://modal.com/signin",
+            "https://modal.com/the-agent-open"
+          ],
+          "_all_unverified_links": [
+            "http://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr",
+            "https://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr"
+          ],
+          "_all_excluded_links": [
+            "http://modal.com/api/signup",
+            "https://modal.com/api/signup"
+          ],
+          "_all_docs_unverified_links": [
+            "http://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr",
+            "https://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://modal.com/composio-lh5g": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/discover": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": "Discover Events"
+              }
+            ],
+            "http://modal.com/how-to-benchmark": [
+              {
+                "source_page": "http://modal.com/llm-almanac/summary",
+                "anchor_text": "here"
+              }
+            ],
+            "http://modal.com/join": [
+              {
+                "source_page": "http://modal.com/api/signup",
+                "anchor_text": "Create an account"
+              }
+            ],
+            "http://modal.com/modal-aie": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/modal-aie-dinner": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/modal-icml": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/modal-icml-HH": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/modal-labs": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": "Modal"
+              }
+            ],
+            "http://modal.com/modal-labs/map": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/modal-raisesummit": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "http://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18": [
+              {
+                "source_page": "http://modal.com/products/notebooks",
+                "anchor_text": "Parse Documents with dots.ocr Extract and analyze text from images and PDFs, using the state-of-the-art OCR model based on LLM foundations."
+              }
+            ],
+            "http://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7": [
+              {
+                "source_page": "http://modal.com/products/notebooks",
+                "anchor_text": "Exploring Qwen3 on vLLM Run a fine-tuned open source code generation model. Compare code quality, analyze token patterns, and experiment with different prompts."
+              }
+            ],
+            "http://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e": [
+              {
+                "source_page": "http://modal.com/products/notebooks",
+                "anchor_text": "Whisper Audio Analysis Transcribe audio with OpenAI's Whisper, and visualize how it attends to different parts of the input via attention weights over time."
+              }
+            ],
+            "http://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od": [
+              {
+                "source_page": "http://modal.com/products/notebooks",
+                "anchor_text": "UMAP Embeddings Visualization Visualize high-dimensional embeddings in 2D/3D space. Explore semantic similarity, cluster data, and understand vector representations."
+              }
+            ],
+            "http://modal.com/password_reset": [
+              {
+                "source_page": "http://modal.com/api/signup",
+                "anchor_text": "Forgot password?"
+              }
+            ],
+            "http://modal.com/signin": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": "Sign In"
+              }
+            ],
+            "http://modal.com/the-agent-open": [
+              {
+                "source_page": "http://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/composio-lh5g": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/discover": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": "Discover Events"
+              }
+            ],
+            "https://modal.com/docs/gpu-glossary/device-hardware/tensor-cores": [
+              {
+                "source_page": "https://modal.com/blog/introducing-l40s",
+                "anchor_text": "Tensor Cores"
+              },
+              {
+                "source_page": "http://modal.com/blog/introducing-l40s",
+                "anchor_text": "Tensor Cores"
+              }
+            ],
+            "https://modal.com/docs/guide/sandbox/snapshots": [
+              {
+                "source_page": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal",
+                "anchor_text": "filesystem snapshots"
+              },
+              {
+                "source_page": "http://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal",
+                "anchor_text": "filesystem snapshots"
+              }
+            ],
+            "https://modal.com/how-to-benchmark": [
+              {
+                "source_page": "https://modal.com/llm-almanac/summary",
+                "anchor_text": "here"
+              }
+            ],
+            "https://modal.com/join": [
+              {
+                "source_page": "https://modal.com/api/signup",
+                "anchor_text": "Create an account"
+              }
+            ],
+            "https://modal.com/modal-aie": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/modal-aie-dinner": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/modal-icml": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/modal-icml-HH": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/modal-labs": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": "Modal"
+              }
+            ],
+            "https://modal.com/modal-labs/map": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/modal-raisesummit": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ],
+            "https://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18": [
+              {
+                "source_page": "https://modal.com/docs/guide",
+                "anchor_text": "Parsing documents with dots.ocr in a Modal Notebook"
+              },
+              {
+                "source_page": "https://modal.com/products/notebooks",
+                "anchor_text": "Parse Documents with dots.ocr Extract and analyze text from images and PDFs, using the state-of-the-art OCR model based on LLM foundations."
+              },
+              {
+                "source_page": "http://modal.com/docs/guide",
+                "anchor_text": "Parsing documents with dots.ocr in a Modal Notebook"
+              }
+            ],
+            "https://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7": [
+              {
+                "source_page": "https://modal.com/products/notebooks",
+                "anchor_text": "Exploring Qwen3 on vLLM Run a fine-tuned open source code generation model. Compare code quality, analyze token patterns, and experiment with different prompts."
+              }
+            ],
+            "https://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e": [
+              {
+                "source_page": "https://modal.com/products/notebooks",
+                "anchor_text": "Whisper Audio Analysis Transcribe audio with OpenAI's Whisper, and visualize how it attends to different parts of the input via attention weights over time."
+              }
+            ],
+            "https://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od": [
+              {
+                "source_page": "https://modal.com/products/notebooks",
+                "anchor_text": "UMAP Embeddings Visualization Visualize high-dimensional embeddings in 2D/3D space. Explore semantic similarity, cluster data, and understand vector representations."
+              }
+            ],
+            "https://modal.com/password_reset": [
+              {
+                "source_page": "https://modal.com/api/signup",
+                "anchor_text": "Forgot password?"
+              }
+            ],
+            "https://modal.com/signin": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": "Sign In"
+              }
+            ],
+            "https://modal.com/the-agent-open": [
+              {
+                "source_page": "https://modal.com/events",
+                "anchor_text": ""
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1049,
+          "missing_title_count": 8,
+          "missing_description_count": 180,
+          "multiple_h1_count": 10,
+          "heading_hierarchy_jump_count": 46,
+          "seo_geo_issue_rate_pct": 5.82
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 583,
+          "api_pages_detected": 213,
+          "endpoints_with_usage_docs": 63,
+          "reference_endpoints_without_usage_docs": 520,
+          "reference_coverage_pct": 10.81,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/*.py",
+            "ep:/*.txt",
+            "ep:/.ssh/id_rsa",
+            "ep:/.ssh/id_rsa.pub",
+            "ep:/2);border-left:.125rem",
+            "ep:/2);max-width:calc(var(--max-width",
+            "ep:/6);min-width:var(--size);font-size:calc(var(--size)/2);background-color:var(--opacity-light",
+            "ep:/accept",
+            "ep:/ai-infrastructure.org/the-state-of-ai-infrastructure-at-scale-2024/",
+            "ep:/ai.meta.com/research/publications/cwm-an-open-weights-llm-for-research-on-code-generation-with-world-models/",
+            "ep:/api",
+            "ep:/api.githubcopilot.com",
+            "ep:/app.datadoghq.com/dashboard/xci-8en-9hs/gpu-health",
+            "ep:/arxiv.org/abs/1911.02150",
+            "ep:/arxiv.org/abs/2305.13245",
+            "ep:/arxiv.org/abs/2309.06180",
+            "ep:/arxiv.org/abs/2407.21783",
+            "ep:/arxiv.org/abs/2505.21487",
+            "ep:/arxiv.org/pdf/1706.03762",
+            "ep:/assets.bitbashing.io/images/cubedrone-103.png"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 46,
+          "total_code_blocks_all": 5429,
+          "runnable_without_env": 46,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 100.0,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 259,
+          "pages_without_last_updated_hint": 790,
+          "last_updated_coverage_pct": 24.69,
+          "samples_with_last_updated": [
+            {
+              "url": "https://modal.com/docs/reference/changelog",
+              "hint": "1.5.0 (2026-06-09)"
+            },
+            {
+              "url": "https://modal.com/docs/examples/finetune_yolo",
+              "hint": "model, released on May 23, 2024."
+            },
+            {
+              "url": "https://modal.com/articles",
+              "hint": "December 16, 2025"
+            },
+            {
+              "url": "https://modal.com/legal/privacy-policy",
+              "hint": "Last updated May 17th, 2023."
+            },
+            {
+              "url": "https://modal.com/blog/flux-3x-faster",
+              "hint": "June 18, 2025"
+            },
+            {
+              "url": "https://modal.com/blog/introducing-b200-h200",
+              "hint": "May 30, 2025"
+            },
+            {
+              "url": "https://modal.com/blog/modal-vibe",
+              "hint": "September 22, 2025"
+            },
+            {
+              "url": "https://modal.com/blog/introducing-h100",
+              "hint": "February 6, 2024"
+            },
+            {
+              "url": "https://modal.com/blog/serverless-http",
+              "hint": "March 14, 2024"
+            },
+            {
+              "url": "https://modal.com/blog/gpu-utilization-guide",
+              "hint": "February 24, 2025"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 82.27,
+          "answerability_pct": 84.18,
+          "citationability_pct": 99.24,
+          "stale_risk_pct": 70.47,
+          "overall_score_0_100": 77.68,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1939,
+          "claims_with_evidence": 1410,
+          "coverage_pct": 72.72
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 625,
+              "checks": {
+                "auth_model": 312,
+                "error_semantics": 614,
+                "retry_idempotency": 18,
+                "schema_evolution": 200
+              }
+            },
+            "graphql": {
+              "pages": 73,
+              "checks": {
+                "auth_model": 41,
+                "error_semantics": 73,
+                "retry_idempotency": 2,
+                "schema_evolution": 30
+              }
+            },
+            "grpc": {
+              "pages": 15,
+              "checks": {
+                "auth_model": 12,
+                "error_semantics": 15,
+                "retry_idempotency": 0,
+                "schema_evolution": 11
+              }
+            },
+            "asyncapi": {
+              "pages": 257,
+              "checks": {
+                "auth_model": 152,
+                "error_semantics": 254,
+                "retry_idempotency": 6,
+                "schema_evolution": 72
+              }
+            },
+            "websocket": {
+              "pages": 40,
+              "checks": {
+                "auth_model": 24,
+                "error_semantics": 40,
+                "retry_idempotency": 0,
+                "schema_evolution": 9
+              }
+            }
+          },
+          "coverage_pct": 90.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://modal.com/composio-lh5g",
+          "http://modal.com/discover",
+          "http://modal.com/how-to-benchmark",
+          "http://modal.com/join",
+          "http://modal.com/modal-aie",
+          "http://modal.com/modal-aie-dinner",
+          "http://modal.com/modal-icml",
+          "http://modal.com/modal-icml-HH",
+          "http://modal.com/modal-labs",
+          "http://modal.com/modal-labs/map",
+          "http://modal.com/modal-raisesummit",
+          "http://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18",
+          "http://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7",
+          "http://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e",
+          "http://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od",
+          "http://modal.com/password_reset",
+          "http://modal.com/signin",
+          "http://modal.com/the-agent-open",
+          "https://modal.com/composio-lh5g",
+          "https://modal.com/discover"
+        ],
+        "docs_broken_link_samples": [
+          "http://modal.com/composio-lh5g",
+          "http://modal.com/discover",
+          "http://modal.com/how-to-benchmark",
+          "http://modal.com/join",
+          "http://modal.com/modal-aie",
+          "http://modal.com/modal-aie-dinner",
+          "http://modal.com/modal-icml",
+          "http://modal.com/modal-icml-HH",
+          "http://modal.com/modal-labs",
+          "http://modal.com/modal-labs/map",
+          "http://modal.com/modal-raisesummit",
+          "http://modal.com/notebooks/modal-labs/_/nb-8wvXoGoAcba8sRF8VkVg18",
+          "http://modal.com/notebooks/modal-labs/_/nb-KCjgUBAf1S99LafrrONNZ7",
+          "http://modal.com/notebooks/modal-labs/_/nb-Ld85WlrVtJTiLWpB5l469e",
+          "http://modal.com/notebooks/modal-labs/_/nb-qAEQwvMr1LSvedsywD28od",
+          "http://modal.com/password_reset",
+          "http://modal.com/signin",
+          "http://modal.com/the-agent-open",
+          "https://modal.com/composio-lh5g",
+          "https://modal.com/discover",
+          "https://modal.com/docs/gpu-glossary/device-hardware/tensor-cores",
+          "https://modal.com/docs/guide/sandbox/snapshots",
+          "https://modal.com/how-to-benchmark",
+          "https://modal.com/join",
+          "https://modal.com/modal-aie",
+          "https://modal.com/modal-aie-dinner",
+          "https://modal.com/modal-icml",
+          "https://modal.com/modal-icml-HH",
+          "https://modal.com/modal-labs",
+          "https://modal.com/modal-labs/map"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "http://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr",
+          "https://modal.com/notebooks/modal-labs/_/nb-30WInxiigR3Wc8kQ3jU7Hr"
+        ],
+        "api_uncovered_samples": [
+          "ep:/*.py",
+          "ep:/*.txt",
+          "ep:/.ssh/id_rsa",
+          "ep:/.ssh/id_rsa.pub",
+          "ep:/2);border-left:.125rem",
+          "ep:/2);max-width:calc(var(--max-width",
+          "ep:/6);min-width:var(--size);font-size:calc(var(--size)/2);background-color:var(--opacity-light",
+          "ep:/accept",
+          "ep:/ai-infrastructure.org/the-state-of-ai-infrastructure-at-scale-2024/",
+          "ep:/ai.meta.com/research/publications/cwm-an-open-weights-llm-for-research-on-code-generation-with-world-models/",
+          "ep:/api",
+          "ep:/api.githubcopilot.com",
+          "ep:/app.datadoghq.com/dashboard/xci-8en-9hs/gpu-health",
+          "ep:/arxiv.org/abs/1911.02150",
+          "ep:/arxiv.org/abs/2305.13245",
+          "ep:/arxiv.org/abs/2309.06180",
+          "ep:/arxiv.org/abs/2407.21783",
+          "ep:/arxiv.org/abs/2505.21487",
+          "ep:/arxiv.org/pdf/1706.03762",
+          "ep:/assets.bitbashing.io/images/cubedrone-103.png"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1049,
+        "requested_pages": 1091,
+        "urls_examined": 1091,
+        "max_pages_total": 2500,
+        "discovered_pages": 1091,
+        "crawl_scope_pages": 1091,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 38,
+        "docs_broken_links_count": 38,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 2,
+        "confirmed_broken_links_count": 38,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 5.82
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 10.81,
+        "no_api_pages_found": false,
+        "api_pages_detected": 213,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 100.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 24.69
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 82.27,
+        "answerability_pct": 84.18,
+        "citationability_pct": 99.24,
+        "stale_risk_pct": 70.47,
+        "overall_score_0_100": 77.68,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1939,
+        "claims_with_evidence": 1410,
+        "coverage_pct": 72.72
+      },
+      "actionability": {
+        "coverage_pct": 90.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 89.5,
+      "links_confidence_pct": 90.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 77.68,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 1049,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 38,
+          "unverified_links_count": 2
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 5.82
+        },
+        "severity": "medium",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 24.69
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 10.81,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 89.5,
+    "links_confidence_pct": 90.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 38",
+    "Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 10.81% (213 API pages detected)",
+    "Freshness visibility is weak: only 24.69% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Modal.com documentation comprises 1,049 crawled pages with 100% crawl coverage across 1,091 discovered URLs. Critical issues include 38 confirmed broken internal documentation links, 10.81% API reference coverage across 213 detected API pages, and only 24.69% of pages displaying last-updated timestamps. Retrieval readiness scores 77.68/100 (moderate band) with 70.47% of content flagged as stale-risk due to missing freshness signals. Evidence coverage stands at 72.72% (1,410 of 1,939 key claims supported), while actionability reaches 90%.",
+      "strengths": [
+        "100% crawl coverage with 1,049 pages successfully indexed from 1,091 discovered URLs",
+        "Zero repository navigation broken links; all 38 broken links are user-facing documentation paths",
+        "90% actionability coverage indicates strong task-oriented content",
+        "84.18% answerability and 99.24% citationability support AI retrieval and user self-service",
+        "Example code reliability estimate at 100% with no detection limitations flagged"
+      ],
+      "risks": [
+        "38 confirmed broken internal documentation links degrade user trust and navigation flow",
+        "10.81% API reference coverage leaves 89% of 213 detected API pages without usage documentation",
+        "70.47% stale-risk content due to missing last-updated metadata on 75.31% of pages",
+        "72.72% evidence coverage means 529 key claims lack supporting examples, links, or code snippets",
+        "5.82% SEO/geo issue rate may limit discoverability in search and regional contexts",
+        "Moderate retrieval readiness (77.68) constrains LLM answer quality and chatbot accuracy",
+        "Only 24.69% freshness visibility prevents users from assessing content currency"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 38 confirmed broken internal documentation links",
+          "impact": "critical",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Broken links directly block user workflows and erode trust; fixing 38 links is low-effort with immediate navigation and support-ticket reduction payoff."
+        },
+        {
+          "action": "Add last-updated timestamps to the 75.31% of pages missing freshness metadata",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Surfacing freshness on 790+ pages reduces stale-risk from 70.47% and boosts user confidence, SEO ranking, and LLM retrieval quality with minimal engineering lift."
+        },
+        {
+          "action": "Expand API usage documentation to cover the 89% gap across 213 detected API pages",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "API coverage at 10.81% is a major onboarding and adoption blocker; closing this gap drives developer success, reduces support load, and accelerates time-to-value."
+        },
+        {
+          "action": "Enrich 529 unsupported key claims with code examples, links, or evidence snippets",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Raising evidence coverage from 72.72% to 85%+ improves user trust, reduces ambiguity, and enhances AI answer accuracy for common queries."
+        },
+        {
+          "action": "Resolve 5.82% SEO/geo issues to improve search discoverability and regional access",
+          "impact": "medium",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "SEO fixes broaden top-of-funnel reach and reduce friction for international users, supporting growth and brand visibility over the next quarter."
+        }
+      ],
+      "automation_first": [
+        "Deploy automated broken-link scanning on every commit or daily schedule to catch and alert on internal link rot before users encounter 404s; fixing the current 38 broken links manually is urgent, but preventing recurrence saves ongoing support and trust costs.",
+        "Implement Git-based last-commit timestamp injection into page metadata for the 75.31% of pages missing freshness signals; this one-time pipeline change eliminates 70.47% stale-risk flagging and continuously maintains user confidence and SEO freshness without manual updates.",
+        "Build automated API reference cross-check between code annotations and published docs to flag the 89% coverage gap across 213 API pages; continuous validation ensures new API surfaces are documented at release, reducing onboarding friction and support escalations."
+      ],
+      "limitations": [
+        "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with current product behavior.",
+        "Link verification excluded 2 URLs due to authentication, rate-limiting, or server blocks; actual broken-link count may differ if these require credentials.",
+        "Freshness and staleness metrics rely on visible last-updated metadata; pages may be current but lack timestamps, inflating stale-risk estimates.",
+        "API coverage detection depends on heuristic page classification; actual API surface and documentation gaps require internal schema validation.",
+        "Evidence and actionability scoring cannot assess subjective content quality, user satisfaction, or task-completion success rates."
+      ]
+    }
+  }
+}

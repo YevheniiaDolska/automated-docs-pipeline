@@ -1,0 +1,28 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 65.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 280.0,
+  "docs_related_ticket_share": 0.22,
+  "avg_ticket_handling_minutes": 28.0,
+  "monthly_doc_influenced_evals": 45.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 850.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer/support rates based on 2024 US B2B SaaS market averages for infrastructure platforms",
+    "Modal is developer-focused serverless compute platform, likely 6-10 releases/month typical for fast-moving infra tools",
+    "1049 pages crawled with 38 broken links (3.6%) suggests moderate maintenance burden, ~6h/week sync realistic",
+    "Low API reference coverage (10.81%) and moderate retrieval score (77.68) indicate documentation gaps causing support load",
+    "22% docs-related tickets conservative given 70.47% stale risk and only 24.69% freshness coverage",
+    "Developer tools see higher ticket complexity, 28min avg reasonable for technical troubleshooting",
+    "Infrastructure platforms typically see 40-60 monthly evaluations, scaled to Modal's likely stage",
+    "18% eval-to-customer conservative for developer tools with docs friction (industry 15-25%)",
+    "Modal targets startups/scale-ups, $850 MRR reflects mid-market compute spend baseline",
+    "35% revenue sensitivity reflects that poor docs directly impact developer adoption in competitive serverless market",
+    "Confidence 68% due to limited public Modal revenue data, extrapolated from audit signals and category benchmarks"
+  ]
+}

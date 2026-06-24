@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-06-23T17:45:10.343109+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">7661</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">10215</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">83.21%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">11</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">4.86%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">16.67%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">70.19%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">14.87%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">88.98%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 11</li><li>API usage-doc coverage is low: 16.67% (6415 API pages detected)</li><li>Freshness visibility is weak: only 14.87% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://alchemy.com/docs</strong>: pages=7661, broken_links=11, api_coverage=16.67%, examples=70.19%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Alchemy&#x27;s documentation spans 7,661 crawled pages across a multi-project topology with 83.21% crawl coverage of the 10,215 discovered pages. API reference coverage is critically low at 16.67% despite 6,415 API pages detected, indicating significant gaps in usage documentation. Only 14.87% of pages display last-updated metadata, creating trust and staleness risk across 75.59% of content. Example code reliability is estimated at 70.19%, and overall retrieval readiness scores 69.77 (moderate band) with answerability at just 51.39%. The site has 11 confirmed broken internal links, all within user-facing docs.</p><h3>Strengths</h3><ul><li>High crawl coverage at 83.21% with 7,661 pages successfully indexed from 10,215 discovered</li><li>Strong citationability at 99.93% enables reliable source attribution for AI and search</li><li>Chunkability at 84.06% supports effective content segmentation for retrieval systems</li><li>Evidence coverage at 72.86% with 11,928 of 16,371 claims backed by supporting material</li><li>100% actionability coverage ensures content provides clear next steps for users</li></ul><h3>Risks</h3><ul><li>API reference coverage at 16.67% leaves 5,348+ API pages without adequate usage documentation, blocking developer onboarding</li><li>Answerability at 51.39% means nearly half of pages lack structure for direct question responses, degrading AI assistant and search quality</li><li>Freshness metadata missing on 85.13% of pages (6,522 pages) creates user trust issues and prevents stale content identification</li><li>Stale risk flagged on 75.59% of content (5,791 pages) without visible update signals, risking outdated guidance in production use</li><li>Example reliability at 70.19% suggests ~30% of code samples may be broken, outdated, or untested, eroding developer trust</li><li>11 broken internal links disrupt navigation and signal maintenance gaps to users and search engines</li><li>SEO/geo issues affect 4.86% of pages, potentially limiting discoverability in key markets or search contexts</li></ul><h3>Prioritized actions</h3><ul><li>Generate and backfill usage examples for the 5,348 API pages lacking coverage (83.33% gap) starting with top 200 most-visited endpoints <em>[critical, high]</em></li><li>Add last-updated timestamps to all 6,522 pages missing freshness metadata (85.13%) via automated git commit date injection <em>[high, low]</em></li><li>Restructure the 3,735 pages with low answerability (48.61%) to include explicit Q&amp;A sections, summaries, or structured headings <em>[high, medium]</em></li><li>Audit and fix all 11 broken internal links, then implement automated link checking in CI/CD to prevent recurrence <em>[medium, low]</em></li><li>Implement automated testing for code examples across the 2,285 pages with reliability concerns (29.81% failure estimate) <em>[high, high]</em></li></ul></div>
+  </div>
+</body>
+</html>

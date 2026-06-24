@@ -1,0 +1,482 @@
+{
+  "generated_at": "2026-06-18T10:09:58.406239+00:00",
+  "site_url": "https://docs.ton.org/",
+  "site_urls": [
+    "https://docs.ton.org/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.ton.org/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 465,
+          "requested_pages": 494,
+          "urls_examined": 473,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 473,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 473,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 473,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 494,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 8,
+          "unverified_links_count": 8,
+          "unverified_link_samples": [
+            "https://docs.ton.org/applications/appkit/get-started/get-started",
+            "https://docs.ton.org/applications/appkit/get-started/installation/installation",
+            "https://docs.ton.org/blockchain-basics/standard/tokens/nft/overview",
+            "https://docs.ton.org/blockchain-basics/standard/wallets/performance",
+            "https://docs.ton.org/blockchain-basics/tolk/features/standard-library",
+            "https://docs.ton.org/blockchain-basics/tolk/syntax/exceptions",
+            "https://docs.ton.org/blockchain-basics/tolk/syntax/mutability",
+            "https://docs.ton.org/blockchain-basics/tolk/types/numbers"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 5,
+          "excluded_link_samples": [
+            "https://docs.ton.org/resources/pdfs/catchain.pdf",
+            "https://docs.ton.org/resources/pdfs/fiftbase.pdf",
+            "https://docs.ton.org/resources/pdfs/tblkch.pdf",
+            "https://docs.ton.org/resources/pdfs/ton.pdf",
+            "https://docs.ton.org/resources/pdfs/tvm.pdf"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.ton.org/applications/appkit/get-started/get-started",
+            "https://docs.ton.org/applications/appkit/get-started/installation/installation",
+            "https://docs.ton.org/blockchain-basics/standard/tokens/nft/overview",
+            "https://docs.ton.org/blockchain-basics/standard/wallets/performance",
+            "https://docs.ton.org/blockchain-basics/tolk/features/standard-library",
+            "https://docs.ton.org/blockchain-basics/tolk/syntax/exceptions",
+            "https://docs.ton.org/blockchain-basics/tolk/syntax/mutability",
+            "https://docs.ton.org/blockchain-basics/tolk/types/numbers"
+          ],
+          "_all_excluded_links": [
+            "https://docs.ton.org/resources/pdfs/catchain.pdf",
+            "https://docs.ton.org/resources/pdfs/fiftbase.pdf",
+            "https://docs.ton.org/resources/pdfs/tblkch.pdf",
+            "https://docs.ton.org/resources/pdfs/ton.pdf",
+            "https://docs.ton.org/resources/pdfs/tvm.pdf"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.ton.org/applications/appkit/get-started/get-started",
+            "https://docs.ton.org/applications/appkit/get-started/installation/installation",
+            "https://docs.ton.org/blockchain-basics/standard/tokens/nft/overview",
+            "https://docs.ton.org/blockchain-basics/standard/wallets/performance",
+            "https://docs.ton.org/blockchain-basics/tolk/features/standard-library",
+            "https://docs.ton.org/blockchain-basics/tolk/syntax/exceptions",
+            "https://docs.ton.org/blockchain-basics/tolk/syntax/mutability",
+            "https://docs.ton.org/blockchain-basics/tolk/types/numbers"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 465,
+          "missing_title_count": 0,
+          "missing_description_count": 359,
+          "multiple_h1_count": 3,
+          "heading_hierarchy_jump_count": 54,
+          "seo_geo_issue_rate_pct": 22.37
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 894,
+          "api_pages_detected": 136,
+          "endpoints_with_usage_docs": 573,
+          "reference_endpoints_without_usage_docs": 321,
+          "reference_coverage_pct": 64.09,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/accountstates",
+            "ep:/actions",
+            "ep:/addressbook",
+            "ep:/addressinformation",
+            "ep:/adjacenttransactions",
+            "ep:/api-v2.swaps.xyz/api",
+            "ep:/api.layerswap.io/api/v2",
+            "ep:/api/create-transaction",
+            "ep:/api/store-payment",
+            "ep:/api/tonconnect/nonce",
+            "ep:/api/tonconnect/nonce').then(r",
+            "ep:/api/tonconnect/verify",
+            "ep:/api/v2/jsonrpc",
+            "ep:/api/v3/rungetmethod",
+            "ep:/blockchain-basics/con",
+            "ep:/blockchain-basics/cont",
+            "ep:/blockchain-basics/contract",
+            "ep:/blockchain-basics/contract-dev/bl",
+            "ep:/blockchain-basics/contract-dev/blueprint/ap",
+            "ep:/blockchain-basics/contract-dev/blueprint/fi"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 816,
+          "total_code_blocks_all": 4935,
+          "runnable_without_env": 813,
+          "blocked_by_placeholders": 3,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 99.63,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 463,
+          "pages_without_last_updated_hint": 2,
+          "last_updated_coverage_pct": 99.57,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.ton.org/applications/api/overview",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/price",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/rate-limit",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/smc-index/get-nominator-bookings-method",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/smc-index/get-pool-bookings-method",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/smc-index/get-nominator-method",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/smc-index/get-nominator-earnings-method",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/get-api-key",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/introduction",
+              "hint": "Last updated on"
+            },
+            {
+              "url": "https://docs.ton.org/applications/api/toncenter/streaming/overview",
+              "hint": "Last updated on"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 88.39,
+          "answerability_pct": 82.37,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 2.07,
+          "overall_score_0_100": 82.85,
+          "overall_band": "strong"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1463,
+          "claims_with_evidence": 1318,
+          "coverage_pct": 90.09
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 374,
+              "checks": {
+                "auth_model": 151,
+                "error_semantics": 373,
+                "retry_idempotency": 18,
+                "schema_evolution": 64
+              }
+            },
+            "graphql": {
+              "pages": 132,
+              "checks": {
+                "auth_model": 97,
+                "error_semantics": 132,
+                "retry_idempotency": 12,
+                "schema_evolution": 17
+              }
+            },
+            "grpc": {
+              "pages": 65,
+              "checks": {
+                "auth_model": 44,
+                "error_semantics": 64,
+                "retry_idempotency": 5,
+                "schema_evolution": 14
+              }
+            },
+            "asyncapi": {
+              "pages": 57,
+              "checks": {
+                "auth_model": 20,
+                "error_semantics": 56,
+                "retry_idempotency": 10,
+                "schema_evolution": 21
+              }
+            },
+            "websocket": {
+              "pages": 13,
+              "checks": {
+                "auth_model": 8,
+                "error_semantics": 13,
+                "retry_idempotency": 2,
+                "schema_evolution": 5
+              }
+            }
+          },
+          "coverage_pct": 100.0
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.ton.org/applications/appkit/get-started/get-started",
+          "https://docs.ton.org/applications/appkit/get-started/installation/installation",
+          "https://docs.ton.org/blockchain-basics/standard/tokens/nft/overview",
+          "https://docs.ton.org/blockchain-basics/standard/wallets/performance",
+          "https://docs.ton.org/blockchain-basics/tolk/features/standard-library",
+          "https://docs.ton.org/blockchain-basics/tolk/syntax/exceptions",
+          "https://docs.ton.org/blockchain-basics/tolk/syntax/mutability",
+          "https://docs.ton.org/blockchain-basics/tolk/types/numbers"
+        ],
+        "api_uncovered_samples": [
+          "ep:/accountstates",
+          "ep:/actions",
+          "ep:/addressbook",
+          "ep:/addressinformation",
+          "ep:/adjacenttransactions",
+          "ep:/api-v2.swaps.xyz/api",
+          "ep:/api.layerswap.io/api/v2",
+          "ep:/api/create-transaction",
+          "ep:/api/store-payment",
+          "ep:/api/tonconnect/nonce",
+          "ep:/api/tonconnect/nonce').then(r",
+          "ep:/api/tonconnect/verify",
+          "ep:/api/v2/jsonrpc",
+          "ep:/api/v3/rungetmethod",
+          "ep:/blockchain-basics/con",
+          "ep:/blockchain-basics/cont",
+          "ep:/blockchain-basics/contract",
+          "ep:/blockchain-basics/contract-dev/bl",
+          "ep:/blockchain-basics/contract-dev/blueprint/ap",
+          "ep:/blockchain-basics/contract-dev/blueprint/fi"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 465,
+        "requested_pages": 494,
+        "urls_examined": 473,
+        "max_pages_total": 2500,
+        "discovered_pages": 473,
+        "crawl_scope_pages": 473,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 8,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 5
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 22.37
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 64.09,
+        "no_api_pages_found": false,
+        "api_pages_detected": 136,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 99.63
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 99.57
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 88.39,
+        "answerability_pct": 82.37,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 2.07,
+        "overall_score_0_100": 82.85,
+        "overall_band": "strong"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1463,
+        "claims_with_evidence": 1318,
+        "coverage_pct": 90.09
+      },
+      "actionability": {
+        "coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 82.85,
+    "retrieval_readiness_band": "strong",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 465,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 22.37
+        },
+        "severity": "high",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 64.09,
+          "no_api_pages_found": false
+        },
+        "severity": "medium",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Link verification inconclusive for 8 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 22.37%",
+    "API usage-doc coverage is low: 64.09% (136 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "TON documentation spans 465 crawled pages with 100% crawl coverage and zero confirmed broken links. API reference coverage stands at 64.09% across 136 detected API pages, leaving over one-third of API surface undocumented. SEO/geo issues affect 22.37% of pages, risking organic discovery and regional reach. Retrieval readiness scores 82.85/100 (strong band), with 90.09% of 1,463 key claims backed by evidence. Overall audit confidence is 63.5%, constrained by link verification limitations (8 unverified URLs due to auth/rate-limit blocks).",
+      "strengths": [
+        "100% crawl coverage (465 of 473 in-scope pages) with zero broken internal or repository navigation links",
+        "99.57% of pages include last-updated metadata, supporting freshness transparency",
+        "90.09% of 1,463 detected claims are backed by evidence, strengthening trust and AI answer quality",
+        "Example reliability estimate at 99.63%, indicating minimal code-rot risk in tutorials",
+        "Retrieval readiness overall score of 82.85 (strong band) with 100% citationability and 88.39% chunkability"
+      ],
+      "risks": [
+        "35.91% of API surface lacks usage documentation (136 API pages detected, 64.09% coverage), blocking developer onboarding for uncovered endpoints",
+        "22.37% SEO/geo issue rate threatens organic search visibility and regional discoverability, directly impacting inbound developer acquisition",
+        "8 unverified links (auth/rate-limit/server blocks) introduce unknown broken-link exposure; link confidence is only 25%",
+        "17.63% of pages fail answerability checks, limiting effectiveness in LLM-powered search and chatbot contexts",
+        "11.61% of pages have chunkability issues, risking poor semantic retrieval in vector search and RAG pipelines",
+        "2.07% stale-risk pages may contain outdated guidance, eroding trust if not flagged or refreshed",
+        "Overall audit confidence at 63.5% means findings may undercount issues in link health and edge-case API detection"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Close the 35.91% API documentation gap by generating usage examples and parameter guides for the 49 undocumented API pages (out of 136 detected)",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Undocumented APIs block developer onboarding and integration velocity, directly reducing time-to-first-transaction and increasing support load for missing endpoint guidance."
+        },
+        {
+          "action": "Remediate SEO/geo issues on the 104 affected pages (22.37% of 465) by adding missing meta descriptions, fixing duplicate titles, and ensuring regional hreflang tags",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "SEO fixes unlock organic search traffic and regional discoverability, expanding top-of-funnel developer acquisition with minimal engineering dependency."
+        },
+        {
+          "action": "Improve answerability for the 82 pages (17.63%) failing LLM-readiness checks by adding explicit Q&A pairs, summary sections, or structured how-to blocks",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Answerability gaps degrade performance in AI-powered search and chatbots, reducing self-service success and increasing support ticket volume as LLM adoption grows."
+        },
+        {
+          "action": "Resolve chunkability issues on 54 pages (11.61%) by breaking long prose into subsections, adding headings, and splitting dense tables",
+          "impact": "medium",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Chunkability fixes improve vector search and RAG retrieval precision, boosting AI-assisted onboarding and reducing time-to-answer for embedded search features."
+        },
+        {
+          "action": "Verify the 8 unverified links (auth/rate-limit blocked) manually or via authenticated crawl, then fix or document any confirmed breaks",
+          "impact": "medium",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "low",
+          "why_this_first": "Unverified links introduce hidden broken-link risk that erodes trust and disrupts user journeys; low-effort manual check closes the 25% link-confidence gap."
+        }
+      ],
+      "automation_first": [
+        "Deploy automated SEO linter in CI/CD to flag missing meta descriptions, duplicate titles, and hreflang gaps on every commit, preventing recurrence of the 22.37% issue rate and ensuring new pages launch search-optimized.",
+        "Implement nightly API schema diff scanner to detect new or changed endpoints not yet documented, auto-filing GitHub issues for the 49 undocumented APIs and preventing future coverage drift below the current 64.09%.",
+        "Add pre-commit answerability and chunkability checks using LLM-based scoring to block merges of pages failing the 17.63% answerability threshold, reducing support load and improving RAG retrieval quality at authoring time."
+      ],
+      "limitations": [
+        "External audit cannot verify the 8 auth/rate-limit-blocked URLs; actual broken-link count may be higher than zero, and link confidence remains at 25%.",
+        "API detection relies on heuristic pattern matching; no_api_pages_found is false, but edge-case endpoints (e.g., webhooks, admin APIs) may be undercounted in the 136-page total.",
+        "Freshness metadata (99.57% coverage) reflects presence of last-updated fields, not accuracy; pages may be marked current despite outdated content.",
+        "Example reliability estimate (99.63%) is static analysis; runtime execution, dependency drift, and environment-specific failures are not tested.",
+        "Audit confidence of 63.5% means findings are conservative; true issue counts for links, API coverage, and retrieval readiness may be 10\u201320% higher in production use."
+      ]
+    }
+  }
+}

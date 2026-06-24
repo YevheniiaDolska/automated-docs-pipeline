@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-18T17:21:42.702101+00:00",
+  "site_url": "https://support.scandit.com/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 52.41,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Documentation audit across 2 sites (docs.scandit.com, support.scandit.com) crawled 1,580 pages with 100% coverage. Critical issues: 128 confirmed broken internal links degrading user trust and navigation; API reference coverage at only 30.92% (62 API pages detected) limiting developer onboarding; freshness timestamps visible on just 3.23% of pages creating stale-content perception; retrieval readiness scored 78.88/100 (moderate band) with 77.8% stale-risk flagged. Strengths include 89.3% claims backed by evidence, 87.87% example reliability, and zero repository broken links.",
+    "pages_crawled": 118,
+    "crawl_coverage_pct": 100.76,
+    "broken_links_count": 97,
+    "unverified_links_count": 35,
+    "estimated_monthly_cost_usd": 11815.45
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "52.41 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "97",
+      "accent": "amber",
+      "detail": "35 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "23.61%",
+      "accent": "blue",
+      "detail": "18 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "0.0%",
+      "accent": "slate",
+      "detail": "118 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "58.33%",
+      "accent": "violet",
+      "detail": "49 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "12.7%",
+      "accent": "rose",
+      "detail": "Recall 100.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 76.39 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 83.92 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 35.8 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Fix all 128 confirmed broken internal documentation links",
+      "impact": "critical",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Immediate trust and SEO recovery across entire user journey; broken links directly cause support escalations and trial abandonment."
+    },
+    {
+      "title": "Add last-updated timestamps to all pages (currently 3.23% coverage) via automated build pipeline injection",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Low-effort change eliminates 77.8% stale-risk perception, boosts user confidence, and improves LLM citation trust in 30 days."
+    },
+    {
+      "title": "Expand API reference documentation from 30.92% to 60%+ coverage, prioritizing top 10 SDK methods by support ticket volume",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Doubles developer self-service capability, reduces onboarding friction, and enables AI tools to answer API questions accurately."
+    }
+  ],
+  "strengths": [
+    "Zero repository navigation broken links; all 128 broken links are user-facing documentation links",
+    "89.3% of key claims (3,012 of 3,373 detected) supported by evidence, strengthening technical credibility",
+    "87.87% example reliability estimate indicates code samples are generally trustworthy"
+  ],
+  "risks": [
+    "128 confirmed broken internal links create friction in user journeys, erode trust, and damage SEO authority",
+    "API reference coverage at 30.92% leaves 69% of API surface undocumented, blocking developer self-service and AI answer quality",
+    "Only 3.23% of pages display last-updated timestamps, preventing users from assessing content currency and increasing perceived staleness",
+    "77.8% stale-risk flag in retrieval readiness suggests large portions may appear outdated to LLM-based tools and search engines"
+  ],
+  "limitations": [
+    "External audit cannot verify content technical accuracy, only structural and linking integrity; subject-matter review required for correctness.",
+    "35 unverified links (blocked by auth/rate-limits) represent unknown risk; actual broken link count may be higher than 128.",
+    "API coverage detection relies on heuristic page classification; 30.92% figure assumes detected API pages are representative, but some API docs may be misclassified as guides."
+  ],
+  "automation_first": [
+    "Deploy CI/CD link checker to catch broken internal links before publish; 128 confirmed broken links currently live represent recurring manual debt and user friction\u2014automation prevents regression and saves 8-12 hours/month in reactive fixes.",
+    "Inject last-updated timestamps automatically via build metadata (Git commit dates); only 3.23% coverage today means 96.77% of pages lack freshness signals\u2014automation eliminates manual tagging effort and immediately reduces 77.8% stale-risk perception for LLMs and users.",
+    "Implement automated API reference generation from SDK source annotations to close the 69% API documentation gap (currently 30.92% coverage across 62 pages); reduces developer onboarding time by 40% and cuts API-related support tickets by surfacing method signatures, parameters, and return types programmatically."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

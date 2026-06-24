@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-06-17T10:29:06.758897+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">1049</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">1091</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">38</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">2</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">5.82%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">10.81%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">24.69%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">89.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 38</li><li>Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 10.81% (213 API pages detected)</li><li>Freshness visibility is weak: only 24.69% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://modal.com/docs</strong>: pages=1049, broken_links=38, api_coverage=10.81%, examples=100.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Modal.com documentation comprises 1,049 crawled pages with 100% crawl coverage across 1,091 discovered URLs. Critical issues include 38 confirmed broken internal documentation links, 10.81% API reference coverage across 213 detected API pages, and only 24.69% of pages displaying last-updated timestamps. Retrieval readiness scores 77.68/100 (moderate band) with 70.47% of content flagged as stale-risk due to missing freshness signals. Evidence coverage stands at 72.72% (1,410 of 1,939 key claims supported), while actionability reaches 90%.</p><h3>Strengths</h3><ul><li>100% crawl coverage with 1,049 pages successfully indexed from 1,091 discovered URLs</li><li>Zero repository navigation broken links; all 38 broken links are user-facing documentation paths</li><li>90% actionability coverage indicates strong task-oriented content</li><li>84.18% answerability and 99.24% citationability support AI retrieval and user self-service</li><li>Example code reliability estimate at 100% with no detection limitations flagged</li></ul><h3>Risks</h3><ul><li>38 confirmed broken internal documentation links degrade user trust and navigation flow</li><li>10.81% API reference coverage leaves 89% of 213 detected API pages without usage documentation</li><li>70.47% stale-risk content due to missing last-updated metadata on 75.31% of pages</li><li>72.72% evidence coverage means 529 key claims lack supporting examples, links, or code snippets</li><li>5.82% SEO/geo issue rate may limit discoverability in search and regional contexts</li><li>Moderate retrieval readiness (77.68) constrains LLM answer quality and chatbot accuracy</li><li>Only 24.69% freshness visibility prevents users from assessing content currency</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 38 confirmed broken internal documentation links <em>[critical, low]</em></li><li>Add last-updated timestamps to the 75.31% of pages missing freshness metadata <em>[high, low]</em></li><li>Expand API usage documentation to cover the 89% gap across 213 detected API pages <em>[critical, high]</em></li><li>Enrich 529 unsupported key claims with code examples, links, or evidence snippets <em>[high, medium]</em></li><li>Resolve 5.82% SEO/geo issues to improve search discoverability and regional access <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

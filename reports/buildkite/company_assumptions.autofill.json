@@ -1,0 +1,32 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 65.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 420.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 85.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 1850.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Buildkite is a CI/CD platform serving developer-focused enterprise customers",
+    "1295 pages crawled indicates mature documentation requiring ongoing maintenance",
+    "8 broken internal links and 169 unverified links suggest moderate maintenance debt",
+    "0% API reference coverage despite 1293 API pages detected indicates significant gap",
+    "37.61% chunkability and 6.1% answerability show poor RAG/AI readiness",
+    "Overall retrieval readiness score 47.3 (weak band) indicates friction in self-service",
+    "73.67% freshness coverage with 25.93% stale risk suggests inconsistent update cycles",
+    "97.3% evidence coverage and 87.5% actionability are strong positives",
+    "DevOps/CI tooling typically has 8-12 releases/month, using conservative 8",
+    "Developer tools see higher docs-related support (25-35%), using 28%",
+    "Enterprise CI/CD customers typically $1500-3000 MRR, using $1850",
+    "Docs friction sensitivity 0.35 reflects technical audience with alternatives",
+    "Conservative baseline assumes 1.5 FTE-equivalent docs maintenance load",
+    "Support ticket volume scaled to mid-market B2B DevOps tool baseline",
+    "Confidence reduced to 68% due to API reference gap and weak retrieval scores"
+  ]
+}

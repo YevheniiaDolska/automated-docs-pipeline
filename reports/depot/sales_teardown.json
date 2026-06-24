@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-17T13:30:31.969838+00:00",
+  "site_url": "https://depot.dev/docs",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 59.25,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Depot.dev documentation audit covered 531 pages with 100% crawl coverage and 91.5% overall confidence. API reference coverage is 64.11% across 38 detected API pages, leaving roughly one-third of API surface undocumented. SEO/geo issue rate is elevated at 19.44%, impacting discoverability. Retrieval readiness scores 66.04/100 (moderate band), with chunkability at only 22.03% indicating poor AI answer quality. Example reliability detection returned 0% across all 531 pages, flagging a likely JS-rendered code block detection limitation. Evidence coverage is 75.18% (521 of 693 claims backed), and 2 confirmed broken internal links exist in user-facing docs.",
+    "pages_crawled": 531,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 2,
+    "unverified_links_count": 0,
+    "estimated_monthly_cost_usd": 9468.48
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "59.25 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "2",
+      "accent": "amber",
+      "detail": "0 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "64.11%",
+      "accent": "blue",
+      "detail": "14 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "75.89%",
+      "accent": "slate",
+      "detail": "128 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "95.0%",
+      "accent": "violet",
+      "detail": "27 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "22.0%",
+      "accent": "rose",
+      "detail": "Recall 100.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 35.89 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 24.82 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Improve chunkability from 22.03% to >70% by adding semantic section breaks, headings, and list structures to long-form pages",
+      "impact": "critical",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Chunkability directly controls AI answer quality and LLM retrieval success, affecting every AI-assisted user interaction and support deflection opportunity."
+    },
+    {
+      "title": "Resolve 19.44% SEO/geo issues (~103 pages) by adding missing meta descriptions, fixing title tags, and ensuring proper heading hierarchy",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "SEO fixes deliver immediate organic traffic gains and improve top-of-funnel discoverability with minimal engineering effort."
+    },
+    {
+      "title": "Close API reference coverage gap from 64.11% to >90% by documenting missing endpoints, parameters, and response schemas across the 38 detected API pages",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Incomplete API docs drive developer support tickets, slow onboarding, and increase trial-to-paid friction for technical buyers."
+    }
+  ],
+  "strengths": [
+    "100% crawl coverage (531 of 531 pages) with high crawl confidence (95%)",
+    "Actionability coverage at 95%, indicating strong task-oriented content",
+    "Answerability and citationability both at 100%, supporting AI retrieval use cases"
+  ],
+  "risks": [
+    "API reference coverage at 64.11% leaves ~36% of API surface undocumented, risking developer churn and support load",
+    "Chunkability at 22.03% severely limits LLM context window efficiency and answer quality in AI-assisted workflows",
+    "SEO/geo issue rate of 19.44% (approximately 103 pages) reduces organic discoverability and search ranking",
+    "Example reliability detection at 0% across 531 pages suggests JS-rendered code blocks invisible to crawlers and LLM scrapers"
+  ],
+  "limitations": [
+    "External audit cannot verify runtime accuracy of code examples, API responses, or CLI commands; 0% example reliability may reflect detection limits on JS-rendered content rather than true absence.",
+    "Crawl-based analysis cannot assess gated content, authenticated workflows, or dynamic user-specific documentation paths.",
+    "Metrics reflect structural and surface-level signals; actual user comprehension, task success rates, and support deflection require behavioral analytics."
+  ],
+  "automation_first": [
+    "Deploy automated chunkability linter to flag pages below 70% threshold (currently 22.03% site-wide, ~414 pages affected) in CI/CD, preventing new long-form content from degrading AI retrieval and reducing manual audits by 80%.",
+    "Implement broken link checker in pre-deploy pipeline to catch the 2 confirmed broken internal links and prevent future regressions, eliminating manual link audits and preserving SEO authority flow automatically.",
+    "Add API reference coverage monitor to track the 38 detected API pages against OpenAPI spec or codebase, alerting when coverage drops below 90% (currently 64.11%) to prevent undocumented endpoints from reaching production and cutting support ticket volume."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

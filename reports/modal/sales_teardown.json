@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-17T10:29:54.525577+00:00",
+  "site_url": "https://modal.com/docs",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 61.95,
+    "grade": "D"
+  },
+  "summary": {
+    "executive_summary": "Modal.com documentation comprises 1,049 crawled pages with 100% crawl coverage across 1,091 discovered URLs. Critical issues include 38 confirmed broken internal documentation links, 10.81% API reference coverage across 213 detected API pages, and only 24.69% of pages displaying last-updated timestamps. Retrieval readiness scores 77.68/100 (moderate band) with 70.47% of content flagged as stale-risk due to missing freshness signals. Evidence coverage stands at 72.72% (1,410 of 1,939 key claims supported), while actionability reaches 90%.",
+    "pages_crawled": 1049,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 38,
+    "unverified_links_count": 2,
+    "estimated_monthly_cost_usd": 12288.62
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "61.95 / 100",
+      "accent": "teal",
+      "detail": "Grade D"
+    },
+    {
+      "label": "Broken Links",
+      "value": "38",
+      "accent": "amber",
+      "detail": "2 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "10.81%",
+      "accent": "blue",
+      "detail": "190 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "24.69%",
+      "accent": "slate",
+      "detail": "790 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "90.0%",
+      "accent": "violet",
+      "detail": "105 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "82.3%",
+      "accent": "rose",
+      "detail": "Recall 84.2%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 89.19 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 70.47 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 27.28 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Fix all 38 confirmed broken internal documentation links",
+      "impact": "critical",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Broken links directly block user workflows and erode trust; fixing 38 links is low-effort with immediate navigation and support-ticket reduction payoff."
+    },
+    {
+      "title": "Add last-updated timestamps to the 75.31% of pages missing freshness metadata",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Surfacing freshness on 790+ pages reduces stale-risk from 70.47% and boosts user confidence, SEO ranking, and LLM retrieval quality with minimal engineering lift."
+    },
+    {
+      "title": "Expand API usage documentation to cover the 89% gap across 213 detected API pages",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "API coverage at 10.81% is a major onboarding and adoption blocker; closing this gap drives developer success, reduces support load, and accelerates time-to-value."
+    }
+  ],
+  "strengths": [
+    "100% crawl coverage with 1,049 pages successfully indexed from 1,091 discovered URLs",
+    "Zero repository navigation broken links; all 38 broken links are user-facing documentation paths",
+    "90% actionability coverage indicates strong task-oriented content"
+  ],
+  "risks": [
+    "38 confirmed broken internal documentation links degrade user trust and navigation flow",
+    "10.81% API reference coverage leaves 89% of 213 detected API pages without usage documentation",
+    "70.47% stale-risk content due to missing last-updated metadata on 75.31% of pages",
+    "72.72% evidence coverage means 529 key claims lack supporting examples, links, or code snippets"
+  ],
+  "limitations": [
+    "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with current product behavior.",
+    "Link verification excluded 2 URLs due to authentication, rate-limiting, or server blocks; actual broken-link count may differ if these require credentials.",
+    "Freshness and staleness metrics rely on visible last-updated metadata; pages may be current but lack timestamps, inflating stale-risk estimates."
+  ],
+  "automation_first": [
+    "Deploy automated broken-link scanning on every commit or daily schedule to catch and alert on internal link rot before users encounter 404s; fixing the current 38 broken links manually is urgent, but preventing recurrence saves ongoing support and trust costs.",
+    "Implement Git-based last-commit timestamp injection into page metadata for the 75.31% of pages missing freshness signals; this one-time pipeline change eliminates 70.47% stale-risk flagging and continuously maintains user confidence and SEO freshness without manual updates.",
+    "Build automated API reference cross-check between code annotations and published docs to flag the 89% coverage gap across 213 API pages; continuous validation ensures new API surfaces are documented at release, reducing onboarding friction and support escalations."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 11143.5,
+    "remediation_cost_usd_base_total": 4702.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

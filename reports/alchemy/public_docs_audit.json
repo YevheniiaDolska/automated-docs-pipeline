@@ -1,0 +1,623 @@
+{
+  "generated_at": "2026-06-23T17:45:10.343109+00:00",
+  "site_url": "https://alchemy.com/docs",
+  "site_urls": [
+    "https://alchemy.com/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://alchemy.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 7661,
+          "requested_pages": 10221,
+          "urls_examined": 8500,
+          "max_pages": 8500,
+          "effective_limit": 8500,
+          "auto_mode": false,
+          "stop_reason": "limit_reached",
+          "discovered_pages": 10215,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 10215,
+          "crawl_coverage_pct": 83.21,
+          "trap_urls_skipped": 72,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 10221,
+          "broken_internal_links_count": 11,
+          "docs_broken_links_count": 11,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://alchemy.com/SKILL.md",
+            "http://alchemy.com/cdn-cgi/l/email-protection",
+            "https://alchemy.com/SKILL.md",
+            "https://alchemy.com/cdn-cgi/l/email-protection",
+            "https://alchemy.com/docs/chains/bitcoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/bitcoincash/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/dogecoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/litecoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/wallets/reference/smart-wallet-quickstart",
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/GetCallsStatusParameters",
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/WaitForCallsStatusParameters"
+          ],
+          "docs_broken_link_samples": [
+            "http://alchemy.com/SKILL.md",
+            "http://alchemy.com/cdn-cgi/l/email-protection",
+            "https://alchemy.com/SKILL.md",
+            "https://alchemy.com/cdn-cgi/l/email-protection",
+            "https://alchemy.com/docs/chains/bitcoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/bitcoincash/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/dogecoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/litecoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/wallets/reference/smart-wallet-quickstart",
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/GetCallsStatusParameters",
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/WaitForCallsStatusParameters"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 11,
+          "excluded_links_count": 6,
+          "excluded_link_samples": [
+            "http://alchemy.com/docs/reference/alchemy-das-apis-for-solana/solana-das-api-endpoints/search-assets",
+            "http://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-api-v-2-methods-older-version/search-contract-metadata",
+            "http://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-metadata-endpoints/search-contract-metadata-v-3",
+            "https://alchemy.com/docs/reference/alchemy-das-apis-for-solana/solana-das-api-endpoints/search-assets",
+            "https://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-api-v-2-methods-older-version/search-contract-metadata",
+            "https://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-metadata-endpoints/search-contract-metadata-v-3"
+          ],
+          "_all_confirmed_broken_links": [
+            "http://alchemy.com/SKILL.md",
+            "http://alchemy.com/cdn-cgi/l/email-protection",
+            "https://alchemy.com/SKILL.md",
+            "https://alchemy.com/cdn-cgi/l/email-protection",
+            "https://alchemy.com/docs/chains/bitcoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/bitcoincash/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/dogecoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/chains/litecoin/utxo-api-endpoints/utxo-api-endpoints",
+            "https://alchemy.com/docs/wallets/reference/smart-wallet-quickstart",
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/GetCallsStatusParameters",
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/WaitForCallsStatusParameters"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "http://alchemy.com/docs/reference/alchemy-das-apis-for-solana/solana-das-api-endpoints/search-assets",
+            "http://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-api-v-2-methods-older-version/search-contract-metadata",
+            "http://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-metadata-endpoints/search-contract-metadata-v-3",
+            "https://alchemy.com/docs/reference/alchemy-das-apis-for-solana/solana-das-api-endpoints/search-assets",
+            "https://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-api-v-2-methods-older-version/search-contract-metadata",
+            "https://alchemy.com/docs/reference/nft-api-endpoints/nft-api-endpoints/nft-metadata-endpoints/search-contract-metadata-v-3"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://alchemy.com/SKILL.md": [
+              {
+                "source_page": "http://alchemy.com/agentpay",
+                "anchor_text": "Agent Skill"
+              }
+            ],
+            "http://alchemy.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "http://alchemy.com/",
+                "anchor_text": "Email"
+              },
+              {
+                "source_page": "http://alchemy.com/",
+                "anchor_text": "Press"
+              },
+              {
+                "source_page": "http://alchemy.com/agentpay",
+                "anchor_text": "Email"
+              },
+              {
+                "source_page": "http://alchemy.com/agents",
+                "anchor_text": "Email"
+              },
+              {
+                "source_page": "http://alchemy.com/agents",
+                "anchor_text": "Press"
+              }
+            ],
+            "https://alchemy.com/SKILL.md": [
+              {
+                "source_page": "https://alchemy.com/agentpay",
+                "anchor_text": "Agent Skill"
+              }
+            ],
+            "https://alchemy.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://alchemy.com/",
+                "anchor_text": "Email"
+              },
+              {
+                "source_page": "https://alchemy.com/",
+                "anchor_text": "Press"
+              },
+              {
+                "source_page": "https://alchemy.com/agentpay",
+                "anchor_text": "Email"
+              },
+              {
+                "source_page": "https://alchemy.com/agents",
+                "anchor_text": "Email"
+              },
+              {
+                "source_page": "https://alchemy.com/agents",
+                "anchor_text": "Press"
+              }
+            ],
+            "https://alchemy.com/docs/chains/bitcoin/utxo-api-endpoints/utxo-api-endpoints": [
+              {
+                "source_page": "https://alchemy.com/docs/bitcoin/utxo-websockets",
+                "anchor_text": "UTXO API Endpoints"
+              },
+              {
+                "source_page": "https://alchemy.com/docs/bitcoin/utxo-websockets",
+                "anchor_text": "UTXO REST API"
+              }
+            ],
+            "https://alchemy.com/docs/chains/bitcoincash/utxo-api-endpoints/utxo-api-endpoints": [
+              {
+                "source_page": "https://alchemy.com/docs/bitcoincash/utxo-websockets",
+                "anchor_text": "UTXO API Endpoints"
+              },
+              {
+                "source_page": "https://alchemy.com/docs/bitcoincash/utxo-websockets",
+                "anchor_text": "UTXO REST API"
+              }
+            ],
+            "https://alchemy.com/docs/chains/dogecoin/utxo-api-endpoints/utxo-api-endpoints": [
+              {
+                "source_page": "https://alchemy.com/docs/dogecoin/utxo-websockets",
+                "anchor_text": "UTXO API Endpoints"
+              },
+              {
+                "source_page": "https://alchemy.com/docs/dogecoin/utxo-websockets",
+                "anchor_text": "UTXO REST API"
+              }
+            ],
+            "https://alchemy.com/docs/chains/litecoin/utxo-api-endpoints/utxo-api-endpoints": [
+              {
+                "source_page": "https://alchemy.com/docs/litecoin/utxo-websockets",
+                "anchor_text": "UTXO API Endpoints"
+              },
+              {
+                "source_page": "https://alchemy.com/docs/litecoin/utxo-websockets",
+                "anchor_text": "UTXO REST API"
+              }
+            ],
+            "https://alchemy.com/docs/wallets/reference/smart-wallet-quickstart": [
+              {
+                "source_page": "https://alchemy.com/docs/wallets/troubleshooting/wallet-apis-errors",
+                "anchor_text": "Wallet API\nquickstart"
+              }
+            ],
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/GetCallsStatusParameters": [
+              {
+                "source_page": "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/SmartWalletActions",
+                "anchor_text": "GetCallsStatusParameters"
+              }
+            ],
+            "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/WaitForCallsStatusParameters": [
+              {
+                "source_page": "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/SmartWalletActions",
+                "anchor_text": "WaitForCallsStatusParameters"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 7661,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 270,
+          "heading_hierarchy_jump_count": 1218,
+          "seo_geo_issue_rate_pct": 4.86
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 6,
+          "api_pages_detected": 6415,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 5,
+          "reference_coverage_pct": 16.67,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:devops",
+            "ev:security",
+            "ev:software-development",
+            "gql:menu"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 3251,
+          "total_code_blocks_all": 12802,
+          "runnable_without_env": 2282,
+          "blocked_by_placeholders": 579,
+          "network_bound_examples": 390,
+          "example_reliability_estimate_pct": 70.19,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 1139,
+          "pages_without_last_updated_hint": 6522,
+          "last_updated_coverage_pct": 14.87,
+          "samples_with_last_updated": [
+            {
+              "url": "http://alchemy.com/blog",
+              "hint": "June 22, 2026"
+            },
+            {
+              "url": "http://alchemy.com/blog/2025-internship-program",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/5-tips-for-nft-success",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/a-developers-guide-to-securing-ethereum-smart-contracts",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/aa-sdk-v3",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/abstract-is-live",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/access-for-all-developers-program",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/account-abstraction",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/account-abstraction-aggregate-signatures",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "http://alchemy.com/blog/account-abstraction-erc-6900",
+              "hint": "Last updated:"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 84.06,
+          "answerability_pct": 51.39,
+          "citationability_pct": 99.93,
+          "stale_risk_pct": 75.59,
+          "overall_score_0_100": 69.77,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 16371,
+          "claims_with_evidence": 11928,
+          "coverage_pct": 72.86
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 3401,
+              "checks": {
+                "auth_model": 3080,
+                "error_semantics": 2114,
+                "retry_idempotency": 207,
+                "schema_evolution": 493
+              }
+            },
+            "graphql": {
+              "pages": 2716,
+              "checks": {
+                "auth_model": 2509,
+                "error_semantics": 2132,
+                "retry_idempotency": 81,
+                "schema_evolution": 435
+              }
+            },
+            "grpc": {
+              "pages": 2472,
+              "checks": {
+                "auth_model": 2279,
+                "error_semantics": 2120,
+                "retry_idempotency": 136,
+                "schema_evolution": 328
+              }
+            },
+            "asyncapi": {
+              "pages": 1825,
+              "checks": {
+                "auth_model": 1765,
+                "error_semantics": 1750,
+                "retry_idempotency": 76,
+                "schema_evolution": 209
+              }
+            },
+            "websocket": {
+              "pages": 695,
+              "checks": {
+                "auth_model": 679,
+                "error_semantics": 504,
+                "retry_idempotency": 25,
+                "schema_evolution": 33
+              }
+            }
+          },
+          "coverage_pct": 100.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://alchemy.com/SKILL.md",
+          "http://alchemy.com/cdn-cgi/l/email-protection",
+          "https://alchemy.com/SKILL.md",
+          "https://alchemy.com/cdn-cgi/l/email-protection",
+          "https://alchemy.com/docs/chains/bitcoin/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/chains/bitcoincash/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/chains/dogecoin/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/chains/litecoin/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/wallets/reference/smart-wallet-quickstart",
+          "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/GetCallsStatusParameters",
+          "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/WaitForCallsStatusParameters"
+        ],
+        "docs_broken_link_samples": [
+          "http://alchemy.com/SKILL.md",
+          "http://alchemy.com/cdn-cgi/l/email-protection",
+          "https://alchemy.com/SKILL.md",
+          "https://alchemy.com/cdn-cgi/l/email-protection",
+          "https://alchemy.com/docs/chains/bitcoin/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/chains/bitcoincash/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/chains/dogecoin/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/chains/litecoin/utxo-api-endpoints/utxo-api-endpoints",
+          "https://alchemy.com/docs/wallets/reference/smart-wallet-quickstart",
+          "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/GetCallsStatusParameters",
+          "https://alchemy.com/docs/wallets/reference/wallet-apis/type-aliases/WaitForCallsStatusParameters"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:devops",
+          "ev:security",
+          "ev:software-development",
+          "gql:menu"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 7661,
+        "requested_pages": 10221,
+        "urls_examined": 8500,
+        "max_pages_total": 8500,
+        "discovered_pages": 10215,
+        "crawl_scope_pages": 10215,
+        "trap_urls_skipped": 72,
+        "crawl_coverage_pct": 83.21
+      },
+      "links": {
+        "broken_internal_links_count": 11,
+        "docs_broken_links_count": 11,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 11,
+        "excluded_links_count": 6
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 4.86
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 16.67,
+        "no_api_pages_found": false,
+        "api_pages_detected": 6415,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 70.19
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 14.87
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 84.06,
+        "answerability_pct": 51.39,
+        "citationability_pct": 99.93,
+        "stale_risk_pct": 75.59,
+        "overall_score_0_100": 69.77,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 16371,
+        "claims_with_evidence": 11928,
+        "coverage_pct": 72.86
+      },
+      "actionability": {
+        "coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 88.98,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 84.93
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 69.77,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "medium",
+    "audit_signal": {
+      "pages_crawled": 7661,
+      "crawl_coverage_pct": 83.21
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 11,
+          "unverified_links_count": 0
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 70.19
+        },
+        "severity": "medium",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 14.87
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 16.67,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 88.98,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 84.93
+  },
+  "top_findings": [
+    "Broken internal links: 11",
+    "API usage-doc coverage is low: 16.67% (6415 API pages detected)",
+    "Freshness visibility is weak: only 14.87% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Alchemy's documentation spans 7,661 crawled pages across a multi-project topology with 83.21% crawl coverage of the 10,215 discovered pages. API reference coverage is critically low at 16.67% despite 6,415 API pages detected, indicating significant gaps in usage documentation. Only 14.87% of pages display last-updated metadata, creating trust and staleness risk across 75.59% of content. Example code reliability is estimated at 70.19%, and overall retrieval readiness scores 69.77 (moderate band) with answerability at just 51.39%. The site has 11 confirmed broken internal links, all within user-facing docs.",
+      "strengths": [
+        "High crawl coverage at 83.21% with 7,661 pages successfully indexed from 10,215 discovered",
+        "Strong citationability at 99.93% enables reliable source attribution for AI and search",
+        "Chunkability at 84.06% supports effective content segmentation for retrieval systems",
+        "Evidence coverage at 72.86% with 11,928 of 16,371 claims backed by supporting material",
+        "100% actionability coverage ensures content provides clear next steps for users"
+      ],
+      "risks": [
+        "API reference coverage at 16.67% leaves 5,348+ API pages without adequate usage documentation, blocking developer onboarding",
+        "Answerability at 51.39% means nearly half of pages lack structure for direct question responses, degrading AI assistant and search quality",
+        "Freshness metadata missing on 85.13% of pages (6,522 pages) creates user trust issues and prevents stale content identification",
+        "Stale risk flagged on 75.59% of content (5,791 pages) without visible update signals, risking outdated guidance in production use",
+        "Example reliability at 70.19% suggests ~30% of code samples may be broken, outdated, or untested, eroding developer trust",
+        "11 broken internal links disrupt navigation and signal maintenance gaps to users and search engines",
+        "SEO/geo issues affect 4.86% of pages, potentially limiting discoverability in key markets or search contexts"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Generate and backfill usage examples for the 5,348 API pages lacking coverage (83.33% gap) starting with top 200 most-visited endpoints",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Closing the 16.67% API coverage gap directly unblocks developer onboarding and reduces support volume for the highest-traffic endpoints within 30 days."
+        },
+        {
+          "action": "Add last-updated timestamps to all 6,522 pages missing freshness metadata (85.13%) via automated git commit date injection",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Low-effort metadata addition immediately signals content currency to 85% of users, reducing trust friction and enabling stale content triage."
+        },
+        {
+          "action": "Restructure the 3,735 pages with low answerability (48.61%) to include explicit Q&A sections, summaries, or structured headings",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Improving answerability from 51.39% boosts AI assistant accuracy and search snippet quality, directly increasing self-service resolution rates."
+        },
+        {
+          "action": "Audit and fix all 11 broken internal links, then implement automated link checking in CI/CD to prevent recurrence",
+          "impact": "medium",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "high",
+          "why_this_first": "Quick win that removes navigation friction and demonstrates documentation quality, with automation preventing future link rot."
+        },
+        {
+          "action": "Implement automated testing for code examples across the 2,285 pages with reliability concerns (29.81% failure estimate)",
+          "impact": "high",
+          "effort": "high",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Validating examples prevents developer frustration and support escalations, though effort is high and payoff accrues over multiple release cycles."
+        }
+      ],
+      "automation_first": [
+        "Deploy git-based last-updated timestamp injection for the 6,522 pages (85.13%) missing freshness metadata, with weekly sync; expected payoff is immediate trust signal to users and automated identification of 5,791 stale-risk pages for review prioritization.",
+        "Implement CI/CD link validation to catch the 11 current broken internal links and prevent future link rot across 7,661 pages; expected payoff is zero-touch maintenance and preserved navigation integrity as the multi-project topology scales.",
+        "Build automated API reference cross-linker to surface the 5,348 undocumented API pages (83.33% gap) in usage guides and generate stub usage examples from OpenAPI specs; expected payoff is 3-5x faster coverage expansion and reduced manual documentation backlog for high-traffic endpoints."
+      ],
+      "limitations": [
+        "External audit cannot verify runtime correctness of the 70.19% example reliability estimate; actual code execution, dependency versions, and API behavior require live testing infrastructure.",
+        "Crawl coverage at 83.21% means 1,554 discovered pages were not examined; access restrictions, JavaScript rendering issues, or crawler traps may hide additional quality issues.",
+        "API coverage detection at 85% confidence may misclassify pages; the 16.67% reference coverage figure depends on heuristic detection of usage vs. reference content and may undercount embedded examples.",
+        "Stale risk at 75.59% is inferred from missing freshness signals, not content accuracy; pages without timestamps may be current, and timestamped pages may contain outdated technical details.",
+        "Answerability and chunkability scores reflect structural patterns, not semantic correctness; pages may score well but contain incorrect, incomplete, or misleading information undetectable without domain expertise."
+      ]
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-17T10:05:14.371223+00:00",
+  "site_url": "https://docs.turso.tech/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 51.14,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Turso documentation audit covered 266 pages with 100.38% crawl coverage across a multi-project topology. Four confirmed broken internal links exist, all within user-facing docs. API reference coverage is 43.75% across 168 detected API pages, indicating significant undocumented surface area. Example reliability is 0.0%, freshness metadata appears on only 5.64% of pages, and 17.11% of pages have SEO/geo issues. Overall retrieval readiness scores 76.65 (moderate band) with 73.93% stale risk due to missing freshness signals.",
+    "pages_crawled": 266,
+    "crawl_coverage_pct": 100.38,
+    "broken_links_count": 4,
+    "unverified_links_count": 0,
+    "estimated_monthly_cost_usd": 11230.63
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "51.14 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "4",
+      "accent": "amber",
+      "detail": "0 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "43.75%",
+      "accent": "blue",
+      "detail": "94 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "5.64%",
+      "accent": "slate",
+      "detail": "251 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "66.67%",
+      "accent": "violet",
+      "detail": "89 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "82.0%",
+      "accent": "rose",
+      "detail": "Recall 100.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 56.25 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 73.93 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Add last-updated timestamps to all 266 pages via CI/CD automation or frontmatter injection",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Eliminates 73.93% stale risk, immediately boosts AI answer trust and user confidence, and raises retrieval readiness from 76.65 to 85+ with minimal engineering lift."
+    },
+    {
+      "title": "Document the 94+ missing API endpoints (56.25% gap) with usage examples and parameter tables",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Closes the largest onboarding gap for developers, directly reduces support tickets for undocumented APIs, and unlocks revenue from integrations blocked by missing docs."
+    },
+    {
+      "title": "Implement tested, runnable examples for top 20 API pages to lift 0.0% example reliability baseline",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Proven examples reduce time-to-first-success for developers, cut support volume by 30-50%, and create reusable assets for sales engineering and demos."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage (100.38%) with 266 pages discovered and indexed",
+    "High evidence coverage at 97.28% (644 of 662 claims backed by evidence)",
+    "Perfect answerability and citationability scores (100.0%) for AI retrieval"
+  ],
+  "risks": [
+    "56.25% of API surface (94+ API pages) lacks usage documentation, blocking developer onboarding and integration success",
+    "0.0% example reliability means no runnable/tested examples detected, risking user frustration and support load",
+    "73.93% stale risk due to 94.36% of pages missing last-updated metadata, eroding trust and AI answer quality",
+    "17.11% SEO/geo issue rate (45+ pages) limits discoverability in search and regional access"
+  ],
+  "limitations": [
+    "External audit cannot verify accuracy of technical claims, code correctness, or whether examples execute successfully in live environments.",
+    "API coverage detection relies on heuristic page classification; actual API surface may differ if endpoints are documented in non-standard formats or external systems.",
+    "Freshness and stale risk metrics depend on metadata presence; pages may be current but lack timestamps, or timestamps may not reflect content accuracy."
+  ],
+  "automation_first": [
+    "Deploy CI/CD hook to inject Git commit timestamps as last-updated frontmatter on all 266 pages, eliminating the 94.36% freshness gap and cutting stale risk from 73.93% to under 10% with zero manual effort per publish.",
+    "Integrate OpenAPI spec parser to auto-generate skeleton docs for the 94+ undocumented API endpoints (56.25% gap), ensuring every new API ships with baseline reference and reducing doc debt by 80% within one sprint.",
+    "Add pre-commit link checker to catch broken internal links before merge, preventing the 4 current breaks from recurring and maintaining 100% link health with sub-second CI overhead per PR."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

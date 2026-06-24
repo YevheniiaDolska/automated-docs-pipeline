@@ -1,102 +1,124 @@
 {
-  "generated_at": "2026-06-12T14:08:24.322210+00:00",
+  "generated_at": "2026-06-17T09:47:15.312932+00:00",
   "site_url": "https://upstash.com/docs",
   "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
   "score": {
-    "audit_score_0_100": 59.47,
-    "grade": "F"
+    "audit_score_0_100": 80.26,
+    "grade": "B"
   },
   "summary": {
-    "executive_summary": "",
-    "pages_crawled": 1805,
+    "executive_summary": "Upstash documentation spans 1,809 crawled pages across a multi-project topology with 100% crawl coverage. The site suffers from 45 confirmed broken internal links, all within user-facing docs (0 repository links). Only 36.93% of pages display last-updated metadata, creating significant staleness risk. SEO/geo issues affect 20.59% of pages. Retrieval readiness scores 69.06/100 (moderate band), dragged down by 46.49% chunkability and 44.15% stale risk, though answerability (99.89%) and citationability (100%) are strong. API reference coverage is solid at 88.89% across 389 detected API pages, and example reliability estimates 84.6%.",
+    "pages_crawled": 1809,
     "crawl_coverage_pct": 100.05,
-    "broken_links_count": 49,
-    "unverified_links_count": 8,
-    "estimated_monthly_cost_usd": 7436.0
+    "broken_links_count": 45,
+    "unverified_links_count": 12,
+    "estimated_monthly_cost_usd": 6480.97
   },
   "signal_cards": [
     {
       "label": "Audit Score",
-      "value": "59.47 / 100",
+      "value": "80.26 / 100",
       "accent": "teal",
-      "detail": "Grade F"
+      "detail": "Grade B"
     },
     {
       "label": "Broken Links",
-      "value": "49",
+      "value": "45",
       "accent": "amber",
-      "detail": "8 unverified"
+      "detail": "12 unverified"
     },
     {
       "label": "API Coverage",
-      "value": "0.0%",
+      "value": "88.89%",
       "accent": "blue",
-      "detail": "0 undocumented ops"
+      "detail": "43 undocumented ops"
     },
     {
       "label": "Freshness Coverage",
-      "value": "0.0%",
+      "value": "36.93%",
       "accent": "slate",
-      "detail": "27 docs missing dates"
+      "detail": "1141 docs missing dates"
     },
     {
       "label": "Layer Completeness",
-      "value": "0.0%",
+      "value": "80.0%",
       "accent": "violet",
-      "detail": "76 features missing required layers"
+      "detail": "362 features missing required layers"
     },
     {
       "label": "Retrieval Precision",
-      "value": "17.3%",
+      "value": "46.5%",
       "accent": "rose",
-      "detail": "Recall 52.0%"
+      "detail": "Recall 99.9%"
     }
   ],
   "key_findings": [
     {
-      "headline": "Missing required doc layers",
-      "evidence": "Features missing required layers %: 100.0 -> 5.0 %",
-      "business_consequence": "Backfill concept/how-to/reference coverage for key capabilities."
-    },
-    {
       "headline": "Documentation freshness debt",
-      "evidence": "Stale docs %: 0.0 -> 10.0 %",
+      "evidence": "Stale docs %: 44.15 -> 10.0 %",
       "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
     },
     {
-      "headline": "RAG retrieval quality risk",
-      "evidence": "Hallucination rate %: 0.0 -> 10.0 %",
-      "business_consequence": "Improve module metadata, index quality, and retrieval eval thresholds."
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 15.4 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Missing required doc layers",
+      "evidence": "Features missing required layers %: 20.0 -> 5.0 %",
+      "business_consequence": "Backfill concept/how-to/reference coverage for key capabilities."
     }
   ],
   "priority_actions": [
     {
-      "title": "Backfill concept/how-to/reference coverage for key capabilities.",
+      "title": "Fix all 45 confirmed broken internal links across user-facing documentation",
       "impact": "high",
-      "effort": "7.5h est."
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Broken links directly harm user trust, SEO ranking, and onboarding success; fixing 45 links is low-effort with immediate measurable impact on bounce rate and support tickets."
     },
     {
-      "title": "Prioritize stale pages via weekly SLA loop and lifecycle policies.",
-      "impact": "medium",
-      "effort": "5.0h est."
+      "title": "Add last-updated timestamps to the 63.07% of pages (approximately 1,141 pages) currently missing them",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Freshness metadata directly improves user confidence, reduces support queries about outdated info, and boosts AI retrieval quality by signaling recency to LLMs and search engines."
     },
     {
-      "title": "Improve module metadata, index quality, and retrieval eval thresholds.",
-      "impact": "medium",
-      "effort": "9.0h est."
+      "title": "Improve chunkability for the 53.51% of pages (approximately 968 pages) scoring poorly by refactoring long sections, adding semantic headings, and breaking dense blocks",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Chunkability is the primary drag on retrieval readiness (69.06 overall); better chunking directly improves vector search precision, LLM answer quality, and user scanability across nearly 1,000 pages."
     }
   ],
-  "strengths": [],
-  "risks": [],
-  "limitations": [],
+  "strengths": [
+    "Complete crawl coverage (100.05%) with 1,809 pages successfully indexed from 1,898 discovered URLs",
+    "API reference coverage at 88.89% across 389 detected API pages with high detection confidence (85%)",
+    "Near-perfect answerability (99.89%) and citationability (100%) ensure AI retrieval can surface and attribute content reliably"
+  ],
+  "risks": [
+    "45 confirmed broken internal links across user-facing docs damage trust, SEO authority, and user navigation",
+    "Only 36.93% of pages show last-updated dates, hiding content age from users and AI systems during retrieval",
+    "Chunkability at 46.49% means over half the corpus may fragment poorly for vector search and LLM context windows",
+    "SEO/geo issue rate of 20.59% (approximately 372 pages) risks organic discoverability and regional search performance"
+  ],
+  "limitations": [
+    "External audit cannot verify actual content accuracy, correctness of code examples, or whether API documentation matches live API behavior.",
+    "12 unverified links due to auth/rate-limit/server blocks mean true broken-link count may be underreported; manual investigation required.",
+    "Chunkability and stale-risk metrics are heuristic estimates; actual user comprehension and content freshness depend on domain-specific review."
+  ],
   "automation_first": [
-    "Scheduled docs quality checks for link health, freshness, and layer completeness.",
-    "Drift and docs-contract visibility so code changes stop outpacing reference docs.",
-    "RAG-ready normalization and retrieval quality controls for AI-facing documentation."
+    "Deploy automated broken-link monitoring with daily scans across all 1,809 pages to catch the 45 current broken links and prevent new ones, reducing manual QA cycles and support escalations from navigation failures.",
+    "Implement CI/CD hooks to enforce last-updated timestamp injection on every commit, closing the 63.07% freshness gap (1,141 pages) and ensuring all future content carries recency signals for users and AI systems without manual tagging.",
+    "Add pre-commit linters to flag pages with poor chunkability (long sections >800 words, missing H2/H3 structure) targeting the 968 pages below threshold, preventing new low-chunkability content and guiding authors toward retrieval-optimized structure at creation time."
   ],
   "commercial_snapshot": {
-    "monthly_loss_usd_base_total": 12903.0,
-    "remediation_cost_usd_base_total": 5445.0,
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
     "pilot_fixable_count": 7,
     "findings_count": 7
   }

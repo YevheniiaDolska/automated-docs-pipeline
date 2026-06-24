@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-17T12:32:28.266623+00:00",
+  "site_url": "https://buildkite.com/docs",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 63.86,
+    "grade": "D"
+  },
+  "summary": {
+    "executive_summary": "Buildkite documentation audit covered 1,295 pages across a multi-project topology with 100% crawl coverage. Critical retrieval readiness scored 47.3/100 (weak band), driven by poor answerability (6.1%) and chunkability (37.61%), limiting AI-assisted support and search effectiveness. Despite detecting 1,293 API pages, 0% have usage documentation coverage, creating a significant onboarding and integration friction point. Evidence coverage is strong at 97.3%, and 8 confirmed broken internal links require immediate remediation. Link verification confidence is low (25%) due to 169 unverified URLs blocked by auth or rate limits.",
+    "pages_crawled": 1295,
+    "crawl_coverage_pct": 100.08,
+    "broken_links_count": 8,
+    "unverified_links_count": 169,
+    "estimated_monthly_cost_usd": 14113.39
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "63.86 / 100",
+      "accent": "teal",
+      "detail": "Grade D"
+    },
+    {
+      "label": "Broken Links",
+      "value": "8",
+      "accent": "amber",
+      "detail": "169 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "0.0%",
+      "accent": "blue",
+      "detail": "1293 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "73.67%",
+      "accent": "slate",
+      "detail": "341 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "87.5%",
+      "accent": "violet",
+      "detail": "162 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "37.6%",
+      "accent": "rose",
+      "detail": "Recall 6.1%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 100.0 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 25.93 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 0.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Restructure pages to improve answerability from 6.1% to >60% by adding FAQ sections, direct question-answer pairs, and conversational summaries",
+      "impact": "critical",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Unlocks AI-assisted support and chatbot effectiveness, reducing support ticket volume and improving self-service resolution rates within 30 days."
+    },
+    {
+      "title": "Add usage examples, code snippets, and integration guides to the 1,293 API pages currently at 0% usage-doc coverage",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Directly unblocks developer onboarding and reduces time-to-first-integration, the highest-friction point in the sales-to-activation funnel."
+    },
+    {
+      "title": "Improve chunkability from 37.61% to >70% by adding semantic headings, breaking long sections, and inserting topic markers",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Enhances semantic search and RAG retrieval quality, directly improving discoverability in AI-powered search tools used by prospects and customers."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage (100.08%) with 1,295 pages indexed, ensuring comprehensive audit scope",
+    "Strong evidence coverage at 97.3% (1,009 of 1,037 claims backed), supporting trust and credibility",
+    "High citationability at 99.92%, enabling effective source attribution in AI and search contexts"
+  ],
+  "risks": [
+    "Answerability at 6.1% means 94% of pages cannot effectively support conversational AI or chatbot retrieval, degrading self-service support quality",
+    "Chunkability at 37.61% limits semantic search and RAG pipeline performance, reducing discoverability in modern tooling",
+    "Zero API usage documentation coverage across 1,293 detected API pages creates steep learning curve and integration delays for developers",
+    "SEO/GEO issue rate of 16.51% (approximately 214 pages) risks reduced organic search visibility and regional discoverability"
+  ],
+  "limitations": [
+    "External audit cannot verify accuracy of technical claims, code correctness, or version-specific API behavior without runtime testing or subject-matter expert review.",
+    "169 unverified links (auth/rate-limit blocked) could not be validated; actual broken link count may be higher, and link confidence is only 25%.",
+    "Answerability and chunkability metrics reflect structural patterns but cannot guarantee semantic quality, tone appropriateness, or alignment with user mental models."
+  ],
+  "automation_first": [
+    "Deploy automated API usage-doc coverage scanner to flag the 1,293 API pages missing usage examples, code snippets, or integration guides, with weekly reports to engineering and docs teams; expected payoff is continuous prevention of API documentation debt and 50% reduction in developer onboarding friction.",
+    "Implement answerability linter in CI/CD to block merges when new pages score below 40% answerability (current baseline 6.1%), enforcing FAQ sections and direct Q&A patterns; expected payoff is 10x improvement in chatbot and AI support accuracy within 90 days, reducing Tier-1 support load by 30%.",
+    "Add broken link checker running nightly on all 1,295 pages with authenticated crawling for the 169 currently unverified URLs, auto-filing GitHub issues for failures; expected payoff is zero user-facing broken links within 14 days and continuous link health monitoring with <24hr detection-to-fix cycle."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 11143.5,
+    "remediation_cost_usd_base_total": 4702.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

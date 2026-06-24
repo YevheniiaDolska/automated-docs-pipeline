@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Alchemy's documentation spans 7,661 crawled pages across a multi-project topology with 83.21% crawl coverage of the 10,215 discovered pages. API reference coverage is critically low at 16.67% despite 6,415 API pages detected, indicating significant gaps in usage documentation. Only 14.87% of pages display last-updated metadata, creating trust and staleness risk across 75.59% of content. Example code reliability is estimated at 70.19%, and overall retrieval readiness scores 69.77 (moderate band) with answerability at just 51.39%. The site has 11 confirmed broken internal links, all within user-facing docs.",
+    "strengths": [
+      "High crawl coverage at 83.21% with 7,661 pages successfully indexed from 10,215 discovered",
+      "Strong citationability at 99.93% enables reliable source attribution for AI and search",
+      "Chunkability at 84.06% supports effective content segmentation for retrieval systems",
+      "Evidence coverage at 72.86% with 11,928 of 16,371 claims backed by supporting material",
+      "100% actionability coverage ensures content provides clear next steps for users"
+    ],
+    "risks": [
+      "API reference coverage at 16.67% leaves 5,348+ API pages without adequate usage documentation, blocking developer onboarding",
+      "Answerability at 51.39% means nearly half of pages lack structure for direct question responses, degrading AI assistant and search quality",
+      "Freshness metadata missing on 85.13% of pages (6,522 pages) creates user trust issues and prevents stale content identification",
+      "Stale risk flagged on 75.59% of content (5,791 pages) without visible update signals, risking outdated guidance in production use",
+      "Example reliability at 70.19% suggests ~30% of code samples may be broken, outdated, or untested, eroding developer trust",
+      "11 broken internal links disrupt navigation and signal maintenance gaps to users and search engines",
+      "SEO/geo issues affect 4.86% of pages, potentially limiting discoverability in key markets or search contexts"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Generate and backfill usage examples for the 5,348 API pages lacking coverage (83.33% gap) starting with top 200 most-visited endpoints",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Closing the 16.67% API coverage gap directly unblocks developer onboarding and reduces support volume for the highest-traffic endpoints within 30 days."
+      },
+      {
+        "action": "Add last-updated timestamps to all 6,522 pages missing freshness metadata (85.13%) via automated git commit date injection",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Low-effort metadata addition immediately signals content currency to 85% of users, reducing trust friction and enabling stale content triage."
+      },
+      {
+        "action": "Restructure the 3,735 pages with low answerability (48.61%) to include explicit Q&A sections, summaries, or structured headings",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Improving answerability from 51.39% boosts AI assistant accuracy and search snippet quality, directly increasing self-service resolution rates."
+      },
+      {
+        "action": "Audit and fix all 11 broken internal links, then implement automated link checking in CI/CD to prevent recurrence",
+        "impact": "medium",
+        "effort": "low",
+        "expected_value": "medium",
+        "confidence": "high",
+        "why_this_first": "Quick win that removes navigation friction and demonstrates documentation quality, with automation preventing future link rot."
+      },
+      {
+        "action": "Implement automated testing for code examples across the 2,285 pages with reliability concerns (29.81% failure estimate)",
+        "impact": "high",
+        "effort": "high",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Validating examples prevents developer frustration and support escalations, though effort is high and payoff accrues over multiple release cycles."
+      }
+    ],
+    "automation_first": [
+      "Deploy git-based last-updated timestamp injection for the 6,522 pages (85.13%) missing freshness metadata, with weekly sync; expected payoff is immediate trust signal to users and automated identification of 5,791 stale-risk pages for review prioritization.",
+      "Implement CI/CD link validation to catch the 11 current broken internal links and prevent future link rot across 7,661 pages; expected payoff is zero-touch maintenance and preserved navigation integrity as the multi-project topology scales.",
+      "Build automated API reference cross-linker to surface the 5,348 undocumented API pages (83.33% gap) in usage guides and generate stub usage examples from OpenAPI specs; expected payoff is 3-5x faster coverage expansion and reduced manual documentation backlog for high-traffic endpoints."
+    ],
+    "limitations": [
+      "External audit cannot verify runtime correctness of the 70.19% example reliability estimate; actual code execution, dependency versions, and API behavior require live testing infrastructure.",
+      "Crawl coverage at 83.21% means 1,554 discovered pages were not examined; access restrictions, JavaScript rendering issues, or crawler traps may hide additional quality issues.",
+      "API coverage detection at 85% confidence may misclassify pages; the 16.67% reference coverage figure depends on heuristic detection of usage vs. reference content and may undercount embedded examples.",
+      "Stale risk at 75.59% is inferred from missing freshness signals, not content accuracy; pages without timestamps may be current, and timestamped pages may contain outdated technical details.",
+      "Answerability and chunkability scores reflect structural patterns, not semantic correctness; pages may score well but contain incorrect, incomplete, or misleading information undetectable without domain expertise."
+    ]
+  }
+}

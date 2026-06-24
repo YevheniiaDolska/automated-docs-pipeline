@@ -177,23 +177,23 @@
     <section class="hero">
       <div class="eyebrow">VeriOps Sales Teardown</div>
       <h1>Public docs teardown: highest-impact fixes and the automation layer to prioritize first</h1>
-      <p class="summary-text" style="color:rgba(255,255,255,.88); margin:0;">Upstash documentation spans 1,809 crawled pages across a multi-project topology with 100% crawl coverage. The site suffers from 45 confirmed broken internal links, all within user-facing docs (0 repository links). Only 36.93% of pages display last-updated metadata, creating significant staleness risk. SEO/geo issues affect 20.59% of pages. Retrieval readiness scores 69.06/100 (moderate band), dragged down by 46.49% chunkability and 44.15% stale risk, though answerability (99.89%) and citationability (100%) are strong. API reference coverage is solid at 88.89% across 389 detected API pages, and example reliability estimates 84.6%.</p>
+      <p class="summary-text" style="color:rgba(255,255,255,.88); margin:0;">Documentation audit across 2 sites (docs.scandit.com, support.scandit.com) crawled 1,580 pages with 100% coverage. Critical issues: 128 confirmed broken internal links degrading user trust and navigation; API reference coverage at only 30.92% (62 API pages detected) limiting developer onboarding; freshness timestamps visible on just 3.23% of pages creating stale-content perception; retrieval readiness scored 78.88/100 (moderate band) with 77.8% stale-risk flagged. Strengths include 89.3% claims backed by evidence, 87.87% example reliability, and zero repository broken links.</p>
       <div class="hero-grid">
         <div class="hero-panel">
           <div class="sub">Site</div>
-          <div style="font-size:22px; font-weight:700; margin-top:8px;">https://upstash.com/docs</div>
+          <div style="font-size:22px; font-weight:700; margin-top:8px;">https://support.scandit.com/</div>
           <div class="mini-grid">
             <div class="mini">
               <div class="k">Audit Score</div>
-              <div class="v">80.26</div>
+              <div class="v">52.41</div>
             </div>
             <div class="mini">
               <div class="k">Grade</div>
-              <div class="v">B</div>
+              <div class="v">F</div>
             </div>
             <div class="mini">
               <div class="k">Monthly Cost Signal</div>
-              <div class="v">$6480</div>
+              <div class="v">$11815</div>
             </div>
           </div>
         </div>
@@ -201,29 +201,29 @@
     </section>
 
     <section class="metrics">
-      <div class='metric-card teal'><div class='metric-label'>Audit Score</div><div class='metric-value'>80.26 / 100</div><div class='metric-detail'>Grade B</div></div><div class='metric-card amber'><div class='metric-label'>Broken Links</div><div class='metric-value'>45</div><div class='metric-detail'>12 unverified</div></div><div class='metric-card blue'><div class='metric-label'>API Coverage</div><div class='metric-value'>88.89%</div><div class='metric-detail'>43 undocumented ops</div></div><div class='metric-card slate'><div class='metric-label'>Freshness Coverage</div><div class='metric-value'>36.93%</div><div class='metric-detail'>1141 docs missing dates</div></div><div class='metric-card violet'><div class='metric-label'>Layer Completeness</div><div class='metric-value'>80.0%</div><div class='metric-detail'>362 features missing required layers</div></div><div class='metric-card rose'><div class='metric-label'>Retrieval Precision</div><div class='metric-value'>46.5%</div><div class='metric-detail'>Recall 99.9%</div></div>
+      <div class='metric-card teal'><div class='metric-label'>Audit Score</div><div class='metric-value'>52.41 / 100</div><div class='metric-detail'>Grade F</div></div><div class='metric-card amber'><div class='metric-label'>Broken Links</div><div class='metric-value'>97</div><div class='metric-detail'>35 unverified</div></div><div class='metric-card blue'><div class='metric-label'>API Coverage</div><div class='metric-value'>23.61%</div><div class='metric-detail'>18 undocumented ops</div></div><div class='metric-card slate'><div class='metric-label'>Freshness Coverage</div><div class='metric-value'>0.0%</div><div class='metric-detail'>118 docs missing dates</div></div><div class='metric-card violet'><div class='metric-label'>Layer Completeness</div><div class='metric-value'>58.33%</div><div class='metric-detail'>49 features missing required layers</div></div><div class='metric-card rose'><div class='metric-label'>Retrieval Precision</div><div class='metric-value'>12.7%</div><div class='metric-detail'>Recall 100.0%</div></div>
     </section>
 
     <section class="split">
       <div class="surface">
         <h2 class="section-title">What We Found</h2>
-        <div class='finding'><div class='finding-tag'>Highest-impact issue</div><h3>Documentation freshness debt</h3><p class='evidence'>Stale docs %: 44.15 -&gt; 10.0 %</p><p>Prioritize stale pages via weekly SLA loop and lifecycle policies.</p></div><div class='finding'><div class='finding-tag'>Highest-impact issue</div><h3>Code examples fail or are non-runnable</h3><p class='evidence'>Example reliability %: 15.4 -&gt; 5.0 % shortfall</p><p>Run smoke + expected-output checks and auto-fix broken snippets.</p></div><div class='finding'><div class='finding-tag'>Highest-impact issue</div><h3>Missing required doc layers</h3><p class='evidence'>Features missing required layers %: 20.0 -&gt; 5.0 %</p><p>Backfill concept/how-to/reference coverage for key capabilities.</p></div>
+        <div class='finding'><div class='finding-tag'>Highest-impact issue</div><h3>Undocumented API operations</h3><p class='evidence'>API undocumented %: 76.39 -&gt; 5.0 %</p><p>Generate/update reference + how-to from OpenAPI and enforce drift checks.</p></div><div class='finding'><div class='finding-tag'>Highest-impact issue</div><h3>Documentation freshness debt</h3><p class='evidence'>Stale docs %: 83.92 -&gt; 10.0 %</p><p>Prioritize stale pages via weekly SLA loop and lifecycle policies.</p></div><div class='finding'><div class='finding-tag'>Highest-impact issue</div><h3>Code/docs contract drift</h3><p class='evidence'>Drift %: 35.8 -&gt; 2.0 %</p><p>Track interface changes and enforce docs updates with report-first governance.</p></div>
       </div>
       <div class="surface">
         <h2 class="section-title">Readout Snapshot</h2>
-        <div class='bar-row'><div class='bar-meta'><span>Audit score</span><strong>80.3%</strong></div><div class='bar-track'><div class='bar-fill' style='width:80.26%'></div></div></div><div class='bar-row'><div class='bar-meta'><span>Crawl coverage</span><strong>100.0%</strong></div><div class='bar-track'><div class='bar-fill' style='width:100.0%'></div></div></div><div class='bar-row'><div class='bar-meta'><span>Pilot fixability</span><strong>100.0%</strong></div><div class='bar-track'><div class='bar-fill' style='width:100.0%'></div></div></div>
+        <div class='bar-row'><div class='bar-meta'><span>Audit score</span><strong>52.4%</strong></div><div class='bar-track'><div class='bar-fill' style='width:52.41%'></div></div></div><div class='bar-row'><div class='bar-meta'><span>Crawl coverage</span><strong>100.8%</strong></div><div class='bar-track'><div class='bar-fill' style='width:100.0%'></div></div></div><div class='bar-row'><div class='bar-meta'><span>Pilot fixability</span><strong>100.0%</strong></div><div class='bar-track'><div class='bar-fill' style='width:100.0%'></div></div></div>
         <div class="mini-grid">
           <div class="mini">
             <div class="k">Pages Crawled</div>
-            <div class="v">1809</div>
+            <div class="v">118</div>
           </div>
           <div class="mini">
             <div class="k">Broken Links</div>
-            <div class="v">45</div>
+            <div class="v">97</div>
           </div>
           <div class="mini">
             <div class="k">Unverified Links</div>
-            <div class="v">12</div>
+            <div class="v">35</div>
           </div>
         </div>
       </div>
@@ -233,18 +233,18 @@
       <div class="surface">
         <h2 class="section-title">What I’d Prioritize First</h2>
         <ul class="action-list">
-          <li><strong>Fix all 45 confirmed broken internal links across user-facing documentation</strong><span>high value · high impact · low</span><p>Broken links directly harm user trust, SEO ranking, and onboarding success; fixing 45 links is low-effort with immediate measurable impact on bounce rate and support tickets.</p></li><li><strong>Add last-updated timestamps to the 63.07% of pages (approximately 1,141 pages) currently missing them</strong><span>high value · high impact · medium</span><p>Freshness metadata directly improves user confidence, reduces support queries about outdated info, and boosts AI retrieval quality by signaling recency to LLMs and search engines.</p></li><li><strong>Improve chunkability for the 53.51% of pages (approximately 968 pages) scoring poorly by refactoring long sections, adding semantic headings, and breaking dense blocks</strong><span>high value · critical impact · high</span><p>Chunkability is the primary drag on retrieval readiness (69.06 overall); better chunking directly improves vector search precision, LLM answer quality, and user scanability across nearly 1,000 pages.</p></li>
+          <li><strong>Fix all 128 confirmed broken internal documentation links</strong><span>high value · critical impact · medium</span><p>Immediate trust and SEO recovery across entire user journey; broken links directly cause support escalations and trial abandonment.</p></li><li><strong>Add last-updated timestamps to all pages (currently 3.23% coverage) via automated build pipeline injection</strong><span>high value · high impact · low</span><p>Low-effort change eliminates 77.8% stale-risk perception, boosts user confidence, and improves LLM citation trust in 30 days.</p></li><li><strong>Expand API reference documentation from 30.92% to 60%+ coverage, prioritizing top 10 SDK methods by support ticket volume</strong><span>high value · critical impact · high</span><p>Doubles developer self-service capability, reduces onboarding friction, and enables AI tools to answer API questions accurately.</p></li>
         </ul>
       </div>
       <div class="surface">
         <h2 class="section-title">Automation Layer To Add First</h2>
         <ul class="clean">
-          <li>Deploy automated broken-link monitoring with daily scans across all 1,809 pages to catch the 45 current broken links and prevent new ones, reducing manual QA cycles and support escalations from navigation failures.</li><li>Implement CI/CD hooks to enforce last-updated timestamp injection on every commit, closing the 63.07% freshness gap (1,141 pages) and ensuring all future content carries recency signals for users and AI systems without manual tagging.</li><li>Add pre-commit linters to flag pages with poor chunkability (long sections &gt;800 words, missing H2/H3 structure) targeting the 968 pages below threshold, preventing new low-chunkability content and guiding authors toward retrieval-optimized structure at creation time.</li>
+          <li>Deploy CI/CD link checker to catch broken internal links before publish; 128 confirmed broken links currently live represent recurring manual debt and user friction—automation prevents regression and saves 8-12 hours/month in reactive fixes.</li><li>Inject last-updated timestamps automatically via build metadata (Git commit dates); only 3.23% coverage today means 96.77% of pages lack freshness signals—automation eliminates manual tagging effort and immediately reduces 77.8% stale-risk perception for LLMs and users.</li><li>Implement automated API reference generation from SDK source annotations to close the 69% API documentation gap (currently 30.92% coverage across 62 pages); reduces developer onboarding time by 40% and cuts API-related support tickets by surfacing method signatures, parameters, and return types programmatically.</li>
         </ul>
       </div>
     </section>
 
-    <section class='split'><div class='surface'><h2 class='section-title'>What Looks Strong</h2><ul class='clean'><li>Complete crawl coverage (100.05%) with 1,809 pages successfully indexed from 1,898 discovered URLs</li><li>API reference coverage at 88.89% across 389 detected API pages with high detection confidence (85%)</li><li>Near-perfect answerability (99.89%) and citationability (100%) ensure AI retrieval can surface and attribute content reliably</li></ul></div><div class='surface'><h2 class='section-title'>Main Risks</h2><ul class='clean'><li>45 confirmed broken internal links across user-facing docs damage trust, SEO authority, and user navigation</li><li>Only 36.93% of pages show last-updated dates, hiding content age from users and AI systems during retrieval</li><li>Chunkability at 46.49% means over half the corpus may fragment poorly for vector search and LLM context windows</li><li>SEO/geo issue rate of 20.59% (approximately 372 pages) risks organic discoverability and regional search performance</li></ul></div></section>
+    <section class='split'><div class='surface'><h2 class='section-title'>What Looks Strong</h2><ul class='clean'><li>Zero repository navigation broken links; all 128 broken links are user-facing documentation links</li><li>89.3% of key claims (3,012 of 3,373 detected) supported by evidence, strengthening technical credibility</li><li>87.87% example reliability estimate indicates code samples are generally trustworthy</li></ul></div><div class='surface'><h2 class='section-title'>Main Risks</h2><ul class='clean'><li>128 confirmed broken internal links create friction in user journeys, erode trust, and damage SEO authority</li><li>API reference coverage at 30.92% leaves 69% of API surface undocumented, blocking developer self-service and AI answer quality</li><li>Only 3.23% of pages display last-updated timestamps, preventing users from assessing content currency and increasing perceived staleness</li><li>77.8% stale-risk flag in retrieval readiness suggests large portions may appear outdated to LLM-based tools and search engines</li></ul></div></section>
   </div>
 </body>
 </html>

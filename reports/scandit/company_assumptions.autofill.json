@@ -1,0 +1,28 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 4.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 320.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 45.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 3200.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 62.0,
+  "provenance": [
+    "ScandIt appears to be B2B SDK/barcode scanning platform based on domain and documentation structure",
+    "1580 pages crawled suggests mature product with substantial API surface area",
+    "128 broken internal links (8.1% of crawled pages) indicates moderate maintenance debt requiring engineering time",
+    "30.92% API reference coverage is low for SDK product, likely causing integration friction and support load",
+    "3.23% freshness coverage suggests infrequent doc updates, implying manual sync burden across 4 monthly releases",
+    "72.91% chunkability and 77.8% stale risk indicate retrieval/AI tooling challenges affecting developer self-service",
+    "73.76% actionability with 87.87% example reliability suggests developers can proceed but with friction",
+    "Conservative support ticket estimate for technical SDK product with 28% docs-related based on coverage gaps",
+    "Eval influence assumption reflects docs quality impact on enterprise SDK purchase decisions",
+    "Revenue sensitivity reflects that poor SDK docs directly impact proof-of-concept success and deal velocity",
+    "Confidence moderate due to limited public commercial data but strong technical audit signals"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-12T14:08:23.033949+00:00",
+  "generated_at": "2026-06-17T09:46:20.231876+00:00",
   "site_url": "https://upstash.com/docs",
   "site_urls": [
     "https://upstash.com/docs"
@@ -15,25 +15,25 @@
       "site_url": "https://upstash.com/docs",
       "metrics": {
         "crawl": {
-          "pages_crawled": 1805,
-          "requested_pages": 2035,
-          "urls_examined": 1896,
+          "pages_crawled": 1809,
+          "requested_pages": 2037,
+          "urls_examined": 1898,
           "max_pages": 2500,
           "effective_limit": 2500,
           "auto_mode": false,
           "stop_reason": "queue_exhausted",
-          "discovered_pages": 1896,
+          "discovered_pages": 1898,
           "crawl_scope_basis": "sitemap",
-          "crawl_scope_pages": 1895,
+          "crawl_scope_pages": 1897,
           "crawl_coverage_pct": 100.05,
-          "trap_urls_skipped": 3449,
-          "seeded_sitemap_urls": 1895,
+          "trap_urls_skipped": 3448,
+          "seeded_sitemap_urls": 1897,
           "robots_sitemaps_declared": 2
         },
         "links": {
-          "internal_links_checked": 1955,
-          "broken_internal_links_count": 49,
-          "docs_broken_links_count": 49,
+          "internal_links_checked": 1957,
+          "broken_internal_links_count": 45,
+          "docs_broken_links_count": 45,
           "repo_broken_links_count": 0,
           "broken_internal_link_samples": [
             "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
@@ -54,8 +54,8 @@
             "https://upstash.com/docs/features/globaldatabase",
             "https://upstash.com/docs/graphql/aboutgraphqlapi",
             "https://upstash.com/docs/kafka",
-            "https://upstash.com/docs/kafka/aivenjdbcsink",
-            "https://upstash.com/docs/kafka/aivenjdbcsource"
+            "https://upstash.com/docs/kafka/aivenjdbcsource",
+            "https://upstash.com/docs/kafka/connect"
           ],
           "docs_broken_link_samples": [
             "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
@@ -76,7 +76,6 @@
             "https://upstash.com/docs/features/globaldatabase",
             "https://upstash.com/docs/graphql/aboutgraphqlapi",
             "https://upstash.com/docs/kafka",
-            "https://upstash.com/docs/kafka/aivenjdbcsink",
             "https://upstash.com/docs/kafka/aivenjdbcsource",
             "https://upstash.com/docs/kafka/connect",
             "https://upstash.com/docs/kafka/connect/debeziumpsql",
@@ -84,25 +83,30 @@
             "https://upstash.com/docs/kafka/credentials",
             "https://upstash.com/docs/kafka/debeziummongo",
             "https://upstash.com/docs/kafka/debeziummysql",
-            "https://upstash.com/docs/kafka/debeziumpsql",
             "https://upstash.com/docs/kafka/howto/kafka-with-lambda",
             "https://upstash.com/docs/kafka/integrations/spark",
-            "https://upstash.com/docs/kafka/kafkaapi"
+            "https://upstash.com/docs/kafka/kafkaapi",
+            "https://upstash.com/docs/kafka/mongosink",
+            "https://upstash.com/docs/kafka/mongosource"
           ],
           "repo_broken_link_samples": [],
-          "unreachable_links_count": 6,
-          "unverified_links_count": 8,
+          "unreachable_links_count": 4,
+          "unverified_links_count": 12,
           "unverified_link_samples": [
-            "http://upstash.com/blog/tag/python",
-            "https://upstash.com/docs/qstash/migrating/v2",
-            "https://upstash.com/docs/vector/api/endpoints/query",
-            "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
-            "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
-            "https://upstash.com/docs/vector/api/endpoints/upsert",
-            "https://upstash.com/docs/vector/api/endpoints/upsert-data",
-            "https://upstash.com/docs/vector/api/get-started"
+            "https://upstash.com/docs/box/overall/pricing",
+            "https://upstash.com/docs/kafka/aivenjdbcsink",
+            "https://upstash.com/docs/kafka/debeziumpsql",
+            "https://upstash.com/docs/kafka/overall/getstarted",
+            "https://upstash.com/docs/kafka/rest",
+            "https://upstash.com/docs/redis/integrations/mcp",
+            "https://upstash.com/docs/workflow/basics/context",
+            "https://upstash.com/docs/workflow/quickstarts/solidjs",
+            "https://upstash.com/docs/workflow/quickstarts/tanstack-start",
+            "https://upstash.com/docs/workflow/steps/notify",
+            "https://upstash.com/pricing/support@upstash.com",
+            "https://upstash.com/vector"
           ],
-          "confirmed_broken_links_count": 49,
+          "confirmed_broken_links_count": 45,
           "excluded_links_count": 139,
           "excluded_link_samples": [
             "https://upstash.com/blog/benchmark-deno/global.png",
@@ -155,7 +159,6 @@
             "https://upstash.com/docs/features/globaldatabase",
             "https://upstash.com/docs/graphql/aboutgraphqlapi",
             "https://upstash.com/docs/kafka",
-            "https://upstash.com/docs/kafka/aivenjdbcsink",
             "https://upstash.com/docs/kafka/aivenjdbcsource",
             "https://upstash.com/docs/kafka/connect",
             "https://upstash.com/docs/kafka/connect/debeziumpsql",
@@ -163,39 +166,40 @@
             "https://upstash.com/docs/kafka/credentials",
             "https://upstash.com/docs/kafka/debeziummongo",
             "https://upstash.com/docs/kafka/debeziummysql",
-            "https://upstash.com/docs/kafka/debeziumpsql",
             "https://upstash.com/docs/kafka/howto/kafka-with-lambda",
             "https://upstash.com/docs/kafka/integrations/spark",
             "https://upstash.com/docs/kafka/kafkaapi",
             "https://upstash.com/docs/kafka/mongosink",
             "https://upstash.com/docs/kafka/mongosource",
-            "https://upstash.com/docs/kafka/overall/getstarted",
             "https://upstash.com/docs/kafka/pricing",
             "https://upstash.com/docs/kafka/real-time-analytics/realtime_analytics_serverless_kafka_setup",
-            "https://upstash.com/docs/kafka/rest",
             "https://upstash.com/docs/kafka/schema-registry/schemahowto",
             "https://upstash.com/docs/kafka/schema-registry/schemaintroduction",
             "https://upstash.com/docs/kafka/webhook",
             "https://upstash.com/docs/overall/compare",
             "https://upstash.com/docs/overall/databasetypes",
+            "https://upstash.com/docs/qstash/migrating/v2",
             "https://upstash.com/docs/redis/sdks/edge-flags/overview",
             "https://upstash.com/docs/redis/sdks/edge-flags/percentage",
             "https://upstash.com/docs/redis/sdks/edge-flags/rules",
             "https://upstash.com/docs/redis/sdks/javascriptsdk/modules/json",
             "https://upstash.com/docs/redis/sdks/javascriptsdk/pipeline",
             "https://upstash.com/docs/vector/features/roadmap",
-            "https://upstash.com/kafka",
-            "https://upstash.com/pricing/support@upstash.com"
+            "https://upstash.com/kafka"
           ],
           "_all_unverified_links": [
-            "http://upstash.com/blog/tag/python",
-            "https://upstash.com/docs/qstash/migrating/v2",
-            "https://upstash.com/docs/vector/api/endpoints/query",
-            "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
-            "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
-            "https://upstash.com/docs/vector/api/endpoints/upsert",
-            "https://upstash.com/docs/vector/api/endpoints/upsert-data",
-            "https://upstash.com/docs/vector/api/get-started"
+            "https://upstash.com/docs/box/overall/pricing",
+            "https://upstash.com/docs/kafka/aivenjdbcsink",
+            "https://upstash.com/docs/kafka/debeziumpsql",
+            "https://upstash.com/docs/kafka/overall/getstarted",
+            "https://upstash.com/docs/kafka/rest",
+            "https://upstash.com/docs/redis/integrations/mcp",
+            "https://upstash.com/docs/workflow/basics/context",
+            "https://upstash.com/docs/workflow/quickstarts/solidjs",
+            "https://upstash.com/docs/workflow/quickstarts/tanstack-start",
+            "https://upstash.com/docs/workflow/steps/notify",
+            "https://upstash.com/pricing/support@upstash.com",
+            "https://upstash.com/vector"
           ],
           "_all_excluded_links": [
             "https://upstash.com/blog/benchmark-deno/global.png",
@@ -339,14 +343,18 @@
             "https://upstash.com/trust/terms.pdf"
           ],
           "_all_docs_unverified_links": [
-            "http://upstash.com/blog/tag/python",
-            "https://upstash.com/docs/qstash/migrating/v2",
-            "https://upstash.com/docs/vector/api/endpoints/query",
-            "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
-            "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
-            "https://upstash.com/docs/vector/api/endpoints/upsert",
-            "https://upstash.com/docs/vector/api/endpoints/upsert-data",
-            "https://upstash.com/docs/vector/api/get-started"
+            "https://upstash.com/docs/box/overall/pricing",
+            "https://upstash.com/docs/kafka/aivenjdbcsink",
+            "https://upstash.com/docs/kafka/debeziumpsql",
+            "https://upstash.com/docs/kafka/overall/getstarted",
+            "https://upstash.com/docs/kafka/rest",
+            "https://upstash.com/docs/redis/integrations/mcp",
+            "https://upstash.com/docs/workflow/basics/context",
+            "https://upstash.com/docs/workflow/quickstarts/solidjs",
+            "https://upstash.com/docs/workflow/quickstarts/tanstack-start",
+            "https://upstash.com/docs/workflow/steps/notify",
+            "https://upstash.com/pricing/support@upstash.com",
+            "https://upstash.com/vector"
           ],
           "_all_repo_unverified_links": [],
           "_broken_link_provenance": {
@@ -482,12 +490,6 @@
                 "anchor_text": "here"
               }
             ],
-            "https://upstash.com/docs/kafka/aivenjdbcsink": [
-              {
-                "source_page": "https://upstash.com/blog/kafka-connectors",
-                "anchor_text": "Aiven JDBC Sink Connector"
-              }
-            ],
             "https://upstash.com/docs/kafka/aivenjdbcsource": [
               {
                 "source_page": "https://upstash.com/blog/kafka-connectors",
@@ -542,12 +544,6 @@
                 "anchor_text": "Debezium Mysql Source Connector"
               }
             ],
-            "https://upstash.com/docs/kafka/debeziumpsql": [
-              {
-                "source_page": "https://upstash.com/blog/kafka-connectors",
-                "anchor_text": "Debezium PostgreSql Source Connector"
-              }
-            ],
             "https://upstash.com/docs/kafka/howto/kafka-with-lambda": [
               {
                 "source_page": "https://upstash.com/blog/kafka-content-moderation",
@@ -582,16 +578,6 @@
                 "anchor_text": "Mongo Source Connector"
               }
             ],
-            "https://upstash.com/docs/kafka/overall/getstarted": [
-              {
-                "source_page": "https://upstash.com/blog/implementing-upstash-kafka-with-cloudflare-workers",
-                "anchor_text": "Upstash Kafka"
-              },
-              {
-                "source_page": "https://upstash.com/blog/segmentation-kafka-mongodb",
-                "anchor_text": "Upstash Kafka"
-              }
-            ],
             "https://upstash.com/docs/kafka/pricing": [
               {
                 "source_page": "https://upstash.com/blog/aws-msk-confluent-serverless",
@@ -610,16 +596,6 @@
               {
                 "source_page": "https://upstash.com/blog/kafka-tinybird-vercel-edge",
                 "anchor_text": ""
-              }
-            ],
-            "https://upstash.com/docs/kafka/rest": [
-              {
-                "source_page": "https://upstash.com/blog/cloudflare-workers-logs-kafka",
-                "anchor_text": "REST API"
-              },
-              {
-                "source_page": "https://upstash.com/blog/serverless-kafka-launch",
-                "anchor_text": "a built-in REST API"
               }
             ],
             "https://upstash.com/docs/kafka/schema-registry/schemahowto": [
@@ -650,6 +626,12 @@
               {
                 "source_page": "https://upstash.com/blog/serverless-database-connections",
                 "anchor_text": "Upstash docs"
+              }
+            ],
+            "https://upstash.com/docs/qstash/migrating/v2": [
+              {
+                "source_page": "https://upstash.com/blog/qstash-v2",
+                "anchor_text": "migration guide"
               }
             ],
             "https://upstash.com/docs/redis/sdks/edge-flags/overview": [
@@ -705,30 +687,20 @@
                 "source_page": "https://upstash.com/blog/vercel-integration-v2",
                 "anchor_text": "Managed Serverless Kafka"
               }
-            ],
-            "https://upstash.com/pricing/support@upstash.com": [
-              {
-                "source_page": "https://upstash.com/pricing/search",
-                "anchor_text": "support@upstash.com"
-              },
-              {
-                "source_page": "https://upstash.com/pricing/vector",
-                "anchor_text": "support@upstash.com"
-              }
             ]
           }
         },
         "seo_geo": {
-          "pages_scanned": 1805,
+          "pages_scanned": 1809,
           "missing_title_count": 0,
-          "missing_description_count": 508,
+          "missing_description_count": 505,
           "multiple_h1_count": 24,
-          "heading_hierarchy_jump_count": 958,
-          "seo_geo_issue_rate_pct": 20.64
+          "heading_hierarchy_jump_count": 961,
+          "seo_geo_issue_rate_pct": 20.59
         },
         "api_coverage": {
           "reference_endpoint_count": 9,
-          "api_pages_detected": 383,
+          "api_pages_detected": 389,
           "endpoints_with_usage_docs": 8,
           "reference_endpoints_without_usage_docs": 1,
           "reference_coverage_pct": 88.89,
@@ -741,34 +713,26 @@
           ]
         },
         "examples": {
-          "total_code_examples": 1834,
-          "total_code_blocks_all": 5510,
-          "runnable_without_env": 1550,
+          "total_code_examples": 1851,
+          "total_code_blocks_all": 5514,
+          "runnable_without_env": 1566,
           "blocked_by_placeholders": 89,
-          "network_bound_examples": 195,
-          "example_reliability_estimate_pct": 84.51,
+          "network_bound_examples": 196,
+          "example_reliability_estimate_pct": 84.6,
           "detection_note": ""
         },
         "freshness": {
-          "pages_with_last_updated_hint": 663,
-          "pages_without_last_updated_hint": 1142,
-          "last_updated_coverage_pct": 36.73,
+          "pages_with_last_updated_hint": 668,
+          "pages_without_last_updated_hint": 1141,
+          "last_updated_coverage_pct": 36.93,
           "samples_with_last_updated": [
-            {
-              "url": "https://upstash.com/blog/QStash-rateLimit",
-              "hint": "2025-02-20T00:00:00.000Z"
-            },
-            {
-              "url": "https://upstash.com/blog/add-ratelimit-to-n8n",
-              "hint": "2025-10-05T00:00:00.000Z"
-            },
-            {
-              "url": "https://upstash.com/blog/ably-chat",
-              "hint": "2023-11-29T00:00:00.000Z"
-            },
             {
               "url": "https://upstash.com/blog/about-upstash-realtime",
               "hint": "2025-10-29T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/QStash-rateLimit",
+              "hint": "2025-02-20T00:00:00.000Z"
             },
             {
               "url": "https://upstash.com/blog/ahi",
@@ -779,52 +743,60 @@
               "hint": "2025-09-17T00:00:00.000Z"
             },
             {
-              "url": "https://upstash.com/blog/ai-chatbot-nextjs",
-              "hint": "2023-11-13T00:00:00.000Z"
+              "url": "https://upstash.com/blog/add-ratelimit-to-n8n",
+              "hint": "2025-10-05T00:00:00.000Z"
             },
             {
-              "url": "https://upstash.com/blog/ai-sdk-and-upstash",
-              "hint": "2025-08-18T00:00:00.000Z"
+              "url": "https://upstash.com/blog/ably-chat",
+              "hint": "2023-11-29T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/announcing-upstash-redis-python-sdk-v1-0-0",
+              "hint": "2023-12-13T00:00:00.000Z"
             },
             {
               "url": "https://upstash.com/blog/ai-postcard-qstash",
               "hint": "2023-11-09T00:00:00.000Z"
             },
             {
-              "url": "https://upstash.com/blog/ai-sdk-chat-history",
-              "hint": "2025-08-04T00:00:00.000Z"
+              "url": "https://upstash.com/blog/ai-sdk-and-upstash",
+              "hint": "2025-08-18T00:00:00.000Z"
+            },
+            {
+              "url": "https://upstash.com/blog/ai-chatbot-nextjs",
+              "hint": "2023-11-13T00:00:00.000Z"
             }
           ]
         },
         "retrieval_readiness": {
-          "chunkability_pct": 46.59,
+          "chunkability_pct": 46.49,
           "answerability_pct": 99.89,
           "citationability_pct": 100.0,
-          "stale_risk_pct": 44.29,
-          "overall_score_0_100": 69.05,
+          "stale_risk_pct": 44.15,
+          "overall_score_0_100": 69.06,
           "overall_band": "moderate"
         },
         "evidence_coverage": {
-          "key_claims_detected": 1958,
-          "claims_with_evidence": 1749,
-          "coverage_pct": 89.33
+          "key_claims_detected": 1973,
+          "claims_with_evidence": 1763,
+          "coverage_pct": 89.36
         },
         "actionability": {
           "protocols": {
             "rest": {
-              "pages": 723,
+              "pages": 728,
               "checks": {
-                "auth_model": 473,
-                "error_semantics": 716,
-                "retry_idempotency": 76,
+                "auth_model": 481,
+                "error_semantics": 721,
+                "retry_idempotency": 77,
                 "schema_evolution": 70
               }
             },
             "graphql": {
-              "pages": 250,
+              "pages": 256,
               "checks": {
-                "auth_model": 126,
-                "error_semantics": 246,
+                "auth_model": 132,
+                "error_semantics": 252,
                 "retry_idempotency": 8,
                 "schema_evolution": 26
               }
@@ -839,11 +811,11 @@
               }
             },
             "asyncapi": {
-              "pages": 371,
+              "pages": 370,
               "checks": {
-                "auth_model": 226,
-                "error_semantics": 368,
-                "retry_idempotency": 51,
+                "auth_model": 227,
+                "error_semantics": 367,
+                "retry_idempotency": 52,
                 "schema_evolution": 40
               }
             },
@@ -880,8 +852,8 @@
           "https://upstash.com/docs/features/globaldatabase",
           "https://upstash.com/docs/graphql/aboutgraphqlapi",
           "https://upstash.com/docs/kafka",
-          "https://upstash.com/docs/kafka/aivenjdbcsink",
-          "https://upstash.com/docs/kafka/aivenjdbcsource"
+          "https://upstash.com/docs/kafka/aivenjdbcsource",
+          "https://upstash.com/docs/kafka/connect"
         ],
         "docs_broken_link_samples": [
           "https://upstash.com/blog/%5B/docs/redis%5D(/docs/redis)",
@@ -902,7 +874,6 @@
           "https://upstash.com/docs/features/globaldatabase",
           "https://upstash.com/docs/graphql/aboutgraphqlapi",
           "https://upstash.com/docs/kafka",
-          "https://upstash.com/docs/kafka/aivenjdbcsink",
           "https://upstash.com/docs/kafka/aivenjdbcsource",
           "https://upstash.com/docs/kafka/connect",
           "https://upstash.com/docs/kafka/connect/debeziumpsql",
@@ -910,21 +881,26 @@
           "https://upstash.com/docs/kafka/credentials",
           "https://upstash.com/docs/kafka/debeziummongo",
           "https://upstash.com/docs/kafka/debeziummysql",
-          "https://upstash.com/docs/kafka/debeziumpsql",
           "https://upstash.com/docs/kafka/howto/kafka-with-lambda",
           "https://upstash.com/docs/kafka/integrations/spark",
-          "https://upstash.com/docs/kafka/kafkaapi"
+          "https://upstash.com/docs/kafka/kafkaapi",
+          "https://upstash.com/docs/kafka/mongosink",
+          "https://upstash.com/docs/kafka/mongosource"
         ],
         "repo_broken_link_samples": [],
         "unverified_link_samples": [
-          "http://upstash.com/blog/tag/python",
-          "https://upstash.com/docs/qstash/migrating/v2",
-          "https://upstash.com/docs/vector/api/endpoints/query",
-          "https://upstash.com/docs/vector/api/endpoints/resumable-query/resume",
-          "https://upstash.com/docs/vector/api/endpoints/resumable-query/start-with-data",
-          "https://upstash.com/docs/vector/api/endpoints/upsert",
-          "https://upstash.com/docs/vector/api/endpoints/upsert-data",
-          "https://upstash.com/docs/vector/api/get-started"
+          "https://upstash.com/docs/box/overall/pricing",
+          "https://upstash.com/docs/kafka/aivenjdbcsink",
+          "https://upstash.com/docs/kafka/debeziumpsql",
+          "https://upstash.com/docs/kafka/overall/getstarted",
+          "https://upstash.com/docs/kafka/rest",
+          "https://upstash.com/docs/redis/integrations/mcp",
+          "https://upstash.com/docs/workflow/basics/context",
+          "https://upstash.com/docs/workflow/quickstarts/solidjs",
+          "https://upstash.com/docs/workflow/quickstarts/tanstack-start",
+          "https://upstash.com/docs/workflow/steps/notify",
+          "https://upstash.com/pricing/support@upstash.com",
+          "https://upstash.com/vector"
         ],
         "api_uncovered_samples": [
           "gql:paths"
@@ -936,69 +912,69 @@
   "aggregate": {
     "metrics": {
       "crawl": {
-        "pages_crawled": 1805,
-        "requested_pages": 2035,
-        "urls_examined": 1896,
+        "pages_crawled": 1809,
+        "requested_pages": 2037,
+        "urls_examined": 1898,
         "max_pages_total": 2500,
-        "discovered_pages": 1896,
-        "crawl_scope_pages": 1895,
-        "trap_urls_skipped": 3449,
+        "discovered_pages": 1898,
+        "crawl_scope_pages": 1897,
+        "trap_urls_skipped": 3448,
         "crawl_coverage_pct": 100.05
       },
       "links": {
-        "broken_internal_links_count": 49,
-        "docs_broken_links_count": 49,
+        "broken_internal_links_count": 45,
+        "docs_broken_links_count": 45,
         "repo_broken_links_count": 0,
-        "unverified_links_count": 8,
-        "confirmed_broken_links_count": 49,
+        "unverified_links_count": 12,
+        "confirmed_broken_links_count": 45,
         "excluded_links_count": 139
       },
       "seo_geo": {
-        "seo_geo_issue_rate_pct": 20.64
+        "seo_geo_issue_rate_pct": 20.59
       },
       "api_coverage": {
         "reference_coverage_pct": 88.89,
         "no_api_pages_found": false,
-        "api_pages_detected": 383,
+        "api_pages_detected": 389,
         "coverage_determined": true,
         "detection_note": ""
       },
       "examples": {
-        "example_reliability_estimate_pct": 84.51
+        "example_reliability_estimate_pct": 84.6
       },
       "freshness": {
-        "last_updated_coverage_pct": 36.73
+        "last_updated_coverage_pct": 36.93
       },
       "retrieval_readiness": {
-        "chunkability_pct": 46.59,
+        "chunkability_pct": 46.49,
         "answerability_pct": 99.89,
         "citationability_pct": 100.0,
-        "stale_risk_pct": 44.29,
-        "overall_score_0_100": 69.05,
+        "stale_risk_pct": 44.15,
+        "overall_score_0_100": 69.06,
         "overall_band": "moderate"
       },
       "evidence_coverage": {
-        "key_claims_detected": 1958,
-        "claims_with_evidence": 1749,
-        "coverage_pct": 89.33
+        "key_claims_detected": 1973,
+        "claims_with_evidence": 1763,
+        "coverage_pct": 89.36
       },
       "actionability": {
         "coverage_pct": 80.0
       }
     },
     "confidence": {
-      "overall_confidence_pct": 85.89,
-      "links_confidence_pct": 80.96,
+      "overall_confidence_pct": 83.08,
+      "links_confidence_pct": 73.95,
       "api_confidence_pct": 85.0,
       "crawl_confidence_pct": 95.0
     }
   },
   "pipeline_solution_fit": {
-    "retrieval_readiness_score_0_100": 69.05,
+    "retrieval_readiness_score_0_100": 69.06,
     "retrieval_readiness_band": "moderate",
     "audit_confidence": "high",
     "audit_signal": {
-      "pages_crawled": 1805,
+      "pages_crawled": 1809,
       "crawl_coverage_pct": 100.05
     },
     "opportunities": [
@@ -1006,8 +982,8 @@
         "id": "OPS-LINK-INTEGRITY",
         "problem": "Internal documentation link integrity issues",
         "signal": {
-          "docs_broken_links_count": 49,
-          "unverified_links_count": 8
+          "docs_broken_links_count": 45,
+          "unverified_links_count": 12
         },
         "severity": "high",
         "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
@@ -1021,7 +997,7 @@
         "id": "OPS-SEO-GEO",
         "problem": "Search and AI readability quality gaps",
         "signal": {
-          "seo_geo_issue_rate_pct": 20.64
+          "seo_geo_issue_rate_pct": 20.59
         },
         "severity": "high",
         "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
@@ -1034,7 +1010,7 @@
         "id": "OPS-EXAMPLE-RELIABILITY",
         "problem": "Code example reliability risk",
         "signal": {
-          "example_reliability_estimate_pct": 84.51
+          "example_reliability_estimate_pct": 84.6
         },
         "severity": "medium",
         "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
@@ -1048,7 +1024,7 @@
         "id": "OPS-FRESHNESS-GOVERNANCE",
         "problem": "Weak freshness and lifecycle visibility",
         "signal": {
-          "last_updated_coverage_pct": 36.73
+          "last_updated_coverage_pct": 36.93
         },
         "severity": "medium",
         "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
@@ -1061,19 +1037,92 @@
     ]
   },
   "confidence": {
-    "overall_confidence_pct": 85.89,
-    "links_confidence_pct": 80.96,
+    "overall_confidence_pct": 83.08,
+    "links_confidence_pct": 73.95,
     "api_confidence_pct": 85.0,
     "crawl_confidence_pct": 95.0
   },
   "top_findings": [
-    "Broken internal links: 49",
-    "Link verification inconclusive for 8 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
-    "SEO/GEO issue rate is high: 20.64%",
-    "Freshness visibility is weak: only 36.73% pages show last updated"
+    "Broken internal links: 45",
+    "Link verification inconclusive for 12 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 20.59%",
+    "Freshness visibility is weak: only 36.93% pages show last updated"
   ],
   "llm_analysis": {
-    "status": "blocked",
-    "reason": "External LLM use blocked by policy/approval gate."
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Upstash documentation spans 1,809 crawled pages across a multi-project topology with 100% crawl coverage. The site suffers from 45 confirmed broken internal links, all within user-facing docs (0 repository links). Only 36.93% of pages display last-updated metadata, creating significant staleness risk. SEO/geo issues affect 20.59% of pages. Retrieval readiness scores 69.06/100 (moderate band), dragged down by 46.49% chunkability and 44.15% stale risk, though answerability (99.89%) and citationability (100%) are strong. API reference coverage is solid at 88.89% across 389 detected API pages, and example reliability estimates 84.6%.",
+      "strengths": [
+        "Complete crawl coverage (100.05%) with 1,809 pages successfully indexed from 1,898 discovered URLs",
+        "API reference coverage at 88.89% across 389 detected API pages with high detection confidence (85%)",
+        "Near-perfect answerability (99.89%) and citationability (100%) ensure AI retrieval can surface and attribute content reliably",
+        "Evidence coverage at 89.36% (1,763 of 1,973 claims backed) supports trustworthy technical assertions",
+        "Example reliability estimated at 84.6%, indicating most code samples are likely functional"
+      ],
+      "risks": [
+        "45 confirmed broken internal links across user-facing docs damage trust, SEO authority, and user navigation",
+        "Only 36.93% of pages show last-updated dates, hiding content age from users and AI systems during retrieval",
+        "Chunkability at 46.49% means over half the corpus may fragment poorly for vector search and LLM context windows",
+        "SEO/geo issue rate of 20.59% (approximately 372 pages) risks organic discoverability and regional search performance",
+        "Stale risk affects 44.15% of pages (roughly 798 pages), undermining confidence in accuracy for fast-moving products",
+        "12 unverified links due to auth/rate-limit/server blocks introduce uncertainty; actual broken count may be higher",
+        "Multi-project topology with 1,809 pages increases maintenance surface and cross-project link fragility"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 45 confirmed broken internal links across user-facing documentation",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Broken links directly harm user trust, SEO ranking, and onboarding success; fixing 45 links is low-effort with immediate measurable impact on bounce rate and support tickets."
+        },
+        {
+          "action": "Add last-updated timestamps to the 63.07% of pages (approximately 1,141 pages) currently missing them",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Freshness metadata directly improves user confidence, reduces support queries about outdated info, and boosts AI retrieval quality by signaling recency to LLMs and search engines."
+        },
+        {
+          "action": "Improve chunkability for the 53.51% of pages (approximately 968 pages) scoring poorly by refactoring long sections, adding semantic headings, and breaking dense blocks",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Chunkability is the primary drag on retrieval readiness (69.06 overall); better chunking directly improves vector search precision, LLM answer quality, and user scanability across nearly 1,000 pages."
+        },
+        {
+          "action": "Audit and resolve SEO/geo issues affecting 20.59% of pages (approximately 372 pages), focusing on missing meta descriptions, duplicate titles, and geo-targeting gaps",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "SEO issues directly reduce organic acquisition and regional discoverability; fixing 372 pages improves top-of-funnel traffic and competitive positioning in search results."
+        },
+        {
+          "action": "Investigate and resolve the 12 unverified links blocked by auth/rate-limit/server issues to confirm true broken-link count and prevent user-facing 403/429 errors",
+          "impact": "medium",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Unverified links may hide additional broken references or auth misconfigurations; low-effort investigation prevents user frustration and clarifies true link health baseline."
+        }
+      ],
+      "automation_first": [
+        "Deploy automated broken-link monitoring with daily scans across all 1,809 pages to catch the 45 current broken links and prevent new ones, reducing manual QA cycles and support escalations from navigation failures.",
+        "Implement CI/CD hooks to enforce last-updated timestamp injection on every commit, closing the 63.07% freshness gap (1,141 pages) and ensuring all future content carries recency signals for users and AI systems without manual tagging.",
+        "Add pre-commit linters to flag pages with poor chunkability (long sections >800 words, missing H2/H3 structure) targeting the 968 pages below threshold, preventing new low-chunkability content and guiding authors toward retrieval-optimized structure at creation time."
+      ],
+      "limitations": [
+        "External audit cannot verify actual content accuracy, correctness of code examples, or whether API documentation matches live API behavior.",
+        "12 unverified links due to auth/rate-limit/server blocks mean true broken-link count may be underreported; manual investigation required.",
+        "Chunkability and stale-risk metrics are heuristic estimates; actual user comprehension and content freshness depend on domain-specific review.",
+        "Multi-project topology may hide cross-project inconsistencies, versioning conflicts, or duplicated content that require internal knowledge to resolve.",
+        "SEO/geo issue detection relies on metadata and structure; actual search ranking and regional performance depend on external factors like backlinks, domain authority, and competitor landscape."
+      ]
+    }
   }
 }
