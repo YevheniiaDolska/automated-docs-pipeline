@@ -584,19 +584,97 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     )
     risk_index = min(max(risk_index, 0.0), 1.0)
 
-    engineering_hours = (
-        assumptions.baseline_manual_sync_hours_per_week * 4.3
-        + assumptions.release_count_per_month * assumptions.avg_release_delay_hours * risk_index
-        + (undocumented_pct / 100.0) * 10.0
-        + ((100.0 - example_reliability) / 100.0) * 12.0
-    )
+    # -- Itemized monthly expense components (base scenario) ------------------
+    # Each line item records its formula and inputs so the teardown can show
+    # exactly where the monthly number comes from. Items are computed first
+    # and the headline totals are derived from them, so the breakdown always
+    # sums to the reported totals.
+    baseline_upkeep_hours = assumptions.baseline_manual_sync_hours_per_week * 4.3
+    release_delay_hours = assumptions.release_count_per_month * assumptions.avg_release_delay_hours * risk_index
+    undocumented_drag_hours = (undocumented_pct / 100.0) * 10.0
+    example_drag_hours = ((100.0 - example_reliability) / 100.0) * 12.0
+    engineering_hours = baseline_upkeep_hours + release_delay_hours + undocumented_drag_hours + example_drag_hours
     support_hours = (
         assumptions.monthly_support_tickets
         * assumptions.docs_related_ticket_share
         * (assumptions.avg_ticket_handling_minutes / 60.0)
         * (0.5 + risk_index)
     )
-    release_delay_hours = assumptions.release_count_per_month * assumptions.avg_release_delay_hours * risk_index
+
+    expense_items: list[dict[str, Any]] = [
+        {
+            "id": "manual_docs_upkeep",
+            "label": "Manual docs upkeep the automation replaces",
+            "category": "existing_process_cost",
+            "formula": "baseline_manual_sync_hours_per_week x 4.3 weeks x engineer_hourly_usd",
+            "inputs": {
+                "baseline_manual_sync_hours_per_week": assumptions.baseline_manual_sync_hours_per_week,
+                "engineer_hourly_usd": assumptions.engineer_hourly_usd,
+            },
+            "hours": round(baseline_upkeep_hours, 1),
+            "monthly_usd": round(baseline_upkeep_hours * assumptions.engineer_hourly_usd, 2),
+            "note": "Cost of keeping docs in sync by hand today. It does not depend on audit findings; it is what the pipeline automates away.",
+        },
+        {
+            "id": "release_delay_drag",
+            "label": "Release delay caused by docs work",
+            "category": "quality_drag",
+            "formula": "release_count_per_month x avg_release_delay_hours x risk_index x engineer_hourly_usd",
+            "inputs": {
+                "release_count_per_month": assumptions.release_count_per_month,
+                "avg_release_delay_hours": assumptions.avg_release_delay_hours,
+                "risk_index": round(risk_index, 3),
+                "engineer_hourly_usd": assumptions.engineer_hourly_usd,
+            },
+            "hours": round(release_delay_hours, 1),
+            "monthly_usd": round(release_delay_hours * assumptions.engineer_hourly_usd, 2),
+            "note": "Scales with the measured risk index; zero when the audit finds no gaps.",
+        },
+        {
+            "id": "undocumented_api_drag",
+            "label": "Engineering answering questions undocumented APIs create",
+            "category": "quality_drag",
+            "formula": "(undocumented_pct / 100) x 10 h full-gap coefficient x engineer_hourly_usd",
+            "inputs": {
+                "undocumented_pct": round(undocumented_pct, 1),
+                "full_gap_hours_coefficient": 10.0,
+                "engineer_hourly_usd": assumptions.engineer_hourly_usd,
+            },
+            "hours": round(undocumented_drag_hours, 1),
+            "monthly_usd": round(undocumented_drag_hours * assumptions.engineer_hourly_usd, 2),
+            "note": "Proportional to the measured undocumented-API share.",
+        },
+        {
+            "id": "broken_example_drag",
+            "label": "Debugging integrations broken examples cause",
+            "category": "quality_drag",
+            "formula": "((100 - example_reliability_pct) / 100) x 12 h full-gap coefficient x engineer_hourly_usd",
+            "inputs": {
+                "example_reliability_pct": round(example_reliability, 1),
+                "full_gap_hours_coefficient": 12.0,
+                "engineer_hourly_usd": assumptions.engineer_hourly_usd,
+            },
+            "hours": round(example_drag_hours, 1),
+            "monthly_usd": round(example_drag_hours * assumptions.engineer_hourly_usd, 2),
+            "note": "Proportional to the measured share of failing code examples.",
+        },
+        {
+            "id": "docs_driven_support",
+            "label": "Support time on docs-related tickets",
+            "category": "support_cost",
+            "formula": "monthly_support_tickets x docs_related_ticket_share x (avg_ticket_handling_minutes / 60) x (0.5 + risk_index) x support_hourly_usd",
+            "inputs": {
+                "monthly_support_tickets": assumptions.monthly_support_tickets,
+                "docs_related_ticket_share": assumptions.docs_related_ticket_share,
+                "avg_ticket_handling_minutes": assumptions.avg_ticket_handling_minutes,
+                "risk_index": round(risk_index, 3),
+                "support_hourly_usd": assumptions.support_hourly_usd,
+            },
+            "hours": round(support_hours, 1),
+            "monthly_usd": round(support_hours * assumptions.support_hourly_usd, 2),
+            "note": "Docs-attributable ticket load, scaled between 0.5x and 1.5x of the nominal share by the measured risk index.",
+        },
+    ]
 
     operational_cost = engineering_hours * assumptions.engineer_hourly_usd + support_hours * assumptions.support_hourly_usd
 
@@ -624,6 +702,42 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     revenue_risk_usd = customers_at_risk * assumptions.avg_customer_monthly_value_usd
     total_signal_usd = operational_cost + revenue_risk_usd
 
+    expense_items.append(
+        {
+            "id": "revenue_at_risk",
+            "label": "Revenue at risk from evaluations lost to docs friction",
+            "category": "revenue_risk",
+            "formula": (
+                "monthly_doc_influenced_evals x eval_to_customer_rate x "
+                "docs_friction_revenue_sensitivity x commercial_friction_index x avg_customer_monthly_value_usd"
+            ),
+            "inputs": {
+                "monthly_doc_influenced_evals": assumptions.monthly_doc_influenced_evals,
+                "eval_to_customer_rate": assumptions.eval_to_customer_rate,
+                "docs_friction_revenue_sensitivity": assumptions.docs_friction_revenue_sensitivity,
+                "commercial_friction_index": round(commercial_friction_index, 3),
+                "avg_customer_monthly_value_usd": assumptions.avg_customer_monthly_value_usd,
+            },
+            "hours": None,
+            "monthly_usd": round(revenue_risk_usd, 2),
+            "note": "Expected value of would-be customers who churn during evaluation because of docs friction; not booked revenue.",
+        }
+    )
+
+    monthly_expense_breakdown = {
+        "items": expense_items,
+        "operational_subtotal_usd": round(operational_cost, 2),
+        "revenue_risk_subtotal_usd": round(revenue_risk_usd, 2),
+        "total_monthly_usd": round(total_signal_usd, 2),
+        "methodology_note": (
+            "Base-scenario estimate built only from the line items above. Every input is an "
+            "adjustable assumption (see 'assumptions'); pass --assumptions <file.json> to recalculate "
+            "with the client's own numbers. Conservative/aggressive scenarios apply x0.7 / x1.4. "
+            "The 'manual docs upkeep' line is the cost of today's manual process (what automation "
+            "replaces), not damage caused by documentation gaps."
+        ),
+    }
+
     def _scenario(multiplier: float) -> dict[str, float]:
         return {
             "monthly_cost_usd": round(operational_cost * multiplier, 2),
@@ -639,6 +753,7 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
         "risk_index_0_to_1": round(risk_index, 3),
         "commercial_friction_index_0_to_1": round(commercial_friction_index, 3),
         "engineering_support_hours_lost_estimate": _scenario(1.0),
+        "monthly_expense_breakdown": monthly_expense_breakdown,
         "scenarios": {
             "conservative": _scenario(0.7),
             "base": _scenario(1.0),
@@ -1589,6 +1704,7 @@ def _build_sales_teardown_payload(
             "unverified_links_count": int(public_metrics.get("unverified_links_count", 0) or 0),
             "estimated_monthly_cost_usd": float(base_impact.get("total_signal_usd", base_impact.get("monthly_cost_usd", 0.0)) or 0.0),
         },
+        "monthly_expense_breakdown": business_impact.get("monthly_expense_breakdown", {}),
         "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
         "key_findings": key_findings,
         "priority_actions": _sales_next_steps(scorecard_payload, public_metrics, llm_analysis),
@@ -1672,6 +1788,50 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         "</div>"
         "</section>"
     ) if strengths_html and risks_html else ""
+
+    breakdown = payload.get("monthly_expense_breakdown", {})
+    breakdown_items = breakdown.get("items", []) if isinstance(breakdown, dict) else []
+
+    def _expense_row(item: dict[str, Any]) -> str:
+        hours = item.get("hours")
+        hours_text = html.escape(str(hours)) if hours is not None else "-"
+        usd_value = float(item.get("monthly_usd", 0.0) or 0.0)
+        usd_text = f"{usd_value:,.0f}"
+        return (
+            "<tr style='border-top:1px solid #e2e8f0;'>"
+            f"<td style='padding:6px 8px;'><strong>{html.escape(str(item.get('label', '')))}</strong>"
+            f"<div style='color:#64748b; font-family:monospace; font-size:11px; margin-top:2px;'>{html.escape(str(item.get('formula', '')))}</div>"
+            f"<div style='color:#64748b; font-size:11px;'>{html.escape(str(item.get('note', '')))}</div></td>"
+            f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'>{hours_text}</td>"
+            f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'>${usd_text}</td>"
+            "</tr>"
+        )
+
+    breakdown_rows_html = "".join(_expense_row(item) for item in breakdown_items if isinstance(item, dict))
+    expense_breakdown_html = (
+        "<section class='split' style='grid-template-columns:1fr;'>"
+        "<div class='surface'>"
+        "<h2 class='section-title'>Where The Monthly Cost Signal Comes From</h2>"
+        "<table class='expense-table' style='width:100%; border-collapse:collapse; font-size:13px;'>"
+        "<thead><tr>"
+        "<th style='text-align:left; padding:6px 8px;'>Expense line (base scenario)</th>"
+        "<th style='text-align:right; padding:6px 8px;'>Hours / mo</th>"
+        "<th style='text-align:right; padding:6px 8px;'>USD / mo</th>"
+        "</tr></thead>"
+        f"<tbody>{breakdown_rows_html}</tbody>"
+        "<tfoot>"
+        "<tr><td style='padding:6px 8px;'><strong>Operational subtotal (engineering + support)</strong></td><td></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('operational_subtotal_usd', 0.0) or 0.0):,.0f}</strong></td></tr>"
+        "<tr><td style='padding:6px 8px;'><strong>Revenue at risk subtotal</strong></td><td></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('revenue_risk_subtotal_usd', 0.0) or 0.0):,.0f}</strong></td></tr>"
+        "<tr><td style='padding:6px 8px;'><strong>Total monthly cost signal</strong></td><td></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('total_monthly_usd', 0.0) or 0.0):,.0f}</strong></td></tr>"
+        "</tfoot>"
+        "</table>"
+        f"<p class='foot'>{html.escape(str(breakdown.get('methodology_note', '')))}</p>"
+        "</div>"
+        "</section>"
+    ) if breakdown_items else ""
 
     bar_definitions = [
         ("Audit score", float(score.get("audit_score_0_100", 0.0) or 0.0)),
@@ -1936,6 +2096,8 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
       </div>
     </section>
 
+    {expense_breakdown_html}
+
     {strengths_section_html}
   </div>
 </body>
@@ -2074,7 +2236,7 @@ def _build_html(payload: dict[str, Any]) -> str:
         <tr><td>Potential customers lost</td><td>{impact.get('potential_customers_lost', 0)}</td></tr>
         <tr><td>Total monthly signal</td><td>${impact.get('total_signal_usd', impact['monthly_cost_usd'])}</td></tr>
       </table>
-      <p class="foot">Per-finding totals (low/base/high): remediation ${findings_totals.get('remediation_cost_usd_low_total', 0)} / ${findings_totals.get('remediation_cost_usd_base_total', 0)} / ${findings_totals.get('remediation_cost_usd_high_total', 0)}, monthly loss ${findings_totals.get('monthly_loss_usd_low_total', 0)} / ${findings_totals.get('monthly_loss_usd_base_total', 0)} / ${findings_totals.get('monthly_loss_usd_high_total', 0)}.</p>
+      <p class="foot">Per-finding totals (low/base/high): remediation ${findings_totals.get('remediation_cost_usd_low_total', 0)} / ${findings_totals.get('remediation_cost_usd_base_total', 0)} / ${findings_totals.get('remediation_cost_usd_high_total', 0)}, monthly loss ${findings_totals.get('monthly_loss_usd_low_total', 0)} / ${findings_totals.get('monthly_loss_usd_base_total', 0)} / ${findings_totals.get('monthly_loss_usd_high_total', 0)}. Per-finding monthly loss is a prioritization heuristic scaled from remediation effort; the accountable monthly figure is the itemized cost-signal breakdown above.</p>
       <p class="foot">Fixability coverage: pilot can close {findings_totals.get('pilot_fixable_count', 0)} of {findings_totals.get('findings_count', 0)} findings; full implementation can close {findings_totals.get('full_fixable_count', 0)} of {findings_totals.get('findings_count', 0)}.</p>
     </div>
 

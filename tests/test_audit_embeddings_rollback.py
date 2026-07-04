@@ -540,6 +540,57 @@ class TestBusinessImpact:
         impact = scorecard._business_impact(kpis, assumptions)
         assert impact["assumptions"]["engineer_hourly_usd"] == 200.0
 
+    def test_expense_breakdown_sums_to_headline_totals(self) -> None:
+        """Itemized monthly expense lines sum to the reported base totals."""
+        kpis = _make_kpis(
+            undocumented_pct=30.0,
+            stale_docs_pct=40.0,
+            drift_pct=15.0,
+            example_reliability_pct=70.0,
+            terminology_violation_pct=20.0,
+        )
+        assumptions = scorecard.CostAssumptions()
+        impact = scorecard._business_impact(kpis, assumptions)
+        breakdown = impact["monthly_expense_breakdown"]
+        items_sum = sum(float(item["monthly_usd"]) for item in breakdown["items"])
+        assert items_sum == pytest.approx(breakdown["total_monthly_usd"], abs=1.0)
+        assert breakdown["total_monthly_usd"] == pytest.approx(
+            impact["scenarios"]["base"]["total_signal_usd"], abs=0.01
+        )
+        operational = sum(
+            float(item["monthly_usd"])
+            for item in breakdown["items"]
+            if item["category"] != "revenue_risk"
+        )
+        assert operational == pytest.approx(breakdown["operational_subtotal_usd"], abs=1.0)
+
+    def test_expense_breakdown_quality_items_zero_when_docs_perfect(self) -> None:
+        """Quality-drag lines are $0 when the audit finds no gaps."""
+        kpis = _make_kpis()
+        impact = scorecard._business_impact(kpis, scorecard.CostAssumptions())
+        for item in impact["monthly_expense_breakdown"]["items"]:
+            if item["category"] == "quality_drag":
+                assert item["monthly_usd"] == 0.0
+
+    def test_expense_breakdown_rendered_in_sales_teardown(self) -> None:
+        """Teardown HTML shows the itemized cost table with formulas."""
+        kpis = _make_kpis(undocumented_pct=30.0, example_reliability_pct=70.0)
+        impact = scorecard._business_impact(kpis, scorecard.CostAssumptions())
+        scorecard_payload = {
+            "generated_at": "2026-07-04T00:00:00Z",
+            "score": {"audit_score_0_100": 62, "grade": "C"},
+            "findings_totals": {},
+            "business_impact": impact,
+            "kpis": kpis,
+        }
+        payload = scorecard._build_sales_teardown_payload(
+            scorecard_payload, public_audit={}, broken_links={}, llm_summary={}
+        )
+        html_text = scorecard._build_sales_teardown_html(payload)
+        assert "Where The Monthly Cost Signal Comes From" in html_text
+        assert "Manual docs upkeep the automation replaces" in html_text
+        assert "engineer_hourly_usd" in html_text
+
 
 class TestBuildFindings:
     """Tests for _build_findings output structure and severity logic."""
