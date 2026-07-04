@@ -13,11 +13,26 @@ import yaml
 
 
 def load_schema(schema_path: str = "docs-schema.yml") -> dict[str, Any]:
-    """Load JSON Schema (YAML format) used for frontmatter validation."""
-    schema = yaml.safe_load(Path(schema_path).read_text(encoding="utf-8"))
-    if not isinstance(schema, dict):
-        raise ValueError("Schema must be a mapping.")
-    return schema
+    """Load JSON Schema (YAML format) used for frontmatter validation.
+
+    Resolves the schema from the current directory first, then relative to
+    the installed script (bundle layout), so client installs work no matter
+    which directory the pipeline is invoked from.
+    """
+    candidates = [Path(schema_path)]
+    if not Path(schema_path).is_absolute():
+        script_root = Path(__file__).resolve().parents[1]
+        candidates.append(script_root / schema_path)
+        candidates.append(script_root / "docsops" / schema_path)
+    for candidate in candidates:
+        if candidate.exists():
+            schema = yaml.safe_load(candidate.read_text(encoding="utf-8"))
+            if not isinstance(schema, dict):
+                raise ValueError("Schema must be a mapping.")
+            return schema
+    raise FileNotFoundError(
+        f"Frontmatter schema not found. Looked in: {', '.join(str(c) for c in candidates)}"
+    )
 
 
 def extract_frontmatter(text: str) -> dict[str, Any] | None:

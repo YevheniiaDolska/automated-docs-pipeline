@@ -124,14 +124,15 @@ class TestFormatCommand:
 class TestDefaultAutoFixCommands:
     """Tests for _default_auto_fix_commands."""
 
-    def test_returns_two_commands(self) -> None:
-        """Returns normalize_docs and seo_geo_optimizer commands."""
+    def test_returns_default_commands(self) -> None:
+        """Returns link-fix, normalize_docs, and seo_geo_optimizer commands."""
         from scripts.finalize_docs_gate import _default_auto_fix_commands
 
         cmds = _default_auto_fix_commands("docs")
-        assert len(cmds) == 2
-        assert "normalize_docs" in cmds[0]
-        assert "seo_geo_optimizer" in cmds[1]
+        assert len(cmds) == 3
+        assert "fix_markdown_links" in cmds[0]
+        assert "normalize_docs" in cmds[1]
+        assert "seo_geo_optimizer" in cmds[2]
 
     def test_docs_root_quoted_in_commands(self) -> None:
         """Docs root with spaces is shell-quoted in commands."""
@@ -145,7 +146,8 @@ class TestDefaultAutoFixCommands:
         from scripts.finalize_docs_gate import _default_auto_fix_commands
 
         cmds = _default_auto_fix_commands("docs")
-        assert "--fix" in cmds[1]
+        seo_cmd = next(c for c in cmds if "seo_geo_optimizer" in c)
+        assert "--fix" in seo_cmd
 
 
 class TestSafeGitAdd:

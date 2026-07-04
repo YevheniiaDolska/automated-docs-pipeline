@@ -43,9 +43,11 @@ class TestExtractKnowledgeModules:
             tmp_path / "file.md",
             "docs/file.md",
             {"content_type": "how-to", "title": "Configure webhook"},
-            "short",
+            {"heading": "Configure webhook", "content": "short"},
             1,
             "owner-x",
+            docs_url="",
+            variables={},
         )
         assert module["id"].startswith("auto-file-1")
         assert module["owner"] == "owner-x"

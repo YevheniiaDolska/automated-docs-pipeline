@@ -721,8 +721,10 @@ def _generate_interactive_html(
             desc_pattern = re.compile(
                 r"const descriptions = \{.*?\};", re.DOTALL
             )
+            # Use a callable replacement: descriptions_js may contain
+            # backslashes, which re.sub would misparse as escape sequences.
             html = desc_pattern.sub(
-                f"const descriptions = {descriptions_js};", html,
+                lambda _m: f"const descriptions = {descriptions_js};", html,
             )
         return html
 

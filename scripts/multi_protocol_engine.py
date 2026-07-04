@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import shutil
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -57,7 +58,10 @@ class ProtocolAdapter:
             if not allow_fail:
                 raise RuntimeError(f"{self.protocol}:{stage} empty command")
             return StageResult(stage=stage, protocol=self.protocol, ok=False, rc=2, command=[], details={})
-        argv = ["/bin/bash", "-lc", command]
+        # Resolve bash from PATH so hooks work on Windows (Git Bash) too;
+        # /bin/bash only exists on POSIX systems.
+        bash = shutil.which("bash") or "/bin/bash"
+        argv = [bash, "-lc", command]
         completed = subprocess.run(argv, cwd=str(self.repo_root), check=False)
         ok = completed.returncode == 0
         if not ok and not allow_fail:

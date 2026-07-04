@@ -257,10 +257,10 @@ def main() -> int:
             max_attempts = 3
 
         try:
-                attempt = 1
-                while True:
-                    narrator.note(f"{protocol}: attempt {attempt}/{max_attempts}")
-                    attempt_results: list[StageResult] = []
+            attempt = 1
+            while True:
+                narrator.note(f"{protocol}: attempt {attempt}/{max_attempts}")
+                attempt_results: list[StageResult] = []
                 notes_gen = adapter.maybe_generate_contract_from_notes(allow_fail=True)
                 if notes_gen is not None:
                     attempt_results.append(notes_gen)
@@ -378,7 +378,14 @@ def main() -> int:
     if strict_mode and failed_protocols:
         narrator.finish(False, f"Strict mode failed. Protocols with errors: {', '.join(failed_protocols)}")
         return 1
-    narrator.finish(True, "Multi-protocol flow completed")
+    if failed_protocols:
+        narrator.finish(
+            True,
+            "Multi-protocol flow completed with failed protocols (standard mode): "
+            f"{', '.join(failed_protocols)} -- see {report_path}",
+        )
+    else:
+        narrator.finish(True, "Multi-protocol flow completed")
     return 0
 
 

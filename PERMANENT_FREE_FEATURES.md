@@ -116,4 +116,5 @@ self-upgrade to enterprise by setting an environment variable.
 
 ## Next steps
 
-- [Documentation index](../index.md)
+- [Pricing cheat sheet](PRICING_CHEATSHEET_RU.md)
+- [Security operations](SECURITY_OPERATIONS.md)

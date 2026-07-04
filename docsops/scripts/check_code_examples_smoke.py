@@ -127,35 +127,46 @@ def _run_python(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
         script_path.unlink(missing_ok=True)
 
 
+def _bash_syntax_check(script: str, timeout: int) -> subprocess.CompletedProcess:
+    """Run `bash -n` on a script passed via stdin.
+
+    Windows hosts can resolve `bash` to Git Bash or WSL bash, each with a
+    different notion of valid host paths. Passing the script on stdin avoids
+    temp-file path translation entirely and works with both.
+    """
+    return subprocess.run(
+        ["bash", "-n"],
+        input=script,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        check=False,
+    )
+
+
+def _bash_execute(script: str, timeout: int) -> subprocess.CompletedProcess:
+    """Execute a script via `bash -s` reading from stdin (see _bash_syntax_check)."""
+    return subprocess.run(
+        ["bash", "-s"],
+        input=script,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        check=False,
+    )
+
+
 def _run_bash(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
-    with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
-        handle.write("set -euo pipefail\n")
-        handle.write(content + "\n")
-        script_path = Path(handle.name)
-    try:
-        subprocess.run(
-            ["bash", "-n", str(script_path)],
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            check=True,
-        )
-        if not execute:
-            return True, ""
-        result = subprocess.run(
-            ["bash", str(script_path)],
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            check=False,
-        )
-        if result.returncode != 0:
-            return False, result.stderr.strip() or "bash example failed"
+    script = "set -euo pipefail\n" + content + "\n"
+    syntax = _bash_syntax_check(script, timeout)
+    if syntax.returncode != 0:
+        return False, syntax.stderr.strip() or "bash syntax check failed"
+    if not execute:
         return True, ""
-    except subprocess.CalledProcessError as error:
-        return False, error.stderr.strip() or "bash syntax check failed"
-    finally:
-        script_path.unlink(missing_ok=True)
+    result = _bash_execute(script, timeout)
+    if result.returncode != 0:
+        return False, result.stderr.strip() or "bash example failed"
+    return True, ""
 
 
 def _run_json(content: str) -> tuple[bool, str]:
@@ -213,36 +224,18 @@ def _run_curl(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
     if curl_bin is None:
         return False, "curl is not installed but curl smoke block was found"
 
-    with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
-        handle.write("set -euo pipefail\n")
-        handle.write(content + "\n")
-        script_path = Path(handle.name)
-    try:
-        syntax = subprocess.run(
-            ["bash", "-n", str(script_path)],
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            check=False,
-        )
-        if syntax.returncode != 0:
-            return False, syntax.stderr.strip() or "curl snippet syntax check failed"
+    script = "set -euo pipefail\n" + content + "\n"
+    syntax = _bash_syntax_check(script, timeout)
+    if syntax.returncode != 0:
+        return False, syntax.stderr.strip() or "curl snippet syntax check failed"
 
-        if not execute:
-            return True, ""
-
-        run = subprocess.run(
-            ["bash", str(script_path)],
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            check=False,
-        )
-        if run.returncode != 0:
-            return False, run.stderr.strip() or "curl example failed"
+    if not execute:
         return True, ""
-    finally:
-        script_path.unlink(missing_ok=True)
+
+    run = _bash_execute(script, timeout)
+    if run.returncode != 0:
+        return False, run.stderr.strip() or "curl example failed"
+    return True, ""
 
 
 def _run_go(content: str, timeout: int) -> tuple[bool, str]:
@@ -380,23 +373,10 @@ def _collect_output(block: CodeBlock, timeout: int, allow_network: bool) -> tupl
             script_path.unlink(missing_ok=True)
 
     if block.language in {"bash", "sh", "shell"}:
-        with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
-            handle.write("set -euo pipefail\n")
-            handle.write(block.content + "\n")
-            script_path = Path(handle.name)
-        try:
-            result = subprocess.run(
-                ["bash", str(script_path)],
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                check=False,
-            )
-            if result.returncode != 0:
-                return False, result.stderr.strip() or ""
-            return True, result.stdout.strip()
-        finally:
-            script_path.unlink(missing_ok=True)
+        result = _bash_execute("set -euo pipefail\n" + block.content + "\n", timeout)
+        if result.returncode != 0:
+            return False, result.stderr.strip() or ""
+        return True, result.stdout.strip()
 
     if block.language in {"javascript", "js"}:
         node = shutil.which("node")
@@ -422,23 +402,10 @@ def _collect_output(block: CodeBlock, timeout: int, allow_network: bool) -> tupl
     if block.language == "curl":
         if not ("network" in block.tags and allow_network):
             return True, ""
-        with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
-            handle.write("set -euo pipefail\n")
-            handle.write(block.content + "\n")
-            script_path = Path(handle.name)
-        try:
-            result = subprocess.run(
-                ["bash", str(script_path)],
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                check=False,
-            )
-            if result.returncode != 0:
-                return False, result.stderr.strip() or ""
-            return True, result.stdout.strip()
-        finally:
-            script_path.unlink(missing_ok=True)
+        result = _bash_execute("set -euo pipefail\n" + block.content + "\n", timeout)
+        if result.returncode != 0:
+            return False, result.stderr.strip() or ""
+        return True, result.stdout.strip()
 
     return True, ""
 

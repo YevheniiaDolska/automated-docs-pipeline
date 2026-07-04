@@ -11,19 +11,18 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-for candidate in (REPO_ROOT, PROJECT_ROOT):
-    candidate_str = str(candidate)
-    if candidate_str not in sys.path:
-        sys.path.insert(0, candidate_str)
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 try:
     from scripts.env_loader import load_local_env
@@ -33,19 +32,30 @@ except ModuleNotFoundError:
 
 
 from scripts.flow_feedback import FlowNarrator
+from scripts.runtime_config_loader import load_runtime_config, read_yaml_mapping, sibling_override_paths
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
-    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected YAML mapping: {path}")
-    return payload
+    return read_yaml_mapping(path)
 
 
 def _run(cmd: list[str], cwd: Path) -> int:
     print(f"[autopipeline] $ {' '.join(cmd)}")
     completed = subprocess.run(cmd, cwd=str(cwd), check=False)
     return completed.returncode
+
+
+def _git_remote_url(cwd: Path, remote: str) -> str:
+    completed = subprocess.run(
+        ["git", "remote", "get-url", remote],
+        cwd=str(cwd),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return ""
+    return completed.stdout.strip()
 
 
 def _git_changed_files(cwd: Path) -> list[str]:
@@ -94,6 +104,89 @@ def _load_site_url(repo_root: Path) -> str:
     if not isinstance(payload, dict):
         return ""
     return str(payload.get("site_url", "")).rstrip("/")
+
+
+def _remote_repo_web_url(remote_url: str) -> str:
+    raw = remote_url.strip()
+    if not raw:
+        return ""
+    if raw.startswith("git@"):
+        # git@github.com:org/repo.git
+        m = re.match(r"^git@([^:]+):(.+)$", raw)
+        if not m:
+            return ""
+        host = m.group(1).strip().lower()
+        path = m.group(2).strip()
+        if path.endswith(".git"):
+            path = path[:-4]
+        return f"https://{host}/{path}"
+    parsed = urlparse(raw)
+    if parsed.scheme in {"http", "https"} and parsed.netloc:
+        path = parsed.path.strip("/")
+        if path.endswith(".git"):
+            path = path[:-4]
+        return f"https://{parsed.netloc.lower()}/{path}"
+    return ""
+
+
+def _infer_preview_url_pattern(repo_root: Path, runtime: dict[str, Any]) -> str:
+    review_cfg = runtime.get("review_branch", {})
+    if not isinstance(review_cfg, dict):
+        review_cfg = {}
+    remote = str(review_cfg.get("remote", "origin")).strip() or "origin"
+    docs_root = str(runtime.get("paths", {}).get("docs_root", "docs")).strip().strip("/") or "docs"
+    remote_url = _git_remote_url(repo_root, remote)
+    web_url = _remote_repo_web_url(remote_url)
+    if not web_url:
+        return ""
+    parsed = urlparse(web_url)
+    host = parsed.netloc.lower()
+    path = parsed.path.strip("/")
+    if not host or not path:
+        return ""
+    if "github.com" in host:
+        return f"https://{host}/{path}/tree/{{branch}}/{docs_root}/"
+    if "gitlab" in host:
+        return f"https://{host}/{path}/-/tree/{{branch}}/{docs_root}/"
+    return f"{web_url}/tree/{{branch}}/{docs_root}/"
+
+
+def _auto_persist_docs_urls(repo_root: Path, runtime_path: Path, runtime: dict[str, Any], reports_dir: Path) -> None:
+    docs_site = runtime.get("docs_site", {})
+    if not isinstance(docs_site, dict):
+        docs_site = {}
+    changed = False
+
+    production_url = str(docs_site.get("production_url", "")).strip()
+    if not production_url:
+        site_url = _load_site_url(repo_root).strip()
+        if site_url:
+            docs_site["production_url"] = site_url
+            production_url = site_url
+            changed = True
+
+    preview_pattern = str(docs_site.get("preview_url_pattern", "")).strip()
+    if not preview_pattern:
+        inferred = _infer_preview_url_pattern(repo_root, runtime).strip()
+        if inferred:
+            docs_site["preview_url_pattern"] = inferred
+            preview_pattern = inferred
+            changed = True
+
+    operator_override_path, _ = sibling_override_paths(runtime_path)
+
+    report = {
+        "updated": False,
+        "docs_site.production_url": production_url,
+        "docs_site.preview_url_pattern": preview_pattern,
+        "runtime_config": str(runtime_path),
+        "operator_override_path": str(operator_override_path),
+        "pending_operator_override": bool(changed),
+    }
+    (reports_dir / "auto_detected_docs_urls.json").write_text(
+        json.dumps(report, ensure_ascii=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _normalize_site_url(site_url: str) -> str:
@@ -151,6 +244,7 @@ def _build_stage_summary(
             ("finalize_gate", reports_dir / "finalize_gate_report.json", True),
             ("docsops_status", reports_dir / "docsops_status.json", True),
             ("ready_marker", reports_dir / "READY_FOR_REVIEW.txt", True),
+            ("code_traceability", reports_dir / "code_traceability_index.json", True),
         ]
     )
 
@@ -682,7 +776,7 @@ def main() -> int:
     if not runtime_path.exists():
         raise FileNotFoundError(f"Runtime config not found: {runtime_path}")
 
-    runtime = _read_yaml(runtime_path)
+    runtime = load_runtime_config(runtime_path)
     strictness = str(runtime.get("api_governance", {}).get("strictness", "standard")).strip().lower() or "standard"
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})
@@ -717,6 +811,7 @@ def main() -> int:
         execution_stages.append("artifact verification (RAG)")
     if isinstance(branding_cfg, dict) and bool(branding_cfg.get("enabled", False)):
         execution_stages.append("branding policy enforcement")
+    execution_stages.append("code traceability indexing")
     execution_stages.extend(["stage summary", "review manifest"])
     if not args.skip_local_llm_packet and args.mode == "operator":
         execution_stages.append("local review packet")
@@ -856,6 +951,25 @@ def main() -> int:
                 return int(branding_rc)
 
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Build AST/code-aware index for traceability")
+    _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
+    trace_cmd = [
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "build_code_traceability_index.py"),
+        "--repo-root",
+        str(repo_root),
+        "--output",
+        str(reports_dir / "code_traceability_index.json"),
+    ]
+    trace_rc = _run(trace_cmd, cwd=repo_root)
+    _say(f"Stage {stage_no}/{total_stages} done", f"rc={trace_rc}, report={reports_dir / 'code_traceability_index.json'}")
+    narrator.done(f"code traceability rc={trace_rc}")
+    if trace_rc != 0 and strictness == "enterprise-strict":
+        print("[autopipeline] code traceability indexing failed in enterprise-strict mode")
+        narrator.finish(False, "Code traceability indexing failed in enterprise-strict mode")
+        return int(trace_rc)
+
+    stage_no += 1
     narrator.stage(stage_no, execution_stages[stage_no - 1], "Write machine-readable stage summary")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     stage_summary_path = reports_dir / "pipeline_stage_summary.json"
@@ -961,7 +1075,7 @@ def main() -> int:
                 base_url = str(docs_site_cfg.get("production_url", "")).strip() or "http://localhost:3000"
             refresh_cmd = [
                 sys.executable,
-                str(PROJECT_ROOT / "scripts" / "generate_screenshot_capture_plan.py"),
+                str(REPO_ROOT / "scripts" / "generate_screenshot_capture_plan.py"),
                 "--docs-root",
                 docs_root_cfg,
                 "--output",
@@ -969,7 +1083,7 @@ def main() -> int:
                 "--base-url",
                 base_url,
             ]
-            refresh_rc = _run(refresh_cmd, cwd=PROJECT_ROOT)
+            refresh_rc = _run(refresh_cmd, cwd=repo_root)
             _say("Screenshot plan refresh", f"rc={refresh_rc}, plan={args.screenshot_capture_plan}")
             if refresh_rc != 0 and strictness == "enterprise-strict":
                 print("[autopipeline] screenshot plan refresh failed in enterprise-strict mode")
@@ -978,7 +1092,7 @@ def main() -> int:
         if not args.skip_screenshot_capture:
             capture_cmd = [
                 sys.executable,
-                str(PROJECT_ROOT / "scripts" / "capture_screenshots.py"),
+                str(REPO_ROOT / "scripts" / "capture_screenshots.py"),
                 "--plan",
                 str(args.screenshot_capture_plan),
                 "--output-manifest",
@@ -986,7 +1100,7 @@ def main() -> int:
                 "--report",
                 str(screenshot_capture_report),
             ]
-            capture_rc = _run(capture_cmd, cwd=PROJECT_ROOT)
+            capture_rc = _run(capture_cmd, cwd=repo_root)
             _say("Screenshot capture", f"rc={capture_rc}, report={screenshot_capture_report}")
             if capture_rc != 0 and strictness == "enterprise-strict":
                 print("[autopipeline] screenshot capture failed in enterprise-strict mode")
@@ -994,7 +1108,7 @@ def main() -> int:
                 return int(capture_rc)
         build_manifest_cmd = [
             sys.executable,
-            str(PROJECT_ROOT / "scripts" / "build_screenshot_manifest.py"),
+            str(REPO_ROOT / "scripts" / "build_screenshot_manifest.py"),
             "--capture-manifest",
             str(args.screenshot_capture_manifest),
             "--output-manifest",
@@ -1002,11 +1116,11 @@ def main() -> int:
             "--report",
             str(screenshot_build_report),
         ]
-        build_rc = _run(build_manifest_cmd, cwd=PROJECT_ROOT)
+        build_rc = _run(build_manifest_cmd, cwd=repo_root)
         _say("Screenshot manifest build", f"rc={build_rc}, report={screenshot_build_report}")
         screenshot_cmd = [
             sys.executable,
-            str(PROJECT_ROOT / "scripts" / "insert_screenshots_into_docs.py"),
+            str(REPO_ROOT / "scripts" / "insert_screenshots_into_docs.py"),
             "--manifest",
             str(args.screenshots_manifest),
             "--docs-root",
@@ -1014,7 +1128,7 @@ def main() -> int:
             "--report",
             str(screenshot_report),
         ]
-        screenshot_rc = _run(screenshot_cmd, cwd=PROJECT_ROOT)
+        screenshot_rc = _run(screenshot_cmd, cwd=repo_root)
         _say(f"Stage {stage_no}/{total_stages} done", f"rc={screenshot_rc}, report={screenshot_report}")
         narrator.done(f"screenshot placement rc={screenshot_rc}")
         if screenshot_rc != 0 and strictness == "enterprise-strict":
@@ -1067,8 +1181,27 @@ def main() -> int:
     else:
         _say(f"Stage {stage_no}/{total_stages} done", "docs/operations not present")
         narrator.note("docs/operations not present, publish step skipped")
-    _say("Done", "all outputs indexed for review")
-    narrator.finish(True, "All outputs indexed and ready for review")
+
+    _auto_persist_docs_urls(
+        repo_root=repo_root,
+        runtime_path=runtime_path,
+        runtime=runtime,
+        reports_dir=reports_dir,
+    )
+
+    missing_required = int(stage_summary.get("missing_required_artifacts", 0) or 0)
+    if rc == 0 and missing_required == 0:
+        _say("Done", "all outputs indexed for review")
+        narrator.finish(True, "All outputs indexed and ready for review")
+    else:
+        _say(
+            "Done with issues",
+            f"weekly rc={rc}, missing required artifacts={missing_required}; see {output_index}",
+        )
+        narrator.finish(
+            False,
+            f"Completed with issues: weekly rc={rc}, missing required artifacts={missing_required}",
+        )
     return rc
 
 

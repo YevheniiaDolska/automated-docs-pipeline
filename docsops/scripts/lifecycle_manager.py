@@ -148,9 +148,9 @@ class LifecycleManager:
 {% endblock %}
 '''
 
-        (overrides_dir / 'main.html').write_text(main_template)
+        (overrides_dir / 'main.html').write_text(main_template, encoding='utf-8')
 
-        print(f"✅ Created MkDocs overrides for lifecycle management")
+        print(f"[ok] Created MkDocs overrides for lifecycle management")
 
     def generate_docusaurus_plugin(self, results):
         """Generate Docusaurus plugin for lifecycle management."""
@@ -227,7 +227,7 @@ module.exports = function lifecyclePlugin(context, options) {
 };
 '''
 
-        Path('docusaurus-plugin-lifecycle.js').write_text(plugin_code)
+        Path('docusaurus-plugin-lifecycle.js').write_text(plugin_code, encoding='utf-8')
 
         # Also create React component for banners
         banner_component = '''
@@ -280,9 +280,9 @@ export function LifecycleBanner() {
 }
 '''
 
-        Path('LifecycleBanner.jsx').write_text(banner_component)
+        Path('LifecycleBanner.jsx').write_text(banner_component, encoding='utf-8')
 
-        print("✅ Created Docusaurus plugin and component for lifecycle management")
+        print("[ok] Created Docusaurus plugin and component for lifecycle management")
 
     def generate_redirect_pages(self, results):
         """Generate redirect HTML pages for removed content (GitHub Pages compatible)."""
@@ -327,9 +327,9 @@ export function LifecycleBanner() {
                 old_path = Path(page['file']).relative_to(self.docs_dir)
                 redirect_path = redirects_dir / old_path.with_suffix('.html')
                 redirect_path.parent.mkdir(parents=True, exist_ok=True)
-                redirect_path.write_text(redirect_html)
+                redirect_path.write_text(redirect_html, encoding='utf-8')
 
-                print(f"✅ Created redirect: {old_path} → {replacement_url}")
+                print(f"[ok] Created redirect: {old_path} -> {replacement_url}")
 
     def generate_lifecycle_report(self, results):
         """Generate lifecycle status report."""
@@ -405,14 +405,14 @@ def main():
         print(report)
 
         # Save report
-        Path('lifecycle-report.md').write_text(report)
-        print(f"\n✅ Report saved to lifecycle-report.md")
+        Path('lifecycle-report.md').write_text(report, encoding='utf-8')
+        print(f"\n[ok] Report saved to lifecycle-report.md")
 
     if args.json_output:
         output_path = Path(args.json_output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(json.dumps(results, indent=2), encoding='utf-8')
-        print(f"✅ JSON report saved to {output_path}")
+        print(f"[ok] JSON report saved to {output_path}")
 
 if __name__ == '__main__':
     main()

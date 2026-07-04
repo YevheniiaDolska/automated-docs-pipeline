@@ -326,6 +326,9 @@ class TestProvisionSchedulerInstall:
         """Linux mode calls bash with cron script."""
         from scripts.provision_client_repo import run_scheduler_install
 
+        script = tmp_path / "docsops" / "ops" / "install_cron_weekly.sh"
+        script.parent.mkdir(parents=True)
+        script.write_text("#!/bin/bash\n", encoding="utf-8")
         run_scheduler_install(tmp_path, "docsops", "linux")
         mock_run.assert_called_once()
         args = mock_run.call_args[0][0]
@@ -336,6 +339,9 @@ class TestProvisionSchedulerInstall:
         """Windows mode calls powershell with task script."""
         from scripts.provision_client_repo import run_scheduler_install
 
+        script = tmp_path / "docsops" / "ops" / "install_windows_task.ps1"
+        script.parent.mkdir(parents=True)
+        script.write_text("# task installer\n", encoding="utf-8")
         run_scheduler_install(tmp_path, "docsops", "windows")
         mock_run.assert_called_once()
         args = mock_run.call_args[0][0]

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 from pathlib import Path
 
@@ -26,7 +27,9 @@ def main() -> int:
     source = Path(args.source)
     generated_doc = Path(args.generated_doc)
     target_root = Path(args.target_root)
-    if target_root.is_absolute():
+    # os.path.isabs also catches drive-less rooted paths ("/x", "\x") on
+    # Windows, which Path.is_absolute() does not.
+    if target_root.is_absolute() or os.path.isabs(args.target_root):
         raise ValueError("--target-root must be a repository-relative path")
     root = target_root / args.protocol
     root.mkdir(parents=True, exist_ok=True)

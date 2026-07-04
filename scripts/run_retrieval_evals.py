@@ -320,7 +320,9 @@ def evaluate(
         retrieved_set = set(retrieved)
         hits = len(expected & retrieved_set)
         precision = hits / max(len(retrieved), 1)
-        recall = hits / max(len(expected), 1)
+        # Capped recall@k: a query with more relevant items than k slots can
+        # still reach 1.0 when every retrieved slot is relevant.
+        recall = hits / max(min(len(expected), top_k), 1)
         precision_sum += precision
         recall_sum += recall
         retrieved_total += len(retrieved)

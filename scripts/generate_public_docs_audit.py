@@ -139,6 +139,20 @@ def _normalize_url(raw: str) -> str:
     except (ValueError, TypeError):
         # Malformed values like "https://[service.name]" should not crash audit.
         return ""
+    netloc = parsed.netloc or ""
+    if "[" in netloc or "]" in netloc:
+        # Bracketed hosts are only valid as IPv6 literals; placeholder values
+        # like "[service.name]" must be rejected, not crawled.
+        host = netloc.rsplit("@", 1)[-1]
+        if not (host.startswith("[") and "]" in host):
+            return ""
+        literal = host[1:host.index("]")]
+        try:
+            import ipaddress
+
+            ipaddress.IPv6Address(literal.split("%", 1)[0])
+        except (ValueError, TypeError):
+            return ""
     path = parsed.path or "/"
     parts = [p for p in path.split("/") if p]
     if len(parts) >= 4:

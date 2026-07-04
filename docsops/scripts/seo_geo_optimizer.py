@@ -1092,7 +1092,7 @@ class ComprehensiveSEOOptimizer:
 
         # Metadata Enhancement Report
         if self.enhanced_files:
-            print(f"\n✨ Metadata Enhanced: {len(self.enhanced_files)} files")
+            print(f"\n Metadata Enhanced: {len(self.enhanced_files)} files")
             for f in self.enhanced_files[:5]:
                 print(f"  - {f}")
 

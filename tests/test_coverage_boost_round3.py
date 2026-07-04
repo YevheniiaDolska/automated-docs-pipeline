@@ -1142,12 +1142,15 @@ class TestProvisionScheduler:
         from scripts.provision_client_repo import run_scheduler_install
 
         with pytest.raises(ValueError, match="Unsupported"):
-            run_scheduler_install(tmp_path, "docsops", "macos")
+            run_scheduler_install(tmp_path, "docsops", "solaris")
 
     def test_linux_mode(self, tmp_path: Path) -> None:
         """Linux mode calls bash with install script."""
         from scripts.provision_client_repo import run_scheduler_install
 
+        script = tmp_path / "docsops" / "ops" / "install_cron_weekly.sh"
+        script.parent.mkdir(parents=True)
+        script.write_text("#!/bin/bash\n", encoding="utf-8")
         with mock.patch("subprocess.run") as mock_run:
             run_scheduler_install(tmp_path, "docsops", "linux")
         mock_run.assert_called_once()

@@ -1,234 +1,974 @@
 # Retrieval evaluation dataset -- curated queries with expected module IDs.
-# Each entry has a natural-language query and the module IDs that should appear
-# in the top-k results.  Used by scripts/run_retrieval_evals.py --mode all.
-
-- query: WebSocket event playground bidirectional real-time messaging
+# Regenerated 2026-07-04 from docs/assets/knowledge-retrieval-index.json
+# (previous IDs were stale after knowledge module re-extraction).
+# expected_ids list every chunk of the source document: any chunk of the
+# right document is a relevant retrieval for the document-level query.
+- query: API playground Interactive API reference with Swagger UI or Redoc and configurable
+    sandbox behavior for product-led growth. configure integrate developer operator
   expected_ids:
-  - auto-websocket-events-10
-  - auto-websocket-events-3
-  - auto-websocket-events-5
-- query: WebSocket subscribe project updates channels events
+  - auto-api-playground-1
+  - auto-api-playground-2
+  - auto-api-playground-3
+- query: Apply a pilot, full, or RAG configuration (Part 3) Update a client profile
+    for pilot, full, or RAG-enabled operation and align it with cloud, strict-local,
+    or hybrid LLM execution. configure practitioner developer
   expected_ids:
-  - auto-websocket-events-7
-- query: WebSocket connection sandbox send messages payload
+  - auto-apply-pipeline-configuration-1
+  - auto-apply-pipeline-configuration-2
+  - auto-apply-pipeline-configuration-3
+  - auto-apply-pipeline-configuration-4
+  - auto-apply-pipeline-configuration-5
+- query: Assemble intent experiences (Part 3) Build user-intent documentation and
+    channel bundles from reusable knowledge modules with validation, indexing, and
+    consistent outputs. configure practitioner developer
   expected_ids:
-  - auto-websocket-events-7
-  - auto-websocket-events-6
-- query: WebSocket ping pong message types acknowledge
+  - auto-assemble-intent-experiences-1
+  - auto-assemble-intent-experiences-2
+  - auto-assemble-intent-experiences-3
+- query: Auto-Doc Pipeline study guide Learn the Auto-Doc Pipeline quickly with a
+    simple architecture map, operating flow, plan mapping, and a detailed client FAQ.
+    integrate developer operator
   expected_ids:
-  - auto-websocket-events-10
-  - auto-websocket-events-4
-- query: WebSocket wss protocol VeriOps realtime channels
+  - auto-auto-doc-pipeline-study-guide-1
+  - auto-auto-doc-pipeline-study-guide-2
+  - auto-auto-doc-pipeline-study-guide-3
+  - auto-auto-doc-pipeline-study-guide-4
+  - auto-auto-doc-pipeline-study-guide-5
+  - auto-auto-doc-pipeline-study-guide-6
+  - auto-auto-doc-pipeline-study-guide-7
+  - auto-auto-doc-pipeline-study-guide-8
+- query: Auto-Doc Pipeline study guide (Part 6) Learn the Auto-Doc Pipeline quickly
+    with a simple architecture map, operating flow, plan mapping, and a detailed client
+    FAQ. integrate troubleshoot developer operator
   expected_ids:
-  - auto-websocket-events-5
-- query: REST API reference Swagger endpoints projects tasks users tags
+  - auto-auto-doc-pipeline-study-guide-1
+  - auto-auto-doc-pipeline-study-guide-2
+  - auto-auto-doc-pipeline-study-guide-3
+  - auto-auto-doc-pipeline-study-guide-4
+  - auto-auto-doc-pipeline-study-guide-5
+  - auto-auto-doc-pipeline-study-guide-6
+  - auto-auto-doc-pipeline-study-guide-7
+  - auto-auto-doc-pipeline-study-guide-8
+- query: Autopipeline Output Index (Part 3) Auto-generated review index for autopipeline
+    outputs. integrate developer operator
   expected_ids:
-  - auto-rest-api-2
-  - auto-rest-api-5
-- query: REST API interactive sandbox Try-it panel
+  - auto-autopipeline-output-index-1
+  - auto-autopipeline-output-index-2
+  - auto-autopipeline-output-index-3
+  - auto-autopipeline-output-index-4
+  - auto-autopipeline-output-index-5
+- query: Canonical Flow (Sales + Delivery) (Part 11) Canonical sales and delivery
+    flow for onboarding and operating client Auto-Doc Pipeline setups. integrate developer
+    operator
   expected_ids:
-  - auto-rest-api-7
-- query: REST API projects resource create retrieve update delete
+  - auto-canonical-flow-1
+  - auto-canonical-flow-10
+  - auto-canonical-flow-11
+  - auto-canonical-flow-2
+  - auto-canonical-flow-3
+  - auto-canonical-flow-4
+  - auto-canonical-flow-5
+  - auto-canonical-flow-6
+  - auto-canonical-flow-7
+  - auto-canonical-flow-8
+  - auto-canonical-flow-9
+- query: Canonical Flow (Sales + Delivery) (Part 6) Canonical sales and delivery flow
+    for onboarding and operating client Auto-Doc Pipeline setups. integrate secure
+    developer operator
   expected_ids:
-  - auto-rest-api-2
-  - auto-rest-api-4
-- query: REST API tasks endpoints create update assign priority
+  - auto-canonical-flow-1
+  - auto-canonical-flow-10
+  - auto-canonical-flow-11
+  - auto-canonical-flow-2
+  - auto-canonical-flow-3
+  - auto-canonical-flow-4
+  - auto-canonical-flow-5
+  - auto-canonical-flow-6
+  - auto-canonical-flow-7
+  - auto-canonical-flow-8
+  - auto-canonical-flow-9
+- query: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\
+    \u043D\u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 10) \u041F\u0440\u0430\
+    \u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043F\u0443\u0442\u044C\
+    \ \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u043A\u043B\u0438\u0435\
+    \u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043E\u0437\
+    \u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437 \u043E\u0434\u043D\u043E\
+    \u0433\u043E \u043C\u0435\u0441\u0442\u0430. integrate developer operator"
   expected_ids:
-  - auto-rest-api-6
-  - auto-rest-api-2
-  - auto-rest-api-5
-- query: REST API users tags comments resources endpoints
+  - auto-centralized-client-bundles-1
+  - auto-centralized-client-bundles-10
+  - auto-centralized-client-bundles-11
+  - auto-centralized-client-bundles-12
+  - auto-centralized-client-bundles-13
+  - auto-centralized-client-bundles-14
+  - auto-centralized-client-bundles-15
+  - auto-centralized-client-bundles-16
+  - auto-centralized-client-bundles-2
+  - auto-centralized-client-bundles-3
+  - auto-centralized-client-bundles-4
+  - auto-centralized-client-bundles-5
+  - auto-centralized-client-bundles-6
+  - auto-centralized-client-bundles-7
+  - auto-centralized-client-bundles-8
+  - auto-centralized-client-bundles-9
+- query: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\
+    \u043D\u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 15) \u041F\u0440\u0430\
+    \u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043F\u0443\u0442\u044C\
+    \ \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u043A\u043B\u0438\u0435\
+    \u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043E\u0437\
+    \u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437 \u043E\u0434\u043D\u043E\
+    \u0433\u043E \u043C\u0435\u0441\u0442\u0430. integrate developer operator"
   expected_ids:
-  - auto-rest-api-2
-  - auto-rest-api-7
-- query: GraphQL playground live query editor schema explorer
+  - auto-centralized-client-bundles-1
+  - auto-centralized-client-bundles-10
+  - auto-centralized-client-bundles-11
+  - auto-centralized-client-bundles-12
+  - auto-centralized-client-bundles-13
+  - auto-centralized-client-bundles-14
+  - auto-centralized-client-bundles-15
+  - auto-centralized-client-bundles-16
+  - auto-centralized-client-bundles-2
+  - auto-centralized-client-bundles-3
+  - auto-centralized-client-bundles-4
+  - auto-centralized-client-bundles-5
+  - auto-centralized-client-bundles-6
+  - auto-centralized-client-bundles-7
+  - auto-centralized-client-bundles-8
+  - auto-centralized-client-bundles-9
+- query: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\
+    \u043D\u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 5) \u041F\u0440\u0430\
+    \u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043F\u0443\u0442\u044C\
+    \ \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u043A\u043B\u0438\u0435\
+    \u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043E\u0437\
+    \u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437 \u043E\u0434\u043D\u043E\
+    \u0433\u043E \u043C\u0435\u0441\u0442\u0430. integrate developer operator"
   expected_ids:
-  - auto-graphql-playground-2
-  - auto-graphql-playground-1
-- query: GraphQL query projects tasks fields selection
+  - auto-centralized-client-bundles-1
+  - auto-centralized-client-bundles-10
+  - auto-centralized-client-bundles-11
+  - auto-centralized-client-bundles-12
+  - auto-centralized-client-bundles-13
+  - auto-centralized-client-bundles-14
+  - auto-centralized-client-bundles-15
+  - auto-centralized-client-bundles-16
+  - auto-centralized-client-bundles-2
+  - auto-centralized-client-bundles-3
+  - auto-centralized-client-bundles-4
+  - auto-centralized-client-bundles-5
+  - auto-centralized-client-bundles-6
+  - auto-centralized-client-bundles-7
+  - auto-centralized-client-bundles-8
+  - auto-centralized-client-bundles-9
+- query: Choose a pipeline configuration Pick a pilot, full, or RAG-enabled bundle
+    and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+    configure beginner practitioner
   expected_ids:
-  - auto-graphql-playground-2
-- query: GraphQL mutations createProject updateProject
+  - auto-choose-pipeline-configuration-1
+  - auto-choose-pipeline-configuration-2
+  - auto-choose-pipeline-configuration-3
+  - auto-choose-pipeline-configuration-4
+  - auto-choose-pipeline-configuration-5
+- query: Configure Ask AI module Enable or disable Ask AI, set provider and billing
+    mode, and verify configuration in five steps for beginner operators. configure
+    practitioner developer
   expected_ids:
-  - auto-graphql-playground-2
-- query: GraphQL schema types Project Task User Priority status
+  - auto-configure-ask-ai-module-1
+  - auto-configure-ask-ai-module-2
+  - auto-configure-ask-ai-module-3
+  - auto-configure-ask-ai-module-4
+- query: Configure webhook triggers (Part 2) Set up and configure webhook trigger
+    nodes to start workflows from incoming HTTP requests with authentication. configure
+    secure practitioner developer
   expected_ids:
-  - auto-graphql-playground-2
-- query: GraphQL subscriptions real-time project notifications events
+  - auto-configure-webhook-trigger-1
+  - auto-configure-webhook-trigger-2
+  - auto-configure-webhook-trigger-3
+  - auto-configure-webhook-trigger-4
+- query: VeriDoc data processing agreement (Part 3) Data processing agreement for
+    VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms,
+    and breach notification procedures. integrate developer operator
   expected_ids:
-  - auto-graphql-playground-9
-- query: gRPC gateway invoke HTTP adapter ProjectService VeriOps
+  - auto-data-processing-agreement-1
+  - auto-data-processing-agreement-2
+  - auto-data-processing-agreement-3
+  - auto-data-processing-agreement-4
+  - auto-data-processing-agreement-5
+  - auto-data-processing-agreement-6
+  - auto-data-processing-agreement-7
+- query: Old Webhook API (Deprecated) This API is deprecated. Use the new Webhook
+    node instead. integrate developer operator
   expected_ids:
-  - auto-grpc-gateway-2
-  - auto-grpc-gateway-3
-- query: gRPC ListProjects GetProject CreateProject RPC methods
+  - auto-deprecated-example-1
+- query: GRPC API Reference Auto-generated grpc reference from source contract. integrate
+    developer operator
   expected_ids:
-  - auto-grpc-gateway-2
-  - auto-grpc-gateway-3
-- query: gRPC proto3 service definition veriops protobuf
+  - auto-grpc-api-1
+  - auto-grpc-api-2
+  - auto-grpc-api-3
+  - auto-grpc-api-4
+- query: Legal and compliance (Part 2) Legal documents for VeriDoc platform including
+    terms of service, privacy policy, data processing agreement, and security policy.
+    integrate developer operator
   expected_ids:
-  - auto-grpc-gateway-3
-  - auto-grpc-gateway-8
-- query: gRPC gateway sandbox interactive tester requests
-  expected_ids:
-  - auto-grpc-gateway-5
-- query: gRPC protobuf request response messages encoding
-  expected_ids:
-  - auto-grpc-gateway-2
-  - auto-grpc-gateway-3
-  - auto-grpc-gateway-8
-- query: AsyncAPI event docs channels delivery semantics AMQP
-  expected_ids:
-  - auto-asyncapi-events-7
-  - auto-asyncapi-events-2
-  - auto-asyncapi-events-10
-- query: AsyncAPI event-driven project updates messages broker
-  expected_ids:
-  - auto-asyncapi-events-7
-  - auto-asyncapi-events-6
-- query: AsyncAPI message payload schema validation topics
-  expected_ids:
-  - auto-asyncapi-events-4
-  - auto-asyncapi-events-5
-- query: AsyncAPI channel subscribe publish RabbitMQ exchange
-  expected_ids:
-  - auto-asyncapi-events-6
-  - auto-asyncapi-events-2
-- query: AsyncAPI sandbox test event publishing payload
-  expected_ids:
-  - auto-asyncapi-events-8
-  - auto-asyncapi-events-10
-  - auto-asyncapi-events-11
-- query: tutorial launch first VeriOps API integration 15 minutes
-  expected_ids:
-  - auto-tutorial-1
-  - auto-tutorial-6
-  - auto-tutorial-4
-- query: tutorial verify API key authentication Bearer token
-  expected_ids:
-  - auto-tutorial-3
-- query: tutorial create project REST POST endpoint response
-  expected_ids:
-  - auto-tutorial-4
-- query: tutorial query project GraphQL custom field selection
-  expected_ids:
-  - auto-tutorial-5
-- query: tutorial WebSocket subscribe real-time events Node.js script
-  expected_ids:
-  - auto-tutorial-6
-  - auto-tutorial-7
-- query: concept pipeline-first documentation lifecycle automated generation
-  expected_ids:
-  - auto-concept-6
-  - auto-concept-9
-  - auto-concept-4
-- query: documentation drift quality inconsistency multi-protocol coverage
-  expected_ids:
-  - auto-concept-9
-- query: pipeline stages ingest lint regression generate quality publish
-  expected_ids:
-  - auto-concept-10
-- query: quality gate 24 automated checks GEO SEO style contract
-  expected_ids:
-  - auto-concept-4
-- query: RAG optimize knowledge retrieval FAISS vector hybrid search reranking
-  expected_ids:
-  - auto-concept-5
-- query: how-to keep docs aligned every release pipeline workflow
-  expected_ids:
-  - auto-how-to-3
-  - auto-how-to-5
-- query: how-to run pipeline release day validate contracts
-  expected_ids:
-  - auto-how-to-3
-  - auto-how-to-5
-  - auto-how-to-4
-- query: how-to validate contracts five protocols lint check
-  expected_ids:
-  - auto-how-to-5
-  - auto-how-to-6
-  - auto-how-to-1
-- query: how-to review manifest approve documentation artifacts
-  expected_ids:
-  - auto-how-to-5
-  - auto-how-to-1
-- query: how-to publish pipeline artifacts documentation site deploy
-  expected_ids:
-  - auto-how-to-5
-- query: troubleshooting common VeriOps pipeline issues failures errors
-  expected_ids:
-  - auto-troubleshooting-1
-  - auto-troubleshooting-2
-  - auto-troubleshooting-7
-- query: troubleshooting pipeline stage fails contract validation error fix
-  expected_ids:
-  - auto-troubleshooting-2
-  - auto-troubleshooting-5
-  - auto-troubleshooting-1
-- query: troubleshooting quality gate check failures GEO SEO heading
-  expected_ids:
-  - auto-troubleshooting-7
-  - auto-troubleshooting-4
-- query: troubleshooting retrieval precision recall low scores improve
-  expected_ids:
-  - auto-troubleshooting-7
-  - auto-troubleshooting-9
-- query: troubleshooting broken links stale pages detection scan
-  expected_ids:
-  - auto-troubleshooting-1
-- query: quality evidence gate results metrics documentation report
-  expected_ids:
-  - auto-evidence-10
-- query: quality score metadata completeness freshness stale pages
-  expected_ids:
-  - auto-evidence-9
-- query: GEO SEO check results per page evidence report scores
-  expected_ids:
-  - auto-evidence-3
-  - auto-evidence-5
-- query: protocol gate validation REST GraphQL gRPC contract evidence
-  expected_ids:
-  - auto-evidence-10
-- query: knowledge graph retrieval index evidence nodes edges modules
-  expected_ids:
-  - auto-evidence-7
-- query: VeriOps API platform architecture interactive diagram layers
-  expected_ids:
-  - auto-architecture-overview-5
-  - auto-architecture-overview-3
-  - auto-architecture-overview-1
-- query: architecture microservices Auth Project Task Notification Service
-  expected_ids:
-  - auto-architecture-overview-2
-  - auto-architecture-overview-5
-- query: architecture data layer PostgreSQL Redis RabbitMQ Object Storage
-  expected_ids:
-  - auto-architecture-overview-4
-  - auto-architecture-overview-3
-  - auto-architecture-overview-1
-- query: architecture API gateway layer five protocols endpoints
-  expected_ids:
-  - auto-architecture-overview-3
-  - auto-architecture-overview-1
-- query: architecture request flow layers CDN WAF Rate Limiter security
-  expected_ids:
-  - auto-architecture-overview-4
-  - auto-architecture-overview-5
-  - auto-architecture-overview-3
-- query: VeriOps documentation KPI dashboard quality score metrics
-  expected_ids:
-  - auto-index-2
   - auto-index-1
-  - auto-index-3
-- query: VeriOps supported protocols REST GraphQL gRPC AsyncAPI WebSocket pipeline
+  - auto-index-2
+- query: Intelligent knowledge system architecture (Part 2) Explains how the pipeline
+    models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel
+    documentation delivery. configure integrate secure developer operator
   expected_ids:
-  - auto-index-7
-- query: VeriOps pipeline execution summary completed stages artifacts
+  - auto-intelligent-knowledge-system-1
+  - auto-intelligent-knowledge-system-2
+  - auto-intelligent-knowledge-system-3
+  - auto-intelligent-knowledge-system-4
+  - auto-intelligent-knowledge-system-5
+  - auto-intelligent-knowledge-system-6
+- query: Migrate documentation from Confluence Import Confluence pages into the documentation
+    pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.
+    configure practitioner developer
   expected_ids:
-  - auto-index-3
-- query: VeriOps automated detection drift repair autofix regression
+  - auto-migrate-from-confluence-1
+  - auto-migrate-from-confluence-2
+  - auto-migrate-from-confluence-3
+  - auto-migrate-from-confluence-4
+  - auto-migrate-from-confluence-5
+  - auto-migrate-from-confluence-6
+  - auto-migrate-from-confluence-7
+  - auto-migrate-from-confluence-8
+- query: Migrate documentation from Confluence (Part 6) Import Confluence pages into
+    the documentation pipeline with automatic quality enhancement, SEO optimization,
+    and knowledge extraction. configure troubleshoot practitioner developer
   expected_ids:
-  - auto-index-5
-- query: VeriOps RAG retrieval pipeline knowledge graph modules embeddings
+  - auto-migrate-from-confluence-1
+  - auto-migrate-from-confluence-2
+  - auto-migrate-from-confluence-3
+  - auto-migrate-from-confluence-4
+  - auto-migrate-from-confluence-5
+  - auto-migrate-from-confluence-6
+  - auto-migrate-from-confluence-7
+  - auto-migrate-from-confluence-8
+- query: Multi-Protocol Architecture (Part 3) Unified docs-ops pipeline for REST,
+    GraphQL, gRPC, AsyncAPI, and WebSocket. integrate developer operator
   expected_ids:
-  - auto-index-6
+  - auto-multi-protocol-architecture-1
+  - auto-multi-protocol-architecture-2
+  - auto-multi-protocol-architecture-3
+  - auto-multi-protocol-architecture-4
+  - auto-multi-protocol-architecture-5
+  - auto-multi-protocol-architecture-6
+- query: Multi-Protocol Wizard Guide (Part 2) Wizard UX for protocol-aware provisioning
+    in VeriDoc and VeriOps. configure integrate practitioner developer
+  expected_ids:
+  - auto-multi-protocol-wizard-guide-1
+  - auto-multi-protocol-wizard-guide-2
+  - auto-multi-protocol-wizard-guide-3
+  - auto-multi-protocol-wizard-guide-4
+  - auto-multi-protocol-wizard-guide-5
+  - auto-multi-protocol-wizard-guide-6
+- query: Network transparency reference Complete list of all outgoing network requests
+    the pipeline makes, with exact payload schemas. No client data leaves your network.
+    integrate developer operator
+  expected_ids:
+  - auto-network-transparency-1
+  - auto-network-transparency-2
+  - auto-network-transparency-3
+  - auto-network-transparency-4
+  - auto-network-transparency-5
+  - auto-network-transparency-6
+  - auto-network-transparency-7
+  - auto-network-transparency-8
+  - auto-network-transparency-9
+- query: Network transparency reference (Part 6) Complete list of all outgoing network
+    requests the pipeline makes, with exact payload schemas. No client data leaves
+    your network. integrate developer operator
+  expected_ids:
+  - auto-network-transparency-1
+  - auto-network-transparency-2
+  - auto-network-transparency-3
+  - auto-network-transparency-4
+  - auto-network-transparency-5
+  - auto-network-transparency-6
+  - auto-network-transparency-7
+  - auto-network-transparency-8
+  - auto-network-transparency-9
+- query: Operator Runbook (Retainer Operations) (Part 10) Step-by-step instructions
+    for weekly report review, client questions, new repo setup, and profile tuning.
+    configure practitioner developer
+  expected_ids:
+  - auto-operator-runbook-1
+  - auto-operator-runbook-10
+  - auto-operator-runbook-11
+  - auto-operator-runbook-12
+  - auto-operator-runbook-13
+  - auto-operator-runbook-14
+  - auto-operator-runbook-15
+  - auto-operator-runbook-16
+  - auto-operator-runbook-17
+  - auto-operator-runbook-18
+  - auto-operator-runbook-19
+  - auto-operator-runbook-2
+  - auto-operator-runbook-20
+  - auto-operator-runbook-21
+  - auto-operator-runbook-22
+  - auto-operator-runbook-23
+  - auto-operator-runbook-24
+  - auto-operator-runbook-3
+  - auto-operator-runbook-4
+  - auto-operator-runbook-5
+  - auto-operator-runbook-6
+  - auto-operator-runbook-7
+  - auto-operator-runbook-8
+  - auto-operator-runbook-9
+- query: Operator Runbook (Retainer Operations) (Part 15) Step-by-step instructions
+    for weekly report review, client questions, new repo setup, and profile tuning.
+    configure practitioner developer
+  expected_ids:
+  - auto-operator-runbook-1
+  - auto-operator-runbook-10
+  - auto-operator-runbook-11
+  - auto-operator-runbook-12
+  - auto-operator-runbook-13
+  - auto-operator-runbook-14
+  - auto-operator-runbook-15
+  - auto-operator-runbook-16
+  - auto-operator-runbook-17
+  - auto-operator-runbook-18
+  - auto-operator-runbook-19
+  - auto-operator-runbook-2
+  - auto-operator-runbook-20
+  - auto-operator-runbook-21
+  - auto-operator-runbook-22
+  - auto-operator-runbook-23
+  - auto-operator-runbook-24
+  - auto-operator-runbook-3
+  - auto-operator-runbook-4
+  - auto-operator-runbook-5
+  - auto-operator-runbook-6
+  - auto-operator-runbook-7
+  - auto-operator-runbook-8
+  - auto-operator-runbook-9
+- query: Operator Runbook (Retainer Operations) (Part 2) Step-by-step instructions
+    for weekly report review, client questions, new repo setup, and profile tuning.
+    configure practitioner developer
+  expected_ids:
+  - auto-operator-runbook-1
+  - auto-operator-runbook-10
+  - auto-operator-runbook-11
+  - auto-operator-runbook-12
+  - auto-operator-runbook-13
+  - auto-operator-runbook-14
+  - auto-operator-runbook-15
+  - auto-operator-runbook-16
+  - auto-operator-runbook-17
+  - auto-operator-runbook-18
+  - auto-operator-runbook-19
+  - auto-operator-runbook-2
+  - auto-operator-runbook-20
+  - auto-operator-runbook-21
+  - auto-operator-runbook-22
+  - auto-operator-runbook-23
+  - auto-operator-runbook-24
+  - auto-operator-runbook-3
+  - auto-operator-runbook-4
+  - auto-operator-runbook-5
+  - auto-operator-runbook-6
+  - auto-operator-runbook-7
+  - auto-operator-runbook-8
+  - auto-operator-runbook-9
+- query: Operator Runbook (Retainer Operations) (Part 24) Step-by-step instructions
+    for weekly report review, client questions, new repo setup, and profile tuning.
+    configure integrate practitioner developer
+  expected_ids:
+  - auto-operator-runbook-1
+  - auto-operator-runbook-10
+  - auto-operator-runbook-11
+  - auto-operator-runbook-12
+  - auto-operator-runbook-13
+  - auto-operator-runbook-14
+  - auto-operator-runbook-15
+  - auto-operator-runbook-16
+  - auto-operator-runbook-17
+  - auto-operator-runbook-18
+  - auto-operator-runbook-19
+  - auto-operator-runbook-2
+  - auto-operator-runbook-20
+  - auto-operator-runbook-21
+  - auto-operator-runbook-22
+  - auto-operator-runbook-23
+  - auto-operator-runbook-24
+  - auto-operator-runbook-3
+  - auto-operator-runbook-4
+  - auto-operator-runbook-5
+  - auto-operator-runbook-6
+  - auto-operator-runbook-7
+  - auto-operator-runbook-8
+  - auto-operator-runbook-9
+- query: Operator Runbook (Retainer Operations) (Part 7) Step-by-step instructions
+    for weekly report review, client questions, new repo setup, and profile tuning.
+    configure practitioner developer
+  expected_ids:
+  - auto-operator-runbook-1
+  - auto-operator-runbook-10
+  - auto-operator-runbook-11
+  - auto-operator-runbook-12
+  - auto-operator-runbook-13
+  - auto-operator-runbook-14
+  - auto-operator-runbook-15
+  - auto-operator-runbook-16
+  - auto-operator-runbook-17
+  - auto-operator-runbook-18
+  - auto-operator-runbook-19
+  - auto-operator-runbook-2
+  - auto-operator-runbook-20
+  - auto-operator-runbook-21
+  - auto-operator-runbook-22
+  - auto-operator-runbook-23
+  - auto-operator-runbook-24
+  - auto-operator-runbook-3
+  - auto-operator-runbook-4
+  - auto-operator-runbook-5
+  - auto-operator-runbook-6
+  - auto-operator-runbook-7
+  - auto-operator-runbook-8
+  - auto-operator-runbook-9
+- query: Pipeline Capabilities Catalog (Part 11) Generated catalog of available pipeline
+    commands, templates, policy packs, and assets for client configuration. integrate
+    secure troubleshoot developer operator
+  expected_ids:
+  - auto-pipeline-capabilities-catalog-1
+  - auto-pipeline-capabilities-catalog-10
+  - auto-pipeline-capabilities-catalog-11
+  - auto-pipeline-capabilities-catalog-12
+  - auto-pipeline-capabilities-catalog-13
+  - auto-pipeline-capabilities-catalog-14
+  - auto-pipeline-capabilities-catalog-15
+  - auto-pipeline-capabilities-catalog-16
+  - auto-pipeline-capabilities-catalog-17
+  - auto-pipeline-capabilities-catalog-18
+  - auto-pipeline-capabilities-catalog-2
+  - auto-pipeline-capabilities-catalog-3
+  - auto-pipeline-capabilities-catalog-4
+  - auto-pipeline-capabilities-catalog-5
+  - auto-pipeline-capabilities-catalog-6
+  - auto-pipeline-capabilities-catalog-7
+  - auto-pipeline-capabilities-catalog-8
+  - auto-pipeline-capabilities-catalog-9
+- query: Pipeline Capabilities Catalog (Part 16) Generated catalog of available pipeline
+    commands, templates, policy packs, and assets for client configuration. integrate
+    secure troubleshoot developer operator
+  expected_ids:
+  - auto-pipeline-capabilities-catalog-1
+  - auto-pipeline-capabilities-catalog-10
+  - auto-pipeline-capabilities-catalog-11
+  - auto-pipeline-capabilities-catalog-12
+  - auto-pipeline-capabilities-catalog-13
+  - auto-pipeline-capabilities-catalog-14
+  - auto-pipeline-capabilities-catalog-15
+  - auto-pipeline-capabilities-catalog-16
+  - auto-pipeline-capabilities-catalog-17
+  - auto-pipeline-capabilities-catalog-18
+  - auto-pipeline-capabilities-catalog-2
+  - auto-pipeline-capabilities-catalog-3
+  - auto-pipeline-capabilities-catalog-4
+  - auto-pipeline-capabilities-catalog-5
+  - auto-pipeline-capabilities-catalog-6
+  - auto-pipeline-capabilities-catalog-7
+  - auto-pipeline-capabilities-catalog-8
+  - auto-pipeline-capabilities-catalog-9
+- query: Pipeline Capabilities Catalog (Part 4) Generated catalog of available pipeline
+    commands, templates, policy packs, and assets for client configuration. integrate
+    troubleshoot developer operator
+  expected_ids:
+  - auto-pipeline-capabilities-catalog-1
+  - auto-pipeline-capabilities-catalog-10
+  - auto-pipeline-capabilities-catalog-11
+  - auto-pipeline-capabilities-catalog-12
+  - auto-pipeline-capabilities-catalog-13
+  - auto-pipeline-capabilities-catalog-14
+  - auto-pipeline-capabilities-catalog-15
+  - auto-pipeline-capabilities-catalog-16
+  - auto-pipeline-capabilities-catalog-17
+  - auto-pipeline-capabilities-catalog-18
+  - auto-pipeline-capabilities-catalog-2
+  - auto-pipeline-capabilities-catalog-3
+  - auto-pipeline-capabilities-catalog-4
+  - auto-pipeline-capabilities-catalog-5
+  - auto-pipeline-capabilities-catalog-6
+  - auto-pipeline-capabilities-catalog-7
+  - auto-pipeline-capabilities-catalog-8
+  - auto-pipeline-capabilities-catalog-9
+- query: Pipeline Capabilities Catalog (Part 9) Generated catalog of available pipeline
+    commands, templates, policy packs, and assets for client configuration. integrate
+    troubleshoot developer operator
+  expected_ids:
+  - auto-pipeline-capabilities-catalog-1
+  - auto-pipeline-capabilities-catalog-10
+  - auto-pipeline-capabilities-catalog-11
+  - auto-pipeline-capabilities-catalog-12
+  - auto-pipeline-capabilities-catalog-13
+  - auto-pipeline-capabilities-catalog-14
+  - auto-pipeline-capabilities-catalog-15
+  - auto-pipeline-capabilities-catalog-16
+  - auto-pipeline-capabilities-catalog-17
+  - auto-pipeline-capabilities-catalog-18
+  - auto-pipeline-capabilities-catalog-2
+  - auto-pipeline-capabilities-catalog-3
+  - auto-pipeline-capabilities-catalog-4
+  - auto-pipeline-capabilities-catalog-5
+  - auto-pipeline-capabilities-catalog-6
+  - auto-pipeline-capabilities-catalog-7
+  - auto-pipeline-capabilities-catalog-8
+  - auto-pipeline-capabilities-catalog-9
+- query: How pipeline configurations compose (Part 5) Learn how the pipeline combines
+    rollout scope and LLM execution mode so bundles stay aligned with proof, full,
+    and RAG-enabled delivery. integrate developer operator
+  expected_ids:
+  - auto-pipeline-configuration-combinations-1
+  - auto-pipeline-configuration-combinations-2
+  - auto-pipeline-configuration-combinations-3
+  - auto-pipeline-configuration-combinations-4
+  - auto-pipeline-configuration-combinations-5
+- query: Pipeline configuration reference (Part 5) Exact preset, module, and llm_control
+    values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+    integrate developer operator
+  expected_ids:
+  - auto-pipeline-configuration-reference-1
+  - auto-pipeline-configuration-reference-2
+  - auto-pipeline-configuration-reference-3
+  - auto-pipeline-configuration-reference-4
+  - auto-pipeline-configuration-reference-5
+- query: Plan Tiers (Basic / Pro / Enterprise) (Part 13) Feature packaging matrix
+    and defaults for Basic, Pro, and Enterprise client plans. integrate developer
+    operator
+  expected_ids:
+  - auto-plan-tiers-1
+  - auto-plan-tiers-10
+  - auto-plan-tiers-11
+  - auto-plan-tiers-12
+  - auto-plan-tiers-13
+  - auto-plan-tiers-14
+  - auto-plan-tiers-2
+  - auto-plan-tiers-3
+  - auto-plan-tiers-4
+  - auto-plan-tiers-5
+  - auto-plan-tiers-6
+  - auto-plan-tiers-7
+  - auto-plan-tiers-8
+  - auto-plan-tiers-9
+- query: Plan Tiers (Basic / Pro / Enterprise) (Part 5) Feature packaging matrix and
+    defaults for Basic, Pro, and Enterprise client plans. integrate troubleshoot developer
+    operator
+  expected_ids:
+  - auto-plan-tiers-1
+  - auto-plan-tiers-10
+  - auto-plan-tiers-11
+  - auto-plan-tiers-12
+  - auto-plan-tiers-13
+  - auto-plan-tiers-14
+  - auto-plan-tiers-2
+  - auto-plan-tiers-3
+  - auto-plan-tiers-4
+  - auto-plan-tiers-5
+  - auto-plan-tiers-6
+  - auto-plan-tiers-7
+  - auto-plan-tiers-8
+  - auto-plan-tiers-9
+- query: VeriDoc privacy policy Privacy policy for VeriDoc automated documentation
+    platform, covering data collection, processing, storage, retention, and your rights
+    under GDPR. integrate secure developer operator
+  expected_ids:
+  - auto-privacy-policy-1
+  - auto-privacy-policy-2
+  - auto-privacy-policy-3
+  - auto-privacy-policy-4
+  - auto-privacy-policy-5
+  - auto-privacy-policy-6
+  - auto-privacy-policy-7
+- query: VeriDoc privacy policy (Part 6) Privacy policy for VeriDoc automated documentation
+    platform, covering data collection, processing, storage, retention, and your rights
+    under GDPR. integrate troubleshoot developer operator
+  expected_ids:
+  - auto-privacy-policy-1
+  - auto-privacy-policy-2
+  - auto-privacy-policy-3
+  - auto-privacy-policy-4
+  - auto-privacy-policy-5
+  - auto-privacy-policy-6
+  - auto-privacy-policy-7
+- query: Run API-first production flow Generate OpenAPI from planning notes, run full
+    lint and self-verification, publish playground assets, and keep a sandbox ready
+    for client testing. configure practitioner developer
+  expected_ids:
+  - auto-run-api-first-production-flow-1
+  - auto-run-api-first-production-flow-10
+  - auto-run-api-first-production-flow-11
+  - auto-run-api-first-production-flow-2
+  - auto-run-api-first-production-flow-3
+  - auto-run-api-first-production-flow-4
+  - auto-run-api-first-production-flow-5
+  - auto-run-api-first-production-flow-6
+  - auto-run-api-first-production-flow-7
+  - auto-run-api-first-production-flow-8
+  - auto-run-api-first-production-flow-9
+- query: Run API-first production flow (Part 4) Generate OpenAPI from planning notes,
+    run full lint and self-verification, publish playground assets, and keep a sandbox
+    ready for client testing. configure practitioner developer
+  expected_ids:
+  - auto-run-api-first-production-flow-1
+  - auto-run-api-first-production-flow-10
+  - auto-run-api-first-production-flow-11
+  - auto-run-api-first-production-flow-2
+  - auto-run-api-first-production-flow-3
+  - auto-run-api-first-production-flow-4
+  - auto-run-api-first-production-flow-5
+  - auto-run-api-first-production-flow-6
+  - auto-run-api-first-production-flow-7
+  - auto-run-api-first-production-flow-8
+  - auto-run-api-first-production-flow-9
+- query: Run API-first production flow (Part 9) Generate OpenAPI from planning notes,
+    run full lint and self-verification, publish playground assets, and keep a sandbox
+    ready for client testing. configure practitioner developer
+  expected_ids:
+  - auto-run-api-first-production-flow-1
+  - auto-run-api-first-production-flow-10
+  - auto-run-api-first-production-flow-11
+  - auto-run-api-first-production-flow-2
+  - auto-run-api-first-production-flow-3
+  - auto-run-api-first-production-flow-4
+  - auto-run-api-first-production-flow-5
+  - auto-run-api-first-production-flow-6
+  - auto-run-api-first-production-flow-7
+  - auto-run-api-first-production-flow-8
+  - auto-run-api-first-production-flow-9
+- query: VeriDoc security contact policy (Part 2) Security contact channels, response
+    times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability
+    reports. integrate secure developer operator
+  expected_ids:
+  - auto-security-contact-policy-1
+  - auto-security-contact-policy-2
+- query: VeriDoc security policy (Part 5) Security policy for VeriDoc platform covering
+    infrastructure security, encryption, authentication, access controls, and incident
+    response procedures. integrate troubleshoot developer operator
+  expected_ids:
+  - auto-security-policy-1
+  - auto-security-policy-2
+  - auto-security-policy-3
+  - auto-security-policy-4
+  - auto-security-policy-5
+  - auto-security-policy-6
+  - auto-security-policy-7
+- query: SEO/GEO Optimization Guide (Part 3) Comprehensive guide to SEO and GEO optimization
+    in the documentation pipeline integrate troubleshoot developer operator
+  expected_ids:
+  - auto-seo-guide-1
+  - auto-seo-guide-2
+  - auto-seo-guide-3
+  - auto-seo-guide-4
+  - auto-seo-guide-5
+  - auto-seo-guide-6
+- query: Set up a real-time webhook processing pipeline (Part 10) Configure end-to-end
+    webhook ingestion with HMAC verification, async queue processing, and delivery
+    guarantees in under 15 minutes. configure practitioner developer
+  expected_ids:
+  - auto-set-up-real-time-webhook-processing-pipeline-1
+  - auto-set-up-real-time-webhook-processing-pipeline-10
+  - auto-set-up-real-time-webhook-processing-pipeline-11
+  - auto-set-up-real-time-webhook-processing-pipeline-12
+  - auto-set-up-real-time-webhook-processing-pipeline-13
+  - auto-set-up-real-time-webhook-processing-pipeline-14
+  - auto-set-up-real-time-webhook-processing-pipeline-15
+  - auto-set-up-real-time-webhook-processing-pipeline-2
+  - auto-set-up-real-time-webhook-processing-pipeline-3
+  - auto-set-up-real-time-webhook-processing-pipeline-4
+  - auto-set-up-real-time-webhook-processing-pipeline-5
+  - auto-set-up-real-time-webhook-processing-pipeline-6
+  - auto-set-up-real-time-webhook-processing-pipeline-7
+  - auto-set-up-real-time-webhook-processing-pipeline-8
+  - auto-set-up-real-time-webhook-processing-pipeline-9
+- query: Set up a real-time webhook processing pipeline (Part 15) Configure end-to-end
+    webhook ingestion with HMAC verification, async queue processing, and delivery
+    guarantees in under 15 minutes. configure practitioner developer
+  expected_ids:
+  - auto-set-up-real-time-webhook-processing-pipeline-1
+  - auto-set-up-real-time-webhook-processing-pipeline-10
+  - auto-set-up-real-time-webhook-processing-pipeline-11
+  - auto-set-up-real-time-webhook-processing-pipeline-12
+  - auto-set-up-real-time-webhook-processing-pipeline-13
+  - auto-set-up-real-time-webhook-processing-pipeline-14
+  - auto-set-up-real-time-webhook-processing-pipeline-15
+  - auto-set-up-real-time-webhook-processing-pipeline-2
+  - auto-set-up-real-time-webhook-processing-pipeline-3
+  - auto-set-up-real-time-webhook-processing-pipeline-4
+  - auto-set-up-real-time-webhook-processing-pipeline-5
+  - auto-set-up-real-time-webhook-processing-pipeline-6
+  - auto-set-up-real-time-webhook-processing-pipeline-7
+  - auto-set-up-real-time-webhook-processing-pipeline-8
+  - auto-set-up-real-time-webhook-processing-pipeline-9
+- query: Set up a real-time webhook processing pipeline (Part 6) Configure end-to-end
+    webhook ingestion with HMAC verification, async queue processing, and delivery
+    guarantees in under 15 minutes. configure practitioner developer
+  expected_ids:
+  - auto-set-up-real-time-webhook-processing-pipeline-1
+  - auto-set-up-real-time-webhook-processing-pipeline-10
+  - auto-set-up-real-time-webhook-processing-pipeline-11
+  - auto-set-up-real-time-webhook-processing-pipeline-12
+  - auto-set-up-real-time-webhook-processing-pipeline-13
+  - auto-set-up-real-time-webhook-processing-pipeline-14
+  - auto-set-up-real-time-webhook-processing-pipeline-15
+  - auto-set-up-real-time-webhook-processing-pipeline-2
+  - auto-set-up-real-time-webhook-processing-pipeline-3
+  - auto-set-up-real-time-webhook-processing-pipeline-4
+  - auto-set-up-real-time-webhook-processing-pipeline-5
+  - auto-set-up-real-time-webhook-processing-pipeline-6
+  - auto-set-up-real-time-webhook-processing-pipeline-7
+  - auto-set-up-real-time-webhook-processing-pipeline-8
+  - auto-set-up-real-time-webhook-processing-pipeline-9
+- query: Smart Merge and Manual Review (Part 2) How needs_review works for protocol
+    test assets and where operators review flagged cases. configure practitioner developer
+  expected_ids:
+  - auto-smart-merge-review-1
+  - auto-smart-merge-review-2
+  - auto-smart-merge-review-3
+  - auto-smart-merge-review-4
+- query: TaskStream API playground (Part 2) Interactive TaskStream OpenAPI playground
+    with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox
+    endpoints. integrate developer operator
+  expected_ids:
+  - auto-taskstream-api-playground-1
+  - auto-taskstream-api-playground-2
+  - auto-taskstream-api-playground-3
+- query: VeriDoc terms of service (Part 3) Terms of service governing the use of VeriDoc
+    automated documentation platform, including subscription tiers, usage limits,
+    and acceptable use policies. integrate developer operator
+  expected_ids:
+  - auto-terms-of-service-1
+  - auto-terms-of-service-2
+  - auto-terms-of-service-3
+  - auto-terms-of-service-4
+  - auto-terms-of-service-5
+- query: Unified Client Configuration (Part 11) Single source of truth for per-client
+    Auto-Doc Pipeline configuration, modules, and automation. integrate developer
+    operator
+  expected_ids:
+  - auto-unified-client-config-1
+  - auto-unified-client-config-10
+  - auto-unified-client-config-11
+  - auto-unified-client-config-12
+  - auto-unified-client-config-13
+  - auto-unified-client-config-14
+  - auto-unified-client-config-15
+  - auto-unified-client-config-16
+  - auto-unified-client-config-17
+  - auto-unified-client-config-18
+  - auto-unified-client-config-19
+  - auto-unified-client-config-2
+  - auto-unified-client-config-20
+  - auto-unified-client-config-21
+  - auto-unified-client-config-22
+  - auto-unified-client-config-23
+  - auto-unified-client-config-24
+  - auto-unified-client-config-25
+  - auto-unified-client-config-26
+  - auto-unified-client-config-27
+  - auto-unified-client-config-28
+  - auto-unified-client-config-29
+  - auto-unified-client-config-3
+  - auto-unified-client-config-30
+  - auto-unified-client-config-31
+  - auto-unified-client-config-4
+  - auto-unified-client-config-5
+  - auto-unified-client-config-6
+  - auto-unified-client-config-7
+  - auto-unified-client-config-8
+  - auto-unified-client-config-9
+- query: Unified Client Configuration (Part 16) Single source of truth for per-client
+    Auto-Doc Pipeline configuration, modules, and automation. integrate developer
+    operator
+  expected_ids:
+  - auto-unified-client-config-1
+  - auto-unified-client-config-10
+  - auto-unified-client-config-11
+  - auto-unified-client-config-12
+  - auto-unified-client-config-13
+  - auto-unified-client-config-14
+  - auto-unified-client-config-15
+  - auto-unified-client-config-16
+  - auto-unified-client-config-17
+  - auto-unified-client-config-18
+  - auto-unified-client-config-19
+  - auto-unified-client-config-2
+  - auto-unified-client-config-20
+  - auto-unified-client-config-21
+  - auto-unified-client-config-22
+  - auto-unified-client-config-23
+  - auto-unified-client-config-24
+  - auto-unified-client-config-25
+  - auto-unified-client-config-26
+  - auto-unified-client-config-27
+  - auto-unified-client-config-28
+  - auto-unified-client-config-29
+  - auto-unified-client-config-3
+  - auto-unified-client-config-30
+  - auto-unified-client-config-31
+  - auto-unified-client-config-4
+  - auto-unified-client-config-5
+  - auto-unified-client-config-6
+  - auto-unified-client-config-7
+  - auto-unified-client-config-8
+  - auto-unified-client-config-9
+- query: Unified Client Configuration (Part 20) Single source of truth for per-client
+    Auto-Doc Pipeline configuration, modules, and automation. integrate troubleshoot
+    developer operator
+  expected_ids:
+  - auto-unified-client-config-1
+  - auto-unified-client-config-10
+  - auto-unified-client-config-11
+  - auto-unified-client-config-12
+  - auto-unified-client-config-13
+  - auto-unified-client-config-14
+  - auto-unified-client-config-15
+  - auto-unified-client-config-16
+  - auto-unified-client-config-17
+  - auto-unified-client-config-18
+  - auto-unified-client-config-19
+  - auto-unified-client-config-2
+  - auto-unified-client-config-20
+  - auto-unified-client-config-21
+  - auto-unified-client-config-22
+  - auto-unified-client-config-23
+  - auto-unified-client-config-24
+  - auto-unified-client-config-25
+  - auto-unified-client-config-26
+  - auto-unified-client-config-27
+  - auto-unified-client-config-28
+  - auto-unified-client-config-29
+  - auto-unified-client-config-3
+  - auto-unified-client-config-30
+  - auto-unified-client-config-31
+  - auto-unified-client-config-4
+  - auto-unified-client-config-5
+  - auto-unified-client-config-6
+  - auto-unified-client-config-7
+  - auto-unified-client-config-8
+  - auto-unified-client-config-9
+- query: Unified Client Configuration (Part 25) Single source of truth for per-client
+    Auto-Doc Pipeline configuration, modules, and automation. integrate troubleshoot
+    developer operator
+  expected_ids:
+  - auto-unified-client-config-1
+  - auto-unified-client-config-10
+  - auto-unified-client-config-11
+  - auto-unified-client-config-12
+  - auto-unified-client-config-13
+  - auto-unified-client-config-14
+  - auto-unified-client-config-15
+  - auto-unified-client-config-16
+  - auto-unified-client-config-17
+  - auto-unified-client-config-18
+  - auto-unified-client-config-19
+  - auto-unified-client-config-2
+  - auto-unified-client-config-20
+  - auto-unified-client-config-21
+  - auto-unified-client-config-22
+  - auto-unified-client-config-23
+  - auto-unified-client-config-24
+  - auto-unified-client-config-25
+  - auto-unified-client-config-26
+  - auto-unified-client-config-27
+  - auto-unified-client-config-28
+  - auto-unified-client-config-29
+  - auto-unified-client-config-3
+  - auto-unified-client-config-30
+  - auto-unified-client-config-31
+  - auto-unified-client-config-4
+  - auto-unified-client-config-5
+  - auto-unified-client-config-6
+  - auto-unified-client-config-7
+  - auto-unified-client-config-8
+  - auto-unified-client-config-9
+- query: Unified Client Configuration (Part 3) Single source of truth for per-client
+    Auto-Doc Pipeline configuration, modules, and automation. integrate secure developer
+    operator
+  expected_ids:
+  - auto-unified-client-config-1
+  - auto-unified-client-config-10
+  - auto-unified-client-config-11
+  - auto-unified-client-config-12
+  - auto-unified-client-config-13
+  - auto-unified-client-config-14
+  - auto-unified-client-config-15
+  - auto-unified-client-config-16
+  - auto-unified-client-config-17
+  - auto-unified-client-config-18
+  - auto-unified-client-config-19
+  - auto-unified-client-config-2
+  - auto-unified-client-config-20
+  - auto-unified-client-config-21
+  - auto-unified-client-config-22
+  - auto-unified-client-config-23
+  - auto-unified-client-config-24
+  - auto-unified-client-config-25
+  - auto-unified-client-config-26
+  - auto-unified-client-config-27
+  - auto-unified-client-config-28
+  - auto-unified-client-config-29
+  - auto-unified-client-config-3
+  - auto-unified-client-config-30
+  - auto-unified-client-config-31
+  - auto-unified-client-config-4
+  - auto-unified-client-config-5
+  - auto-unified-client-config-6
+  - auto-unified-client-config-7
+  - auto-unified-client-config-8
+  - auto-unified-client-config-9
+- query: Unified Client Configuration (Part 6) Single source of truth for per-client
+    Auto-Doc Pipeline configuration, modules, and automation. integrate developer
+    operator
+  expected_ids:
+  - auto-unified-client-config-1
+  - auto-unified-client-config-10
+  - auto-unified-client-config-11
+  - auto-unified-client-config-12
+  - auto-unified-client-config-13
+  - auto-unified-client-config-14
+  - auto-unified-client-config-15
+  - auto-unified-client-config-16
+  - auto-unified-client-config-17
+  - auto-unified-client-config-18
+  - auto-unified-client-config-19
+  - auto-unified-client-config-2
+  - auto-unified-client-config-20
+  - auto-unified-client-config-21
+  - auto-unified-client-config-22
+  - auto-unified-client-config-23
+  - auto-unified-client-config-24
+  - auto-unified-client-config-25
+  - auto-unified-client-config-26
+  - auto-unified-client-config-27
+  - auto-unified-client-config-28
+  - auto-unified-client-config-29
+  - auto-unified-client-config-3
+  - auto-unified-client-config-30
+  - auto-unified-client-config-31
+  - auto-unified-client-config-4
+  - auto-unified-client-config-5
+  - auto-unified-client-config-6
+  - auto-unified-client-config-7
+  - auto-unified-client-config-8
+  - auto-unified-client-config-9
+- query: Variables and Templates Guide (Part 2) How to use Jinja2 variables and templates
+    in documentation for consistency configure integrate developer operator
+  expected_ids:
+  - auto-variables-guide-1
+  - auto-variables-guide-2
+  - auto-variables-guide-3
+  - auto-variables-guide-4
+- query: Webhook node reference for (Part 3) Complete parameter reference for the
+    Webhook trigger node including HTTP methods, authentication, response modes, and
+    binary data handling. configure integrate secure developer operator
+  expected_ids:
+  - auto-webhook-1
+  - auto-webhook-2
+  - auto-webhook-3

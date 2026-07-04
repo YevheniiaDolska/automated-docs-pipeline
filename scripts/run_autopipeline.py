@@ -1189,8 +1189,19 @@ def main() -> int:
         reports_dir=reports_dir,
     )
 
-    _say("Done", "all outputs indexed for review")
-    narrator.finish(True, "All outputs indexed and ready for review")
+    missing_required = int(stage_summary.get("missing_required_artifacts", 0) or 0)
+    if rc == 0 and missing_required == 0:
+        _say("Done", "all outputs indexed for review")
+        narrator.finish(True, "All outputs indexed and ready for review")
+    else:
+        _say(
+            "Done with issues",
+            f"weekly rc={rc}, missing required artifacts={missing_required}; see {output_index}",
+        )
+        narrator.finish(
+            False,
+            f"Completed with issues: weekly rc={rc}, missing required artifacts={missing_required}",
+        )
     return rc
 
 
