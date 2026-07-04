@@ -82,9 +82,11 @@ class TestDegradedMode:
         lic = _community_license()
         assert lic.features.get("executive_audit_pdf", False) is False
 
-    def test_community_rest_only(self):
+    def test_community_no_protocol_pipelines(self):
+        # Community mode has no protocol automation (see PLAN_TIERS.md);
+        # protocol pipelines require at least a pilot license.
         lic = _community_license()
-        assert lic.protocols == ["rest"]
+        assert lic.protocols == []
 
 
 # -- Pilot tier ----------------------------------------------------------------

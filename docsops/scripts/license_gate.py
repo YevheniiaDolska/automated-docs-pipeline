@@ -211,16 +211,38 @@ class LicenseInfo:
     tenant_id: str = ""
     company_domain: str = ""
     raw_claims: dict[str, Any] = field(default_factory=dict)
+    # Permanently free grants from the signed JWT `free_features` /
+    # `free_protocols` claims. These survive expiry and community degradation.
+    free_features: list[str] = field(default_factory=list)
+    free_protocols: list[str] = field(default_factory=list)
 
 
-def _community_license(error: str = "") -> LicenseInfo:
-    """Return a community-mode license info object."""
+def _community_license(
+    error: str = "",
+    free_features: list[str] | None = None,
+    free_protocols: list[str] | None = None,
+    client_id: str = "",
+) -> LicenseInfo:
+    """Return a community-mode license info object.
+
+    Permanently free grants (from a signed license) survive community
+    degradation: features listed in the JWT `free_features` claim remain
+    enabled forever, regardless of payment status.
+    """
+    features = dict(COMMUNITY_FEATURES)
+    protocols = list(COMMUNITY_PROTOCOLS)
+    for feat in free_features or []:
+        features[str(feat)] = True
+    for proto in free_protocols or []:
+        normalized = str(proto).strip().lower()
+        if normalized and normalized not in protocols:
+            protocols.append(normalized)
     return LicenseInfo(
         valid=False,
         plan="community",
-        client_id="",
-        features=dict(COMMUNITY_FEATURES),
-        protocols=list(COMMUNITY_PROTOCOLS),
+        client_id=client_id,
+        features=features,
+        protocols=protocols,
         max_docs=0,
         offline_grace_days=0,
         expires_at=0,
@@ -228,6 +250,8 @@ def _community_license(error: str = "") -> LicenseInfo:
         error=error or "No valid license. Running in community mode.",
         tenant_id="",
         company_domain="",
+        free_features=sorted({str(f) for f in (free_features or [])}),
+        free_protocols=sorted({str(p).strip().lower() for p in (free_protocols or []) if str(p).strip()}),
     )
 
 
@@ -255,27 +279,35 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
     """Verify Ed25519 signature. Tries PyNaCl, then cryptography, then skip."""
     # Attempt 1: PyNaCl
     try:
+        from nacl.exceptions import CryptoError
         from nacl.signing import VerifyKey
-        vk = VerifyKey(public_key)
-        vk.verify(message, signature)
-        return True
     except ImportError:
         logger.debug("PyNaCl is not installed; trying cryptography fallback")
-    except (RuntimeError, ValueError, TypeError, OSError) as exc:
-        logger.debug("Ed25519 verification failed (PyNaCl): %s", exc)
-        return False
+    else:
+        try:
+            vk = VerifyKey(public_key)
+            vk.verify(message, signature)
+            return True
+        except (CryptoError, RuntimeError, ValueError, TypeError, OSError) as exc:
+            # CryptoError covers BadSignatureError: a bad signature must
+            # degrade to community mode, never crash validation.
+            logger.debug("Ed25519 verification failed (PyNaCl): %s", exc)
+            return False
 
     # Attempt 2: cryptography
     try:
+        from cryptography.exceptions import InvalidSignature
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
-        key = Ed25519PublicKey.from_public_bytes(public_key)
-        key.verify(signature, message)
-        return True
     except ImportError:
         logger.debug("cryptography is not installed; Ed25519 verification unavailable")
-    except (RuntimeError, ValueError, TypeError, OSError) as exc:
-        logger.debug("Ed25519 verification failed (cryptography): %s", exc)
-        return False
+    else:
+        try:
+            key = Ed25519PublicKey.from_public_bytes(public_key)
+            key.verify(signature, message)
+            return True
+        except (InvalidSignature, RuntimeError, ValueError, TypeError, OSError) as exc:
+            logger.debug("Ed25519 verification failed (cryptography): %s", exc)
+            return False
 
     # Attempt 3: if no crypto lib available, reject
     return False
@@ -344,11 +376,13 @@ def _repo_path_hash(repo_root: Path) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
-def _load_repo_binding(path: Path = REPO_BINDING_PATH) -> dict[str, Any]:
-    if not path.exists():
+def _load_repo_binding(path: Path | None = None) -> dict[str, Any]:
+    # Resolve the module constant at call time so tests can monkeypatch it.
+    binding_path = path if path is not None else REPO_BINDING_PATH
+    if not binding_path.exists():
         return {}
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(binding_path.read_text(encoding="utf-8"))
         return payload if isinstance(payload, dict) else {}
     except (OSError, json.JSONDecodeError, ValueError):
         return {}
@@ -362,11 +396,13 @@ def _save_repo_binding(payload: dict[str, Any], path: Path = REPO_BINDING_PATH) 
         logger.debug("Cannot write repo binding file %s: %s", path, exc)
 
 
-def _load_integrity_manifest(path: Path = INTEGRITY_MANIFEST_PATH) -> dict[str, Any]:
-    if not path.exists():
+def _load_integrity_manifest(path: Path | None = None) -> dict[str, Any]:
+    # Resolve the module constant at call time so tests can monkeypatch it.
+    manifest_path = path if path is not None else INTEGRITY_MANIFEST_PATH
+    if not manifest_path.exists():
         return {}
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
         return payload if isinstance(payload, dict) else {}
     except (OSError, json.JSONDecodeError, ValueError):
         return {}
@@ -697,6 +733,39 @@ def check_revocation(
 _phone_home_refreshing: bool = False
 
 
+# -- Permanent free grants and environment helpers ------------------------------
+
+
+def _is_vendor_repo() -> bool:
+    """True when running inside the VeriOps master/vendor repository.
+
+    The build/ tooling (license generator) is never distributed to clients,
+    so its presence marks the vendor development environment.
+    """
+    return (REPO_ROOT / "build" / "generate_license.py").exists()
+
+
+def _dev_bypass_allowed() -> bool:
+    """Whether the VERIOPS_LICENSE_PLAN env bypass is honored.
+
+    Allowed only in the vendor repo (dev/test) or when the bundle was
+    explicitly built as a free/dev bundle (docsops/.dev_mode marker).
+    Prevents paying clients from self-upgrading via an env variable.
+    """
+    if _is_vendor_repo():
+        return True
+    return (REPO_ROOT / "docsops" / ".dev_mode").exists()
+
+
+def _extract_free_grants(claims_obj: dict[str, Any]) -> tuple[list[str], list[str]]:
+    """Extract permanently free feature/protocol grants from JWT claims."""
+    raw_features = claims_obj.get("free_features", [])
+    raw_protocols = claims_obj.get("free_protocols", [])
+    features = [str(f).strip() for f in raw_features if str(f).strip()] if isinstance(raw_features, list) else []
+    protocols = [str(p).strip().lower() for p in raw_protocols if str(p).strip()] if isinstance(raw_protocols, list) else []
+    return features, protocols
+
+
 # -- License validation -------------------------------------------------------
 
 
@@ -713,8 +782,16 @@ def validate(
     """
     global _phone_home_refreshing
 
-    # Dev/test bypass: VERIOPS_LICENSE_PLAN=enterprise skips JWT validation
+    # Dev/test bypass: VERIOPS_LICENSE_PLAN=enterprise skips JWT validation.
+    # Honored only in the vendor repo or dev-mode bundles (see _dev_bypass_allowed).
     env_plan = os.environ.get("VERIOPS_LICENSE_PLAN", "").strip().lower()
+    if env_plan in PLAN_FEATURES and not _dev_bypass_allowed():
+        logger.warning(
+            "VERIOPS_LICENSE_PLAN=%s ignored: env bypass is not permitted in "
+            "licensed client bundles.",
+            env_plan,
+        )
+        env_plan = ""
     if env_plan in PLAN_FEATURES:
         return LicenseInfo(
             valid=True,
@@ -783,6 +860,11 @@ def validate(
             )
         return ""
 
+    # Signature is verified at this point: permanent free grants in the claims
+    # are trusted from here on. Anti-cloning binding failures still drop the
+    # grants (a moved/cloned bundle is not the licensed installation).
+    free_features, free_protocols = _extract_free_grants(claims)
+
     binding_error = _enforce_binding(claims)
     if binding_error:
         return _community_license(binding_error)
@@ -802,9 +884,13 @@ def validate(
     grace_seconds = grace_days * 86400
 
     if exp and now > exp + grace_seconds:
+        # Payment lapsed: degrade to community but keep permanently free grants.
         return _community_license(
             f"License expired (plan={plan}, expired at {exp}, "
-            f"grace {grace_days} days also elapsed)."
+            f"grace {grace_days} days also elapsed).",
+            free_features=free_features,
+            free_protocols=free_protocols,
+            client_id=str(claims.get("sub", "")),
         )
 
     expired_but_in_grace = bool(exp and now > exp)
@@ -825,9 +911,17 @@ def validate(
         if feat in plan_features:
             plan_features[feat] = bool(enabled)
 
+    # Permanently free grants always win: they stay enabled regardless of
+    # plan restrictions or later payment status.
+    for feat in free_features:
+        plan_features[feat] = True
+
     protocols = claims.get("protocols", PLAN_PROTOCOLS.get(plan, ["rest"]))
     if not isinstance(protocols, list):
         protocols = list(PLAN_PROTOCOLS.get(plan, ["rest"]))
+    for proto in free_protocols:
+        if proto not in protocols:
+            protocols.append(proto)
 
     max_docs = int(claims.get("max_docs", 0))
     days_remaining = max(0, int((exp - now) / 86400)) if exp else 9999
@@ -870,7 +964,13 @@ def validate(
         current_time=current_time,
     )
     if revoked:
-        return _community_license(f"License revoked by server policy: {revoke_reason}")
+        # Revocation removes paid entitlements but keeps permanently free grants.
+        return _community_license(
+            f"License revoked by server policy: {revoke_reason}",
+            free_features=free_features,
+            free_protocols=free_protocols,
+            client_id=client_id,
+        )
 
     return LicenseInfo(
         valid=True,
@@ -886,6 +986,8 @@ def validate(
         tenant_id=tenant_id,
         company_domain=company_domain,
         raw_claims=claims,
+        free_features=sorted(set(free_features)),
+        free_protocols=sorted(set(free_protocols)),
     )
 
 
@@ -1018,27 +1120,50 @@ def _collect_proprietary_cleanup_targets() -> dict[str, list[str]]:
     }
 
 
+def _run_pilot_expiry_cleanup(info: LicenseInfo) -> None:
+    """Run proprietary-asset cleanup after pilot expiry, with safety guards.
+
+    Never destructive in the vendor/master repository, and never destructive
+    when the license carries permanently free grants (their scripts must
+    survive degradation).
+    """
+    if _is_vendor_repo():
+        logger.debug("Pilot expiry cleanup skipped: vendor repository.")
+        return
+    if info.free_features or info.free_protocols:
+        logger.info(
+            "Pilot expiry cleanup skipped: license carries permanent free grants."
+        )
+        return
+    _remove_paid_llm_instruction_files()
+    _remove_proprietary_assets_after_expiry()
+
+
 def _effective_plan(info: LicenseInfo) -> str:
     if _pilot_trial_expired(info):
-        _remove_paid_llm_instruction_files()
-        _remove_proprietary_assets_after_expiry()
+        _run_pilot_expiry_cleanup(info)
         return "community"
     return info.plan
 
 
 def _effective_features(info: LicenseInfo) -> dict[str, bool]:
     if _pilot_trial_expired(info):
-        _remove_paid_llm_instruction_files()
-        _remove_proprietary_assets_after_expiry()
-        return dict(COMMUNITY_FEATURES)
+        _run_pilot_expiry_cleanup(info)
+        features = dict(COMMUNITY_FEATURES)
+        for feat in info.free_features:
+            features[feat] = True
+        return features
     return dict(info.features)
 
 
 def _effective_protocols(info: LicenseInfo) -> list[str]:
     if _pilot_trial_expired(info):
-        _remove_paid_llm_instruction_files()
-        _remove_proprietary_assets_after_expiry()
-        return list(COMMUNITY_PROTOCOLS)
+        _run_pilot_expiry_cleanup(info)
+        protocols = list(COMMUNITY_PROTOCOLS)
+        for proto in info.free_protocols:
+            if proto not in protocols:
+                protocols.append(proto)
+        return protocols
     return list(info.protocols)
 
 
@@ -1211,16 +1336,15 @@ def main() -> int:
         print(f"  Days remaining: {info.days_remaining}")
         effective_protocols = _effective_protocols(info)
         effective_features = _effective_features(info)
-        print(f"  Protocols: {', ' .join(effective_protocols)}")
+        print(f"  Protocols: {', '.join(effective_protocols)}")
         enabled = sorted(f for f, v in effective_features.items() if v)
         disabled = sorted(f for f, v in effective_features.items() if not v)
-        print(f"  Enabled features ({len(enabled)}): {', ' .join(enabled)}")
-        if disabled:
-            print(f"  Disabled features ({len(disabled)}): {', ' .join(disabled)}")
-        print(f"  Protocols: {', '.join(info.protocols)}")
         print(f"  Enabled features ({len(enabled)}): {', '.join(enabled)}")
         if disabled:
             print(f"  Disabled features ({len(disabled)}): {', '.join(disabled)}")
+    if info.free_features or info.free_protocols:
+        print(f"  Permanent free features: {', '.join(info.free_features) or '-'}")
+        print(f"  Permanent free protocols: {', '.join(info.free_protocols) or '-'}")
     return 0 if info.valid else 1
 
 

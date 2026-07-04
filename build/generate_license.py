@@ -103,6 +103,8 @@ def generate_jwt(
     offline_grace_days: int | None = None,
     tenant_id: str = "",
     company_domain: str = "",
+    free_features: list[str] | None = None,
+    free_protocols: list[str] | None = None,
 ) -> str:
     """Generate a signed JWT license token."""
     now = int(time.time())
@@ -138,6 +140,22 @@ def generate_jwt(
     if company_domain.strip():
         payload["company_domain"] = company_domain.strip().lower()
 
+    # Permanently free grants: these features/protocols stay enabled even
+    # after expiry or downgrade to community mode (see license_gate.py).
+    cleaned_free_features = sorted({str(f).strip() for f in (free_features or []) if str(f).strip()})
+    cleaned_free_protocols = sorted({str(p).strip().lower() for p in (free_protocols or []) if str(p).strip()})
+    if cleaned_free_features:
+        payload["free_features"] = cleaned_free_features
+        for feat in cleaned_free_features:
+            features[feat] = True
+        payload["features"] = features
+    if cleaned_free_protocols:
+        payload["free_protocols"] = cleaned_free_protocols
+        for proto in cleaned_free_protocols:
+            if proto not in protocols:
+                protocols.append(proto)
+        payload["protocols"] = protocols
+
     header_b64 = _b64url_encode(json.dumps(header, separators=(",", ":")).encode())
     payload_b64 = _b64url_encode(json.dumps(payload, separators=(",", ":")).encode())
     message = f"{header_b64}.{payload_b64}".encode("utf-8")
@@ -157,6 +175,14 @@ def main() -> int:
     parser.add_argument("--offline-grace-days", type=int, default=None)
     parser.add_argument("--tenant-id", default="", help="Optional tenant/company identifier claim")
     parser.add_argument("--company-domain", default="", help="Optional company primary domain claim")
+    parser.add_argument(
+        "--free-features", default="",
+        help="Comma-separated features granted to this client permanently for free (survive expiry/community mode)",
+    )
+    parser.add_argument(
+        "--free-protocols", default="",
+        help="Comma-separated protocols granted permanently for free (survive expiry/community mode)",
+    )
     parser.add_argument("--output", default="docsops/license.jwt", help="Output JWT file path")
     parser.add_argument("--private-key", default="", help="Path to Ed25519 private key file")
     parser.add_argument(
@@ -200,6 +226,8 @@ def main() -> int:
         offline_grace_days=args.offline_grace_days,
         tenant_id=str(args.tenant_id).strip(),
         company_domain=str(args.company_domain).strip(),
+        free_features=[f for f in args.free_features.split(",") if f.strip()],
+        free_protocols=[p for p in args.free_protocols.split(",") if p.strip()],
     )
 
     out_path = Path(args.output)

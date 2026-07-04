@@ -72,6 +72,54 @@ def _reset_license_cache(monkeypatch):
     reset_cache()
 
 
+@pytest.fixture(autouse=True)
+def _installed_repo_binding(tmp_path, monkeypatch):
+    """Simulate a properly provisioned installation.
+
+    validate() enforces repo binding and integrity manifest files that are
+    written during install/provisioning. Tests run in the dev repo where they
+    do not exist, so create valid ones in tmp and point the gate at them.
+    Also force phone-home off by default so tests never touch the network.
+    """
+    import hashlib as _hashlib
+
+    from scripts import license_gate as lg
+
+    repo_hash = _hashlib.sha256(str(lg.REPO_ROOT.resolve()).encode("utf-8")).hexdigest()
+
+    binding_path = tmp_path / ".repo_binding.json"
+    binding_path.write_text(
+        json.dumps({"repo_path_hash": repo_hash, "client_id": "", "tenant_id": ""}),
+        encoding="utf-8",
+    )
+
+    gate_file = lg.REPO_ROOT / "scripts" / "license_gate.py"
+    manifest_path = tmp_path / ".integrity_manifest.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema": "integrity-manifest/v1",
+                "repo_path_hash": repo_hash,
+                "files": {
+                    "scripts/license_gate.py": _hashlib.sha256(gate_file.read_bytes()).hexdigest()
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    heartbeat_path = tmp_path / ".license_heartbeat.json"
+    heartbeat_path.write_text(
+        json.dumps({"last_check": time.time(), "last_result": "success"}),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(lg, "REPO_BINDING_PATH", binding_path)
+    monkeypatch.setattr(lg, "INTEGRITY_MANIFEST_PATH", manifest_path)
+    monkeypatch.setattr(lg, "HEARTBEAT_PATH", heartbeat_path)
+    yield
+
+
 # -- b64url_decode tests -------------------------------------------------------
 
 

@@ -105,7 +105,8 @@ def test_create_profile_via_wizard_full_branching(tmp_path: Path, monkeypatch: p
     monkeypatch.setattr(mod, "_prompt_yes_no", lambda prompt, default_yes=True: True)
 
     out_path, client_repo, scheduler = mod._create_profile_via_wizard(default_scheduler="none")
-    assert out_path.name == "acme-cloud.client.yml"
+    # client_id is auto-generated from company + product name.
+    assert out_path.name == "acme-cloud-product.client.yml"
     assert client_repo.endswith("client")
     assert scheduler == "linux"
     assert profile["runtime"]["docs_flow"]["mode"] == "hybrid"
@@ -144,7 +145,7 @@ def test_collect_secret_inputs_writes_dotenv_and_gitignore(tmp_path: Path, monke
 
     monkeypatch.setattr(mod.sys, "stdin", types.SimpleNamespace(isatty=lambda: True))
     monkeypatch.setattr(mod, "_prompt_yes_no", lambda prompt, default_yes=True: True)
-    monkeypatch.setattr(mod.getpass, "getpass", lambda prompt: "secret-value")
+    monkeypatch.setattr("builtins.input", lambda prompt="": "secret-value")
 
     dotenv_path = mod._collect_secret_inputs(repo, "docsops")
     assert dotenv_path is not None and dotenv_path.exists()

@@ -4,7 +4,10 @@ client:
   contact_email: "docs-owner@acme.example"
   # Optional license binding fields for enterprise control.
   tenant_id: "acme"
-  company_domain: "acme.example"
+  # Leave blank unless you want the license bound to the client's real domain.
+  # A wrong value here degrades the client to community mode when they set
+  # VERIOPS_COMPANY_DOMAIN. Set per client in the wizard, never a placeholder.
+  company_domain: ""
 
 bundle:
   # Where bundle is created in this repository.
@@ -338,6 +341,10 @@ licensing:
   plan: "professional"
   days: 365
   max_docs: 0
+  # Features/protocols granted to this client permanently for free.
+  # They survive expiry and Community Mode degradation (see PERMANENT_FREE_FEATURES.md).
+  permanent_free_features: []
+  permanent_free_protocols: []
 
 legal:
   license_type: "commercial"

@@ -474,6 +474,10 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     client_id = str(profile.get("client", {}).get("id", "")).strip()
     tenant_id = str(profile.get("client", {}).get("tenant_id", client_id)).strip()
     company_domain = str(profile.get("client", {}).get("company_domain", "")).strip().lower()
+    raw_free_features = licensing.get("permanent_free_features", [])
+    raw_free_protocols = licensing.get("permanent_free_protocols", [])
+    free_features = [str(f).strip() for f in raw_free_features if str(f).strip()] if isinstance(raw_free_features, list) else []
+    free_protocols = [str(p).strip().lower() for p in raw_free_protocols if str(p).strip()] if isinstance(raw_free_protocols, list) else []
 
     jwt_path = docsops_dir / "license.jwt"
 
@@ -497,9 +501,17 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
                 max_docs=max_docs,
                 tenant_id=tenant_id,
                 company_domain=company_domain,
+                free_features=free_features,
+                free_protocols=free_protocols,
             )
             jwt_path.write_text(token + "\n", encoding="utf-8")
             print(f"[license] JWT auto-generated: plan={plan}, days={days}, client={client_id}")
+            if free_features or free_protocols:
+                print(
+                    "[license] permanent free grants embedded: "
+                    f"features={','.join(free_features) or '-'} "
+                    f"protocols={','.join(free_protocols) or '-'}"
+                )
         except (RuntimeError, ValueError, TypeError, OSError) as exc:
             print(f"[license] JWT auto-generation failed ({exc}), writing placeholder")
             jwt_path.write_text(
@@ -513,6 +525,13 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     else:
         reason = "no private key" if not priv_key_path.exists() else "no client_id"
         print(f"[license] Skipping JWT auto-generation ({reason}), writing placeholder")
+        print(
+            "[license] WARNING: this bundle has NO signed license -- the client "
+            "will run in COMMUNITY mode until a real JWT is installed. "
+            "Generate a signing keypair once with: "
+            "python3 build/generate_license.py --generate-keypair "
+            "--client-id bootstrap --plan pilot --days 1 --output /tmp/bootstrap.jwt"
+        )
         jwt_path.write_text(
             "# Placeholder: generate a license JWT with:\n"
             f"#   python3 build/generate_license.py --client-id {client_id or 'CLIENT'} "
@@ -529,6 +548,24 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     auto_pack = bool(licensing.get("auto_generate_capability_pack", True))
     license_key_env = str(licensing.get("license_key_env", "VERIOPS_LICENSE_KEY")).strip() or "VERIOPS_LICENSE_KEY"
     license_key = str(licensing.get("license_key", "")).strip() or str(os.environ.get(license_key_env, "")).strip()
+    if auto_pack and client_id and not license_key:
+        # Auto-generate a per-client pack key so bundles always ship an
+        # encrypted capability pack. The key is persisted vendor-side
+        # (gitignored) and reused on rebuilds so client redeploys keep working.
+        # Deliver it to the client out-of-band; it must never ship in the bundle.
+        import secrets as _secrets
+
+        key_store = REPO_ROOT / "generated" / "client_keys"
+        key_store.mkdir(parents=True, exist_ok=True)
+        key_file = key_store / f"{client_id}.license-key.txt"
+        if key_file.exists():
+            license_key = key_file.read_text(encoding="utf-8").strip()
+        if not license_key:
+            plan_tag = {"enterprise": "ENT", "professional": "PRO", "pilot": "PIL"}.get(plan, "STD")
+            license_key = f"VDOC-{plan_tag}-{client_id}-{_secrets.token_hex(4)}"
+            key_file.write_text(license_key + "\n", encoding="utf-8")
+        print(f"[license] capability pack key ready (vendor-side, NOT in bundle): {key_file}")
+        print(f"[license] deliver key to client out-of-band; client sets {license_key_env} in .env.docsops.local")
     if auto_pack and client_id and license_key:
         generate_pack_script = REPO_ROOT / "build" / "generate_pack.py"
         if generate_pack_script.exists():
@@ -768,11 +805,18 @@ if [[ -f ".env.docsops.local" ]]; then
   . ".env.docsops.local"
   set +a
 fi
+MAX_ATTEMPTS=3
+attempt=1
 while true; do
   if python3 {docsops_root}/scripts/run_autopipeline.py --docsops-root {docsops_root} --reports-dir reports --since {since_days} --runtime-config {docsops_root}/config/client_runtime.yml --mode operator --auto-generate --local-engine {local_engine}; then
     break
   fi
-  echo \"[docsops] weekly run failed, retrying in {retry_delay_seconds}s...\"
+  if [[ $attempt -ge $MAX_ATTEMPTS ]]; then
+    echo \"[docsops] weekly run failed after $MAX_ATTEMPTS attempts; see reports/AUTOPIPELINE_OUTPUT_INDEX.md\" >&2
+    exit 1
+  fi
+  attempt=$((attempt + 1))
+  echo \"[docsops] weekly run failed, retrying in {retry_delay_seconds}s (attempt $attempt/$MAX_ATTEMPTS)...\"
   sleep {retry_delay_seconds}
 done
 """
@@ -789,6 +833,8 @@ if (Test-Path \".env.docsops.local\") {{
     }}
   }}
 }}
+$MaxAttempts = 3
+$Attempt = 1
 while ($true) {{
   if (Get-Command py -ErrorAction SilentlyContinue) {{
     py -3 \"{docsops_root}/scripts/run_autopipeline.py\" --docsops-root \"{docsops_root}\" --reports-dir \"reports\" --since {since_days} --runtime-config \"{docsops_root}/config/client_runtime.yml\" --mode \"operator\" --auto-generate --local-engine \"{local_engine}\"
@@ -798,7 +844,12 @@ while ($true) {{
   if ($LASTEXITCODE -eq 0) {{
     break
   }}
-  Write-Host \"[docsops] weekly run failed, retrying in {retry_delay_seconds}s...\"
+  if ($Attempt -ge $MaxAttempts) {{
+    Write-Host \"[docsops] weekly run failed after $MaxAttempts attempts; see reports/AUTOPIPELINE_OUTPUT_INDEX.md\"
+    exit 1
+  }}
+  $Attempt = $Attempt + 1
+  Write-Host \"[docsops] weekly run failed, retrying in {retry_delay_seconds}s (attempt $Attempt/$MaxAttempts)...\"
   Start-Sleep -Seconds {retry_delay_seconds}
 }}
 """
@@ -1096,7 +1147,7 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
         lines,
         "VERIOPS_LICENSE_PLAN",
         "",
-        "Dev/test override: set to pilot|professional|enterprise to bypass JWT validation.",
+        "Dev-bundle override only: ignored unless docsops/.dev_mode exists (free/dev bundles).",
     )
     _append_env(
         lines,
@@ -1353,6 +1404,10 @@ def create_bundle(profile_path: Path, target_platforms: list[str] | None = None)
     if ip_protection_path.exists() and "config/ip_protection" not in include_paths:
         include_paths.append("config/ip_protection")
     bundle_cfg["include_paths"] = include_paths
+
+    # Frontmatter schema is required by validate_frontmatter.py (community tier).
+    if (REPO_ROOT / "docs-schema.yml").exists():
+        copy_into_bundle("docs-schema.yml", bundle_root)
 
     for rel in include_scripts:
         copy_into_bundle(str(rel), bundle_root)

@@ -208,14 +208,18 @@ def derive_pack_key(license_key: str, client_id: str) -> bytes:
 def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) -> bytes:
     """Decrypt AES-256-GCM. Tries cryptography library."""
     try:
+        from cryptography.exceptions import InvalidTag
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-        aes = AESGCM(key)
-        # cryptography expects ciphertext + tag concatenated
-        return aes.decrypt(nonce, ciphertext + tag, None)
     except ImportError:
         logger.debug("cryptography is not installed; trying PyCryptodome for AES-GCM decrypt")
-    except (RuntimeError, ValueError, TypeError, OSError) as exc:
-        raise ValueError(f"AES-GCM decrypt failed: {exc}") from exc
+    else:
+        try:
+            aes = AESGCM(key)
+            # cryptography expects ciphertext + tag concatenated
+            return aes.decrypt(nonce, ciphertext + tag, None)
+        except (InvalidTag, RuntimeError, ValueError, TypeError, OSError) as exc:
+            # InvalidTag = wrong key/client (auth failure): must degrade, not crash.
+            raise ValueError(f"AES-GCM decrypt failed: {exc}") from exc
 
     # Fallback: PyCryptodome
     try:
@@ -297,6 +301,45 @@ def build_pack_file(nonce: bytes, tag: bytes, ciphertext: bytes) -> bytes:
     return header + nonce + tag + ciphertext
 
 
+def _bundle_client_id() -> str:
+    """Client id from BUNDLE_INFO.yml at the bundle root (installed bundles).
+
+    In an installed bundle this file lives next to the pack at
+    <client-repo>/docsops/BUNDLE_INFO.yml; in the vendor repo it is absent.
+    """
+    info_path = REPO_ROOT / "BUNDLE_INFO.yml"
+    if not info_path.exists():
+        return ""
+    try:
+        text = info_path.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+    try:
+        import yaml
+
+        payload = yaml.safe_load(text)
+        if isinstance(payload, dict):
+            client = payload.get("client", {})
+            if isinstance(client, dict):
+                return str(client.get("id", "")).strip()
+        return ""
+    except (ImportError, ValueError, TypeError):
+        pass
+    in_client = False
+    for line in text.splitlines():
+        if line.startswith("client:"):
+            in_client = True
+            continue
+        if in_client:
+            if line[:1] not in (" ", "	"):
+                break
+            stripped = line.strip()
+            if stripped.startswith("id:"):
+                return stripped.split(":", 1)[1].strip().strip("'\"")
+    return ""
+
+
+
 # -- Pack loading --------------------------------------------------------------
 
 
@@ -313,6 +356,11 @@ def load_pack(
     fpath = pack_path or PACK_PATH
     if not fpath.exists():
         return _degraded_pack("Pack file not found: " + str(fpath))
+
+    if license_key is None:
+        license_key = os.environ.get("VERIOPS_LICENSE_KEY", "").strip() or None
+    if client_id is None:
+        client_id = os.environ.get("VERIOPS_CLIENT_ID", "").strip() or _bundle_client_id() or None
 
     if not license_key or not client_id:
         return _degraded_pack("License key or client ID not provided for decryption.")

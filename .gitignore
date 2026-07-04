@@ -66,3 +66,9 @@ generated/
 
 # Local one-url launch secrets
 deploy/.env.veridoc.local
+
+# Per-client capability pack keys (vendor-side secrets, delivered out-of-band)
+generated/client_keys/
+
+# Dogfood bundle install-local state (license, binding, pack, key copies)
+docsops/docsops/

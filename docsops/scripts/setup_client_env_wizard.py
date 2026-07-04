@@ -24,10 +24,12 @@ except ImportError:
 
 try:
     from scripts.docs_ci_bootstrap import install_docs_ci_files
+    from scripts.runtime_config_loader import load_runtime_config
 except ModuleNotFoundError:
     # Allow running from client repo where docsops/ is not installed as a package.
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from docs_ci_bootstrap import install_docs_ci_files
+    from runtime_config_loader import load_runtime_config
 
 
 ENV_FILE = ".env.docsops.local"
@@ -144,8 +146,6 @@ def _is_key_relevant(key: str, algolia_enabled: bool, ask_ai_enabled: bool, ask_
 
 
 def _load_runtime(repo_root: Path) -> dict[str, Any]:
-    if yaml is None:
-        return {}
     candidates = [
         repo_root / "docsops" / "config" / "client_runtime.yml",
         repo_root / "config" / "client_runtime.yml",
@@ -153,8 +153,8 @@ def _load_runtime(repo_root: Path) -> dict[str, Any]:
     for candidate in candidates:
         if candidate.exists():
             try:
-                raw = yaml.safe_load(candidate.read_text(encoding="utf-8")) or {}
-            except (AttributeError, TypeError, ValueError, OSError):
+                raw = load_runtime_config(candidate)
+            except (AttributeError, TypeError, ValueError, OSError, RuntimeError):
                 raw = {}
             if isinstance(raw, dict):
                 return raw
@@ -364,19 +364,38 @@ def _bootstrap_screenshot_plan(repo_root: Path, runtime: dict[str, Any]) -> None
         print(f"[env-wizard] run manually: {' '.join(cmd)}")
 
 
-def _write_repo_binding(repo_root: Path, runtime: dict[str, Any]) -> None:
+def _license_gate_root(repo_root: Path) -> Path:
+    """Directory the installed license gate resolves as its REPO_ROOT.
+
+    license_gate.py computes REPO_ROOT as parents[1] of its own file, so all
+    binding/integrity artifacts must be written relative to the installed
+    gate location, not the client repo root. In a standard client install the
+    gate lives at <repo>/docsops/scripts/license_gate.py, so its REPO_ROOT is
+    <repo>/docsops and it reads <repo>/docsops/docsops/.repo_binding.json.
+    """
+    candidates = [
+        repo_root / "docsops" / "scripts" / "license_gate.py",
+        repo_root / "scripts" / "license_gate.py",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve().parents[1]
     docsops_root = repo_root / "docsops"
-    if not docsops_root.exists():
-        docsops_root = repo_root
-    binding_path = docsops_root / ".repo_binding.json"
+    return docsops_root if docsops_root.exists() else repo_root
+
+
+def _write_repo_binding(repo_root: Path, runtime: dict[str, Any]) -> None:
+    gate_root = _license_gate_root(repo_root)
+    binding_path = gate_root / "docsops" / ".repo_binding.json"
+    binding_path.parent.mkdir(parents=True, exist_ok=True)
     tenant_id = ""
     env_path = repo_root / ENV_FILE
     if env_path.exists():
         raw_env = _read_existing(env_path)
         tenant_id = str(raw_env.get("VERIOPS_TENANT_ID", "")).strip()
     payload = {
-        "repo_path_hash": hashlib.sha256(str(repo_root.resolve()).encode("utf-8")).hexdigest(),
-        "repo_path_hint": str(repo_root.resolve()),
+        "repo_path_hash": hashlib.sha256(str(gate_root.resolve()).encode("utf-8")).hexdigest(),
+        "repo_path_hint": str(gate_root.resolve()),
         "tenant_id": tenant_id,
         "client_id": "",
         "docs_root": str(runtime.get("docs_root", "docs")) if isinstance(runtime, dict) else "docs",
@@ -386,11 +405,12 @@ def _write_repo_binding(repo_root: Path, runtime: dict[str, Any]) -> None:
 
 
 def _write_integrity_manifest(repo_root: Path) -> None:
-    docsops_root = repo_root / "docsops"
-    if not docsops_root.exists():
-        docsops_root = repo_root
-    out = docsops_root / ".integrity_manifest.json"
+    gate_root = _license_gate_root(repo_root)
+    out = gate_root / "docsops" / ".integrity_manifest.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
 
+    # Paths must be relative to the gate's REPO_ROOT because the gate
+    # resolves and re-hashes them from there.
     protected_relpaths = [
         "AGENTS.md",
         "CLAUDE.md",
@@ -401,7 +421,7 @@ def _write_integrity_manifest(repo_root: Path) -> None:
     ]
     files: dict[str, str] = {}
     for rel in protected_relpaths:
-        path = repo_root / rel
+        path = gate_root / rel
         if not path.exists() or not path.is_file():
             continue
         h = hashlib.sha256()
@@ -412,7 +432,7 @@ def _write_integrity_manifest(repo_root: Path) -> None:
 
     payload = {
         "schema": "integrity-manifest/v1",
-        "repo_path_hash": hashlib.sha256(str(repo_root.resolve()).encode("utf-8")).hexdigest(),
+        "repo_path_hash": hashlib.sha256(str(gate_root.resolve()).encode("utf-8")).hexdigest(),
         "files": files,
     }
     out.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")

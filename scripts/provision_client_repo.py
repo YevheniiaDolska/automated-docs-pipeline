@@ -67,7 +67,13 @@ def _prompt_choice(prompt: str, options: list[str], default: str) -> str:
 
 def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
     suffix = "[Y/n]" if default_yes else "[y/N]"
-    raw = input(f"{prompt} {suffix}: ").strip().lower()
+    try:
+        raw = input(f"{prompt} {suffix}: ").strip().lower()
+    except EOFError:
+        # Non-interactive stdin (CI, piped install): fall back to the default
+        # instead of crashing the provisioning run.
+        print(f"(no tty; using default: {'yes' if default_yes else 'no'})")
+        return default_yes
     if not raw:
         return default_yes
     return raw in {"y", "yes"}
@@ -193,6 +199,16 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "License validity (days)",
         str(profile.get("licensing", {}).get("days", 365)),
     ))
+    existing_free = profile.get("licensing", {}).get("permanent_free_features", [])
+    permanent_free_features = _prompt_csv(
+        "Permanent free features (comma-separated, kept forever even without payment; blank = none)",
+        [str(f) for f in existing_free] if isinstance(existing_free, list) else [],
+    )
+    existing_free_protocols = profile.get("licensing", {}).get("permanent_free_protocols", [])
+    permanent_free_protocols = _prompt_csv(
+        "Permanent free protocols (comma-separated, e.g. rest; blank = none)",
+        [str(p) for p in existing_free_protocols] if isinstance(existing_free_protocols, list) else [],
+    )
 
     client_repo = ""
     if require_repo:
@@ -399,6 +415,8 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "plan": license_plan,
         "days": license_days,
         "max_docs": 0,
+        "permanent_free_features": permanent_free_features,
+        "permanent_free_protocols": permanent_free_protocols,
     }
     profile["runtime"]["docs_root"] = docs_root
     profile["runtime"]["api_root"] = api_root
@@ -573,31 +591,54 @@ def copy_bundle_to_repo(bundle_root: Path, client_repo: Path, docsops_dir: str) 
     return target
 
 
+def _license_gate_root(client_repo: Path, docsops_dir: str) -> Path:
+    """Directory the installed license gate resolves as its REPO_ROOT.
+
+    license_gate.py computes REPO_ROOT as parents[1] of its own file, so
+    binding/integrity artifacts must live in the gate's frame: for a gate at
+    <repo>/<docsops_dir>/scripts/license_gate.py that is <repo>/<docsops_dir>.
+    """
+    repo_resolved = client_repo.resolve()
+    candidates = [
+        repo_resolved / docsops_dir / "scripts" / "license_gate.py",
+        repo_resolved / "scripts" / "license_gate.py",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve().parents[1]
+    docsops_root = repo_resolved / docsops_dir
+    return docsops_root if docsops_root.exists() else repo_resolved
+
+
 def write_repo_binding_file(client_repo: Path, docsops_dir: str, profile_path: Path) -> Path:
     """Write repository binding file to make bundle non-portable across repos."""
-    runtime = _read_yaml(client_repo / docsops_dir / "config" / "client_runtime.yml")
+    runtime_path = client_repo / docsops_dir / "config" / "client_runtime.yml"
+    runtime = _read_yaml(runtime_path) if runtime_path.exists() else {}
     profile = _read_yaml(profile_path)
     client_section = profile.get("client", {}) if isinstance(profile, dict) else {}
     if not isinstance(client_section, dict):
         client_section = {}
-    repo_hash = hashlib.sha256(str(client_repo.resolve()).encode("utf-8")).hexdigest()
+    gate_root = _license_gate_root(client_repo, docsops_dir)
+    repo_hash = hashlib.sha256(str(gate_root).encode("utf-8")).hexdigest()
     payload = {
         "repo_path_hash": repo_hash,
-        "repo_path_hint": str(client_repo.resolve()),
+        "repo_path_hint": str(gate_root),
         "client_id": str(client_section.get("id", "")).strip(),
         "tenant_id": str(client_section.get("tenant_id", "")).strip(),
         "docs_root": str(runtime.get("docs_root", "docs")) if isinstance(runtime, dict) else "docs",
     }
-    out = client_repo / docsops_dir / ".repo_binding.json"
+    out = gate_root / "docsops" / ".repo_binding.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
     return out
 
 
 def write_integrity_manifest_file(client_repo: Path, docsops_dir: str) -> Path:
     """Write integrity manifest for protected system files."""
-    repo_resolved = client_repo.resolve()
-    docsops_root = repo_resolved / docsops_dir
+    gate_root = _license_gate_root(client_repo, docsops_dir)
 
+    # Paths are relative to the gate's REPO_ROOT because the gate resolves
+    # and re-hashes them from there.
     protected_relpaths = [
         "AGENTS.md",
         "CLAUDE.md",
@@ -606,12 +647,13 @@ def write_integrity_manifest_file(client_repo: Path, docsops_dir: str) -> Path:
         "scripts/runtime_config_loader.py",
         "docsops/scripts/license_gate.py",
         "docsops/.repo_binding.json",
+        "config/client_runtime.yml",
         "docsops/config/client_runtime.yml",
     ]
 
     files: dict[str, str] = {}
     for rel in protected_relpaths:
-        path = repo_resolved / rel
+        path = gate_root / rel
         if not path.exists() or not path.is_file():
             continue
         h = hashlib.sha256()
@@ -622,10 +664,11 @@ def write_integrity_manifest_file(client_repo: Path, docsops_dir: str) -> Path:
 
     payload = {
         "schema": "integrity-manifest/v1",
-        "repo_path_hash": hashlib.sha256(str(repo_resolved).encode("utf-8")).hexdigest(),
+        "repo_path_hash": hashlib.sha256(str(gate_root).encode("utf-8")).hexdigest(),
         "files": files,
     }
-    out = docsops_root / ".integrity_manifest.json"
+    out = gate_root / "docsops" / ".integrity_manifest.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
     return out
 
@@ -774,26 +817,39 @@ def _collect_secret_inputs(client_repo: Path, docsops_dir: str) -> Path | None:
     print("- Zephyr Scale: API token + project key from Zephyr Scale Cloud.")
     print("- DOCSOPS_BOT_TOKEN: optional GitHub PAT for restricted orgs.\n")
 
-    if not _prompt_yes_no("Configure .env secrets now?", default_yes=True):
+    if not sys.stdin.isatty():
+        print("[skip] stdin is not interactive; secrets can be added later via")
+        print(f"       {DOCSOPS_LOCAL_ENV} or docsops/scripts/setup_client_env_wizard.py")
         return None
 
     dotenv_path = client_repo / DOCSOPS_LOCAL_ENV
     current = _read_dotenv(dotenv_path)
     updated = dict(current)
 
-    for key, hint, required in needed_vars:
-        if not key:
-            continue
-        masked_default = ""
-        if key in current and current[key]:
-            masked_default = "(already set)"
-        prompt = f"{key} - {hint} {masked_default}".strip()
-        value = input(f"{prompt}: ").strip()
-        if not value:
-            if required and key not in updated:
-                print(f"[warn] {key} is required for full automation; leaving empty for now.")
-            continue
-        updated[key] = value
+    try:
+        if not _prompt_yes_no("Configure .env secrets now?", default_yes=True):
+            return None
+
+        for key, hint, required in needed_vars:
+            if not key:
+                continue
+            masked_default = ""
+            if key in current and current[key]:
+                masked_default = "(already set)"
+            prompt = f"{key} - {hint} {masked_default}".strip()
+            value = input(f"{prompt}: ").strip()
+            if not value:
+                if required and key not in updated:
+                    print(f"[warn] {key} is required for full automation; leaving empty for now.")
+                continue
+            updated[key] = value
+    except EOFError:
+        # stdin closed mid-dialog (isatty() can be true under some Windows
+        # shells even when no input is available). Skip gracefully: secrets
+        # can be added later via the client-side env wizard.
+        print("\n[skip] no interactive input available; secrets can be added later via")
+        print(f"       {DOCSOPS_LOCAL_ENV} or docsops/scripts/setup_client_env_wizard.py")
+        return None
 
     _write_dotenv(dotenv_path, updated)
     _ensure_gitignore_has_env(client_repo, DOCSOPS_LOCAL_ENV)

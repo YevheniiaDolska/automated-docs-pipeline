@@ -29,7 +29,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.build_client_bundle import create_bundle  # noqa: E402
+from scripts.build_client_bundle import SUPPORTED_TARGET_PLATFORMS, _normalize_target_platforms, create_bundle  # noqa: E402
 from scripts.docs_ci_bootstrap import install_docs_ci_files  # noqa: E402
 
 PRESETS_DIR = REPO_ROOT / "profiles" / "clients" / "presets"
@@ -78,6 +78,31 @@ def _prompt_csv(prompt: str, default_values: list[str]) -> list[str]:
     raw = _prompt_with_default(prompt, default)
     values = [x.strip() for x in raw.split(",") if x.strip()]
     return values
+
+
+def _prompt_target_platforms(default_values: list[str]) -> list[str]:
+    supported = ",".join(sorted(SUPPORTED_TARGET_PLATFORMS))
+    default = ",".join(default_values)
+    while True:
+        raw = _prompt_with_default(
+            f"Bundle target platforms (comma-separated: {supported}, or all)",
+            default,
+        ).strip()
+        raw_values = [item.strip().lower() for item in raw.split(",") if item.strip()]
+        if not raw_values:
+            raw_values = list(default_values)
+        try:
+            return _normalize_target_platforms(raw_values)
+        except ValueError as exc:
+            print(str(exc))
+
+
+def _detect_scheduler_mode() -> str:
+    if os.name == "nt":
+        return "windows"
+    if sys.platform == "darwin":
+        return "macos"
+    return "linux"
 
 
 def _slugify_client_id(value: str) -> str:
@@ -168,6 +193,16 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "License validity (days)",
         str(profile.get("licensing", {}).get("days", 365)),
     ))
+    existing_free = profile.get("licensing", {}).get("permanent_free_features", [])
+    permanent_free_features = _prompt_csv(
+        "Permanent free features (comma-separated, kept forever even without payment; blank = none)",
+        [str(f) for f in existing_free] if isinstance(existing_free, list) else [],
+    )
+    existing_free_protocols = profile.get("licensing", {}).get("permanent_free_protocols", [])
+    permanent_free_protocols = _prompt_csv(
+        "Permanent free protocols (comma-separated, e.g. rest; blank = none)",
+        [str(p) for p in existing_free_protocols] if isinstance(existing_free_protocols, list) else [],
+    )
 
     client_repo = ""
     if require_repo:
@@ -185,6 +220,9 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "Vale style guide",
         ["google", "microsoft", "hybrid"],
         str(profile.get("bundle", {}).get("style_guide", "google")).strip().lower(),
+    )
+    bundle_target_platforms = _prompt_target_platforms(
+        _normalize_target_platforms(profile.get("bundle", {}).get("target_platforms", ["linux", "windows", "macos"]))
     )
     output_targets = _prompt_csv(
         "Publish targets (comma-separated, e.g. mkdocs,readme,github)",
@@ -359,7 +397,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
 
     scheduler = "none"
     if require_repo:
-        scheduler = _prompt_choice("Install scheduler mode", ["none", "linux", "windows", "macos"], default_scheduler)
+        scheduler = _prompt_choice("Install scheduler mode", ["auto", "none", "linux", "windows", "macos"], default_scheduler)
 
     profile["client"]["id"] = client_id
     profile["client"]["company_name"] = company_name
@@ -371,11 +409,14 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "plan": license_plan,
         "days": license_days,
         "max_docs": 0,
+        "permanent_free_features": permanent_free_features,
+        "permanent_free_protocols": permanent_free_protocols,
     }
     profile["runtime"]["docs_root"] = docs_root
     profile["runtime"]["api_root"] = api_root
     profile["runtime"]["sdk_root"] = sdk_root
     profile["runtime"]["docs_flow"]["mode"] = flow_mode
+    profile["bundle"]["target_platforms"] = bundle_target_platforms
     profile["bundle"]["style_guide"] = style_guide
     profile["runtime"]["output_targets"] = output_targets
     profile["runtime"]["pr_autofix"]["enabled"] = enable_pr_autofix
@@ -451,7 +492,7 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
     print("What you need:")
     print("1) existing profile OR preset-driven profile creation")
     print("2) local path to client repository (only for install-local mode)")
-    print("3) scheduler mode (none/linux/windows/macos, only for install-local mode)\n")
+    print("3) scheduler mode (auto/none/linux/windows/macos, only for install-local mode)\n")
 
     mode_default = "bundle-only"
     source_mode_hint: str | None = None
@@ -473,12 +514,7 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
 
     args.bundle_only = mode == "bundle-only"
 
-    if os.name == "nt":
-        default_scheduler = "windows"
-    elif sys.platform == "darwin":
-        default_scheduler = "macos"
-    else:
-        default_scheduler = "linux"
+    default_scheduler = "auto"
     source_default = "preset" if getattr(args, "generate_profile", False) else "existing"
     source_mode = source_mode_hint or _prompt_choice(
         "Profile source",
@@ -513,8 +549,8 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
             )
             args.install_scheduler = _prompt_choice(
                 "Install scheduler mode",
-                ["none", "linux", "windows", "macos"],
-                args.install_scheduler if args.install_scheduler in {"none", "linux", "windows", "macos"} else default_scheduler,
+                ["auto", "none", "linux", "windows", "macos"],
+                args.install_scheduler if args.install_scheduler in {"auto", "none", "linux", "windows", "macos"} else default_scheduler,
             )
         else:
             args.client_repo = ""
@@ -549,43 +585,69 @@ def copy_bundle_to_repo(bundle_root: Path, client_repo: Path, docsops_dir: str) 
     return target
 
 
+def _license_gate_root(client_repo: Path, docsops_dir: str) -> Path:
+    """Directory the installed license gate resolves as its REPO_ROOT.
+
+    license_gate.py computes REPO_ROOT as parents[1] of its own file, so
+    binding/integrity artifacts must live in the gate's frame: for a gate at
+    <repo>/<docsops_dir>/scripts/license_gate.py that is <repo>/<docsops_dir>.
+    """
+    repo_resolved = client_repo.resolve()
+    candidates = [
+        repo_resolved / docsops_dir / "scripts" / "license_gate.py",
+        repo_resolved / "scripts" / "license_gate.py",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve().parents[1]
+    docsops_root = repo_resolved / docsops_dir
+    return docsops_root if docsops_root.exists() else repo_resolved
+
+
 def write_repo_binding_file(client_repo: Path, docsops_dir: str, profile_path: Path) -> Path:
     """Write repository binding file to make bundle non-portable across repos."""
-    runtime = _read_yaml(client_repo / docsops_dir / "config" / "client_runtime.yml")
+    runtime_path = client_repo / docsops_dir / "config" / "client_runtime.yml"
+    runtime = _read_yaml(runtime_path) if runtime_path.exists() else {}
     profile = _read_yaml(profile_path)
     client_section = profile.get("client", {}) if isinstance(profile, dict) else {}
     if not isinstance(client_section, dict):
         client_section = {}
-    repo_hash = hashlib.sha256(str(client_repo.resolve()).encode("utf-8")).hexdigest()
+    gate_root = _license_gate_root(client_repo, docsops_dir)
+    repo_hash = hashlib.sha256(str(gate_root).encode("utf-8")).hexdigest()
     payload = {
         "repo_path_hash": repo_hash,
-        "repo_path_hint": str(client_repo.resolve()),
+        "repo_path_hint": str(gate_root),
         "client_id": str(client_section.get("id", "")).strip(),
         "tenant_id": str(client_section.get("tenant_id", "")).strip(),
         "docs_root": str(runtime.get("docs_root", "docs")) if isinstance(runtime, dict) else "docs",
     }
-    out = client_repo / docsops_dir / ".repo_binding.json"
+    out = gate_root / "docsops" / ".repo_binding.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
     return out
 
 
 def write_integrity_manifest_file(client_repo: Path, docsops_dir: str) -> Path:
     """Write integrity manifest for protected system files."""
-    repo_resolved = client_repo.resolve()
-    docsops_root = repo_resolved / docsops_dir
+    gate_root = _license_gate_root(client_repo, docsops_dir)
 
+    # Paths are relative to the gate's REPO_ROOT because the gate resolves
+    # and re-hashes them from there.
     protected_relpaths = [
         "AGENTS.md",
         "CLAUDE.md",
         "LOCAL_MODEL.md",
         "scripts/license_gate.py",
+        "scripts/runtime_config_loader.py",
         "docsops/scripts/license_gate.py",
         "docsops/.repo_binding.json",
+        "config/client_runtime.yml",
+        "docsops/config/client_runtime.yml",
     ]
 
     files: dict[str, str] = {}
     for rel in protected_relpaths:
-        path = repo_resolved / rel
+        path = gate_root / rel
         if not path.exists() or not path.is_file():
             continue
         h = hashlib.sha256()
@@ -596,10 +658,11 @@ def write_integrity_manifest_file(client_repo: Path, docsops_dir: str) -> Path:
 
     payload = {
         "schema": "integrity-manifest/v1",
-        "repo_path_hash": hashlib.sha256(str(repo_resolved).encode("utf-8")).hexdigest(),
+        "repo_path_hash": hashlib.sha256(str(gate_root).encode("utf-8")).hexdigest(),
         "files": files,
     }
-    out = docsops_root / ".integrity_manifest.json"
+    out = gate_root / "docsops" / ".integrity_manifest.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
     return out
 
@@ -1496,7 +1559,7 @@ def execute_provision(args: argparse.Namespace) -> int:
     apply_integrations(client_repo, args.docsops_dir)
     checklist = generate_env_checklist(client_repo, args.docsops_dir)
     dotenv_path = _collect_secret_inputs(client_repo, args.docsops_dir)
-    run_scheduler_install(client_repo, args.docsops_dir, args.install_scheduler)
+    installed_scheduler = run_scheduler_install(client_repo, args.docsops_dir, args.install_scheduler)
     if bool(getattr(args, "install_playwright", False)):
         wizard_script = client_repo / args.docsops_dir / "scripts" / "setup_client_env_wizard.py"
         if wizard_script.exists():
@@ -1526,22 +1589,28 @@ def execute_provision(args: argparse.Namespace) -> int:
         print(f"[ok] env checklist: {checklist}")
     if dotenv_path:
         print(f"[ok] local .env updated: {dotenv_path}")
-    if args.install_scheduler != "none":
-        print(f"[ok] scheduler installed: {args.install_scheduler}")
+    if installed_scheduler and installed_scheduler != "none":
+        print(f"[ok] scheduler installed: {installed_scheduler}")
     else:
         print("[next] install scheduler manually from docsops/ops/runbook.md")
     return 0
 
 
-def run_scheduler_install(client_repo: Path, docsops_dir: str, mode: str) -> None:
+def run_scheduler_install(client_repo: Path, docsops_dir: str, mode: str) -> str:
     if mode == "none":
-        return
+        return "none"
+    if mode == "auto":
+        mode = _detect_scheduler_mode()
     if mode == "linux":
         script = client_repo / docsops_dir / "ops" / "install_cron_weekly.sh"
+        if not script.exists():
+            raise FileNotFoundError(f"Linux scheduler installer not found in bundle: {script}")
         subprocess.run(["bash", str(script)], cwd=str(client_repo), check=True)
-        return
+        return mode
     if mode == "windows":
         script = client_repo / docsops_dir / "ops" / "install_windows_task.ps1"
+        if not script.exists():
+            raise FileNotFoundError(f"Windows scheduler installer not found in bundle: {script}")
         subprocess.run(
             [
                 "powershell",
@@ -1554,11 +1623,13 @@ def run_scheduler_install(client_repo: Path, docsops_dir: str, mode: str) -> Non
             cwd=str(client_repo),
             check=True,
         )
-        return
+        return mode
     if mode == "macos":
         script = client_repo / docsops_dir / "ops" / "install_macos_launchd.sh"
+        if not script.exists():
+            raise FileNotFoundError(f"macOS scheduler installer not found in bundle: {script}")
         subprocess.run(["bash", str(script)], cwd=str(client_repo), check=True)
-        return
+        return mode
     raise ValueError(f"Unsupported install-scheduler mode: {mode}")
 
 
@@ -1570,7 +1641,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--install-scheduler",
         default="none",
-        choices=["none", "linux", "windows", "macos"],
+        choices=["auto", "none", "linux", "windows", "macos"],
         help="Optionally install weekly scheduler during provisioning",
     )
     parser.add_argument(
