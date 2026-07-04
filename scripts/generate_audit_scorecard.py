@@ -724,11 +724,15 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
         }
     )
 
+    for item in expense_items:
+        item["annual_usd"] = round(float(item.get("monthly_usd", 0.0) or 0.0) * 12.0, 2)
+
     monthly_expense_breakdown = {
         "items": expense_items,
         "operational_subtotal_usd": round(operational_cost, 2),
         "revenue_risk_subtotal_usd": round(revenue_risk_usd, 2),
         "total_monthly_usd": round(total_signal_usd, 2),
+        "total_annual_usd": round(total_signal_usd * 12.0, 2),
         "methodology_note": (
             "Base-scenario estimate built only from the line items above. Every input is an "
             "adjustable assumption (see 'assumptions'); pass --assumptions <file.json> to recalculate "
@@ -1201,6 +1205,14 @@ def _allocate_finding_monthly_losses(
         finding["estimated_monthly_loss_usd_low"] = round(base * 0.7, 2)
         finding["estimated_monthly_loss_usd_base"] = round(base, 2)
         finding["estimated_monthly_loss_usd_high"] = round(base * 1.4, 2)
+        finding["estimated_annual_loss_usd_base"] = round(base * 12.0, 2)
+        remediation_base = float(finding.get("estimated_remediation_cost_usd_base", 0.0) or 0.0)
+        if base > 0 and remediation_base > 0:
+            finding["payback_months"] = round(remediation_base / base, 1)
+            finding["first_year_roi_multiple"] = round((base * 12.0) / remediation_base, 1)
+        else:
+            finding["payback_months"] = None
+            finding["first_year_roi_multiple"] = None
         finding["monthly_loss_derivation"] = (
             "allocated share of the driver-based monthly cost model "
             "(direct drag + risk-pool share + revenue-risk share); "
@@ -1667,14 +1679,34 @@ def _sales_next_steps(
             "effort": f"{item.get('effort_hours_base', 0)}h est.",
             "expected_value": "high" if float(item.get("estimated_monthly_loss_usd_base", 0.0) or 0.0) >= 500.0 else "medium",
             "confidence": str(item.get("estimation_confidence", "")).strip() or "medium",
-            "why_this_first": (
-                f"Estimated monthly loss is ${round(float(item.get('estimated_monthly_loss_usd_base', 0.0) or 0.0))} "
-                f"with about {float(item.get('effort_hours_base', 0.0) or 0.0):.1f}h of remediation effort."
-            ),
+            "why_this_first": _finding_value_statement(item),
         }
         if candidate["title"] and all(candidate["title"] != existing["title"] for existing in actions):
             actions.append(candidate)
     return actions[:3]
+
+
+def _finding_value_statement(item: dict[str, Any]) -> str:
+    """One-line buyer-facing value framing for a finding: annual loss + payback."""
+    monthly = float(item.get("estimated_monthly_loss_usd_base", 0.0) or 0.0)
+    annual = float(item.get("estimated_annual_loss_usd_base", monthly * 12.0) or 0.0)
+    effort = float(item.get("effort_hours_base", 0.0) or 0.0)
+    payback = item.get("payback_months")
+    roi = item.get("first_year_roi_multiple")
+    parts = [f"Costs about ${round(annual):,}/year (${round(monthly):,}/month) while unfixed"]
+    if effort > 0:
+        parts.append(f"remediation is about {effort:.1f}h")
+    if payback is not None and float(payback) > 0:
+        weeks = float(payback) * 4.345
+        if weeks < 1.0:
+            parts.append("pays for itself within the first week")
+        elif weeks < 9:
+            parts.append(f"payback in about {weeks:.0f} week{'s' if weeks >= 1.5 else ''}")
+        else:
+            parts.append(f"payback in about {float(payback):.1f} months")
+    if roi is not None and float(roi) >= 2:
+        parts.append(f"~{float(roi):.0f}x first-year return")
+    return "; ".join(parts) + "."
 
 
 def _sales_automation_priorities(
@@ -1804,6 +1836,9 @@ def _build_sales_teardown_payload(
             "broken_links_count": int(public_metrics.get("confirmed_broken_links_count", broken_links.get("totals", {}).get("docs_broken_links_count", 0)) or 0),
             "unverified_links_count": int(public_metrics.get("unverified_links_count", 0) or 0),
             "estimated_monthly_cost_usd": float(base_impact.get("total_signal_usd", base_impact.get("monthly_cost_usd", 0.0)) or 0.0),
+            "estimated_annual_cost_usd": round(
+                float(base_impact.get("total_signal_usd", base_impact.get("monthly_cost_usd", 0.0)) or 0.0) * 12.0, 2
+            ),
         },
         "monthly_expense_breakdown": business_impact.get("monthly_expense_breakdown", {}),
         "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
@@ -1898,6 +1933,8 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         hours_text = html.escape(str(hours)) if hours is not None else "-"
         usd_value = float(item.get("monthly_usd", 0.0) or 0.0)
         usd_text = f"{usd_value:,.0f}"
+        annual_value = float(item.get("annual_usd", usd_value * 12.0) or 0.0)
+        annual_text = f"{annual_value:,.0f}"
         return (
             "<tr style='border-top:1px solid #e2e8f0;'>"
             f"<td style='padding:6px 8px;'><strong>{html.escape(str(item.get('label', '')))}</strong>"
@@ -1905,6 +1942,7 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
             f"<div style='color:#64748b; font-size:11px;'>{html.escape(str(item.get('note', '')))}</div></td>"
             f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'>{hours_text}</td>"
             f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'>${usd_text}</td>"
+            f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'><strong>${annual_text}</strong></td>"
             "</tr>"
         )
 
@@ -1918,15 +1956,19 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         "<th style='text-align:left; padding:6px 8px;'>Expense line (base scenario)</th>"
         "<th style='text-align:right; padding:6px 8px;'>Hours / mo</th>"
         "<th style='text-align:right; padding:6px 8px;'>USD / mo</th>"
+        "<th style='text-align:right; padding:6px 8px;'>USD / yr</th>"
         "</tr></thead>"
         f"<tbody>{breakdown_rows_html}</tbody>"
         "<tfoot>"
         "<tr><td style='padding:6px 8px;'><strong>Operational subtotal (engineering + support)</strong></td><td></td>"
-        f"<td class='expense-usd'><strong>${float(breakdown.get('operational_subtotal_usd', 0.0) or 0.0):,.0f}</strong></td></tr>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('operational_subtotal_usd', 0.0) or 0.0):,.0f}</strong></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('operational_subtotal_usd', 0.0) or 0.0) * 12.0:,.0f}</strong></td></tr>"
         "<tr><td style='padding:6px 8px;'><strong>Revenue at risk subtotal</strong></td><td></td>"
-        f"<td class='expense-usd'><strong>${float(breakdown.get('revenue_risk_subtotal_usd', 0.0) or 0.0):,.0f}</strong></td></tr>"
-        "<tr><td style='padding:6px 8px;'><strong>Total monthly cost signal</strong></td><td></td>"
-        f"<td class='expense-usd'><strong>${float(breakdown.get('total_monthly_usd', 0.0) or 0.0):,.0f}</strong></td></tr>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('revenue_risk_subtotal_usd', 0.0) or 0.0):,.0f}</strong></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('revenue_risk_subtotal_usd', 0.0) or 0.0) * 12.0:,.0f}</strong></td></tr>"
+        "<tr><td style='padding:6px 8px;'><strong>Total cost signal</strong></td><td></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('total_monthly_usd', 0.0) or 0.0):,.0f}</strong></td>"
+        f"<td class='expense-usd'><strong>${float(breakdown.get('total_annual_usd', float(breakdown.get('total_monthly_usd', 0.0) or 0.0) * 12.0) or 0.0):,.0f}</strong></td></tr>"
         "</tfoot>"
         "</table>"
         f"<p class='foot'>{html.escape(str(breakdown.get('methodology_note', '')))}</p>"
@@ -2146,7 +2188,11 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
             </div>
             <div class="mini">
               <div class="k">Monthly Cost Signal</div>
-              <div class="v">${html.escape(str(int(float(summary.get("estimated_monthly_cost_usd", 0.0) or 0.0))))}</div>
+              <div class="v">${html.escape(f"{float(summary.get('estimated_monthly_cost_usd', 0.0) or 0.0):,.0f}")}</div>
+            </div>
+            <div class="mini">
+              <div class="k">Annualized</div>
+              <div class="v">${html.escape(f"{float(summary.get('estimated_annual_cost_usd', 0.0) or 0.0):,.0f}")}</div>
             </div>
           </div>
         </div>
@@ -2392,7 +2438,15 @@ def main() -> int:
     parser.add_argument("--policy-pack", default="policy_packs/api-first.yml")
     parser.add_argument("--glossary-path", default="glossary.yml")
     parser.add_argument("--stale-days", type=int, default=180)
-    parser.add_argument("--assumptions-json", default="")
+    parser.add_argument(
+        "--assumptions-json",
+        default="",
+        help=(
+            "Cost-model assumptions JSON. Pick a scale preset from "
+            "config/impact_assumptions/{startup,midmarket,enterprise}.json or pass the "
+            "prospect's own numbers. Defaults to the (deliberately conservative) startup profile."
+        ),
+    )
     parser.add_argument("--auto-run-smoke", action="store_true")
     parser.add_argument("--json-output", default="reports/audit_scorecard.json")
     parser.add_argument("--html-output", default="reports/audit_scorecard.html")
