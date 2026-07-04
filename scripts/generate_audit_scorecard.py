@@ -752,6 +752,13 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     return {
         "risk_index_0_to_1": round(risk_index, 3),
         "commercial_friction_index_0_to_1": round(commercial_friction_index, 3),
+        "risk_weights": {
+            "undocumented": w_undoc,
+            "stale": w_stale,
+            "drift": w_drift,
+            "example_gap": w_ex,
+            "terminology": w_term,
+        },
         "engineering_support_hours_lost_estimate": _scenario(1.0),
         "monthly_expense_breakdown": monthly_expense_breakdown,
         "scenarios": {
@@ -1107,6 +1114,100 @@ def _build_findings(kpis: dict[str, Any], assumptions: CostAssumptions) -> list[
 
     findings.sort(key=lambda item: {"high": 0, "medium": 1, "low": 2}.get(str(item["severity"]), 3))
     return findings
+
+
+def _allocate_finding_monthly_losses(
+    findings: list[dict[str, Any]],
+    kpis: dict[str, Any],
+    impact: dict[str, Any],
+) -> None:
+    """Replace effort-derived per-finding monthly losses with allocated shares
+    of the driver-based cost model.
+
+    The previous heuristic scaled monthly loss from remediation effort, which
+    made finding-level dollars unrelated to the headline monthly cost signal.
+    This allocation distributes the quality-attributable portion of the driver
+    model (direct drag items + risk-driven pool + revenue-risk pool) across
+    findings by their measured contribution, so per-finding losses sum to the
+    attributable share of the monthly cost signal. The manual-upkeep baseline
+    is deliberately excluded: it is not caused by any finding.
+    """
+    breakdown = impact.get("monthly_expense_breakdown", {})
+    raw_items = breakdown.get("items", []) if isinstance(breakdown, dict) else []
+    items = {
+        str(item.get("id", "")): float(item.get("monthly_usd", 0.0) or 0.0)
+        for item in raw_items
+        if isinstance(item, dict)
+    }
+    if not items:
+        return
+
+    risk_index = float(impact.get("risk_index_0_to_1", 0.0) or 0.0)
+    weights = impact.get("risk_weights", {}) if isinstance(impact.get("risk_weights"), dict) else {}
+
+    undocumented_pct = float(kpis["api_coverage"]["undocumented_pct"])
+    stale_pct = float(kpis["freshness"]["stale_docs_pct"])
+    drift_pct = float(kpis["drift"]["docs_contract_drift_pct"])
+    example_gap_pct = max(0.0, 100.0 - float(kpis["example_reliability"]["example_reliability_pct"]))
+    terminology_pct = float(kpis["terminology"]["terminology_violation_pct"])
+    layers_pct = float(kpis["layer_completeness"]["features_missing_required_layers_pct"])
+    retrieval = kpis["retrieval_quality"]
+    retrieval_quality_pct = (
+        (float(retrieval["precision_at_k"]) * 100.0 + float(retrieval["recall_at_k"]) * 100.0) / 2.0
+        if retrieval.get("report_found")
+        else 65.0
+    )
+    hallucination_pct = float(retrieval["hallucination_rate"]) * 100.0 if retrieval.get("report_found") else 10.0
+
+    # Direct drag items map 1:1 to a finding.
+    direct_usd = {
+        "F-API-COVERAGE": items.get("undocumented_api_drag", 0.0),
+        "F-EXAMPLES-RELIABILITY": items.get("broken_example_drag", 0.0),
+    }
+
+    # Risk-driven pool: release delay plus the risk-scaled share of support
+    # (the 0.5 baseline share of support exists even with perfect docs).
+    support_usd = items.get("docs_driven_support", 0.0)
+    support_attributable = support_usd * (risk_index / (0.5 + risk_index)) if risk_index > 0 else 0.0
+    risk_pool_usd = items.get("release_delay_drag", 0.0) + support_attributable
+    risk_contrib = {
+        "F-API-COVERAGE": float(weights.get("undocumented", 0.30)) * undocumented_pct / 100.0,
+        "F-FRESHNESS": float(weights.get("stale", 0.20)) * stale_pct / 100.0,
+        "F-DRIFT": float(weights.get("drift", 0.20)) * drift_pct / 100.0,
+        "F-EXAMPLES-RELIABILITY": float(weights.get("example_gap", 0.20)) * example_gap_pct / 100.0,
+        "F-TERMINOLOGY": float(weights.get("terminology", 0.10)) * terminology_pct / 100.0,
+    }
+    risk_contrib_total = sum(risk_contrib.values())
+
+    # Revenue pool split by the same weights the commercial friction index uses.
+    revenue_pool_usd = items.get("revenue_at_risk", 0.0)
+    friction_contrib = {
+        "F-API-COVERAGE": 0.20 * undocumented_pct / 100.0,
+        "F-FRESHNESS": 0.10 * stale_pct / 100.0,
+        "F-DRIFT": 0.10 * drift_pct / 100.0,
+        "F-LAYERS": 0.20 * layers_pct / 100.0,
+        "F-EXAMPLES-RELIABILITY": 0.20 * example_gap_pct / 100.0,
+        "F-RETRIEVAL": 0.10 * (100.0 - retrieval_quality_pct) / 100.0 + 0.10 * hallucination_pct / 100.0,
+    }
+    friction_contrib_total = sum(friction_contrib.values())
+
+    for finding in findings:
+        finding_id = str(finding.get("id", ""))
+        base = direct_usd.get(finding_id, 0.0)
+        if risk_contrib_total > 0:
+            base += risk_pool_usd * risk_contrib.get(finding_id, 0.0) / risk_contrib_total
+        if friction_contrib_total > 0:
+            base += revenue_pool_usd * friction_contrib.get(finding_id, 0.0) / friction_contrib_total
+        finding["estimated_monthly_loss_usd_low"] = round(base * 0.7, 2)
+        finding["estimated_monthly_loss_usd_base"] = round(base, 2)
+        finding["estimated_monthly_loss_usd_high"] = round(base * 1.4, 2)
+        finding["monthly_loss_derivation"] = (
+            "allocated share of the driver-based monthly cost model "
+            "(direct drag + risk-pool share + revenue-risk share); "
+            "excludes the manual-upkeep baseline"
+            if base > 0
+            else "no measured cost contribution attributed to this finding yet"
+        )
 
 
 def _findings_totals(findings: list[dict[str, Any]]) -> dict[str, Any]:
@@ -2236,7 +2337,7 @@ def _build_html(payload: dict[str, Any]) -> str:
         <tr><td>Potential customers lost</td><td>{impact.get('potential_customers_lost', 0)}</td></tr>
         <tr><td>Total monthly signal</td><td>${impact.get('total_signal_usd', impact['monthly_cost_usd'])}</td></tr>
       </table>
-      <p class="foot">Per-finding totals (low/base/high): remediation ${findings_totals.get('remediation_cost_usd_low_total', 0)} / ${findings_totals.get('remediation_cost_usd_base_total', 0)} / ${findings_totals.get('remediation_cost_usd_high_total', 0)}, monthly loss ${findings_totals.get('monthly_loss_usd_low_total', 0)} / ${findings_totals.get('monthly_loss_usd_base_total', 0)} / ${findings_totals.get('monthly_loss_usd_high_total', 0)}. Per-finding monthly loss is a prioritization heuristic scaled from remediation effort; the accountable monthly figure is the itemized cost-signal breakdown above.</p>
+      <p class="foot">Per-finding totals (low/base/high): remediation ${findings_totals.get('remediation_cost_usd_low_total', 0)} / ${findings_totals.get('remediation_cost_usd_base_total', 0)} / ${findings_totals.get('remediation_cost_usd_high_total', 0)}, monthly loss ${findings_totals.get('monthly_loss_usd_low_total', 0)} / ${findings_totals.get('monthly_loss_usd_base_total', 0)} / ${findings_totals.get('monthly_loss_usd_high_total', 0)}. Per-finding monthly losses are allocated shares of the driver-based cost model and sum to its quality-attributable portion; the manual-upkeep baseline is shown separately in the cost-signal breakdown.</p>
       <p class="foot">Fixability coverage: pilot can close {findings_totals.get('pilot_fixable_count', 0)} of {findings_totals.get('findings_count', 0)} findings; full implementation can close {findings_totals.get('full_fixable_count', 0)} of {findings_totals.get('findings_count', 0)}.</p>
     </div>
 
@@ -2323,12 +2424,14 @@ def main() -> int:
         kpis = _merge_kpis_with_public_audit(kpis, public_audit)
     assumptions = _load_assumptions(Path(args.assumptions_json) if str(args.assumptions_json).strip() else None)
     findings = _build_findings(kpis, assumptions)
+    business_impact = _business_impact(kpis, assumptions)
+    _allocate_finding_monthly_losses(findings, kpis, business_impact)
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_mode": "external_public_audit_bundle" if public_audit else "repo_local_docs",
         "score": _overall_score(kpis),
         "kpis": kpis,
-        "business_impact": _business_impact(kpis, assumptions),
+        "business_impact": business_impact,
         "capability_matrix": _capability_matrix(),
         "findings": findings,
         "findings_totals": _findings_totals(findings),

@@ -572,6 +572,41 @@ class TestBusinessImpact:
             if item["category"] == "quality_drag":
                 assert item["monthly_usd"] == 0.0
 
+    def test_finding_losses_allocated_from_driver_model(self) -> None:
+        """Per-finding monthly losses sum to the quality-attributable pool."""
+        kpis = _make_kpis(
+            undocumented_pct=30.0,
+            stale_docs_pct=40.0,
+            drift_pct=15.0,
+            example_reliability_pct=70.0,
+            terminology_violation_pct=20.0,
+        )
+        assumptions = scorecard.CostAssumptions()
+        impact = scorecard._business_impact(kpis, assumptions)
+        findings = scorecard._build_findings(kpis, assumptions)
+        scorecard._allocate_finding_monthly_losses(findings, kpis, impact)
+
+        items = {i["id"]: i["monthly_usd"] for i in impact["monthly_expense_breakdown"]["items"]}
+        risk = impact["risk_index_0_to_1"]
+        support_attributable = items["docs_driven_support"] * (risk / (0.5 + risk))
+        pool = (
+            items["undocumented_api_drag"]
+            + items["broken_example_drag"]
+            + items["release_delay_drag"]
+            + support_attributable
+            + items["revenue_at_risk"]
+        )
+        alloc_sum = sum(f["estimated_monthly_loss_usd_base"] for f in findings)
+        assert alloc_sum == pytest.approx(pool, abs=2.0)
+        # Finding-level totals never exceed the headline monthly signal.
+        assert alloc_sum <= impact["monthly_expense_breakdown"]["total_monthly_usd"]
+        # Low/high bands mirror the scenario multipliers.
+        for finding in findings:
+            base = finding["estimated_monthly_loss_usd_base"]
+            assert finding["estimated_monthly_loss_usd_low"] == pytest.approx(base * 0.7, abs=0.02)
+            assert finding["estimated_monthly_loss_usd_high"] == pytest.approx(base * 1.4, abs=0.02)
+            assert "monthly_loss_derivation" in finding
+
     def test_expense_breakdown_rendered_in_sales_teardown(self) -> None:
         """Teardown HTML shows the itemized cost table with formulas."""
         kpis = _make_kpis(undocumented_pct=30.0, example_reliability_pct=70.0)
