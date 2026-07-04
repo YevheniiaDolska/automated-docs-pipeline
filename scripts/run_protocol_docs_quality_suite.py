@@ -55,8 +55,13 @@ def main() -> int:
     parser.add_argument("--required-languages", default="curl,javascript,python")
     parser.add_argument("--glossary", default="glossary.yml")
     parser.add_argument("--modules-dir", default="")
-    parser.add_argument("--retrieval-index-output", default="docs/assets/knowledge-retrieval-index.json")
-    parser.add_argument("--knowledge-graph-output", default="docs/assets/knowledge-graph.jsonld")
+    # Empty defaults resolve to protocol-scoped paths under --reports-dir at
+    # runtime. The protocol RAG refresh extracts modules from a single
+    # protocol's docs, so writing its index/graph to the global
+    # docs/assets/ paths would clobber the site-wide retrieval index built
+    # from the full docs tree (Ask AI would then retrieve from one document).
+    parser.add_argument("--retrieval-index-output", default="")
+    parser.add_argument("--knowledge-graph-output", default="")
     parser.add_argument("--rag-refresh", action="store_true", default=True)
     parser.add_argument("--rag-strict", action="store_true")
     parser.add_argument("--json-report", default="")
@@ -213,10 +218,16 @@ def main() -> int:
                     modules_dir = (repo_root / modules_dir).resolve()
             else:
                 modules_dir = (reports_dir / "knowledge_modules_auto").resolve()
-            retrieval_index_output = Path(args.retrieval_index_output)
+            retrieval_index_raw = str(args.retrieval_index_output).strip() or str(
+                reports_dir / f"{args.protocol}_knowledge-retrieval-index.json"
+            )
+            retrieval_index_output = Path(retrieval_index_raw)
             if not retrieval_index_output.is_absolute():
                 retrieval_index_output = (repo_root / retrieval_index_output).resolve()
-            knowledge_graph_output = Path(args.knowledge_graph_output)
+            knowledge_graph_raw = str(args.knowledge_graph_output).strip() or str(
+                reports_dir / f"{args.protocol}_knowledge-graph.jsonld"
+            )
+            knowledge_graph_output = Path(knowledge_graph_raw)
             if not knowledge_graph_output.is_absolute():
                 knowledge_graph_output = (repo_root / knowledge_graph_output).resolve()
 
