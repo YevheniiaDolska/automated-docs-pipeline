@@ -5090,7 +5090,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#0",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 0,
@@ -5122,7 +5122,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#1",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 1,
@@ -5154,7 +5154,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#2",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -5186,7 +5186,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#3",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -5218,7 +5218,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#4",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -5250,7 +5250,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#5",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -5282,7 +5282,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#6",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -5298,7 +5298,7 @@
       "objectID": "097c885848a0a4f6fe7ac3c278c29ed2",
       "title": "Install Ask AI runtime pack",
       "heading": "Step 5: Embed the widget",
-      "content": "Add this snippet to the docs site page template or custom HTML block: <script   src=\"/ask-ai/public/ask-ai-widget.js\"   data-ask-ai-endpoint=\"https://docs.example.com/ask-ai/api/v1/ask\"   data-ask-ai-api-key=\"YOUR_PUBLIC_OR_PROXY_KEY\"   data-user-id=\"USER_123\"   data-user-role=\"support\"   data-plan=\"pro\"   data-enabled=\"true\"></script> ",
+      "content": "Add this snippet to the docs site page template or custom HTML block: <script   src=\"/ask-ai/public/ask-ai-widget.js\"   data-ask-ai-endpoint=\"https://docs.example.com/ask-ai/api/v1/ask\"   data-ask-ai-api-key=\"YOUR_PUBLIC_OR_PROXY_KEY\"   data-user-id=\"USER_123\"   data-user-role=\"support\"   data-plan=\"pro\"   data-theme=\"dark\"   data-title=\"Ask AI\"   data-stream=\"true\"   data-enabled=\"true\"></script> The widget streams answers token by token, keeps conversation history for follow-up questions, renders inline citations, and shows thumbs up and thumbs down controls. Set data-theme=\"light\" for a light panel and data-stream=\"false\" to use the buffered endpoint. ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -5318,16 +5318,144 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#7",
-      "last_reviewed": "2026-03-20",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 21,
+      "word_count": 62,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "9b7f72dc0aff1e098267ce9fd2cfaa49",
+      "title": "Install Ask AI runtime pack",
+      "heading": "Stream answers as they generate",
+      "content": "The runtime streams answers token by token over the POST /api/v1/ask/stream endpoint. The widget renders each token as it arrives, so readers watch the answer form in real time instead of waiting for the full reply. Send the same request body as the standard endpoint: curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \\   -H \"Content-Type: application/json\" \\   -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\" \\   -d '{\"question\": \"How do I rotate API keys?\", \"history\": []}' The stream sends one event per token, then a final event with the citations and question identifier: data: {\"type\": \"token\", \"text\": \"Rotate \"} data: {\"type\": \"done\", \"citations\": [...], \"question_id\": \"...\", \"grounded\": true} ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Stream answers as they generate",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#8",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 101,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "6b841b3b398c562ba3b449b4e11c4f53",
+      "title": "Install Ask AI runtime pack",
+      "heading": "Keep conversation context for follow-up questions",
+      "content": "Send prior turns in the history field so follow-up questions read in context. Each turn is an object with a role of user or assistant and a content string. The ASK_AI_HISTORY_MAX_TURNS environment variable sets how many recent turns the server keeps, with a default of six. The widget stores the conversation and sends it with each question, so a reader can ask a follow-up such as \"How does that work in self-hosted mode?\" and receive a contextual answer. ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Keep conversation context for follow-up questions",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#9",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 78,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "7161d914252edaa27f5625498ae0a8ab",
+      "title": "Install Ask AI runtime pack",
+      "heading": "Ground answers in documentation and refuse when uncertain",
+      "content": "The assistant answers only from the retrieved documentation sources and cites them inline with bracketed numbers such as [1]. The response returns a citations list that contains only the sources the answer references, plus a grounded flag. When retrieval returns no sources, or the sources do not cover the question, the runtime returns an honest refusal with grounded set to false and an empty citations list. The runtime records each refusal in the usage log, where it surfaces as a documentation-gap candidate in the analytics report. ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Ground answers in documentation and refuse when uncertain",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#10",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 86,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "68c43d3139c8ad4143f2f91a3d7c4970",
+      "title": "Install Ask AI runtime pack",
+      "heading": "Collect reader feedback",
+      "content": "Each answer includes thumbs up and thumbs down controls. The widget posts the rating to the POST /api/v1/feedback endpoint with the question_id from the answer. Ratings feed the usage analytics and help rank which pages to improve first. ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Collect reader feedback",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#11",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 38,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "2e7fae80ea9c2c5d0c869a49684b5a52",
       "title": "Install Ask AI runtime pack",
       "heading": "Runtime pack install fails because destination exists",
       "content": "Use force mode: npm run askai:runtime:install:force ",
@@ -5349,8 +5477,8 @@
         "lvl3": "Runtime pack install fails because destination exists",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#8",
-      "last_reviewed": "2026-03-20",
+      "url": "/how-to/install-ask-ai-runtime-pack#12",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 3,
@@ -5359,7 +5487,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6b841b3b398c562ba3b449b4e11c4f53",
+      "objectID": "21f05d638419af457d7383ac5fc44d82",
       "title": "Install Ask AI runtime pack",
       "heading": "Ask endpoint returns 401",
       "content": "Check X-Ask-AI-Key header and ASK_AI_API_KEY value. ",
@@ -5381,8 +5509,8 @@
         "lvl3": "Ask endpoint returns 401",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#9",
-      "last_reviewed": "2026-03-20",
+      "url": "/how-to/install-ask-ai-runtime-pack#13",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 3,
@@ -5391,10 +5519,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "7161d914252edaa27f5625498ae0a8ab",
+      "objectID": "0e24185ad73a7349f1bfe2ecb5fbfda3",
       "title": "Install Ask AI runtime pack",
       "heading": "Ask endpoint returns 402",
-      "content": "The current user plan is not entitled by billing mode logic. Confirm ASK_AI_BILLING_MODE and user plan header. The /healthz endpoint reports the status of all advanced retrieval features: {   \"ok\": true,   \"enabled\": true,   \"provider\": \"openai\",   \"billing_mode\": \"disabled\",   \"semantic_retrieval\": true,   \"reranking\": true,   \"hybrid_search\": true,   \"hyde\": true,   \"embedding_cache\": true } ",
+      "content": "The current user plan is not entitled by billing mode logic. Confirm ASK_AI_BILLING_MODE and user plan header. ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -5413,17 +5541,49 @@
         "lvl3": "Ask endpoint returns 402",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#10",
-      "last_reviewed": "2026-03-20",
+      "url": "/how-to/install-ask-ai-runtime-pack#14",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 3,
-      "word_count": 48,
+      "word_count": 17,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "68c43d3139c8ad4143f2f91a3d7c4970",
+      "objectID": "39ad6ac0f893d02b3107c913f0a8b54e",
+      "title": "Install Ask AI runtime pack",
+      "heading": "Answer reports that it cannot find the information",
+      "content": "The runtime refuses to answer when retrieval returns no relevant sources, or when the sources do not cover the question. This behavior prevents fabricated answers. Rebuild the retrieval index so new documentation becomes searchable: python3 scripts/generate_knowledge_retrieval_index.py The /healthz endpoint reports the status of all advanced retrieval features: {   \"ok\": true,   \"enabled\": true,   \"provider\": \"openai\",   \"billing_mode\": \"disabled\",   \"semantic_retrieval\": true,   \"reranking\": true,   \"hybrid_search\": true,   \"hyde\": true,   \"embedding_cache\": true } ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Answer reports that it cannot find the information",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#15",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 3,
+      "word_count": 67,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "8be9619427ac4022bdd72f61de87de9b",
       "title": "Install Ask AI runtime pack",
       "heading": "Next steps",
       "content": "- Configure Ask AI module - Assemble intent experiences - Intelligent knowledge system architecture ",
@@ -5445,8 +5605,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#11",
-      "last_reviewed": "2026-03-20",
+      "url": "/how-to/install-ask-ai-runtime-pack#16",
+      "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
