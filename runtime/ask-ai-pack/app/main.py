@@ -61,12 +61,18 @@ def _bool_env(name: str, default: bool) -> bool:
 
 def _load_runtime_config() -> dict[str, Any]:
     provider = os.getenv("ASK_AI_PROVIDER", "openai").strip().lower()
+    # Provider-aware default endpoint: local models (Ollama and compatible)
+    # default to the local OpenAI-compatible server; everything else to OpenAI.
+    base_default = "http://localhost:11434/v1" if provider in {"local", "ollama"} else "https://api.openai.com/v1"
     return {
         "enabled": _bool_env("ASK_AI_ENABLED", True),
         "provider": provider,
         "model": os.getenv("ASK_AI_MODEL", "gpt-4.1-mini"),
-        "base_url": os.getenv("ASK_AI_BASE_URL", "https://api.openai.com/v1").rstrip("/"),
-        "provider_api_key": resolve_provider_api_key(provider),
+        "base_url": os.getenv("ASK_AI_BASE_URL", base_default).rstrip("/"),
+        # Local OpenAI-compatible servers (Ollama) need no key; use a sentinel
+        # so generation proceeds instead of falling back to the no-key path.
+        "provider_api_key": resolve_provider_api_key(provider)
+        or ("local" if provider in {"local", "ollama"} else ""),
         "billing_mode": os.getenv("ASK_AI_BILLING_MODE", "disabled"),
         "max_context_modules": int(os.getenv("ASK_AI_MAX_CONTEXT_MODULES", "6")),
         "max_tokens": int(os.getenv("ASK_AI_MAX_TOKENS", "700")),
@@ -93,6 +99,12 @@ def _load_runtime_config() -> dict[str, Any]:
         "usage_log_enabled": _bool_env("ASK_AI_USAGE_LOG_ENABLED", True),
         "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
         "history_max_turns": int(os.getenv("ASK_AI_HISTORY_MAX_TURNS", "6")),
+        "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
+        "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
+        "graph_rerank_enabled": _bool_env("ASK_AI_GRAPH_RERANK_ENABLED", True),
+        "graph_rerank_boost": float(os.getenv("ASK_AI_GRAPH_RERANK_BOOST", "0.35")),
+        "query_decomp_enabled": _bool_env("ASK_AI_QUERY_DECOMP_ENABLED", True),
+        "entity_first_enabled": _bool_env("ASK_AI_ENTITY_FIRST_ENABLED", True),
     }
 
 
@@ -288,6 +300,10 @@ def healthz() -> dict[str, Any]:
         "semantic_retrieval": _faiss_data is not None,
         "reranking": cfg["rerank_enabled"],
         "hybrid_search": cfg["hybrid_enabled"],
+        "retrieval_mode": cfg["retrieval_mode"],
+        "graph_rerank": cfg["graph_rerank_enabled"],
+        "query_decomposition": cfg["query_decomp_enabled"],
+        "entity_first": cfg["entity_first_enabled"],
         "hyde": cfg["hyde_enabled"],
         "embedding_cache": cfg["embed_cache_enabled"],
     }
@@ -344,6 +360,13 @@ def _prepare_request(
         cache_enabled=config["embed_cache_enabled"],
         cache_ttl=config["embed_cache_ttl"],
         cache_max_size=config["embed_cache_max_size"],
+        retrieval_mode=config["retrieval_mode"],
+        vectorless_min_score=config["vectorless_min_score"],
+        graph_rerank_enabled=config["graph_rerank_enabled"],
+        graph_rerank_boost=config["graph_rerank_boost"],
+        query_decomp_enabled=config["query_decomp_enabled"],
+        entity_first_enabled=config["entity_first_enabled"],
+        history=[{"role": m.role, "content": m.content} for m in payload.history],
     )
     all_citations = [
         {
