@@ -951,6 +951,7 @@ class TestFullAuditWizardHelpers:
             "claude-sonnet-4-5",  # llm model
             "/path/.env",  # env file
             "ANTHROPIC_API_KEY",  # env name
+            "",  # pipeline monthly price -> keep default
             "",  # empty URL (no URLs)
         ])
         with patch("builtins.input", side_effect=inputs):

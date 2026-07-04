@@ -3848,6 +3848,12 @@ def main() -> int:
         help="Automatically regenerate scorecard before PDF using company assumptions profile",
     )
     parser.add_argument(
+        "--pipeline-monthly-price-usd",
+        type=float,
+        default=float(os.environ.get("VERIOPS_PIPELINE_MONTHLY_PRICE_USD", "0") or 0),
+        help="Monthly subscription quoted to this prospect; forwarded to the scorecard price-vs-cost strip.",
+    )
+    parser.add_argument(
         "--assumptions-json",
         default="",
         help="Explicit assumptions JSON for financial model (overrides profile auto-detection)",
@@ -4337,6 +4343,9 @@ def main() -> int:
                 "--sales-html-output", str(Path(scorecard_json).with_name("sales_teardown.html")),
                 "--sales-pdf-output", str(Path(scorecard_json).with_name("sales_teardown.pdf")),
             ]
+            price = float(getattr(args, "pipeline_monthly_price_usd", 0.0) or 0.0)
+            if price > 0:
+                scorecard_cmd.extend(["--pipeline-monthly-price-usd", str(price)])
             if assumptions_path:
                 scorecard_cmd.extend(["--assumptions-json", assumptions_path])
                 print(f"[pdf] scorecard assumptions profile: {assumptions_path}")

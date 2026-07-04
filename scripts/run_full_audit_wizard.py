@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import shlex
 import subprocess
@@ -31,6 +32,34 @@ def _ask_yes_no(prompt: str, default: bool) -> bool:
     return raw in {"y", "yes", "1", "true"}
 
 
+PRICE_ENV_KEY = "VERIOPS_PIPELINE_MONTHLY_PRICE_USD"
+
+
+def _read_env_value(env_path: Path, key: str) -> str:
+    if not env_path.exists():
+        return ""
+    for raw in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if line.startswith(f"{key}="):
+            return line.split("=", 1)[1].strip()
+    return ""
+
+
+def _persist_env_value(env_path: Path, key: str, value: str) -> None:
+    lines: list[str] = []
+    if env_path.exists():
+        lines = env_path.read_text(encoding="utf-8").splitlines()
+    replaced = False
+    for i, raw in enumerate(lines):
+        if raw.strip().startswith(f"{key}="):
+            lines[i] = f"{key}={value}"
+            replaced = True
+            break
+    if not replaced:
+        lines.append(f"{key}={value}")
+    env_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
 def _run(cmd: list[str], cwd: Path) -> None:
     print(f"\n[audit] $ {' '.join(shlex.quote(part) for part in cmd)}")
     completed = subprocess.run(cmd, cwd=str(cwd), check=False)
@@ -52,13 +81,29 @@ def main() -> int:
     max_pages = _ask("Max pages per site", "120")
     timeout = _ask("Request timeout seconds", "15")
     llm_enabled = _ask_yes_no("Enable LLM executive analysis", True)
-    llm_model = "claude-sonnet-4-5"
+    llm_model = "claude-sonnet-5"
     llm_env_file = str(repo / ".env")
     llm_env_name = "ANTHROPIC_API_KEY"
     if llm_enabled:
         llm_model = _ask("LLM model", llm_model)
         llm_env_file = _ask("LLM .env file path", llm_env_file)
         llm_env_name = _ask("LLM API key env name", llm_env_name)
+
+    env_path = repo / ".env"
+    stored_price = os.environ.get(PRICE_ENV_KEY, "").strip() or _read_env_value(env_path, PRICE_ENV_KEY) or "1500"
+    price_raw = _ask(
+        "Pipeline monthly subscription quoted to this prospect, USD (tiers: 1500 / 3000 / 6000)",
+        stored_price,
+    )
+    try:
+        pipeline_price = max(0.0, float(price_raw))
+    except ValueError:
+        print(f"[warn] not a number: {price_raw!r}; price comparison disabled for this run")
+        pipeline_price = 0.0
+    if pipeline_price > 0 and price_raw != stored_price:
+        if _ask_yes_no(f"Save {price_raw} as the default in .env ({PRICE_ENV_KEY})", False):
+            _persist_env_value(env_path, PRICE_ENV_KEY, price_raw)
+            print(f"[ok] default saved to {env_path}")
 
     print("\nEnter public docs URLs (one per line). Empty line to finish.")
     site_urls: list[str] = []
@@ -95,7 +140,8 @@ def main() -> int:
             "reports/audit_scorecard.json",
             "--html-output",
             "reports/audit_scorecard.html",
-        ],
+        ]
+        + (["--pipeline-monthly-price-usd", str(pipeline_price)] if pipeline_price > 0 else []),
         cwd=repo,
     )
 
@@ -116,6 +162,8 @@ def main() -> int:
         "config/company_assumptions",
         "--assumptions-autofill",
     ]
+    if pipeline_price > 0:
+        public_cmd.extend(["--pipeline-monthly-price-usd", str(pipeline_price)])
     for url in site_urls:
         public_cmd.extend(["--site-url", url])
     if llm_enabled:
