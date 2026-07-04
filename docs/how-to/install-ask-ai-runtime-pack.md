@@ -9,7 +9,7 @@ tags:
 - AI
 - Cloud
 app_component: ai-agent
-last_reviewed: '2026-03-20'
+last_reviewed: '2026-07-04'
 original_author: Developer
 ---
 
@@ -140,8 +140,44 @@ Add this snippet to the docs site page template or custom HTML block:
   data-user-id="USER_123"
   data-user-role="support"
   data-plan="pro"
+  data-theme="dark"
+  data-title="Ask AI"
+  data-stream="true"
   data-enabled="true"></script>
 ```
+
+The widget streams answers token by token, keeps conversation history for follow-up questions, renders inline citations, and shows thumbs up and thumbs down controls. Set `data-theme="light"` for a light panel and `data-stream="false"` to use the buffered endpoint.
+
+## Stream answers as they generate
+
+The runtime streams answers token by token over the `POST /api/v1/ask/stream` endpoint. The widget renders each token as it arrives, so readers watch the answer form in real time instead of waiting for the full reply. Send the same request body as the standard endpoint:
+
+```bash
+curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \
+  -H "Content-Type: application/json" \
+  -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
+  -d '{"question": "How do I rotate API keys?", "history": []}'
+```
+
+The stream sends one event per token, then a final event with the citations and question identifier:
+
+```text
+data: {"type": "token", "text": "Rotate "}
+
+data: {"type": "done", "citations": [...], "question_id": "...", "grounded": true}
+```
+
+## Keep conversation context for follow-up questions
+
+Send prior turns in the `history` field so follow-up questions read in context. Each turn is an object with a `role` of `user` or `assistant` and a `content` string. The `ASK_AI_HISTORY_MAX_TURNS` environment variable sets how many recent turns the server keeps, with a default of six. The widget stores the conversation and sends it with each question, so a reader can ask a follow-up such as "How does that work in self-hosted mode?" and receive a contextual answer.
+
+## Ground answers in documentation and refuse when uncertain
+
+The assistant answers only from the retrieved documentation sources and cites them inline with bracketed numbers such as `[1]`. The response returns a `citations` list that contains only the sources the answer references, plus a `grounded` flag. When retrieval returns no sources, or the sources do not cover the question, the runtime returns an honest refusal with `grounded` set to `false` and an empty `citations` list. The runtime records each refusal in the usage log, where it surfaces as a documentation-gap candidate in the analytics report.
+
+## Collect reader feedback
+
+Each answer includes thumbs up and thumbs down controls. The widget posts the rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the answer. Ratings feed the usage analytics and help rank which pages to improve first.
 
 ## Troubleshooting
 
@@ -160,6 +196,14 @@ Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
 ### Ask endpoint returns 402
 
 The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE` and user plan header.
+
+### Answer reports that it cannot find the information
+
+The runtime refuses to answer when retrieval returns no relevant sources, or when the sources do not cover the question. This behavior prevents fabricated answers. Rebuild the retrieval index so new documentation becomes searchable:
+
+```bash
+python3 scripts/generate_knowledge_retrieval_index.py
+```
 
 The `/healthz` endpoint reports the status of all advanced retrieval features:
 
