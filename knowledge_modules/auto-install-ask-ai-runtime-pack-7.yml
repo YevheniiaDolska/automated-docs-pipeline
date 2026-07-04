@@ -1,0 +1,137 @@
+id: auto-install-ask-ai-runtime-pack-7
+title: Install Ask AI runtime pack (Part 7)
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-04'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+metadata:
+  url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
+  title: Install Ask AI runtime pack (Part 7)
+  heading: Analyze usage by topic and session
+  version: 1.50.0
+  updated_at: '2026-07-04'
+  source_site: docs.example.com
+  source_path: how-to/install-ask-ai-runtime-pack.md
+semantic:
+  topic: Analyze usage by topic and session
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - install ask ai runtime pack
+  status: rule_based
+content:
+  docs_markdown: '## Analyze usage by topic and session
+
+
+    The analytics report clusters questions into topics and builds a session engagement
+    funnel. Send an `X-Session-Id` header with each request so the runtime can group
+    a conversation. Build the report and dashboard:
+
+
+    ```bash
+
+    npm run askai:analytics:build
+
+    ```
+
+
+    The dashboard shows answer rate per topic (which themes lack coverage) and the
+    funnel from asked to answered to follow-up to helpful rating.
+
+
+    ## Troubleshooting
+
+
+    ### Runtime pack install fails because destination exists
+
+
+    Use force mode:
+
+
+    ```bash
+
+    npm run askai:runtime:install:force
+
+    ```
+
+
+    ### Ask endpoint returns 401
+
+
+    Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
+
+
+    ### Ask endpoint returns 402
+
+
+    The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE`
+    and user plan header.'
+  assistant_context: 'Use this module when answering questions related to: Install
+    Ask AI runtime pack (Part 7). Source path: how-to/install-ask-ai-runtime-pack.md.
+    Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+    checks, and billing hooks in a few commands.
+
+
+    ## Analyze usage by topic and session
+
+
+    The analytics report clusters questions into topics and builds a session engagement
+    funnel. Send an `X-Session-Id` header with each request so the runtime can group
+    a conversation. Build the report and dashboard:
+
+
+    ```bash
+
+    npm run askai:analytics:build
+
+    ```
+
+
+    The dashboard shows answer rate per topic (which themes lack coverage) and the
+    funnel from asked to answered to follow-up to helpful rating.
+
+
+    ## Troubleshooting
+
+
+    ### Runtime pack install fails because destination exists
+
+
+    Use force mode:
+
+
+    ```bash
+
+    npm run askai:runtime:install:force
+
+    ```
+
+
+    ### Ask endpoint returns 401
+
+
+    Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
+
+
+    ### Ask endpoint returns 402
+
+
+    The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE`
+    and user plan header.'

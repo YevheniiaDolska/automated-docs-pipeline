@@ -1097,7 +1097,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Stage Articulation",
     "version": "1.50.0",
-    "updated_at": "2026-07-04T20:42:54.350639Z",
+    "updated_at": "2026-07-04T21:46:05.351149Z",
     "source_site": "docs.example.com",
     "topic": "Stage Articulation",
     "semantic_intent": "integrate",
@@ -1141,7 +1141,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Protocols Links",
     "version": "1.50.0",
-    "updated_at": "2026-07-04T20:42:54.362500Z",
+    "updated_at": "2026-07-04T21:46:05.362594Z",
     "source_site": "docs.example.com",
     "topic": "Protocols Links",
     "semantic_intent": "integrate",
@@ -1185,7 +1185,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Reports Links",
     "version": "1.50.0",
-    "updated_at": "2026-07-04T20:42:54.366697Z",
+    "updated_at": "2026-07-04T21:46:05.364172Z",
     "source_site": "docs.example.com",
     "topic": "Reports Links",
     "semantic_intent": "integrate",
@@ -1229,7 +1229,7 @@
     "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
     "heading": "Tests Links",
     "version": "1.50.0",
-    "updated_at": "2026-07-04T20:42:54.370739Z",
+    "updated_at": "2026-07-04T21:46:05.364172Z",
     "source_site": "docs.example.com",
     "topic": "Tests Links",
     "semantic_intent": "integrate",
@@ -4057,8 +4057,96 @@
       "how-to",
       "install-ask-ai-runtime-pack"
     ],
+    "docs_excerpt": "## Protect the endpoint and bill each user separately\n\nThe runtime rate limits requests per user to protect the public endpoint and the provider quota behind it. Set the budget with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE` (default 20). The runtime keys the limit on the `X-User-Id` header, falling back to the API key. A request over the budget returns HTTP 429 with a `Retry-After` header.\n\nTo bill ",
+    "assistant_excerpt": "Use this module when answering questions related to: Install Ask AI runtime pack (Part 6). Source path: how-to/install-ask-ai-runtime-pack.md. Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.\n\n## Protect the endpoint and b",
+    "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+    "heading": "Protect the endpoint and bill each user separately",
+    "version": "1.50.0",
+    "updated_at": "2026-07-04",
+    "source_site": "docs.example.com",
+    "topic": "Protect the endpoint and bill each user separately",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "how-to",
+      "install ask ai runtime pack"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules\\auto-install-ask-ai-runtime-pack-6.yml"
+  },
+  {
+    "objectID": "auto-install-ask-ai-runtime-pack-7",
+    "id": "auto-install-ask-ai-runtime-pack-7",
+    "title": "Install Ask AI runtime pack (Part 7)",
+    "summary": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-07-04",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "how-to",
+      "install-ask-ai-runtime-pack"
+    ],
+    "docs_excerpt": "## Analyze usage by topic and session\n\nThe analytics report clusters questions into topics and builds a session engagement funnel. Send an `X-Session-Id` header with each request so the runtime can group a conversation. Build the report and dashboard:\n\n```bash\nnpm run askai:analytics:build\n```\n\nThe dashboard shows answer rate per topic (which themes lack coverage) and the funnel from asked to answ",
+    "assistant_excerpt": "Use this module when answering questions related to: Install Ask AI runtime pack (Part 7). Source path: how-to/install-ask-ai-runtime-pack.md. Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.\n\n## Analyze usage by topic and",
+    "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+    "heading": "Analyze usage by topic and session",
+    "version": "1.50.0",
+    "updated_at": "2026-07-04",
+    "source_site": "docs.example.com",
+    "topic": "Analyze usage by topic and session",
+    "semantic_intent": "configure",
+    "semantic_audience": "practitioner",
+    "keywords": [
+      "how-to",
+      "install ask ai runtime pack"
+    ],
+    "semantic_status": "rule_based",
+    "source_file": "knowledge_modules\\auto-install-ask-ai-runtime-pack-7.yml"
+  },
+  {
+    "objectID": "auto-install-ask-ai-runtime-pack-8",
+    "id": "auto-install-ask-ai-runtime-pack-8",
+    "title": "Install Ask AI runtime pack (Part 8)",
+    "summary": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+    "status": "active",
+    "priority": 60,
+    "owner": "docsops-auto",
+    "last_verified": "2026-07-04",
+    "intents": [
+      "configure"
+    ],
+    "audiences": [
+      "practitioner",
+      "developer"
+    ],
+    "channels": [
+      "docs",
+      "assistant",
+      "automation"
+    ],
+    "dependencies": [],
+    "tags": [
+      "auto-extracted",
+      "how-to",
+      "install-ask-ai-runtime-pack"
+    ],
     "docs_excerpt": "### Answer reports that it cannot find the information\n\nThe runtime refuses to answer when retrieval returns no relevant sources, or when the sources do not cover the question. This behavior prevents fabricated answers. Rebuild the retrieval index so new documentation becomes searchable:\n\n```bash\npython3 scripts/generate_knowledge_retrieval_index.py\n```\n\nThe `/healthz` endpoint reports the status ",
-    "assistant_excerpt": "Use this module when answering questions related to: Install Ask AI runtime pack (Part 6). Source path: how-to/install-ask-ai-runtime-pack.md. Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.\n\n### Answer reports that it ca",
+    "assistant_excerpt": "Use this module when answering questions related to: Install Ask AI runtime pack (Part 8). Source path: how-to/install-ask-ai-runtime-pack.md. Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.\n\n### Answer reports that it ca",
     "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
     "heading": "Answer reports that it cannot find the information",
     "version": "1.50.0",
@@ -4072,7 +4160,7 @@
       "install ask ai runtime pack"
     ],
     "semantic_status": "rule_based",
-    "source_file": "knowledge_modules\\auto-install-ask-ai-runtime-pack-6.yml"
+    "source_file": "knowledge_modules\\auto-install-ask-ai-runtime-pack-8.yml"
   },
   {
     "objectID": "auto-intelligent-knowledge-system-1",

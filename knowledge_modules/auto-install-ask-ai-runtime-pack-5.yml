@@ -55,36 +55,7 @@ content:
     Each answer includes thumbs up and thumbs down controls. The widget posts the
     rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the
     answer. Ratings feed the usage analytics and help rank which pages to improve
-    first.
-
-
-    ## Troubleshooting
-
-
-    ### Runtime pack install fails because destination exists
-
-
-    Use force mode:
-
-
-    ```bash
-
-    npm run askai:runtime:install:force
-
-    ```
-
-
-    ### Ask endpoint returns 401
-
-
-    Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
-
-
-    ### Ask endpoint returns 402
-
-
-    The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE`
-    and user plan header.'
+    first.'
   assistant_context: 'Use this module when answering questions related to: Install
     Ask AI runtime pack (Part 5). Source path: how-to/install-ask-ai-runtime-pack.md.
     Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
@@ -109,33 +80,4 @@ content:
     Each answer includes thumbs up and thumbs down controls. The widget posts the
     rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the
     answer. Ratings feed the usage analytics and help rank which pages to improve
-    first.
-
-
-    ## Troubleshooting
-
-
-    ### Runtime pack install fails because destination exists
-
-
-    Use force mode:
-
-
-    ```bash
-
-    npm run askai:runtime:install:force
-
-    ```
-
-
-    ### Ask endpoint returns 401
-
-
-    Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
-
-
-    ### Ask endpoint returns 402
-
-
-    The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE`
-    and user plan header.'
+    first.'

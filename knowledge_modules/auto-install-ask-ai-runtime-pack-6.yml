@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
   title: Install Ask AI runtime pack (Part 6)
-  heading: Answer reports that it cannot find the information
+  heading: Protect the endpoint and bill each user separately
   version: 1.50.0
   updated_at: '2026-07-04'
   source_site: docs.example.com
   source_path: how-to/install-ask-ai-runtime-pack.md
 semantic:
-  topic: Answer reports that it cannot find the information
+  topic: Protect the endpoint and bill each user separately
   intent: configure
   audience: practitioner
   keywords:
@@ -37,30 +37,33 @@ semantic:
   - install ask ai runtime pack
   status: rule_based
 content:
-  docs_markdown: "### Answer reports that it cannot find the information\n\nThe runtime\
-    \ refuses to answer when retrieval returns no relevant sources, or when the sources\
-    \ do not cover the question. This behavior prevents fabricated answers. Rebuild\
-    \ the retrieval index so new documentation becomes searchable:\n\n```bash\npython3\
-    \ scripts/generate_knowledge_retrieval_index.py\n```\n\nThe `/healthz` endpoint\
-    \ reports the status of all advanced retrieval features:\n\n```json\n{\n  \"ok\"\
-    : true,\n  \"enabled\": true,\n  \"provider\": \"openai\",\n  \"billing_mode\"\
-    : \"disabled\",\n  \"semantic_retrieval\": true,\n  \"reranking\": true,\n  \"\
-    hybrid_search\": true,\n  \"hyde\": true,\n  \"embedding_cache\": true\n}\n```\n\
-    \n## Next steps\n\n- [Configure Ask AI module](configure-ask-ai-module.md)\n-\
-    \ [Assemble intent experiences](assemble-intent-experiences.md)\n- [Intelligent\
-    \ knowledge system architecture](../concepts/intelligent-knowledge-system.md)"
+  docs_markdown: "## Protect the endpoint and bill each user separately\n\nThe runtime\
+    \ rate limits requests per user to protect the public endpoint and the provider\
+    \ quota behind it. Set the budget with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE`\
+    \ (default 20). The runtime keys the limit on the `X-User-Id` header, falling\
+    \ back to the API key. A request over the budget returns HTTP 429 with a `Retry-After`\
+    \ header.\n\nTo bill queries to each user rather than a shared key, send the user's\
+    \ provider key per request:\n\n```bash\ncurl -X POST https://docs.example.com/ask-ai/api/v1/ask\
+    \ \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\"\
+    \ \\\n  -H \"X-Provider-Key: USER_PROVIDER_KEY\" \\\n  -H \"X-Model: gpt-4.1-mini\"\
+    \ \\\n  -d '{\"question\": \"How do I rotate API keys?\"}'\n```\n\nThe runtime\
+    \ uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for\
+    \ that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key`\
+    \ to require the header: a request without it returns HTTP 402."
   assistant_context: "Use this module when answering questions related to: Install\
     \ Ask AI runtime pack (Part 6). Source path: how-to/install-ask-ai-runtime-pack.md.\
     \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
-    \ auth checks, and billing hooks in a few commands.\n\n### Answer reports that\
-    \ it cannot find the information\n\nThe runtime refuses to answer when retrieval\
-    \ returns no relevant sources, or when the sources do not cover the question.\
-    \ This behavior prevents fabricated answers. Rebuild the retrieval index so new\
-    \ documentation becomes searchable:\n\n```bash\npython3 scripts/generate_knowledge_retrieval_index.py\n\
-    ```\n\nThe `/healthz` endpoint reports the status of all advanced retrieval features:\n\
-    \n```json\n{\n  \"ok\": true,\n  \"enabled\": true,\n  \"provider\": \"openai\"\
-    ,\n  \"billing_mode\": \"disabled\",\n  \"semantic_retrieval\": true,\n  \"reranking\"\
-    : true,\n  \"hybrid_search\": true,\n  \"hyde\": true,\n  \"embedding_cache\"\
-    : true\n}\n```\n\n## Next steps\n\n- [Configure Ask AI module](configure-ask-ai-module.md)\n\
-    - [Assemble intent experiences](assemble-intent-experiences.md)\n- [Intelligent\
-    \ knowledge system architecture](../concepts/intelligent-knowledge-system.md)"
+    \ auth checks, and billing hooks in a few commands.\n\n## Protect the endpoint\
+    \ and bill each user separately\n\nThe runtime rate limits requests per user to\
+    \ protect the public endpoint and the provider quota behind it. Set the budget\
+    \ with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE` (default 20). The runtime keys\
+    \ the limit on the `X-User-Id` header, falling back to the API key. A request\
+    \ over the budget returns HTTP 429 with a `Retry-After` header.\n\nTo bill queries\
+    \ to each user rather than a shared key, send the user's provider key per request:\n\
+    \n```bash\ncurl -X POST https://docs.example.com/ask-ai/api/v1/ask \\\n  -H \"\
+    Content-Type: application/json\" \\\n  -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\"\
+    \ \\\n  -H \"X-Provider-Key: USER_PROVIDER_KEY\" \\\n  -H \"X-Model: gpt-4.1-mini\"\
+    \ \\\n  -d '{\"question\": \"How do I rotate API keys?\"}'\n```\n\nThe runtime\
+    \ uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for\
+    \ that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key`\
+    \ to require the header: a request without it returns HTTP 402."

@@ -179,6 +179,33 @@ The assistant answers only from the retrieved documentation sources and cites th
 
 Each answer includes thumbs up and thumbs down controls. The widget posts the rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the answer. Ratings feed the usage analytics and help rank which pages to improve first.
 
+## Protect the endpoint and bill each user separately
+
+The runtime rate limits requests per user to protect the public endpoint and the provider quota behind it. Set the budget with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE` (default 20). The runtime keys the limit on the `X-User-Id` header, falling back to the API key. A request over the budget returns HTTP 429 with a `Retry-After` header.
+
+To bill queries to each user rather than a shared key, send the user's provider key per request:
+
+```bash
+curl -X POST https://docs.example.com/ask-ai/api/v1/ask \
+  -H "Content-Type: application/json" \
+  -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
+  -H "X-Provider-Key: USER_PROVIDER_KEY" \
+  -H "X-Model: gpt-4.1-mini" \
+  -d '{"question": "How do I rotate API keys?"}'
+```
+
+The runtime uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key` to require the header: a request without it returns HTTP 402.
+
+## Analyze usage by topic and session
+
+The analytics report clusters questions into topics and builds a session engagement funnel. Send an `X-Session-Id` header with each request so the runtime can group a conversation. Build the report and dashboard:
+
+```bash
+npm run askai:analytics:build
+```
+
+The dashboard shows answer rate per topic (which themes lack coverage) and the funnel from asked to answered to follow-up to helpful rating.
+
 ## Troubleshooting
 
 ### Runtime pack install fails because destination exists
