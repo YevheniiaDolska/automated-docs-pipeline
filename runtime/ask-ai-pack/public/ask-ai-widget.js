@@ -19,6 +19,20 @@
   }
 
   var feedbackEndpoint = endpoint.replace(/\/ask\/?$/, "/feedback");
+  var streamEndpoint = endpoint.replace(/\/$/, "") + "/stream";
+  var useStream = (script.dataset.stream || "true").toLowerCase() !== "false";
+
+  // Conversation memory for follow-up questions. Capped to the last few turns
+  // so the request stays small; the server also trims to its own limit.
+  var history = [];
+  var MAX_HISTORY = 6;
+
+  function pushHistory(role, content) {
+    history.push({ role: role, content: String(content).slice(0, 4000) });
+    if (history.length > MAX_HISTORY) {
+      history = history.slice(history.length - MAX_HISTORY);
+    }
+  }
 
   var colors = theme === "light"
     ? { bg: "#ffffff", fg: "#0f172a", border: "#cbd5e1", panel: "#f1f5f9", accent: "#2563eb", muted: "#64748b", code: "#e2e8f0" }
@@ -104,60 +118,167 @@
       .catch(function () { statusEl.textContent = "Could not send feedback."; });
   }
 
-  function appendAnswerTurn(data) {
-    var el = document.createElement("div");
-    el.style.cssText = "margin:6px 0;padding:8px;border-radius:8px;background:" + colors.panel + ";";
-    var html = '<div style="font-size:11px;color:' + colors.muted + ';margin-bottom:2px;">Assistant</div>';
-    html += '<div style="line-height:1.45;">' + renderMarkdown(data.answer || "No answer.") + "</div>";
-
-    var citations = Array.isArray(data.citations) ? data.citations.filter(function (c) { return c && (c.title || c.url); }) : [];
-    if (citations.length) {
-      html += '<div style="margin-top:8px;font-size:11px;color:' + colors.muted + ';">Sources</div><ul style="margin:4px 0 0 16px;padding:0;font-size:12px;">';
-      var seen = {};
-      citations.forEach(function (c) {
-        var label = esc(c.title || c.source_file || c.id || "source");
-        if (seen[label]) return;
-        seen[label] = true;
-        if (c.url) {
-          html += '<li><a href="' + esc(c.url) + '" target="_blank" rel="noopener" style="color:' + colors.accent + ';">' + label + "</a></li>";
-        } else {
-          html += "<li>" + label + "</li>";
-        }
-      });
-      html += "</ul>";
-    }
-    el.innerHTML = html;
-
-    if (data.question_id) {
-      var fb = document.createElement("div");
-      fb.style.cssText = "margin-top:8px;font-size:12px;color:" + colors.muted + ";display:flex;gap:8px;align-items:center;";
-      var up = document.createElement("button");
-      var down = document.createElement("button");
-      var status = document.createElement("span");
-      [up, down].forEach(function (b) {
-        b.style.cssText = "background:" + colors.code + ";border:1px solid " + colors.border + ";border-radius:6px;padding:2px 8px;cursor:pointer;color:" + colors.fg + ";font-size:12px;";
-      });
-      up.textContent = "👍";
-      down.textContent = "👎";
-      up.addEventListener("click", function () { sendFeedback(data.question_id, true, status); });
-      down.addEventListener("click", function () { sendFeedback(data.question_id, false, status); });
-      fb.appendChild(up);
-      fb.appendChild(down);
-      fb.appendChild(status);
-      el.appendChild(fb);
-    }
-
-    transcript.appendChild(el);
-    transcript.scrollTop = transcript.scrollHeight;
+  function sourcesHtml(citations) {
+    var filtered = Array.isArray(citations) ? citations.filter(function (c) { return c && (c.title || c.url); }) : [];
+    if (!filtered.length) return "";
+    var html = '<div style="margin-top:8px;font-size:11px;color:' + colors.muted + ';">Sources</div><ul style="margin:4px 0 0 16px;padding:0;font-size:12px;">';
+    var seen = {};
+    filtered.forEach(function (c) {
+      var label = esc(c.title || c.source_file || c.id || "source");
+      if (seen[label]) return;
+      seen[label] = true;
+      if (c.url) {
+        html += '<li><a href="' + esc(c.url) + '" target="_blank" rel="noopener" style="color:' + colors.accent + ';">' + label + "</a></li>";
+      } else {
+        html += "<li>" + label + "</li>";
+      }
+    });
+    return html + "</ul>";
   }
 
-  function appendNotice(text) {
+  // Create a streaming assistant bubble. Returns handles to push tokens as they
+  // arrive and to finalize with sources and a feedback control.
+  function createAssistantTurn() {
     var el = document.createElement("div");
-    el.style.cssText = "margin:6px 0;padding:8px;border-radius:8px;background:" + colors.panel + ";color:" + colors.muted + ";font-size:12px;";
-    el.textContent = text;
+    el.style.cssText = "margin:6px 0;padding:8px;border-radius:8px;background:" + colors.panel + ";";
+    var labelEl = document.createElement("div");
+    labelEl.style.cssText = "font-size:11px;color:" + colors.muted + ";margin-bottom:2px;";
+    labelEl.textContent = "Assistant";
+    var answerEl = document.createElement("div");
+    answerEl.style.cssText = "line-height:1.45;";
+    answerEl.innerHTML = '<span style="color:' + colors.muted + ';">Thinking...</span>';
+    var extrasEl = document.createElement("div");
+    el.appendChild(labelEl);
+    el.appendChild(answerEl);
+    el.appendChild(extrasEl);
     transcript.appendChild(el);
     transcript.scrollTop = transcript.scrollHeight;
-    return el;
+
+    var text = "";
+    return {
+      setText: function (value) {
+        text = value;
+        answerEl.innerHTML = renderMarkdown(text || "");
+        transcript.scrollTop = transcript.scrollHeight;
+      },
+      appendText: function (piece) {
+        text += piece;
+        answerEl.innerHTML = renderMarkdown(text);
+        transcript.scrollTop = transcript.scrollHeight;
+      },
+      getText: function () { return text; },
+      error: function (message) {
+        answerEl.innerHTML = '<span style="color:' + colors.muted + ';">' + esc(message) + "</span>";
+      },
+      finalize: function (data) {
+        if (data.grounded === false) {
+          el.style.borderLeft = "3px solid " + colors.muted;
+        }
+        var html = sourcesHtml(data.citations);
+        if (html) extrasEl.innerHTML = html;
+
+        if (data.question_id) {
+          var fb = document.createElement("div");
+          fb.style.cssText = "margin-top:8px;font-size:12px;color:" + colors.muted + ";display:flex;gap:8px;align-items:center;";
+          var up = document.createElement("button");
+          var down = document.createElement("button");
+          var status = document.createElement("span");
+          [up, down].forEach(function (b) {
+            b.style.cssText = "background:" + colors.code + ";border:1px solid " + colors.border + ";border-radius:6px;padding:2px 8px;cursor:pointer;color:" + colors.fg + ";font-size:12px;";
+          });
+          up.textContent = "👍";
+          down.textContent = "👎";
+          up.addEventListener("click", function () { sendFeedback(data.question_id, true, status); });
+          down.addEventListener("click", function () { sendFeedback(data.question_id, false, status); });
+          fb.appendChild(up);
+          fb.appendChild(down);
+          fb.appendChild(status);
+          extrasEl.appendChild(fb);
+        }
+        transcript.scrollTop = transcript.scrollHeight;
+      }
+    };
+  }
+
+  function requestHeaders() {
+    return {
+      "Content-Type": "application/json",
+      "X-Ask-AI-Key": apiKey,
+      "X-User-Id": userId,
+      "X-User-Role": userRole,
+      "X-User-Plan": plan
+    };
+  }
+
+  function requestBody(question) {
+    return JSON.stringify({ question: question, history: history.slice() });
+  }
+
+  function raiseForStatus(resp) {
+    if (resp.ok) return resp;
+    return resp.json().then(
+      function (err) { throw new Error(err.detail || ("HTTP " + resp.status)); },
+      function () { throw new Error("HTTP " + resp.status); }
+    );
+  }
+
+  function finishTurn(turn, question, data) {
+    turn.finalize(data || { citations: [], grounded: true });
+    pushHistory("user", question);
+    pushHistory("assistant", turn.getText());
+  }
+
+  function bufferedSubmit(question, turn) {
+    return fetch(endpoint, { method: "POST", headers: requestHeaders(), body: requestBody(question) })
+      .then(raiseForStatus)
+      .then(function (resp) { return resp.json(); })
+      .then(function (data) {
+        turn.setText(data.answer || "");
+        finishTurn(turn, question, data);
+      });
+  }
+
+  function streamSubmit(question, turn) {
+    return fetch(streamEndpoint, { method: "POST", headers: requestHeaders(), body: requestBody(question) })
+      .then(raiseForStatus)
+      .then(function (resp) {
+        if (!resp.body || !resp.body.getReader) {
+          return bufferedSubmit(question, turn);
+        }
+        var reader = resp.body.getReader();
+        var decoder = new TextDecoder();
+        var buf = "";
+        var finalData = null;
+
+        function handleBlock(block) {
+          var dataStr = "";
+          block.split("\n").forEach(function (line) {
+            if (line.indexOf("data:") === 0) dataStr += line.slice(5).trim();
+          });
+          if (!dataStr) return;
+          var ev;
+          try { ev = JSON.parse(dataStr); } catch (e) { return; }
+          if (ev.type === "token") turn.appendText(ev.text || "");
+          else if (ev.type === "error") turn.error(ev.message || "Streaming failed.");
+          else if (ev.type === "done") finalData = ev;
+        }
+
+        function pump() {
+          return reader.read().then(function (r) {
+            if (r.done) {
+              if (buf.trim()) handleBlock(buf);
+              finishTurn(turn, question, finalData);
+              return;
+            }
+            buf += decoder.decode(r.value, { stream: true });
+            var parts = buf.split("\n\n");
+            buf = parts.pop();
+            parts.forEach(handleBlock);
+            return pump();
+          });
+        }
+        return pump();
+      });
   }
 
   function submit() {
@@ -165,36 +286,12 @@
     if (!question) return;
     input.value = "";
     appendUserTurn(question);
-    var pending = appendNotice("Thinking...");
+    var turn = createAssistantTurn();
     button.disabled = true;
 
-    fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Ask-AI-Key": apiKey,
-        "X-User-Id": userId,
-        "X-User-Role": userRole,
-        "X-User-Plan": plan
-      },
-      body: JSON.stringify({ question: question })
-    })
-      .then(function (resp) {
-        if (!resp.ok) {
-          return resp.json().then(
-            function (err) { throw new Error(err.detail || ("HTTP " + resp.status)); },
-            function () { throw new Error("HTTP " + resp.status); }
-          );
-        }
-        return resp.json();
-      })
-      .then(function (data) {
-        pending.remove();
-        appendAnswerTurn(data);
-      })
-      .catch(function (err) {
-        pending.textContent = "Error: " + err.message;
-      })
+    var run = (useStream && window.ReadableStream) ? streamSubmit : bufferedSubmit;
+    run(question, turn)
+      .catch(function (err) { turn.error("Error: " + err.message); })
       .then(function () {
         button.disabled = false;
         input.focus();

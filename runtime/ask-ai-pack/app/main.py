@@ -4,16 +4,17 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from datetime import datetime, timezone
 import uuid
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, AsyncGenerator
 
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -27,14 +28,22 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 
+class ChatMessage(BaseModel):
+    role: str = Field(pattern="^(user|assistant)$")
+    content: str = Field(min_length=1, max_length=4000)
+
+
 class AskRequest(BaseModel):
     question: str = Field(min_length=3, max_length=2000)
+    # Prior turns for multi-turn follow-ups. Only the most recent are used.
+    history: list[ChatMessage] = Field(default_factory=list)
 
 
 class AskResponse(BaseModel):
     answer: str
     citations: list[dict[str, Any]]
     question_id: str = ""
+    grounded: bool = True
 
 
 class FeedbackRequest(BaseModel):
@@ -83,6 +92,7 @@ def _load_runtime_config() -> dict[str, Any]:
         "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
         "usage_log_enabled": _bool_env("ASK_AI_USAGE_LOG_ENABLED", True),
         "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
+        "history_max_turns": int(os.getenv("ASK_AI_HISTORY_MAX_TURNS", "6")),
     }
 
 
@@ -99,59 +109,157 @@ def _append_usage_event(config: dict[str, Any], event: dict[str, Any]) -> None:
         logger.warning("Ask AI usage log write failed: %s", exc)
 
 
-async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
-    """Call provider API; fallback to deterministic response when key is missing."""
-    question = context["question"]
-    modules = context["modules"]
+# Sentinel the model returns when the sources do not cover the question.
+_NO_ANSWER = "NO_ANSWER"
+_REFUSAL_TEXT = (
+    "I could not find this in the current documentation. Try rephrasing your "
+    "question, or this may be a gap worth documenting."
+)
+_NO_PROVIDER_TEXT = (
+    "Ask AI runtime is active but the provider key is not configured, so I "
+    "cannot generate an answer yet."
+)
 
-    if not config["provider_api_key"]:
-        if modules:
-            top = modules[0]
-            return (
-                "Ask AI runtime is active but provider key is not configured. "
-                f"Best local match: {top.get('title')} -> {top.get('assistant_excerpt', '')[:220]}"
-            )
-        return "Ask AI runtime is active but provider key is not configured, and no relevant module was found."
+_SYSTEM_PROMPT = (
+    "You are a documentation assistant. Answer the user's question using ONLY "
+    "the numbered sources provided in the final message. Cite every source you "
+    "rely on inline with its bracketed number, for example [1] or [2]. Give "
+    "concise, practical guidance and use numbered steps when the task has an "
+    "order. Do not use outside knowledge and do not invent URLs, endpoints, "
+    "parameter names, or values. If the sources do not contain the answer, "
+    f"reply with exactly this token and nothing else: {_NO_ANSWER}"
+)
 
-    if config["provider"] != "openai":
-        return "Provider adapter is not implemented yet for this provider. Use openai or add adapter logic."
 
-    system_prompt = (
-        "You are a documentation assistant. Answer with clear steps. "
-        "Use only provided context modules. If uncertain, say what is missing."
+def _format_sources(modules: list[dict[str, Any]]) -> str:
+    """Render retrieved modules as clean numbered sources for the prompt."""
+    blocks = []
+    for index, module in enumerate(modules, start=1):
+        title = module.get("title") or module.get("id") or f"source {index}"
+        url = str(module.get("url") or "").strip()
+        excerpt = str(module.get("assistant_excerpt") or module.get("summary") or "").strip()
+        header = f"[{index}] {title}"
+        if url:
+            header += f" ({url})"
+        blocks.append(f"{header}\n{excerpt}" if excerpt else header)
+    return "\n\n".join(blocks)
+
+
+def _build_messages(
+    config: dict[str, Any],
+    question: str,
+    history: list[ChatMessage],
+    modules: list[dict[str, Any]],
+) -> list[dict[str, str]]:
+    """Assemble chat messages: system prompt, recent history, then question + sources."""
+    messages: list[dict[str, str]] = [{"role": "system", "content": _SYSTEM_PROMPT}]
+    max_turns = int(config.get("history_max_turns", 6))
+    for msg in history[-max_turns:]:
+        messages.append({"role": msg.role, "content": msg.content})
+    messages.append(
+        {
+            "role": "user",
+            "content": f"Question: {question}\n\nSources:\n{_format_sources(modules)}",
+        }
     )
-    user_prompt = (
-        f"Question: {question}\n\n"
-        f"Context modules:\n{modules}\n\n"
-        "Return short practical guidance with numbered steps."
-    )
+    return messages
 
-    payload = {
+
+def _fallback_answer(modules: list[dict[str, Any]]) -> str:
+    if modules:
+        top = modules[0]
+        excerpt = str(top.get("assistant_excerpt") or top.get("summary") or "")[:220]
+        return f"{_NO_PROVIDER_TEXT} Best local match: {top.get('title')} -> {excerpt}"
+    return _NO_PROVIDER_TEXT
+
+
+def _referenced_citations(
+    answer: str, all_citations: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Return only the sources the answer actually cited via [n] markers.
+
+    Falls back to the full retrieved set when the answer cites nothing explicit,
+    so a grounded answer never renders with zero sources.
+    """
+    referenced = sorted(
+        {
+            int(m)
+            for m in re.findall(r"\[(\d+)\]", answer)
+            if 1 <= int(m) <= len(all_citations)
+        }
+    )
+    if not referenced:
+        return all_citations
+    return [all_citations[i - 1] for i in referenced]
+
+
+def _finalize_answer(
+    raw: str, all_citations: list[dict[str, Any]]
+) -> tuple[str, list[dict[str, Any]], bool]:
+    """Apply the grounding gate to a completed answer.
+
+    Returns (answer_text, citations, grounded). A NO_ANSWER sentinel (or an
+    empty answer) becomes a friendly refusal with no citations.
+    """
+    text = raw.strip()
+    if not text or text.upper().startswith(_NO_ANSWER):
+        return _REFUSAL_TEXT, [], False
+    return text, _referenced_citations(text, all_citations), True
+
+
+def _chat_payload(config: dict[str, Any], messages: list[dict[str, str]], stream: bool) -> dict[str, Any]:
+    return {
         "model": config["model"],
         "temperature": config["temperature"],
         "max_tokens": config["max_tokens"],
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
+        "messages": messages,
+        "stream": stream,
     }
 
+
+async def _ask_provider_once(config: dict[str, Any], messages: list[dict[str, str]]) -> str:
+    """Single (non-streaming) provider call. Returns the raw answer text."""
     headers = {
         "Authorization": f"Bearer {config['provider_api_key']}",
         "Content-Type": "application/json",
     }
-
     url = f"{config['base_url']}/chat/completions"
     async with httpx.AsyncClient(timeout=25.0) as client:
-        response = await client.post(url, headers=headers, json=payload)
+        response = await client.post(url, headers=headers, json=_chat_payload(config, messages, False))
         response.raise_for_status()
         data = response.json()
-
     choices = data.get("choices", [])
     if not choices:
-        return "No answer returned from provider."
-    message = choices[0].get("message", {})
-    return str(message.get("content", "")).strip() or "No answer returned from provider."
+        return ""
+    return str(choices[0].get("message", {}).get("content", "")).strip()
+
+
+async def _stream_provider_tokens(
+    config: dict[str, Any], messages: list[dict[str, str]]
+) -> AsyncGenerator[str, None]:
+    """Yield answer token chunks from an OpenAI-compatible streaming response."""
+    headers = {
+        "Authorization": f"Bearer {config['provider_api_key']}",
+        "Content-Type": "application/json",
+    }
+    url = f"{config['base_url']}/chat/completions"
+    async with httpx.AsyncClient(timeout=45.0) as client:
+        async with client.stream("POST", url, headers=headers, json=_chat_payload(config, messages, True)) as response:
+            response.raise_for_status()
+            async for line in response.aiter_lines():
+                if not line or not line.startswith("data:"):
+                    continue
+                data = line[len("data:"):].strip()
+                if data == "[DONE]":
+                    break
+                try:
+                    chunk = json.loads(data)
+                except json.JSONDecodeError:
+                    continue
+                delta = chunk.get("choices", [{}])[0].get("delta", {})
+                piece = delta.get("content")
+                if piece:
+                    yield piece
 
 
 app = FastAPI(title="Ask AI Runtime", version="1.0.0")
@@ -185,14 +293,18 @@ def healthz() -> dict[str, Any]:
     }
 
 
-@app.post("/api/v1/ask", response_model=AskResponse)
-async def ask(
+def _prepare_request(
     payload: AskRequest,
-    x_ask_ai_key: str | None = Header(default=None),
-    x_user_id: str | None = Header(default=None),
-    x_user_role: str | None = Header(default=None),
-    x_user_plan: str | None = Header(default=None),
-) -> AskResponse:
+    x_ask_ai_key: str | None,
+    x_user_id: str | None,
+    x_user_role: str | None,
+    x_user_plan: str | None,
+) -> tuple[dict[str, Any], Any, dict[str, Any], list[dict[str, Any]]]:
+    """Shared gate + retrieval for both the buffered and streaming endpoints.
+
+    Returns (config, auth, context, all_citations). Raises HTTPException for
+    disabled/unauthorized/unentitled requests.
+    """
     config = _load_runtime_config()
 
     if not config["enabled"]:
@@ -233,9 +345,7 @@ async def ask(
         cache_ttl=config["embed_cache_ttl"],
         cache_max_size=config["embed_cache_max_size"],
     )
-    answer = await _ask_provider(config, context)
-
-    citations = [
+    all_citations = [
         {
             "id": item.get("id"),
             "title": item.get("title"),
@@ -244,24 +354,138 @@ async def ask(
         }
         for item in context["modules"]
     ]
+    return config, auth, context, all_citations
 
-    question_id = uuid.uuid4().hex
+
+def _log_question(
+    config: dict[str, Any],
+    auth: Any,
+    question_id: str,
+    question: str,
+    context: dict[str, Any],
+    citations: list[dict[str, Any]],
+    answer: str,
+    grounded: bool,
+) -> None:
     _append_usage_event(
         config,
         {
             "type": "question",
             "ts": datetime.now(timezone.utc).isoformat(),
             "question_id": question_id,
-            "question": payload.question,
-            "user_role": auth.role,
+            "question": question,
+            "user_role": auth.user_role,
             "user_plan": auth.plan,
             "retrieved_ids": [str(item.get("id", "")) for item in context["modules"]],
             "citations_count": len(citations),
             "answer_chars": len(answer),
+            "grounded": grounded,
         },
     )
 
-    return AskResponse(answer=answer, citations=citations, question_id=question_id)
+
+@app.post("/api/v1/ask", response_model=AskResponse)
+async def ask(
+    payload: AskRequest,
+    x_ask_ai_key: str | None = Header(default=None),
+    x_user_id: str | None = Header(default=None),
+    x_user_role: str | None = Header(default=None),
+    x_user_plan: str | None = Header(default=None),
+) -> AskResponse:
+    config, auth, context, all_citations = _prepare_request(
+        payload, x_ask_ai_key, x_user_id, x_user_role, x_user_plan
+    )
+    modules = context["modules"]
+
+    # Hard grounding gate: no retrieved context -> refuse without a provider call.
+    if not modules:
+        answer, citations, grounded = _REFUSAL_TEXT, [], False
+    elif not config["provider_api_key"]:
+        answer, citations, grounded = _fallback_answer(modules), all_citations, True
+    else:
+        messages = _build_messages(config, payload.question, payload.history, modules)
+        raw = await _ask_provider_once(config, messages)
+        answer, citations, grounded = _finalize_answer(raw, all_citations)
+
+    question_id = uuid.uuid4().hex
+    _log_question(config, auth, question_id, payload.question, context, citations, answer, grounded)
+    return AskResponse(answer=answer, citations=citations, question_id=question_id, grounded=grounded)
+
+
+def _sse(event: dict[str, Any]) -> str:
+    return f"data: {json.dumps(event, ensure_ascii=True)}\n\n"
+
+
+@app.post("/api/v1/ask/stream")
+async def ask_stream(
+    payload: AskRequest,
+    x_ask_ai_key: str | None = Header(default=None),
+    x_user_id: str | None = Header(default=None),
+    x_user_role: str | None = Header(default=None),
+    x_user_plan: str | None = Header(default=None),
+) -> StreamingResponse:
+    """Stream the answer token-by-token over Server-Sent Events.
+
+    Emits {"type": "token", "text": ...} events while generating, then a final
+    {"type": "done", ...} event carrying citations, question_id, and grounded.
+    """
+    config, auth, context, all_citations = _prepare_request(
+        payload, x_ask_ai_key, x_user_id, x_user_role, x_user_plan
+    )
+    modules = context["modules"]
+    question_id = uuid.uuid4().hex
+
+    async def event_stream() -> AsyncGenerator[str, None]:
+        # Refusal and no-provider paths need no streaming; send one token + done.
+        if not modules:
+            answer, citations, grounded = _REFUSAL_TEXT, [], False
+            yield _sse({"type": "token", "text": answer})
+        elif not config["provider_api_key"]:
+            answer, citations, grounded = _fallback_answer(modules), all_citations, True
+            yield _sse({"type": "token", "text": answer})
+        else:
+            messages = _build_messages(config, payload.question, payload.history, modules)
+            buffer = ""
+            gated = False  # becomes True once we confirm the answer is not NO_ANSWER
+            try:
+                async for piece in _stream_provider_tokens(config, messages):
+                    buffer += piece
+                    if gated:
+                        yield _sse({"type": "token", "text": piece})
+                        continue
+                    # Hold back until we can rule out the NO_ANSWER sentinel.
+                    if len(buffer) < len(_NO_ANSWER):
+                        continue
+                    if buffer.strip().upper().startswith(_NO_ANSWER):
+                        break
+                    gated = True
+                    yield _sse({"type": "token", "text": buffer})
+            except httpx.HTTPError as exc:
+                logger.warning("Ask AI stream failed: %s", exc)
+                yield _sse({"type": "error", "message": "Streaming failed."})
+                yield _sse({"type": "done", "citations": [], "question_id": question_id, "grounded": False})
+                return
+            answer, citations, grounded = _finalize_answer(buffer, all_citations)
+            if not gated:
+                # Nothing was streamed yet (short answer or a NO_ANSWER sentinel);
+                # emit the finalized text as a single token.
+                yield _sse({"type": "token", "text": answer})
+
+        _log_question(config, auth, question_id, payload.question, context, citations, answer, grounded)
+        yield _sse(
+            {
+                "type": "done",
+                "citations": citations,
+                "question_id": question_id,
+                "grounded": grounded,
+            }
+        )
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 @app.post("/api/v1/feedback")
