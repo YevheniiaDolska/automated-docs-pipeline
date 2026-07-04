@@ -71,6 +71,104 @@ def _event_day(event: dict[str, Any]) -> str:
     return ts.date().isoformat() if ts else "unknown"
 
 
+_STOPWORDS = frozenset(
+    """a an the of to in on for and or is are be as with by from at this that these those it its how do does
+    did can could should would will what which who where when why into onto via per not no if then than about
+    i you your we our they them my me use using get make want need help please default set up out""".split()
+)
+
+
+def _terms(text: str) -> list[str]:
+    import re
+
+    return [t for t in re.findall(r"[a-z0-9][a-z0-9\-]+", str(text).lower()) if len(t) > 2 and t not in _STOPWORDS]
+
+
+def cluster_topics(questions: list[dict[str, Any]], max_topics: int = 10) -> list[dict[str, Any]]:
+    """Group questions into topics by their dominant salient keyword.
+
+    A lightweight, embedding-free clustering: the most frequent content terms
+    across all questions become topic labels, and each question joins the
+    highest-frequency topic term it contains. Reports volume and answer rate per
+    topic so gaps surface by theme, not just by individual question.
+    """
+    global_freq: Counter[str] = Counter()
+    per_question: list[tuple[list[str], int]] = []
+    for event in questions:
+        terms = _terms(str(event.get("question", "")))
+        citations = int(event.get("citations_count", 0) or 0)
+        per_question.append((terms, citations))
+        global_freq.update(set(terms))
+    topic_terms = [term for term, _ in global_freq.most_common(max_topics)]
+    rank = {term: i for i, term in enumerate(topic_terms)}
+
+    buckets: dict[str, dict[str, int]] = {}
+    for terms, citations in per_question:
+        candidates = [t for t in terms if t in rank]
+        label = min(candidates, key=lambda t: rank[t]) if candidates else "other"
+        bucket = buckets.setdefault(label, {"count": 0, "answered": 0})
+        bucket["count"] += 1
+        if citations > 0:
+            bucket["answered"] += 1
+
+    topics = [
+        {
+            "topic": label,
+            "count": data["count"],
+            "answered": data["answered"],
+            "answer_rate": round(data["answered"] / data["count"], 3) if data["count"] else None,
+        }
+        for label, data in buckets.items()
+    ]
+    topics.sort(key=lambda t: t["count"], reverse=True)
+    return topics
+
+
+def session_funnel(events: list[dict[str, Any]]) -> dict[str, Any]:
+    """Build a session-level engagement funnel from session_id tags.
+
+    Stages: sessions that asked -> got a grounded answer -> asked a follow-up
+    (multi-turn) -> left feedback -> rated the answer helpful. Sessions without a
+    session_id are counted for coverage but excluded from the funnel.
+    """
+    sessions: dict[str, dict[str, Any]] = {}
+    untagged = 0
+    for event in events:
+        sid = str(event.get("session_id", "")).strip()
+        if not sid:
+            untagged += 1
+            continue
+        state = sessions.setdefault(sid, {"questions": 0, "answered": 0, "feedback": 0, "helpful": 0})
+        if event.get("type") == "question":
+            state["questions"] += 1
+            if int(event.get("citations_count", 0) or 0) > 0:
+                state["answered"] += 1
+        elif event.get("type") == "feedback":
+            state["feedback"] += 1
+            if bool(event.get("helpful")):
+                state["helpful"] += 1
+
+    total = len(sessions)
+    asked = sum(1 for s in sessions.values() if s["questions"] >= 1)
+    answered = sum(1 for s in sessions.values() if s["answered"] >= 1)
+    multi_turn = sum(1 for s in sessions.values() if s["questions"] >= 2)
+    rated = sum(1 for s in sessions.values() if s["feedback"] >= 1)
+    satisfied = sum(1 for s in sessions.values() if s["helpful"] >= 1)
+    return {
+        "total_sessions": total,
+        "untagged_events": untagged,
+        "funnel": [
+            {"stage": "Asked a question", "sessions": asked},
+            {"stage": "Got a grounded answer", "sessions": answered},
+            {"stage": "Asked a follow-up", "sessions": multi_turn},
+            {"stage": "Left feedback", "sessions": rated},
+            {"stage": "Rated helpful", "sessions": satisfied},
+        ],
+        "multi_turn_rate": round(multi_turn / total, 3) if total else None,
+        "answered_session_rate": round(answered / total, 3) if total else None,
+    }
+
+
 def build_report(events: list[dict[str, Any]], since_days: int) -> dict[str, Any]:
     questions = [e for e in events if e.get("type") == "question"]
     feedback = [e for e in events if e.get("type") == "feedback"]
@@ -161,6 +259,8 @@ def build_report(events: list[dict[str, Any]], since_days: int) -> dict[str, Any
             "zero_citation_rate": round(zero_citation_total / len(questions), 3) if questions else None,
         },
         "daily": daily,
+        "topics": cluster_topics(questions),
+        "sessions": session_funnel(events),
         "top_questions": [
             {"question": q, "count": c, "max_citations": citations_by_question.get(q, 0)}
             for q, c in question_counts.most_common(25)

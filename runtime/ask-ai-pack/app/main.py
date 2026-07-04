@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import time
 from datetime import datetime, timezone
 import uuid
 import os
@@ -99,6 +100,7 @@ def _load_runtime_config() -> dict[str, Any]:
         "usage_log_enabled": _bool_env("ASK_AI_USAGE_LOG_ENABLED", True),
         "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
         "history_max_turns": int(os.getenv("ASK_AI_HISTORY_MAX_TURNS", "6")),
+        "rate_limit_per_minute": int(os.getenv("ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE", "20")),
         "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
         "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
         "graph_rerank_enabled": _bool_env("ASK_AI_GRAPH_RERANK_ENABLED", True),
@@ -119,6 +121,64 @@ def _append_usage_event(config: dict[str, Any], event: dict[str, Any]) -> None:
             fh.write(json.dumps(event, ensure_ascii=True) + "\n")
     except OSError as exc:
         logger.warning("Ask AI usage log write failed: %s", exc)
+
+
+# Sliding-window rate limiter state: identity -> recent request timestamps.
+_RATE_STATE: dict[str, list[float]] = {}
+
+
+def _rate_limit_check(identity: str, limit_per_minute: int) -> None:
+    """Enforce a per-identity request budget. Raises HTTP 429 when exceeded.
+
+    Protects the public endpoint (and the provider quota behind it) from abuse.
+    A limit of 0 disables the check.
+    """
+    if limit_per_minute <= 0:
+        return
+    now = time.time()
+    window_start = now - 60.0
+    hits = [t for t in _RATE_STATE.get(identity, []) if t >= window_start]
+    if len(hits) >= limit_per_minute:
+        retry_after = max(1, int(60 - (now - hits[0])))
+        raise HTTPException(
+            status_code=429,
+            detail="Rate limit exceeded. Please slow down and try again shortly.",
+            headers={"Retry-After": str(retry_after)},
+        )
+    hits.append(now)
+    _RATE_STATE[identity] = hits
+    # Bound memory: drop identities whose window has fully expired.
+    if len(_RATE_STATE) > 4096:
+        for key in [k for k, v in _RATE_STATE.items() if not v or v[-1] < window_start]:
+            _RATE_STATE.pop(key, None)
+
+
+def _apply_byok(
+    config: dict[str, Any],
+    provider_key: str | None,
+    provider_base_url: str | None,
+    model: str | None,
+) -> dict[str, Any]:
+    """Return an effective config that bills the caller's own provider key.
+
+    When the caller sends X-Provider-Key, generation uses that key (and optional
+    base URL and model), so each user pays for their own queries. In
+    bring-your-own-key billing mode a caller key is required.
+    """
+    if not (provider_key and provider_key.strip()):
+        if config.get("billing_mode") == "bring-your-own-key":
+            raise HTTPException(
+                status_code=402,
+                detail="This deployment requires your own provider API key. Send it in the X-Provider-Key header.",
+            )
+        return config
+    effective = dict(config)
+    effective["provider_api_key"] = provider_key.strip()
+    if provider_base_url and provider_base_url.strip():
+        effective["base_url"] = provider_base_url.strip().rstrip("/")
+    if model and model.strip():
+        effective["model"] = model.strip()
+    return effective
 
 
 # Sentinel the model returns when the sources do not cover the question.
@@ -340,6 +400,10 @@ def _prepare_request(
     if not can_use_ask_ai(auth.plan, config["billing_mode"]):
         raise HTTPException(status_code=402, detail="Current plan is not entitled for Ask AI")
 
+    # Abuse protection: rate limit per user (falls back to the API key identity).
+    identity = (x_user_id or "").strip() or (x_ask_ai_key or "anonymous")
+    _rate_limit_check(identity, config["rate_limit_per_minute"])
+
     modules = load_knowledge_index(config["knowledge_index_path"])
     bundles = load_assistant_bundles(config["assistant_bundle_glob"])
     # Keep bundles loaded for future adapter extensions.
@@ -389,6 +453,7 @@ def _log_question(
     citations: list[dict[str, Any]],
     answer: str,
     grounded: bool,
+    session_id: str = "",
 ) -> None:
     _append_usage_event(
         config,
@@ -396,6 +461,7 @@ def _log_question(
             "type": "question",
             "ts": datetime.now(timezone.utc).isoformat(),
             "question_id": question_id,
+            "session_id": session_id,
             "question": question,
             "user_role": auth.user_role,
             "user_plan": auth.plan,
@@ -414,24 +480,32 @@ async def ask(
     x_user_id: str | None = Header(default=None),
     x_user_role: str | None = Header(default=None),
     x_user_plan: str | None = Header(default=None),
+    x_session_id: str | None = Header(default=None),
+    x_provider_key: str | None = Header(default=None),
+    x_provider_base_url: str | None = Header(default=None),
+    x_model: str | None = Header(default=None),
 ) -> AskResponse:
     config, auth, context, all_citations = _prepare_request(
         payload, x_ask_ai_key, x_user_id, x_user_role, x_user_plan
     )
+    gen_config = _apply_byok(config, x_provider_key, x_provider_base_url, x_model)
     modules = context["modules"]
 
     # Hard grounding gate: no retrieved context -> refuse without a provider call.
     if not modules:
         answer, citations, grounded = _REFUSAL_TEXT, [], False
-    elif not config["provider_api_key"]:
+    elif not gen_config["provider_api_key"]:
         answer, citations, grounded = _fallback_answer(modules), all_citations, True
     else:
-        messages = _build_messages(config, payload.question, payload.history, modules)
-        raw = await _ask_provider_once(config, messages)
+        messages = _build_messages(gen_config, payload.question, payload.history, modules)
+        raw = await _ask_provider_once(gen_config, messages)
         answer, citations, grounded = _finalize_answer(raw, all_citations)
 
     question_id = uuid.uuid4().hex
-    _log_question(config, auth, question_id, payload.question, context, citations, answer, grounded)
+    _log_question(
+        config, auth, question_id, payload.question, context, citations, answer, grounded,
+        session_id=(x_session_id or "").strip(),
+    )
     return AskResponse(answer=answer, citations=citations, question_id=question_id, grounded=grounded)
 
 
@@ -446,6 +520,10 @@ async def ask_stream(
     x_user_id: str | None = Header(default=None),
     x_user_role: str | None = Header(default=None),
     x_user_plan: str | None = Header(default=None),
+    x_session_id: str | None = Header(default=None),
+    x_provider_key: str | None = Header(default=None),
+    x_provider_base_url: str | None = Header(default=None),
+    x_model: str | None = Header(default=None),
 ) -> StreamingResponse:
     """Stream the answer token-by-token over Server-Sent Events.
 
@@ -455,23 +533,25 @@ async def ask_stream(
     config, auth, context, all_citations = _prepare_request(
         payload, x_ask_ai_key, x_user_id, x_user_role, x_user_plan
     )
+    gen_config = _apply_byok(config, x_provider_key, x_provider_base_url, x_model)
     modules = context["modules"]
     question_id = uuid.uuid4().hex
+    session_id = (x_session_id or "").strip()
 
     async def event_stream() -> AsyncGenerator[str, None]:
         # Refusal and no-provider paths need no streaming; send one token + done.
         if not modules:
             answer, citations, grounded = _REFUSAL_TEXT, [], False
             yield _sse({"type": "token", "text": answer})
-        elif not config["provider_api_key"]:
+        elif not gen_config["provider_api_key"]:
             answer, citations, grounded = _fallback_answer(modules), all_citations, True
             yield _sse({"type": "token", "text": answer})
         else:
-            messages = _build_messages(config, payload.question, payload.history, modules)
+            messages = _build_messages(gen_config, payload.question, payload.history, modules)
             buffer = ""
             gated = False  # becomes True once we confirm the answer is not NO_ANSWER
             try:
-                async for piece in _stream_provider_tokens(config, messages):
+                async for piece in _stream_provider_tokens(gen_config, messages):
                     buffer += piece
                     if gated:
                         yield _sse({"type": "token", "text": piece})
@@ -494,7 +574,10 @@ async def ask_stream(
                 # emit the finalized text as a single token.
                 yield _sse({"type": "token", "text": answer})
 
-        _log_question(config, auth, question_id, payload.question, context, citations, answer, grounded)
+        _log_question(
+            config, auth, question_id, payload.question, context, citations, answer, grounded,
+            session_id=session_id,
+        )
         yield _sse(
             {
                 "type": "done",
@@ -515,6 +598,7 @@ async def ask_stream(
 async def feedback(
     payload: FeedbackRequest,
     x_ask_ai_key: str | None = Header(default=None),
+    x_session_id: str | None = Header(default=None),
 ) -> dict[str, str]:
     config = _load_runtime_config()
     try:
@@ -527,6 +611,7 @@ async def feedback(
             "type": "feedback",
             "ts": datetime.now(timezone.utc).isoformat(),
             "question_id": payload.question_id,
+            "session_id": (x_session_id or "").strip(),
             "helpful": bool(payload.helpful),
             "comment": payload.comment[:2000],
         },

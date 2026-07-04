@@ -189,6 +189,42 @@ def _gap_rows(rows: list[dict[str, Any]]) -> str:
     return "".join(out)
 
 
+def _topic_rows(topics: list[dict[str, Any]]) -> str:
+    if not topics:
+        return '<tr><td colspan="3" class="empty">Not enough questions to cluster yet.</td></tr>'
+    out = []
+    for row in topics[:12]:
+        rate = row.get("answer_rate")
+        tone = "pill-green" if (rate or 0) >= 0.7 else ("pill-amber" if (rate or 0) >= 0.4 else "pill-red")
+        out.append(
+            "<tr>"
+            f'<td>{_esc(row.get("topic", ""))}</td>'
+            f'<td class="num">{int(row.get("count", 0))}</td>'
+            f'<td class="num"><span class="pill {tone}">{_pct(rate)}</span></td>'
+            "</tr>"
+        )
+    return "".join(out)
+
+
+def _funnel_html(sessions: dict[str, Any]) -> str:
+    stages = sessions.get("funnel", []) if isinstance(sessions, dict) else []
+    top = max((int(s.get("sessions", 0)) for s in stages), default=0)
+    if not stages or top == 0:
+        return '<p class="empty">No tagged sessions yet. Send an X-Session-Id header to enable the funnel.</p>'
+    rows = []
+    for stage in stages:
+        value = int(stage.get("sessions", 0))
+        width = round(100 * value / top)
+        rows.append(
+            '<div class="funnel-row">'
+            f'<span class="funnel-label">{_esc(stage.get("stage", ""))}</span>'
+            f'<span class="funnel-track"><span class="funnel-fill" style="width:{width}%"></span></span>'
+            f'<span class="funnel-val">{value}</span>'
+            "</div>"
+        )
+    return "".join(rows)
+
+
 def render_dashboard(report: dict[str, Any]) -> str:
     totals = report.get("totals", {})
     window = report.get("window_days", 0)
@@ -278,6 +314,11 @@ def render_dashboard(report: dict[str, Any]) -> str:
     .pill-red {{ background: rgba(239,68,68,0.15); color: {COLORS['red']}; }}
     .empty {{ color: {COLORS['muted']}; font-size: .82rem; padding: 12px 0; }}
     .full {{ margin-bottom: 24px; }}
+    .funnel-row {{ display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: .8rem; }}
+    .funnel-label {{ width: 140px; color: {COLORS['muted']}; flex-shrink: 0; }}
+    .funnel-track {{ flex: 1; background: {COLORS['bg']}; border-radius: 6px; height: 20px; overflow: hidden; }}
+    .funnel-fill {{ display: block; height: 100%; background: {COLORS['accent']}; border-radius: 6px; }}
+    .funnel-val {{ width: 36px; text-align: right; font-variant-numeric: tabular-nums; }}
     @media (max-width: 820px) {{ .grid {{ grid-template-columns: 1fr; }} }}
     """
 
@@ -313,6 +354,20 @@ def render_dashboard(report: dict[str, Any]) -> str:
     <div class="card">
       <h2>Answer satisfaction <span class="hint">from thumbs up / down</span></h2>
       {_satisfaction_bar(helpful, unhelpful)}
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Top topics <span class="hint">questions clustered by theme</span></h2>
+      <table>
+        <thead><tr><th>Topic</th><th class="num">Count</th><th class="num">Answered</th></tr></thead>
+        <tbody>{_topic_rows(report.get("topics", []))}</tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Session funnel <span class="hint">engagement by stage</span></h2>
+      {_funnel_html(report.get("sessions", {}))}
     </div>
   </div>
 
