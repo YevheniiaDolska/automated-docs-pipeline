@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/concepts/pipeline-configuration-combinations/
   title: How pipeline configurations compose (Part 4)
-  heading: Why bundles need configuration-specific docs
+  heading: Why full and full+RAG are not the same
   version: 1.50.0
   updated_at: '2026-06-16'
   source_site: docs.example.com
   source_path: concepts/pipeline-configuration-combinations.md
 semantic:
-  topic: Why bundles need configuration-specific docs
+  topic: Why full and full+RAG are not the same
   intent: integrate
   audience: developer
   keywords:
@@ -37,50 +37,26 @@ semantic:
   - pipeline configuration combinations
   status: rule_based
 content:
-  docs_markdown: '## Why bundles need configuration-specific docs
+  docs_markdown: '## Why full and full+RAG are not the same
 
 
-    The same scripts are not enough across every configuration. Users need configuration-specific
-    instructions because:
+    A frequent mistake is assuming `full` automatically implies retrieval features.
+    It does not.
 
 
-    - `pilot` users need proof-oriented operating steps
-
-    - `full` users need broader automation and governance guidance
-
-    - `full+RAG` users need retrieval quality and knowledge-system guidance
-
-    - `strict-local` users need egress and local runtime instructions
-
-    - `cloud` users need external-model behavior spelled out
+    The difference is the retrieval triplet:
 
 
-    That is why the bundle builder now selects documentation from the final runtime
-    config, not only from manual `include_docs` entries.
+    - `rag_optimization`
+
+    - `ontology_graph`
+
+    - `retrieval_evals`
 
 
-    ## Configuration patterns that work well
-
-
-    | Pattern | When it works best |
-
-    | --- | --- |
-
-    | `pilot + strict-local` | Early proof with tight security review |
-
-    | `pilot + cloud` | Fastest demo path for a time-boxed proof |
-
-    | `full + hybrid` | Standard production rollout with local-first governance |
-
-    | `full+RAG + hybrid` | AI-facing docs program with controlled external fallback
-    |
-
-    | `full+RAG + cloud` | Maximum throughput and retrieval quality work on hosted
-    models |'
-  assistant_context: 'Use this module when answering questions related to: How pipeline
-    configurations compose (Part 4). Source path: concepts/pipeline-configuration-combinations.md.
-    Summary: Learn how the pipeline combines rollout scope and LLM execution mode
-    so bundles stay aligned with proof, full, and RAG-enabled delivery.
+    When all three are `true`, the configuration behaves as `full+RAG`. When they
+    are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed
+    rollout.
 
 
     ## Why bundles need configuration-specific docs
@@ -102,24 +78,52 @@ content:
 
 
     That is why the bundle builder now selects documentation from the final runtime
-    config, not only from manual `include_docs` entries.
+    config, not only from manual `include_docs` entries.'
+  assistant_context: 'Use this module when answering questions related to: How pipeline
+    configurations compose (Part 4). Source path: concepts/pipeline-configuration-combinations.md.
+    Summary: Learn how the pipeline combines rollout scope and LLM execution mode
+    so bundles stay aligned with proof, full, and RAG-enabled delivery.
 
 
-    ## Configuration patterns that work well
+    ## Why full and full+RAG are not the same
 
 
-    | Pattern | When it works best |
+    A frequent mistake is assuming `full` automatically implies retrieval features.
+    It does not.
 
-    | --- | --- |
 
-    | `pilot + strict-local` | Early proof with tight security review |
+    The difference is the retrieval triplet:
 
-    | `pilot + cloud` | Fastest demo path for a time-boxed proof |
 
-    | `full + hybrid` | Standard production rollout with local-first governance |
+    - `rag_optimization`
 
-    | `full+RAG + hybrid` | AI-facing docs program with controlled external fallback
-    |
+    - `ontology_graph`
 
-    | `full+RAG + cloud` | Maximum throughput and retrieval quality work on hosted
-    models |'
+    - `retrieval_evals`
+
+
+    When all three are `true`, the configuration behaves as `full+RAG`. When they
+    are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed
+    rollout.
+
+
+    ## Why bundles need configuration-specific docs
+
+
+    The same scripts are not enough across every configuration. Users need configuration-specific
+    instructions because:
+
+
+    - `pilot` users need proof-oriented operating steps
+
+    - `full` users need broader automation and governance guidance
+
+    - `full+RAG` users need retrieval quality and knowledge-system guidance
+
+    - `strict-local` users need egress and local runtime instructions
+
+    - `cloud` users need external-model behavior spelled out
+
+
+    That is why the bundle builder now selects documentation from the final runtime
+    config, not only from manual `include_docs` entries.'

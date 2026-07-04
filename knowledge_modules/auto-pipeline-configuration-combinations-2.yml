@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/concepts/pipeline-configuration-combinations/
   title: How pipeline configurations compose (Part 2)
-  heading: Pilot
+  heading: The two axes
   version: 1.50.0
   updated_at: '2026-06-16'
   source_site: docs.example.com
   source_path: concepts/pipeline-configuration-combinations.md
 semantic:
-  topic: Pilot
+  topic: The two axes
   intent: integrate
   audience: developer
   keywords:
@@ -37,43 +37,135 @@ semantic:
   - pipeline configuration combinations
   status: rule_based
 content:
-  docs_markdown: "### Pilot\n\n`pilot` narrows the surface to proof-oriented signals:\n\
-    \n- weekly gap and drift evidence\n- docs quality gates\n- API-first generation\
-    \ if enabled\n- reduced bundle script surface\n\nPilot intentionally keeps retrieval\
-    \ features off by default because the goal is short proof cycles, not full knowledge-system\
-    \ rollout.\n\n### Full\n\n`full` turns on the standard docs operations surface:\n\
-    \n- governance and normalization\n- docs-contract visibility\n- KPI and SLA reporting\n\
-    - lifecycle and release pack flows\n\nFull can still be RAG-free. That is a valid\
-    \ state when the client wants governed documentation operations without retrieval\
-    \ evaluation or graph outputs.\n\n### Full+RAG\n\n`full+RAG` adds the retrieval\
-    \ layer to full docs operations:\n\n- knowledge module extraction and validation\n\
-    - retrieval index generation\n- knowledge graph output\n- retrieval quality evaluation\n\
-    \nThis mode is appropriate when the client expects AI-facing documentation quality\
-    \ to be measured, not only generated.\n\n## Execution mode is about LLM governance\n\
-    \nExecution mode answers: where may synthesis run, and what fallback is allowed?\n\
-    \n### Cloud\n\nCloud mode prefers external models:\n\n```yaml\nruntime:\n  llm_control:\n\
-    \    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
-    \ false\n```\n\nUse this mode when external-model quality and latency matter more\
-    \ than local-only execution controls."
-  assistant_context: "Use this module when answering questions related to: How pipeline\
-    \ configurations compose (Part 2). Source path: concepts/pipeline-configuration-combinations.md.\
-    \ Summary: Learn how the pipeline combines rollout scope and LLM execution mode\
-    \ so bundles stay aligned with proof, full, and RAG-enabled delivery.\n\n### Pilot\n\
-    \n`pilot` narrows the surface to proof-oriented signals:\n\n- weekly gap and drift\
-    \ evidence\n- docs quality gates\n- API-first generation if enabled\n- reduced\
-    \ bundle script surface\n\nPilot intentionally keeps retrieval features off by\
-    \ default because the goal is short proof cycles, not full knowledge-system rollout.\n\
-    \n### Full\n\n`full` turns on the standard docs operations surface:\n\n- governance\
-    \ and normalization\n- docs-contract visibility\n- KPI and SLA reporting\n- lifecycle\
-    \ and release pack flows\n\nFull can still be RAG-free. That is a valid state\
-    \ when the client wants governed documentation operations without retrieval evaluation\
-    \ or graph outputs.\n\n### Full+RAG\n\n`full+RAG` adds the retrieval layer to\
-    \ full docs operations:\n\n- knowledge module extraction and validation\n- retrieval\
-    \ index generation\n- knowledge graph output\n- retrieval quality evaluation\n\
-    \nThis mode is appropriate when the client expects AI-facing documentation quality\
-    \ to be measured, not only generated.\n\n## Execution mode is about LLM governance\n\
-    \nExecution mode answers: where may synthesis run, and what fallback is allowed?\n\
-    \n### Cloud\n\nCloud mode prefers external models:\n\n```yaml\nruntime:\n  llm_control:\n\
-    \    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
-    \ false\n```\n\nUse this mode when external-model quality and latency matter more\
-    \ than local-only execution controls."
+  docs_markdown: '## The two axes
+
+
+    The pipeline combines these dimensions:
+
+
+    | Axis | What it controls | Primary fields |
+
+    | --- | --- | --- |
+
+    | Rollout scope | Which modules, checks, and weekly tasks are active | `licensing.plan`,
+    `runtime.modules`, `runtime.docs_flow` |
+
+    | Execution mode | Where LLM work runs and what egress policy applies | `runtime.llm_control.*`
+    |
+
+
+    The builder does not infer one axis from the other. A bundle can be `pilot + cloud`,
+    `full + strict-local`, or `full+RAG + hybrid`.
+
+
+    ## Rollout scope is about delivery depth
+
+
+    Rollout scope answers: how much of the platform should this client receive now?
+
+
+    ### Pilot
+
+
+    `pilot` narrows the surface to proof-oriented signals:
+
+
+    - weekly gap and drift evidence
+
+    - docs quality gates
+
+    - API-first generation if enabled
+
+    - reduced bundle script surface
+
+
+    Pilot intentionally keeps retrieval features off by default because the goal is
+    short proof cycles, not full knowledge-system rollout.
+
+
+    ### Full
+
+
+    `full` turns on the standard docs operations surface:
+
+
+    - governance and normalization
+
+    - docs-contract visibility
+
+    - KPI and SLA reporting
+
+    - lifecycle and release pack flows
+
+
+    Full can still be RAG-free. That is a valid state when the client wants governed
+    documentation operations without retrieval evaluation or graph outputs.'
+  assistant_context: 'Use this module when answering questions related to: How pipeline
+    configurations compose (Part 2). Source path: concepts/pipeline-configuration-combinations.md.
+    Summary: Learn how the pipeline combines rollout scope and LLM execution mode
+    so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+
+    ## The two axes
+
+
+    The pipeline combines these dimensions:
+
+
+    | Axis | What it controls | Primary fields |
+
+    | --- | --- | --- |
+
+    | Rollout scope | Which modules, checks, and weekly tasks are active | `licensing.plan`,
+    `runtime.modules`, `runtime.docs_flow` |
+
+    | Execution mode | Where LLM work runs and what egress policy applies | `runtime.llm_control.*`
+    |
+
+
+    The builder does not infer one axis from the other. A bundle can be `pilot + cloud`,
+    `full + strict-local`, or `full+RAG + hybrid`.
+
+
+    ## Rollout scope is about delivery depth
+
+
+    Rollout scope answers: how much of the platform should this client receive now?
+
+
+    ### Pilot
+
+
+    `pilot` narrows the surface to proof-oriented signals:
+
+
+    - weekly gap and drift evidence
+
+    - docs quality gates
+
+    - API-first generation if enabled
+
+    - reduced bundle script surface
+
+
+    Pilot intentionally keeps retrieval features off by default because the goal is
+    short proof cycles, not full knowledge-system rollout.
+
+
+    ### Full
+
+
+    `full` turns on the standard docs operations surface:
+
+
+    - governance and normalization
+
+    - docs-contract visibility
+
+    - KPI and SLA reporting
+
+    - lifecycle and release pack flows
+
+
+    Full can still be RAG-free. That is a valid state when the client wants governed
+    documentation operations without retrieval evaluation or graph outputs.'

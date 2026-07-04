@@ -13,7 +13,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -40,7 +40,10 @@ content:
 
 
     This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC
-    methods from browser.'
+    methods from browser.
+
+
+    <!-- vale off -->'
   assistant_context: 'Use this module when answering questions related to: GRPC API
     Reference (Part 2). Source path: reference/grpc-api.md. Summary: Auto-generated
     grpc reference from source contract.
@@ -50,4 +53,7 @@ content:
 
 
     This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC
-    methods from browser.'
+    methods from browser.
+
+
+    <!-- vale off -->'

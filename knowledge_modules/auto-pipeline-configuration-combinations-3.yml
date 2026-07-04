@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/concepts/pipeline-configuration-combinations/
   title: How pipeline configurations compose (Part 3)
-  heading: Strict-local
+  heading: Full+RAG
   version: 1.50.0
   updated_at: '2026-06-16'
   source_site: docs.example.com
   source_path: concepts/pipeline-configuration-combinations.md
 semantic:
-  topic: Strict-local
+  topic: Full+RAG
   intent: integrate
   audience: developer
   keywords:
@@ -37,35 +37,43 @@ semantic:
   - pipeline configuration combinations
   status: rule_based
 content:
-  docs_markdown: "### Strict-local\n\nStrict-local mode keeps execution local and\
-    \ blocks external egress:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode:\
-    \ \"local_default\"\n    external_llm_allowed: false\n    require_explicit_approval:\
+  docs_markdown: "### Full+RAG\n\n`full+RAG` adds the retrieval layer to full docs\
+    \ operations:\n\n- knowledge module extraction and validation\n- retrieval index\
+    \ generation\n- knowledge graph output\n- retrieval quality evaluation\n\nThis\
+    \ mode is appropriate when the client expects AI-facing documentation quality\
+    \ to be measured, not only generated.\n\n## Execution mode is about LLM governance\n\
+    \nExecution mode answers: where may synthesis run, and what fallback is allowed?\n\
+    \n### Cloud\n\nCloud mode prefers external models:\n\n```yaml\nruntime:\n  llm_control:\n\
+    \    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this mode when external-model quality and latency matter more\
+    \ than local-only execution controls.\n\n### Strict-local\n\nStrict-local mode\
+    \ keeps execution local and blocks external egress:\n\n```yaml\nruntime:\n  llm_control:\n\
+    \    llm_mode: \"local_default\"\n    external_llm_allowed: false\n    require_explicit_approval:\
     \ true\n```\n\nUse this mode when policy requires local inference or forbids external\
     \ LLM traffic.\n\n### Hybrid\n\nHybrid mode keeps local-first behavior but permits\
     \ controlled fallback:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"\
     local_default\"\n    external_llm_allowed: true\n    require_explicit_approval:\
     \ true\n```\n\nUse this mode when the team wants local defaults but still needs\
-    \ a path for harder synthesis tasks.\n\n## Why full and full+RAG are not the same\n\
-    \nA frequent mistake is assuming `full` automatically implies retrieval features.\
-    \ It does not.\n\nThe difference is the retrieval triplet:\n\n- `rag_optimization`\n\
-    - `ontology_graph`\n- `retrieval_evals`\n\nWhen all three are `true`, the configuration\
-    \ behaves as `full+RAG`. When they are all `false`, the bundle is still full-scope\
-    \ docs operations, but not a retrieval-governed rollout."
+    \ a path for harder synthesis tasks."
   assistant_context: "Use this module when answering questions related to: How pipeline\
     \ configurations compose (Part 3). Source path: concepts/pipeline-configuration-combinations.md.\
     \ Summary: Learn how the pipeline combines rollout scope and LLM execution mode\
-    \ so bundles stay aligned with proof, full, and RAG-enabled delivery.\n\n### Strict-local\n\
-    \nStrict-local mode keeps execution local and blocks external egress:\n\n```yaml\n\
-    runtime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed:\
-    \ false\n    require_explicit_approval: true\n```\n\nUse this mode when policy\
-    \ requires local inference or forbids external LLM traffic.\n\n### Hybrid\n\n\
-    Hybrid mode keeps local-first behavior but permits controlled fallback:\n\n```yaml\n\
-    runtime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed:\
-    \ true\n    require_explicit_approval: true\n```\n\nUse this mode when the team\
-    \ wants local defaults but still needs a path for harder synthesis tasks.\n\n\
-    ## Why full and full+RAG are not the same\n\nA frequent mistake is assuming `full`\
-    \ automatically implies retrieval features. It does not.\n\nThe difference is\
-    \ the retrieval triplet:\n\n- `rag_optimization`\n- `ontology_graph`\n- `retrieval_evals`\n\
-    \nWhen all three are `true`, the configuration behaves as `full+RAG`. When they\
-    \ are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed\
-    \ rollout."
+    \ so bundles stay aligned with proof, full, and RAG-enabled delivery.\n\n### Full+RAG\n\
+    \n`full+RAG` adds the retrieval layer to full docs operations:\n\n- knowledge\
+    \ module extraction and validation\n- retrieval index generation\n- knowledge\
+    \ graph output\n- retrieval quality evaluation\n\nThis mode is appropriate when\
+    \ the client expects AI-facing documentation quality to be measured, not only\
+    \ generated.\n\n## Execution mode is about LLM governance\n\nExecution mode answers:\
+    \ where may synthesis run, and what fallback is allowed?\n\n### Cloud\n\nCloud\
+    \ mode prefers external models:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode:\
+    \ \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this mode when external-model quality and latency matter more\
+    \ than local-only execution controls.\n\n### Strict-local\n\nStrict-local mode\
+    \ keeps execution local and blocks external egress:\n\n```yaml\nruntime:\n  llm_control:\n\
+    \    llm_mode: \"local_default\"\n    external_llm_allowed: false\n    require_explicit_approval:\
+    \ true\n```\n\nUse this mode when policy requires local inference or forbids external\
+    \ LLM traffic.\n\n### Hybrid\n\nHybrid mode keeps local-first behavior but permits\
+    \ controlled fallback:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"\
+    local_default\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ true\n```\n\nUse this mode when the team wants local defaults but still needs\
+    \ a path for harder synthesis tasks."

@@ -13,7 +13,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - asyncapi-api
@@ -24,7 +24,7 @@ metadata:
   title: ASYNCAPI API Reference (Part 4)
   heading: Next steps
   version: 1.50.0
-  updated_at: '2026-03-26'
+  updated_at: '2026-05-18'
   source_site: docs.example.com
   source_path: reference/asyncapi-api.md
 semantic:
@@ -36,7 +36,10 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Next steps
+  docs_markdown: '<!-- vale on -->
+
+
+    ## Next steps
 
 
     - [Documentation index](index.md)
@@ -47,6 +50,9 @@ content:
   assistant_context: 'Use this module when answering questions related to: ASYNCAPI
     API Reference (Part 4). Source path: reference/asyncapi-api.md. Summary: Auto-generated
     asyncapi reference from source contract.
+
+
+    <!-- vale on -->
 
 
     ## Next steps

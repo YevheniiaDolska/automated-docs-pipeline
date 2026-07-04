@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - apply-pipeline-configuration
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/how-to/apply-pipeline-configuration/
   title: Apply a pilot, full, or RAG configuration (Part 3)
-  heading: Strict-local
+  heading: Full+RAG
   version: 1.50.0
   updated_at: '2026-06-16'
   source_site: docs.example.com
   source_path: how-to/apply-pipeline-configuration.md
 semantic:
-  topic: Strict-local
+  topic: Full+RAG
   intent: configure
   audience: practitioner
   keywords:
@@ -37,36 +37,34 @@ semantic:
   - how-to
   status: rule_based
 content:
-  docs_markdown: "### Strict-local\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode:\
+  docs_markdown: "### Full+RAG\n\nUse `full+RAG` when retrieval quality is part of\
+    \ the contract.\n\n```yaml\nlicensing:\n  plan: \"enterprise\"\nruntime:\n  modules:\n\
+    \    gap_detection: true\n    drift_detection: true\n    docs_contract: true\n\
+    \    kpi_sla: true\n    rag_optimization: true\n    ontology_graph: true\n   \
+    \ retrieval_evals: true\n```\n\n## Step 3: Set the execution mode\n\n### Cloud\n\
+    \n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"external_preferred\"\n  \
+    \  external_llm_allowed: true\n    require_explicit_approval: false\n    redact_before_external:\
+    \ true\n```\n\n### Strict-local\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode:\
     \ \"local_default\"\n    external_llm_allowed: false\n    require_explicit_approval:\
     \ true\n    redact_before_external: true\n```\n\n### Hybrid\n\n```yaml\nruntime:\n\
     \  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: true\n\
     \    require_explicit_approval: true\n    redact_before_external: true\n```\n\n\
     Use `require_explicit_approval: false` in `hybrid` only if the client allows automatic\
-    \ external fallback.\n\n## Step 4: Align flow-specific settings\n\nIf the client\
-    \ uses `api-first` or `hybrid` docs flow, confirm the API-first block is still\
-    \ coherent.\n\n```yaml\nruntime:\n  docs_flow:\n    mode: \"hybrid\"\n  api_first:\n\
-    \    enabled: true\n    generate_from_notes: true\n    sandbox_backend: \"prism\"\
-    \n    generate_test_assets: true\n```\n\nIf the client uses retrieval features,\
-    \ keep the knowledge outputs enabled and versioned:\n\n```yaml\nruntime:\n  retrieval_eval:\n\
-    \    enabled: true\n    index_path: \"docs/assets/knowledge-retrieval-index.json\"\
-    \n  knowledge_graph:\n    enabled: true\n    output_path: \"docs/assets/knowledge-graph.jsonld\"\
-    \n```"
+    \ external fallback."
   assistant_context: "Use this module when answering questions related to: Apply a\
     \ pilot, full, or RAG configuration (Part 3). Source path: how-to/apply-pipeline-configuration.md.\
     \ Summary: Update a client profile for pilot, full, or RAG-enabled operation and\
-    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n### Strict-local\n\
-    \n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed:\
+    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n### Full+RAG\n\
+    \nUse `full+RAG` when retrieval quality is part of the contract.\n\n```yaml\n\
+    licensing:\n  plan: \"enterprise\"\nruntime:\n  modules:\n    gap_detection: true\n\
+    \    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n    rag_optimization:\
+    \ true\n    ontology_graph: true\n    retrieval_evals: true\n```\n\n## Step 3:\
+    \ Set the execution mode\n\n### Cloud\n\n```yaml\nruntime:\n  llm_control:\n \
+    \   llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n    redact_before_external: true\n```\n\n### Strict-local\n\n```yaml\n\
+    runtime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed:\
     \ false\n    require_explicit_approval: true\n    redact_before_external: true\n\
     ```\n\n### Hybrid\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\
     \n    external_llm_allowed: true\n    require_explicit_approval: true\n    redact_before_external:\
     \ true\n```\n\nUse `require_explicit_approval: false` in `hybrid` only if the\
-    \ client allows automatic external fallback.\n\n## Step 4: Align flow-specific\
-    \ settings\n\nIf the client uses `api-first` or `hybrid` docs flow, confirm the\
-    \ API-first block is still coherent.\n\n```yaml\nruntime:\n  docs_flow:\n    mode:\
-    \ \"hybrid\"\n  api_first:\n    enabled: true\n    generate_from_notes: true\n\
-    \    sandbox_backend: \"prism\"\n    generate_test_assets: true\n```\n\nIf the\
-    \ client uses retrieval features, keep the knowledge outputs enabled and versioned:\n\
-    \n```yaml\nruntime:\n  retrieval_eval:\n    enabled: true\n    index_path: \"\
-    docs/assets/knowledge-retrieval-index.json\"\n  knowledge_graph:\n    enabled:\
-    \ true\n    output_path: \"docs/assets/knowledge-graph.jsonld\"\n```"
+    \ client allows automatic external fallback."

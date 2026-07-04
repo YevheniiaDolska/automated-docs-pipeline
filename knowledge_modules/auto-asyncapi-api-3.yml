@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - asyncapi-api
@@ -26,7 +26,7 @@ metadata:
   title: ASYNCAPI API Reference (Part 3)
   heading: ASYNCAPI API Reference (Part 3)
   version: 1.50.0
-  updated_at: '2026-03-26'
+  updated_at: '2026-05-18'
   source_site: docs.example.com
   source_path: reference/asyncapi-api.md
 semantic:
@@ -41,22 +41,22 @@ content:
   docs_markdown: "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db;\
     \ padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong>\
     \ <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong>\
-    \ <code id=\"asyncapi-http-view\"></code></p>\n  <!-- vale off -->\n<textarea\
-    \ id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\"\
-    >{\n  \"event_type\": \"project.updated\",\n  \"event_id\": \"evt_001\",\n  \"\
-    data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"}\n}</textarea><br/>\n\
-    \  <!-- vale on -->\n  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n\
-    \  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\"\
-    \ style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n\
-    <script>\n(function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const\
-    \ httpEndpoint = \"https://postman-echo.com/post\";\nconst wsView = document.getElementById('asyncapi-ws-view');\n\
-    const httpView = document.getElementById('asyncapi-http-view');\nconst sendWs\
-    \ = document.getElementById('asyncapi-send-ws');\nconst sendHttp = document.getElementById('asyncapi-send-http');\n\
-    const msg = document.getElementById('asyncapi-message');\nconst out = document.getElementById('asyncapi-output');\n\
-    if (!wsView || !httpView || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent\
-    \ = wsEndpoint || 'not configured';\nhttpView.textContent = httpEndpoint || 'not\
-    \ configured';\nfunction parseJson(raw){ try { return JSON.parse(String(raw ||\
-    \ '{}')); } catch (_) { return { raw: String(raw || '') }; } }\nfunction semanticEvent(input){\n\
+    \ <code id=\"asyncapi-http-view\"></code></p>\n  <textarea id=\"asyncapi-message\"\
+    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event_type\"\
+    : \"project.updated\",\n  \"event_id\": \"evt_001\",\n  \"data\": {\"project_id\"\
+    : \"prj_abc123\", \"status\": \"active\"}\n}</textarea><br/>\n  <button id=\"\
+    asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"asyncapi-send-http\"\
+    >Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"margin-top:12px;\
+    \ max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const\
+    \ wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"\
+    ;\nconst wsView = document.getElementById('asyncapi-ws-view');\nconst httpView\
+    \ = document.getElementById('asyncapi-http-view');\nconst sendWs = document.getElementById('asyncapi-send-ws');\n\
+    const sendHttp = document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\n\
+    const out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView\
+    \ || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint\
+    \ || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\n\
+    function parseJson(raw){ try { return JSON.parse(String(raw || '{}')); } catch\
+    \ (_) { return { raw: String(raw || '') }; } }\nfunction semanticEvent(input){\n\
     \  const req = parseJson(input);\n  const eventType = String(req.event_type ||\
     \ req.type || req.event || '').toLowerCase();\n  const data = (req.data && typeof\
     \ req.data === 'object') ? req.data : {};\n  const eventId = req.event_id || ('evt_'\
@@ -104,15 +104,15 @@ content:
     \ asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\"\
     \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket\
     \ Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP\
-    \ Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <!--\
-    \ vale off -->\n<textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%;\
-    \ font-family:monospace;\">{\n  \"event_type\": \"project.updated\",\n  \"event_id\"\
-    : \"evt_001\",\n  \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"\
-    }\n}</textarea><br/>\n  <!-- vale on -->\n  <button id=\"asyncapi-send-ws\">Send\
-    \ via WebSocket</button>\n  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n\
-    \  <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
-    ></pre>\n</div>\n<script>\n(function(){ const wsEndpoint = \"wss://echo.websocket.events\"\
-    ; const httpEndpoint = \"https://postman-echo.com/post\";\nconst wsView = document.getElementById('asyncapi-ws-view');\n\
+    \ Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <textarea\
+    \ id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\"\
+    >{\n  \"event_type\": \"project.updated\",\n  \"event_id\": \"evt_001\",\n  \"\
+    data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"}\n}</textarea><br/>\n\
+    \  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"\
+    asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"\
+    margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n\
+    (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint\
+    \ = \"https://postman-echo.com/post\";\nconst wsView = document.getElementById('asyncapi-ws-view');\n\
     const httpView = document.getElementById('asyncapi-http-view');\nconst sendWs\
     \ = document.getElementById('asyncapi-send-ws');\nconst sendHttp = document.getElementById('asyncapi-send-http');\n\
     const msg = document.getElementById('asyncapi-message');\nconst out = document.getElementById('asyncapi-output');\n\

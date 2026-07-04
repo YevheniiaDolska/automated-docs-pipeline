@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/concepts/pipeline-configuration-combinations/
   title: How pipeline configurations compose (Part 5)
-  heading: Next steps
+  heading: Configuration patterns that work well
   version: 1.50.0
   updated_at: '2026-06-16'
   source_site: docs.example.com
   source_path: concepts/pipeline-configuration-combinations.md
 semantic:
-  topic: Next steps
+  topic: Configuration patterns that work well
   intent: integrate
   audience: developer
   keywords:
@@ -37,7 +37,27 @@ semantic:
   - pipeline configuration combinations
   status: rule_based
 content:
-  docs_markdown: '## Next steps
+  docs_markdown: '## Configuration patterns that work well
+
+
+    | Pattern | When it works best |
+
+    | --- | --- |
+
+    | `pilot + strict-local` | Early proof with tight security review |
+
+    | `pilot + cloud` | Fastest demo path for a time-boxed proof |
+
+    | `full + hybrid` | Standard production rollout with local-first governance |
+
+    | `full+RAG + hybrid` | AI-facing docs program with controlled external fallback
+    |
+
+    | `full+RAG + cloud` | Maximum throughput and retrieval quality work on hosted
+    models |
+
+
+    ## Next steps
 
 
     - Use [Choose a pipeline configuration](../getting-started/choose-pipeline-configuration.md)
@@ -52,6 +72,26 @@ content:
     configurations compose (Part 5). Source path: concepts/pipeline-configuration-combinations.md.
     Summary: Learn how the pipeline combines rollout scope and LLM execution mode
     so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+
+    ## Configuration patterns that work well
+
+
+    | Pattern | When it works best |
+
+    | --- | --- |
+
+    | `pilot + strict-local` | Early proof with tight security review |
+
+    | `pilot + cloud` | Fastest demo path for a time-boxed proof |
+
+    | `full + hybrid` | Standard production rollout with local-first governance |
+
+    | `full+RAG + hybrid` | AI-facing docs program with controlled external fallback
+    |
+
+    | `full+RAG + cloud` | Maximum throughput and retrieval quality work on hosted
+    models |
 
 
     ## Next steps

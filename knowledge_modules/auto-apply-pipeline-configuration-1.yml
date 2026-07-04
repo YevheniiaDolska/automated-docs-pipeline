@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - apply-pipeline-configuration
@@ -37,41 +37,31 @@ semantic:
   - how-to
   status: rule_based
 content:
-  docs_markdown: "# Apply a pilot, full, or RAG configuration\n\nThis guide shows\
-    \ you how to take an existing client profile and switch it to `pilot`, `full`,\
-    \ or `full+RAG` while keeping LLM execution aligned with `cloud`, `strict-local`,\
-    \ or `hybrid` policy.\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"external_preferred\"\
-    \n    external_llm_allowed: true\n    require_explicit_approval: false\n```\n\n\
-    Use this guide when the client already has a `.client.yml` file and you need to\
-    \ change rollout depth or LLM behavior without rebuilding the profile from scratch.\n\
-    \n## Prerequisites\n\nBefore you start, ensure you have:\n\n- A client profile\
-    \ under `profiles/clients/`\n- The target rollout decision: `pilot`, `full`, or\
-    \ `full+RAG`\n- The target execution mode: `cloud`, `strict-local`, or `hybrid`\n\
-    - Permission to rebuild or reprovision the bundle\n\n## Step 1: Start from the\
-    \ nearest preset\n\nUse the preset that is closest to the target state.\n\n| Target\
-    \ state | Recommended preset |\n| --- | --- |\n| `pilot` | `profiles/clients/presets/pilot-evidence.yml`\
-    \ |\n| `full` | `profiles/clients/presets/small.yml` or `startup.yml` |\n| `full+RAG`\
-    \ | `profiles/clients/presets/startup.yml` or `enterprise.yml` |\n\nIf the profile\
-    \ already exists, compare it to the preset before changing fields by hand.\n\n\
-    ## Step 2: Set the scope tier"
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Apply a pilot, full, or RAG configuration\n\
+    \nThis guide shows you how to take an existing client profile and switch it to\
+    \ `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`,\
+    \ `strict-local`, or `hybrid` policy.\n\n```yaml\nruntime:\n  llm_control:\n \
+    \   llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this guide when the client already has a `.client.yml` file\
+    \ and you need to change rollout depth or LLM behavior without rebuilding the\
+    \ profile from scratch.\n\n## Prerequisites\n\nBefore you start, ensure you have:\n\
+    \n- A client profile under `profiles/clients/`\n- The target rollout decision:\
+    \ `pilot`, `full`, or `full+RAG`\n- The target execution mode: `cloud`, `strict-local`,\
+    \ or `hybrid`\n- Permission to rebuild or reprovision the bundle"
   assistant_context: "Use this module when answering questions related to: Apply a\
     \ pilot, full, or RAG configuration. Source path: how-to/apply-pipeline-configuration.md.\
     \ Summary: Update a client profile for pilot, full, or RAG-enabled operation and\
-    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n# Apply a pilot,\
-    \ full, or RAG configuration\n\nThis guide shows you how to take an existing client\
-    \ profile and switch it to `pilot`, `full`, or `full+RAG` while keeping LLM execution\
-    \ aligned with `cloud`, `strict-local`, or `hybrid` policy.\n\n```yaml\nruntime:\n\
-    \  llm_control:\n    llm_mode: \"external_preferred\"\n    external_llm_allowed:\
-    \ true\n    require_explicit_approval: false\n```\n\nUse this guide when the client\
-    \ already has a `.client.yml` file and you need to change rollout depth or LLM\
-    \ behavior without rebuilding the profile from scratch.\n\n## Prerequisites\n\n\
-    Before you start, ensure you have:\n\n- A client profile under `profiles/clients/`\n\
-    - The target rollout decision: `pilot`, `full`, or `full+RAG`\n- The target execution\
-    \ mode: `cloud`, `strict-local`, or `hybrid`\n- Permission to rebuild or reprovision\
-    \ the bundle\n\n## Step 1: Start from the nearest preset\n\nUse the preset that\
-    \ is closest to the target state.\n\n| Target state | Recommended preset |\n|\
-    \ --- | --- |\n| `pilot` | `profiles/clients/presets/pilot-evidence.yml` |\n|\
-    \ `full` | `profiles/clients/presets/small.yml` or `startup.yml` |\n| `full+RAG`\
-    \ | `profiles/clients/presets/startup.yml` or `enterprise.yml` |\n\nIf the profile\
-    \ already exists, compare it to the preset before changing fields by hand.\n\n\
-    ## Step 2: Set the scope tier"
+    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Apply a pilot, full, or RAG configuration\n\
+    \nThis guide shows you how to take an existing client profile and switch it to\
+    \ `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`,\
+    \ `strict-local`, or `hybrid` policy.\n\n```yaml\nruntime:\n  llm_control:\n \
+    \   llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this guide when the client already has a `.client.yml` file\
+    \ and you need to change rollout depth or LLM behavior without rebuilding the\
+    \ profile from scratch.\n\n## Prerequisites\n\nBefore you start, ensure you have:\n\
+    \n- A client profile under `profiles/clients/`\n- The target rollout decision:\
+    \ `pilot`, `full`, or `full+RAG`\n- The target execution mode: `cloud`, `strict-local`,\
+    \ or `hybrid`\n- Permission to rebuild or reprovision the bundle"

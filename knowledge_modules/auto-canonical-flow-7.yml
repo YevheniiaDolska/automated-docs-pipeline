@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -37,10 +37,9 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: "```bash\npython3 docsops/scripts/setup_client_env_wizard.py --auto\
-    \ --install-playwright\n```\n- terminology governance:\n  - `sync_project_glossary.py`\
-    \ (syncs glossary markers to `glossary.yml`)\n- multi-language examples standard:\n\
-    \  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py`\
+  docs_markdown: "- terminology governance:\n  - `sync_project_glossary.py` (syncs\
+    \ glossary markers to `glossary.yml`)\n- multi-language examples standard:\n \
+    \ - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py`\
     \ (including `expected-output` comparison for tagged blocks)\n- intent bundle\
     \ assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`\n\
     - Algolia search indexing (if enabled)\n  - generates Algolia records from docs\n\
@@ -56,8 +55,7 @@ content:
   assistant_context: "Use this module when answering questions related to: Canonical\
     \ Flow (Sales + Delivery) (Part 7). Source path: operations/CANONICAL_FLOW.md.\
     \ Summary: Canonical sales and delivery flow for onboarding and operating client\
-    \ Auto-Doc Pipeline setups.\n\n```bash\npython3 docsops/scripts/setup_client_env_wizard.py\
-    \ --auto --install-playwright\n```\n- terminology governance:\n  - `sync_project_glossary.py`\
+    \ Auto-Doc Pipeline setups.\n\n- terminology governance:\n  - `sync_project_glossary.py`\
     \ (syncs glossary markers to `glossary.yml`)\n- multi-language examples standard:\n\
     \  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py`\
     \ (including `expected-output` comparison for tagged blocks)\n- intent bundle\

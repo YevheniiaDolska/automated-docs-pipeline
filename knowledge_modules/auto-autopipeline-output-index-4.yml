@@ -13,7 +13,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-29'
+last_verified: '2026-07-04'
 dependencies: []
 tags:
 - auto-extracted
@@ -22,13 +22,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/
   title: Autopipeline Output Index (Part 4)
-  heading: Search Links
+  heading: Tests Links
   version: 1.50.0
-  updated_at: '2026-05-18'
+  updated_at: '2026-07-04T20:42:54.370739Z'
   source_site: docs.example.com
   source_path: operations/AUTOPIPELINE_OUTPUT_INDEX.md
 semantic:
-  topic: Search Links
+  topic: Tests Links
   intent: integrate
   audience: developer
   keywords:
@@ -36,32 +36,86 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: "## Search Links\n\n- Faceted search page: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/docs/search-faceted.md` (OK)\n  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/\n\
-    - Facets index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json`\
-    \ (OK)\n  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json\n\
-    \n## Tests Links\n\n- API test cases JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/reports/api-test-assets/api_test_cases.json` (OK)\n- TestRail CSV:\
-    \ `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/testrail_test_cases.csv`\
-    \ (OK)\n- Zephyr JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/zephyr_test_cases.json`\
-    \ (OK)\n- Test coverage report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/reports/api-test-assets/coverage_report.json` (OK)\n- Fuzz scenarios:\
-    \ `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json`\
-    \ (OK)\n- Test assets summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md` (MISSING)"
-  assistant_context: "Use this module when answering questions related to: Autopipeline\
-    \ Output Index (Part 4). Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md.\
-    \ Summary: Auto-generated review index for autopipeline outputs.\n\n## Search\
-    \ Links\n\n- Faceted search page: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/docs/search-faceted.md` (OK)\n  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/\n\
-    - Facets index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json`\
-    \ (OK)\n  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json\n\
-    \n## Tests Links\n\n- API test cases JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/reports/api-test-assets/api_test_cases.json` (OK)\n- TestRail CSV:\
-    \ `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/testrail_test_cases.csv`\
-    \ (OK)\n- Zephyr JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/zephyr_test_cases.json`\
-    \ (OK)\n- Test coverage report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/reports/api-test-assets/coverage_report.json` (OK)\n- Fuzz scenarios:\
-    \ `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json`\
-    \ (OK)\n- Test assets summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc\
-    \ Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md` (MISSING)"
+  docs_markdown: '## Tests Links
+
+
+    - API test cases JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\api_test_cases.json`
+    (OK)
+
+    - TestRail CSV: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\testrail_test_cases.csv`
+    (OK)
+
+    - Zephyr JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\zephyr_test_cases.json`
+    (OK)
+
+    - Test coverage report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\coverage_report.json`
+    (OK)
+
+    - Fuzz scenarios: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\fuzz_scenarios.json`
+    (OK)
+
+    - Test assets summary: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\TEST_ASSETS_SUMMARY.md`
+    (MISSING)
+
+
+    ## Browse/Searchability
+
+
+    - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable
+    page paths.
+
+    - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index
+    (`docs/assets/knowledge-retrieval-index.json`).
+
+    - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval
+    eval reports.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Autopipeline
+    Output Index (Part 4). Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md. Summary:
+    Auto-generated review index for autopipeline outputs.
+
+
+    ## Tests Links
+
+
+    - API test cases JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\api_test_cases.json`
+    (OK)
+
+    - TestRail CSV: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\testrail_test_cases.csv`
+    (OK)
+
+    - Zephyr JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\zephyr_test_cases.json`
+    (OK)
+
+    - Test coverage report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\coverage_report.json`
+    (OK)
+
+    - Fuzz scenarios: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\fuzz_scenarios.json`
+    (OK)
+
+    - Test assets summary: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\TEST_ASSETS_SUMMARY.md`
+    (MISSING)
+
+
+    ## Browse/Searchability
+
+
+    - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable
+    page paths.
+
+    - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index
+    (`docs/assets/knowledge-retrieval-index.json`).
+
+    - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval
+    eval reports.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
