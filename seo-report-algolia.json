@@ -5457,6 +5457,70 @@
     {
       "objectID": "2e7fae80ea9c2c5d0c869a49684b5a52",
       "title": "Install Ask AI runtime pack",
+      "heading": "Protect the endpoint and bill each user separately",
+      "content": "The runtime rate limits requests per user to protect the public endpoint and the provider quota behind it. Set the budget with ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE (default 20). The runtime keys the limit on the X-User-Id header, falling back to the API key. A request over the budget returns HTTP 429 with a Retry-After header. To bill queries to each user rather than a shared key, send the user's provider key per request: curl -X POST https://docs.example.com/ask-ai/api/v1/ask \\   -H \"Content-Type: application/json\" \\   -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\" \\   -H \"X-Provider-Key: USER_PROVIDER_KEY\" \\   -H \"X-Model: gpt-4.1-mini\" \\   -d '{\"question\": \"How do I rotate API keys?\"}' The runtime uses X-Provider-Key (and optional X-Provider-Base-Url and X-Model) for that request, so the user pays for their own queries. Set ASK_AI_BILLING_MODE=bring-your-own-key to require the header: a request without it returns HTTP 402. ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Protect the endpoint and bill each user separately",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#12",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 132,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "21f05d638419af457d7383ac5fc44d82",
+      "title": "Install Ask AI runtime pack",
+      "heading": "Analyze usage by topic and session",
+      "content": "The analytics report clusters questions into topics and builds a session engagement funnel. Send an X-Session-Id header with each request so the runtime can group a conversation. Build the report and dashboard: npm run askai:analytics:build The dashboard shows answer rate per topic (which themes lack coverage) and the funnel from asked to answered to follow-up to helpful rating. ",
+      "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Analyze usage by topic and session",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/install-ask-ai-runtime-pack#13",
+      "last_reviewed": "2026-07-04",
+      "path": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 58,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "0e24185ad73a7349f1bfe2ecb5fbfda3",
+      "title": "Install Ask AI runtime pack",
       "heading": "Runtime pack install fails because destination exists",
       "content": "Use force mode: npm run askai:runtime:install:force ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
@@ -5477,7 +5541,7 @@
         "lvl3": "Runtime pack install fails because destination exists",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#12",
+      "url": "/how-to/install-ask-ai-runtime-pack#14",
       "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
@@ -5487,7 +5551,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "21f05d638419af457d7383ac5fc44d82",
+      "objectID": "39ad6ac0f893d02b3107c913f0a8b54e",
       "title": "Install Ask AI runtime pack",
       "heading": "Ask endpoint returns 401",
       "content": "Check X-Ask-AI-Key header and ASK_AI_API_KEY value. ",
@@ -5509,7 +5573,7 @@
         "lvl3": "Ask endpoint returns 401",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#13",
+      "url": "/how-to/install-ask-ai-runtime-pack#15",
       "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
@@ -5519,7 +5583,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "0e24185ad73a7349f1bfe2ecb5fbfda3",
+      "objectID": "8be9619427ac4022bdd72f61de87de9b",
       "title": "Install Ask AI runtime pack",
       "heading": "Ask endpoint returns 402",
       "content": "The current user plan is not entitled by billing mode logic. Confirm ASK_AI_BILLING_MODE and user plan header. ",
@@ -5541,7 +5605,7 @@
         "lvl3": "Ask endpoint returns 402",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#14",
+      "url": "/how-to/install-ask-ai-runtime-pack#16",
       "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
@@ -5551,7 +5615,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "39ad6ac0f893d02b3107c913f0a8b54e",
+      "objectID": "6bfdb85bd2c385e6770714495a215d4d",
       "title": "Install Ask AI runtime pack",
       "heading": "Answer reports that it cannot find the information",
       "content": "The runtime refuses to answer when retrieval returns no relevant sources, or when the sources do not cover the question. This behavior prevents fabricated answers. Rebuild the retrieval index so new documentation becomes searchable: python3 scripts/generate_knowledge_retrieval_index.py The /healthz endpoint reports the status of all advanced retrieval features: {   \"ok\": true,   \"enabled\": true,   \"provider\": \"openai\",   \"billing_mode\": \"disabled\",   \"semantic_retrieval\": true,   \"reranking\": true,   \"hybrid_search\": true,   \"hyde\": true,   \"embedding_cache\": true } ",
@@ -5573,7 +5637,7 @@
         "lvl3": "Answer reports that it cannot find the information",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#15",
+      "url": "/how-to/install-ask-ai-runtime-pack#17",
       "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
@@ -5583,7 +5647,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8be9619427ac4022bdd72f61de87de9b",
+      "objectID": "ac4a59edb26cee0b5048f18ae50e26ff",
       "title": "Install Ask AI runtime pack",
       "heading": "Next steps",
       "content": "- Configure Ask AI module - Assemble intent experiences - Intelligent knowledge system architecture ",
@@ -5605,7 +5669,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/install-ask-ai-runtime-pack#16",
+      "url": "/how-to/install-ask-ai-runtime-pack#18",
       "last_reviewed": "2026-07-04",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
