@@ -631,6 +631,68 @@ class ReportConsolidator:
         )
         self.health.knowledge_graph_nodes = int(data.get("graph_nodes", 0) or 0)
 
+    def _process_ask_ai(self) -> None:
+        """Process ask_ai_usage_report.json (assistant usage + doc-gap signals).
+
+        Questions the assistant could not ground (no citations) or that users
+        marked unhelpful become action items, so real user demand routes into
+        the docs pipeline alongside the other gap sources.
+        """
+        data = self._read_json("ask_ai_usage_report.json")
+        if data is None:
+            self.input_statuses["ask_ai"] = InputReportStatus(found=False)
+            return
+
+        totals = data.get("totals", {}) if isinstance(data.get("totals"), dict) else {}
+        self.input_statuses["ask_ai"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "questions": totals.get("questions", 0),
+                "answer_rate": totals.get("answer_rate"),
+                "helpful_rate": totals.get("helpful_rate"),
+                "zero_citation_rate": totals.get("zero_citation_rate"),
+                "doc_gap_candidates": len(data.get("doc_gap_candidates", []) or []),
+            },
+        )
+
+        reason_labels = {
+            "no_citations": "no grounded answer",
+            "marked_unhelpful": "marked unhelpful by users",
+        }
+        for candidate in data.get("doc_gap_candidates", []) or []:
+            question = str(candidate.get("question", "")).strip()
+            if not question:
+                continue
+            count = int(candidate.get("count", 1) or 1)
+            reason = str(candidate.get("reason", "no_citations"))
+            snippet = question if len(question) <= 80 else question[:77] + "..."
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="ask_ai",
+                    source_id=None,
+                    title=f"Assistant gap: {snippet}",
+                    category="assistant_gap",
+                    suggested_doc_type=None,
+                    priority="high" if count >= 3 else "medium",
+                    frequency=count,
+                    action_required=(
+                        f"Users asked this {count} time(s) and the assistant returned "
+                        f"{reason_labels.get(reason, reason)}. Add or update docs so this "
+                        "question is answerable with citations."
+                    ),
+                    keywords=[],
+                    sample_queries=[question],
+                    context={
+                        "source": "assistant",
+                        "reason": reason,
+                        "drift_related": False,
+                        "sla_breach_related": False,
+                    },
+                )
+            )
+
     def _cross_reference_drift(self) -> None:
         """Аннотирует gap-элементы, связанные с дрифтом."""
         drift_data = self._read_json("api_sdk_drift_report.json")
@@ -665,6 +727,7 @@ class ReportConsolidator:
         self._process_glossary()
         self._process_retrieval_evals()
         self._process_knowledge_graph()
+        self._process_ask_ai()
         self._cross_reference_drift()
 
         self.health.total_action_items = len(self.action_items)

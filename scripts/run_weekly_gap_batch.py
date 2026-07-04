@@ -829,6 +829,47 @@ def main() -> int:
                     cmd.append("--skip-generate-from-notes")
                 _run_allow_fail(cmd, cwd=repo_root)
 
+    # Ask AI usage analytics + dashboard. Runs before consolidation so the
+    # doc-gap candidates it surfaces (unanswered / unhelpful questions) feed the
+    # consolidated report as first-class action items.
+    ask_ai_report = scripts_dir / "report_ask_ai_usage.py"
+    ask_ai_cfg = runtime.get("ask_ai", {}) if isinstance(runtime.get("ask_ai"), dict) else {}
+    usage_log = str(ask_ai_cfg.get("usage_log_path", "reports/ask_ai_usage.jsonl"))
+    if (
+        _is_enabled(modules, "ask_ai_analytics", True)
+        and ask_ai_report.exists()
+        and (repo_root / usage_log).exists()
+    ):
+        ask_ai_report_json = reports_dir / "ask_ai_usage_report.json"
+        _run_allow_fail(
+            [
+                py,
+                str(ask_ai_report),
+                "--usage-log",
+                usage_log,
+                "--report",
+                str(ask_ai_report_json),
+                "--gaps-csv",
+                str(reports_dir / "ask_ai_gaps.csv"),
+                "--since-days",
+                str(int(ask_ai_cfg.get("analytics_window_days", 30))),
+            ],
+            cwd=repo_root,
+        )
+        ask_ai_dashboard = scripts_dir / "generate_ask_ai_analytics_dashboard.py"
+        if ask_ai_dashboard.exists():
+            _run_allow_fail(
+                [
+                    py,
+                    str(ask_ai_dashboard),
+                    "--report",
+                    str(ask_ai_report_json),
+                    "--output",
+                    str(reports_dir / "ask-ai-analytics.html"),
+                ],
+                cwd=repo_root,
+            )
+
     consolidate = scripts_dir / "consolidate_reports.py"
     if consolidate.exists():
         _run(

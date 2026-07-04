@@ -456,6 +456,7 @@ def build_context(
                 "summary": m.get("summary"),
                 "assistant_excerpt": m.get("assistant_excerpt"),
                 "source_file": m.get("source_file"),
+                "url": m.get("url", ""),
             }
             for m in top
         ],

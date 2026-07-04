@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import logging
+from datetime import datetime, timezone
+import uuid
 import os
 from pathlib import Path
 from typing import Any
@@ -32,6 +34,13 @@ class AskRequest(BaseModel):
 class AskResponse(BaseModel):
     answer: str
     citations: list[dict[str, Any]]
+    question_id: str = ""
+
+
+class FeedbackRequest(BaseModel):
+    question_id: str = Field(min_length=1, max_length=64)
+    helpful: bool
+    comment: str = Field(default="", max_length=2000)
 
 
 def _bool_env(name: str, default: bool) -> bool:
@@ -72,7 +81,22 @@ def _load_runtime_config() -> dict[str, Any]:
         "embed_cache_enabled": _bool_env("ASK_AI_EMBED_CACHE_ENABLED", True),
         "embed_cache_ttl": int(os.getenv("ASK_AI_EMBED_CACHE_TTL", "3600")),
         "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
+        "usage_log_enabled": _bool_env("ASK_AI_USAGE_LOG_ENABLED", True),
+        "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
     }
+
+
+def _append_usage_event(config: dict[str, Any], event: dict[str, Any]) -> None:
+    """Append one JSONL usage event. Never lets logging break a request."""
+    if not config.get("usage_log_enabled", True):
+        return
+    try:
+        path = Path(str(config.get("usage_log_path", "reports/ask_ai_usage.jsonl")))
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(event, ensure_ascii=True) + "\n")
+    except OSError as exc:
+        logger.warning("Ask AI usage log write failed: %s", exc)
 
 
 async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
@@ -216,11 +240,51 @@ async def ask(
             "id": item.get("id"),
             "title": item.get("title"),
             "source_file": item.get("source_file"),
+            "url": item.get("url", ""),
         }
         for item in context["modules"]
     ]
 
-    return AskResponse(answer=answer, citations=citations)
+    question_id = uuid.uuid4().hex
+    _append_usage_event(
+        config,
+        {
+            "type": "question",
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "question_id": question_id,
+            "question": payload.question,
+            "user_role": auth.role,
+            "user_plan": auth.plan,
+            "retrieved_ids": [str(item.get("id", "")) for item in context["modules"]],
+            "citations_count": len(citations),
+            "answer_chars": len(answer),
+        },
+    )
+
+    return AskResponse(answer=answer, citations=citations, question_id=question_id)
+
+
+@app.post("/api/v1/feedback")
+async def feedback(
+    payload: FeedbackRequest,
+    x_ask_ai_key: str | None = Header(default=None),
+) -> dict[str, str]:
+    config = _load_runtime_config()
+    try:
+        require_runtime_api_key(x_ask_ai_key)
+    except PermissionError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    _append_usage_event(
+        config,
+        {
+            "type": "feedback",
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "question_id": payload.question_id,
+            "helpful": bool(payload.helpful),
+            "comment": payload.comment[:2000],
+        },
+    )
+    return {"status": "recorded"}
 
 
 @app.post("/api/v1/billing/webhook")
