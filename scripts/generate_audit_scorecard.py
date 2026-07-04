@@ -12,6 +12,7 @@ import html
 import json
 import logging
 import math
+import os
 import re
 import statistics
 import subprocess
@@ -1809,6 +1810,22 @@ def _sales_automation_priorities(
     return priorities[:3]
 
 
+def _pipeline_price_comparison(monthly_cost_usd: float, pipeline_price_usd: float) -> dict[str, Any]:
+    """Docs-cost vs pipeline-price framing, only when genuinely favorable.
+
+    Shown only when a price is configured AND the estimated monthly docs cost
+    exceeds it -- an unfavorable comparison is omitted, never spun.
+    """
+    if pipeline_price_usd <= 0 or monthly_cost_usd <= pipeline_price_usd:
+        return {}
+    return {
+        "pipeline_monthly_price_usd": round(pipeline_price_usd, 2),
+        "docs_cost_monthly_usd": round(monthly_cost_usd, 2),
+        "cost_to_price_multiple": round(monthly_cost_usd / pipeline_price_usd, 1),
+        "monthly_net_saving_usd": round(monthly_cost_usd - pipeline_price_usd, 2),
+    }
+
+
 def _build_sales_teardown_payload(
     scorecard_payload: dict[str, Any],
     *,
@@ -1841,6 +1858,10 @@ def _build_sales_teardown_payload(
             ),
         },
         "monthly_expense_breakdown": business_impact.get("monthly_expense_breakdown", {}),
+        "pipeline_comparison": _pipeline_price_comparison(
+            float(base_impact.get("total_signal_usd", 0.0) or 0.0),
+            float(scorecard_payload.get("pipeline_monthly_price_usd", 0.0) or 0.0),
+        ),
         "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
         "key_findings": key_findings,
         "priority_actions": _sales_next_steps(scorecard_payload, public_metrics, llm_analysis),
@@ -1924,6 +1945,26 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         "</div>"
         "</section>"
     ) if strengths_html and risks_html else ""
+
+    comparison = payload.get("pipeline_comparison", {})
+    price_comparison_html = ""
+    if isinstance(comparison, dict) and comparison.get("cost_to_price_multiple"):
+        docs_cost = float(comparison.get("docs_cost_monthly_usd", 0.0) or 0.0)
+        price = float(comparison.get("pipeline_monthly_price_usd", 0.0) or 0.0)
+        multiple = float(comparison.get("cost_to_price_multiple", 0.0) or 0.0)
+        saving = float(comparison.get("monthly_net_saving_usd", 0.0) or 0.0)
+        price_comparison_html = (
+            "<section class='split' style='grid-template-columns:1fr;'>"
+            "<div class='surface' style='border-left:4px solid #10b981;'>"
+            "<h2 class='section-title'>The Do-Nothing Cost vs This Pipeline</h2>"
+            f"<p style='font-size:15px; margin:0;'>Documentation drag currently costs an estimated "
+            f"<strong>${docs_cost:,.0f}/month</strong> (itemized below) &mdash; nobody books it, but it is being paid. "
+            f"The pipeline costs <strong>${price:,.0f}/month</strong>: "
+            f"<strong>{multiple:.1f}x less than the problem it removes</strong>, "
+            f"for a net ~${saving:,.0f}/month back.</p>"
+            "</div>"
+            "</section>"
+        )
 
     breakdown = payload.get("monthly_expense_breakdown", {})
     breakdown_items = breakdown.get("items", []) if isinstance(breakdown, dict) else []
@@ -2243,6 +2284,8 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
       </div>
     </section>
 
+    {price_comparison_html}
+
     {expense_breakdown_html}
 
     {strengths_section_html}
@@ -2439,6 +2482,15 @@ def main() -> int:
     parser.add_argument("--glossary-path", default="glossary.yml")
     parser.add_argument("--stale-days", type=int, default=180)
     parser.add_argument(
+        "--pipeline-monthly-price-usd",
+        type=float,
+        default=float(os.environ.get("VERIOPS_PIPELINE_MONTHLY_PRICE_USD", "0") or 0),
+        help=(
+            "Your pipeline's monthly price for this prospect. When set and lower than the "
+            "estimated monthly docs cost, the teardown shows a price-vs-cost comparison strip."
+        ),
+    )
+    parser.add_argument(
         "--assumptions-json",
         default="",
         help=(
@@ -2486,6 +2538,7 @@ def main() -> int:
         "score": _overall_score(kpis),
         "kpis": kpis,
         "business_impact": business_impact,
+        "pipeline_monthly_price_usd": float(getattr(args, "pipeline_monthly_price_usd", 0.0) or 0.0),
         "capability_matrix": _capability_matrix(),
         "findings": findings,
         "findings_totals": _findings_totals(findings),

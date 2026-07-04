@@ -3180,6 +3180,23 @@ def _read_dotenv_value(env_file_hint: str, key: str) -> str:
     return ""
 
 
+# Models that reject sampling parameters (temperature/top_p/top_k return 400).
+_NO_SAMPLING_MODEL_PREFIXES = ("claude-sonnet-5", "claude-opus-4-7", "claude-opus-4-8", "claude-fable", "claude-mythos")
+
+# Models that support the current web-search tool variant with dynamic filtering.
+_MODERN_WEB_SEARCH_PREFIXES = ("claude-sonnet-5", "claude-sonnet-4-6", "claude-opus-4-6", "claude-opus-4-7", "claude-opus-4-8")
+
+
+def _web_search_tool_for(model: str, max_uses: int = 5) -> dict[str, Any]:
+    """Pick the web-search tool variant the model supports."""
+    tool_type = (
+        "web_search_20260209"
+        if str(model).startswith(_MODERN_WEB_SEARCH_PREFIXES)
+        else "web_search_20250305"
+    )
+    return {"type": tool_type, "name": "web_search", "max_uses": int(max_uses)}
+
+
 def _run_llm_json_prompt(
     *,
     api_key: str,
@@ -3187,14 +3204,18 @@ def _run_llm_json_prompt(
     timeout: int,
     prompt: str,
     max_tokens: int = 1200,
+    tools: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Run Anthropic LLM and return parsed JSON object."""
-    body = {
+    body: dict[str, Any] = {
         "model": model,
         "max_tokens": int(max_tokens),
-        "temperature": 0.1,
         "messages": [{"role": "user", "content": prompt}],
     }
+    if not str(model).startswith(_NO_SAMPLING_MODEL_PREFIXES):
+        body["temperature"] = 0.1
+    if tools:
+        body["tools"] = tools
     req = Request(
         url="https://api.anthropic.com/v1/messages",
         data=json.dumps(body).encode("utf-8"),
@@ -3211,9 +3232,12 @@ def _run_llm_json_prompt(
     text = ""
     for part in data.get("content", []) if isinstance(data.get("content"), list) else []:
         if isinstance(part, dict) and part.get("type") == "text":
-            text = str(part.get("text", "")).strip()
-            if text:
-                break
+            candidate = str(part.get("text", "")).strip()
+            if candidate:
+                # Keep the LAST non-empty text block: with server-side web
+                # search, earlier blocks are inter-search narration and the
+                # final answer arrives last.
+                text = candidate
     if not text:
         raise RuntimeError("LLM returned empty response")
     stripped = text.strip()
@@ -3248,6 +3272,10 @@ def _autofill_assumptions_with_llm(
 ) -> dict[str, Any]:
     """Generate assumptions profile from available public signals."""
     prompt = (
+        f"Research the company '{company_name}' (sites: {site_urls}) using web search: "
+        "approximate headcount and engineering team size, industry, pricing/plan tiers "
+        "(to estimate average customer monthly value), support scale, and release cadence. "
+        "Then estimate documentation-operations cost-model inputs for that company. "
         "Return JSON only with keys: "
         "engineer_hourly_usd,support_hourly_usd,release_count_per_month,"
         "baseline_manual_sync_hours_per_week,avg_release_delay_hours,"
@@ -3255,19 +3283,31 @@ def _autofill_assumptions_with_llm(
         "monthly_doc_influenced_evals,eval_to_customer_rate,avg_customer_monthly_value_usd,"
         "docs_friction_revenue_sensitivity,"
         "assumptions_confidence_pct,provenance. "
-        "Use realistic enterprise software ranges, do not invent precise facts. "
-        "Prefer conservative base-case values for B2B SaaS docs operations and docs-influenced commercial risk. "
-        "provenance must be an array of short strings describing rationale. "
-        f"Company: {company_name}. Sites: {site_urls}. "
+        "Ground estimates in what you found; where the web gives no signal, use "
+        "conservative base-case values for B2B SaaS docs operations. Do not invent precise facts. "
+        "provenance must be an array of short strings; cite the concrete signals used "
+        "(e.g. 'pricing page lists $499/mo team plan', '~250 employees per LinkedIn'). "
         f"Audit metrics: {json.dumps(aggregate_metrics, ensure_ascii=True)}"
     )
-    out = _run_llm_json_prompt(
-        api_key=llm_api_key,
-        model=llm_model,
-        timeout=llm_timeout,
-        prompt=prompt,
-        max_tokens=1000,
-    )
+    try:
+        out = _run_llm_json_prompt(
+            api_key=llm_api_key,
+            model=llm_model,
+            timeout=max(int(llm_timeout), 240),
+            prompt=prompt,
+            max_tokens=4000,
+            tools=[_web_search_tool_for(llm_model, max_uses=5)],
+        )
+    except (RuntimeError, ValueError, OSError, json.JSONDecodeError):
+        # Web search unavailable (offline, model without tool support):
+        # fall back to knowledge-only estimation rather than failing the audit.
+        out = _run_llm_json_prompt(
+            api_key=llm_api_key,
+            model=llm_model,
+            timeout=llm_timeout,
+            prompt=prompt.replace("using web search", "from your knowledge"),
+            max_tokens=1200,
+        )
     return {
         "engineer_hourly_usd": round(_clamp(out.get("engineer_hourly_usd"), 50, 400, 120), 2),
         "support_hourly_usd": round(_clamp(out.get("support_hourly_usd"), 20, 180, 55), 2),
@@ -3748,7 +3788,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--llm-model",
-        default="claude-sonnet-4-5",
+        default="claude-sonnet-5",
         help="Anthropic model name for executive analysis",
     )
     parser.add_argument(

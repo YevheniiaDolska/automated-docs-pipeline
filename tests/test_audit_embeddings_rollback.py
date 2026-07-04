@@ -607,6 +607,13 @@ class TestBusinessImpact:
             assert finding["estimated_monthly_loss_usd_high"] == pytest.approx(base * 1.4, abs=0.02)
             assert "monthly_loss_derivation" in finding
 
+    def test_pipeline_price_comparison_only_when_favorable(self) -> None:
+        """Comparison strip data exists only when docs cost exceeds price."""
+        assert scorecard._pipeline_price_comparison(5858.0, 1500.0)["cost_to_price_multiple"] == 3.9
+        assert scorecard._pipeline_price_comparison(5858.0, 9000.0) == {}
+        assert scorecard._pipeline_price_comparison(5858.0, 0.0) == {}
+        assert scorecard._pipeline_price_comparison(0.0, 1500.0) == {}
+
     def test_expense_breakdown_rendered_in_sales_teardown(self) -> None:
         """Teardown HTML shows the itemized cost table with formulas."""
         kpis = _make_kpis(undocumented_pct=30.0, example_reliability_pct=70.0)
