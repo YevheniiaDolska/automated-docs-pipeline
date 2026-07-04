@@ -116,7 +116,6 @@ Auto-generated asyncapi reference from source contract.
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ### ASYNCAPI API Reference: ASYNCAPI Reference
 
 Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
@@ -489,9 +488,6 @@ It compresses repetitive documentation and API verification work into a governed
 
 Auto-generated review index for autopipeline outputs.
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
-<!-- VERIDOC_POWERED_BADGE:END -->
 ### Autopipeline Output Index: Autopipeline Output Index
 
 Generated automatically after autopipeline run.
@@ -522,7 +518,7 @@ Generated automatically after autopipeline run.
 #### Autopipeline Output Index: Docs Links
 
 - Docs index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md` (OK)
-  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/index/
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/index/>
 
 ### Autopipeline Output Index (Part 2)
 
@@ -532,9 +528,9 @@ Auto-generated review index for autopipeline outputs.
 
 - Multi-protocol contract report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json` (OK)
 - REST reference: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/rest-api.md` (OK)
-  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/rest-api/
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/reference/rest-api/>
 - REST playground: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md` (OK)
-  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/taskstream-api-playground/
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/reference/taskstream-api-playground/>
 
 #### Autopipeline Output Index (Part 2): Quality Links
 
@@ -565,9 +561,9 @@ Auto-generated review index for autopipeline outputs.
 #### Autopipeline Output Index (Part 4): Search Links
 
 - Faceted search page: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md` (OK)
-  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/>
 - Facets index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json` (OK)
-  Public URL: https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json>
 
 #### Autopipeline Output Index (Part 4): Tests Links
 
@@ -613,6 +609,54 @@ One-time setup, then smooth weekly automation:
 \11. Install scheduler.
 \11. Weekly reports and checks run automatically.
 \11. Human only reviews report + final docs.
+
+### Canonical Flow (Sales + Delivery) (Part 10)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+
+#### Canonical Flow (Sales + Delivery) (Part 10): 9. Compatibility mode
+
+If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and companion workflows). Recommended mode remains local scheduler automation in client repo.
+
+#### Canonical Flow (Sales + Delivery) (Part 10): 10. Deep references
+
+- `docs/operations/OPERATOR_RUNBOOK.md`
+- `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `docs/operations/PLAN_TIERS.md`
+- `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
+
+#### Canonical Flow (Sales + Delivery) (Part 10): Next steps
+
+- [Documentation index](../index.md)
+
+### Canonical Flow (Sales + Delivery) (Part 11)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+
+#### Canonical Flow (Sales + Delivery) (Part 11): Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
 
 ### Canonical Flow (Sales + Delivery) (Part 2)
 
@@ -749,10 +793,49 @@ Canonical sales and delivery flow for onboarding and operating client Auto-Doc P
   - `generate_knowledge_graph_jsonld.py`
   - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)
 - Screenshot placement tasks:
+  - `generate_screenshot_capture_plan.py` auto-refreshes `docs/screenshots.capture.yml` from current docs tree
+  - `capture_screenshots.py` captures screenshots via Playwright using `docs/screenshots.capture.yml`
   - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json` into `docs/screenshots.yml`
   - `insert_screenshots_into_docs.py` inserts screenshots by `target.doc` + `target.anchor`/`target.heading`
   - fallback placement after `h1` for unresolved section headings
   - unresolved targets are reported in `reports/screenshot_injection_report.json` under `needs_review`
+
+### Canonical Flow (Sales + Delivery) (Part 6)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+
+Private pages (authenticated screenshot capture):
+
+1. Open `docs/screenshots.capture.yml`.
+1. Set `auth.enabled: true`.
+1. Set `auth.login_url` to your sign-in URL.
+1. Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`) to match your login form.
+1. Export credentials before run:
+
+```bash
+
+export SCREENSHOT_LOGIN_EMAIL="your-login@example.com"
+export SCREENSHOT_LOGIN_PASSWORD="your-password"
+
+```
+
+1. Run pipeline normally (`run_autopipeline.py`); it will:
+   - execute auth once,
+   - save Playwright session state to `reports/playwright_storage_state.json`,
+   - reuse it for capture targets in the same run.
+
+Playwright bootstrap:
+
+### Canonical Flow (Sales + Delivery) (Part 7)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+
+```bash
+
+python3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright
+
+```
+
 - terminology governance:
   - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
 - multi-language examples standard:
@@ -766,10 +849,6 @@ Canonical sales and delivery flow for onboarding and operating client Auto-Doc P
   - applies advanced config from `advanced_config_path` (`settings`, `synonyms`, `rules`, `replicas`) when `apply_advanced_settings_on_upload=true`
 - `custom_tasks.weekly` commands
 - consolidated report generation
-
-### Canonical Flow (Sales + Delivery) (Part 6)
-
-Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
 
 Output:
 
@@ -787,14 +866,18 @@ reports/docsops-weekly.log
 
 ```
 
-#### Canonical Flow (Sales + Delivery) (Part 6): 4. Human role
+### Canonical Flow (Sales + Delivery) (Part 8)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+
+#### Canonical Flow (Sales + Delivery) (Part 8): 4. Human role
 
 \11. In file explorer, check Modified date of `reports/consolidated_report.json`.
 \11. If date/time is fresh, ask local LLM to process the report.
 \11. Review generated docs quickly.
 \11. Publish/merge.
 
-#### Canonical Flow (Sales + Delivery) (Part 6): 5. Operator manual checks after setup
+#### Canonical Flow (Sales + Delivery) (Part 8): 5. Operator manual checks after setup
 
 \11. Check `<client-repo>/docsops/config/client_runtime.yml` for correct client values.
 \11. Check `<client-repo>/docsops/policy_packs/selected.yml` for expected policy pack/overrides.
@@ -802,11 +885,11 @@ reports/docsops-weekly.log
 \11. Check `<client-repo>/docsops/license.jwt` exists and is valid: `python3 docsops/scripts/license_gate.py`.
 \11. Run one smoke weekly cycle and ensure `reports/consolidated_report.json` is refreshed.
 
-### Canonical Flow (Sales + Delivery) (Part 7)
+### Canonical Flow (Sales + Delivery) (Part 9)
 
 Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
 
-#### Canonical Flow (Sales + Delivery) (Part 7): 6. Licensing
+#### Canonical Flow (Sales + Delivery) (Part 9): 6. Licensing
 
 Every pipeline run validates the license locally using an Ed25519-signed JWT. No client data is ever sent to any server.
 
@@ -822,7 +905,7 @@ Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
 
 Details: `docs/operations/PLAN_TIERS.md`, `docs/operations/OPERATOR_RUNBOOK.md`.
 
-#### Canonical Flow (Sales + Delivery) (Part 7): 7. Plan packaging
+#### Canonical Flow (Sales + Delivery) (Part 9): 7. Plan packaging
 
 - Basic: essential quality + gaps + stale.
 - Pro: adds drift/contract, KPI/SLA, RAG/knowledge, hybrid/API-first.
@@ -830,60 +913,12 @@ Details: `docs/operations/PLAN_TIERS.md`, `docs/operations/OPERATOR_RUNBOOK.md`.
 
 Details: `docs/operations/PLAN_TIERS.md`.
 
-#### Canonical Flow (Sales + Delivery) (Part 7): 8. What to say in sales calls
+#### Canonical Flow (Sales + Delivery) (Part 9): 8. What to say in sales calls
 
 \11. "You get one-time setup, then weekly documentation ops on autopilot."
 \11. "Your team stops doing doc plumbing and only reviews final output."
 \11. "Quality is controlled by policy packs and automated gates."
 \11. "RAG/knowledge is maintained automatically, so AI outputs stay grounded."
-
-### Canonical Flow (Sales + Delivery) (Part 8)
-
-Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
-
-#### Canonical Flow (Sales + Delivery) (Part 8): 9. Compatibility mode
-
-If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and companion workflows). Recommended mode remains local scheduler automation in client repo.
-
-#### Canonical Flow (Sales + Delivery) (Part 8): 10. Deep references
-
-- `docs/operations/OPERATOR_RUNBOOK.md`
-- `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`
-- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
-- `docs/operations/PLAN_TIERS.md`
-- `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
-
-#### Canonical Flow (Sales + Delivery) (Part 8): Next steps
-
-- [Documentation index](../index.md)
-
-### Canonical Flow (Sales + Delivery) (Part 9)
-
-Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
-
-#### Canonical Flow (Sales + Delivery) (Part 9): Implementation status (2026-03-25)
-
-This document is aligned to the current production implementation baseline.
-
-Current baseline:
-
-1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
-1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
-1. Non-REST automation includes server stubs with business-logic placeholders.
-1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
-1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
-1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
-1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
-
-Canonical execution order reference:
-
-- `docs/operations/CANONICAL_FLOW.md`
-- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
-- `README.md`
-
-Commercial note:
-
-- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
 
 ### Централизованная настройка клиентов
 
@@ -1551,7 +1586,6 @@ Data processing agreement for VeriDoc platform covering GDPR compliance, sub-pro
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ### VeriDoc data processing agreement: VeriDoc data processing agreement
 
 This data processing agreement ("DPA") forms part of the agreement between
@@ -1789,7 +1823,6 @@ Auto-generated graphql reference from source contract.
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### GRAPHQL API Reference: GRAPHQL Reference
 
@@ -2702,6 +2735,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment.
 
+Large link sets are processed through disk-backed storage instead of one in-memory batch, so the auditor preserves full broken-link coverage and provenance while reducing RAM pressure on operator machines.
+
 **Audit modes:**
 
 | Mode | Command | Description |
@@ -3046,8 +3081,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 | Script | Purpose |
 | --- | --- |
-| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
-| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`, with target-platform filtering for `linux`, `windows`, `macos`, `all`, or mixed estates such as `linux,windows`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). Supports `--install-scheduler auto` and auto-detects the correct local installer for Linux, macOS, or Windows. |
 | `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
 | `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
 | `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
@@ -3064,6 +3099,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
 | `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/runtime_config_loader.py` | Load protected runtime config, enforce integrity manifest for base runtime, and merge signed operator runtime overrides. |
+| `scripts/sign_operator_runtime_overrides.py` | Sign `operator_runtime_overrides.yml` so operator-only live changes can be applied after bundle delivery. |
 | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia and optionally apply advanced settings, synonyms, rules, and replicas from config. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
@@ -3077,7 +3114,7 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
 | `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
 | `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
-| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Uses disk-backed link storage for large crawls, so broken-link analysis stays complete without high RAM spikes. Supports interactive wizard and LLM-powered expert analysis. |
 | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
 | `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
 | `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
@@ -3146,6 +3183,374 @@ The pipeline supports five API protocols with a unified orchestrator (`run_multi
 **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates docs and retries semantic consistency checks on failure.
 
 **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py` generates protocol specs from markdown planning notes.
+
+### How pipeline configurations compose
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+### How pipeline configurations compose: How pipeline configurations compose
+
+Pipeline configuration is a two-axis model. One axis defines rollout scope, and the other defines how LLM work is executed and governed.
+
+```yaml
+
+runtime:
+  modules:
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: true
+
+```
+
+<!-- glossary:add: strict-local mode | LLM execution mode that keeps llm_mode local_default and blocks external LLM egress by setting external_llm_allowed to false. | local-only mode -->
+
+This model matters because a `pilot` bundle in `strict-local mode` should carry different scripts, governance, and user instructions than a `full+RAG` bundle in `cloud` mode.
+
+#### How pipeline configurations compose: The two axes
+
+The pipeline combines these dimensions:
+
+| Axis | What it controls | Primary fields |
+| --- | --- | --- |
+| Rollout scope | Which modules, checks, and weekly tasks are active | `licensing.plan`, `runtime.modules`, `runtime.docs_flow` |
+| Execution mode | Where LLM work runs and what egress policy applies | `runtime.llm_control.*` |
+
+The builder does not infer one axis from the other. A bundle can be `pilot + cloud`, `full + strict-local`, or `full+RAG + hybrid`.
+
+#### How pipeline configurations compose: Rollout scope is about delivery depth
+
+Rollout scope answers: how much of the platform should this client receive now?
+
+### How pipeline configurations compose (Part 2)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+##### How pipeline configurations compose (Part 2): Pilot
+
+`pilot` narrows the surface to proof-oriented signals:
+
+- weekly gap and drift evidence
+- docs quality gates
+- API-first generation if enabled
+- reduced bundle script surface
+
+Pilot intentionally keeps retrieval features off by default because the goal is short proof cycles, not full knowledge-system rollout.
+
+##### How pipeline configurations compose (Part 2): Full
+
+`full` turns on the standard docs operations surface:
+
+- governance and normalization
+- docs-contract visibility
+- KPI and SLA reporting
+- lifecycle and release pack flows
+
+Full can still be RAG-free. That is a valid state when the client wants governed documentation operations without retrieval evaluation or graph outputs.
+
+##### How pipeline configurations compose (Part 2): Full+RAG
+
+`full+RAG` adds the retrieval layer to full docs operations:
+
+- knowledge module extraction and validation
+- retrieval index generation
+- knowledge graph output
+- retrieval quality evaluation
+
+This mode is appropriate when the client expects AI-facing documentation quality to be measured, not only generated.
+
+#### How pipeline configurations compose (Part 2): Execution mode is about LLM governance
+
+Execution mode answers: where may synthesis run, and what fallback is allowed?
+
+##### How pipeline configurations compose (Part 2): Cloud
+
+Cloud mode prefers external models:
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "external_preferred"
+    external_llm_allowed: true
+    require_explicit_approval: false
+
+```
+
+Use this mode when external-model quality and latency matter more than local-only execution controls.
+
+### How pipeline configurations compose (Part 3)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+##### How pipeline configurations compose (Part 3): Strict-local
+
+Strict-local mode keeps execution local and blocks external egress:
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: false
+    require_explicit_approval: true
+
+```
+
+Use this mode when policy requires local inference or forbids external LLM traffic.
+
+##### How pipeline configurations compose (Part 3): Hybrid
+
+Hybrid mode keeps local-first behavior but permits controlled fallback:
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: true
+    require_explicit_approval: true
+
+```
+
+Use this mode when the team wants local defaults but still needs a path for harder synthesis tasks.
+
+#### How pipeline configurations compose (Part 3): Why full and full+RAG are not the same
+
+A frequent mistake is assuming `full` automatically implies retrieval features. It does not.
+
+The difference is the retrieval triplet:
+
+- `rag_optimization`
+- `ontology_graph`
+- `retrieval_evals`
+
+When all three are `true`, the configuration behaves as `full+RAG`. When they are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed rollout.
+
+### How pipeline configurations compose (Part 4)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+#### How pipeline configurations compose (Part 4): Why bundles need configuration-specific docs
+
+The same scripts are not enough across every configuration. Users need configuration-specific instructions because:
+
+- `pilot` users need proof-oriented operating steps
+- `full` users need broader automation and governance guidance
+- `full+RAG` users need retrieval quality and knowledge-system guidance
+- `strict-local` users need egress and local runtime instructions
+- `cloud` users need external-model behavior spelled out
+
+That is why the bundle builder now selects documentation from the final runtime config, not only from manual `include_docs` entries.
+
+#### How pipeline configurations compose (Part 4): Configuration patterns that work well
+
+| Pattern | When it works best |
+| --- | --- |
+| `pilot + strict-local` | Early proof with tight security review |
+| `pilot + cloud` | Fastest demo path for a time-boxed proof |
+| `full + hybrid` | Standard production rollout with local-first governance |
+| `full+RAG + hybrid` | AI-facing docs program with controlled external fallback |
+| `full+RAG + cloud` | Maximum throughput and retrieval quality work on hosted models |
+
+### How pipeline configurations compose (Part 5)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+#### How pipeline configurations compose (Part 5): Next steps
+
+- Use [Choose a pipeline configuration](../getting-started/choose-pipeline-configuration.md) to select the starting combination.
+- Follow [Apply a pilot, full, or RAG configuration](../how-to/apply-pipeline-configuration.md) to edit a profile.
+- Check [Pipeline configuration reference](../reference/pipeline-configuration-reference.md) for exact field values.
+
+### Pipeline configuration reference
+
+Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+### Pipeline configuration reference: Pipeline configuration reference
+
+This page defines the exact fields that distinguish `pilot`, `full`, and `full+RAG`, plus the `cloud`, `strict-local`, and `hybrid` execution modes.
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "external_preferred"
+    external_llm_allowed: true
+    require_explicit_approval: false
+
+```
+
+Use this page when you need exact values, not rollout guidance.
+
+#### Pipeline configuration reference: Scope tier reference
+
+| Scope tier | Preset or base profile | `licensing.plan` | Retrieval triplet |
+| --- | --- | --- | --- |
+| `pilot` | `profiles/clients/presets/pilot-evidence.yml` | `pilot` | all `false` |
+| `full` | `profiles/clients/presets/small.yml` or custom | `professional` or `enterprise` | optional |
+| `full+RAG` | `profiles/clients/presets/startup.yml` or `enterprise.yml` | `professional` or `enterprise` | all `true` |
+
+##### Pipeline configuration reference: Retrieval triplet
+
+The retrieval triplet is:
+
+- `runtime.modules.rag_optimization`
+- `runtime.modules.ontology_graph`
+- `runtime.modules.retrieval_evals`
+
+Interpretation rules:
+
+- all `false` -> not RAG-enabled
+- all `true` -> `full+RAG`
+- mixed values -> transitional or custom rollout; document it explicitly
+
+### Pipeline configuration reference (Part 2)
+
+Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+#### Pipeline configuration reference (Part 2): Execution mode reference
+
+| Execution mode | `llm_mode` | `external_llm_allowed` | `require_explicit_approval` | Typical use |
+| --- | --- | --- | --- | --- |
+| `cloud` | `external_preferred` | `true` | `false` | hosted model path |
+| `strict-local` | `local_default` | `false` | `true` | no external egress |
+| `hybrid` | `local_default` | `true` | `true` or `false` | local-first with fallback |
+
+#### Pipeline configuration reference (Part 2): Preset mapping
+
+| Preset | User-facing meaning | Notes |
+| --- | --- | --- |
+| `pilot-evidence` | `pilot` | intentionally reduced script surface |
+| `small` | `full` | full baseline without the larger startup defaults |
+| `startup` | `full+RAG` default | balanced full-scope preset with retrieval features on |
+| `enterprise` | `full+RAG` strict | largest default surface with Ask AI runtime support |
+
+#### Pipeline configuration reference (Part 2): Minimum module sets
+
+##### Pipeline configuration reference (Part 2): Pilot minimum
+
+```yaml
+
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
+
+```
+
+### Pipeline configuration reference (Part 3)
+
+Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+##### Pipeline configuration reference (Part 3): Full minimum
+
+```yaml
+
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    terminology_management: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    lifecycle_management: true
+    knowledge_validation: true
+
+```
+
+##### Pipeline configuration reference (Part 3): Full+RAG minimum
+
+```yaml
+
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    terminology_management: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    lifecycle_management: true
+    knowledge_validation: true
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+
+```
+
+#### Pipeline configuration reference (Part 3): Flow alignment rules
+
+| Field | Allowed values | Notes |
+| --- | --- | --- |
+| `runtime.docs_flow.mode` | `code-first`, `api-first`, `hybrid` | `hybrid` is the default for most presets |
+| `runtime.api_first.enabled` | `true`, `false` | Keep `true` for planning-notes to contract flow |
+| `runtime.api_first.sandbox_backend` | `docker`, `prism`, `external` | `external` requires a reachable mock URL |
+| `runtime.output_targets` | list | examples: `mkdocs`, `readme`, `github`, `sphinx` |
+
+### Pipeline configuration reference (Part 4)
+
+Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+#### Pipeline configuration reference (Part 4): Bundle documentation selection rules
+
+The bundle builder now auto-includes configuration docs from the final runtime config.
+
+Base configuration docs:
+
+- `docs/getting-started/choose-pipeline-configuration.md`
+- `docs/how-to/apply-pipeline-configuration.md`
+- `docs/concepts/pipeline-configuration-combinations.md`
+- `docs/reference/pipeline-configuration-reference.md`
+
+Additional docs are added when relevant:
+
+- `docs/how-to/run-api-first-production-flow.md` for `api-first` or `hybrid`
+- `docs/how-to/configure-ask-ai-module.md` and `docs/how-to/install-ask-ai-runtime-pack.md` when Ask AI is enabled
+- `docs/concepts/intelligent-knowledge-system.md` when retrieval features are enabled
+- `docs/reference/network-transparency.md` when local-first or egress-sensitive execution is in use
+
+#### Pipeline configuration reference (Part 4): Validation rules
+
+- `pilot` should not ship with the full retrieval triplet enabled unless the rollout is intentionally re-scoped.
+- `strict-local` must keep `external_llm_allowed: false`.
+- `cloud` should not use `llm_mode: local_default` unless the team intentionally wants local-first behavior.
+- `full+RAG` should keep all three retrieval flags enabled together to avoid partial retrieval governance.
+
+### Pipeline configuration reference (Part 5)
+
+Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+#### Pipeline configuration reference (Part 5): Related files
+
+- `profiles/clients/presets/pilot-evidence.yml`
+- `profiles/clients/presets/small.yml`
+- `profiles/clients/presets/startup.yml`
+- `profiles/clients/presets/enterprise.yml`
+- `scripts/build_client_bundle.py`
+- `scripts/provision_client_repo.py`
+
+#### Pipeline configuration reference (Part 5): Next steps
+
+- [Documentation index](index.md)
 
 ### Plan Tiers (Basic / Pro / Enterprise)
 
@@ -3302,11 +3707,17 @@ Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated scr
 
 Without a valid license, the pipeline runs in **community mode** (degraded):
 
-- Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol.
+- Markdown lint, frontmatter validation, SEO/GEO report-only.
+- Advanced runtime modules are disabled in community mode (including glossary sync, lifecycle management, API-first/REST protocol automation, multi-protocol flow, drift detection, KPI/SLA, and RAG layers).
+- Existing client artifacts remain on disk (docs content, templates, glossary, shared variables), but pipeline execution falls back to the reduced community feature surface.
 - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol.
 - Quality gates warn-only (never block).
 
 License features per plan:
+
+### Plan Tiers (Basic / Pro / Enterprise) (Part 13)
+
+Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
 
 | Feature gate | Pilot | Professional | Enterprise |
 | --- | --- | --- | --- |
@@ -3325,10 +3736,6 @@ License features per plan:
 | `custom_policy_packs` | No | No | Yes |
 | `testrail_zephyr_upload` | No | No | Yes |
 
-### Plan Tiers (Basic / Pro / Enterprise) (Part 13)
-
-Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
-
 Protocols per plan: Pilot and Professional allow REST only. Enterprise allows all 5 protocols.
 
 Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
@@ -3344,14 +3751,14 @@ Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
 
 After any plan change, rebuild the bundle and re-provision.
 
-#### Plan Tiers (Basic / Pro / Enterprise) (Part 13): Next steps
-
-- [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
-- [Documentation index](../index.md)
-
 ### Plan Tiers (Basic / Pro / Enterprise) (Part 14)
 
 Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+#### Plan Tiers (Basic / Pro / Enterprise) (Part 14): Next steps
+
+- [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
+- [Documentation index](../index.md)
 
 #### Plan Tiers (Basic / Pro / Enterprise) (Part 14): Implementation status (2026-03-25)
 
@@ -3617,7 +4024,6 @@ Privacy policy for VeriDoc automated documentation platform, covering data colle
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### VeriDoc privacy policy: VeriDoc privacy policy
 
@@ -4057,7 +4463,6 @@ Security contact channels, response times, severity model, and disclosure workfl
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ### VeriDoc security contact policy: VeriDoc security contact policy
 
 This policy defines exactly how to contact VeriDoc for security incidents,
@@ -4124,7 +4529,6 @@ Security policy for VeriDoc platform covering infrastructure security, encryptio
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### VeriDoc security policy: VeriDoc security policy
 
@@ -4867,7 +5271,6 @@ Terms of service governing the use of VeriDoc automated documentation platform, 
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### VeriDoc terms of service: VeriDoc terms of service
 

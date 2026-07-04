@@ -1008,7 +1008,7 @@ If your docs site enables playground integration, add:
 
     def validate_document(self, file_path: Path):
         """Run basic validation on the created document."""
-        print(f"🔍 Validating {file_path.name}...")
+        print(f" Validating {file_path.name}...")
 
         # Check with Vale if available
         try:
@@ -1019,9 +1019,9 @@ If your docs site enables playground integration, add:
                 timeout=5
             )
             if result.returncode == 0:
-                print("  ✅ Vale validation passed")
+                print("  [ok] Vale validation passed")
             else:
-                print(f"  ⚠️ Vale found issues (fix these later):\n{result.stdout[:500]}")
+                print(f"  [warn] Vale found issues (fix these later):\n{result.stdout[:500]}")
         except FileNotFoundError:
             logger.info("Vale binary not found on PATH, skipping style check")
         except subprocess.TimeoutExpired:
@@ -1034,11 +1034,11 @@ If your docs site enables playground integration, add:
         # Check frontmatter
         content = file_path.read_text(encoding='utf-8')
         if content.startswith("---"):
-            print("  ✅ Valid frontmatter detected")
+            print("  [ok] Valid frontmatter detected")
         else:
-            print("  ❌ Missing frontmatter!")
+            print("  [fail] Missing frontmatter!")
 
-        print(f"\n📄 Document created successfully!")
+        print(f"\n Document created successfully!")
         print(f"   Edit your new document: {file_path}")
 
     def sync_glossary(self, file_path: Path) -> None:
@@ -1046,7 +1046,7 @@ If your docs site enables playground integration, add:
         sync_script = Path("scripts/sync_project_glossary.py")
         glossary_path = Path("glossary.yml")
         if not sync_script.exists() or not glossary_path.exists():
-            print("  ⏭️ Glossary sync script or glossary file is missing, skipping terminology sync")
+            print(" [skip] Glossary sync script or glossary file is missing, skipping terminology sync")
             return
 
         try:
@@ -1068,9 +1068,9 @@ If your docs site enables playground integration, add:
                 check=False,
             )
             if result.returncode == 0:
-                print("  ✅ Glossary sync completed")
+                print("  [ok] Glossary sync completed")
             else:
-                print("  ⚠️ Glossary sync failed (non-blocking)")
+                print("  [warn] Glossary sync failed (non-blocking)")
         except (OSError, subprocess.SubprocessError) as exc:
             logger.warning("Glossary sync failed (non-blocking): %s", exc)
             print("  Warning: Glossary sync failed (non-blocking)")

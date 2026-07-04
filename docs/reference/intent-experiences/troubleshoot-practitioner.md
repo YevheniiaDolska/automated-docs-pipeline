@@ -25,6 +25,52 @@ python3 scripts/assemble_intent_experience.py \
 
 ## Included modules
 
+### Apply a pilot, full, or RAG configuration (Part 4)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 5: Rebuild the bundle
+
+After editing the profile, rebuild the bundle:
+
+```bash
+
+python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+```
+
+If you are installing directly into a repo, reprovision it:
+
+```bash
+
+python3 scripts/provision_client_repo.py \
+  --client profiles/clients/acme.client.yml \
+  --client-repo /path/to/client-repo \
+  --install-scheduler linux
+
+```
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 6: Verify the included docs
+
+Every generated bundle should now include the configuration docs that match its profile. Check for:
+
+- `docs/getting-started/choose-pipeline-configuration.md`
+- `docs/how-to/apply-pipeline-configuration.md`
+- `docs/concepts/pipeline-configuration-combinations.md`
+- `docs/reference/pipeline-configuration-reference.md`
+
+Bundles may also include additional documents such as API-first or Ask AI instructions when those features are enabled.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Common issues and fixes
+
+##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Full bundle still looks like pilot
+
+Check `licensing.plan` and the three retrieval flags. If `plan` is still `pilot`, or all three retrieval flags are `false`, the profile is still scoped down.
+
+##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Strict-local bundle still attempts external LLM use
+
+Check `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify the generated bundle copies the expected `config/client_runtime.yml`.
+
 ### Assemble intent experiences (Part 2)
 
 Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.

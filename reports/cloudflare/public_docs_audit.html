@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-06-30T11:15:35.267989+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">7869</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">7955</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">43</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">10</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">3.07%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">56.92%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">46.15%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">93.46%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">83.95%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 43</li><li>Link verification inconclusive for 10 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 56.92% (2975 API pages detected)</li><li>Example reliability estimate is low: 46.15%</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://developers.cloudflare.com/</strong>: pages=7869, broken_links=43, api_coverage=56.92%, examples=46.15%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Cloudflare&#x27;s developer documentation spans 7,869 crawled pages with strong retrieval readiness (94.5 overall score, 90% chunkability). However, 43 confirmed broken internal links disrupt navigation, API reference coverage sits at only 56.92% across 2,975 detected API pages, and example reliability is critically low at 46.15%. Evidence backing for key claims reaches 61.93% (2,435 of 3,932 claims), while 10 links remain unverified due to authentication or rate-limiting. Overall confidence stands at 83.95%, with crawl coverage at 100% of the 7,955 in-scope pages.</p><h3>Strengths</h3><ul><li>Excellent retrieval readiness (94.5 score) with 90% chunkability and 100% answerability, optimizing AI-assisted search and support deflection</li><li>Comprehensive crawl coverage at 100% of in-scope pages (7,869 of 7,955), ensuring audit completeness</li><li>Strong freshness metadata coverage at 93.46%, enabling users and systems to assess content currency</li><li>100% actionability coverage across all pages, supporting clear next-step guidance for developers</li><li>Low SEO/geo issue rate at 3.07%, indicating solid discoverability and localization hygiene</li></ul><h3>Risks</h3><ul><li>43 confirmed broken internal links create friction in user journeys, erode trust, and degrade SEO authority</li><li>API reference coverage at 56.92% leaves nearly half of API surfaces undocumented or poorly linked, increasing support burden and integration failure risk</li><li>Example reliability at 46.15% means over half of code samples may be outdated, broken, or untested, directly impacting developer time-to-value and product perception</li><li>61.93% evidence coverage for claims suggests ~1,500 assertions lack supporting links, code, or data, weakening credibility and onboarding confidence</li><li>10 unverified links (auth/rate-limit blocks) introduce uncertainty; if user-facing, they may be broken but undetected</li><li>8.5% stale risk indicates ~670 pages may be outdated, risking incorrect implementation and support escalations</li><li>Overall confidence at 83.95% and links confidence at 76.13% suggest audit may undercount issues in protected or dynamic content areas</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 43 confirmed broken internal links <em>[high, low]</em></li><li>Implement automated testing and refresh cycle for code examples to lift reliability from 46.15% toward 80%+ <em>[critical, high]</em></li><li>Close API reference coverage gap from 56.92% to 85%+ by auditing 2,975 detected API pages and generating missing usage docs <em>[critical, high]</em></li><li>Add evidence (links, code, data) to the ~1,500 unsupported claims (currently 61.93% coverage) in high-traffic onboarding and API pages <em>[high, medium]</em></li><li>Manually verify the 10 auth/rate-limited links and establish monitoring for protected endpoints <em>[medium, low]</em></li></ul></div>
+  </div>
+</body>
+</html>

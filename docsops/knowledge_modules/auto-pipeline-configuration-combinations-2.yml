@@ -1,0 +1,79 @@
+id: auto-pipeline-configuration-combinations-2
+title: How pipeline configurations compose (Part 2)
+summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles
+  stay aligned with proof, full, and RAG-enabled delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- pipeline-configuration-combinations
+metadata:
+  url: https://docs.example.com/concepts/pipeline-configuration-combinations/
+  title: How pipeline configurations compose (Part 2)
+  heading: Pilot
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: concepts/pipeline-configuration-combinations.md
+semantic:
+  topic: Pilot
+  intent: integrate
+  audience: developer
+  keywords:
+  - concept
+  - pipeline configuration combinations
+  status: rule_based
+content:
+  docs_markdown: "### Pilot\n\n`pilot` narrows the surface to proof-oriented signals:\n\
+    \n- weekly gap and drift evidence\n- docs quality gates\n- API-first generation\
+    \ if enabled\n- reduced bundle script surface\n\nPilot intentionally keeps retrieval\
+    \ features off by default because the goal is short proof cycles, not full knowledge-system\
+    \ rollout.\n\n### Full\n\n`full` turns on the standard docs operations surface:\n\
+    \n- governance and normalization\n- docs-contract visibility\n- KPI and SLA reporting\n\
+    - lifecycle and release pack flows\n\nFull can still be RAG-free. That is a valid\
+    \ state when the client wants governed documentation operations without retrieval\
+    \ evaluation or graph outputs.\n\n### Full+RAG\n\n`full+RAG` adds the retrieval\
+    \ layer to full docs operations:\n\n- knowledge module extraction and validation\n\
+    - retrieval index generation\n- knowledge graph output\n- retrieval quality evaluation\n\
+    \nThis mode is appropriate when the client expects AI-facing documentation quality\
+    \ to be measured, not only generated.\n\n## Execution mode is about LLM governance\n\
+    \nExecution mode answers: where may synthesis run, and what fallback is allowed?\n\
+    \n### Cloud\n\nCloud mode prefers external models:\n\n```yaml\nruntime:\n  llm_control:\n\
+    \    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this mode when external-model quality and latency matter more\
+    \ than local-only execution controls."
+  assistant_context: "Use this module when answering questions related to: How pipeline\
+    \ configurations compose (Part 2). Source path: concepts/pipeline-configuration-combinations.md.\
+    \ Summary: Learn how the pipeline combines rollout scope and LLM execution mode\
+    \ so bundles stay aligned with proof, full, and RAG-enabled delivery.\n\n### Pilot\n\
+    \n`pilot` narrows the surface to proof-oriented signals:\n\n- weekly gap and drift\
+    \ evidence\n- docs quality gates\n- API-first generation if enabled\n- reduced\
+    \ bundle script surface\n\nPilot intentionally keeps retrieval features off by\
+    \ default because the goal is short proof cycles, not full knowledge-system rollout.\n\
+    \n### Full\n\n`full` turns on the standard docs operations surface:\n\n- governance\
+    \ and normalization\n- docs-contract visibility\n- KPI and SLA reporting\n- lifecycle\
+    \ and release pack flows\n\nFull can still be RAG-free. That is a valid state\
+    \ when the client wants governed documentation operations without retrieval evaluation\
+    \ or graph outputs.\n\n### Full+RAG\n\n`full+RAG` adds the retrieval layer to\
+    \ full docs operations:\n\n- knowledge module extraction and validation\n- retrieval\
+    \ index generation\n- knowledge graph output\n- retrieval quality evaluation\n\
+    \nThis mode is appropriate when the client expects AI-facing documentation quality\
+    \ to be measured, not only generated.\n\n## Execution mode is about LLM governance\n\
+    \nExecution mode answers: where may synthesis run, and what fallback is allowed?\n\
+    \n### Cloud\n\nCloud mode prefers external models:\n\n```yaml\nruntime:\n  llm_control:\n\
+    \    llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this mode when external-model quality and latency matter more\
+    \ than local-only execution controls."

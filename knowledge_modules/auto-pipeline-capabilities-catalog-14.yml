@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-06-16'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,7 +25,7 @@ metadata:
   title: Pipeline Capabilities Catalog (Part 14)
   heading: Public docs auditor and executive PDF
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-06-19'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
@@ -42,6 +42,11 @@ content:
 
     The public docs auditor crawls live documentation sites and generates a comprehensive
     quality assessment.
+
+
+    Large link sets are processed through disk-backed storage instead of one in-memory
+    batch, so the auditor preserves full broken-link coverage and provenance while
+    reducing RAM pressure on operator machines.
 
 
     **Audit modes:**
@@ -88,6 +93,11 @@ content:
 
     The public docs auditor crawls live documentation sites and generates a comprehensive
     quality assessment.
+
+
+    Large link sets are processed through disk-backed storage instead of one in-memory
+    batch, so the auditor preserves full broken-link coverage and provenance while
+    reducing RAM pressure on operator machines.
 
 
     **Audit modes:**

@@ -1,0 +1,14 @@
+# Operator-only live overrides
+# 1. Copy this file to operator_runtime_overrides.yml
+# 2. Edit only the settings you want to override.
+# 3. Sign it with: python3 docsops/scripts/sign_operator_runtime_overrides.py --runtime-config docsops/config/client_runtime.yml
+# 4. Do not edit client_runtime.yml directly; it is integrity-protected.
+
+docs_flow:
+  mode: hybrid
+
+modules:
+  drift_detection: true
+
+finalize_gate:
+  max_iterations: 5

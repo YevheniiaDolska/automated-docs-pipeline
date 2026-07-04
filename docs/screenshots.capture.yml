@@ -22,24 +22,6 @@ auth:
   - type: wait_for_selector
     selector: '[data-testid=''dashboard'']'
 captures:
-- id: doc-seo-guide
-  url: http://localhost:3000/SEO_GUIDE/
-  output: docs/assets/screenshots/seo-guide.png
-  doc_path: SEO_GUIDE.md
-  section_heading: Overview
-  section_anchor: overview
-  alt: SEO/GEO Optimization Guide screenshot
-  wait_for: networkidle
-  full_page: false
-- id: doc-variables-guide
-  url: http://localhost:3000/VARIABLES_GUIDE/
-  output: docs/assets/screenshots/variables-guide.png
-  doc_path: VARIABLES_GUIDE.md
-  section_heading: Overview
-  section_anchor: overview
-  alt: Variables and Templates Guide screenshot
-  wait_for: networkidle
-  full_page: false
 - id: doc-assets-protocols-asyncapi-asyncapi-api
   url: http://localhost:3000/assets/protocols/asyncapi/asyncapi-api/
   output: docs/assets/screenshots/assets-protocols-asyncapi-asyncapi-api.png
@@ -94,6 +76,15 @@ captures:
   alt: Intelligent knowledge system architecture screenshot
   wait_for: networkidle
   full_page: false
+- id: doc-concepts-pipeline-configuration-combinations
+  url: https://yevheniiadolska.github.io/automated-docs-pipeline/concepts/pipeline-configuration-combinations/
+  output: docs/assets/screenshots/concepts-pipeline-configuration-combinations.png
+  doc_path: concepts/pipeline-configuration-combinations.md
+  section_heading: The two axes
+  section_anchor: the-two-axes
+  alt: How pipeline configurations compose screenshot
+  wait_for: networkidle
+  full_page: false
 - id: doc-concepts-workflow-execution-model
   url: http://localhost:3000/concepts/workflow-execution-model/
   output: docs/assets/screenshots/concepts-workflow-execution-model.png
@@ -112,6 +103,15 @@ captures:
   alt: Set up a real-time webhook processing pipeline screenshot
   wait_for: networkidle
   full_page: false
+- id: doc-getting-started-choose-pipeline-configuration
+  url: https://yevheniiadolska.github.io/automated-docs-pipeline/getting-started/choose-pipeline-configuration/
+  output: docs/assets/screenshots/getting-started-choose-pipeline-configuration.png
+  doc_path: getting-started/choose-pipeline-configuration.md
+  section_heading: 'Step 1: Pick the scope tier'
+  section_anchor: step-1-pick-the-scope-tier
+  alt: Choose a pipeline configuration screenshot
+  wait_for: networkidle
+  full_page: false
 - id: doc-getting-started-quickstart
   url: http://localhost:3000/getting-started/quickstart/
   output: docs/assets/screenshots/getting-started-quickstart.png
@@ -119,6 +119,15 @@ captures:
   section_heading: Build your first workflow in 5 minutes
   section_anchor: build-your-first-workflow-in-5-minutes
   alt: Build your first workflow in 5 minutes screenshot
+  wait_for: networkidle
+  full_page: false
+- id: doc-how-to-apply-pipeline-configuration
+  url: https://yevheniiadolska.github.io/automated-docs-pipeline/how-to/apply-pipeline-configuration/
+  output: docs/assets/screenshots/how-to-apply-pipeline-configuration.png
+  doc_path: how-to/apply-pipeline-configuration.md
+  section_heading: Prerequisites
+  section_anchor: prerequisites
+  alt: Apply a pilot, full, or RAG configuration screenshot
   wait_for: networkidle
   full_page: false
 - id: doc-how-to-assemble-intent-experiences
@@ -619,6 +628,15 @@ captures:
   alt: Webhook node reference for screenshot
   wait_for: networkidle
   full_page: false
+- id: doc-reference-pipeline-configuration-reference
+  url: https://yevheniiadolska.github.io/automated-docs-pipeline/reference/pipeline-configuration-reference/
+  output: docs/assets/screenshots/reference-pipeline-configuration-reference.png
+  doc_path: reference/pipeline-configuration-reference.md
+  section_heading: Scope tier reference
+  section_anchor: scope-tier-reference
+  alt: Pipeline configuration reference screenshot
+  wait_for: networkidle
+  full_page: false
 - id: doc-reference-rest-api
   url: http://localhost:3000/reference/rest-api/
   output: docs/assets/screenshots/reference-rest-api.png
@@ -664,6 +682,15 @@ captures:
   alt: Advanced Search screenshot
   wait_for: networkidle
   full_page: false
+- id: doc-seo-guide
+  url: http://localhost:3000/SEO_GUIDE/
+  output: docs/assets/screenshots/seo-guide.png
+  doc_path: SEO_GUIDE.md
+  section_heading: Overview
+  section_anchor: overview
+  alt: SEO/GEO Optimization Guide screenshot
+  wait_for: networkidle
+  full_page: false
 - id: doc-tags
   url: http://localhost:3000/tags/
   output: docs/assets/screenshots/tags.png
@@ -680,5 +707,14 @@ captures:
   section_heading: 'Fix: Webhook trigger not firing'
   section_anchor: fix-webhook-trigger-not-firing
   alt: 'Fix: Webhook trigger not firing screenshot'
+  wait_for: networkidle
+  full_page: false
+- id: doc-variables-guide
+  url: http://localhost:3000/VARIABLES_GUIDE/
+  output: docs/assets/screenshots/variables-guide.png
+  doc_path: VARIABLES_GUIDE.md
+  section_heading: Overview
+  section_anchor: overview
+  alt: Variables and Templates Guide screenshot
   wait_for: networkidle
   full_page: false

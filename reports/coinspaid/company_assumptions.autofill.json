@@ -1,0 +1,30 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 45.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 4.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 320.0,
+  "docs_related_ticket_share": 0.22,
+  "avg_ticket_handling_minutes": 28.0,
+  "monthly_doc_influenced_evals": 45.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 3200.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer rate: mid-range for fintech/crypto B2B SaaS technical staff",
+    "Support rate: standard for technical support in financial services vertical",
+    "Release frequency: typical for crypto payment processor with API-heavy product (8/month = 2/week)",
+    "Manual sync: conservative estimate given 78 pages, 82% API coverage, moderate update frequency",
+    "Release delay: modest given decent API coverage but 25% SEO issues and 1 broken link",
+    "Support tickets: scaled for crypto payment platform serving enterprise merchants, ~15 tickets/business day",
+    "Docs-related share: 22% reflects strong retrieval readiness (84.61) but 50% actionability and 61.7% evidence coverage",
+    "Ticket handling: elevated due to financial/compliance context requiring precision",
+    "Doc-influenced evals: conservative for B2B crypto payments with technical integration requirements",
+    "Eval conversion: 18% reflects enterprise sales cycle complexity in regulated fintech",
+    "Customer value: mid-market crypto payment processor MRR assumption",
+    "Revenue sensitivity: 35% reflects that poor docs impact technical evaluation in payment infrastructure decisions",
+    "Confidence: 68% due to limited public data on CoinsPaid customer base and specific product mix"
+  ]
+}

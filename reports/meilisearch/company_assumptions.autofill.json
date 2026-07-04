@@ -1,0 +1,30 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 2.0,
+  "baseline_manual_sync_hours_per_week": 4.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 180.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 45.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 850.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer rate: standard mid-level B2B SaaS developer compensation",
+    "Support rate: typical technical support specialist range",
+    "Release cadence: bi-weekly common for search infrastructure products",
+    "Manual sync: 4h/week baseline for moderate-sized docs (1247 pages)",
+    "Release delay: conservative estimate given 61.9% API coverage gap",
+    "Monthly tickets: scaled for open-source with enterprise users",
+    "Docs ticket share: elevated due to 16 broken links, 8.92% SEO issues, 31.92% freshness coverage",
+    "Ticket handling: increased by incomplete API docs and 56.66% evidence coverage",
+    "Doc-influenced evals: moderate given 78.61 retrieval readiness score",
+    "Eval conversion: conservative B2B rate for technical infrastructure",
+    "Customer value: mid-market search solution typical ACV/12",
+    "Revenue sensitivity: moderate given technical buyer reliance on docs quality",
+    "Confidence: tempered by lack of company-specific operational data, based on audit signals and sector norms"
+  ]
+}

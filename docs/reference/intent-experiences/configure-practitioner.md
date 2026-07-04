@@ -21,6 +21,261 @@ python3 scripts/assemble_intent_experience.py \
 
 ## Included modules
 
+### Apply a pilot, full, or RAG configuration
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+### Apply a pilot, full, or RAG configuration: Apply a pilot, full, or RAG configuration
+
+This guide shows you how to take an existing client profile and switch it to `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`, `strict-local`, or `hybrid` policy.
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "external_preferred"
+    external_llm_allowed: true
+    require_explicit_approval: false
+
+```
+
+Use this guide when the client already has a `.client.yml` file and you need to change rollout depth or LLM behavior without rebuilding the profile from scratch.
+
+#### Apply a pilot, full, or RAG configuration: Prerequisites
+
+Before you start, ensure you have:
+
+- A client profile under `profiles/clients/`
+- The target rollout decision: `pilot`, `full`, or `full+RAG`
+- The target execution mode: `cloud`, `strict-local`, or `hybrid`
+- Permission to rebuild or reprovision the bundle
+
+#### Apply a pilot, full, or RAG configuration: Step 1: Start from the nearest preset
+
+Use the preset that is closest to the target state.
+
+| Target state | Recommended preset |
+| --- | --- |
+| `pilot` | `profiles/clients/presets/pilot-evidence.yml` |
+| `full` | `profiles/clients/presets/small.yml` or `startup.yml` |
+| `full+RAG` | `profiles/clients/presets/startup.yml` or `enterprise.yml` |
+
+If the profile already exists, compare it to the preset before changing fields by hand.
+
+#### Apply a pilot, full, or RAG configuration: Step 2: Set the scope tier
+
+### Apply a pilot, full, or RAG configuration (Part 2)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+##### Apply a pilot, full, or RAG configuration (Part 2): Pilot
+
+Use `pilot` when you need a narrow proof bundle.
+
+```yaml
+
+licensing:
+  plan: "pilot"
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
+
+```
+
+##### Apply a pilot, full, or RAG configuration (Part 2): Full
+
+Use `full` when you want full docs operations without forcing retrieval features.
+
+```yaml
+
+licensing:
+  plan: "professional"
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
+
+```
+
+##### Apply a pilot, full, or RAG configuration (Part 2): Full+RAG
+
+Use `full+RAG` when retrieval quality is part of the contract.
+
+```yaml
+
+licensing:
+  plan: "enterprise"
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+
+```
+
+#### Apply a pilot, full, or RAG configuration (Part 2): Step 3: Set the execution mode
+
+##### Apply a pilot, full, or RAG configuration (Part 2): Cloud
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "external_preferred"
+    external_llm_allowed: true
+    require_explicit_approval: false
+    redact_before_external: true
+
+```
+
+### Apply a pilot, full, or RAG configuration (Part 3)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+##### Apply a pilot, full, or RAG configuration (Part 3): Strict-local
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: false
+    require_explicit_approval: true
+    redact_before_external: true
+
+```
+
+##### Apply a pilot, full, or RAG configuration (Part 3): Hybrid
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: true
+    require_explicit_approval: true
+    redact_before_external: true
+
+```
+
+Use `require_explicit_approval: false` in `hybrid` only if the client allows automatic external fallback.
+
+#### Apply a pilot, full, or RAG configuration (Part 3): Step 4: Align flow-specific settings
+
+If the client uses `api-first` or `hybrid` docs flow, confirm the API-first block is still coherent.
+
+```yaml
+
+runtime:
+  docs_flow:
+    mode: "hybrid"
+  api_first:
+    enabled: true
+    generate_from_notes: true
+    sandbox_backend: "prism"
+    generate_test_assets: true
+
+```
+
+If the client uses retrieval features, keep the knowledge outputs enabled and versioned:
+
+```yaml
+
+runtime:
+  retrieval_eval:
+    enabled: true
+    index_path: "docs/assets/knowledge-retrieval-index.json"
+  knowledge_graph:
+    enabled: true
+    output_path: "docs/assets/knowledge-graph.jsonld"
+
+```
+
+### Apply a pilot, full, or RAG configuration (Part 4)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 5: Rebuild the bundle
+
+After editing the profile, rebuild the bundle:
+
+```bash
+
+python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+```
+
+If you are installing directly into a repo, reprovision it:
+
+```bash
+
+python3 scripts/provision_client_repo.py \
+  --client profiles/clients/acme.client.yml \
+  --client-repo /path/to/client-repo \
+  --install-scheduler linux
+
+```
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 6: Verify the included docs
+
+Every generated bundle should now include the configuration docs that match its profile. Check for:
+
+- `docs/getting-started/choose-pipeline-configuration.md`
+- `docs/how-to/apply-pipeline-configuration.md`
+- `docs/concepts/pipeline-configuration-combinations.md`
+- `docs/reference/pipeline-configuration-reference.md`
+
+Bundles may also include additional documents such as API-first or Ask AI instructions when those features are enabled.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Common issues and fixes
+
+##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Full bundle still looks like pilot
+
+Check `licensing.plan` and the three retrieval flags. If `plan` is still `pilot`, or all three retrieval flags are `false`, the profile is still scoped down.
+
+##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Strict-local bundle still attempts external LLM use
+
+Check `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify the generated bundle copies the expected `config/client_runtime.yml`.
+
+### Apply a pilot, full, or RAG configuration (Part 5)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Full+RAG bundle does not ship retrieval guidance
+
+Rebuild the bundle after changing the profile. The bundle builder selects configuration docs from the final runtime config, not from stale outputs.
+
+#### Apply a pilot, full, or RAG configuration (Part 5): Validation checklist
+
+- [ ] `licensing.plan` matches the intended scope tier
+- [ ] Retrieval flags match the intended scope tier
+- [ ] `llm_control` matches the intended execution mode
+- [ ] Bundle rebuild completed after the profile edit
+- [ ] The bundle includes the configuration documents under `docs/`
+
+#### Apply a pilot, full, or RAG configuration (Part 5): Next steps
+
+- [Documentation index](index.md)
+
 ### Assemble intent experiences
 
 Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.
@@ -152,6 +407,177 @@ Build user-intent documentation and channel bundles from reusable knowledge modu
 
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 - [Intent experiences reference](../reference/intent-experiences/index.md)
+
+### Choose a pipeline configuration
+
+Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+
+### Choose a pipeline configuration: Choose a pipeline configuration
+
+The pipeline combines one scope tier with one execution mode. Start with that pair, then build or provision the matching bundle from a single client profile.
+
+```yaml
+
+licensing:
+  plan: "pilot"
+runtime:
+  modules:
+    rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: false
+
+```
+
+Use this tutorial when you need to decide between `pilot`, `full`, and `full+RAG`, then choose whether LLM execution should be `cloud`, `strict-local`, or `hybrid`.
+
+### Choose a pipeline configuration (Part 2)
+
+Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+
+#### Choose a pipeline configuration (Part 2): Step 1: Pick the scope tier
+
+Choose the tier that matches the rollout depth you want in the client repository.
+
+| Scope tier | Use this when | Starting point | Key module pattern |
+| --- | --- | --- | --- |
+| `pilot` | You need proof in one week with a reduced script surface | `profiles/clients/presets/pilot-evidence.yml` | Core quality modules on, RAG modules off |
+| `full` | You want full docs operations without retrieval evaluation features | `profiles/clients/presets/small.yml` or a custom profile | Governance and weekly automation on, RAG modules optional |
+| `full+RAG` | You want retrieval index, graph, and eval gates in the same bundle | `profiles/clients/presets/startup.yml` or `enterprise.yml` | `rag_optimization`, `ontology_graph`, and `retrieval_evals` on |
+
+For `pilot`, use the preset as-is unless you have a narrow reason to expand scope.
+
+For `full`, keep the standard automation modules on:
+
+- `gap_detection`
+- `drift_detection`
+- `docs_contract`
+- `kpi_sla`
+- `normalization`
+- `snippet_lint`
+- `self_checks`
+- `fact_checks`
+
+For `full+RAG`, keep these three modules enabled together:
+
+- `rag_optimization`
+- `ontology_graph`
+- `retrieval_evals`
+
+### Choose a pipeline configuration (Part 3)
+
+Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+
+#### Choose a pipeline configuration (Part 3): Step 2: Pick the execution mode
+
+Execution mode controls how the bundle handles LLM work.
+
+| Execution mode | Use this when | `llm_control` pattern |
+| --- | --- | --- |
+| `cloud` | You want the fastest external-model path | `llm_mode: external_preferred`, `external_llm_allowed: true` |
+| `strict-local` | You cannot allow external LLM egress | `llm_mode: local_default`, `external_llm_allowed: false` |
+| `hybrid` | You want local-first execution with external fallback | `llm_mode: local_default`, `external_llm_allowed: true` |
+
+Recommended starting values:
+
+```yaml
+
+runtime:
+  llm_control:
+    llm_mode: "local_default"
+    external_llm_allowed: true
+    require_explicit_approval: true
+    redact_before_external: true
+
+```
+
+Use `cloud` when response quality and speed matter more than local-only controls. Use `strict-local` when policy blocks external LLM traffic. Use `hybrid` when you want local-first behavior but still need fallback for harder synthesis tasks.
+
+### Choose a pipeline configuration (Part 4)
+
+Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+
+#### Choose a pipeline configuration (Part 4): Step 3: Generate or edit the client profile
+
+The interactive path is the fastest way to create the profile:
+
+```bash
+
+python3 scripts/provision_client_repo.py --interactive --generate-profile
+
+```
+
+When the wizard asks for a preset, map your selection as follows:
+
+- `pilot` -> `pilot-evidence`
+- `full` -> `small`, `startup`, or `enterprise`
+- `full+RAG` -> `startup` or `enterprise`
+
+Then set the LLM section to match your execution mode.
+
+If you prefer editing YAML directly, copy a preset and adjust it:
+
+```bash
+
+cp profiles/clients/presets/startup.yml profiles/clients/acme.client.yml
+python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+```
+
+#### Choose a pipeline configuration (Part 4): Step 4: Verify the resulting configuration
+
+Before you install the bundle, verify these fields in the final profile:
+
+- `licensing.plan`
+- `runtime.docs_flow.mode`
+- `runtime.modules.rag_optimization`
+- `runtime.modules.ontology_graph`
+- `runtime.modules.retrieval_evals`
+- `runtime.llm_control.llm_mode`
+- `runtime.llm_control.external_llm_allowed`
+
+For a `full+RAG` bundle, the three RAG module flags must all be `true`. For a `strict-local` bundle, `external_llm_allowed` must be `false`.
+
+### Choose a pipeline configuration (Part 5)
+
+Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+
+#### Choose a pipeline configuration (Part 5): Step 5: Build or provision the bundle
+
+Build a distributable bundle:
+
+```bash
+
+python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+```
+
+Provision directly into a client repository:
+
+```bash
+
+python3 scripts/provision_client_repo.py \
+  --client profiles/clients/acme.client.yml \
+  --client-repo /path/to/client-repo \
+  --install-scheduler linux
+
+```
+
+#### Choose a pipeline configuration (Part 5): Validation checklist
+
+- [ ] Scope tier matches the client rollout: `pilot`, `full`, or `full+RAG`
+- [ ] Execution mode matches policy: `cloud`, `strict-local`, or `hybrid`
+- [ ] `full+RAG` bundles keep all three retrieval modules enabled
+- [ ] `strict-local` bundles keep `external_llm_allowed: false`
+- [ ] The built bundle includes configuration docs under `docs/`
+
+#### Choose a pipeline configuration (Part 5): Next steps
+
+- Read [How pipeline configurations compose](../concepts/pipeline-configuration-combinations.md) for the model behind the matrix.
+- Follow [Apply a pilot, full, or RAG configuration](../how-to/apply-pipeline-configuration.md) to edit an existing profile safely.
+- Use [Pipeline configuration reference](../reference/pipeline-configuration-reference.md) for exact field values.
 
 ### Configure Ask AI module
 
@@ -739,7 +1165,6 @@ Import Confluence pages into the documentation pipeline with automatic quality e
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### Migrate documentation from Confluence: Migrate documentation from Confluence
 

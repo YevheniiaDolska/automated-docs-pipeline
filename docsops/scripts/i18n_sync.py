@@ -76,9 +76,13 @@ class I18nSyncChecker:
         )
 
     def _get_relative_path(self, filepath: Path) -> str:
-        """Get path relative to the source locale directory."""
+        """Get path relative to the source locale directory (POSIX separators).
+
+        Report paths are locale-relative doc identifiers, so they must use
+        forward slashes on every platform, including Windows.
+        """
         source_dir = self.docs_dir / self.source_locale
-        return str(filepath.relative_to(source_dir))
+        return filepath.relative_to(source_dir).as_posix()
 
     def check_translation(
         self,

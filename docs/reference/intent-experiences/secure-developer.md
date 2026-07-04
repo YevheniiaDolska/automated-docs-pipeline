@@ -109,6 +109,32 @@ It compresses repetitive documentation and API verification work into a governed
 
 - [Documentation index](index.md)
 
+### Canonical Flow (Sales + Delivery) (Part 6)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+
+Private pages (authenticated screenshot capture):
+
+1. Open `docs/screenshots.capture.yml`.
+1. Set `auth.enabled: true`.
+1. Set `auth.login_url` to your sign-in URL.
+1. Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`) to match your login form.
+1. Export credentials before run:
+
+```bash
+
+export SCREENSHOT_LOGIN_EMAIL="your-login@example.com"
+export SCREENSHOT_LOGIN_PASSWORD="your-password"
+
+```
+
+1. Run pipeline normally (`run_autopipeline.py`); it will:
+   - execute auth once,
+   - save Playwright session state to `reports/playwright_storage_state.json`,
+   - reuse it for capture targets in the same run.
+
+Playwright bootstrap:
+
 ### Configure webhook triggers
 
 Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.
@@ -617,7 +643,6 @@ Privacy policy for VeriDoc automated documentation platform, covering data colle
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ### VeriDoc privacy policy: VeriDoc privacy policy
 
 This privacy policy explains how Liora Tech ("Company," "we," "us")
@@ -778,7 +803,6 @@ Security policy for VeriDoc platform covering infrastructure security, encryptio
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### VeriDoc security policy: VeriDoc security policy
 
@@ -1044,7 +1068,6 @@ Terms of service governing the use of VeriDoc automated documentation platform, 
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
-
 
 ### VeriDoc terms of service: VeriDoc terms of service
 

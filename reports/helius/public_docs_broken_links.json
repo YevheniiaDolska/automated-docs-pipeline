@@ -1,0 +1,64 @@
+{
+  "generated_at_utc": "2026-06-25T12:18:38.343270+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 3,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 3,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://helius.dev/docs/docs/laserstream/grpc",
+    "https://helius.dev/docs/docs/rpc/websocket",
+    "https://helius.dev/docs/laserstream/guides/delivery-guarantees"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://helius.dev/docs",
+      "confirmed_broken_links_count": 3,
+      "docs_broken_links_count": 3,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://helius.dev/docs/docs/laserstream/grpc",
+        "https://helius.dev/docs/docs/rpc/websocket",
+        "https://helius.dev/docs/laserstream/guides/delivery-guarantees"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://helius.dev/docs/docs/laserstream/grpc",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://helius.dev/docs/billing/plans",
+              "anchor_text": "LaserStream gRPC"
+            }
+          ]
+        },
+        {
+          "target_url": "https://helius.dev/docs/docs/rpc/websocket",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://helius.dev/docs/billing/plans",
+              "anchor_text": "LaserStream WebSocket"
+            }
+          ]
+        },
+        {
+          "target_url": "https://helius.dev/docs/laserstream/guides/delivery-guarantees",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://helius.dev/docs/faqs/laserstream",
+              "anchor_text": "LaserStream delivery guarantees"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "generated_at_utc": "2026-06-26T12:26:40.721315+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 5,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 5,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.privy.io/cdn-cgi/l/email-protection",
+    "https://docs.privy.io/llms-full.xml",
+    "https://docs.privy.io/recipes/mock-jwt.mdx",
+    "https://docs.privy.io/recipes/trpc.mdx",
+    "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.privy.io/",
+      "confirmed_broken_links_count": 5,
+      "docs_broken_links_count": 5,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.privy.io/cdn-cgi/l/email-protection",
+        "https://docs.privy.io/llms-full.xml",
+        "https://docs.privy.io/recipes/mock-jwt.mdx",
+        "https://docs.privy.io/recipes/trpc.mdx",
+        "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.privy.io/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/apps/add-to-allowlist",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/apps/list-allowlist",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/apps/remove-from-allowlist",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/fiat/kyc/create",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/llms-full.xml",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/",
+              "anchor_text": "https://docs.privy.io/llms-full.xml"
+            },
+            {
+              "source_page": "https://docs.privy.io/welcome",
+              "anchor_text": "https://docs.privy.io/llms-full.xml"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/mock-jwt",
+              "anchor_text": "publicKey"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/recipes/trpc.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/trpc",
+              "anchor_text": "client"
+            },
+            {
+              "source_page": "https://docs.privy.io/recipes/trpc",
+              "anchor_text": "server"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/migrating-jwt-authentication-from-alchemy",
+              "anchor_text": "createWallet"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

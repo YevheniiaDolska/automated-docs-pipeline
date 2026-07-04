@@ -4,37 +4,35 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
+- Appdata
+- Local
+- Test_Multi_Protocol_Flow_Gener0
 - Kroha
-- Docs
+- Temp
 - Users
-- Development
-- Mnt
-- C
-- Auto Doc Pipeline
-- Documents
-last_reviewed: '2026-03-26'
-original_author: Kroha
+- Pytest 153
+- Pytest Of Kroha
 ---
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
-<!-- VERIDOC_POWERED_BADGE:END -->
 
 
 # GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_multi_protocol_flow_gener0/api/schema.graphql`
 
 Flow mode: `api-first`
 
 ## Operations
 
-- Query count: `1`
-- Mutation count: `0`
-- Subscription count: `0`
-- Queries: `health`
+- Query count: `2`
+- Mutation count: `1`
+- Subscription count: `2`
+- Queries: `health`, `project`
+- Mutations: `create_project`
+- Subscriptions: `project_updated`, `task_completed`
 
 ## Interactive GraphQL Playground
+
+<!-- vale off -->
 
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
@@ -82,6 +80,8 @@ run.onclick = async function(){
 })();
 </script>
 
+<!-- vale on -->
+
 ## Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../index.md)

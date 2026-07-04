@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Hetzner documentation audit covered 867 pages across multi-project topology with 100% crawl coverage. Retrieval readiness scores 38.17/100 (weak band), driven by 15.22% chunkability and 0% answerability, indicating severe AI/RAG compatibility issues. API reference coverage is 61.54% across 50 detected API pages. SEO/geo issues affect 45.67% of pages. 5 confirmed broken internal links exist, with 50 additional links unverified due to auth/rate-limit blocks.",
+    "strengths": [
+      "Complete crawl coverage at 100% (867 of 868 discovered pages indexed)",
+      "90.31% of pages include last-updated metadata, supporting freshness signals",
+      "100% citationability indicates stable URLs and anchor structure for attribution",
+      "Example code reliability estimated at 90.16%, suggesting strong code quality",
+      "Low confirmed broken link count (5 docs-facing links) indicates stable internal linking"
+    ],
+    "risks": [
+      "0% answerability score means pages lack structured Q&A patterns, crippling LLM-based support automation and chatbot accuracy",
+      "15.22% chunkability indicates dense or poorly structured content that fragments badly for vector search and AI retrieval",
+      "45.67% SEO/geo issue rate threatens organic discoverability and regional search ranking",
+      "38.46% of API surface lacks usage documentation (50 API pages detected, 61.54% coverage), risking developer onboarding friction",
+      "50 unverified links due to auth/rate-limit blocks create blind spots; actual broken link count may be higher",
+      "41.67% actionability coverage suggests many pages lack clear next-steps or CTAs, reducing conversion and task completion",
+      "Overall confidence at 63.5% with links confidence at 25% indicates audit may undercount link and navigation issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Restructure top 100 pages (by traffic) to add explicit H2/H3 question headings and concise answer paragraphs, targeting 60%+ answerability",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Raising answerability from 0% directly enables AI chatbot accuracy and reduces support ticket volume within 30 days."
+      },
+      {
+        "action": "Refactor high-traffic pages with chunkability below 15.22% baseline: break long sections, add semantic headers, limit paragraph length to <150 words",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Improving chunkability from 15.22% unlocks vector search quality and LLM context precision, directly improving AI-powered search and support."
+      },
+      {
+        "action": "Audit and fix SEO/geo issues on 396 affected pages (45.67% of 867): missing meta descriptions, broken hreflang, missing regional keywords",
+        "impact": "high",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Fixing 45.67% SEO issue rate boosts organic acquisition and regional discoverability, driving top-of-funnel growth in 30-60 days."
+      },
+      {
+        "action": "Create usage/integration docs for the 38.46% API surface gap (19 of 50 API pages missing usage context), prioritizing top 10 API endpoints by call volume",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Closing API usage gaps for high-traffic endpoints reduces developer time-to-first-call and support escalations within 30 days."
+      },
+      {
+        "action": "Fix 5 confirmed broken internal links and establish auth-bypass crawl for 50 unverified links to surface hidden breakage",
+        "impact": "medium",
+        "effort": "low",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Low-effort link fixes improve user trust and navigation flow; unverified link audit prevents future escalation of hidden issues."
+      }
+    ],
+    "automation_first": [
+      "Deploy pre-commit linter to enforce H2/H3 question-style headings and <150-word paragraph limits on all markdown files, targeting the 0% answerability and 15.22% chunkability gaps; expected payoff is sustained AI retrieval quality and reduced manual content audits.",
+      "Implement CI check to flag new pages missing meta descriptions or hreflang tags, preventing addition to the existing 45.67% SEO/geo issue pool (396 pages); expected payoff is halting SEO debt accumulation and protecting organic traffic growth.",
+      "Automate weekly broken link scan with auth-token injection to resolve the 50 unverified link blind spot and catch new breakage before user impact; expected payoff is continuous link health visibility and faster MTTR for navigation issues."
+    ],
+    "limitations": [
+      "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with actual product API behavior.",
+      "25% confidence on link verification means up to 50 unverified links may include false negatives; auth-protected or rate-limited targets were not fully tested.",
+      "Chunkability and answerability scores reflect structural heuristics, not actual LLM performance; real-world RAG accuracy requires live testing with production queries.",
+      "SEO/geo issue detection does not measure actual search ranking or click-through rates; business impact depends on keyword competition and regional search volume.",
+      "API coverage detection may miss undocumented or dynamically generated endpoints; 61.54% coverage assumes the 50 detected API pages represent the full surface."
+    ]
+  }
+}

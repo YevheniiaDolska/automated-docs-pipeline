@@ -1,0 +1,1050 @@
+{
+  "generated_at": "2026-06-26T14:31:51.219655+00:00",
+  "site_url": "https://vercel.com/docs",
+  "site_urls": [
+    "https://vercel.com/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://vercel.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 6845,
+          "requested_pages": 8994,
+          "urls_examined": 7191,
+          "max_pages": 15000,
+          "effective_limit": 15000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 7191,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 7190,
+          "crawl_coverage_pct": 100.01,
+          "trap_urls_skipped": 159,
+          "seeded_sitemap_urls": 7190,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 8650,
+          "broken_internal_links_count": 43,
+          "docs_broken_links_count": 43,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://vercel.com/ai-gateway/models/opus-4.8",
+            "https://vercel.com/changelog/updates-to-terms-of-service-june-2026",
+            "https://vercel.com/customers/nextjs-seo-playbook",
+            "https://vercel.com/docs/ai-gateway/models-and-providers/virtual-models",
+            "https://vercel.com/docs/ai/ai-sdk",
+            "https://vercel.com/docs/all-products",
+            "https://vercel.com/docs/concepts/dashboard-features",
+            "https://vercel.com/docs/concepts/dashboard-features/command-menu",
+            "https://vercel.com/docs/concepts/functions/edge-middleware/firewall",
+            "https://vercel.com/docs/concepts/observability/log-drains-overview/log-drains",
+            "https://vercel.com/docs/concepts/observability/monitoring/overview",
+            "https://vercel.com/docs/dashboard-features",
+            "https://vercel.com/docs/dashboard-features/command-menu",
+            "https://vercel.com/docs/dashboard-features/overview",
+            "https://vercel.com/docs/deployments/builds/overview",
+            "https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples",
+            "https://vercel.com/docs/isr",
+            "https://vercel.com/docs/next.js/preview-mode",
+            "https://vercel.com/docs/observability/alerts",
+            "https://vercel.com/docs/personal-accounts/command-menu"
+          ],
+          "docs_broken_link_samples": [
+            "https://vercel.com/ai-gateway/models/opus-4.8",
+            "https://vercel.com/changelog/updates-to-terms-of-service-june-2026",
+            "https://vercel.com/customers/nextjs-seo-playbook",
+            "https://vercel.com/docs/ai-gateway/models-and-providers/virtual-models",
+            "https://vercel.com/docs/ai/ai-sdk",
+            "https://vercel.com/docs/all-products",
+            "https://vercel.com/docs/concepts/dashboard-features",
+            "https://vercel.com/docs/concepts/dashboard-features/command-menu",
+            "https://vercel.com/docs/concepts/functions/edge-middleware/firewall",
+            "https://vercel.com/docs/concepts/observability/log-drains-overview/log-drains",
+            "https://vercel.com/docs/concepts/observability/monitoring/overview",
+            "https://vercel.com/docs/dashboard-features",
+            "https://vercel.com/docs/dashboard-features/command-menu",
+            "https://vercel.com/docs/dashboard-features/overview",
+            "https://vercel.com/docs/deployments/builds/overview",
+            "https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples",
+            "https://vercel.com/docs/isr",
+            "https://vercel.com/docs/next.js/preview-mode",
+            "https://vercel.com/docs/observability/alerts",
+            "https://vercel.com/docs/personal-accounts/command-menu",
+            "https://vercel.com/docs/projects/domains/managing-domains",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-a-domains-transfer-status",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-a-domain-availability-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-the-price-for-a-domain-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-a-domains-configuration",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-domain-transfer-info-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/purchase-a-domain-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/instant-rollback",
+            "https://vercel.com/docs/rest-api/sdk/web-analytics/aggregates-page-views",
+            "https://vercel.com/docs/serverless-functions/edge-caching"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 2,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://vercel.com/ai-gateway/models/o3-deep-research/status",
+            "https://vercel.com/docs/rest-api/sdk/marketplace/update-installation"
+          ],
+          "confirmed_broken_links_count": 43,
+          "excluded_links_count": 34,
+          "excluded_link_samples": [
+            "http://vercel.com/templates/next.js",
+            "https://vercel.com/academy/agent-friendly-apis/feedback-endpoint",
+            "https://vercel.com/api/dash-experiment",
+            "https://vercel.com/api/resources/download/build-more-ship-faster",
+            "https://vercel.com/api/resources/download/build-the-fastest-digital-storefronts-with-vercel",
+            "https://vercel.com/api/resources/download/deliver-world-class-digital-experiences-with-vercel",
+            "https://vercel.com/api/resources/download/edge-middleware-experiments-personalization-performance",
+            "https://vercel.com/api/resources/download/fluid-a-new-compute-model-for-modern-workloads",
+            "https://vercel.com/api/resources/download/headless-ecommerce-how-to-increase-conversions",
+            "https://vercel.com/api/resources/download/how-hashicorp-developers-iterate-faster-with-isr",
+            "https://vercel.com/api/resources/download/how-to-build-the-fastest-digital-storefront-at-scale",
+            "https://vercel.com/api/resources/download/how-to-prepare-your-site-for-black-friday-traffic",
+            "https://vercel.com/api/resources/download/how-vercel-powers-digital-transformation-for-enterprise-teams",
+            "https://vercel.com/api/resources/download/improve-build-speed-and-developer-velocity-with-turborepo-vercel",
+            "https://vercel.com/api/resources/download/iterate-faster-with-a-streamlined-development-workflow",
+            "https://vercel.com/api/resources/download/monorepos-ebook",
+            "https://vercel.com/api/resources/download/morning-brew-from-newsletter-to-global-media-brand-with-a-frontend-cloud",
+            "https://vercel.com/api/resources/download/parachute-improves-site-page-load-times-by-60-in-one-month",
+            "https://vercel.com/api/resources/download/successful-frontend-cloud-adoption-implementation-roi",
+            "https://vercel.com/api/resources/download/the-frontend-cloud-advantage",
+            "https://vercel.com/api/resources/download/what-bootstrapping-costs-your-business",
+            "https://vercel.com/api/v1/integrations/marketplace/metadata-schema",
+            "https://vercel.com/blog/kidsuper-innovates-with-next.js",
+            "https://vercel.com/changelog/search-any-public-github-repo-with-grep",
+            "https://vercel.com/changelog/search-domains-on-the-vercel-dashboard",
+            "https://vercel.com/docs/sitemap.md",
+            "https://vercel.com/feedback",
+            "https://vercel.com/feedback/spr",
+            "https://vercel.com/geist/feedback",
+            "https://vercel.com/geist/search-input"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://vercel.com/ai-gateway/models/opus-4.8",
+            "https://vercel.com/changelog/updates-to-terms-of-service-june-2026",
+            "https://vercel.com/customers/nextjs-seo-playbook",
+            "https://vercel.com/docs/ai-gateway/models-and-providers/virtual-models",
+            "https://vercel.com/docs/ai/ai-sdk",
+            "https://vercel.com/docs/all-products",
+            "https://vercel.com/docs/concepts/dashboard-features",
+            "https://vercel.com/docs/concepts/dashboard-features/command-menu",
+            "https://vercel.com/docs/concepts/functions/edge-middleware/firewall",
+            "https://vercel.com/docs/concepts/observability/log-drains-overview/log-drains",
+            "https://vercel.com/docs/concepts/observability/monitoring/overview",
+            "https://vercel.com/docs/dashboard-features",
+            "https://vercel.com/docs/dashboard-features/command-menu",
+            "https://vercel.com/docs/dashboard-features/overview",
+            "https://vercel.com/docs/deployments/builds/overview",
+            "https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples",
+            "https://vercel.com/docs/isr",
+            "https://vercel.com/docs/next.js/preview-mode",
+            "https://vercel.com/docs/observability/alerts",
+            "https://vercel.com/docs/personal-accounts/command-menu",
+            "https://vercel.com/docs/projects/domains/managing-domains",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-a-domains-transfer-status",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-a-domain-availability-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-the-price-for-a-domain-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-a-domains-configuration",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-domain-transfer-info-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/purchase-a-domain-deprecated",
+            "https://vercel.com/docs/rest-api/reference/endpoints/instant-rollback",
+            "https://vercel.com/docs/rest-api/sdk/web-analytics/aggregates-page-views",
+            "https://vercel.com/docs/serverless-functions/edge-caching",
+            "https://vercel.com/docs/v0/api",
+            "https://vercel.com/docs/v0/cursor",
+            "https://vercel.com/docs/workflow-collaboration/conformance/dashboard-overview",
+            "https://vercel.com/docs/workflow/vercel-toolbar",
+            "https://vercel.com/experts/ffw",
+            "https://vercel.com/i/agentic-rag",
+            "https://vercel.com/i/langchain-vs-langgraph",
+            "https://vercel.com/i/rest-api-vs-restful-api",
+            "https://vercel.com/i/static-site-generator",
+            "https://vercel.com/i/vercel-ai-gateway-vs-openrouter",
+            "https://vercel.com/kb/guide/Workers Paid plan",
+            "https://vercel.com/kb/guide/claude-design-vercel-drop",
+            "https://vercel.com/ship/ai/Main Stage/session/closing-keynote-nextjsconf-copy"
+          ],
+          "_all_unverified_links": [
+            "https://vercel.com/ai-gateway/models/o3-deep-research/status",
+            "https://vercel.com/docs/rest-api/sdk/marketplace/update-installation"
+          ],
+          "_all_excluded_links": [
+            "http://vercel.com/templates/next.js",
+            "https://vercel.com/academy/agent-friendly-apis/feedback-endpoint",
+            "https://vercel.com/api/dash-experiment",
+            "https://vercel.com/api/resources/download/build-more-ship-faster",
+            "https://vercel.com/api/resources/download/build-the-fastest-digital-storefronts-with-vercel",
+            "https://vercel.com/api/resources/download/deliver-world-class-digital-experiences-with-vercel",
+            "https://vercel.com/api/resources/download/edge-middleware-experiments-personalization-performance",
+            "https://vercel.com/api/resources/download/fluid-a-new-compute-model-for-modern-workloads",
+            "https://vercel.com/api/resources/download/headless-ecommerce-how-to-increase-conversions",
+            "https://vercel.com/api/resources/download/how-hashicorp-developers-iterate-faster-with-isr",
+            "https://vercel.com/api/resources/download/how-to-build-the-fastest-digital-storefront-at-scale",
+            "https://vercel.com/api/resources/download/how-to-prepare-your-site-for-black-friday-traffic",
+            "https://vercel.com/api/resources/download/how-vercel-powers-digital-transformation-for-enterprise-teams",
+            "https://vercel.com/api/resources/download/improve-build-speed-and-developer-velocity-with-turborepo-vercel",
+            "https://vercel.com/api/resources/download/iterate-faster-with-a-streamlined-development-workflow",
+            "https://vercel.com/api/resources/download/monorepos-ebook",
+            "https://vercel.com/api/resources/download/morning-brew-from-newsletter-to-global-media-brand-with-a-frontend-cloud",
+            "https://vercel.com/api/resources/download/parachute-improves-site-page-load-times-by-60-in-one-month",
+            "https://vercel.com/api/resources/download/successful-frontend-cloud-adoption-implementation-roi",
+            "https://vercel.com/api/resources/download/the-frontend-cloud-advantage",
+            "https://vercel.com/api/resources/download/what-bootstrapping-costs-your-business",
+            "https://vercel.com/api/v1/integrations/marketplace/metadata-schema",
+            "https://vercel.com/blog/kidsuper-innovates-with-next.js",
+            "https://vercel.com/changelog/search-any-public-github-repo-with-grep",
+            "https://vercel.com/changelog/search-domains-on-the-vercel-dashboard",
+            "https://vercel.com/docs/sitemap.md",
+            "https://vercel.com/feedback",
+            "https://vercel.com/feedback/spr",
+            "https://vercel.com/geist/feedback",
+            "https://vercel.com/geist/search-input",
+            "https://vercel.com/marketplace/category/searching",
+            "https://vercel.com/rss.xml",
+            "https://vercel.com/templates/next.js",
+            "https://vercel.com/templates/nextauth.js"
+          ],
+          "_all_docs_unverified_links": [
+            "https://vercel.com/ai-gateway/models/o3-deep-research/status",
+            "https://vercel.com/docs/rest-api/sdk/marketplace/update-installation"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://vercel.com/ai-gateway/models/opus-4.8": [
+              {
+                "source_page": "https://vercel.com/changelog/opus-4-8-on-ai-gateway",
+                "anchor_text": "model playground"
+              }
+            ],
+            "https://vercel.com/changelog/updates-to-terms-of-service-june-2026": [
+              {
+                "source_page": "https://vercel.com/legal/privacy-notice",
+                "anchor_text": "here"
+              }
+            ],
+            "https://vercel.com/customers/nextjs-seo-playbook": [
+              {
+                "source_page": "https://vercel.com/partners/optimizely",
+                "anchor_text": "Learn about SEO"
+              },
+              {
+                "source_page": "https://vercel.com/partners/optimizely",
+                "anchor_text": "Ranking higher with Next.js on Vercel"
+              },
+              {
+                "source_page": "https://vercel.com/partners/sitecore",
+                "anchor_text": "Learn about SEO"
+              },
+              {
+                "source_page": "https://vercel.com/partners/sitecore",
+                "anchor_text": "Ranking higher with Next.js on Vercel"
+              },
+              {
+                "source_page": "https://vercel.com/solutions/composable-commerce",
+                "anchor_text": "Get the SEO playbook"
+              }
+            ],
+            "https://vercel.com/docs/ai-gateway/models-and-providers/virtual-models": [
+              {
+                "source_page": "https://vercel.com/docs/ai-gateway/models-and-providers",
+                "anchor_text": "virtual models"
+              }
+            ],
+            "https://vercel.com/docs/ai/ai-sdk": [
+              {
+                "source_page": "https://vercel.com/blog/keeping-community-human-while-scaling-with-agents",
+                "anchor_text": "AI SDK"
+              }
+            ],
+            "https://vercel.com/docs/all-products": [
+              {
+                "source_page": "https://vercel.com/blog/the-foundations-of-the-frontend-cloud",
+                "anchor_text": "service the Frontend Cloud provides"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/improved-user-experience-for-vercel-documentation",
+                "anchor_text": "all Vercel products"
+              }
+            ],
+            "https://vercel.com/docs/concepts/dashboard-features": [
+              {
+                "source_page": "https://vercel.com/changelog/disable-git-integration-comments",
+                "anchor_text": "Vercel dashboard"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/improved-dashboard-navigation",
+                "anchor_text": "documentation"
+              }
+            ],
+            "https://vercel.com/docs/concepts/dashboard-features/command-menu": [
+              {
+                "source_page": "https://vercel.com/changelog/september-2022-papercuts",
+                "anchor_text": "Command Menu"
+              }
+            ],
+            "https://vercel.com/docs/concepts/functions/edge-middleware/firewall": [
+              {
+                "source_page": "https://vercel.com/kb/guide/how-to-block-bots-openai-gptbot",
+                "anchor_text": "Vercel Firewall (WAF)"
+              }
+            ],
+            "https://vercel.com/docs/concepts/observability/log-drains-overview/log-drains": [
+              {
+                "source_page": "https://vercel.com/blog/introducing-monitoring",
+                "anchor_text": "Log Drain"
+              }
+            ],
+            "https://vercel.com/docs/concepts/observability/monitoring/overview": [
+              {
+                "source_page": "https://vercel.com/blog/introducing-monitoring",
+                "anchor_text": "documentation"
+              },
+              {
+                "source_page": "https://vercel.com/blog/vercel-security",
+                "anchor_text": "Vercel Monitoring"
+              }
+            ],
+            "https://vercel.com/docs/dashboard-features": [
+              {
+                "source_page": "https://vercel.com/changelog/dashboard-universal-search",
+                "anchor_text": "documentation"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/improved-monorepo-support-in-recent-previews",
+                "anchor_text": "dashboard overview"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/improved-team-overview-page",
+                "anchor_text": "documentation"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/improved-user-experience-for-account-settings",
+                "anchor_text": "Settings page"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/project-settings-are-now-searchable",
+                "anchor_text": "Vercel Dashboard"
+              }
+            ],
+            "https://vercel.com/docs/dashboard-features/command-menu": [
+              {
+                "source_page": "https://vercel.com/changelog/unified-documentation-search-across-vercel-next-js-and-turborepo",
+                "anchor_text": "Check out the documentation"
+              }
+            ],
+            "https://vercel.com/docs/dashboard-features/overview": [
+              {
+                "source_page": "https://vercel.com/changelog/view-projects-grouped-by-git-repository-with-list-view",
+                "anchor_text": "documentation"
+              }
+            ],
+            "https://vercel.com/docs/deployments/builds/overview": [
+              {
+                "source_page": "https://vercel.com/docs/fundamentals/builds",
+                "anchor_text": "build machine with more resources"
+              },
+              {
+                "source_page": "https://vercel.com/docs/fundamentals/builds",
+                "anchor_text": "timeout limit"
+              }
+            ],
+            "https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples": [
+              {
+                "source_page": "https://vercel.com/blog/introducing-vercel-og-image-generation-fast-dynamic-social-card-images",
+                "anchor_text": "View examples"
+              },
+              {
+                "source_page": "https://vercel.com/blog/introducing-vercel-og-image-generation-fast-dynamic-social-card-images",
+                "anchor_text": "View more examples"
+              }
+            ],
+            "https://vercel.com/docs/isr": [
+              {
+                "source_page": "https://vercel.com/i/what-is-nuxt",
+                "anchor_text": "Incremental Static Regeneration"
+              }
+            ],
+            "https://vercel.com/docs/next.js/preview-mode": [
+              {
+                "source_page": "https://vercel.com/blog/10-next-js-tips-you-might-not-know",
+                "anchor_text": "Preview Mode"
+              }
+            ],
+            "https://vercel.com/docs/observability/alerts": [
+              {
+                "source_page": "https://vercel.com/kb/guide/monitor-uptime-for-ai-native-apps-with-vercel-alerts",
+                "anchor_text": "Configure Alert Rules"
+              }
+            ],
+            "https://vercel.com/docs/personal-accounts/command-menu": [
+              {
+                "source_page": "https://vercel.com/changelog/quickly-navigate-the-dashboard-with-shortcuts",
+                "anchor_text": "Check out the documentation"
+              }
+            ],
+            "https://vercel.com/docs/projects/domains/managing-domains": [
+              {
+                "source_page": "https://vercel.com/docs/vercel-blob/private-storage",
+                "anchor_text": "Assign a custom domain"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-a-domains-transfer-status": [
+              {
+                "source_page": "https://vercel.com/docs/domains/registrar-api",
+                "anchor_text": "Track transfer status and completion"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-a-domain-availability-deprecated": [
+              {
+                "source_page": "https://vercel.com/docs/domains/registrar-api",
+                "anchor_text": "Check a Domain Availability"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-the-price-for-a-domain-deprecated": [
+              {
+                "source_page": "https://vercel.com/docs/domains/registrar-api",
+                "anchor_text": "Check the price for a domain"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-a-domains-configuration": [
+              {
+                "source_page": "https://vercel.com/docs/integrations/create-integration/vercel-api-integrations",
+                "anchor_text": "/v6/domains/{domain}/config"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-domain-transfer-info-deprecated": [
+              {
+                "source_page": "https://vercel.com/docs/domains/registrar-api",
+                "anchor_text": "Get domain transfer info"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/domains/purchase-a-domain-deprecated": [
+              {
+                "source_page": "https://vercel.com/docs/domains/registrar-api",
+                "anchor_text": "Purchase a domain"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/reference/endpoints/instant-rollback": [
+              {
+                "source_page": "https://vercel.com/docs/rolling-releases",
+                "anchor_text": "PATCH /v1/projects/{projectId}/rollback/{deploymentId}/update-description"
+              },
+              {
+                "source_page": "https://vercel.com/docs/rolling-releases",
+                "anchor_text": "POST /v1/projects/{projectId}/rollback/{deploymentId}"
+              }
+            ],
+            "https://vercel.com/docs/rest-api/sdk/web-analytics/aggregates-page-views": [
+              {
+                "source_page": "https://vercel.com/docs/rest-api/sdk",
+                "anchor_text": "Web-analytics 4 endpoint s"
+              }
+            ],
+            "https://vercel.com/docs/serverless-functions/edge-caching": [
+              {
+                "source_page": "https://vercel.com/blog/serverless-pre-rendering",
+                "anchor_text": "our Edge"
+              },
+              {
+                "source_page": "https://vercel.com/blog/sophisticated-usage-dashboard",
+                "anchor_text": "Edge Caching"
+              }
+            ],
+            "https://vercel.com/docs/v0/api": [
+              {
+                "source_page": "https://vercel.com/changelog/models-api-v0-1.5-beta",
+                "anchor_text": "https://vercel.com/docs/ v0 /api"
+              }
+            ],
+            "https://vercel.com/docs/v0/cursor": [
+              {
+                "source_page": "https://vercel.com/blog/v0-composite-model-family",
+                "anchor_text": "use v0 models in your favorite editors"
+              }
+            ],
+            "https://vercel.com/docs/workflow-collaboration/conformance/dashboard-overview": [
+              {
+                "source_page": "https://vercel.com/blog/introducing-conformance",
+                "anchor_text": "A reimagined dashboard experience"
+              },
+              {
+                "source_page": "https://vercel.com/blog/introducing-conformance",
+                "anchor_text": "redesigned dashboard"
+              },
+              {
+                "source_page": "https://vercel.com/changelog/conformance-and-code-owners-are-now-generally-available-for-enterprise-teams",
+                "anchor_text": "A reimagined dashboard experience"
+              }
+            ],
+            "https://vercel.com/docs/workflow/vercel-toolbar": [
+              {
+                "source_page": "https://vercel.com/changelog/copy-visual-context-to-agents",
+                "anchor_text": "Learn more about Vercel Toolbar"
+              }
+            ],
+            "https://vercel.com/experts/ffw": [
+              {
+                "source_page": "https://vercel.com/ship/2024",
+                "anchor_text": ""
+              }
+            ],
+            "https://vercel.com/i/agentic-rag": [
+              {
+                "source_page": "https://vercel.com/i/building-agentic-ai-applications-with-a-problem-first-approach",
+                "anchor_text": "Retrieval-augmented generation"
+              }
+            ],
+            "https://vercel.com/i/langchain-vs-langgraph": [
+              {
+                "source_page": "https://vercel.com/i/building-agentic-ai-applications-with-a-problem-first-approach",
+                "anchor_text": "LangGraph"
+              }
+            ],
+            "https://vercel.com/i/rest-api-vs-restful-api": [
+              {
+                "source_page": "https://vercel.com/i/headless-cms",
+                "anchor_text": "REST"
+              },
+              {
+                "source_page": "https://vercel.com/i/serverless-computing-use-cases",
+                "anchor_text": "REST APIs"
+              }
+            ],
+            "https://vercel.com/i/static-site-generator": [
+              {
+                "source_page": "https://vercel.com/i/astro-vs-next-js",
+                "anchor_text": "static generation"
+              },
+              {
+                "source_page": "https://vercel.com/i/full-stack-framework",
+                "anchor_text": "static site generation (SSG)"
+              },
+              {
+                "source_page": "https://vercel.com/i/what-is-a-cdn",
+                "anchor_text": "Static assets"
+              },
+              {
+                "source_page": "https://vercel.com/i/what-is-astro",
+                "anchor_text": "older static site generators"
+              }
+            ],
+            "https://vercel.com/i/vercel-ai-gateway-vs-openrouter": [
+              {
+                "source_page": "https://vercel.com/i/heroku-alternatives",
+                "anchor_text": "AI Gateway"
+              }
+            ],
+            "https://vercel.com/kb/guide/Workers Paid plan": [
+              {
+                "source_page": "https://vercel.com/kb/guide/tanstack-start-on-vercel-vs-cloudflare",
+                "anchor_text": "Workers Paid plan"
+              }
+            ],
+            "https://vercel.com/kb/guide/claude-design-vercel-drop": [
+              {
+                "source_page": "https://vercel.com/changelog/vercel-drop",
+                "anchor_text": "Claude Design"
+              },
+              {
+                "source_page": "https://vercel.com/i/claude-design-and-vercel-drop",
+                "anchor_text": "Deploy a Claude Design project with Vercel Drop"
+              },
+              {
+                "source_page": "https://vercel.com/i/deploy-to-vercel-without-git",
+                "anchor_text": "Deploy a Claude Design project with Vercel Drop"
+              },
+              {
+                "source_page": "https://vercel.com/i/vercel-drop-or-netlify-drop",
+                "anchor_text": "Claude Design"
+              },
+              {
+                "source_page": "https://vercel.com/kb/guide/vercel-drop-vs-cloudflare-direct-upload",
+                "anchor_text": "Claude Design"
+              }
+            ],
+            "https://vercel.com/ship/ai/Main Stage/session/closing-keynote-nextjsconf-copy": [
+              {
+                "source_page": "https://vercel.com/ship/ai",
+                "anchor_text": "Closing Keynote Closing Keynote Nico Albanese (DX Engineer - AI SDK, Vercel)"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 6845,
+          "missing_title_count": 0,
+          "missing_description_count": 15,
+          "multiple_h1_count": 23,
+          "heading_hierarchy_jump_count": 507,
+          "seo_geo_issue_rate_pct": 1.99
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 60,
+          "api_pages_detected": 1119,
+          "endpoints_with_usage_docs": 9,
+          "reference_endpoints_without_usage_docs": 51,
+          "reference_coverage_pct": 15.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/v1/installations/{installationid}",
+            "ep:/v1/installations/{installationid}/billing/provision",
+            "ep:/v1/installations/{installationid}/plans",
+            "ep:/v1/installations/{installationid}/resource-transfer-requests",
+            "ep:/v1/installations/{installationid}/resource-transfer-requests/{providerclaimid}/accept",
+            "ep:/v1/installations/{installationid}/resource-transfer-requests/{providerclaimid}/verify",
+            "ep:/v1/installations/{installationid}/resources",
+            "ep:/v1/installations/{installationid}/resources/{resourceid}",
+            "ep:/v1/installations/{installationid}/resources/{resourceid}/plans",
+            "ep:/v1/installations/{installationid}/resources/{resourceid}/repl",
+            "ep:/v1/installations/{installationid}/resources/{resourceid}/secrets/rotate",
+            "ep:/v1/products/{productslug}/plans",
+            "ev:api-client",
+            "ev:code-generation",
+            "ev:codegen",
+            "ev:developer-tools",
+            "ev:devops",
+            "ev:openapi",
+            "ev:push",
+            "ev:python"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 5985,
+          "total_code_blocks_all": 13555,
+          "runnable_without_env": 4889,
+          "blocked_by_placeholders": 867,
+          "network_bound_examples": 229,
+          "example_reliability_estimate_pct": 81.69,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 3262,
+          "pages_without_last_updated_hint": 3583,
+          "last_updated_coverage_pct": 47.66,
+          "samples_with_last_updated": [
+            {
+              "url": "https://vercel.com/academy/ai-sdk/ui-with-v0",
+              "hint": "'2025-11-15'"
+            },
+            {
+              "url": "https://vercel.com/academy/nextjs-foundations/component-composition-patterns",
+              "hint": "last updated on"
+            },
+            {
+              "url": "https://vercel.com/academy/nextjs-foundations/query-performance-patterns",
+              "hint": "\"2024-01-15\""
+            },
+            {
+              "url": "https://vercel.com/academy/nextjs-foundations/suspense-and-streaming",
+              "hint": "'2024-01-15'"
+            },
+            {
+              "url": "https://vercel.com/academy/production-monorepos/add-codeblock-snippetcard",
+              "hint": "'Jan 15, 2026'"
+            },
+            {
+              "url": "https://vercel.com/academy/production-monorepos/add-shared-utils",
+              "hint": "//   - Returns formatted string \"Jan 15, 2024\""
+            },
+            {
+              "url": "https://vercel.com/academy/production-monorepos/configure-turborepo-tests",
+              "hint": "//     - Create date: new Date('2024-01-15')"
+            },
+            {
+              "url": "https://vercel.com/academy/production-monorepos/snippet-creation-modal",
+              "hint": "'Jan 15, 2024'"
+            },
+            {
+              "url": "https://vercel.com/academy/slack-agents/operations-runbook",
+              "hint": "## 2024-12-06: Rate Limit Event"
+            },
+            {
+              "url": "https://vercel.com/academy/subscription-store/stripe-sdk-setup",
+              "hint": "\"2025-02-24.acacia\""
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 92.26,
+          "answerability_pct": 97.88,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 53.14,
+          "overall_score_0_100": 88.38,
+          "overall_band": "strong"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 13321,
+          "claims_with_evidence": 11518,
+          "coverage_pct": 86.46
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 1680,
+              "checks": {
+                "auth_model": 1029,
+                "error_semantics": 1680,
+                "retry_idempotency": 20,
+                "schema_evolution": 129
+              }
+            },
+            "graphql": {
+              "pages": 337,
+              "checks": {
+                "auth_model": 198,
+                "error_semantics": 337,
+                "retry_idempotency": 6,
+                "schema_evolution": 18
+              }
+            },
+            "grpc": {
+              "pages": 3,
+              "checks": {
+                "auth_model": 0,
+                "error_semantics": 3,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            },
+            "asyncapi": {
+              "pages": 6763,
+              "checks": {
+                "auth_model": 3477,
+                "error_semantics": 6763,
+                "retry_idempotency": 37,
+                "schema_evolution": 354
+              }
+            },
+            "websocket": {
+              "pages": 24,
+              "checks": {
+                "auth_model": 11,
+                "error_semantics": 24,
+                "retry_idempotency": 1,
+                "schema_evolution": 3
+              }
+            }
+          },
+          "coverage_pct": 85.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://vercel.com/ai-gateway/models/opus-4.8",
+          "https://vercel.com/changelog/updates-to-terms-of-service-june-2026",
+          "https://vercel.com/customers/nextjs-seo-playbook",
+          "https://vercel.com/docs/ai-gateway/models-and-providers/virtual-models",
+          "https://vercel.com/docs/ai/ai-sdk",
+          "https://vercel.com/docs/all-products",
+          "https://vercel.com/docs/concepts/dashboard-features",
+          "https://vercel.com/docs/concepts/dashboard-features/command-menu",
+          "https://vercel.com/docs/concepts/functions/edge-middleware/firewall",
+          "https://vercel.com/docs/concepts/observability/log-drains-overview/log-drains",
+          "https://vercel.com/docs/concepts/observability/monitoring/overview",
+          "https://vercel.com/docs/dashboard-features",
+          "https://vercel.com/docs/dashboard-features/command-menu",
+          "https://vercel.com/docs/dashboard-features/overview",
+          "https://vercel.com/docs/deployments/builds/overview",
+          "https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples",
+          "https://vercel.com/docs/isr",
+          "https://vercel.com/docs/next.js/preview-mode",
+          "https://vercel.com/docs/observability/alerts",
+          "https://vercel.com/docs/personal-accounts/command-menu"
+        ],
+        "docs_broken_link_samples": [
+          "https://vercel.com/ai-gateway/models/opus-4.8",
+          "https://vercel.com/changelog/updates-to-terms-of-service-june-2026",
+          "https://vercel.com/customers/nextjs-seo-playbook",
+          "https://vercel.com/docs/ai-gateway/models-and-providers/virtual-models",
+          "https://vercel.com/docs/ai/ai-sdk",
+          "https://vercel.com/docs/all-products",
+          "https://vercel.com/docs/concepts/dashboard-features",
+          "https://vercel.com/docs/concepts/dashboard-features/command-menu",
+          "https://vercel.com/docs/concepts/functions/edge-middleware/firewall",
+          "https://vercel.com/docs/concepts/observability/log-drains-overview/log-drains",
+          "https://vercel.com/docs/concepts/observability/monitoring/overview",
+          "https://vercel.com/docs/dashboard-features",
+          "https://vercel.com/docs/dashboard-features/command-menu",
+          "https://vercel.com/docs/dashboard-features/overview",
+          "https://vercel.com/docs/deployments/builds/overview",
+          "https://vercel.com/docs/functions/edge-functions/og-image-generation/og-image-examples",
+          "https://vercel.com/docs/isr",
+          "https://vercel.com/docs/next.js/preview-mode",
+          "https://vercel.com/docs/observability/alerts",
+          "https://vercel.com/docs/personal-accounts/command-menu",
+          "https://vercel.com/docs/projects/domains/managing-domains",
+          "https://vercel.com/docs/rest-api/reference/endpoints/domains-registrar/get-a-domains-transfer-status",
+          "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-a-domain-availability-deprecated",
+          "https://vercel.com/docs/rest-api/reference/endpoints/domains/check-the-price-for-a-domain-deprecated",
+          "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-a-domains-configuration",
+          "https://vercel.com/docs/rest-api/reference/endpoints/domains/get-domain-transfer-info-deprecated",
+          "https://vercel.com/docs/rest-api/reference/endpoints/domains/purchase-a-domain-deprecated",
+          "https://vercel.com/docs/rest-api/reference/endpoints/instant-rollback",
+          "https://vercel.com/docs/rest-api/sdk/web-analytics/aggregates-page-views",
+          "https://vercel.com/docs/serverless-functions/edge-caching"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://vercel.com/ai-gateway/models/o3-deep-research/status",
+          "https://vercel.com/docs/rest-api/sdk/marketplace/update-installation"
+        ],
+        "api_uncovered_samples": [
+          "ep:/v1/installations/{installationid}",
+          "ep:/v1/installations/{installationid}/billing/provision",
+          "ep:/v1/installations/{installationid}/plans",
+          "ep:/v1/installations/{installationid}/resource-transfer-requests",
+          "ep:/v1/installations/{installationid}/resource-transfer-requests/{providerclaimid}/accept",
+          "ep:/v1/installations/{installationid}/resource-transfer-requests/{providerclaimid}/verify",
+          "ep:/v1/installations/{installationid}/resources",
+          "ep:/v1/installations/{installationid}/resources/{resourceid}",
+          "ep:/v1/installations/{installationid}/resources/{resourceid}/plans",
+          "ep:/v1/installations/{installationid}/resources/{resourceid}/repl",
+          "ep:/v1/installations/{installationid}/resources/{resourceid}/secrets/rotate",
+          "ep:/v1/products/{productslug}/plans",
+          "ev:api-client",
+          "ev:code-generation",
+          "ev:codegen",
+          "ev:developer-tools",
+          "ev:devops",
+          "ev:openapi",
+          "ev:push",
+          "ev:python"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 6845,
+        "requested_pages": 8994,
+        "urls_examined": 7191,
+        "max_pages_total": 15000,
+        "discovered_pages": 7191,
+        "crawl_scope_pages": 7190,
+        "trap_urls_skipped": 159,
+        "crawl_coverage_pct": 100.01
+      },
+      "links": {
+        "broken_internal_links_count": 43,
+        "docs_broken_links_count": 43,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 2,
+        "confirmed_broken_links_count": 43,
+        "excluded_links_count": 34
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.99
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 15.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 1119,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 81.69
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 47.66
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 92.26,
+        "answerability_pct": 97.88,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 53.14,
+        "overall_score_0_100": 88.38,
+        "overall_band": "strong"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 13321,
+        "claims_with_evidence": 11518,
+        "coverage_pct": 86.46
+      },
+      "actionability": {
+        "coverage_pct": 85.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 89.72,
+      "links_confidence_pct": 90.56,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 88.38,
+    "retrieval_readiness_band": "strong",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 6845,
+      "crawl_coverage_pct": 100.01
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 43,
+          "unverified_links_count": 2
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 81.69
+        },
+        "severity": "medium",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 47.66
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 15.0,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 89.72,
+    "links_confidence_pct": 90.56,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 43",
+    "Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 15.0% (1119 API pages detected)",
+    "Freshness visibility is weak: only 47.66% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Vercel's documentation spans 6,845 crawled pages with strong retrieval readiness (88.38 overall score, 97.88% answerability). Critical gaps include 43 confirmed broken internal links across user-facing docs, API reference coverage at only 15.0% despite 1,119 API pages detected, and last-updated metadata visible on just 47.66% of pages. Example code reliability stands at 81.69%, and 53.14% of content carries stale risk due to missing freshness signals. Evidence coverage is solid at 86.46% (11,518 of 13,321 claims backed), but low API coverage and broken links directly undermine user trust and AI answer quality.",
+      "strengths": [
+        "High answerability (97.88%) and chunkability (92.26%) support strong LLM retrieval and user comprehension",
+        "86.46% of key claims include supporting evidence, reducing ambiguity and increasing trust",
+        "100% citationability ensures all content can be properly attributed in AI-generated answers",
+        "Example code reliability at 81.69% indicates majority of samples are functional",
+        "Comprehensive crawl coverage (100.01% of scope, 6,845 pages) with high confidence (89.72% overall)"
+      ],
+      "risks": [
+        "43 broken internal links in user-facing docs degrade navigation, SEO, and user confidence",
+        "API reference coverage at 15.0% leaves 85% of 1,119 API pages without usage examples or integration guidance",
+        "53.14% stale risk due to missing last-updated dates prevents users from assessing content currency",
+        "Only 47.66% of pages display last-updated metadata, obscuring freshness for half the documentation",
+        "18.31% of examples may be unreliable or outdated, risking failed onboarding and support escalations",
+        "2 links unverified due to auth/rate-limit blocks may hide additional broken references",
+        "Low API coverage undermines developer onboarding velocity and increases support ticket volume for integration questions"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 43 broken internal links in user-facing docs",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Immediate trust and SEO win; broken links frustrate users, harm search rankings, and signal neglect\u2014quick fix with broad surface impact."
+        },
+        {
+          "action": "Add last-updated timestamps to the 52.34% of pages currently missing them",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Reduces 53.14% stale risk, enables users to assess currency, and improves AI answer confidence by surfacing freshness signals."
+        },
+        {
+          "action": "Expand API usage examples and integration guides to cover the 85% of 1,119 API pages currently at 15% coverage",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Directly accelerates developer onboarding, reduces support tickets, and unlocks API adoption\u2014highest business value despite higher effort."
+        },
+        {
+          "action": "Audit and refresh the 18.31% of examples flagged as potentially unreliable",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Prevents failed quickstarts and support escalations; reliable examples are critical for first-run success and user retention."
+        },
+        {
+          "action": "Investigate and resolve the 2 unverified links blocked by auth/rate-limit to confirm no hidden breakage",
+          "impact": "low",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Low effort to close a potential blind spot; ensures link audit completeness and prevents future user-reported issues."
+        }
+      ],
+      "automation_first": [
+        "Deploy CI link checker to catch broken internal links before publish; 43 confirmed breaks indicate no pre-merge validation, and automated checks would prevent user-facing navigation failures and SEO damage.",
+        "Automate last-updated timestamp injection from Git commit history for the 52.34% of pages missing freshness metadata; this would eliminate 53.14% stale risk and improve AI retrieval confidence with minimal manual overhead.",
+        "Implement API reference coverage dashboard tracking the 1,119 API pages against usage examples; current 15.0% coverage suggests no systematic monitoring, and automated reporting would prioritize high-traffic endpoints and measure progress toward developer onboarding goals."
+      ],
+      "limitations": [
+        "External audit cannot verify content technical accuracy, only structural signals like evidence presence and example syntax.",
+        "2 links blocked by auth/rate-limit could not be verified; internal tooling may reveal additional broken references.",
+        "API coverage detection relies on heuristics; actual developer needs may differ from detected API surface area.",
+        "Example reliability estimate is based on static analysis; runtime execution and environment-specific failures are not tested.",
+        "Freshness and stale risk are inferred from metadata presence; actual content currency requires subject-matter review."
+      ]
+    }
+  }
+}

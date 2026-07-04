@@ -1,0 +1,79 @@
+id: auto-pipeline-configuration-combinations-1
+title: How pipeline configurations compose
+summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles
+  stay aligned with proof, full, and RAG-enabled delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- pipeline-configuration-combinations
+metadata:
+  url: https://docs.example.com/concepts/pipeline-configuration-combinations/
+  title: How pipeline configurations compose
+  heading: The two axes
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: concepts/pipeline-configuration-combinations.md
+semantic:
+  topic: The two axes
+  intent: integrate
+  audience: developer
+  keywords:
+  - concept
+  - pipeline configuration combinations
+  status: rule_based
+content:
+  docs_markdown: "# How pipeline configurations compose\n\nPipeline configuration\
+    \ is a two-axis model. One axis defines rollout scope, and the other defines how\
+    \ LLM work is executed and governed.\n\n```yaml\nruntime:\n  modules:\n    rag_optimization:\
+    \ true\n    ontology_graph: true\n    retrieval_evals: true\n  llm_control:\n\
+    \    llm_mode: \"local_default\"\n    external_llm_allowed: true\n```\n\n<!--\
+    \ glossary:add: strict-local mode | LLM execution mode that keeps llm_mode local_default\
+    \ and blocks external LLM egress by setting external_llm_allowed to false. | local-only\
+    \ mode -->\n\nThis model matters because a `pilot` bundle in `strict-local mode`\
+    \ should carry different scripts, governance, and user instructions than a `full+RAG`\
+    \ bundle in `cloud` mode.\n\n## The two axes\n\nThe pipeline combines these dimensions:\n\
+    \n| Axis | What it controls | Primary fields |\n| --- | --- | --- |\n| Rollout\
+    \ scope | Which modules, checks, and weekly tasks are active | `licensing.plan`,\
+    \ `runtime.modules`, `runtime.docs_flow` |\n| Execution mode | Where LLM work\
+    \ runs and what egress policy applies | `runtime.llm_control.*` |\n\nThe builder\
+    \ does not infer one axis from the other. A bundle can be `pilot + cloud`, `full\
+    \ + strict-local`, or `full+RAG + hybrid`.\n\n## Rollout scope is about delivery\
+    \ depth\n\nRollout scope answers: how much of the platform should this client\
+    \ receive now?"
+  assistant_context: "Use this module when answering questions related to: How pipeline\
+    \ configurations compose. Source path: concepts/pipeline-configuration-combinations.md.\
+    \ Summary: Learn how the pipeline combines rollout scope and LLM execution mode\
+    \ so bundles stay aligned with proof, full, and RAG-enabled delivery.\n\n# How\
+    \ pipeline configurations compose\n\nPipeline configuration is a two-axis model.\
+    \ One axis defines rollout scope, and the other defines how LLM work is executed\
+    \ and governed.\n\n```yaml\nruntime:\n  modules:\n    rag_optimization: true\n\
+    \    ontology_graph: true\n    retrieval_evals: true\n  llm_control:\n    llm_mode:\
+    \ \"local_default\"\n    external_llm_allowed: true\n```\n\n<!-- glossary:add:\
+    \ strict-local mode | LLM execution mode that keeps llm_mode local_default and\
+    \ blocks external LLM egress by setting external_llm_allowed to false. | local-only\
+    \ mode -->\n\nThis model matters because a `pilot` bundle in `strict-local mode`\
+    \ should carry different scripts, governance, and user instructions than a `full+RAG`\
+    \ bundle in `cloud` mode.\n\n## The two axes\n\nThe pipeline combines these dimensions:\n\
+    \n| Axis | What it controls | Primary fields |\n| --- | --- | --- |\n| Rollout\
+    \ scope | Which modules, checks, and weekly tasks are active | `licensing.plan`,\
+    \ `runtime.modules`, `runtime.docs_flow` |\n| Execution mode | Where LLM work\
+    \ runs and what egress policy applies | `runtime.llm_control.*` |\n\nThe builder\
+    \ does not infer one axis from the other. A bundle can be `pilot + cloud`, `full\
+    \ + strict-local`, or `full+RAG + hybrid`.\n\n## Rollout scope is about delivery\
+    \ depth\n\nRollout scope answers: how much of the platform should this client\
+    \ receive now?"

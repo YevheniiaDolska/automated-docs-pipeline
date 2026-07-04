@@ -1,0 +1,128 @@
+{
+  "generated_at_utc": "2026-06-24T18:47:43.564336+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 5,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 5,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.chain.link/ccip/concepts/best-practices",
+    "https://docs.chain.link/cre/getting-started",
+    "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+    "https://docs.chain.link/cre/reference/sdk",
+    "https://docs.chain.link/cre/reference/sdk/triggers"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.chain.link/",
+      "confirmed_broken_links_count": 5,
+      "docs_broken_links_count": 5,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.chain.link/ccip/concepts/best-practices",
+        "https://docs.chain.link/cre/getting-started",
+        "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+        "https://docs.chain.link/cre/reference/sdk",
+        "https://docs.chain.link/cre/reference/sdk/triggers"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.chain.link/ccip/concepts/best-practices",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.chain.link/ccip/concepts",
+              "anchor_text": "Best Practices"
+            },
+            {
+              "source_page": "https://docs.chain.link/ccip/concepts/manual-execution",
+              "anchor_text": "> Learn CCIP best practices"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.chain.link/cre/getting-started",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.chain.link/cre/reference/cli",
+              "anchor_text": "Getting Started"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/building-consumer-contracts",
+              "anchor_text": "writes data to the blockchain"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-single-values",
+              "anchor_text": "Working with Solidity input types"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-structs",
+              "anchor_text": "Onchain Write"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-structs",
+              "anchor_text": "Onchain Write Overview"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/submitting-reports-onchain",
+              "anchor_text": "Onchain Write Overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.chain.link/cre/reference/sdk",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.chain.link/cre",
+              "anchor_text": "SDK Reference"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/index",
+              "anchor_text": "SDK Reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.chain.link/cre/reference/sdk/triggers",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/cron-trigger-go",
+              "anchor_text": "cron.Trigger"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/http-trigger/configuration-go",
+              "anchor_text": "http.Config"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/http-trigger/configuration-go",
+              "anchor_text": "http.Trigger"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/reference/sdk/core-go",
+              "anchor_text": "Triggers reference"
+            },
+            {
+              "source_page": "https://docs.chain.link/cre/reference/sdk/core-ts",
+              "anchor_text": "Triggers reference"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

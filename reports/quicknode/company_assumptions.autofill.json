@@ -1,0 +1,31 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 12.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 850.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 180.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 450.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 62.0,
+  "provenance": [
+    "QuickNode is blockchain infrastructure provider serving developer audience with API-heavy product",
+    "9606 pages crawled indicates large-scale documentation requiring significant maintenance",
+    "27.47% SEO/geo issues and 63.25% stale risk suggest ongoing sync challenges",
+    "Only 7.14% API reference coverage despite 2641 API pages detected indicates major documentation debt",
+    "39.68% example reliability and 36.58% freshness coverage point to resource constraints",
+    "Overall retrieval readiness score 49.17 (weak band) suggests docs friction impacting evaluation and adoption",
+    "920 unverified links and 14 broken links indicate maintenance backlog",
+    "8.48% chunkability with 84.46% answerability shows content exists but needs structural improvement",
+    "High claim count (8005) with 91.14% evidence coverage indicates comprehensive but potentially outdated content",
+    "Enterprise blockchain infrastructure typically sees higher support volume due to integration complexity",
+    "Conservative estimate assumes 28% docs-related tickets given weak retrieval readiness but high answerability",
+    "Developer-focused product with API complexity justifies higher engineer hourly rate",
+    "Release count reflects typical DevOps-heavy infrastructure provider cadence",
+    "Revenue sensitivity elevated due to technical evaluation friction in developer tools market"
+  ]
+}

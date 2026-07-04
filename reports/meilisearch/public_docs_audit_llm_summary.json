@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Meilisearch documentation spans 1,247 crawled pages with 100% crawl coverage and strong overall retrieval readiness (78.61/100, moderate band). Critical gaps include 16 confirmed broken internal links, API reference coverage at only 61.9% despite 746 API pages detected, and freshness metadata visible on just 31.92% of pages. Evidence backing for claims is moderate at 56.66% (1,323 of 2,335 key claims), and 50.09% of content carries stale risk flags. High confidence in findings (91.5% overall) supports immediate action on link integrity, API documentation completeness, and freshness transparency.",
+    "strengths": [
+      "Complete crawl coverage at 100% (1,247 of 1,247 pages) with high crawl confidence (95%)",
+      "Strong answerability at 97.27% and perfect citationability at 100%, enabling reliable AI-assisted support",
+      "High actionability coverage at 80%, indicating clear next-step guidance for users",
+      "Example reliability estimate at 100%, suggesting code samples are well-maintained",
+      "Zero repository navigation broken links, keeping internal GitHub/GitLab workflows intact"
+    ],
+    "risks": [
+      "16 confirmed broken internal docs links degrade user trust, SEO authority, and AI retrieval quality",
+      "API reference coverage at 61.9% leaves 38.1% of API surface undocumented or poorly linked, risking developer churn",
+      "Only 31.92% of pages display last-updated metadata, obscuring content freshness and eroding user confidence in accuracy",
+      "50.09% stale risk rate indicates half the corpus may appear outdated to users and search engines",
+      "56.66% evidence coverage means 43.34% of claims (1,012 claims) lack supporting examples, code, or references, weakening onboarding",
+      "SEO/geo issue rate at 8.92% may limit discoverability in regional searches and reduce organic traffic",
+      "Chunkability at 67.92% suggests one-third of content may fragment poorly for RAG and LLM-based answer systems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 16 confirmed broken internal docs links",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Immediate trust and SEO win with minimal engineering effort, directly improves AI citation quality and user navigation across 1,247 pages."
+      },
+      {
+        "action": "Add last-updated timestamps to the 68.08% of pages missing freshness metadata (approximately 849 pages)",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Surfaces recency to users and search engines, mitigates 50.09% stale risk perception, and boosts trust with low ongoing maintenance once automated."
+      },
+      {
+        "action": "Close the 38.1% API documentation gap by auditing the 746 detected API pages and adding missing usage examples or cross-links",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Developer onboarding and retention hinge on complete API docs; closing this gap reduces support load and accelerates time-to-value for new users."
+      },
+      {
+        "action": "Enrich the 1,012 claims lacking evidence (43.34% of 2,335 claims) with code snippets, screenshots, or reference links",
+        "impact": "high",
+        "effort": "high",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Strengthens onboarding and reduces support tickets by making assertions verifiable, especially for complex search configuration and tuning topics."
+      },
+      {
+        "action": "Improve chunkability for the 32.08% of pages scoring poorly (approximately 400 pages) by adding subheadings, lists, or section breaks",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Enhances RAG and LLM answer quality for AI-assisted support and chatbots, directly improving self-service resolution rates."
+      }
+    ],
+    "automation_first": [
+      "Deploy a CI link checker to catch the 16 broken internal docs links and prevent future regressions across 1,247 pages, reducing manual QA cycles and preserving SEO equity with zero ongoing effort.",
+      "Automate last-updated timestamp injection from Git commit history to cover the 849 pages (68.08%) missing freshness metadata, eliminating manual date maintenance and immediately addressing the 50.09% stale risk perception.",
+      "Implement API reference coverage monitoring to track the 746 API pages and alert when new endpoints lack usage docs, preventing the 38.1% gap from widening and reducing developer support escalations."
+    ],
+    "limitations": [
+      "External audit cannot verify runtime correctness of 746 API examples or whether code samples execute successfully against current Meilisearch versions.",
+      "Stale risk and freshness scores reflect metadata and heuristics, not actual content accuracy or alignment with the latest Meilisearch release features.",
+      "API coverage detection relies on page structure patterns; the 61.9% figure may undercount if reference pages lack standard formatting or are dynamically generated.",
+      "Evidence and claim detection uses NLP heuristics; the 56.66% coverage may misclassify some implicit examples or domain-specific proof patterns.",
+      "Crawl excluded 1,787 trap URLs and 37 links by policy; audit does not assess content quality or user intent satisfaction within covered pages."
+    ]
+  }
+}

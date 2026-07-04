@@ -2,11 +2,11 @@
 
 Use this packet after autopipeline run.
 
-- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`
-- Consolidated report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/consolidated_report.json`
-- Multi-protocol report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json`
-- Audit scorecard: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json`
-- Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_MANIFEST.md`
+- Runtime config: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docsops\config\client_runtime.yml`
+- Consolidated report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\consolidated_report.json`
+- Multi-protocol report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\multi_protocol_contract_report.json`
+- Audit scorecard: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.json`
+- Review manifest: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\REVIEW_MANIFEST.md`
 
 Prompt for local LLM:
 

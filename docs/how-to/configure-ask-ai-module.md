@@ -176,5 +176,5 @@ git commit -m "docs-ops: update Ask AI configuration"
 ## Next steps
 
 - [Quick start](../getting-started/quickstart.md)
-- [Assemble intent experiences](./assemble-intent-experiences.md)
+- [Assemble intent experiences](assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-06-25T12:04:44.031203+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">2572</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">2575</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">650</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">2</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">2.21%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">12.91%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">1.01%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">91.38%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 650</li><li>Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 12.91% (2110 API pages detected)</li><li>Example reliability: 0% on 2572 pages (likely detection limitation). Site may use JS-rendered code blocks.</li><li>Freshness visibility is weak: only 1.01% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://portal.thirdweb.com/</strong>: pages=2572, broken_links=650, api_coverage=12.91%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit of portal.thirdweb.com (2,572 pages crawled, 100% coverage) reveals critical navigation and discoverability issues. 650 confirmed broken internal documentation links impair user journeys and SEO. API reference coverage is 12.91% across 2,110 detected API pages, leaving 87% of endpoints undocumented or poorly linked. Retrieval readiness scores 52.17/100 (weak band): only 14.07% of pages are answerable by AI, 58.32% are chunkable, and 86.42% carry stale-content risk. Example code reliability detection returned 0%, flagged as a likely JS-rendering limitation requiring manual review. Freshness metadata appears on only 1.01% of pages, obscuring content currency for users and search engines.</p><h3>Strengths</h3><ul><li>Full crawl coverage achieved: 2,572 of 2,575 discovered pages indexed with 95% crawl confidence</li><li>High citationability: 100% of pages support citation extraction for AI and support workflows</li><li>Strong evidence backing: 80.68% of 1,232 detected claims include supporting evidence or examples</li><li>Actionability coverage at 90%: most pages provide clear next steps or calls-to-action</li><li>Multi-project topology successfully mapped with 91.38% overall audit confidence</li></ul><h3>Risks</h3><ul><li>650 broken internal links create dead ends, harm SEO authority, erode user trust, and block onboarding flows</li><li>87% of API surface (1,835 of 2,110 endpoints) lacks usage documentation, forcing users to reverse-engineer or contact support</li><li>Only 14.07% of pages are answerable by LLM retrieval systems, limiting AI assistant accuracy and self-service deflection</li><li>86.42% stale-risk score indicates widespread absence of freshness signals, risking user reliance on outdated instructions</li><li>Example code reliability at 0% suggests JS-rendered blocks invisible to audit; unverified examples may contain breaking changes or deprecated patterns</li><li>1.01% last-updated coverage hides content age from users and search crawlers, damaging trust and ranking</li><li>2 unverified links (auth/rate-limit blocks) may hide additional broken external references in authentication or API docs</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 650 broken internal documentation links using automated link-check CI and bulk redirect/repair pass <em>[critical, medium]</em></li><li>Generate usage examples and integration guides for the 1,835 undocumented API endpoints (87% gap) prioritized by traffic and support ticket volume <em>[critical, high]</em></li><li>Inject last-updated timestamps and author metadata into all 2,572 pages via CMS automation or build pipeline <em>[high, low]</em></li><li>Restructure low-answerability pages (85.93% of corpus) with explicit Q&amp;A sections, summary blocks, and semantic headings to lift retrieval score from 14.07% to &gt;60% <em>[high, medium]</em></li><li>Manually audit example code blocks (0% detection) on top 50 traffic pages to confirm JS-rendering issue, then implement server-side or static rendering for code snippets <em>[high, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

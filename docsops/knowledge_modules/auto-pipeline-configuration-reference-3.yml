@@ -1,0 +1,75 @@
+id: auto-pipeline-configuration-reference-3
+title: Pipeline configuration reference (Part 3)
+summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud,
+  strict-local, and hybrid pipeline configurations.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-configuration-reference
+- reference
+metadata:
+  url: https://docs.example.com/reference/pipeline-configuration-reference/
+  title: Pipeline configuration reference (Part 3)
+  heading: Full minimum
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: reference/pipeline-configuration-reference.md
+semantic:
+  topic: Full minimum
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline configuration reference
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "### Full minimum\n\n```yaml\nruntime:\n  modules:\n    gap_detection:\
+    \ true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n\
+    \    terminology_management: true\n    normalization: true\n    snippet_lint:\
+    \ true\n    self_checks: true\n    fact_checks: true\n    lifecycle_management:\
+    \ true\n    knowledge_validation: true\n```\n\n### Full+RAG minimum\n\n```yaml\n\
+    runtime:\n  modules:\n    gap_detection: true\n    drift_detection: true\n   \
+    \ docs_contract: true\n    kpi_sla: true\n    terminology_management: true\n \
+    \   normalization: true\n    snippet_lint: true\n    self_checks: true\n    fact_checks:\
+    \ true\n    lifecycle_management: true\n    knowledge_validation: true\n    rag_optimization:\
+    \ true\n    ontology_graph: true\n    retrieval_evals: true\n```\n\n## Flow alignment\
+    \ rules\n\n| Field | Allowed values | Notes |\n| --- | --- | --- |\n| `runtime.docs_flow.mode`\
+    \ | `code-first`, `api-first`, `hybrid` | `hybrid` is the default for most presets\
+    \ |\n| `runtime.api_first.enabled` | `true`, `false` | Keep `true` for planning-notes\
+    \ to contract flow |\n| `runtime.api_first.sandbox_backend` | `docker`, `prism`,\
+    \ `external` | `external` requires a reachable mock URL |\n| `runtime.output_targets`\
+    \ | list | examples: `mkdocs`, `readme`, `github`, `sphinx` |"
+  assistant_context: "Use this module when answering questions related to: Pipeline\
+    \ configuration reference (Part 3). Source path: reference/pipeline-configuration-reference.md.\
+    \ Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG,\
+    \ cloud, strict-local, and hybrid pipeline configurations.\n\n### Full minimum\n\
+    \n```yaml\nruntime:\n  modules:\n    gap_detection: true\n    drift_detection:\
+    \ true\n    docs_contract: true\n    kpi_sla: true\n    terminology_management:\
+    \ true\n    normalization: true\n    snippet_lint: true\n    self_checks: true\n\
+    \    fact_checks: true\n    lifecycle_management: true\n    knowledge_validation:\
+    \ true\n```\n\n### Full+RAG minimum\n\n```yaml\nruntime:\n  modules:\n    gap_detection:\
+    \ true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n\
+    \    terminology_management: true\n    normalization: true\n    snippet_lint:\
+    \ true\n    self_checks: true\n    fact_checks: true\n    lifecycle_management:\
+    \ true\n    knowledge_validation: true\n    rag_optimization: true\n    ontology_graph:\
+    \ true\n    retrieval_evals: true\n```\n\n## Flow alignment rules\n\n| Field |\
+    \ Allowed values | Notes |\n| --- | --- | --- |\n| `runtime.docs_flow.mode` |\
+    \ `code-first`, `api-first`, `hybrid` | `hybrid` is the default for most presets\
+    \ |\n| `runtime.api_first.enabled` | `true`, `false` | Keep `true` for planning-notes\
+    \ to contract flow |\n| `runtime.api_first.sandbox_backend` | `docker`, `prism`,\
+    \ `external` | `external` requires a reachable mock URL |\n| `runtime.output_targets`\
+    \ | list | examples: `mkdocs`, `readme`, `github`, `sphinx` |"

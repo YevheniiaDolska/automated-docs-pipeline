@@ -1,0 +1,212 @@
+{
+  "generated_at_utc": "2026-06-30T09:33:54.611018+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 14,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 14,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://render.com/deploys",
+    "https://render.com/docs/autoscaling",
+    "https://render.com/docs/deploy-node",
+    "https://render.com/docs/environment-groups",
+    "https://render.com/docs/graceful-shutdown",
+    "https://render.com/docs/hipaa",
+    "https://render.com/docs/postgres",
+    "https://render.com/docs/postgresql-access-control",
+    "https://render.com/docs/pre-deploy-commands",
+    "https://render.com/docs/pricing",
+    "https://render.com/docs/secret-files",
+    "https://render.com/docs/slack-integration",
+    "https://render.com/docs/terraform",
+    "https://render.com/docs/tls-certificates"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://render.com/docs",
+      "confirmed_broken_links_count": 14,
+      "docs_broken_links_count": 14,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://render.com/deploys",
+        "https://render.com/docs/autoscaling",
+        "https://render.com/docs/deploy-node",
+        "https://render.com/docs/environment-groups",
+        "https://render.com/docs/graceful-shutdown",
+        "https://render.com/docs/hipaa",
+        "https://render.com/docs/postgres",
+        "https://render.com/docs/postgresql-access-control",
+        "https://render.com/docs/pre-deploy-commands",
+        "https://render.com/docs/pricing",
+        "https://render.com/docs/secret-files",
+        "https://render.com/docs/slack-integration",
+        "https://render.com/docs/terraform",
+        "https://render.com/docs/tls-certificates"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://render.com/deploys",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/running-python-go-rust-and-ruby-backends-alongside-a-next-js-frontend",
+              "anchor_text": "zero-downtime deploys"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/autoscaling",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/scalable-backend-hosting-for-web-apps",
+              "anchor_text": "Autoscaling docs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/deploy-node",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/scalable-backend-hosting-for-web-apps",
+              "anchor_text": "Deploy guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/environment-groups",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/building-and-deploying-a-saas-application-from-scratch",
+              "anchor_text": "environment groups"
+            },
+            {
+              "source_page": "https://render.com/articles/how-to-deploy-next-js-applications-with-ssr-and-api-routes",
+              "anchor_text": "Environment Groups"
+            },
+            {
+              "source_page": "https://render.com/articles/security-best-practices-when-building-ai-agents",
+              "anchor_text": "Environment Groups"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/graceful-shutdown",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/how-render-handles-deploy-failures",
+              "anchor_text": "graceful shutdown handler"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/hipaa",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/stop-fighting-infrastructure-start-shipping-features",
+              "anchor_text": "HIPAA-enabled workspaces"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/postgres",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/full-stack-deployment-without-devops-headaches",
+              "anchor_text": "Postgres"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/postgresql-access-control",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/how-to-migrate-from-sqlite-to-postgresql",
+              "anchor_text": "Access Control"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/pre-deploy-commands",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/how-render-handles-zero-downtime-deploys",
+              "anchor_text": "Pre-deploy commands"
+            },
+            {
+              "source_page": "https://render.com/articles/how-render-handles-zero-downtime-deploys",
+              "anchor_text": "pre-deploy commands"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/pricing",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/building-and-hosting-mcp-servers-a-complete-guide",
+              "anchor_text": "instance type"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/secret-files",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/how-to-deploy-next-js-applications-with-ssr-and-api-routes",
+              "anchor_text": "Secret Files"
+            },
+            {
+              "source_page": "https://render.com/articles/security-best-practices-when-building-ai-agents",
+              "anchor_text": "Secret Files"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/slack-integration",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/how-render-handles-deploy-failures",
+              "anchor_text": "Slack"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/terraform",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/render-vs-railway",
+              "anchor_text": "Terraform provider"
+            }
+          ]
+        },
+        {
+          "target_url": "https://render.com/docs/tls-certificates",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://render.com/articles/building-and-hosting-mcp-servers-a-complete-guide",
+              "anchor_text": "TLS certificates automatically"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

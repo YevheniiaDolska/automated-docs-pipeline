@@ -2,8 +2,53 @@
   "intent": "configure",
   "audience": "beginner",
   "channel": "docs",
-  "module_count": 2,
+  "module_count": 7,
   "modules": [
+    {
+      "module_id": "auto-choose-pipeline-configuration-1",
+      "title": "Choose a pipeline configuration",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "# Choose a pipeline configuration\n\nThe pipeline combines one scope tier with one execution mode. Start with that pair, then build or provision the matching bundle from a single client profile.\n\n```yaml\nlicensing:\n  plan: \"pilot\"\nruntime:\n  modules:\n    rag_optimization: false\n    ontology_graph: false\n    retrieval_evals: false\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: false\n```\n\nUse this tutorial when you need to decide between `pilot`, `full`, and `full+RAG`, then choose whether LLM execution should be `cloud`, `strict-local`, or `hybrid`."
+    },
+    {
+      "module_id": "auto-choose-pipeline-configuration-2",
+      "title": "Choose a pipeline configuration (Part 2)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 1: Pick the scope tier\n\nChoose the tier that matches the rollout depth you want in the client repository.\n\n| Scope tier | Use this when | Starting point | Key module pattern |\n| --- | --- | --- | --- |\n| `pilot` | You need proof in one week with a reduced script surface | `profiles/clients/presets/pilot-evidence.yml` | Core quality modules on, RAG modules off |\n| `full` | You want full docs operations without retrieval evaluation features | `profiles/clients/presets/small.yml` or a custom profile | Governance and weekly automation on, RAG modules optional |\n| `full+RAG` | You want retrieval index, graph, and eval gates in the same bundle | `profiles/clients/presets/startup.yml` or `enterprise.yml` | `rag_optimization`, `ontology_graph`, and `retrieval_evals` on |\n\nFor `pilot`, use the preset as-is unless you have a narrow reason to expand scope.\n\nFor `full`, keep the standard automation modules on:\n\n- `gap_detection`\n- `drift_detection`\n- `docs_contract`\n- `kpi_sla`\n- `normalization`\n- `snippet_lint`\n- `self_checks`\n- `fact_checks`\n\nFor `full+RAG`, keep these three modules enabled together:\n\n- `rag_optimization`\n- `ontology_graph`\n- `retrieval_evals`"
+    },
+    {
+      "module_id": "auto-choose-pipeline-configuration-3",
+      "title": "Choose a pipeline configuration (Part 3)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 2: Pick the execution mode\n\nExecution mode controls how the bundle handles LLM work.\n\n| Execution mode | Use this when | `llm_control` pattern |\n| --- | --- | --- |\n| `cloud` | You want the fastest external-model path | `llm_mode: external_preferred`, `external_llm_allowed: true` |\n| `strict-local` | You cannot allow external LLM egress | `llm_mode: local_default`, `external_llm_allowed: false` |\n| `hybrid` | You want local-first execution with external fallback | `llm_mode: local_default`, `external_llm_allowed: true` |\n\nRecommended starting values:\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"local_default\"\n    external_llm_allowed: true\n    require_explicit_approval: true\n    redact_before_external: true\n```\n\nUse `cloud` when response quality and speed matter more than local-only controls. Use `strict-local` when policy blocks external LLM traffic. Use `hybrid` when you want local-first behavior but still need fallback for harder synthesis tasks."
+    },
+    {
+      "module_id": "auto-choose-pipeline-configuration-4",
+      "title": "Choose a pipeline configuration (Part 4)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 3: Generate or edit the client profile\n\nThe interactive path is the fastest way to create the profile:\n\n```bash\npython3 scripts/provision_client_repo.py --interactive --generate-profile\n```\n\nWhen the wizard asks for a preset, map your selection as follows:\n\n- `pilot` -> `pilot-evidence`\n- `full` -> `small`, `startup`, or `enterprise`\n- `full+RAG` -> `startup` or `enterprise`\n\nThen set the LLM section to match your execution mode.\n\nIf you prefer editing YAML directly, copy a preset and adjust it:\n\n```bash\ncp profiles/clients/presets/startup.yml profiles/clients/acme.client.yml\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n```\n\n## Step 4: Verify the resulting configuration\n\nBefore you install the bundle, verify these fields in the final profile:\n\n- `licensing.plan`\n- `runtime.docs_flow.mode`\n- `runtime.modules.rag_optimization`\n- `runtime.modules.ontology_graph`\n- `runtime.modules.retrieval_evals`\n- `runtime.llm_control.llm_mode`\n- `runtime.llm_control.external_llm_allowed`\n\nFor a `full+RAG` bundle, the three RAG module flags must all be `true`. For a `strict-local` bundle, `external_llm_allowed` must be `false`."
+    },
+    {
+      "module_id": "auto-choose-pipeline-configuration-5",
+      "title": "Choose a pipeline configuration (Part 5)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 5: Build or provision the bundle\n\nBuild a distributable bundle:\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n```\n\nProvision directly into a client repository:\n\n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n```\n\n## Validation checklist\n\n- [ ] Scope tier matches the client rollout: `pilot`, `full`, or `full+RAG`\n- [ ] Execution mode matches policy: `cloud`, `strict-local`, or `hybrid`\n- [ ] `full+RAG` bundles keep all three retrieval modules enabled\n- [ ] `strict-local` bundles keep `external_llm_allowed: false`\n- [ ] The built bundle includes configuration docs under `docs/`\n\n## Next steps\n\n- Read [How pipeline configurations compose](../concepts/pipeline-configuration-combinations.md) for the model behind the matrix.\n- Follow [Apply a pilot, full, or RAG configuration](../how-to/apply-pipeline-configuration.md) to edit an existing profile safely.\n- Use [Pipeline configuration reference](../reference/pipeline-configuration-reference.md) for exact field values."
+    },
     {
       "module_id": "auto-quickstart-1",
       "title": "Build your first workflow in 5 minutes",

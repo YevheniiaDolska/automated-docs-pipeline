@@ -5,35 +5,35 @@
       "protocol": "asyncapi",
       "entity": "orders/created",
       "check_type": "invalid-payload",
-      "suite": "ASYNCAPI Contract"
+      "suite": "ASYNCAPI Contract [pytest]"
     },
     {
       "id": "tc-asyncapi-orders/created-ordering-idempotency",
       "protocol": "asyncapi",
       "entity": "orders/created",
       "check_type": "ordering-idempotency",
-      "suite": "ASYNCAPI Contract"
+      "suite": "ASYNCAPI Contract [pytest]"
     },
     {
       "id": "tc-asyncapi-orders/created-performance-throughput",
       "protocol": "asyncapi",
       "entity": "orders/created",
       "check_type": "performance-throughput",
-      "suite": "ASYNCAPI Contract"
+      "suite": "ASYNCAPI Contract [pytest]"
     },
     {
       "id": "tc-asyncapi-orders/created-publish",
       "protocol": "asyncapi",
       "entity": "orders/created",
       "check_type": "publish",
-      "suite": "ASYNCAPI Contract"
+      "suite": "ASYNCAPI Contract [pytest]"
     },
     {
       "id": "tc-asyncapi-orders/created-security-signature",
       "protocol": "asyncapi",
       "entity": "orders/created",
       "check_type": "security-signature",
-      "suite": "ASYNCAPI Contract"
+      "suite": "ASYNCAPI Contract [pytest]"
     }
   ]
 }

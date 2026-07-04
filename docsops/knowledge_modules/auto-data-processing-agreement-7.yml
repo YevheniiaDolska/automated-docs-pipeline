@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - data-processing-agreement
 - reference
+metadata:
+  url: https://docs.example.com/legal/data-processing-agreement/
+  title: VeriDoc data processing agreement (Part 7)
+  heading: Data protection impact assessment
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/data-processing-agreement.md
+semantic:
+  topic: Data protection impact assessment
+  intent: integrate
+  audience: developer
+  keywords:
+  - data processing agreement
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Data protection impact assessment
 
@@ -77,7 +93,7 @@ content:
 
     - Review the [security policy](security-policy.md)'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    data processing agreement (Part 7). Source path: docs/legal/data-processing-agreement.md.
+    data processing agreement (Part 7). Source path: legal/data-processing-agreement.md.
     Summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
     sub-processors, data transfer mechanisms, and breach notification procedures.
 

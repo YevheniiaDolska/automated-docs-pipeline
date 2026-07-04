@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-06-25T12:18:08.777387+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">328</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">332</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">3</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">8.69%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">18.18%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">91.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 3</li><li>API usage-doc coverage is low: 18.18% (260 API pages detected)</li><li>Example reliability estimate is low: 0.0%</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://helius.dev/docs</strong>: pages=328, broken_links=3, api_coverage=18.18%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Helius documentation audit covered 328 pages with 100% crawl coverage and 91.5% overall confidence. The site shows strong retrieval readiness (83.76 overall score, 65.24% chunkability) and complete actionability coverage. Critical gaps include 18.18% API reference coverage across 260 detected API pages, 0.0% example reliability, and 3 confirmed broken internal links. Evidence coverage stands at 83.33% (555 of 666 claims supported), with 15.55% of content flagged for staleness risk.</p><h3>Strengths</h3><ul><li>100% crawl coverage (328 of 334 requested pages) with high confidence (91.5%)</li><li>Strong retrieval readiness band (83.76 score) with 100% answerability and citationability</li><li>Complete last-updated metadata coverage (100%) and full actionability coverage</li><li>83.33% of key claims (555 of 666) include supporting evidence</li><li>Zero repository navigation broken links; all 3 broken links are user-facing docs</li></ul><h3>Risks</h3><ul><li>18.18% API reference coverage leaves 81.82% of 260 API pages without usage documentation, blocking developer onboarding</li><li>0.0% example reliability estimate suggests code samples may be outdated, untested, or non-executable</li><li>3 confirmed broken internal links degrade user trust and navigation flow</li><li>15.55% stale content risk may surface outdated information in AI-generated answers</li><li>65.24% chunkability indicates structural issues in 34.76% of pages that may hurt RAG retrieval quality</li><li>8.69% SEO/geo issue rate may limit discoverability in search engines</li><li>111 claims (16.67%) lack supporting evidence, reducing credibility for technical decision-makers</li></ul><h3>Prioritized actions</h3><ul><li>Add usage examples and integration guides for the 213 API pages (81.82%) currently missing reference coverage <em>[critical, high]</em></li><li>Implement automated example testing pipeline to validate code samples and lift 0.0% reliability estimate <em>[critical, medium]</em></li><li>Fix 3 confirmed broken internal links to restore navigation integrity <em>[high, low]</em></li><li>Audit and refresh the 15.55% of pages flagged for staleness risk to prevent outdated AI answers <em>[high, medium]</em></li><li>Improve structural markup on the 34.76% of pages with low chunkability to optimize RAG retrieval <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

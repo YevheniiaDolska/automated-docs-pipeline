@@ -96,6 +96,8 @@ def _render_graphql_playground(endpoint: str) -> list[str]:
     return [
         "## Interactive GraphQL Playground",
         "",
+        "<!-- vale off -->",
+        "",
         "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">",
         "  <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>",
         "  <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n}</textarea>",
@@ -140,6 +142,8 @@ def _render_graphql_playground(endpoint: str) -> list[str]:
         "})();",
         "</script>",
         "",
+        "<!-- vale on -->",
+        "",
     ]
 
 
@@ -147,6 +151,8 @@ def _render_grpc_tester(endpoint: str) -> list[str]:
     endpoint_js = json.dumps(endpoint)
     return [
         "## Interactive gRPC Tester",
+        "",
+        "<!-- vale off -->",
         "",
         "This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.",
         "",
@@ -196,6 +202,8 @@ def _render_grpc_tester(endpoint: str) -> list[str]:
         "})();",
         "</script>",
         "",
+        "<!-- vale on -->",
+        "",
     ]
 
 
@@ -204,6 +212,8 @@ def _render_asyncapi_tester(ws_endpoint: str, http_endpoint: str) -> list[str]:
     http_js = json.dumps(http_endpoint)
     return [
         "## Interactive AsyncAPI Tester",
+        "",
+        "<!-- vale off -->",
         "",
         "> Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.",
         "",
@@ -281,6 +291,8 @@ def _render_asyncapi_tester(ws_endpoint: str, http_endpoint: str) -> list[str]:
         "})();",
         "</script>",
         "",
+        "<!-- vale on -->",
+        "",
     ]
 
 
@@ -288,6 +300,8 @@ def _render_websocket_tester(ws_endpoint: str) -> list[str]:
     ws_js = json.dumps(ws_endpoint)
     return [
         "## Interactive WebSocket Tester",
+        "",
+        "<!-- vale off -->",
         "",
         "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action.",
         "",
@@ -348,6 +362,8 @@ def _render_websocket_tester(ws_endpoint: str) -> list[str]:
         "};",
         "})();",
         "</script>",
+        "",
+        "<!-- vale on -->",
         "",
     ]
 

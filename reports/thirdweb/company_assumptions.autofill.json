@@ -1,0 +1,32 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 420.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 180.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 850.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 62.0,
+  "provenance": [
+    "Web3 developer platform with SDK/API focus typical of infrastructure SaaS",
+    "2572 pages crawled indicates mature documentation requiring ongoing maintenance",
+    "650 broken links (25% of crawled pages) suggests significant technical debt and sync burden",
+    "12.91% API reference coverage indicates major gaps requiring engineering time to resolve",
+    "0% example reliability with 58.32% chunkability shows code examples likely outdated or broken",
+    "1.01% freshness coverage means 99% of pages lack update timestamps, hiding staleness",
+    "86.42% stale risk and 52.17 overall score (weak band) indicates poor retrieval readiness",
+    "High actionability (90%) but low answerability (14.07%) suggests structural content issues",
+    "Developer-focused products see elevated docs-related support (25-35% typical range)",
+    "Web3/blockchain space has higher evaluation volume due to technical complexity",
+    "Conservative B2B SaaS baseline: 8 releases/month, 6h/week manual sync for this scale",
+    "Broken links and low API coverage likely cause 18h avg release delays for doc updates",
+    "Developer tools see higher ticket handling time (20-25min) due to technical depth",
+    "Revenue sensitivity elevated (0.35) due to developer experience criticality in Web3 tooling",
+    "Confidence reduced to 62% due to limited public data on Thirdweb customer metrics"
+  ]
+}

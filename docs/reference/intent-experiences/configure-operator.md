@@ -545,6 +545,35 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
+### Pipeline configuration reference (Part 4)
+
+Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+#### Pipeline configuration reference (Part 4): Bundle documentation selection rules
+
+The bundle builder now auto-includes configuration docs from the final runtime config.
+
+Base configuration docs:
+
+- `docs/getting-started/choose-pipeline-configuration.md`
+- `docs/how-to/apply-pipeline-configuration.md`
+- `docs/concepts/pipeline-configuration-combinations.md`
+- `docs/reference/pipeline-configuration-reference.md`
+
+Additional docs are added when relevant:
+
+- `docs/how-to/run-api-first-production-flow.md` for `api-first` or `hybrid`
+- `docs/how-to/configure-ask-ai-module.md` and `docs/how-to/install-ask-ai-runtime-pack.md` when Ask AI is enabled
+- `docs/concepts/intelligent-knowledge-system.md` when retrieval features are enabled
+- `docs/reference/network-transparency.md` when local-first or egress-sensitive execution is in use
+
+#### Pipeline configuration reference (Part 4): Validation rules
+
+- `pilot` should not ship with the full retrieval triplet enabled unless the rollout is intentionally re-scoped.
+- `strict-local` must keep `external_llm_allowed: false`.
+- `cloud` should not use `llm_mode: local_default` unless the team intentionally wants local-first behavior.
+- `full+RAG` should keep all three retrieval flags enabled together to avoid partial retrieval governance.
+
 ### SEO/GEO Optimization Guide (Part 5)
 
 Comprehensive guide to SEO and GEO optimization in the documentation pipeline

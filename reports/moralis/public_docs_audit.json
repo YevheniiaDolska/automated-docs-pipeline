@@ -1,0 +1,489 @@
+{
+  "generated_at": "2026-06-24T08:47:24.297538+00:00",
+  "site_url": "https://docs.moralis.io/",
+  "site_urls": [
+    "https://docs.moralis.io/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.moralis.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 978,
+          "requested_pages": 991,
+          "urls_examined": 979,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 979,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 979,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 46,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 991,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 12,
+          "excluded_link_samples": [
+            "https://docs.moralis.io/data-api/data-features/search-and-discovery/token-filtering",
+            "https://docs.moralis.io/data-api/data-features/search-and-discovery/token-search",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/filtered-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-bonding-status",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-bonding-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-graduated-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-new-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/token-search",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/top-gainers",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/top-losers",
+            "https://docs.moralis.io/data-api/universal/token/search",
+            "https://docs.moralis.io/data-api/universal/token/search/token-search"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.moralis.io/data-api/data-features/search-and-discovery/token-filtering",
+            "https://docs.moralis.io/data-api/data-features/search-and-discovery/token-search",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/filtered-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-bonding-status",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-bonding-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-graduated-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/pump-fun-new-tokens",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/token-search",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/top-gainers",
+            "https://docs.moralis.io/data-api/solana/token/search-and-discovery/top-losers",
+            "https://docs.moralis.io/data-api/universal/token/search",
+            "https://docs.moralis.io/data-api/universal/token/search/token-search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 978,
+          "missing_title_count": 0,
+          "missing_description_count": 53,
+          "multiple_h1_count": 9,
+          "heading_hierarchy_jump_count": 809,
+          "seo_geo_issue_rate_pct": 22.26
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1846,
+          "api_pages_detected": 884,
+          "endpoints_with_usage_docs": 518,
+          "reference_endpoints_without_usage_docs": 1328,
+          "reference_coverage_pct": 28.06,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/../../styles/user.module.css",
+            "ep:/../environments/environment",
+            "ep:/.openclaw/openclaw.json",
+            "ep:/0'/0'/0/0",
+            "ep:/127.0.0.1:1000/web3_auth/moralis_auth",
+            "ep:/ac",
+            "ep:/acc",
+            "ep:/account/{network",
+            "ep:/account/{network}/{address",
+            "ep:/account/{network}/{address}/bala",
+            "ep:/account/{network}/{address}/balanc",
+            "ep:/account/{network}/{address}/swap",
+            "ep:/account/{network}/{address}/tok",
+            "ep:/addresses",
+            "ep:/admin.moralis.io",
+            "ep:/api.example.com/chat",
+            "ep:/api.g.alchemy.com/data/v1/{apikey}/assets/tokens/by-address",
+            "ep:/api.g.alchemy.com/prices/v1/{apikey}/tokens/by-address",
+            "ep:/api.moralis-streams.com",
+            "ep:/api.moralis-streams.com/history"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 2532,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (2532 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 47,
+          "pages_without_last_updated_hint": 931,
+          "last_updated_coverage_pct": 4.81,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.moralis.io/changelog",
+              "hint": "June 15, 2026"
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/bitcoin/price/current-price",
+              "hint": "Information about when the price was last updated"
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/cortex-api/chat",
+              "hint": "Deprecated \u2014 scheduled for removal on June 4, 2026."
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/cortex-api/overview",
+              "hint": "Deprecated \u2014 scheduled for removal on June 4, 2026."
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/data-features/integrations/supported-dexs",
+              "hint": "June 1, 2026"
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/evm/nft/collections/nfts-by-collection",
+              "hint": "self.__next_f.push([1,\"4d:[\\\"$\\\",\\\"$L4f\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L50\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/evm/nft/discovery/nfts-by-market-cap",
+              "hint": "Deprecated \u2014 scheduled for removal on June 4, 2026."
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/evm/nft/discovery/nfts-by-volume",
+              "hint": "Deprecated \u2014 scheduled for removal on June 4, 2026."
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/evm/nft/metadata/nft-metadata",
+              "hint": "When the token_uri was last updated"
+            },
+            {
+              "url": "https://docs.moralis.io/data-api/evm/nft/metadata/nft-metadata-batch",
+              "hint": "When the token_uri was last updated"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 17.28,
+          "answerability_pct": 99.9,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 79.21,
+          "overall_score_0_100": 54.37,
+          "overall_band": "weak"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1048,
+          "claims_with_evidence": 956,
+          "coverage_pct": 91.22
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 29,
+              "checks": {
+                "auth_model": 29,
+                "error_semantics": 29,
+                "retry_idempotency": 1,
+                "schema_evolution": 14
+              }
+            },
+            "graphql": {
+              "pages": 4,
+              "checks": {
+                "auth_model": 4,
+                "error_semantics": 4,
+                "retry_idempotency": 0,
+                "schema_evolution": 3
+              }
+            },
+            "grpc": {
+              "pages": 977,
+              "checks": {
+                "auth_model": 977,
+                "error_semantics": 977,
+                "retry_idempotency": 73,
+                "schema_evolution": 78
+              }
+            },
+            "asyncapi": {
+              "pages": 55,
+              "checks": {
+                "auth_model": 55,
+                "error_semantics": 55,
+                "retry_idempotency": 7,
+                "schema_evolution": 11
+              }
+            },
+            "websocket": {
+              "pages": 0,
+              "checks": {
+                "auth_model": 0,
+                "error_semantics": 0,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            }
+          },
+          "coverage_pct": 93.75
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/../../styles/user.module.css",
+          "ep:/../environments/environment",
+          "ep:/.openclaw/openclaw.json",
+          "ep:/0'/0'/0/0",
+          "ep:/127.0.0.1:1000/web3_auth/moralis_auth",
+          "ep:/ac",
+          "ep:/acc",
+          "ep:/account/{network",
+          "ep:/account/{network}/{address",
+          "ep:/account/{network}/{address}/bala",
+          "ep:/account/{network}/{address}/balanc",
+          "ep:/account/{network}/{address}/swap",
+          "ep:/account/{network}/{address}/tok",
+          "ep:/addresses",
+          "ep:/admin.moralis.io",
+          "ep:/api.example.com/chat",
+          "ep:/api.g.alchemy.com/data/v1/{apikey}/assets/tokens/by-address",
+          "ep:/api.g.alchemy.com/prices/v1/{apikey}/tokens/by-address",
+          "ep:/api.moralis-streams.com",
+          "ep:/api.moralis-streams.com/history"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 978,
+        "requested_pages": 991,
+        "urls_examined": 979,
+        "max_pages_total": 10000,
+        "discovered_pages": 979,
+        "crawl_scope_pages": 979,
+        "trap_urls_skipped": 46,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 12
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 22.26
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 28.06,
+        "no_api_pages_found": false,
+        "api_pages_detected": 884,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 4.81
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 17.28,
+        "answerability_pct": 99.9,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 79.21,
+        "overall_score_0_100": 54.37,
+        "overall_band": "weak"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1048,
+        "claims_with_evidence": 956,
+        "coverage_pct": 91.22
+      },
+      "actionability": {
+        "coverage_pct": 93.75
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 54.37,
+    "retrieval_readiness_band": "weak",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 978,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 22.26
+        },
+        "severity": "high",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 4.81
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 28.06,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "SEO/GEO issue rate is high: 22.26%",
+    "API usage-doc coverage is low: 28.06% (884 API pages detected)",
+    "Example reliability: 0% on 978 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 4.81% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Moralis documentation spans 978 pages with 100% crawl coverage and zero broken links. API reference coverage is weak at 28.06% despite 884 API pages detected, leaving 71.94% of API surface undocumented or poorly linked to usage examples. Example code reliability shows 0% detection across all pages, flagged as a likely JS-rendering detection limitation requiring manual validation. Freshness metadata appears on only 4.81% of pages (47 pages), creating significant staleness risk (79.21%) that undermines user trust and AI retrieval quality. SEO/geo issues affect 22.26% of pages (218 pages), reducing discoverability.",
+      "strengths": [
+        "Zero broken internal, docs, or repository links across 978 pages with 95% link verification confidence",
+        "100% crawl coverage with 979 discovered pages and effective trap URL filtering (46 skipped)",
+        "Strong citationability at 100% and answerability at 99.9% for AI retrieval use cases",
+        "Evidence coverage is robust at 91.22% (956 of 1048 claims backed)",
+        "Actionability coverage reaches 93.75%, indicating clear next-step guidance in most content"
+      ],
+      "risks": [
+        "71.94% of 884 detected API pages lack adequate usage documentation or reference coverage, blocking developer onboarding",
+        "0% example reliability detection across 978 pages suggests JS-rendered code blocks invisible to crawlers, preventing validation of runnable samples",
+        "79.21% stale risk due to only 4.81% freshness metadata coverage (47 pages), eroding trust and AI answer accuracy",
+        "22.26% SEO/geo issue rate (218 pages) limits organic search visibility and regional discoverability",
+        "Chunkability at 17.28% indicates poor content structure for vector embeddings and LLM context windows",
+        "Overall retrieval readiness score of 54.37 (weak band) constrains AI-assisted support and chatbot quality",
+        "Multi-project topology with 884 API pages but 28.06% coverage suggests fragmented or missing cross-linking between guides and reference"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Add last-updated timestamps to all 978 pages via automated frontmatter injection or CMS workflow",
+          "impact": "critical",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Fixes 79.21% stale risk and 4.81% freshness coverage in one pass, immediately boosting user trust and AI retrieval confidence across entire site."
+        },
+        {
+          "action": "Audit and document the 636 API pages (71.94% of 884) missing usage examples or reference links, prioritizing top 50 by traffic",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Directly unblocks developer onboarding and reduces support volume by connecting API surface to practical usage patterns for most-visited endpoints."
+        },
+        {
+          "action": "Manually validate 20-page sample for runnable code examples to confirm JS-rendering hypothesis and establish baseline for 0% detection issue",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Low-effort diagnostic clarifies whether 0% example reliability is real quality gap or tooling blind spot, informing next remediation investment."
+        },
+        {
+          "action": "Restructure content on low-chunkability pages (17.28% pass rate) by adding subheadings, breaking long paragraphs, and splitting monolithic guides",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Improves vector search and LLM context quality for 810+ pages, directly lifting retrieval readiness from 54.37 weak band toward usable AI support."
+        },
+        {
+          "action": "Resolve SEO/geo issues on 218 pages (22.26%) by fixing missing meta descriptions, duplicate titles, and regional canonicalization",
+          "impact": "medium",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "high",
+          "why_this_first": "Expands organic search reach and regional discoverability with moderate effort, driving top-of-funnel growth and reducing reliance on paid channels."
+        }
+      ],
+      "automation_first": [
+        "Deploy CI/CD hook to inject last-updated Git commit dates into frontmatter for all 978 pages, eliminating 95.19% freshness gap and cutting stale risk from 79.21% to near zero with zero ongoing manual effort.",
+        "Implement nightly link checker with Slack alerts to maintain zero broken links as site scales beyond 978 pages, preserving 95% link confidence and preventing future user frustration or SEO penalties.",
+        "Build automated chunkability linter (heading density, paragraph length, list usage) to flag pages below 17.28% threshold during PR review, preventing new low-quality content and guiding writers toward LLM-friendly structure before merge."
+      ],
+      "limitations": [
+        "External audit cannot verify actual code example correctness, runtime behavior, or dependency versioning; 0% detection likely reflects JS-rendered samples invisible to crawler, not true absence.",
+        "API coverage metric (28.06%) measures doc-to-API linking and reference completeness but cannot assess whether documented endpoints match current production API contract or SDK versions.",
+        "Staleness risk (79.21%) is inferred from missing last-updated metadata; pages without timestamps may still be current, and pages with timestamps may contain outdated technical details.",
+        "SEO/geo issue detection covers technical on-page factors but cannot measure actual search rankings, click-through rates, or regional content relevance without analytics integration.",
+        "Retrieval readiness score (54.37) models LLM and vector search performance but does not test real user queries, chatbot accuracy, or support deflection rates in production."
+      ]
+    }
+  }
+}

@@ -78,6 +78,17 @@ def _set_unlicensed_enterprise_env(bundle_root: Path) -> None:
     out_lines.append("# Replace VERIOPS_LICENSE_PLAN with signed JWT when switching to production licensing.")
     env_template.write_text("\n".join(out_lines).rstrip() + "\n", encoding="utf-8")
 
+    # Dev-mode marker: the license gate only honors the VERIOPS_LICENSE_PLAN
+    # env bypass when this marker exists (or in the vendor repo). Licensed
+    # client bundles do not ship it, so clients cannot self-upgrade via env.
+    dev_mode_marker = bundle_root / "docsops" / ".dev_mode"
+    dev_mode_marker.parent.mkdir(parents=True, exist_ok=True)
+    dev_mode_marker.write_text(
+        "This bundle was intentionally built as a free/dev bundle.\n"
+        "The VERIOPS_LICENSE_PLAN env override is honored because this file exists.\n",
+        encoding="utf-8",
+    )
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build full unlicensed enterprise bundle without JWT license")

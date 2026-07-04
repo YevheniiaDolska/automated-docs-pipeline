@@ -1,0 +1,424 @@
+{
+  "generated_at": "2026-06-30T12:59:39.974742+00:00",
+  "site_url": "https://docs.n8n.io/",
+  "site_urls": [
+    "https://docs.n8n.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.n8n.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1300,
+          "requested_pages": 2615,
+          "urls_examined": 1301,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1301,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1301,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 4,
+          "seeded_sitemap_urls": 1301,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 2615,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://docs.n8n.io/integrations/builtin/credentials/todoist"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://docs.n8n.io/api/api-reference"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.n8n.io/integrations/builtin/credentials/todoist"
+          ],
+          "_all_excluded_links": [
+            "https://docs.n8n.io/api/api-reference"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.n8n.io/integrations/builtin/credentials/todoist"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 1300,
+          "missing_title_count": 0,
+          "missing_description_count": 157,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 1187,
+          "seo_geo_issue_rate_pct": 25.85
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 9,
+          "api_pages_detected": 117,
+          "endpoints_with_usage_docs": 7,
+          "reference_endpoints_without_usage_docs": 2,
+          "reference_coverage_pct": 77.78,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:payload",
+            "gql:you"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1217,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1217 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 1300,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.n8n.io/",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-credentials",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-credentials/credential-overwrites",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-credentials/share-credentials-securely",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-credentials/use-external-secret-stores",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-users-and-access",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-users-and-access/add-and-remove-users",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-users-and-access/follow-best-practices",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac",
+              "hint": "Last updated"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 8.69,
+          "answerability_pct": 0.0,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 0.0,
+          "overall_score_0_100": 37.61,
+          "overall_band": "weak"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1772,
+          "claims_with_evidence": 731,
+          "coverage_pct": 41.25
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 46,
+              "checks": {
+                "auth_model": 12,
+                "error_semantics": 10,
+                "retry_idempotency": 1,
+                "schema_evolution": 7
+              }
+            },
+            "graphql": {
+              "pages": 6,
+              "checks": {
+                "auth_model": 2,
+                "error_semantics": 2,
+                "retry_idempotency": 0,
+                "schema_evolution": 1
+              }
+            },
+            "grpc": {
+              "pages": 1,
+              "checks": {
+                "auth_model": 1,
+                "error_semantics": 0,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            },
+            "asyncapi": {
+              "pages": 4,
+              "checks": {
+                "auth_model": 0,
+                "error_semantics": 0,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            },
+            "websocket": {
+              "pages": 0,
+              "checks": {
+                "auth_model": 0,
+                "error_semantics": 0,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            }
+          },
+          "coverage_pct": 50.0
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.n8n.io/integrations/builtin/credentials/todoist"
+        ],
+        "api_uncovered_samples": [
+          "gql:payload",
+          "gql:you"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1300,
+        "requested_pages": 2615,
+        "urls_examined": 1301,
+        "max_pages_total": 5000,
+        "discovered_pages": 1301,
+        "crawl_scope_pages": 1301,
+        "trap_urls_skipped": 4,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 1,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 25.85
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 77.78,
+        "no_api_pages_found": false,
+        "api_pages_detected": 117,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 100.0
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 8.69,
+        "answerability_pct": 0.0,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 0.0,
+        "overall_score_0_100": 37.61,
+        "overall_band": "weak"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1772,
+        "claims_with_evidence": 731,
+        "coverage_pct": 41.25
+      },
+      "actionability": {
+        "coverage_pct": 50.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 37.61,
+    "retrieval_readiness_band": "weak",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 1300,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 25.85
+        },
+        "severity": "high",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 77.78,
+          "no_api_pages_found": false
+        },
+        "severity": "medium",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 25.85%",
+    "Example reliability: 0% on 1300 pages (likely detection limitation). Site may use JS-rendered code blocks."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "n8n documentation spans 1,300 pages with 100% crawl coverage and zero confirmed broken links. Critical weaknesses exist in AI retrieval readiness (overall score 37.61/100, 'weak' band) driven by 8.69% chunkability and 0% answerability. Only 41.25% of 1,772 detected claims include supporting evidence, and 50% of pages lack actionable guidance. SEO/geo issues affect 25.85% of pages, while API reference coverage reaches 77.78% across 117 detected pages. Example code reliability shows 0% (likely a detection limitation due to JS rendering), and overall audit confidence stands at 63.5%.",
+      "strengths": [
+        "Complete crawl coverage (1,300 of 1,301 pages, 100%) with no broken internal or repository navigation links",
+        "Strong API reference coverage at 77.78% across 117 detected API pages",
+        "100% last-updated metadata coverage and 100% citationability for attribution",
+        "Zero confirmed broken links; only 1 unverified URL due to auth/rate-limit blocks",
+        "Large content corpus (1,300 pages) indicates comprehensive product documentation"
+      ],
+      "risks": [
+        "AI retrieval readiness overall score of 37.61/100 ('weak') severely limits LLM answer quality and RAG performance",
+        "Chunkability at 8.69% means 91% of pages will fragment poorly for vector search and context windows",
+        "Answerability at 0% indicates pages lack self-contained Q&A structure, forcing users to navigate multiple pages",
+        "Only 41.25% of 1,772 claims (731 total) include evidence, undermining trust and onboarding for new users",
+        "50% of pages lack actionable guidance, increasing support burden and time-to-value",
+        "SEO/geo issue rate of 25.85% (336 pages) may harm discoverability and organic search ranking",
+        "Example reliability at 0% flagged as likely detection limitation (JS rendering), but if real would block hands-on learning"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Refactor the 91% of pages with poor chunkability (1,183 pages) to use semantic headings, shorter sections, and explicit topic boundaries for vector search and LLM context windows",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Directly unlocks AI-assisted support, in-product help, and RAG quality for 1,183 pages, reducing ticket volume and accelerating user self-service in 30 days."
+        },
+        {
+          "action": "Add inline evidence (screenshots, logs, output examples, error messages) to the 1,041 claims currently lacking support (58.75% of 1,772 claims) across high-traffic onboarding and troubleshooting pages",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Builds trust and reduces 'does this actually work?' friction for new users, directly shortening time-to-first-workflow and improving trial conversion."
+        },
+        {
+          "action": "Convert the 50% of pages lacking actionable guidance (650 pages) into step-by-step procedures with clear next actions, especially for integration setup and workflow creation",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Reduces support tickets and onboarding drop-off by giving users clear 'what to do next' paths, improving activation metrics within the trial window."
+        },
+        {
+          "action": "Restructure pages with 0% answerability to include FAQ-style sections, explicit problem statements, and self-contained answers for common user questions",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Enables single-page answers for support and AI tools, cutting navigation friction and improving Google featured snippet eligibility for high-intent queries."
+        },
+        {
+          "action": "Audit and fix SEO/geo issues on the 336 pages (25.85%) with problems, prioritizing high-traffic integration and getting-started pages for meta descriptions, titles, and structured data",
+          "impact": "medium",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Low-effort fix to improve organic discoverability for high-intent searches, driving qualified inbound traffic and reducing paid acquisition cost per trial."
+        }
+      ],
+      "automation_first": [
+        "Deploy a pre-commit linter to enforce semantic heading hierarchy and section length limits (target <300 words per section) on all markdown files, addressing the 8.69% chunkability crisis across 1,183 pages and preventing future regressions that degrade RAG and AI answer quality.",
+        "Implement a CI check that flags any claim-heavy page (>5 assertions) missing evidence patterns (code blocks, image references, log snippets) to systematically close the 58.75% evidence gap (1,041 unsupported claims) and ensure new content includes trust-building proof.",
+        "Add automated SEO validation (missing meta descriptions, title length, heading structure) to the build pipeline to catch and fix the 25.85% SEO/geo issue rate (336 pages) at authoring time, improving search ranking and reducing manual audits."
+      ],
+      "limitations": [
+        "External audit cannot verify actual user comprehension, task completion rates, or support ticket correlation with specific documentation gaps",
+        "Example reliability at 0% is flagged as a likely detection limitation due to JavaScript-rendered code blocks; manual sampling required to confirm real code quality",
+        "Chunkability and answerability scoring reflects structural heuristics, not real-world LLM retrieval performance with n8n's specific user queries and context",
+        "Audit confidence of 63.5% (links 25%, API 85%, crawl 95%) means link and example findings may undercount issues due to auth/rate-limit blocks and JS rendering",
+        "Cannot assess accuracy of technical claims, code correctness, or alignment with current n8n product versions without domain expertise and version testing"
+      ]
+    }
+  }
+}

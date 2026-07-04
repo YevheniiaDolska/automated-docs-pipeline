@@ -35,6 +35,8 @@ Flow mode: `api-first`
 
 This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.
 
+<!-- vale off -->
+
 <div id="grpc-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Gateway Endpoint:</strong> <code id="grpc-endpoint-view"></code></p>
   <label>Service</label><br/><input id="grpc-service" style="width:100%" placeholder="GreeterService"/><br/>
@@ -82,6 +84,8 @@ run.onclick = async function(){
 };
 })();
 </script>
+
+<!-- vale on -->
 
 ## Next steps
 

@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-30T14:09:24.356917+00:00",
+  "site_url": "https://developer.gitbook.com/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 13.73,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Audit covered 963 pages across 2 documentation sites (developer.gitbook.com, gitbook.com/docs) for a single product. 36 confirmed broken internal links exist, all within user-facing docs. 156 additional links could not be verified due to authentication or rate-limiting. API reference coverage is 66.67% across 189 detected API pages. Retrieval readiness scores 34.99/100 (weak band), driven by 5.19% chunkability and 4.26% answerability, indicating poor AI/search performance. Example code detection returned 0% reliability, flagged as a likely detection limitation due to JavaScript rendering. SEO/geo issues affect 29.39% of pages, and only 52.79% of 646 key claims include supporting evidence.",
+    "pages_crawled": 1,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 17,
+    "unverified_links_count": 3,
+    "estimated_monthly_cost_usd": 29110.76
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "13.73 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "17",
+      "accent": "amber",
+      "detail": "3 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "-1.0%",
+      "accent": "blue",
+      "detail": "1 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "100.0%",
+      "accent": "slate",
+      "detail": "0 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "0.0%",
+      "accent": "violet",
+      "detail": "1 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "0.0%",
+      "accent": "rose",
+      "detail": "Recall 0.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 101.0 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 100.0 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Fix all 36 confirmed broken internal links in user-facing docs",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Immediate trust and SEO win; broken links directly block user journeys and signal neglect to search engines and prospects."
+    },
+    {
+      "title": "Restructure content to improve chunkability from 5.19% to >70% by adding semantic headings, shorter sections, and explicit topic boundaries",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Unlocks AI assistant and RAG ingestion for 963 pages, directly improving discoverability and reducing support load as users find answers autonomously."
+    },
+    {
+      "title": "Consolidate documentation from 2 domains into a single canonical site to eliminate discoverability and consistency risks",
+      "impact": "high",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Reduces user confusion, consolidates SEO authority, and simplifies maintenance, directly improving trial-to-paid conversion and support efficiency."
+    }
+  ],
+  "strengths": [
+    "Full crawl coverage achieved: 100% of 1,523 in-scope pages crawled",
+    "All pages are citationable (100% citationability), enabling attribution in AI answers",
+    "76.32% of pages include last-updated metadata, supporting freshness signals"
+  ],
+  "risks": [
+    "36 broken internal links in user-facing docs damage trust, SEO authority, and user journey completion",
+    "156 unverified links create uncertainty; actual broken link count may be higher if auth/rate-limit issues mask real failures",
+    "Retrieval readiness overall score of 34.99/100 (weak) severely limits discoverability in AI assistants, chatbots, and semantic search",
+    "Chunkability at 5.19% and answerability at 4.26% indicate content structure is incompatible with modern RAG and LLM ingestion pipelines"
+  ],
+  "limitations": [
+    "External audit cannot verify content accuracy, correctness of code examples, or alignment with actual product behavior",
+    "Example reliability at 0% is likely a detection limitation due to JavaScript-rendered code blocks; manual sampling required to confirm true example coverage",
+    "156 unverified links may include false negatives if authentication, rate-limiting, or server-side blocking prevented verification"
+  ],
+  "automation_first": [
+    "Deploy CI/CD link checker to catch broken internal links before publish; 36 confirmed broken links exist today, and preventing future breakage saves trust and SEO equity with zero ongoing manual effort.",
+    "Implement automated content structure linter to enforce semantic heading hierarchy and section length limits, targeting the 5.19% chunkability score; this will ensure all new and updated pages are RAG-ready and discoverable in AI tools without manual review.",
+    "Set up weekly automated crawl with authenticated session to verify the 156 currently unverified links, flagging new failures in Slack; this converts a one-time manual audit into continuous monitoring, preventing silent link rot on high-value integration and API pages."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 11143.5,
+    "remediation_cost_usd_base_total": 4702.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

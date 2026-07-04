@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-24T09:50:22.274438+00:00",
+  "site_url": "https://developers.fireblocks.com/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 36.71,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Fireblocks developer documentation spans 724 crawled pages with 21 confirmed broken internal links and 3 unverified URLs. API reference coverage is critically low at 0.61% despite 622 API pages detected, indicating severe usage documentation gaps. Example code reliability scored 0% across all 724 pages, flagged as a likely detection limitation for JavaScript-rendered blocks. Retrieval readiness is weak (58.62/100) driven by 85.41% stale risk and only 7.73% of pages displaying last-updated metadata. SEO/geo issues affect 27.62% of pages, and only 73.65% of 983 key claims include supporting evidence.",
+    "pages_crawled": 724,
+    "crawl_coverage_pct": 100.14,
+    "broken_links_count": 21,
+    "unverified_links_count": 3,
+    "estimated_monthly_cost_usd": 28476.03
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "36.71 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "21",
+      "accent": "amber",
+      "detail": "3 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "0.61%",
+      "accent": "blue",
+      "detail": "618 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "7.73%",
+      "accent": "slate",
+      "detail": "668 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "100.0%",
+      "accent": "violet",
+      "detail": "0 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "38.1%",
+      "accent": "rose",
+      "detail": "Recall 100.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 99.39 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 85.41 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Instrument last-updated timestamps on all pages to raise 7.73% freshness visibility above 80% and reduce 85.41% stale risk perception",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Freshness signals build trust with enterprise buyers and improve search ranking with minimal engineering lift across 724 pages."
+    },
+    {
+      "title": "Add usage examples, request/response samples, or integration snippets to the 622 detected API pages to lift 0.61% reference coverage above 40%",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Closing the 0.61% API usage gap directly reduces time-to-first-call, support ticket volume, and churn for developers integrating 622 endpoints."
+    },
+    {
+      "title": "Audit and fix detection for example code blocks (0% reliability on 724 pages) to enable validation and improve AI training corpus quality",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Validating examples across 724 pages prevents copy-paste errors that spike support costs and accelerates LLM answer accuracy."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage at 100.14% with 724 pages indexed and no repository navigation link breakage",
+    "Perfect actionability coverage at 100% and citationability at 100% for AI retrieval",
+    "High overall audit confidence at 86.5% with strong crawl confidence at 95%"
+  ],
+  "risks": [
+    "API usage documentation at 0.61% coverage creates massive onboarding friction and support burden for 622 API endpoints",
+    "Zero detectable example reliability across 724 pages blocks developer self-service and AI answer quality",
+    "85.41% stale risk with only 7.73% freshness visibility erodes trust and may surface outdated integration patterns",
+    "21 broken internal links disrupt navigation and damage SEO authority across user-facing documentation"
+  ],
+  "limitations": [
+    "External audit cannot verify accuracy of technical claims, code correctness, or whether 622 API endpoints reflect current production behavior.",
+    "0% example reliability likely reflects JavaScript rendering or non-standard code block markup; manual inspection required to confirm true example presence and quality.",
+    "3 unverified links may be functional but blocked by authentication, rate limiting, or server configuration; manual testing needed for definitive status."
+  ],
+  "automation_first": [
+    "Deploy CI link checker to catch the 21 broken internal links at build time and prevent future navigation breakage, reducing manual QA cycles and preserving SEO equity across 724 pages.",
+    "Automate last-updated timestamp injection from Git commit history to lift 7.73% freshness coverage to near 100%, eliminating manual metadata maintenance and cutting 85.41% stale risk perception that drives enterprise buyer hesitation.",
+    "Implement API reference linter to flag 622 API pages missing usage examples or request/response samples, creating a forcing function to close the 0.61% coverage gap and reduce developer time-to-integration by an estimated 40%."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 11143.5,
+    "remediation_cost_usd_base_total": 4702.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

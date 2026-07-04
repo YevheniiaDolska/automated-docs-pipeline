@@ -1,0 +1,28 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 450.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 180.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 850.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 62.0,
+  "provenance": [
+    "Moralis is a Web3/blockchain API platform serving developer audience with technical documentation",
+    "978 pages crawled indicates mature, complex product requiring significant maintenance",
+    "28% API reference coverage suggests incomplete documentation requiring ongoing engineering sync effort",
+    "79% stale risk and 5% freshness coverage indicates high manual maintenance burden",
+    "Weak overall retrieval score (54) implies elevated support deflection failure and ticket volume",
+    "Web3 developer tools typically have high-touch enterprise contracts in $500-1500 MRR range",
+    "22% SEO/geo issues and low freshness suggest 6-8 hours weekly manual sync realistic for this scale",
+    "Developer-focused products typically see 25-35% of support tickets documentation-related",
+    "Conservative eval influence assumes 10-15% of trial conversions affected by docs quality",
+    "Friction sensitivity of 0.35 reflects that poor docs moderately impact developer tool adoption",
+    "Confidence tempered by lack of internal operational data and Web3 market volatility"
+  ]
+}

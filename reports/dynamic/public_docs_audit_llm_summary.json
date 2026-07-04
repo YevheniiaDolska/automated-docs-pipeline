@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Dynamic.xyz documentation spans 2,286 crawled pages with 100% crawl coverage. Critical issues include 61 confirmed broken internal links across user-facing docs, 20.13% SEO/GEO issue rate, and only 3.37% of pages displaying last-updated metadata. API reference coverage is 66.67% across 1,534 detected API pages. Example reliability detection returned 0%, indicating a likely JS-rendering detection gap rather than true absence of code examples. Retrieval readiness scores 73.86 (moderate band), with 68.64% stale-risk flagged pages and only 11.71% of 333 key claims backed by evidence.",
+    "strengths": [
+      "Complete crawl coverage at 100% (2,286 of 2,369 requested pages indexed)",
+      "High citationability at 99.87% and answerability at 98.64%, supporting AI retrieval use cases",
+      "1,534 API pages detected with 66.67% reference coverage, indicating substantial API surface documentation",
+      "90% actionability coverage shows strong task-oriented content",
+      "Zero repository navigation broken links (repo_broken_links_count: 0), isolating issues to user-facing docs only"
+    ],
+    "risks": [
+      "61 confirmed broken internal links in user-facing docs degrade trust, SEO authority, and user navigation success",
+      "20.13% SEO/GEO issue rate threatens organic discoverability and search ranking across ~460 pages",
+      "68.64% stale-risk pages (1,569 pages) may contain outdated information, eroding user confidence and AI answer quality",
+      "Only 3.37% last-updated coverage (77 pages) prevents users and LLMs from assessing content freshness",
+      "0% example reliability likely reflects JS-rendered code block detection failure, masking true code example health and blocking automated testing",
+      "21 unverified links due to auth/rate-limit/server blocks create uncertainty in link health reporting",
+      "11.71% evidence coverage (39 of 333 claims) leaves 294 key claims unsupported, weakening trust and answer grounding for RAG systems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 61 confirmed broken internal links in user-facing docs",
+        "impact": "critical",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Immediate trust and SEO recovery across 61 link instances with minimal engineering effort, directly reducing support escalations and bounce rate."
+      },
+      {
+        "action": "Remediate SEO/GEO issues on the 20.13% flagged pages (~460 pages) focusing on missing meta descriptions, title tags, and heading structure",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Unlocks organic search traffic growth and improves discoverability for ~460 pages, directly impacting top-of-funnel acquisition within 30 days."
+      },
+      {
+        "action": "Add last-updated timestamps to all 2,286 pages (currently 3.37% coverage) via automated frontmatter injection from Git history",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Reduces stale-risk perception from 68.64% and enables users and LLMs to filter fresh content, improving answer quality and user confidence with one-time automation."
+      },
+      {
+        "action": "Close the 33.33% API reference coverage gap by documenting missing endpoints/methods across the 1,534 detected API pages",
+        "impact": "high",
+        "effort": "high",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Completes API surface documentation for developer onboarding and reduces API support tickets, though higher effort limits immediate ROI."
+      },
+      {
+        "action": "Instrument server-side rendered or static code example extraction to replace 0% example reliability detection and enable automated testing",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Unblocks future code example health monitoring and testing automation, preventing silent code rot across likely hundreds of examples."
+      }
+    ],
+    "automation_first": [
+      "Deploy CI link checker to catch broken internal links before publish: 61 confirmed broken links currently degrade trust and SEO; automated pre-publish validation prevents recurrence and eliminates manual audits, saving ~4 hours/week and protecting user experience.",
+      "Automate last-updated timestamp injection from Git commit history for all 2,286 pages: only 3.37% currently show freshness metadata, leaving 2,209 pages opaque; Git-based automation delivers 100% coverage in one sprint and directly reduces the 68.64% stale-risk perception, improving RAG answer filtering and user confidence.",
+      "Implement automated SEO/GEO linting in CI for meta descriptions, title tags, and heading hierarchy: 20.13% issue rate (~460 pages) blocks organic discovery; pre-publish linting prevents new violations and provides fix suggestions, reducing manual SEO audits by ~6 hours/month and protecting search ranking."
+    ],
+    "limitations": [
+      "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with current product behavior.",
+      "21 unverified links due to authentication, rate limiting, or server blocks may include false negatives; manual review required for final link health assessment.",
+      "0% example reliability likely reflects JS-rendered code block detection limitation rather than true absence; client-side rendering prevents automated code extraction and testing without instrumentation changes.",
+      "Stale-risk percentage (68.64%) is inferred from missing last-updated metadata and does not confirm actual content obsolescence; manual subject-matter review needed for true freshness validation.",
+      "Evidence coverage (11.71%) measures presence of citations/references but does not assess quality, relevance, or correctness of linked evidence."
+    ]
+  }
+}

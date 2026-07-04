@@ -1,0 +1,71 @@
+id: auto-pipeline-configuration-reference-1
+title: Pipeline configuration reference
+summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud,
+  strict-local, and hybrid pipeline configurations.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-configuration-reference
+- reference
+metadata:
+  url: https://docs.example.com/reference/pipeline-configuration-reference/
+  title: Pipeline configuration reference
+  heading: Scope tier reference
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: reference/pipeline-configuration-reference.md
+semantic:
+  topic: Scope tier reference
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline configuration reference
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "# Pipeline configuration reference\n\nThis page defines the exact\
+    \ fields that distinguish `pilot`, `full`, and `full+RAG`, plus the `cloud`, `strict-local`,\
+    \ and `hybrid` execution modes.\n\n```yaml\nruntime:\n  llm_control:\n    llm_mode:\
+    \ \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this page when you need exact values, not rollout guidance.\n\
+    \n## Scope tier reference\n\n| Scope tier | Preset or base profile | `licensing.plan`\
+    \ | Retrieval triplet |\n| --- | --- | --- | --- |\n| `pilot` | `profiles/clients/presets/pilot-evidence.yml`\
+    \ | `pilot` | all `false` |\n| `full` | `profiles/clients/presets/small.yml` or\
+    \ custom | `professional` or `enterprise` | optional |\n| `full+RAG` | `profiles/clients/presets/startup.yml`\
+    \ or `enterprise.yml` | `professional` or `enterprise` | all `true` |\n\n### Retrieval\
+    \ triplet\n\nThe retrieval triplet is:\n\n- `runtime.modules.rag_optimization`\n\
+    - `runtime.modules.ontology_graph`\n- `runtime.modules.retrieval_evals`\n\nInterpretation\
+    \ rules:\n\n- all `false` -> not RAG-enabled\n- all `true` -> `full+RAG`\n- mixed\
+    \ values -> transitional or custom rollout; document it explicitly"
+  assistant_context: "Use this module when answering questions related to: Pipeline\
+    \ configuration reference. Source path: reference/pipeline-configuration-reference.md.\
+    \ Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG,\
+    \ cloud, strict-local, and hybrid pipeline configurations.\n\n# Pipeline configuration\
+    \ reference\n\nThis page defines the exact fields that distinguish `pilot`, `full`,\
+    \ and `full+RAG`, plus the `cloud`, `strict-local`, and `hybrid` execution modes.\n\
+    \n```yaml\nruntime:\n  llm_control:\n    llm_mode: \"external_preferred\"\n  \
+    \  external_llm_allowed: true\n    require_explicit_approval: false\n```\n\nUse\
+    \ this page when you need exact values, not rollout guidance.\n\n## Scope tier\
+    \ reference\n\n| Scope tier | Preset or base profile | `licensing.plan` | Retrieval\
+    \ triplet |\n| --- | --- | --- | --- |\n| `pilot` | `profiles/clients/presets/pilot-evidence.yml`\
+    \ | `pilot` | all `false` |\n| `full` | `profiles/clients/presets/small.yml` or\
+    \ custom | `professional` or `enterprise` | optional |\n| `full+RAG` | `profiles/clients/presets/startup.yml`\
+    \ or `enterprise.yml` | `professional` or `enterprise` | all `true` |\n\n### Retrieval\
+    \ triplet\n\nThe retrieval triplet is:\n\n- `runtime.modules.rag_optimization`\n\
+    - `runtime.modules.ontology_graph`\n- `runtime.modules.retrieval_evals`\n\nInterpretation\
+    \ rules:\n\n- all `false` -> not RAG-enabled\n- all `true` -> `full+RAG`\n- mixed\
+    \ values -> transitional or custom rollout; document it explicitly"

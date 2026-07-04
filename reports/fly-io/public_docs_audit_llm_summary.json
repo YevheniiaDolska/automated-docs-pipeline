@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Fly.io documentation spans 1,058 pages with 100% crawl coverage and strong retrieval readiness (82.11/100, 'strong' band). Critical issues include 94 confirmed broken internal links across user-facing docs, 60% API reference coverage (137 API pages detected), and 10.7% SEO/geo issue rate. Example reliability shows 0% detection across all pages, flagged as a likely JS-rendering detection limitation rather than true absence. Last-updated metadata covers only 55.86% of pages, creating staleness risk for 33.9% of content.",
+    "strengths": [
+      "Complete crawl coverage (1,058 of 1,059 discovered pages, 100%) with high crawl confidence (95%)",
+      "Strong retrieval readiness overall score (82.11/100) with 100% citationability and 89.51% answerability for AI/search use cases",
+      "Evidence coverage at 80.26% (1,907 of 2,376 key claims backed by evidence)",
+      "High chunkability (80.34%) supports effective content segmentation for RAG and search indexing",
+      "Actionability coverage at 100%, indicating clear next-steps guidance throughout docs"
+    ],
+    "risks": [
+      "94 confirmed broken internal links degrade user navigation, trust, and SEO authority across docs",
+      "API reference coverage at 60% leaves 40% of API surface undocumented or undetected, risking developer onboarding friction",
+      "SEO/geo issue rate of 10.7% (approximately 113 pages) may suppress organic discovery and regional search performance",
+      "Example reliability at 0% suggests detection failure; if examples are truly absent or non-functional, developer trust and time-to-first-success suffer",
+      "Last-updated metadata missing on 44.14% of pages (467 pages) obscures content freshness and increases perceived staleness risk (33.9%)",
+      "5 unverified links due to auth/rate-limit/server blocks may hide additional broken links or access issues",
+      "API confidence at 85% and example detection limitation reduce certainty in developer-experience metrics"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 94 confirmed broken internal links across user-facing docs",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Broken links directly block user workflows, erode trust, and harm SEO; fixing 94 links immediately improves navigation for 1,058 pages and signals active maintenance."
+      },
+      {
+        "action": "Audit and document the missing 40% of API surface (54 API endpoints or methods) to reach 100% reference coverage from current 60%",
+        "impact": "high",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Incomplete API docs are the top friction point for developer onboarding and integration success, directly impacting trial-to-paid conversion and support ticket volume."
+      },
+      {
+        "action": "Add or backfill last-updated timestamps for the 467 pages (44.14%) missing freshness metadata",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "medium",
+        "confidence": "high",
+        "why_this_first": "Low-effort metadata addition reduces perceived staleness risk (33.9%) and boosts user confidence in accuracy, especially for fast-moving platform features."
+      },
+      {
+        "action": "Resolve SEO/geo issues on approximately 113 pages (10.7% issue rate) to improve organic discoverability",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "SEO fixes compound over time; addressing 113 pages now captures incremental organic traffic and reduces reliance on paid acquisition in next 30-90 days."
+      },
+      {
+        "action": "Investigate example detection failure (0% reliability) and either fix JS-rendering for audit tooling or manually verify top 50 high-traffic pages for working code examples",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "low",
+        "why_this_first": "If examples are truly missing or broken, developer time-to-first-success suffers; manual spot-check of high-traffic pages clarifies risk and prioritizes remediation."
+      }
+    ],
+    "automation_first": [
+      "Deploy continuous broken-link monitoring to catch and alert on new broken links before they accumulate (currently 94 confirmed broken internal links); expected payoff is preventing trust erosion and maintaining SEO link equity as docs scale beyond 1,058 pages.",
+      "Automate last-updated timestamp injection via CI/CD on every commit to eliminate the 44.14% metadata gap (467 pages) and ensure staleness risk (33.9%) does not grow as content velocity increases; payoff is sustained user confidence in freshness with zero manual overhead.",
+      "Implement automated API reference coverage diffing against OpenAPI spec or SDK source to flag the missing 40% of API surface (54 endpoints) on every release; expected payoff is preventing undocumented APIs from reaching production and reducing developer support escalations."
+    ],
+    "limitations": [
+      "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with actual platform behavior and API contracts.",
+      "Example reliability at 0% is flagged as a detection limitation due to likely JS-rendered code blocks; true example presence and functionality require manual or instrumented browser-based validation.",
+      "5 unverified links blocked by auth, rate-limits, or server errors may hide additional broken links or access-control misconfigurations not surfaced in this scan.",
+      "API coverage confidence at 85% means detection may miss undocumented endpoints, especially if API pages lack consistent markup or are dynamically generated.",
+      "Audit does not measure user satisfaction, support ticket correlation, conversion impact, or whether docs answer the questions users actually ask."
+    ]
+  }
+}

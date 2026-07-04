@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 6)
+  heading: Severity levels
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Severity levels
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
 content:
   docs_markdown: "### Severity levels\n\n| Level | Definition | Response time | Example\
     \ |\n|-------|------------|---------------|---------|\n| **Critical** | Service\
@@ -40,10 +56,10 @@ content:
     \ modify other users' data during testing.\n\nWe do not pursue legal action against\
     \ security researchers who follow\nresponsible disclosure practices."
   assistant_context: "Use this module when answering questions related to: VeriDoc\
-    \ security policy (Part 6). Source path: docs/legal/security-policy.md. Summary:\
-    \ Security policy for VeriDoc platform covering infrastructure security, encryption,\
-    \ authentication, access controls, and incident response procedures.\n\n### Severity\
-    \ levels\n\n| Level | Definition | Response time | Example |\n|-------|------------|---------------|---------|\n\
+    \ security policy (Part 6). Source path: legal/security-policy.md. Summary: Security\
+    \ policy for VeriDoc platform covering infrastructure security, encryption, authentication,\
+    \ access controls, and incident response procedures.\n\n### Severity levels\n\n\
+    | Level | Definition | Response time | Example |\n|-------|------------|---------------|---------|\n\
     | **Critical** | Service down, data at risk | 1 hour | Database corruption, security\
     \ breach |\n| **High** | Feature degraded, no data risk | 4 hours | API errors,\
     \ slow response times |\n| **Medium** | Minor issue, workaround available | 24\

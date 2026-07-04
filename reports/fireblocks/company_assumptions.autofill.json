@@ -1,0 +1,29 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 65.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 450.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 35.0,
+  "monthly_doc_influenced_evals": 85.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 4200.0,
+  "docs_friction_revenue_sensitivity": 0.22,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Enterprise crypto infrastructure platform with institutional focus implies premium pricing and high-value customers",
+    "724 pages crawled with 622 API pages indicates complex technical product requiring significant developer support",
+    "27.62% SEO/geo issues and 85.41% stale risk suggest documentation maintenance burden",
+    "21 broken links and low freshness coverage (7.73%) indicate manual sync overhead",
+    "0.61% API reference coverage is critically low for developer platform, likely driving support volume",
+    "38.12% chunkability and 58.62 overall retrieval score suggest poor self-service capability",
+    "73.65% evidence coverage indicates incomplete documentation driving clarification requests",
+    "8 releases/month typical for active fintech/crypto platform with compliance requirements",
+    "High-stakes financial infrastructure means documentation gaps directly impact enterprise evaluations",
+    "Conservative ticket share (28%) given API coverage gaps but assuming some SDK/integration support channels",
+    "Premium B2B crypto custody market supports $4200 ACV estimate for mid-market segment",
+    "22% revenue sensitivity reflects enterprise buyers' documentation quality requirements in regulated space"
+  ]
+}

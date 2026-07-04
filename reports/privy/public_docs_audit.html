@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-06-26T12:26:02.370493+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">636</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">636</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.16%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">5</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">19.61%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">61.57%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">1.1%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">91.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 5</li><li>SEO/GEO issue rate is high: 19.61%</li><li>API usage-doc coverage is low: 61.57% (269 API pages detected)</li><li>Example reliability: 0% on 636 pages (likely detection limitation). Site may use JS-rendered code blocks.</li><li>Freshness visibility is weak: only 1.1% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.privy.io/</strong>: pages=636, broken_links=5, api_coverage=61.57%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Privy.io documentation spans 636 pages with 100% crawl coverage and strong structural foundations: zero broken repository links, 100% evidence coverage on 636 detected claims, and 100% answerability/citationability for retrieval. Critical gaps include 5 confirmed broken internal docs links, 19.61% SEO/geo issue rate, 61.57% API reference coverage across 269 detected API pages, and near-zero freshness visibility (1.1% last-updated coverage). Example reliability shows 0% detection across all pages, flagged as likely JS-rendering limitation rather than true absence. Overall retrieval readiness scores 70.97 (moderate band), constrained by 71.76% stale-risk and 65.25% chunkability.</p><h3>Strengths</h3><ul><li>Complete crawl coverage (100.16%) with 636 pages discovered and indexed, zero repository navigation link breakage</li><li>100% evidence coverage: all 636 key claims detected are supported by evidence</li><li>100% answerability and citationability scores ensure strong AI retrieval and attribution potential</li><li>80% actionability coverage indicates majority of content provides clear next steps</li><li>High overall audit confidence at 91.5% with 95% crawl and 95% link verification confidence</li></ul><h3>Risks</h3><ul><li>5 confirmed broken internal docs links degrade user navigation and trust, all user-facing (0 repo links broken)</li><li>19.61% SEO/geo issue rate threatens organic discoverability and search ranking for ~125 pages</li><li>61.57% API reference coverage leaves 38% of API surface undocumented across 269 detected API pages, risking developer onboarding friction</li><li>0% example reliability detection across 636 pages suggests JS-rendered code blocks invisible to crawlers and LLM training pipelines</li><li>1.1% last-updated coverage (7 pages) prevents users and support from assessing content currency, elevating stale-content risk to 71.76%</li><li>65.25% chunkability score indicates ~35% of content may fragment poorly for RAG and AI answer generation</li><li>Example detection limitation means true code sample quality, runnability, and version alignment remain unaudited</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 5 confirmed broken internal docs links <em>[high, low]</em></li><li>Add last-updated timestamps to all 636 pages (currently 1.1% coverage, 7 pages) <em>[high, low]</em></li><li>Audit and resolve SEO/geo issues on the ~125 pages flagged (19.61% issue rate) <em>[high, medium]</em></li><li>Close API reference coverage gap from 61.57% to 85%+ by documenting missing endpoints across 269 API pages <em>[critical, high]</em></li><li>Implement server-side or static code example rendering to enable example reliability auditing (currently 0% detection on 636 pages) <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

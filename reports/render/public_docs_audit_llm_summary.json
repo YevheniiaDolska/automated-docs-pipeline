@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Render.com documentation spans 617 crawled pages with 100% crawl coverage across 748 discovered URLs. Critical issues include 14 confirmed broken internal links, 0% API reference coverage despite 617 API pages detected (55% detection confidence suggests tooling limitation), and 11.67% SEO/geo issue rate. Only 56.73% of pages display last-updated metadata, creating 37.79% stale-risk exposure. Code example reliability stands at 84.26%, and 67.74% of 1,581 key claims include supporting evidence, yielding a moderate retrieval readiness score of 77.95/100.",
+    "strengths": [
+      "100% crawl coverage with 617 pages successfully indexed from 748 discovered URLs",
+      "90% actionability coverage indicates strong task-oriented content",
+      "100% answerability and citationability scores support AI retrieval and attribution",
+      "84.26% example reliability estimate shows majority of code samples are testable or verifiable",
+      "67.74% evidence coverage (1,071 of 1,581 claims) provides reasonable claim substantiation"
+    ],
+    "risks": [
+      "0% API reference coverage with 617 API pages detected but 55% confidence flags potential detection tooling gap or missing structured reference layer",
+      "14 confirmed broken internal docs links degrade navigation trust and SEO authority",
+      "11.67% SEO/geo issue rate (72 pages) risks search visibility and international discoverability",
+      "43.27% of pages lack last-updated timestamps, obscuring content freshness for 267 pages",
+      "37.79% stale-risk score indicates significant portion of content may appear outdated to users and LLMs",
+      "60.94% chunkability score suggests suboptimal heading structure or section length for RAG ingestion",
+      "32.26% of key claims (510 of 1,581) lack evidence, weakening trust in product capabilities and compliance statements"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 14 confirmed broken internal docs links",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Immediate trust and SEO repair with minimal engineering cost, directly improves user navigation and search ranking signals across 14 touchpoints."
+      },
+      {
+        "action": "Add last-updated timestamps to the 267 pages (43.27%) currently missing them",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Reduces 37.79% stale-risk perception, boosts user confidence in accuracy, and improves LLM answer quality by signaling content currency with low implementation overhead."
+      },
+      {
+        "action": "Resolve 11.67% SEO/geo issue rate affecting approximately 72 pages (missing meta descriptions, title tags, or hreflang)",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Unlocks organic search traffic and international reach for 72 pages, directly impacting lead generation and global user acquisition within 30 days."
+      },
+      {
+        "action": "Investigate API reference coverage gap: validate whether 617 detected API pages lack usage examples or if 55% confidence indicates detection false-positive",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Clarifies whether 0% coverage represents a real documentation gap blocking developer onboarding or a tooling artifact requiring no content work."
+      },
+      {
+        "action": "Improve chunkability from 60.94% by auditing heading hierarchy and section length on lowest-scoring pages to optimize RAG retrieval",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Enhances AI-powered support and chatbot answer precision, reducing support ticket volume as LLM tooling adoption accelerates in next quarter."
+      }
+    ],
+    "automation_first": [
+      "Deploy CI link checker to catch broken internal links before merge: 14 confirmed broken links currently degrade trust and SEO, automation prevents recurrence and eliminates manual QA overhead with immediate ROI on navigation reliability.",
+      "Auto-inject last-updated timestamps via Git commit metadata for the 267 pages (43.27%) missing them: eliminates manual maintenance burden, reduces 37.79% stale-risk score, and ensures LLMs and users always see content currency signals without writer intervention.",
+      "Implement automated SEO/geo validation (meta descriptions, title uniqueness, hreflang) in pre-publish pipeline: prevents 11.67% issue rate from growing, protects organic search traffic across 72+ affected pages, and scales international content quality without per-page audits."
+    ],
+    "limitations": [
+      "External audit cannot verify runtime accuracy of 617 API pages or confirm whether code examples execute successfully in live Render environments.",
+      "55% confidence on API coverage detection indicates tooling may misclassify reference vs. guide pages; manual review required to confirm true reference gap.",
+      "Audit cannot assess content correctness, security accuracy of claims, or whether 67.74% evidence-backed claims reflect current product behavior.",
+      "Crawl does not evaluate gated content, video transcripts, or in-app documentation that may supplement public docs coverage.",
+      "Stale-risk and freshness metrics rely on metadata presence and cannot confirm whether unchanged pages remain factually current."
+    ]
+  }
+}

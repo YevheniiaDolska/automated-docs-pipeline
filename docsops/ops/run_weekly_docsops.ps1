@@ -11,6 +11,8 @@ if (Test-Path ".env.docsops.local") {
     }
   }
 }
+$MaxAttempts = 3
+$Attempt = 1
 while ($true) {
   if (Get-Command py -ErrorAction SilentlyContinue) {
     py -3 "docsops/scripts/run_autopipeline.py" --docsops-root "docsops" --reports-dir "reports" --since 7 --runtime-config "docsops/config/client_runtime.yml" --mode "operator" --auto-generate --local-engine "auto"
@@ -20,6 +22,11 @@ while ($true) {
   if ($LASTEXITCODE -eq 0) {
     break
   }
-  Write-Host "[docsops] weekly run failed, retrying in 60s..."
+  if ($Attempt -ge $MaxAttempts) {
+    Write-Host "[docsops] weekly run failed after $MaxAttempts attempts; see reports/AUTOPIPELINE_OUTPUT_INDEX.md"
+    exit 1
+  }
+  $Attempt = $Attempt + 1
+  Write-Host "[docsops] weekly run failed, retrying in 60s (attempt $Attempt/$MaxAttempts)..."
   Start-Sleep -Seconds 60
 }

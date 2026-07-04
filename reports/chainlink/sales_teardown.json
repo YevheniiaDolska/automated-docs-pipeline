@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-24T18:47:55.331329+00:00",
+  "site_url": "https://docs.chain.link/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 67.73,
+    "grade": "D"
+  },
+  "summary": {
+    "executive_summary": "Chainlink documentation spans 1635 crawled pages with 100% crawl coverage and 91.5% overall audit confidence. API reference coverage is critically low at 33.33% despite 712 API pages detected, indicating significant usage documentation gaps. Freshness metadata is visible on only 22.02% of pages, creating trust and staleness perception risk across 1275+ pages. Retrieval readiness scores 65.4/100 (moderate band) with only 20.18% answerability, limiting AI assistant and search effectiveness. Evidence coverage is strong at 94.71% (1110 of 1172 claims supported), and 5 confirmed broken internal links require immediate repair.",
+    "pages_crawled": 1635,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 5,
+    "unverified_links_count": 0,
+    "estimated_monthly_cost_usd": 18176.3
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "67.73 / 100",
+      "accent": "teal",
+      "detail": "Grade D"
+    },
+    {
+      "label": "Broken Links",
+      "value": "5",
+      "accent": "amber",
+      "detail": "0 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "33.33%",
+      "accent": "blue",
+      "detail": "475 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "22.02%",
+      "accent": "slate",
+      "detail": "1275 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "100.0%",
+      "accent": "violet",
+      "detail": "0 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "86.3%",
+      "accent": "rose",
+      "detail": "Recall 20.2%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 66.67 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 65.59 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 13.1 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Add last-updated timestamps to the 1275+ pages missing freshness metadata (77.98% of site)",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Immediate trust signal for users and support teams, enables staleness triage, and improves AI answer confidence with minimal engineering lift."
+    },
+    {
+      "title": "Create usage documentation for the 475+ API pages (66.67% of 712 detected) lacking reference coverage",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Directly unblocks developer onboarding and reduces support volume by bridging the gap between API reference and practical implementation."
+    },
+    {
+      "title": "Restructure the 1304+ pages with low answerability (79.82%) to include explicit Q&A patterns, summaries, or structured data",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Unlocks AI assistant effectiveness and search snippet quality across 80% of content, directly improving self-service success rates."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage (100%) across 1635 pages with high confidence (91.5%)",
+    "Strong evidence backing: 94.71% of 1172 detected claims have supporting evidence",
+    "Minimal broken links: only 5 confirmed broken internal docs links, zero repository navigation failures"
+  ],
+  "risks": [
+    "API reference coverage at 33.33% leaves two-thirds of 712 API pages without adequate usage documentation, blocking developer onboarding",
+    "Answerability at 20.18% means 1304+ pages lack structure for AI assistants and chatbots to extract reliable answers",
+    "Freshness metadata missing on 77.98% of pages (1275+ pages) erodes user trust and prevents staleness triage",
+    "Stale risk flagged on 65.59% of pages (1072+ pages) suggests outdated content may mislead users"
+  ],
+  "limitations": [
+    "External audit cannot verify runtime accuracy of 712 API pages or the 86.9% example reliability estimate without executing code in live environments",
+    "Staleness risk (65.59%) is inferred from metadata and structure patterns, not product version alignment; actual content accuracy requires domain expert review",
+    "Answerability scoring (20.18%) measures structural readiness for AI extraction but cannot guarantee semantic correctness or completeness of answers"
+  ],
+  "automation_first": [
+    "Deploy automated freshness metadata injection for the 1275+ pages missing last-updated dates (77.98% coverage gap), using Git commit history or CMS timestamps to populate frontmatter; expected payoff is immediate trust restoration and enables automated staleness alerts without manual tagging.",
+    "Implement broken link monitoring with weekly CI checks targeting the 5 current broken internal links and preventing future regressions across 1635 pages; expected payoff is zero user-facing link failures and reduced manual QA burden, protecting conversion and SEO.",
+    "Build API reference-to-usage doc coverage tracker that flags the 475+ undocumented API pages (66.67% of 712 detected) in pull request reviews; expected payoff is preventing API launches without usage examples, reducing developer support tickets by 30-40% over 90 days."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 11143.5,
+    "remediation_cost_usd_base_total": 4702.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

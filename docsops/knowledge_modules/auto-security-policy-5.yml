@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 5)
+  heading: Monitoring
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Monitoring
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
 content:
   docs_markdown: '### Monitoring
 
@@ -63,9 +79,9 @@ content:
     | **Post-mortem** | Within 7 days | Document root cause, implement preventive
     measures |'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    security policy (Part 5). Source path: docs/legal/security-policy.md. Summary:
-    Security policy for VeriDoc platform covering infrastructure security, encryption,
-    authentication, access controls, and incident response procedures.
+    security policy (Part 5). Source path: legal/security-policy.md. Summary: Security
+    policy for VeriDoc platform covering infrastructure security, encryption, authentication,
+    access controls, and incident response procedures.
 
 
     ### Monitoring

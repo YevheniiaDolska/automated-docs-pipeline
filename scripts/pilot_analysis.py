@@ -43,7 +43,7 @@ class PilotAnalyzer:
 
     def run_vale_analysis(self):
         """Run Vale style checking and collect detailed results."""
-        print("🔍 Running Vale style analysis...")
+        print(" Running Vale style analysis...")
         try:
             result = subprocess.run(
                 ["vale", "--output=JSON", str(self.docs_dir)],
@@ -80,7 +80,7 @@ class PilotAnalyzer:
                                 "warnings": file_warnings
                             }
                 except JSONDecodeError:
-                    print("  ⚠️ Failed to parse Vale JSON output, using empty style summary.")
+                    print("  [warn] Failed to parse Vale JSON output, using empty style summary.")
 
             self.results["vale_analysis"] = {
                 "errors": errors,
@@ -97,12 +97,12 @@ class PilotAnalyzer:
 
             return self.results["vale_analysis"]
         except (OSError, subprocess.SubprocessError) as e:
-            print(f"  ⚠️ Vale not found or error: {e}")
+            print(f"  [warn] Vale not found or error: {e}")
             return {"errors": 0, "warnings": 0, "suggestions": 0, "total_style_issues": 0}
 
     def run_seo_geo_analysis(self):
         """Run SEO/GEO optimization analysis."""
-        print("🌐 Running SEO/GEO optimization analysis (24 checks)...")
+        print("Running SEO/GEO optimization analysis (24 checks)...")
         try:
             # Try to run the seo_geo_optimizer script if it exists
             result = subprocess.run(
@@ -118,7 +118,7 @@ class PilotAnalyzer:
                     self.results["seo_geo_analysis"] = data
                     return data
                 except JSONDecodeError:
-                    print("  ⚠️ Failed to parse SEO/GEO JSON output, using fallback analysis.")
+                    print("  [warn] Failed to parse SEO/GEO JSON output, using fallback analysis.")
 
             # Fallback to basic SEO analysis
             return self._basic_seo_analysis()
@@ -173,7 +173,7 @@ class PilotAnalyzer:
 
     def run_gap_detection(self):
         """Run comprehensive gap detection."""
-        print("🔎 Running gap detection (SDD methodology + community signals)...")
+        print("Running gap detection (SDD methodology + community signals)...")
         try:
             # Try to run the unified gap detector
             result = subprocess.run(
@@ -189,7 +189,7 @@ class PilotAnalyzer:
                     self.results["gap_detection"] = data
                     return data
                 except JSONDecodeError:
-                    print("  ⚠️ Failed to parse gap detector JSON output, using fallback analysis.")
+                    print("  [warn] Failed to parse gap detector JSON output, using fallback analysis.")
 
             # Fallback to basic gap detection
             return self._basic_gap_detection()
@@ -225,7 +225,7 @@ class PilotAnalyzer:
 
     def run_layer_validation(self):
         """Run documentation layers validation (BDR methodology)."""
-        print("📚 Running documentation layers validation (BDR methodology)...")
+        print("Running documentation layers validation (BDR methodology)...")
         try:
             # Try to run the layer validator
             result = subprocess.run(
@@ -241,9 +241,9 @@ class PilotAnalyzer:
                     self.results["layer_validation"] = data
                     return data
                 except JSONDecodeError:
-                    print("  ⚠️ Failed to parse layer validation JSON output, using fallback result.")
+                    print("  [warn] Failed to parse layer validation JSON output, using fallback result.")
         except (OSError, subprocess.SubprocessError, subprocess.TimeoutExpired) as exc:
-            print(f"  ⚠️ Layer validator unavailable: {exc}")
+            print(f"  [warn] Layer validator unavailable: {exc}")
 
         # Simple fallback
         self.results["layer_validation"] = {
@@ -354,7 +354,7 @@ class PilotAnalyzer:
         """Generate comprehensive HTML report for pilot week."""
         # Run all analyses
         print("\n" + "="*60)
-        print("🚀 PILOT WEEK COMPREHENSIVE ANALYSIS")
+        print(" PILOT WEEK COMPREHENSIVE ANALYSIS")
         print("="*60 + "\n")
 
         self.run_vale_analysis()
@@ -846,10 +846,10 @@ class PilotAnalyzer:
         Path(output_path).write_text(report)
 
         print("\n" + "="*60)
-        print("✅ PILOT WEEK ANALYSIS COMPLETE!")
+        print("[ok] PILOT WEEK ANALYSIS COMPLETE!")
         print("="*60)
-        print(f"\n📊 Report saved to: {output_path}")
-        print(f"\n📈 Summary:")
+        print(f"\n Report saved to: {output_path}")
+        print(f"\n Summary:")
         print(f"   Total issues: {self.results['vale_analysis'].get('total_style_issues', 0) + self.results['seo_geo_analysis'].get('total_issues', 0)}")
         print(f"   Debt score: {self.results['debt_score']['total']}")
         print(f"   Quick wins: {len(self.results['quick_wins'])}")

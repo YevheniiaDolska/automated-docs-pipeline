@@ -2,7 +2,7 @@
   "intent": "secure",
   "audience": "developer",
   "channel": "assistant",
-  "module_count": 32,
+  "module_count": 33,
   "modules": [
     {
       "module_id": "auto-api-playground-3",
@@ -30,6 +30,15 @@
       "audience": "developer",
       "channel": "assistant",
       "content": "Use this module when answering questions related to: Auto-Doc Pipeline study guide (Part 8). Source path: reference/auto-doc-pipeline-study-guide.md. Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating flow, plan mapping, and a detailed client FAQ.\n\n### 13) How long does rollout usually take?\n\nPilot setup is typically quick because runtime and bundle templates are pre-structured.\n\n### 14) How much manual work remains after rollout?\n\nUsually review and approval work remains, not repetitive authoring and cross-file synchronization.\n\n### 15) Can we run this inside existing CI/CD?\n\nYes. The flow is script-driven and supports local scheduler plus CI automation patterns.\n\n### 16) What data should clients prepare?\n\nRepo access, docs root, runtime config decisions, plan scope, and optional external integrations.\n\n### 17) How is this different from a static docs generator?\n\nIt is a controlled operations pipeline, not only a renderer. It validates, remediates, merges, and governs.\n\n### 18) What happens when a gate fails?\n\nThe pipeline emits explicit failure reports and can run remediation cycles before publish.\n\n### 19) Can teams adopt this gradually?\n\nYes. Teams can start with quality gates and docs lifecycle, then enable protocol and RAG modules.\n\n### 20) Why is this compelling commercially?\n\nIt compresses repetitive documentation and API verification work into a governed flow with measurable outputs.\n\n## Next steps\n\n- [Documentation index](index.md)"
+    },
+    {
+      "module_id": "auto-canonical-flow-6",
+      "title": "Canonical Flow (Sales + Delivery) (Part 6)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Canonical Flow (Sales + Delivery) (Part 6). Source path: operations/CANONICAL_FLOW.md. Summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.\n\nPrivate pages (authenticated screenshot capture):\n\n1. Open `docs/screenshots.capture.yml`.\n1. Set `auth.enabled: true`.\n1. Set `auth.login_url` to your sign-in URL.\n1. Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`) to match your login form.\n1. Export credentials before run:\n\n```bash\nexport SCREENSHOT_LOGIN_EMAIL=\"your-login@example.com\"\nexport SCREENSHOT_LOGIN_PASSWORD=\"your-password\"\n```\n\n1. Run pipeline normally (`run_autopipeline.py`); it will:\n   - execute auth once,\n   - save Playwright session state to `reports/playwright_storage_state.json`,\n   - reuse it for capture targets in the same run.\n\nPlaywright bootstrap:"
     },
     {
       "module_id": "auto-configure-webhook-trigger-1",

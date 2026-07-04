@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-25T13:07:00.907389+00:00",
+  "site_url": "https://docs.crossmint.com/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 47.77,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Crossmint documentation spans 1,143 crawled pages with 100% crawl coverage and zero confirmed broken links. API reference coverage is low at 31.59% across 967 detected API pages, indicating significant usage documentation gaps. Example code reliability scored 0%, flagged as a likely detection limitation due to JS-rendered code blocks. Only 11.11% of pages display last-updated timestamps, creating freshness blind spots. Retrieval readiness is strong at 83.23/100, with 80.96% of 1,245 key claims backed by evidence.",
+    "pages_crawled": 1143,
+    "crawl_coverage_pct": 100.09,
+    "broken_links_count": 0,
+    "unverified_links_count": 9,
+    "estimated_monthly_cost_usd": 14456.18
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "47.77 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "0",
+      "accent": "amber",
+      "detail": "9 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "31.59%",
+      "accent": "blue",
+      "detail": "662 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "11.11%",
+      "accent": "slate",
+      "detail": "1016 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "81.25%",
+      "accent": "violet",
+      "detail": "214 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "88.9%",
+      "accent": "rose",
+      "detail": "Recall 100.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 68.41 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 73.75 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Instrument last-updated timestamps on the 88.89% of pages (1,016 pages) currently missing freshness signals",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Low-effort metadata addition immediately builds user trust and reduces 73.75% stale-risk perception across the entire site."
+    },
+    {
+      "title": "Add usage examples and integration guides to the 663 API pages (68.41% of 967) currently lacking reference coverage",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Closing the 68% API documentation gap directly reduces developer onboarding friction and support tickets for two-thirds of the API surface."
+    },
+    {
+      "title": "Audit and fix JS-rendered code block detection to surface real example reliability issues masked by 0% score across 1,143 pages",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Unmasking hidden code quality problems prevents developers from copying broken examples, directly improving time-to-first-success."
+    }
+  ],
+  "strengths": [
+    "Zero broken internal or repository links across 1,143 pages, ensuring reliable navigation",
+    "Strong retrieval readiness score (83.23/100) with 100% answerability and citationability for AI/search use cases",
+    "High evidence coverage at 80.96% (1,008 of 1,245 claims substantiated)"
+  ],
+  "risks": [
+    "API usage documentation covers only 31.59% of 967 API pages, leaving developers without guidance on two-thirds of endpoints",
+    "Example code reliability at 0% suggests detection failure on JS-rendered blocks, masking real code quality issues",
+    "Only 11.11% freshness visibility means users cannot assess currency of 88.89% of content, eroding trust",
+    "73.75% stale risk rate indicates three-quarters of pages may contain outdated information without visible signals"
+  ],
+  "limitations": [
+    "External audit cannot verify actual code example functionality or runtime correctness; 0% reliability score likely reflects detection failure on JS-rendered content, not true code quality.",
+    "Link verification confidence at 25% means 9 unverified URLs due to auth/rate-limit blocks may hide real broken links that only internal testing can confirm.",
+    "API coverage at 31.59% measures presence of usage docs, not their accuracy, completeness, or alignment with current API behavior."
+  ],
+  "automation_first": [
+    "Deploy automated API reference coverage scanner to flag the 663 API pages (68.41%) missing usage examples, triggering writer assignments when coverage drops below 50% per endpoint category, reducing developer support load by an estimated 30%.",
+    "Implement CI/CD freshness timestamp injection to auto-populate last-updated dates on the 1,016 pages (88.89%) currently missing them, eliminating manual metadata work and cutting stale-risk perception from 73.75% to under 20% within one release cycle.",
+    "Add headless browser-based code example validator to detect broken snippets in JS-rendered blocks (currently 0% reliability score across 1,143 pages), catching syntax and runtime errors pre-publish and preventing an estimated 40% of example-related support tickets."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

@@ -31,6 +31,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.flow_feedback import FlowNarrator
 from scripts.llm_egress import ensure_external_allowed, load_policy
+from scripts.runtime_config_loader import load_runtime_config
 
 API_KEY_ENV_NAMES = (
     "OPENAI_API_KEY",
@@ -86,8 +87,8 @@ def _resolve_runtime_config(raw: str) -> Path:
 
 def _load_runtime_map(path: Path) -> dict[str, Any]:
     try:
-        raw = yaml.safe_load(path.read_text(encoding="utf-8"))
-    except (OSError, yaml.YAMLError):
+        raw = load_runtime_config(path)
+    except (OSError, yaml.YAMLError, RuntimeError, ValueError):
         return {}
     return raw if isinstance(raw, dict) else {}
 

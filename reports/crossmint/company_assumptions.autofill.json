@@ -1,0 +1,29 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 280.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 45.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 1200.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer/support rates: standard B2B SaaS mid-market ranges",
+    "Release cadence: 8/month typical for API-first platform with 1143 pages crawled",
+    "Manual sync baseline: 6h/week conservative for large docs (1143 pages, 31.59% API coverage)",
+    "Release delay: 18h reflects coordination overhead in crypto/payments domain",
+    "Support volume: 280 tickets/month scaled to mid-market API platform",
+    "Docs-related share: 28% reflects moderate API coverage (31.59%) and strong retrieval (83.23 overall)",
+    "Ticket handling: 22min average for technical API documentation queries",
+    "Doc-influenced evals: 45/month conservative for developer-focused product",
+    "Eval-to-customer: 18% conversion typical for technical B2B with strong docs (80.96% evidence coverage)",
+    "Customer value: $1200/month mid-range for crypto infrastructure SaaS",
+    "Revenue sensitivity: 0.35 reflects moderate docs friction impact (73.75% stale risk, 11.11% freshness coverage)",
+    "Confidence: 68% due to limited API coverage visibility and example reliability at 0%"
+  ]
+}

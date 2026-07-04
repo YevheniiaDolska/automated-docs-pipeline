@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - canonical-flow
 - reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 3)
+  heading: Canonical Flow (Sales + Delivery) (Part 3)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: Canonical Flow (Sales + Delivery) (Part 3)
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
 content:
   docs_markdown: '```bash
 
@@ -41,11 +57,22 @@ content:
     Scheduler timezone is local machine timezone. Monday schedule follows client local
     time when installed on client machine.
 
-    Default schedule is Monday at `10:00` local time.'
+    Default schedule is Monday at `10:00` local time.
+
+
+    Algolia note for one-time setup:
+
+
+    - If `runtime.integrations.algolia.enabled=true`, provisioning now auto-generates
+    advanced search config (`config/algolia.search.yml`) and applies it automatically
+    during bootstrap when Algolia credentials are available.
+
+    - Auto-bootstrap includes index settings, synonyms, query rules, and replica setup,
+    plus initial records upload.'
   assistant_context: 'Use this module when answering questions related to: Canonical
-    Flow (Sales + Delivery) (Part 3). Source path: docs/operations/CANONICAL_FLOW.md.
-    Summary: Canonical sales and delivery flow for onboarding and operating client
-    Auto-Doc Pipeline setups.
+    Flow (Sales + Delivery) (Part 3). Source path: operations/CANONICAL_FLOW.md. Summary:
+    Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+    Pipeline setups.
 
 
     ```bash
@@ -68,4 +95,15 @@ content:
     Scheduler timezone is local machine timezone. Monday schedule follows client local
     time when installed on client machine.
 
-    Default schedule is Monday at `10:00` local time.'
+    Default schedule is Monday at `10:00` local time.
+
+
+    Algolia note for one-time setup:
+
+
+    - If `runtime.integrations.algolia.enabled=true`, provisioning now auto-generates
+    advanced search config (`config/algolia.search.yml`) and applies it automatically
+    during bootstrap when Algolia credentials are available.
+
+    - Auto-bootstrap includes index settings, synonyms, query rules, and replica setup,
+    plus initial records upload.'

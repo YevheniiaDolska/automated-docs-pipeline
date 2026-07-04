@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of docs.readme.com crawled 365 pages (100% coverage). 3 broken internal links confirmed; 124 links remain unverified due to auth/rate-limit blocks. API reference coverage is critically low at 4.65% despite 153 API pages detected. Only 32.6% of pages display last-updated metadata, creating stale-risk exposure of 66.78%. Retrieval readiness scores 72.23 (moderate band), with chunkability at 63.84% limiting AI answer quality.",
+    "strengths": [
+      "Complete crawl coverage (365/365 pages, 100%) with no significant trap patterns",
+      "Example code reliability estimate at 100% with no detection issues flagged",
+      "Strong answerability (100%) and citationability (100%) for AI retrieval",
+      "Evidence coverage at 76.78% (549 of 715 claims backed)",
+      "Actionability coverage at 87.5%, indicating clear user guidance"
+    ],
+    "risks": [
+      "API reference coverage at 4.65% leaves 95% of 153 API pages without usage documentation, blocking developer onboarding",
+      "66.78% stale-risk exposure due to missing last-updated dates on 67.4% of pages, eroding user trust",
+      "124 unverified links (auth/rate-limit blocked) may hide additional broken links beyond the 3 confirmed",
+      "Chunkability at 63.84% limits RAG/AI answer quality and search relevance for 36% of content",
+      "SEO/GEO issue rate of 17.26% (63 pages) risks organic discovery and regional accessibility",
+      "Low overall confidence at 63.5%, with links confidence at only 25% due to unverified URLs",
+      "No repository broken links, but 3 docs-facing broken links degrade navigation and user experience"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Add usage examples, parameters, and integration guides to the 153 detected API pages to lift reference coverage from 4.65% toward 60%+",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Closing the 95% API documentation gap directly unblocks developer onboarding, reduces support tickets, and improves time-to-first-call for new users."
+      },
+      {
+        "action": "Inject last-updated timestamps into the 67.4% of pages missing freshness metadata to reduce stale-risk from 66.78% below 20%",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Low-effort metadata addition immediately boosts user trust, reduces support queries about outdated content, and improves retrieval readiness score by 10+ points."
+      },
+      {
+        "action": "Fix the 3 confirmed broken internal links and establish auth-bypass crawling to verify the 124 unverified URLs",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Repairing navigation and uncovering hidden broken links prevents user drop-off and lifts link confidence from 25% to 80%+, improving SEO and user flow."
+      },
+      {
+        "action": "Restructure the 36% of pages with low chunkability (below 63.84%) by adding subheadings, lists, and semantic breaks to improve RAG retrieval",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Better chunking directly improves AI-powered search and chatbot answer precision, reducing user frustration and increasing self-service success rates."
+      },
+      {
+        "action": "Resolve the 63 pages (17.26%) with SEO/GEO issues by auditing meta descriptions, titles, and regional accessibility",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "SEO fixes expand organic traffic and regional reach within 30 days, directly increasing top-of-funnel developer acquisition and product visibility."
+      }
+    ],
+    "automation_first": [
+      "Deploy CI/CD link checker with auth-bypass for the 124 unverified URLs and continuous monitoring of the 3 confirmed broken links, preventing future navigation failures and lifting link confidence from 25% to 90%+ with zero manual effort per release.",
+      "Automate last-updated timestamp injection via Git commit metadata for the 246 pages (67.4%) missing freshness data, eliminating the 66.78% stale-risk exposure and ensuring every page shows accurate recency without writer intervention.",
+      "Implement automated API reference linting to flag the 146 API pages (95.4% of 153) lacking usage examples, parameters, or code samples, creating a pre-publish gate that prevents API coverage from regressing below 60% and reduces developer onboarding friction."
+    ],
+    "limitations": [
+      "External audit cannot verify the 124 auth-gated or rate-limited links; actual broken link count may be higher than the 3 confirmed.",
+      "API coverage detection relies on heuristics; the 4.65% figure assumes correct identification of all 153 API pages and may undercount edge cases.",
+      "Freshness and stale-risk metrics depend on visible last-updated metadata; actual content age may differ if updates occur without timestamp changes.",
+      "Chunkability and retrieval scores reflect structural patterns, not semantic accuracy or correctness of technical content.",
+      "Audit snapshot reflects docs.readme.com at crawl time; live site changes, A/B tests, or user-specific views are not captured."
+    ]
+  }
+}

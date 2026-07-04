@@ -1,0 +1,29 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 45.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 450.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 85.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 320.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "636 pages crawled indicates mature mid-market B2B SaaS documentation",
+    "61.57% API reference coverage suggests partial API-first product with integration focus",
+    "70.97 overall retrieval readiness score (moderate band) indicates room for improvement in discoverability",
+    "1.1% freshness coverage with 71.76% stale risk suggests documentation maintenance challenges",
+    "5 broken internal links across 636 pages is relatively clean but indicates some drift",
+    "19.61% SEO/geo issues suggest potential discoverability friction for new users",
+    "65.25% chunkability with 80% actionability indicates decent but improvable content structure",
+    "Conservative support ticket allocation based on moderate docs quality and typical SaaS support patterns",
+    "Release delay estimate reflects partial staleness and manual sync burden",
+    "Revenue sensitivity assumes docs friction impacts trial-to-paid conversion and expansion for integration-heavy product",
+    "Customer value estimate based on typical e-commerce/marketing SaaS mid-market pricing",
+    "Confidence reduced due to lack of product-specific context and reliance on documentation audit proxies"
+  ]
+}

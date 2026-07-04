@@ -1,18 +1,17 @@
 {
   "summary": {
-    "total_gaps": 3,
-    "high_priority": 2,
+    "total_gaps": 2,
+    "high_priority": 1,
     "medium_priority": 1,
     "low_priority": 0,
     "by_source": {
-      "code": 3
+      "code": 2
     },
     "by_doc_type": {
-      "how-to": 3
+      "how-to": 2
     },
     "by_category": {
       "authentication": 1,
-      "database_schema": 1,
       "webhook": 1
     }
   },
@@ -20,61 +19,43 @@
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-06-08T13:04:42.374275",
+  "generated_at": "2026-07-04T10:03:20.364384",
   "gaps": [
     {
-      "id": "CODE-0015",
+      "id": "CODE-0001",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "description": "Update authentication documentation for changes in optimization.log. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 77,
+      "frequency": 4,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "optimization.log"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in optimization.log. Include security considerations.",
       "status": "new",
-      "created_at": "2026-06-08T13:04:42.374384"
+      "created_at": "2026-07-04T10:03:20.364384"
     },
     {
-      "id": "CODE-0013",
-      "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
-      "source": "code",
-      "category": "database_schema",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 9,
-      "keywords": [],
-      "related_files": [
-        "reports/doc_gaps_report.csv"
-      ],
-      "sample_queries": [],
-      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
-      "status": "new",
-      "created_at": "2026-06-08T13:04:42.374376"
-    },
-    {
-      "id": "CODE-0001",
-      "title": "Webhook: webhook: Webhook",
-      "description": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "id": "CODE-0004",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 91,
+      "frequency": 2,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "sitemap.xml"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in sitemap.xml. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-06-08T13:04:42.374309"
+      "created_at": "2026-07-04T10:03:20.364384"
     }
   ]
 }

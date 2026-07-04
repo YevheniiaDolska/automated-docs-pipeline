@@ -15,22 +15,41 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 7)
+  heading: Pipeline Capabilities Catalog (Part 7)
+  version: 1.50.0
+  updated_at: '2026-06-19'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Pipeline Capabilities Catalog (Part 7)
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
   docs_markdown: '| Script | Purpose |
 
     | --- | --- |
 
-    | `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`.
-    |
+    | `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`,
+    with target-platform filtering for `linux`, `windows`, `macos`, `all`, or mixed
+    estates such as `linux,windows`. |
 
     | `scripts/provision_client_repo.py` | One-shot install into client repo (bundle
-    copy, config/policy, env checklist, scheduler install). |
+    copy, config/policy, env checklist, scheduler install). Supports `--install-scheduler
+    auto` and auto-detects the correct local installer for Linux, macOS, or Windows.
+    |
 
     | `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another
     repo (self-install path). |
@@ -78,7 +97,15 @@ content:
     | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs
     generation flows. |
 
-    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia.
+    | `scripts/runtime_config_loader.py` | Load protected runtime config, enforce
+    integrity manifest for base runtime, and merge signed operator runtime overrides.
+    |
+
+    | `scripts/sign_operator_runtime_overrides.py` | Sign `operator_runtime_overrides.yml`
+    so operator-only live changes can be applied after bundle delivery. |
+
+    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia
+    and optionally apply advanced settings, synonyms, rules, and replicas from config.
     |
 
     | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
@@ -103,6 +130,14 @@ content:
     endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket
     connection and message routing. |
 
+    | `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture
+    metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and
+    optional anchor/heading targets. |
+
+    | `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement
+    into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent
+    update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
+
     | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax,
     semantics, operation types). |
 
@@ -117,7 +152,9 @@ content:
 
     | `scripts/generate_public_docs_audit.py` | Public documentation site auditor:
     crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples,
-    freshness. Supports interactive wizard and LLM-powered expert analysis. |
+    freshness. Uses disk-backed link storage for large crawls, so broken-link analysis
+    stays complete without high RAM spikes. Supports interactive wizard and LLM-powered
+    expert analysis. |
 
     | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator
     combining docs quality, API coverage, code examples, glossary health, and policy
@@ -131,7 +168,7 @@ content:
     modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss`
     and `retrieval-metadata.json`. |'
   assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 7). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Capabilities Catalog (Part 7). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
@@ -140,11 +177,14 @@ content:
 
     | --- | --- |
 
-    | `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`.
-    |
+    | `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`,
+    with target-platform filtering for `linux`, `windows`, `macos`, `all`, or mixed
+    estates such as `linux,windows`. |
 
     | `scripts/provision_client_repo.py` | One-shot install into client repo (bundle
-    copy, config/policy, env checklist, scheduler install). |
+    copy, config/policy, env checklist, scheduler install). Supports `--install-scheduler
+    auto` and auto-detects the correct local installer for Linux, macOS, or Windows.
+    |
 
     | `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another
     repo (self-install path). |
@@ -192,7 +232,15 @@ content:
     | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs
     generation flows. |
 
-    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia.
+    | `scripts/runtime_config_loader.py` | Load protected runtime config, enforce
+    integrity manifest for base runtime, and merge signed operator runtime overrides.
+    |
+
+    | `scripts/sign_operator_runtime_overrides.py` | Sign `operator_runtime_overrides.yml`
+    so operator-only live changes can be applied after bundle delivery. |
+
+    | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia
+    and optionally apply advanced settings, synonyms, rules, and replicas from config.
     |
 
     | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
@@ -217,6 +265,14 @@ content:
     endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket
     connection and message routing. |
 
+    | `scripts/build_screenshot_manifest.py` | Build `docs/screenshots.yml` from capture
+    metadata (`reports/screenshot_capture_manifest.json`) with deterministic ids and
+    optional anchor/heading targets. |
+
+    | `scripts/insert_screenshots_into_docs.py` | Zero-touch screenshot placement
+    into docs by `target.doc` + `target.anchor`/`target.heading`, with idempotent
+    update-by-id blocks, heading/h1 fallback, and `needs_review` queue. |
+
     | `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax,
     semantics, operation types). |
 
@@ -231,7 +287,9 @@ content:
 
     | `scripts/generate_public_docs_audit.py` | Public documentation site auditor:
     crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples,
-    freshness. Supports interactive wizard and LLM-powered expert analysis. |
+    freshness. Uses disk-backed link storage for large crawls, so broken-link analysis
+    stays complete without high RAM spikes. Supports interactive wizard and LLM-powered
+    expert analysis. |
 
     | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator
     combining docs quality, API coverage, code examples, glossary health, and policy

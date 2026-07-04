@@ -1,0 +1,76 @@
+id: auto-apply-pipeline-configuration-4
+title: Apply a pilot, full, or RAG configuration (Part 4)
+summary: Update a client profile for pilot, full, or RAG-enabled operation and align
+  it with cloud, strict-local, or hybrid LLM execution.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- apply-pipeline-configuration
+- auto-extracted
+- how-to
+metadata:
+  url: https://docs.example.com/how-to/apply-pipeline-configuration/
+  title: Apply a pilot, full, or RAG configuration (Part 4)
+  heading: 'Step 5: Rebuild the bundle'
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: how-to/apply-pipeline-configuration.md
+semantic:
+  topic: 'Step 5: Rebuild the bundle'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - apply pipeline configuration
+  - how-to
+  status: rule_based
+content:
+  docs_markdown: "## Step 5: Rebuild the bundle\n\nAfter editing the profile, rebuild\
+    \ the bundle:\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n\
+    ```\n\nIf you are installing directly into a repo, reprovision it:\n\n```bash\n\
+    python3 scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml\
+    \ \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n```\n\
+    \n## Step 6: Verify the included docs\n\nEvery generated bundle should now include\
+    \ the configuration docs that match its profile. Check for:\n\n- `docs/getting-started/choose-pipeline-configuration.md`\n\
+    - `docs/how-to/apply-pipeline-configuration.md`\n- `docs/concepts/pipeline-configuration-combinations.md`\n\
+    - `docs/reference/pipeline-configuration-reference.md`\n\nBundles may also include\
+    \ additional documents such as API-first or Ask AI instructions when those features\
+    \ are enabled.\n\n## Common issues and fixes\n\n### Issue: Full bundle still looks\
+    \ like pilot\n\nCheck `licensing.plan` and the three retrieval flags. If `plan`\
+    \ is still `pilot`, or all three retrieval flags are `false`, the profile is still\
+    \ scoped down.\n\n### Issue: Strict-local bundle still attempts external LLM use\n\
+    \nCheck `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify\
+    \ the generated bundle copies the expected `config/client_runtime.yml`."
+  assistant_context: "Use this module when answering questions related to: Apply a\
+    \ pilot, full, or RAG configuration (Part 4). Source path: how-to/apply-pipeline-configuration.md.\
+    \ Summary: Update a client profile for pilot, full, or RAG-enabled operation and\
+    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n## Step 5: Rebuild\
+    \ the bundle\n\nAfter editing the profile, rebuild the bundle:\n\n```bash\npython3\
+    \ scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n```\n\
+    \nIf you are installing directly into a repo, reprovision it:\n\n```bash\npython3\
+    \ scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml\
+    \ \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n```\n\
+    \n## Step 6: Verify the included docs\n\nEvery generated bundle should now include\
+    \ the configuration docs that match its profile. Check for:\n\n- `docs/getting-started/choose-pipeline-configuration.md`\n\
+    - `docs/how-to/apply-pipeline-configuration.md`\n- `docs/concepts/pipeline-configuration-combinations.md`\n\
+    - `docs/reference/pipeline-configuration-reference.md`\n\nBundles may also include\
+    \ additional documents such as API-first or Ask AI instructions when those features\
+    \ are enabled.\n\n## Common issues and fixes\n\n### Issue: Full bundle still looks\
+    \ like pilot\n\nCheck `licensing.plan` and the three retrieval flags. If `plan`\
+    \ is still `pilot`, or all three retrieval flags are `false`, the profile is still\
+    \ scoped down.\n\n### Issue: Strict-local bundle still attempts external LLM use\n\
+    \nCheck `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify\
+    \ the generated bundle copies the expected `config/client_runtime.yml`."

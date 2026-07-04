@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of portal.thirdweb.com (2,572 pages crawled, 100% coverage) reveals critical navigation and discoverability issues. 650 confirmed broken internal documentation links impair user journeys and SEO. API reference coverage is 12.91% across 2,110 detected API pages, leaving 87% of endpoints undocumented or poorly linked. Retrieval readiness scores 52.17/100 (weak band): only 14.07% of pages are answerable by AI, 58.32% are chunkable, and 86.42% carry stale-content risk. Example code reliability detection returned 0%, flagged as a likely JS-rendering limitation requiring manual review. Freshness metadata appears on only 1.01% of pages, obscuring content currency for users and search engines.",
+    "strengths": [
+      "Full crawl coverage achieved: 2,572 of 2,575 discovered pages indexed with 95% crawl confidence",
+      "High citationability: 100% of pages support citation extraction for AI and support workflows",
+      "Strong evidence backing: 80.68% of 1,232 detected claims include supporting evidence or examples",
+      "Actionability coverage at 90%: most pages provide clear next steps or calls-to-action",
+      "Multi-project topology successfully mapped with 91.38% overall audit confidence"
+    ],
+    "risks": [
+      "650 broken internal links create dead ends, harm SEO authority, erode user trust, and block onboarding flows",
+      "87% of API surface (1,835 of 2,110 endpoints) lacks usage documentation, forcing users to reverse-engineer or contact support",
+      "Only 14.07% of pages are answerable by LLM retrieval systems, limiting AI assistant accuracy and self-service deflection",
+      "86.42% stale-risk score indicates widespread absence of freshness signals, risking user reliance on outdated instructions",
+      "Example code reliability at 0% suggests JS-rendered blocks invisible to audit; unverified examples may contain breaking changes or deprecated patterns",
+      "1.01% last-updated coverage hides content age from users and search crawlers, damaging trust and ranking",
+      "2 unverified links (auth/rate-limit blocks) may hide additional broken external references in authentication or API docs"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 650 broken internal documentation links using automated link-check CI and bulk redirect/repair pass",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Immediate SEO recovery, removes friction from onboarding and support escalation paths, and restores trust across the entire 2,572-page surface."
+      },
+      {
+        "action": "Generate usage examples and integration guides for the 1,835 undocumented API endpoints (87% gap) prioritized by traffic and support ticket volume",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Directly reduces support load, accelerates developer time-to-value, and unlocks self-service for the majority API surface driving product adoption."
+      },
+      {
+        "action": "Inject last-updated timestamps and author metadata into all 2,572 pages via CMS automation or build pipeline",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Low-effort change boosts user confidence, improves search ranking freshness signals, and enables stale-content triage workflows."
+      },
+      {
+        "action": "Restructure low-answerability pages (85.93% of corpus) with explicit Q&A sections, summary blocks, and semantic headings to lift retrieval score from 14.07% to >60%",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Unlocks AI assistant accuracy and chatbot deflection, reducing support volume and improving developer self-service experience within 30 days."
+      },
+      {
+        "action": "Manually audit example code blocks (0% detection) on top 50 traffic pages to confirm JS-rendering issue, then implement server-side or static rendering for code snippets",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Validates detection gap and ensures high-traffic examples are crawlable, testable, and maintainable, preventing silent breakage in critical onboarding flows."
+      }
+    ],
+    "automation_first": [
+      "Deploy CI link-check on every commit to prevent new broken links and auto-flag the existing 650 broken internal references for triage; expected payoff is zero new dead ends and 90% reduction in link-rot support tickets within 60 days.",
+      "Automate last-updated timestamp injection and stale-content alerts for pages older than 180 days (currently 86.42% at stale risk) using Git commit history or CMS webhooks; expected payoff is 50% faster content refresh cycles and measurable trust lift in user surveys.",
+      "Build API reference coverage dashboard tracking the 2,110 detected endpoints against usage-doc existence (currently 12.91% covered) with weekly Slack alerts for undocumented endpoints above P1 traffic threshold; expected payoff is 30% API doc coverage gain in 90 days and 20% drop in 'how do I use this endpoint' support tickets."
+    ],
+    "limitations": [
+      "External audit cannot verify correctness, accuracy, or versioning of code examples, API signatures, or technical claims\u2014only structural presence and linking.",
+      "Example reliability score of 0% likely reflects JS-rendered code blocks invisible to static crawlers; manual or instrumented browser audit required for true reliability assessment.",
+      "Freshness and staleness metrics depend on visible metadata; pages may be current but lack last-updated stamps, inflating stale-risk percentage.",
+      "API coverage detection relies on heuristic pattern matching; custom or non-standard reference layouts may be undercounted or misclassified.",
+      "Broken link detection excludes 2 URLs blocked by auth/rate-limit; additional external link failures may exist behind authentication or paywalls."
+    ]
+  }
+}

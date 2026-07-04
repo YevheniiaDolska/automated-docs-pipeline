@@ -4,26 +4,20 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- Kroha
-- Docs
-- Users
 - Development
-- Mnt
-- C
-- Auto Doc Pipeline
 - Documents
-last_reviewed: '2026-03-26'
+- Kroha
+- Users
+- Auto Doc Pipeline
+- Docs
+last_reviewed: '2026-05-18'
 original_author: Kroha
 ---
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
-<!-- VERIDOC_POWERED_BADGE:END -->
 
 
 # GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_publish_blocked_when_live0/api/schema.graphql`
 
 Flow mode: `api-first`
 
@@ -36,6 +30,8 @@ Flow mode: `api-first`
 
 ## Interactive GraphQL Playground
 
+<!-- vale off -->
+
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
   <textarea id="graphql-query" rows="12" style="width:100%; font-family:monospace;">query HealthCheck {
@@ -46,7 +42,7 @@ Flow mode: `api-first`
   <pre id="graphql-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const endpoint = "https://postman-echo.com/post";
+(function(){ const endpoint = "http://127.0.0.1:9/graphql";
 const view = document.getElementById('graphql-endpoint-view');
 const run = document.getElementById('graphql-run');
 const query = document.getElementById('graphql-query');
@@ -81,6 +77,8 @@ run.onclick = async function(){
 };
 })();
 </script>
+
+<!-- vale on -->
 
 ## Next steps
 

@@ -15,14 +15,38 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - privacy-policy
 - reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy
+  heading: Data controller
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: Data controller
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
 content:
-  docs_markdown: '# VeriDoc privacy policy
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+
+    # VeriDoc privacy policy
 
 
     This privacy policy explains how Liora Tech ("Company," "we," "us")
@@ -80,9 +104,17 @@ content:
 
     | Referral code | Referral program tracking | Legitimate interest |'
   assistant_context: 'Use this module when answering questions related to: VeriDoc
-    privacy policy. Source path: docs/legal/privacy-policy.md. Summary: Privacy policy
+    privacy policy. Source path: legal/privacy-policy.md. Summary: Privacy policy
     for VeriDoc automated documentation platform, covering data collection, processing,
     storage, retention, and your rights under GDPR.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
 
 
     # VeriDoc privacy policy

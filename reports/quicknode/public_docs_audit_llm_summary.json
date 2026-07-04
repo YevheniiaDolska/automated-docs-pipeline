@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "QuickNode's documentation spans 9,606 crawled pages across a multi-project topology with 100% crawl coverage. Critical weaknesses include 7.14% API reference coverage across 2,641 detected API pages, 39.68% example reliability, and 63.25% of content flagged as stale-risk. Only 36.58% of pages display last-updated metadata, and 27.47% exhibit SEO/geo issues. Overall retrieval readiness scores 49.17/100 (weak band), with just 8.48% chunkability despite 84.46% answerability, signaling poor AI-retrieval preparation. 14 confirmed broken internal links and 920 unverified links (auth/rate-limit blocks) further degrade trust and discoverability.",
+    "strengths": [
+      "Full crawl coverage achieved: 9,606 of 10,697 in-scope pages indexed with no repository navigation link breakage",
+      "High citationability at 100%, ensuring all pages can be referenced in support and AI contexts",
+      "Strong evidence backing: 91.14% of 8,005 detected claims include supporting evidence",
+      "Answerability at 84.46% indicates most content can technically answer user queries if retrieved",
+      "Actionability coverage at 100%, meaning procedural content is complete where present"
+    ],
+    "risks": [
+      "7.14% API reference coverage across 2,641 API pages creates massive onboarding and integration friction for developers",
+      "39.68% example reliability estimate means 6 in 10 code samples may fail, eroding developer trust and increasing support load",
+      "63.25% stale-risk content without visible freshness signals undermines credibility and AI answer quality",
+      "8.48% chunkability score cripples LLM retrieval, search ranking, and chatbot performance across the entire corpus",
+      "920 unverified links (auth/rate-limit blocked) hide unknown broken external references, risking user dead-ends",
+      "27.47% SEO/geo issue rate suppresses organic discovery and regional search visibility",
+      "Only 36.58% last-updated coverage prevents users and AI from assessing content currency, compounding stale-risk perception"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Instrument automated heading, list, and code-fence structure enforcement to lift chunkability from 8.48% toward 80%+ across all 9,606 pages",
+        "impact": "critical",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Chunkability at 8.48% is the single largest blocker to AI retrieval, search ranking, and chatbot utility across the entire corpus, affecting every user interaction."
+      },
+      {
+        "action": "Deploy CI-gated example validation for the 2,641 API pages to raise example reliability from 39.68% to 85%+",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Low example reliability directly drives developer churn, support tickets, and negative word-of-mouth, with immediate ROI in reduced escalations."
+      },
+      {
+        "action": "Auto-inject last-updated timestamps and staleness warnings on the 63.25% stale-risk pages, prioritizing the 2,641 API pages",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Visible freshness metadata costs little to add and immediately restores user confidence, improves AI answer trust, and surfaces true maintenance gaps."
+      },
+      {
+        "action": "Generate missing API reference pages and usage examples to lift API coverage from 7.14% to 60%+ across the 2,641 detected endpoints",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "API coverage gaps are the top onboarding barrier for new developers, directly impacting trial-to-paid conversion and time-to-first-value."
+      },
+      {
+        "action": "Fix 14 confirmed broken internal links and establish weekly automated link-check CI for all 10,697 in-scope URLs",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "medium",
+        "confidence": "high",
+        "why_this_first": "Broken links are low-effort, high-visibility trust killers; fixing them and preventing recurrence signals quality and reduces bounce rate."
+      }
+    ],
+    "automation_first": [
+      "Deploy pre-commit linter enforcing H2/H3 hierarchy, list formatting, and fenced code blocks to remediate the 8.48% chunkability crisis across 9,606 pages, unlocking LLM retrieval and search indexing with near-zero ongoing effort.",
+      "Integrate nightly example test runner for the 2,641 API pages (currently 39.68% reliable) with auto-filed GitHub issues on failure, cutting support tickets by an estimated 30% within 60 days and preventing doc-code drift.",
+      "Automate Git-based last-updated injection and staleness badges for the 63.25% stale-risk pages (6,084 pages), surfacing maintenance priorities in dashboards and restoring user trust with one-time template changes."
+    ],
+    "limitations": [
+      "External audit cannot verify the 920 auth/rate-limited links; actual broken external reference count may be higher, requiring authenticated crawlers or manual spot-checks.",
+      "Example reliability estimate is heuristic; true runtime success rates require live execution in target environments with current dependencies and API versions.",
+      "API coverage detection relies on URL and markup patterns; undocumented or dynamically generated endpoints, webhooks, and SDKs may exist outside the measured 2,641 pages.",
+      "Chunkability and answerability scores predict LLM retrieval potential but do not measure actual user satisfaction, task completion, or answer correctness in production chatbots.",
+      "Freshness and staleness metrics depend on visible metadata and Git history; content accuracy and technical correctness require subject-matter expert review beyond timestamp analysis."
+    ]
+  }
+}

@@ -531,6 +531,8 @@ class TestProvisionClientRepo:
                 "",
                 "professional",
                 "365",
+                "",  # permanent free features (none)
+                "",  # permanent free protocols (none)
                 "/tmp/client-repo",
                 "docs",
                 "api",
@@ -1075,7 +1077,7 @@ class TestWeeklyBatch:
         monkeypatch.chdir(repo)
         monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
-        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: (commands.append(cmd), 0)[1])
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
 
         rc = mod.main()
@@ -1139,7 +1141,7 @@ class TestWeeklyBatch:
         monkeypatch.chdir(repo)
         monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
-        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: (commands.append(cmd), 0)[1])
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
 
         rc = mod.main()
@@ -1184,7 +1186,7 @@ class TestWeeklyBatch:
         monkeypatch.chdir(repo)
         monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
-        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: (commands.append(cmd), 0)[1])
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
 
         rc = mod.main()

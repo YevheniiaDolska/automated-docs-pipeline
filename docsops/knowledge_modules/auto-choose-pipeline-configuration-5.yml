@@ -1,0 +1,69 @@
+id: auto-choose-pipeline-configuration-5
+title: Choose a pipeline configuration (Part 5)
+summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+  or hybrid execution in one guided setup.
+intents:
+- configure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- auto-extracted
+- choose-pipeline-configuration
+- tutorial
+metadata:
+  url: https://docs.example.com/getting-started/choose-pipeline-configuration/
+  title: Choose a pipeline configuration (Part 5)
+  heading: 'Step 5: Build or provision the bundle'
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: getting-started/choose-pipeline-configuration.md
+semantic:
+  topic: 'Step 5: Build or provision the bundle'
+  intent: configure
+  audience: beginner
+  keywords:
+  - choose pipeline configuration
+  - tutorial
+  status: rule_based
+content:
+  docs_markdown: "## Step 5: Build or provision the bundle\n\nBuild a distributable\
+    \ bundle:\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n\
+    ```\n\nProvision directly into a client repository:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/acme.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --install-scheduler linux\n```\n\n## Validation checklist\n\n- [ ] Scope\
+    \ tier matches the client rollout: `pilot`, `full`, or `full+RAG`\n- [ ] Execution\
+    \ mode matches policy: `cloud`, `strict-local`, or `hybrid`\n- [ ] `full+RAG`\
+    \ bundles keep all three retrieval modules enabled\n- [ ] `strict-local` bundles\
+    \ keep `external_llm_allowed: false`\n- [ ] The built bundle includes configuration\
+    \ docs under `docs/`\n\n## Next steps\n\n- Read [How pipeline configurations compose](../concepts/pipeline-configuration-combinations.md)\
+    \ for the model behind the matrix.\n- Follow [Apply a pilot, full, or RAG configuration](../how-to/apply-pipeline-configuration.md)\
+    \ to edit an existing profile safely.\n- Use [Pipeline configuration reference](../reference/pipeline-configuration-reference.md)\
+    \ for exact field values."
+  assistant_context: "Use this module when answering questions related to: Choose\
+    \ a pipeline configuration (Part 5). Source path: getting-started/choose-pipeline-configuration.md.\
+    \ Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,\
+    \ or hybrid execution in one guided setup.\n\n## Step 5: Build or provision the\
+    \ bundle\n\nBuild a distributable bundle:\n\n```bash\npython3 scripts/build_client_bundle.py\
+    \ --client profiles/clients/acme.client.yml\n```\n\nProvision directly into a\
+    \ client repository:\n\n```bash\npython3 scripts/provision_client_repo.py \\\n\
+    \  --client profiles/clients/acme.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --install-scheduler linux\n```\n\n## Validation checklist\n\n- [ ] Scope\
+    \ tier matches the client rollout: `pilot`, `full`, or `full+RAG`\n- [ ] Execution\
+    \ mode matches policy: `cloud`, `strict-local`, or `hybrid`\n- [ ] `full+RAG`\
+    \ bundles keep all three retrieval modules enabled\n- [ ] `strict-local` bundles\
+    \ keep `external_llm_allowed: false`\n- [ ] The built bundle includes configuration\
+    \ docs under `docs/`\n\n## Next steps\n\n- Read [How pipeline configurations compose](../concepts/pipeline-configuration-combinations.md)\
+    \ for the model behind the matrix.\n- Follow [Apply a pilot, full, or RAG configuration](../how-to/apply-pipeline-configuration.md)\
+    \ to edit an existing profile safely.\n- Use [Pipeline configuration reference](../reference/pipeline-configuration-reference.md)\
+    \ for exact field values."

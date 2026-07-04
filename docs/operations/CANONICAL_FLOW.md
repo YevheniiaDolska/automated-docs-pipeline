@@ -166,6 +166,7 @@ Playwright bootstrap:
 ```bash
 python3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright
 ```
+
 - terminology governance:
   - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
 - multi-language examples standard:

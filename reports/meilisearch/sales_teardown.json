@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-30T12:41:30.001389+00:00",
+  "site_url": "https://meilisearch.com/docs",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 71.44,
+    "grade": "C"
+  },
+  "summary": {
+    "executive_summary": "Meilisearch documentation spans 1,247 crawled pages with 100% crawl coverage and strong overall retrieval readiness (78.61/100, moderate band). Critical gaps include 16 confirmed broken internal links, API reference coverage at only 61.9% despite 746 API pages detected, and freshness metadata visible on just 31.92% of pages. Evidence backing for claims is moderate at 56.66% (1,323 of 2,335 key claims), and 50.09% of content carries stale risk flags. High confidence in findings (91.5% overall) supports immediate action on link integrity, API documentation completeness, and freshness transparency.",
+    "pages_crawled": 1247,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 16,
+    "unverified_links_count": 0,
+    "estimated_monthly_cost_usd": 3970.61
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "71.44 / 100",
+      "accent": "teal",
+      "detail": "Grade C"
+    },
+    {
+      "label": "Broken Links",
+      "value": "16",
+      "accent": "amber",
+      "detail": "0 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "61.9%",
+      "accent": "blue",
+      "detail": "284 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "31.92%",
+      "accent": "slate",
+      "detail": "849 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "80.0%",
+      "accent": "violet",
+      "detail": "249 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "67.9%",
+      "accent": "rose",
+      "detail": "Recall 97.3%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 38.1 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 50.09 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 43.34 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Fix all 16 confirmed broken internal docs links",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Immediate trust and SEO win with minimal engineering effort, directly improves AI citation quality and user navigation across 1,247 pages."
+    },
+    {
+      "title": "Add last-updated timestamps to the 68.08% of pages missing freshness metadata (approximately 849 pages)",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Surfaces recency to users and search engines, mitigates 50.09% stale risk perception, and boosts trust with low ongoing maintenance once automated."
+    },
+    {
+      "title": "Close the 38.1% API documentation gap by auditing the 746 detected API pages and adding missing usage examples or cross-links",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Developer onboarding and retention hinge on complete API docs; closing this gap reduces support load and accelerates time-to-value for new users."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage at 100% (1,247 of 1,247 pages) with high crawl confidence (95%)",
+    "Strong answerability at 97.27% and perfect citationability at 100%, enabling reliable AI-assisted support",
+    "High actionability coverage at 80%, indicating clear next-step guidance for users"
+  ],
+  "risks": [
+    "16 confirmed broken internal docs links degrade user trust, SEO authority, and AI retrieval quality",
+    "API reference coverage at 61.9% leaves 38.1% of API surface undocumented or poorly linked, risking developer churn",
+    "Only 31.92% of pages display last-updated metadata, obscuring content freshness and eroding user confidence in accuracy",
+    "50.09% stale risk rate indicates half the corpus may appear outdated to users and search engines"
+  ],
+  "limitations": [
+    "External audit cannot verify runtime correctness of 746 API examples or whether code samples execute successfully against current Meilisearch versions.",
+    "Stale risk and freshness scores reflect metadata and heuristics, not actual content accuracy or alignment with the latest Meilisearch release features.",
+    "API coverage detection relies on page structure patterns; the 61.9% figure may undercount if reference pages lack standard formatting or are dynamically generated."
+  ],
+  "automation_first": [
+    "Deploy a CI link checker to catch the 16 broken internal docs links and prevent future regressions across 1,247 pages, reducing manual QA cycles and preserving SEO equity with zero ongoing effort.",
+    "Automate last-updated timestamp injection from Git commit history to cover the 849 pages (68.08%) missing freshness metadata, eliminating manual date maintenance and immediately addressing the 50.09% stale risk perception.",
+    "Implement API reference coverage monitoring to track the 746 API pages and alert when new endpoints lack usage docs, preventing the 38.1% gap from widening and reducing developer support escalations."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

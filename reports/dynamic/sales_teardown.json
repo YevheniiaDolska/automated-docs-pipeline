@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-25T14:19:58.508240+00:00",
+  "site_url": "https://dynamic.xyz/docs",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 42.09,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Dynamic.xyz documentation spans 2,286 crawled pages with 100% crawl coverage. Critical issues include 61 confirmed broken internal links across user-facing docs, 20.13% SEO/GEO issue rate, and only 3.37% of pages displaying last-updated metadata. API reference coverage is 66.67% across 1,534 detected API pages. Example reliability detection returned 0%, indicating a likely JS-rendering detection gap rather than true absence of code examples. Retrieval readiness scores 73.86 (moderate band), with 68.64% stale-risk flagged pages and only 11.71% of 333 key claims backed by evidence.",
+    "pages_crawled": 2286,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 61,
+    "unverified_links_count": 21,
+    "estimated_monthly_cost_usd": 16843.33
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "42.09 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "61",
+      "accent": "amber",
+      "detail": "21 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "66.67%",
+      "accent": "blue",
+      "detail": "511 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "3.37%",
+      "accent": "slate",
+      "detail": "2209 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "90.0%",
+      "accent": "violet",
+      "detail": "229 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "75.2%",
+      "accent": "rose",
+      "detail": "Recall 98.6%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 33.33 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 68.64 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Fix all 61 confirmed broken internal links in user-facing docs",
+      "impact": "critical",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Immediate trust and SEO recovery across 61 link instances with minimal engineering effort, directly reducing support escalations and bounce rate."
+    },
+    {
+      "title": "Add last-updated timestamps to all 2,286 pages (currently 3.37% coverage) via automated frontmatter injection from Git history",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Reduces stale-risk perception from 68.64% and enables users and LLMs to filter fresh content, improving answer quality and user confidence with one-time automation."
+    },
+    {
+      "title": "Remediate SEO/GEO issues on the 20.13% flagged pages (~460 pages) focusing on missing meta descriptions, title tags, and heading structure",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Unlocks organic search traffic growth and improves discoverability for ~460 pages, directly impacting top-of-funnel acquisition within 30 days."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage at 100% (2,286 of 2,369 requested pages indexed)",
+    "High citationability at 99.87% and answerability at 98.64%, supporting AI retrieval use cases",
+    "1,534 API pages detected with 66.67% reference coverage, indicating substantial API surface documentation"
+  ],
+  "risks": [
+    "61 confirmed broken internal links in user-facing docs degrade trust, SEO authority, and user navigation success",
+    "20.13% SEO/GEO issue rate threatens organic discoverability and search ranking across ~460 pages",
+    "68.64% stale-risk pages (1,569 pages) may contain outdated information, eroding user confidence and AI answer quality",
+    "Only 3.37% last-updated coverage (77 pages) prevents users and LLMs from assessing content freshness"
+  ],
+  "limitations": [
+    "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with current product behavior.",
+    "21 unverified links due to authentication, rate limiting, or server blocks may include false negatives; manual review required for final link health assessment.",
+    "0% example reliability likely reflects JS-rendered code block detection limitation rather than true absence; client-side rendering prevents automated code extraction and testing without instrumentation changes."
+  ],
+  "automation_first": [
+    "Deploy CI link checker to catch broken internal links before publish: 61 confirmed broken links currently degrade trust and SEO; automated pre-publish validation prevents recurrence and eliminates manual audits, saving ~4 hours/week and protecting user experience.",
+    "Automate last-updated timestamp injection from Git commit history for all 2,286 pages: only 3.37% currently show freshness metadata, leaving 2,209 pages opaque; Git-based automation delivers 100% coverage in one sprint and directly reduces the 68.64% stale-risk perception, improving RAG answer filtering and user confidence.",
+    "Implement automated SEO/GEO linting in CI for meta descriptions, title tags, and heading hierarchy: 20.13% issue rate (~460 pages) blocks organic discovery; pre-publish linting prevents new violations and provides fix suggestions, reducing manual SEO audits by ~6 hours/month and protecting search ranking."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

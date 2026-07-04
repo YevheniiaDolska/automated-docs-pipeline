@@ -8,11 +8,18 @@ local_use:
   - CLAUDE.md
   - LOCAL_MODEL.md
   runtime_config: config/client_runtime.yml
+  operator_runtime_overrides: config/operator_runtime_overrides.yml
+  operator_runtime_overrides_template: config/operator_runtime_overrides.example.yml
+  operator_override_signer: scripts/sign_operator_runtime_overrides.py
   policy_pack: policy_packs/selected.yml
   automation_runbook: ops/runbook.md
   local_env_template: .env.docsops.local.template
   vale_config: .vale.ini
   traceability_manifest: TRACEABILITY.yml
+target_platforms:
+- linux
+- windows
+- macos
 licensing:
   public_key: docsops/keys/veriops-licensing.pub
   license_jwt: docsops/license.jwt

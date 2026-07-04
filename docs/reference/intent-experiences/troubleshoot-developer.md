@@ -21,6 +21,52 @@ python3 scripts/assemble_intent_experience.py \
 
 ## Included modules
 
+### Apply a pilot, full, or RAG configuration (Part 4)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 5: Rebuild the bundle
+
+After editing the profile, rebuild the bundle:
+
+```bash
+
+python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
+
+```
+
+If you are installing directly into a repo, reprovision it:
+
+```bash
+
+python3 scripts/provision_client_repo.py \
+  --client profiles/clients/acme.client.yml \
+  --client-repo /path/to/client-repo \
+  --install-scheduler linux
+
+```
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 6: Verify the included docs
+
+Every generated bundle should now include the configuration docs that match its profile. Check for:
+
+- `docs/getting-started/choose-pipeline-configuration.md`
+- `docs/how-to/apply-pipeline-configuration.md`
+- `docs/concepts/pipeline-configuration-combinations.md`
+- `docs/reference/pipeline-configuration-reference.md`
+
+Bundles may also include additional documents such as API-first or Ask AI instructions when those features are enabled.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Common issues and fixes
+
+##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Full bundle still looks like pilot
+
+Check `licensing.plan` and the three retrieval flags. If `plan` is still `pilot`, or all three retrieval flags are `false`, the profile is still scoped down.
+
+##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Strict-local bundle still attempts external LLM use
+
+Check `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify the generated bundle copies the expected `config/client_runtime.yml`.
+
 ### Assemble intent experiences (Part 2)
 
 Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.
@@ -1142,8 +1188,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 | Script | Purpose |
 | --- | --- |
-| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
-| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`, with target-platform filtering for `linux`, `windows`, `macos`, `all`, or mixed estates such as `linux,windows`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). Supports `--install-scheduler auto` and auto-detects the correct local installer for Linux, macOS, or Windows. |
 | `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
 | `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
 | `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
@@ -1160,6 +1206,8 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
 | `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/runtime_config_loader.py` | Load protected runtime config, enforce integrity manifest for base runtime, and merge signed operator runtime overrides. |
+| `scripts/sign_operator_runtime_overrides.py` | Sign `operator_runtime_overrides.yml` so operator-only live changes can be applied after bundle delivery. |
 | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia and optionally apply advanced settings, synonyms, rules, and replicas from config. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
@@ -1173,7 +1221,7 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
 | `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
 | `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
-| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Uses disk-backed link storage for large crawls, so broken-link analysis stays complete without high RAM spikes. Supports interactive wizard and LLM-powered expert analysis. |
 | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
 | `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
 | `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
@@ -1367,28 +1415,13 @@ Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated scr
 
 Without a valid license, the pipeline runs in **community mode** (degraded):
 
-- Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol.
+- Markdown lint, frontmatter validation, SEO/GEO report-only.
+- Advanced runtime modules are disabled in community mode (including glossary sync, lifecycle management, API-first/REST protocol automation, multi-protocol flow, drift detection, KPI/SLA, and RAG layers).
+- Existing client artifacts remain on disk (docs content, templates, glossary, shared variables), but pipeline execution falls back to the reduced community feature surface.
 - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol.
 - Quality gates warn-only (never block).
 
 License features per plan:
-
-| Feature gate | Pilot | Professional | Enterprise |
-| --- | --- | --- | --- |
-| `seo_geo_scoring` | No | Yes | Yes |
-| `api_first_flow` | No | Yes | Yes |
-| `drift_detection` | No | Yes | Yes |
-| `kpi_wall_sla` | No | Yes | Yes |
-| `test_assets_generation` | No | Yes | Yes |
-| `consolidated_reports` | No | Yes | Yes |
-| `multi_protocol_pipeline` | No | No | Yes |
-| `knowledge_modules` | No | No | Yes |
-| `knowledge_graph` | No | No | Yes |
-| `faiss_retrieval` | No | No | Yes |
-| `executive_audit_pdf` | No | No | Yes |
-| `i18n_system` | No | No | Yes |
-| `custom_policy_packs` | No | No | Yes |
-| `testrail_zephyr_upload` | No | No | Yes |
 
 ### Plan Tiers (Basic / Pro / Enterprise) (Part 5)
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-06-30T12:40:45.314057+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">1247</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">1268</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">16</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">8.92%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">61.9%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">31.92%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">91.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 16</li><li>API usage-doc coverage is low: 61.9% (746 API pages detected)</li><li>Freshness visibility is weak: only 31.92% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://meilisearch.com/docs</strong>: pages=1247, broken_links=16, api_coverage=61.9%, examples=100.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Meilisearch documentation spans 1,247 crawled pages with 100% crawl coverage and strong overall retrieval readiness (78.61/100, moderate band). Critical gaps include 16 confirmed broken internal links, API reference coverage at only 61.9% despite 746 API pages detected, and freshness metadata visible on just 31.92% of pages. Evidence backing for claims is moderate at 56.66% (1,323 of 2,335 key claims), and 50.09% of content carries stale risk flags. High confidence in findings (91.5% overall) supports immediate action on link integrity, API documentation completeness, and freshness transparency.</p><h3>Strengths</h3><ul><li>Complete crawl coverage at 100% (1,247 of 1,247 pages) with high crawl confidence (95%)</li><li>Strong answerability at 97.27% and perfect citationability at 100%, enabling reliable AI-assisted support</li><li>High actionability coverage at 80%, indicating clear next-step guidance for users</li><li>Example reliability estimate at 100%, suggesting code samples are well-maintained</li><li>Zero repository navigation broken links, keeping internal GitHub/GitLab workflows intact</li></ul><h3>Risks</h3><ul><li>16 confirmed broken internal docs links degrade user trust, SEO authority, and AI retrieval quality</li><li>API reference coverage at 61.9% leaves 38.1% of API surface undocumented or poorly linked, risking developer churn</li><li>Only 31.92% of pages display last-updated metadata, obscuring content freshness and eroding user confidence in accuracy</li><li>50.09% stale risk rate indicates half the corpus may appear outdated to users and search engines</li><li>56.66% evidence coverage means 43.34% of claims (1,012 claims) lack supporting examples, code, or references, weakening onboarding</li><li>SEO/geo issue rate at 8.92% may limit discoverability in regional searches and reduce organic traffic</li><li>Chunkability at 67.92% suggests one-third of content may fragment poorly for RAG and LLM-based answer systems</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 16 confirmed broken internal docs links <em>[high, low]</em></li><li>Add last-updated timestamps to the 68.08% of pages missing freshness metadata (approximately 849 pages) <em>[high, medium]</em></li><li>Close the 38.1% API documentation gap by auditing the 746 detected API pages and adding missing usage examples or cross-links <em>[critical, high]</em></li><li>Enrich the 1,012 claims lacking evidence (43.34% of 2,335 claims) with code snippets, screenshots, or reference links <em>[high, high]</em></li><li>Improve chunkability for the 32.08% of pages scoring poorly (approximately 400 pages) by adding subheadings, lists, or section breaks <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 65.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 420.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 180.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 850.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer rate: standard senior DevOps/platform engineer market rate for infrastructure SaaS",
+    "Support rate: technical support specialist B2B SaaS benchmark",
+    "Release frequency: developer platform typical continuous deployment cadence",
+    "Manual sync hours: conservative estimate given 1058 pages, 94 broken links, 55.86% freshness coverage",
+    "Release delay: moderate given API coverage 60%, broken links present, sync overhead",
+    "Monthly tickets: scaled for developer-focused platform with technical user base",
+    "Docs ticket share: elevated due to 94 broken links, 10.7% SEO issues, 44% pages lacking freshness dates",
+    "Ticket handling: technical documentation queries require above-average resolution time",
+    "Doc-influenced evals: developer platforms see high documentation-driven trial signups",
+    "Eval-to-customer: conservative B2B conversion for infrastructure products",
+    "Customer value: mid-market developer platform ARPU estimate",
+    "Revenue sensitivity: moderate given strong retrieval score (82.11) but freshness and link issues create friction",
+    "Confidence: moderate - audit provides solid quality metrics but commercial impact requires assumptions"
+  ]
+}

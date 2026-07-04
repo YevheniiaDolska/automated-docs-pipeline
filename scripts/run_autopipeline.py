@@ -581,7 +581,7 @@ def _write_output_index(
             lines.append(f"- {title}: `{path}` ({status})")
             public_url = _docs_public_url(repo_root, path, site_url)
             if public_url:
-                lines.append(f"  Public URL: {public_url}")
+                lines.append(f"  Public URL: <{public_url}>")
 
     rag = manifest_json.get("rag_metadata", {})
     if isinstance(rag, dict) and rag:

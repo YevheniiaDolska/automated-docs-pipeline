@@ -13,16 +13,32 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - websocket-api
+metadata:
+  url: https://docs.example.com/reference/websocket-api/
+  title: WEBSOCKET API Reference
+  heading: Top-level Keys
+  version: 1.50.0
+  updated_at: '2026-03-20'
+  source_site: docs.example.com
+  source_path: reference/websocket-api.md
+semantic:
+  topic: Top-level Keys
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - websocket api
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
-    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 
     <!-- VERIDOC_POWERED_BADGE:END -->
 
@@ -49,13 +65,13 @@ content:
 
     - `project.updated`'
   assistant_context: 'Use this module when answering questions related to: WEBSOCKET
-    API Reference. Source path: docs/reference/websocket-api.md. Summary: Auto-generated
+    API Reference. Source path: reference/websocket-api.md. Summary: Auto-generated
     websocket reference from source contract.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->
 
-    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 
     <!-- VERIDOC_POWERED_BADGE:END -->
 

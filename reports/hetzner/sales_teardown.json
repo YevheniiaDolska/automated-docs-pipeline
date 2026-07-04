@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-30T14:25:18.162743+00:00",
+  "site_url": "https://docs.hetzner.com/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 50.2,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Hetzner documentation audit covered 867 pages across multi-project topology with 100% crawl coverage. Retrieval readiness scores 38.17/100 (weak band), driven by 15.22% chunkability and 0% answerability, indicating severe AI/RAG compatibility issues. API reference coverage is 61.54% across 50 detected API pages. SEO/geo issues affect 45.67% of pages. 5 confirmed broken internal links exist, with 50 additional links unverified due to auth/rate-limit blocks.",
+    "pages_crawled": 867,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 5,
+    "unverified_links_count": 50,
+    "estimated_monthly_cost_usd": 14028.92
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "50.2 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "5",
+      "accent": "amber",
+      "detail": "50 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "61.54%",
+      "accent": "blue",
+      "detail": "19 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "90.31%",
+      "accent": "slate",
+      "detail": "84 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "41.67%",
+      "accent": "violet",
+      "detail": "506 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "15.2%",
+      "accent": "rose",
+      "detail": "Recall 0.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 38.46 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 100.0 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    },
+    {
+      "headline": "Missing required doc layers",
+      "evidence": "Features missing required layers %: 58.33 -> 5.0 %",
+      "business_consequence": "Backfill concept/how-to/reference coverage for key capabilities."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Restructure top 100 pages (by traffic) to add explicit H2/H3 question headings and concise answer paragraphs, targeting 60%+ answerability",
+      "impact": "critical",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Raising answerability from 0% directly enables AI chatbot accuracy and reduces support ticket volume within 30 days."
+    },
+    {
+      "title": "Refactor high-traffic pages with chunkability below 15.22% baseline: break long sections, add semantic headers, limit paragraph length to <150 words",
+      "impact": "critical",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Improving chunkability from 15.22% unlocks vector search quality and LLM context precision, directly improving AI-powered search and support."
+    },
+    {
+      "title": "Create usage/integration docs for the 38.46% API surface gap (19 of 50 API pages missing usage context), prioritizing top 10 API endpoints by call volume",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Closing API usage gaps for high-traffic endpoints reduces developer time-to-first-call and support escalations within 30 days."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage at 100% (867 of 868 discovered pages indexed)",
+    "90.31% of pages include last-updated metadata, supporting freshness signals",
+    "100% citationability indicates stable URLs and anchor structure for attribution"
+  ],
+  "risks": [
+    "0% answerability score means pages lack structured Q&A patterns, crippling LLM-based support automation and chatbot accuracy",
+    "15.22% chunkability indicates dense or poorly structured content that fragments badly for vector search and AI retrieval",
+    "45.67% SEO/geo issue rate threatens organic discoverability and regional search ranking",
+    "38.46% of API surface lacks usage documentation (50 API pages detected, 61.54% coverage), risking developer onboarding friction"
+  ],
+  "limitations": [
+    "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with actual product API behavior.",
+    "25% confidence on link verification means up to 50 unverified links may include false negatives; auth-protected or rate-limited targets were not fully tested.",
+    "Chunkability and answerability scores reflect structural heuristics, not actual LLM performance; real-world RAG accuracy requires live testing with production queries."
+  ],
+  "automation_first": [
+    "Deploy pre-commit linter to enforce H2/H3 question-style headings and <150-word paragraph limits on all markdown files, targeting the 0% answerability and 15.22% chunkability gaps; expected payoff is sustained AI retrieval quality and reduced manual content audits.",
+    "Implement CI check to flag new pages missing meta descriptions or hreflang tags, preventing addition to the existing 45.67% SEO/geo issue pool (396 pages); expected payoff is halting SEO debt accumulation and protecting organic traffic growth.",
+    "Automate weekly broken link scan with auth-token injection to resolve the 50 unverified link blind spot and catch new breakage before user impact; expected payoff is continuous link health visibility and faster MTTR for navigation issues."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

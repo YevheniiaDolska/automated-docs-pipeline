@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - canonical-flow
 - reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 5)
+  heading: Canonical Flow (Sales + Delivery) (Part 5)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: Canonical Flow (Sales + Delivery) (Part 5)
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
 content:
   docs_markdown: "- gap detection\n- stale checks\n- drift + docs contract (if enabled)\n\
     \  - docs contract is report-only by default (no hard weekly blocking)\n  - consolidated\
@@ -39,14 +55,16 @@ content:
     \ Postman mock endpoint\n- RAG/knowledge tasks:\n  - `extract_knowledge_modules_from_docs.py`\n\
     \  - `validate_knowledge_modules.py`\n  - `generate_knowledge_retrieval_index.py`\n\
     \  - `generate_knowledge_graph_jsonld.py`\n  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)\n\
-    - terminology governance:\n  - `sync_project_glossary.py` (syncs glossary markers\
-    \ to `glossary.yml`)\n- multi-language examples standard:\n  - `generate_multilang_tabs.py`\n\
-    \  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py` (including\
-    \ `expected-output` comparison for tagged blocks)\n- intent bundle assembly via\
-    \ `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`\n\
-    - `custom_tasks.weekly` commands\n- consolidated report generation"
+    - Screenshot placement tasks:\n  - `generate_screenshot_capture_plan.py` auto-refreshes\
+    \ `docs/screenshots.capture.yml` from current docs tree\n  - `capture_screenshots.py`\
+    \ captures screenshots via Playwright using `docs/screenshots.capture.yml`\n \
+    \ - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json`\
+    \ into `docs/screenshots.yml`\n  - `insert_screenshots_into_docs.py` inserts screenshots\
+    \ by `target.doc` + `target.anchor`/`target.heading`\n  - fallback placement after\
+    \ `h1` for unresolved section headings\n  - unresolved targets are reported in\
+    \ `reports/screenshot_injection_report.json` under `needs_review`"
   assistant_context: "Use this module when answering questions related to: Canonical\
-    \ Flow (Sales + Delivery) (Part 5). Source path: docs/operations/CANONICAL_FLOW.md.\
+    \ Flow (Sales + Delivery) (Part 5). Source path: operations/CANONICAL_FLOW.md.\
     \ Summary: Canonical sales and delivery flow for onboarding and operating client\
     \ Auto-Doc Pipeline setups.\n\n- gap detection\n- stale checks\n- drift + docs\
     \ contract (if enabled)\n  - docs contract is report-only by default (no hard\
@@ -66,9 +84,11 @@ content:
     \ Postman mock endpoint\n- RAG/knowledge tasks:\n  - `extract_knowledge_modules_from_docs.py`\n\
     \  - `validate_knowledge_modules.py`\n  - `generate_knowledge_retrieval_index.py`\n\
     \  - `generate_knowledge_graph_jsonld.py`\n  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)\n\
-    - terminology governance:\n  - `sync_project_glossary.py` (syncs glossary markers\
-    \ to `glossary.yml`)\n- multi-language examples standard:\n  - `generate_multilang_tabs.py`\n\
-    \  - `validate_multilang_examples.py`\n  - `check_code_examples_smoke.py` (including\
-    \ `expected-output` comparison for tagged blocks)\n- intent bundle assembly via\
-    \ `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`\n\
-    - `custom_tasks.weekly` commands\n- consolidated report generation"
+    - Screenshot placement tasks:\n  - `generate_screenshot_capture_plan.py` auto-refreshes\
+    \ `docs/screenshots.capture.yml` from current docs tree\n  - `capture_screenshots.py`\
+    \ captures screenshots via Playwright using `docs/screenshots.capture.yml`\n \
+    \ - `build_screenshot_manifest.py` converts `reports/screenshot_capture_manifest.json`\
+    \ into `docs/screenshots.yml`\n  - `insert_screenshots_into_docs.py` inserts screenshots\
+    \ by `target.doc` + `target.anchor`/`target.heading`\n  - fallback placement after\
+    \ `h1` for unresolved section headings\n  - unresolved targets are reported in\
+    \ `reports/screenshot_injection_report.json` under `needs_review`"

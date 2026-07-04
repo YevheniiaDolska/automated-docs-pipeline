@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-06-30T12:59:39.974742+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">1300</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">1301</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">1</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">25.85%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">77.78%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 25.85%</li><li>Example reliability: 0% on 1300 pages (likely detection limitation). Site may use JS-rendered code blocks.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.n8n.io/</strong>: pages=1300, broken_links=0, api_coverage=77.78%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>n8n documentation spans 1,300 pages with 100% crawl coverage and zero confirmed broken links. Critical weaknesses exist in AI retrieval readiness (overall score 37.61/100, &#x27;weak&#x27; band) driven by 8.69% chunkability and 0% answerability. Only 41.25% of 1,772 detected claims include supporting evidence, and 50% of pages lack actionable guidance. SEO/geo issues affect 25.85% of pages, while API reference coverage reaches 77.78% across 117 detected pages. Example code reliability shows 0% (likely a detection limitation due to JS rendering), and overall audit confidence stands at 63.5%.</p><h3>Strengths</h3><ul><li>Complete crawl coverage (1,300 of 1,301 pages, 100%) with no broken internal or repository navigation links</li><li>Strong API reference coverage at 77.78% across 117 detected API pages</li><li>100% last-updated metadata coverage and 100% citationability for attribution</li><li>Zero confirmed broken links; only 1 unverified URL due to auth/rate-limit blocks</li><li>Large content corpus (1,300 pages) indicates comprehensive product documentation</li></ul><h3>Risks</h3><ul><li>AI retrieval readiness overall score of 37.61/100 (&#x27;weak&#x27;) severely limits LLM answer quality and RAG performance</li><li>Chunkability at 8.69% means 91% of pages will fragment poorly for vector search and context windows</li><li>Answerability at 0% indicates pages lack self-contained Q&amp;A structure, forcing users to navigate multiple pages</li><li>Only 41.25% of 1,772 claims (731 total) include evidence, undermining trust and onboarding for new users</li><li>50% of pages lack actionable guidance, increasing support burden and time-to-value</li><li>SEO/geo issue rate of 25.85% (336 pages) may harm discoverability and organic search ranking</li><li>Example reliability at 0% flagged as likely detection limitation (JS rendering), but if real would block hands-on learning</li></ul><h3>Prioritized actions</h3><ul><li>Refactor the 91% of pages with poor chunkability (1,183 pages) to use semantic headings, shorter sections, and explicit topic boundaries for vector search and LLM context windows <em>[critical, high]</em></li><li>Add inline evidence (screenshots, logs, output examples, error messages) to the 1,041 claims currently lacking support (58.75% of 1,772 claims) across high-traffic onboarding and troubleshooting pages <em>[high, medium]</em></li><li>Convert the 50% of pages lacking actionable guidance (650 pages) into step-by-step procedures with clear next actions, especially for integration setup and workflow creation <em>[high, medium]</em></li><li>Restructure pages with 0% answerability to include FAQ-style sections, explicit problem statements, and self-contained answers for common user questions <em>[high, medium]</em></li><li>Audit and fix SEO/geo issues on the 336 pages (25.85%) with problems, prioritizing high-traffic integration and getting-started pages for meta descriptions, titles, and structured data <em>[medium, low]</em></li></ul></div>
+  </div>
+</body>
+</html>

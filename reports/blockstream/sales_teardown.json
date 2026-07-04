@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-24T15:26:27.286029+00:00",
+  "site_url": "https://docs.liquid.net/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 4.93,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "Documentation audit across 9 Blockstream properties crawled 28,886 pages (4.02% of 766,787 discovered URLs). 1,222 broken links exist in user-facing docs (190 additional broken repo navigation links). API reference coverage is 14.57% across 984 detected API pages. Retrieval readiness scores 64.89/100 (moderate band) with only 53.3% answerability and 62.53% stale-risk flagged pages. Only 37.74% of pages display last-updated metadata, and 27.8% have SEO/geo issues.",
+    "pages_crawled": 0,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 0,
+    "unverified_links_count": 0,
+    "estimated_monthly_cost_usd": 28980.17
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "4.93 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "0",
+      "accent": "amber",
+      "detail": "0 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "-1.0%",
+      "accent": "blue",
+      "detail": "1 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "0.0%",
+      "accent": "slate",
+      "detail": "1 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "0.0%",
+      "accent": "violet",
+      "detail": "1 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "0.0%",
+      "accent": "rose",
+      "detail": "Recall 0.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 101.0 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 77.5 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Fix 1,222 broken internal documentation links across user-facing sites",
+      "impact": "critical",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Broken links directly block user journeys and signal neglect, damaging trust and increasing support volume immediately."
+    },
+    {
+      "title": "Add last-updated timestamps to the 62.47% of pages missing freshness metadata (18,000+ pages)",
+      "impact": "high",
+      "effort": "low",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Low-effort metadata addition immediately reduces stale-risk perception, boosts user confidence, and improves AI answer quality with recency signals."
+    },
+    {
+      "title": "Increase API reference coverage from 14.57% to at least 60% by documenting missing endpoints across 984 detected API pages",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Developer onboarding and integration success depend on complete API docs; 85% gap is a primary blocker to adoption and self-service."
+    }
+  ],
+  "strengths": [
+    "Example code reliability estimated at 98.31%, indicating high quality of working samples",
+    "Actionability coverage at 98.67% shows docs provide clear next steps",
+    "Citationability at 99.95% enables accurate source attribution for AI and support"
+  ],
+  "risks": [
+    "682,657 links unverified due to auth/rate-limit blocks; true broken link count may be significantly higher than reported 1,222",
+    "Crawl reached only 4.02% of discovered scope (28,886 of 766,787 pages); large documentation surface remains unaudited",
+    "Overall audit confidence at 49.1% and link confidence at 25% limit reliability of findings",
+    "API coverage at 14.57% leaves 85% of API surface undocumented or undetected, blocking developer onboarding"
+  ],
+  "limitations": [
+    "Crawl reached only 4.02% of discovered scope; findings may not represent quality across 738,000+ uncrawled pages, especially behind authentication or dynamic navigation.",
+    "682,657 links could not be verified due to auth, rate limits, or server blocks; actual broken link count may be substantially higher than the 1,412 confirmed.",
+    "Overall confidence at 49.1% and link confidence at 25% indicate significant detection gaps; manual validation required for business-critical decisions."
+  ],
+  "automation_first": [
+    "Deploy automated broken link checker across all 9 properties to catch the 1,222 confirmed broken docs links (plus 190 repo links) on every commit, preventing future link rot and reducing manual QA burden by 80%.",
+    "Implement CI-based freshness enforcement requiring last-updated metadata on publish, targeting the 62.47% of pages (18,000+) currently missing timestamps, to eliminate stale-risk flags and improve retrieval ranking with zero ongoing manual effort.",
+    "Add pre-commit API reference coverage gate to flag undocumented endpoints, addressing the 85% API documentation gap (984 pages detected, 14.57% covered) and ensuring new endpoints ship with docs, preventing coverage regression and reducing post-release documentation debt by 70%."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 11143.5,
+    "remediation_cost_usd_base_total": 4702.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

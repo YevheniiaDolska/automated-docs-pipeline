@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - terms-of-service
+metadata:
+  url: https://docs.example.com/legal/terms-of-service/
+  title: VeriDoc terms of service (Part 3)
+  heading: Acceptable use
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/terms-of-service.md
+semantic:
+  topic: Acceptable use
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - terms of service
+  status: rule_based
 content:
   docs_markdown: "## Acceptable use\n\nYou agree not to:\n\n1. Use the Service to\
     \ process content that violates applicable laws.\n1. Attempt to reverse-engineer,\
@@ -38,7 +54,7 @@ content:
     solely for providing the Service. This license terminates when you delete\nyour\
     \ content or close your account."
   assistant_context: "Use this module when answering questions related to: VeriDoc\
-    \ terms of service (Part 3). Source path: docs/legal/terms-of-service.md. Summary:\
+    \ terms of service (Part 3). Source path: legal/terms-of-service.md. Summary:\
     \ Terms of service governing the use of VeriDoc automated documentation platform,\
     \ including subscription tiers, usage limits, and acceptable use policies.\n\n\
     ## Acceptable use\n\nYou agree not to:\n\n1. Use the Service to process content\

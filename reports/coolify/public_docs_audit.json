@@ -1,0 +1,460 @@
+{
+  "generated_at": "2026-06-30T14:15:44.149166+00:00",
+  "site_url": "https://coolify.io/docs",
+  "site_urls": [
+    "https://coolify.io/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://coolify.io/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 480,
+          "requested_pages": 491,
+          "urls_examined": 480,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 480,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 480,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 480,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 486,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://coolify.io/cdn-cgi/l/email-protection"
+          ],
+          "docs_broken_link_samples": [
+            "https://coolify.io/cdn-cgi/l/email-protection"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://coolify.io/cdn-cgi/l/email-protection"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://coolify.io/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://coolify.io/docs/applications/ci-cd/bitbucket/integration",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://coolify.io/docs/applications/ci-cd/gitea/integration",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://coolify.io/docs/applications/ci-cd/github/deploy-key",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://coolify.io/docs/applications/ci-cd/gitlab/integration",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://coolify.io/docs/applications/ci-cd/other-providers",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 480,
+          "missing_title_count": 5,
+          "missing_description_count": 5,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 18,
+          "seo_geo_issue_rate_pct": 1.72
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1060,
+          "api_pages_detected": 20,
+          "endpoints_with_usage_docs": 906,
+          "reference_endpoints_without_usage_docs": 154,
+          "reference_coverage_pct": 85.47,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/api/feedback",
+            "ep:/api/health",
+            "ep:/app.coolify.io",
+            "ep:/app/artisan",
+            "ep:/app/bootstrap/cache",
+            "ep:/assets/nginx.template.conf",
+            "ep:/assets/php-fpm.conf",
+            "ep:/assets/scripts/prestart.mjs",
+            "ep:/assets/start.sh",
+            "ep:/assets/supervisor.sock",
+            "ep:/assets/supervisord.conf",
+            "ep:/assets/supervisord.pid",
+            "ep:/assets/worker-*.conf",
+            "ep:/conf/fastcgi.conf",
+            "ep:/conf/fastcgi_params",
+            "ep:/conf/mime.types",
+            "ep:/coolify.io/docs/api-reference/authorization",
+            "ep:/coolify.io/docs/applications/ci-cd/github/actions",
+            "ep:/coolify.io/docs/applications/ci-cd/other-providers",
+            "ep:/coolify.io/docs/applications/laravel"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 462,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (462 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 5,
+          "pages_without_last_updated_hint": 475,
+          "last_updated_coverage_pct": 1.04,
+          "samples_with_last_updated": [
+            {
+              "url": "https://coolify.io/changelog",
+              "hint": "June 4, 2026"
+            },
+            {
+              "url": "https://coolify.io/docs/knowledge-base/s3/aws",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://coolify.io/docs/services/diun",
+              "hint": "Docker Image Update Notifier is a CLI application written in Go and delivered as a single executable (and a Docker image"
+            },
+            {
+              "url": "https://coolify.io/privacy-policy",
+              "hint": "Last Updated"
+            },
+            {
+              "url": "https://coolify.io/services",
+              "hint": "Docker Image Update Notifier is a CLI application to receive notifications when a Docker image is updated on a Docker re"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 94.58,
+          "answerability_pct": 98.75,
+          "citationability_pct": 98.96,
+          "stale_risk_pct": 69.27,
+          "overall_score_0_100": 86.77,
+          "overall_band": "strong"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 375,
+          "claims_with_evidence": 222,
+          "coverage_pct": 59.2
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 80,
+              "checks": {
+                "auth_model": 54,
+                "error_semantics": 79,
+                "retry_idempotency": 0,
+                "schema_evolution": 65
+              }
+            },
+            "graphql": {
+              "pages": 14,
+              "checks": {
+                "auth_model": 3,
+                "error_semantics": 14,
+                "retry_idempotency": 0,
+                "schema_evolution": 14
+              }
+            },
+            "grpc": {
+              "pages": 2,
+              "checks": {
+                "auth_model": 1,
+                "error_semantics": 1,
+                "retry_idempotency": 0,
+                "schema_evolution": 2
+              }
+            },
+            "asyncapi": {
+              "pages": 29,
+              "checks": {
+                "auth_model": 9,
+                "error_semantics": 29,
+                "retry_idempotency": 0,
+                "schema_evolution": 24
+              }
+            },
+            "websocket": {
+              "pages": 14,
+              "checks": {
+                "auth_model": 9,
+                "error_semantics": 14,
+                "retry_idempotency": 0,
+                "schema_evolution": 11
+              }
+            }
+          },
+          "coverage_pct": 75.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://coolify.io/cdn-cgi/l/email-protection"
+        ],
+        "docs_broken_link_samples": [
+          "https://coolify.io/cdn-cgi/l/email-protection"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/api/feedback",
+          "ep:/api/health",
+          "ep:/app.coolify.io",
+          "ep:/app/artisan",
+          "ep:/app/bootstrap/cache",
+          "ep:/assets/nginx.template.conf",
+          "ep:/assets/php-fpm.conf",
+          "ep:/assets/scripts/prestart.mjs",
+          "ep:/assets/start.sh",
+          "ep:/assets/supervisor.sock",
+          "ep:/assets/supervisord.conf",
+          "ep:/assets/supervisord.pid",
+          "ep:/assets/worker-*.conf",
+          "ep:/conf/fastcgi.conf",
+          "ep:/conf/fastcgi_params",
+          "ep:/conf/mime.types",
+          "ep:/coolify.io/docs/api-reference/authorization",
+          "ep:/coolify.io/docs/applications/ci-cd/github/actions",
+          "ep:/coolify.io/docs/applications/ci-cd/other-providers",
+          "ep:/coolify.io/docs/applications/laravel"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 480,
+        "requested_pages": 491,
+        "urls_examined": 480,
+        "max_pages_total": 5000,
+        "discovered_pages": 480,
+        "crawl_scope_pages": 480,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.72
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 85.47,
+        "no_api_pages_found": false,
+        "api_pages_detected": 20,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.04
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 94.58,
+        "answerability_pct": 98.75,
+        "citationability_pct": 98.96,
+        "stale_risk_pct": 69.27,
+        "overall_score_0_100": 86.77,
+        "overall_band": "strong"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 375,
+        "claims_with_evidence": 222,
+        "coverage_pct": 59.2
+      },
+      "actionability": {
+        "coverage_pct": 75.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 86.77,
+    "retrieval_readiness_band": "strong",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 480,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 1,
+          "unverified_links_count": 0
+        },
+        "severity": "medium",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 1.04
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 1.04% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Coolify documentation spans 480 pages with 100% crawl coverage and strong retrieval readiness (86.77 overall score). Critical gaps: 0% example reliability estimate, 1.04% last-updated coverage, and 69.27% of pages flagged with stale risk. API reference coverage is solid at 85.47% across 20 detected pages. Evidence coverage stands at 59.2% (222 of 375 key claims backed), and 75% actionability coverage indicates reasonable user guidance.",
+      "strengths": [
+        "Complete crawl coverage (480/480 pages, 100%) with no trap URLs or scope issues",
+        "Strong retrieval readiness band (86.77 score) with 98.75% answerability and 98.96% citationability",
+        "API reference coverage at 85.47% with 20 pages detected, no detection issues flagged",
+        "Minimal broken links (1 docs-facing link, 0 repository navigation links)",
+        "High chunkability at 94.58%, supporting AI and search use cases"
+      ],
+      "risks": [
+        "0% example reliability estimate across 480 pages suggests no validated code samples or detection failure",
+        "69.27% stale risk rate indicates majority of content lacks freshness signals, undermining trust",
+        "Only 1.04% last-updated coverage (5 pages) leaves users unable to assess currency of 475 pages",
+        "40.8% of key claims (153 of 375) lack evidence, risking credibility and support escalations",
+        "25% actionability gap means one-quarter of pages may lack clear next steps for users",
+        "1.72% SEO/geo issue rate may limit discoverability in search and regional contexts",
+        "Single confirmed broken internal link may cascade into user confusion if on high-traffic page"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Add last-updated timestamps to all 475 pages currently missing them (raise from 1.04% to 100%)",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Freshness signals directly reduce stale risk (69.27%), build user trust, and improve SEO with minimal engineering lift."
+        },
+        {
+          "action": "Audit and validate code examples across all 480 pages to establish baseline reliability above 0%",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Zero example reliability blocks onboarding velocity and drives support tickets; fixing top 20 high-traffic pages yields immediate user wins."
+        },
+        {
+          "action": "Backfill evidence for the 153 unsupported claims (40.8% gap) prioritizing API and integration pages",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Evidence gaps erode credibility in technical evaluation; targeting API docs (20 pages) maximizes trust impact per page edited."
+        },
+        {
+          "action": "Fix the 1 confirmed broken internal link and audit link health on top 50 landing pages",
+          "impact": "medium",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "high",
+          "why_this_first": "Quick fix prevents user drop-off and signals quality; auditing high-traffic pages catches future breaks before they scale."
+        },
+        {
+          "action": "Add clear next-step CTAs to the 25% of pages with actionability gaps, focusing on getting-started and integration flows",
+          "impact": "medium",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Actionability gaps in onboarding paths directly extend time-to-value; fixing 20-30 key pages reduces trial abandonment."
+        }
+      ],
+      "automation_first": [
+        "Deploy CI-based code example testing to prevent 0% reliability from recurring: run linters and smoke tests on all detected code blocks (estimated 200+ across 480 pages), catching breaks before publish and reducing support load from broken samples.",
+        "Automate last-updated timestamp injection via build pipeline to maintain 100% freshness coverage (currently 1.04%, 475 pages missing): eliminates manual toil, cuts stale risk from 69.27%, and boosts SEO with zero ongoing effort.",
+        "Implement weekly broken link scanner with Slack alerts for the 480-page corpus (currently 1 broken link, 0 unverified): prevents link rot at scale, protects user trust, and avoids manual audits as docs grow beyond 500 pages."
+      ],
+      "limitations": [
+        "External audit cannot verify runtime correctness of code examples or test actual execution in user environments; 0% reliability estimate may reflect detection limits rather than true sample quality.",
+        "Stale risk and freshness metrics rely on visible timestamps and heuristics; pages may be current but lack machine-readable signals, inflating perceived staleness.",
+        "Evidence and actionability scoring depends on content structure patterns; non-standard formatting may cause under-detection of valid claims or CTAs.",
+        "Crawl confidence at 95% and API confidence at 85% indicate possible missed pages or API endpoints in dynamic or JavaScript-heavy sections."
+      ]
+    }
+  }
+}

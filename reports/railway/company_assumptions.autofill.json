@@ -1,0 +1,29 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 4.0,
+  "avg_release_delay_hours": 6.0,
+  "monthly_support_tickets": 450.0,
+  "docs_related_ticket_share": 0.22,
+  "avg_ticket_handling_minutes": 18.0,
+  "monthly_doc_influenced_evals": 180.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 420.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 72.0,
+  "provenance": [
+    "Railway is a developer infrastructure platform with moderate scale (315 pages suggests established product)",
+    "Engineer/support rates based on US B2B SaaS market averages for infrastructure companies",
+    "Release frequency assumes modern CI/CD for platform services (weekly+ deploys)",
+    "Manual sync hours conservative given 99% freshness coverage and strong overall score (91/100)",
+    "Support ticket volume estimated from developer platform benchmarks, adjusted for Railway's scale",
+    "Docs-related ticket share (22%) reflects low broken links (0) but moderate evidence coverage (30%)",
+    "Doc-influenced evals based on developer self-service patterns in infrastructure products",
+    "Eval-to-customer rate conservative for bottom-up developer adoption model",
+    "Customer value reflects Railway's usage-based pricing for small-to-mid market developers",
+    "Revenue sensitivity moderate given strong retrieval readiness (91) but low API coverage (1.95%) and evidence gaps",
+    "Confidence tempered by limited API reference coverage and evidence coverage at 30%",
+    "High actionability (90%) and chunkability (92%) support self-service, reducing support burden"
+  ]
+}

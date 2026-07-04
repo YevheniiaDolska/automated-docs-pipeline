@@ -6,9 +6,9 @@ project:
   - mkdocs
   - github
 llm_control:
-  llm_mode: external_preferred
-  external_llm_allowed: true
-  require_explicit_approval: false
+  llm_mode: local_default
+  external_llm_allowed: false
+  require_explicit_approval: true
   approval_cache_scope: run
   redact_before_external: true
   local_model: veridoc-writer
@@ -24,8 +24,6 @@ docs_site:
   generator: mkdocs
   build_enabled: true
   build_command: ''
-  production_url: https://yevheniiadolska.github.io/automated-docs-pipeline
-  preview_url_pattern: https://github.com/YevheniiaDolska/automated-docs-pipeline/tree/{branch}/docs/
 paths:
   docs_root: docs
   api_root: api

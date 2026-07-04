@@ -1,0 +1,77 @@
+id: auto-autopipeline-output-index-5
+title: Autopipeline Output Index (Part 5)
+summary: Auto-generated review index for autopipeline outputs.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-06-29'
+dependencies: []
+tags:
+- auto-extracted
+- autopipeline-output-index
+- reference
+metadata:
+  url: https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/
+  title: Autopipeline Output Index (Part 5)
+  heading: Browse/Searchability
+  version: 1.50.0
+  updated_at: '2026-05-18'
+  source_site: docs.example.com
+  source_path: operations/AUTOPIPELINE_OUTPUT_INDEX.md
+semantic:
+  topic: Browse/Searchability
+  intent: integrate
+  audience: developer
+  keywords:
+  - autopipeline output index
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Browse/Searchability
+
+
+    - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable
+    page paths.
+
+    - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index
+    (`docs/assets/knowledge-retrieval-index.json`).
+
+    - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval
+    eval reports.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Autopipeline
+    Output Index (Part 5). Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md. Summary:
+    Auto-generated review index for autopipeline outputs.
+
+
+    ## Browse/Searchability
+
+
+    - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable
+    page paths.
+
+    - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index
+    (`docs/assets/knowledge-retrieval-index.json`).
+
+    - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval
+    eval reports.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

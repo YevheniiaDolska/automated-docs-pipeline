@@ -1,0 +1,30 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 850.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 180.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 420.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer rate: standard senior DevOps/platform engineer market rate for B2B SaaS infrastructure company",
+    "Support rate: typical technical support specialist blended rate for cloud platform provider",
+    "Release cadence: 617 pages crawled suggests active platform with frequent feature releases, conservative weekly+ cadence",
+    "Manual sync hours: 56.73% freshness coverage and 37.79% stale risk indicate moderate manual maintenance burden",
+    "Release delay: moderate freshness issues suggest coordination overhead between engineering and docs teams",
+    "Support volume: scaled to mid-market cloud platform with developer-focused customer base",
+    "Docs ticket share: 28% reflects 14 broken links, 11.67% SEO issues, 67.74% evidence coverage gaps driving support deflection failures",
+    "Ticket handling time: technical platform questions require above-average resolution time",
+    "Doc-influenced evals: 60.94% chunkability and 77.95 retrieval score suggest moderate pre-sales friction from docs quality",
+    "Eval conversion: conservative B2B SaaS trial-to-paid rate for infrastructure products",
+    "Customer value: mid-market cloud platform ARPU, conservative estimate",
+    "Revenue sensitivity: 0% API reference coverage, 84.26% example reliability, 90% actionability create moderate conversion friction",
+    "Confidence: moderate confidence given typical platform metrics but limited company-specific financial data"
+  ]
+}

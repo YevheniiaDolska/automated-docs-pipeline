@@ -1,0 +1,734 @@
+{
+  "generated_at": "2026-06-30T12:40:45.314057+00:00",
+  "site_url": "https://meilisearch.com/docs",
+  "site_urls": [
+    "https://meilisearch.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://meilisearch.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1247,
+          "requested_pages": 1313,
+          "urls_examined": 1268,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1268,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 1268,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 1787,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 1313,
+          "broken_internal_links_count": 16,
+          "docs_broken_links_count": 16,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://meilisearch.com/docs/reference/api/template/render-template",
+            "http://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search",
+            "https://meilisearch.com/blog/blog/minipouce-top-grade-customer-experience",
+            "https://meilisearch.com/blog/caro",
+            "https://meilisearch.com/blog/content/files/2023/07/movies.json",
+            "https://meilisearch.com/blog/content/files/2023/07/promoted_movies.json",
+            "https://meilisearch.com/blog/hacktoberfest-with-meilisearch",
+            "https://meilisearch.com/blog/hugging-face-ai-models-meilisearch",
+            "https://meilisearch.com/blog/langchain-semantic-search-tutorial",
+            "https://meilisearch.com/blog/next-js-shopify-storefront-with-blazity/utm_campaign=newsletter&utm_source=blog&utm_medium=august-24-updates",
+            "https://meilisearch.com/blog/nnethercott",
+            "https://meilisearch.com/blog/p/49021b33-6bd0-45b6-b3d8-2b962acbaae9/privacy@meilisearch.com",
+            "https://meilisearch.com/blog/release-1-10",
+            "https://meilisearch.com/cdn-cgi/l/email-protection",
+            "https://meilisearch.com/docs/reference/api/template/render-template",
+            "https://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search"
+          ],
+          "docs_broken_link_samples": [
+            "http://meilisearch.com/docs/reference/api/template/render-template",
+            "http://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search",
+            "https://meilisearch.com/blog/blog/minipouce-top-grade-customer-experience",
+            "https://meilisearch.com/blog/caro",
+            "https://meilisearch.com/blog/content/files/2023/07/movies.json",
+            "https://meilisearch.com/blog/content/files/2023/07/promoted_movies.json",
+            "https://meilisearch.com/blog/hacktoberfest-with-meilisearch",
+            "https://meilisearch.com/blog/hugging-face-ai-models-meilisearch",
+            "https://meilisearch.com/blog/langchain-semantic-search-tutorial",
+            "https://meilisearch.com/blog/next-js-shopify-storefront-with-blazity/utm_campaign=newsletter&utm_source=blog&utm_medium=august-24-updates",
+            "https://meilisearch.com/blog/nnethercott",
+            "https://meilisearch.com/blog/p/49021b33-6bd0-45b6-b3d8-2b962acbaae9/privacy@meilisearch.com",
+            "https://meilisearch.com/blog/release-1-10",
+            "https://meilisearch.com/cdn-cgi/l/email-protection",
+            "https://meilisearch.com/docs/reference/api/template/render-template",
+            "https://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 16,
+          "excluded_links_count": 37,
+          "excluded_link_samples": [
+            "http://meilisearch.com/docs/assets/datasets/kitchenware.json",
+            "http://meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/search_and_filter_together",
+            "http://meilisearch.com/docs/capabilities/full_text_search/getting_started/search_with_snippets",
+            "http://meilisearch.com/docs/capabilities/hybrid_search/how_to/search_with_user_provided_embeddings",
+            "http://meilisearch.com/docs/capabilities/multi_search/how_to/search_with_different_filters",
+            "http://meilisearch.com/docs/capabilities/search_rules/advanced/pinning_behavior",
+            "http://meilisearch.com/docs/capabilities/search_rules/getting_started",
+            "http://meilisearch.com/docs/capabilities/search_rules/overview",
+            "http://meilisearch.com/docs/reference/api/facet-search/search-in-facets",
+            "http://meilisearch.com/docs/reference/api/search-rules/delete-a-search-rule",
+            "http://meilisearch.com/docs/reference/api/search-rules/list-search-rules",
+            "http://meilisearch.com/docs/reference/api/search/search-with-get",
+            "http://meilisearch.com/docs/reference/api/search/search-with-post",
+            "http://meilisearch.com/docs/resources/self_hosting/getting_started/search_preview",
+            "https://meilisearch.com/blog/content/files/2022/10/Meilisearch-series-A-PR----October-2022-1.pdf",
+            "https://meilisearch.com/blog/search-analytics-release",
+            "https://meilisearch.com/blog/search-as-a-service",
+            "https://meilisearch.com/blog/search-implementation-survey",
+            "https://meilisearch.com/blog/search-relevance",
+            "https://meilisearch.com/blog/search-relevance-metrics",
+            "https://meilisearch.com/blog/search-rust-crates-meili",
+            "https://meilisearch.com/blog/searchable-knowledge-base",
+            "https://meilisearch.com/blog/searching-across-multiple-languages",
+            "https://meilisearch.com/docs/assets/datasets/kitchenware.json",
+            "https://meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/search_and_filter_together",
+            "https://meilisearch.com/docs/capabilities/full_text_search/getting_started/search_with_snippets",
+            "https://meilisearch.com/docs/capabilities/hybrid_search/how_to/search_with_user_provided_embeddings",
+            "https://meilisearch.com/docs/capabilities/multi_search/how_to/search_with_different_filters",
+            "https://meilisearch.com/docs/capabilities/search_rules/advanced/pinning_behavior",
+            "https://meilisearch.com/docs/capabilities/search_rules/getting_started"
+          ],
+          "_all_confirmed_broken_links": [
+            "http://meilisearch.com/docs/reference/api/template/render-template",
+            "http://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search",
+            "https://meilisearch.com/blog/blog/minipouce-top-grade-customer-experience",
+            "https://meilisearch.com/blog/caro",
+            "https://meilisearch.com/blog/content/files/2023/07/movies.json",
+            "https://meilisearch.com/blog/content/files/2023/07/promoted_movies.json",
+            "https://meilisearch.com/blog/hacktoberfest-with-meilisearch",
+            "https://meilisearch.com/blog/hugging-face-ai-models-meilisearch",
+            "https://meilisearch.com/blog/langchain-semantic-search-tutorial",
+            "https://meilisearch.com/blog/next-js-shopify-storefront-with-blazity/utm_campaign=newsletter&utm_source=blog&utm_medium=august-24-updates",
+            "https://meilisearch.com/blog/nnethercott",
+            "https://meilisearch.com/blog/p/49021b33-6bd0-45b6-b3d8-2b962acbaae9/privacy@meilisearch.com",
+            "https://meilisearch.com/blog/release-1-10",
+            "https://meilisearch.com/cdn-cgi/l/email-protection",
+            "https://meilisearch.com/docs/reference/api/template/render-template",
+            "https://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "http://meilisearch.com/docs/assets/datasets/kitchenware.json",
+            "http://meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/search_and_filter_together",
+            "http://meilisearch.com/docs/capabilities/full_text_search/getting_started/search_with_snippets",
+            "http://meilisearch.com/docs/capabilities/hybrid_search/how_to/search_with_user_provided_embeddings",
+            "http://meilisearch.com/docs/capabilities/multi_search/how_to/search_with_different_filters",
+            "http://meilisearch.com/docs/capabilities/search_rules/advanced/pinning_behavior",
+            "http://meilisearch.com/docs/capabilities/search_rules/getting_started",
+            "http://meilisearch.com/docs/capabilities/search_rules/overview",
+            "http://meilisearch.com/docs/reference/api/facet-search/search-in-facets",
+            "http://meilisearch.com/docs/reference/api/search-rules/delete-a-search-rule",
+            "http://meilisearch.com/docs/reference/api/search-rules/list-search-rules",
+            "http://meilisearch.com/docs/reference/api/search/search-with-get",
+            "http://meilisearch.com/docs/reference/api/search/search-with-post",
+            "http://meilisearch.com/docs/resources/self_hosting/getting_started/search_preview",
+            "https://meilisearch.com/blog/content/files/2022/10/Meilisearch-series-A-PR----October-2022-1.pdf",
+            "https://meilisearch.com/blog/search-analytics-release",
+            "https://meilisearch.com/blog/search-as-a-service",
+            "https://meilisearch.com/blog/search-implementation-survey",
+            "https://meilisearch.com/blog/search-relevance",
+            "https://meilisearch.com/blog/search-relevance-metrics",
+            "https://meilisearch.com/blog/search-rust-crates-meili",
+            "https://meilisearch.com/blog/searchable-knowledge-base",
+            "https://meilisearch.com/blog/searching-across-multiple-languages",
+            "https://meilisearch.com/docs/assets/datasets/kitchenware.json",
+            "https://meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/search_and_filter_together",
+            "https://meilisearch.com/docs/capabilities/full_text_search/getting_started/search_with_snippets",
+            "https://meilisearch.com/docs/capabilities/hybrid_search/how_to/search_with_user_provided_embeddings",
+            "https://meilisearch.com/docs/capabilities/multi_search/how_to/search_with_different_filters",
+            "https://meilisearch.com/docs/capabilities/search_rules/advanced/pinning_behavior",
+            "https://meilisearch.com/docs/capabilities/search_rules/getting_started",
+            "https://meilisearch.com/docs/capabilities/search_rules/overview",
+            "https://meilisearch.com/docs/reference/api/facet-search/search-in-facets",
+            "https://meilisearch.com/docs/reference/api/search-rules/delete-a-search-rule",
+            "https://meilisearch.com/docs/reference/api/search-rules/list-search-rules",
+            "https://meilisearch.com/docs/reference/api/search/search-with-get",
+            "https://meilisearch.com/docs/reference/api/search/search-with-post",
+            "https://meilisearch.com/docs/resources/self_hosting/getting_started/search_preview"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://meilisearch.com/docs/reference/api/template/render-template": [
+              {
+                "source_page": "http://meilisearch.com/docs/resources/help/experimental_features_overview",
+                "anchor_text": "Render template"
+              }
+            ],
+            "http://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search": [
+              {
+                "source_page": "http://meilisearch.com/docs/capabilities/personalization/getting_started/personalized_search",
+                "anchor_text": "multi-search"
+              }
+            ],
+            "https://meilisearch.com/blog/blog/minipouce-top-grade-customer-experience": [
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-november-updates",
+                "anchor_text": ""
+              }
+            ],
+            "https://meilisearch.com/blog/caro": [
+              {
+                "source_page": "https://meilisearch.com/blog/demo-moma",
+                "anchor_text": "recently joined Meilisearch"
+              }
+            ],
+            "https://meilisearch.com/blog/content/files/2023/07/movies.json": [
+              {
+                "source_page": "https://meilisearch.com/blog/promoted-search-results-with-react-instantsearch",
+                "anchor_text": "Movies"
+              }
+            ],
+            "https://meilisearch.com/blog/content/files/2023/07/promoted_movies.json": [
+              {
+                "source_page": "https://meilisearch.com/blog/promoted-search-results-with-react-instantsearch",
+                "anchor_text": "Promoted movies"
+              }
+            ],
+            "https://meilisearch.com/blog/hacktoberfest-with-meilisearch": [
+              {
+                "source_page": "https://meilisearch.com/blog/contribute-hacktoberfest-2021",
+                "anchor_text": "for the first time"
+              }
+            ],
+            "https://meilisearch.com/blog/hugging-face-ai-models-meilisearch": [
+              {
+                "source_page": "https://meilisearch.com/solutions/enterprise",
+                "anchor_text": "Read their story"
+              }
+            ],
+            "https://meilisearch.com/blog/langchain-semantic-search-tutorial": [
+              {
+                "source_page": "https://meilisearch.com/blog/introducing-vector-search",
+                "anchor_text": "step-by-step tutorial on building semantic search with LangChain"
+              },
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-november-updates",
+                "anchor_text": "Building semantic search with LangChain tutorial"
+              },
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-september-updates",
+                "anchor_text": "A step-by-step tutorial to building semantic search"
+              }
+            ],
+            "https://meilisearch.com/blog/next-js-shopify-storefront-with-blazity/utm_campaign=newsletter&utm_source=blog&utm_medium=august-24-updates": [
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-august-updates",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-august-updates",
+                "anchor_text": "Read guide"
+              }
+            ],
+            "https://meilisearch.com/blog/nnethercott": [
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-1-16",
+                "anchor_text": "@nnethercott"
+              }
+            ],
+            "https://meilisearch.com/blog/p/49021b33-6bd0-45b6-b3d8-2b962acbaae9/privacy@meilisearch.com": [
+              {
+                "source_page": "https://meilisearch.com/blog/whats-new-in-v0-24",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://meilisearch.com/blog/release-1-10": [
+              {
+                "source_page": "https://meilisearch.com/blog/introducing-multi-search",
+                "anchor_text": "Meilisearch 1.10"
+              }
+            ],
+            "https://meilisearch.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://meilisearch.com/blog/horizontal-scaling-with-sharding",
+                "anchor_text": "get in touch"
+              },
+              {
+                "source_page": "https://meilisearch.com/blog/horizontal-scaling-with-sharding",
+                "anchor_text": "get in touch with our sales team"
+              },
+              {
+                "source_page": "https://meilisearch.com/blog/meilisearch-finds-rubygems",
+                "anchor_text": "contact the team"
+              },
+              {
+                "source_page": "https://meilisearch.com/privacy-policy",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://meilisearch.com/roadmap",
+                "anchor_text": "Email us directly Tell us what you're building and what you need from search. [email\u00a0protected]"
+              }
+            ],
+            "https://meilisearch.com/docs/reference/api/template/render-template": [
+              {
+                "source_page": "https://meilisearch.com/docs/resources/help/experimental_features_overview",
+                "anchor_text": "Render template"
+              }
+            ],
+            "https://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search": [
+              {
+                "source_page": "https://meilisearch.com/docs/capabilities/personalization/getting_started/personalized_search",
+                "anchor_text": "multi-search"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1247,
+          "missing_title_count": 0,
+          "missing_description_count": 18,
+          "multiple_h1_count": 28,
+          "heading_hierarchy_jump_count": 399,
+          "seo_geo_issue_rate_pct": 8.92
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 42,
+          "api_pages_detected": 746,
+          "endpoints_with_usage_docs": 26,
+          "reference_endpoints_without_usage_docs": 16,
+          "reference_coverage_pct": 61.9,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:aggregation",
+            "gql:architecture",
+            "gql:compaction",
+            "gql:correctness",
+            "gql:counts",
+            "gql:evaluation",
+            "gql:expressions",
+            "gql:features",
+            "gql:limits",
+            "gql:logging",
+            "gql:logic",
+            "gql:pipeline",
+            "gql:plans",
+            "gql:process",
+            "gql:system",
+            "gql:tokens"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 28,
+          "total_code_blocks_all": 4868,
+          "runnable_without_env": 28,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 100.0,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 398,
+          "pages_without_last_updated_hint": 849,
+          "last_updated_coverage_pct": 31.92,
+          "samples_with_last_updated": [
+            {
+              "url": "http://meilisearch.com/docs/capabilities/conversational_search/how_to/configure_chat_workspace",
+              "hint": "\"apiVersion\": \"2024-02-01\""
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/filtering_sorting_faceting/advanced/filter_expression_syntax",
+              "hint": "release_date > 2004-01-01"
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/filtering_sorting_faceting/getting_started",
+              "hint": "movies released after 18 March 1995:"
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/filter_and_sort_by_date",
+              "hint": "\"2025-01-13\""
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/indexing/getting_started",
+              "hint": "\"release_date\": \"2019-03-23\""
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/indexing/how_to/add_and_update_documents",
+              "hint": "\"release_date\": \"2019-03-23\""
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/indexing/how_to/design_primary_keys",
+              "hint": "The primary key cannot be modified once set. If you need to change it:"
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/indexing/how_to/edit_documents_with_functions",
+              "hint": "\"filter\": \"release_date < \\\"2000-01-01\\\"\""
+            },
+            {
+              "url": "http://meilisearch.com/docs/capabilities/security/getting_started",
+              "hint": "'2025-12-20'"
+            },
+            {
+              "url": "http://meilisearch.com/docs/changelog",
+              "hint": "2026-06-22"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 67.92,
+          "answerability_pct": 97.27,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 50.09,
+          "overall_score_0_100": 78.61,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 2335,
+          "claims_with_evidence": 1323,
+          "coverage_pct": 56.66
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 737,
+              "checks": {
+                "auth_model": 487,
+                "error_semantics": 730,
+                "retry_idempotency": 3,
+                "schema_evolution": 227
+              }
+            },
+            "graphql": {
+              "pages": 270,
+              "checks": {
+                "auth_model": 89,
+                "error_semantics": 209,
+                "retry_idempotency": 4,
+                "schema_evolution": 80
+              }
+            },
+            "grpc": {
+              "pages": 1,
+              "checks": {
+                "auth_model": 0,
+                "error_semantics": 1,
+                "retry_idempotency": 0,
+                "schema_evolution": 1
+              }
+            },
+            "asyncapi": {
+              "pages": 92,
+              "checks": {
+                "auth_model": 23,
+                "error_semantics": 83,
+                "retry_idempotency": 1,
+                "schema_evolution": 21
+              }
+            },
+            "websocket": {
+              "pages": 1,
+              "checks": {
+                "auth_model": 1,
+                "error_semantics": 1,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            }
+          },
+          "coverage_pct": 80.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://meilisearch.com/docs/reference/api/template/render-template",
+          "http://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search",
+          "https://meilisearch.com/blog/blog/minipouce-top-grade-customer-experience",
+          "https://meilisearch.com/blog/caro",
+          "https://meilisearch.com/blog/content/files/2023/07/movies.json",
+          "https://meilisearch.com/blog/content/files/2023/07/promoted_movies.json",
+          "https://meilisearch.com/blog/hacktoberfest-with-meilisearch",
+          "https://meilisearch.com/blog/hugging-face-ai-models-meilisearch",
+          "https://meilisearch.com/blog/langchain-semantic-search-tutorial",
+          "https://meilisearch.com/blog/next-js-shopify-storefront-with-blazity/utm_campaign=newsletter&utm_source=blog&utm_medium=august-24-updates",
+          "https://meilisearch.com/blog/nnethercott",
+          "https://meilisearch.com/blog/p/49021b33-6bd0-45b6-b3d8-2b962acbaae9/privacy@meilisearch.com",
+          "https://meilisearch.com/blog/release-1-10",
+          "https://meilisearch.com/cdn-cgi/l/email-protection",
+          "https://meilisearch.com/docs/reference/api/template/render-template",
+          "https://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search"
+        ],
+        "docs_broken_link_samples": [
+          "http://meilisearch.com/docs/reference/api/template/render-template",
+          "http://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search",
+          "https://meilisearch.com/blog/blog/minipouce-top-grade-customer-experience",
+          "https://meilisearch.com/blog/caro",
+          "https://meilisearch.com/blog/content/files/2023/07/movies.json",
+          "https://meilisearch.com/blog/content/files/2023/07/promoted_movies.json",
+          "https://meilisearch.com/blog/hacktoberfest-with-meilisearch",
+          "https://meilisearch.com/blog/hugging-face-ai-models-meilisearch",
+          "https://meilisearch.com/blog/langchain-semantic-search-tutorial",
+          "https://meilisearch.com/blog/next-js-shopify-storefront-with-blazity/utm_campaign=newsletter&utm_source=blog&utm_medium=august-24-updates",
+          "https://meilisearch.com/blog/nnethercott",
+          "https://meilisearch.com/blog/p/49021b33-6bd0-45b6-b3d8-2b962acbaae9/privacy@meilisearch.com",
+          "https://meilisearch.com/blog/release-1-10",
+          "https://meilisearch.com/cdn-cgi/l/email-protection",
+          "https://meilisearch.com/docs/reference/api/template/render-template",
+          "https://meilisearch.com/docs/references/api/multi-search/perform-a-multi-search"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:aggregation",
+          "gql:architecture",
+          "gql:compaction",
+          "gql:correctness",
+          "gql:counts",
+          "gql:evaluation",
+          "gql:expressions",
+          "gql:features",
+          "gql:limits",
+          "gql:logging",
+          "gql:logic",
+          "gql:pipeline",
+          "gql:plans",
+          "gql:process",
+          "gql:system",
+          "gql:tokens"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1247,
+        "requested_pages": 1313,
+        "urls_examined": 1268,
+        "max_pages_total": 2500,
+        "discovered_pages": 1268,
+        "crawl_scope_pages": 1268,
+        "trap_urls_skipped": 1787,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 16,
+        "docs_broken_links_count": 16,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 16,
+        "excluded_links_count": 37
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 8.92
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 61.9,
+        "no_api_pages_found": false,
+        "api_pages_detected": 746,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 100.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 31.92
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 67.92,
+        "answerability_pct": 97.27,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 50.09,
+        "overall_score_0_100": 78.61,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 2335,
+        "claims_with_evidence": 1323,
+        "coverage_pct": 56.66
+      },
+      "actionability": {
+        "coverage_pct": 80.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 78.61,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 1247,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 16,
+          "unverified_links_count": 0
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 8.92
+        },
+        "severity": "medium",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 31.92
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 61.9,
+          "no_api_pages_found": false
+        },
+        "severity": "medium",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 16",
+    "API usage-doc coverage is low: 61.9% (746 API pages detected)",
+    "Freshness visibility is weak: only 31.92% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Meilisearch documentation spans 1,247 crawled pages with 100% crawl coverage and strong overall retrieval readiness (78.61/100, moderate band). Critical gaps include 16 confirmed broken internal links, API reference coverage at only 61.9% despite 746 API pages detected, and freshness metadata visible on just 31.92% of pages. Evidence backing for claims is moderate at 56.66% (1,323 of 2,335 key claims), and 50.09% of content carries stale risk flags. High confidence in findings (91.5% overall) supports immediate action on link integrity, API documentation completeness, and freshness transparency.",
+      "strengths": [
+        "Complete crawl coverage at 100% (1,247 of 1,247 pages) with high crawl confidence (95%)",
+        "Strong answerability at 97.27% and perfect citationability at 100%, enabling reliable AI-assisted support",
+        "High actionability coverage at 80%, indicating clear next-step guidance for users",
+        "Example reliability estimate at 100%, suggesting code samples are well-maintained",
+        "Zero repository navigation broken links, keeping internal GitHub/GitLab workflows intact"
+      ],
+      "risks": [
+        "16 confirmed broken internal docs links degrade user trust, SEO authority, and AI retrieval quality",
+        "API reference coverage at 61.9% leaves 38.1% of API surface undocumented or poorly linked, risking developer churn",
+        "Only 31.92% of pages display last-updated metadata, obscuring content freshness and eroding user confidence in accuracy",
+        "50.09% stale risk rate indicates half the corpus may appear outdated to users and search engines",
+        "56.66% evidence coverage means 43.34% of claims (1,012 claims) lack supporting examples, code, or references, weakening onboarding",
+        "SEO/geo issue rate at 8.92% may limit discoverability in regional searches and reduce organic traffic",
+        "Chunkability at 67.92% suggests one-third of content may fragment poorly for RAG and LLM-based answer systems"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 16 confirmed broken internal docs links",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Immediate trust and SEO win with minimal engineering effort, directly improves AI citation quality and user navigation across 1,247 pages."
+        },
+        {
+          "action": "Add last-updated timestamps to the 68.08% of pages missing freshness metadata (approximately 849 pages)",
+          "impact": "high",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Surfaces recency to users and search engines, mitigates 50.09% stale risk perception, and boosts trust with low ongoing maintenance once automated."
+        },
+        {
+          "action": "Close the 38.1% API documentation gap by auditing the 746 detected API pages and adding missing usage examples or cross-links",
+          "impact": "critical",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Developer onboarding and retention hinge on complete API docs; closing this gap reduces support load and accelerates time-to-value for new users."
+        },
+        {
+          "action": "Enrich the 1,012 claims lacking evidence (43.34% of 2,335 claims) with code snippets, screenshots, or reference links",
+          "impact": "high",
+          "effort": "high",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Strengthens onboarding and reduces support tickets by making assertions verifiable, especially for complex search configuration and tuning topics."
+        },
+        {
+          "action": "Improve chunkability for the 32.08% of pages scoring poorly (approximately 400 pages) by adding subheadings, lists, or section breaks",
+          "impact": "medium",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "Enhances RAG and LLM answer quality for AI-assisted support and chatbots, directly improving self-service resolution rates."
+        }
+      ],
+      "automation_first": [
+        "Deploy a CI link checker to catch the 16 broken internal docs links and prevent future regressions across 1,247 pages, reducing manual QA cycles and preserving SEO equity with zero ongoing effort.",
+        "Automate last-updated timestamp injection from Git commit history to cover the 849 pages (68.08%) missing freshness metadata, eliminating manual date maintenance and immediately addressing the 50.09% stale risk perception.",
+        "Implement API reference coverage monitoring to track the 746 API pages and alert when new endpoints lack usage docs, preventing the 38.1% gap from widening and reducing developer support escalations."
+      ],
+      "limitations": [
+        "External audit cannot verify runtime correctness of 746 API examples or whether code samples execute successfully against current Meilisearch versions.",
+        "Stale risk and freshness scores reflect metadata and heuristics, not actual content accuracy or alignment with the latest Meilisearch release features.",
+        "API coverage detection relies on page structure patterns; the 61.9% figure may undercount if reference pages lack standard formatting or are dynamically generated.",
+        "Evidence and claim detection uses NLP heuristics; the 56.66% coverage may misclassify some implicit examples or domain-specific proof patterns.",
+        "Crawl excluded 1,787 trap URLs and 37 links by policy; audit does not assess content quality or user intent satisfaction within covered pages."
+      ]
+    }
+  }
+}

@@ -1,10 +1,1443 @@
 {
   "strictness": "standard",
   "strict_mode": false,
-  "protocols": [],
-  "failed_protocols": [],
-  "failed": false,
-  "stages": [],
-  "by_protocol": {},
-  "skipped_reason": "no_non_rest_protocols_selected_or_runner_missing"
+  "protocols": [
+    "graphql"
+  ],
+  "failed_protocols": [
+    "graphql"
+  ],
+  "failed": true,
+  "stages": [
+    {
+      "stage": "contract_from_notes_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "missing_notes",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md"
+      ],
+      "details": {
+        "notes_path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md",
+        "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "ingest",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "exists",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql"
+      ],
+      "details": {
+        "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "contract_validation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_graphql_contract.py",
+        "api/schema.graphql"
+      ],
+      "details": {
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "server_stub_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_server_stubs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output",
+        "generated/api-stubs/graphql/handlers.py"
+      ],
+      "details": {
+        "stubs_output": "generated/api-stubs/graphql/handlers.py",
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_lint_stack.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--json-report",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_lint_stack_report.json"
+      ],
+      "details": {
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "regression",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\check_protocol_regression.py",
+        "--protocol",
+        "graphql",
+        "--snapshot",
+        "api\\.graphql-regression.json",
+        "--input",
+        "api/schema.graphql"
+      ],
+      "details": {
+        "bootstrap_rc": 2,
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_docs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output",
+        "docs/reference/graphql-api.md",
+        "--mode",
+        "api-first",
+        "--endpoint",
+        "https://postman-echo.com/post"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/graphql-api.md",
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "semantic_lint_and_quality_suite",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "graphql",
+        "--generated-doc",
+        "docs/reference/graphql-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/graphql_quality_suite_report.json",
+        "--semantic-required"
+      ],
+      "details": {
+        "attempt": 1,
+        "max_attempts": 3
+      }
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_frontmatter.py"
+      ],
+      "details": {
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\lint_code_snippets.py",
+        "docs/reference/graphql-api.md"
+      ],
+      "details": {
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "quality_gate_self_verify",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_self_verify.py",
+        "--protocol",
+        "graphql",
+        "--json-report",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_self_verify_report.json",
+        "--require-endpoint",
+        "--endpoint",
+        "https://postman-echo.com/post"
+      ],
+      "details": {
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_test_assets.py",
+        "--protocols",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0,
+        "attempt": 1
+      }
+    },
+    {
+      "stage": "autofix_retry",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "auto-retry",
+        "2"
+      ],
+      "details": {
+        "attempt": 1,
+        "next_attempt": 2,
+        "max_attempts": 3,
+        "reason": "one or more stages failed; retrying full protocol flow"
+      }
+    },
+    {
+      "stage": "contract_from_notes_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "missing_notes",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md"
+      ],
+      "details": {
+        "notes_path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md",
+        "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "ingest",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "exists",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql"
+      ],
+      "details": {
+        "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "contract_validation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_graphql_contract.py",
+        "api/schema.graphql"
+      ],
+      "details": {
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "server_stub_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_server_stubs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output",
+        "generated/api-stubs/graphql/handlers.py"
+      ],
+      "details": {
+        "stubs_output": "generated/api-stubs/graphql/handlers.py",
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_lint_stack.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--json-report",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_lint_stack_report.json"
+      ],
+      "details": {
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "regression",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\check_protocol_regression.py",
+        "--protocol",
+        "graphql",
+        "--snapshot",
+        "api\\.graphql-regression.json",
+        "--input",
+        "api/schema.graphql"
+      ],
+      "details": {
+        "bootstrap_rc": 2,
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_docs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output",
+        "docs/reference/graphql-api.md",
+        "--mode",
+        "api-first",
+        "--endpoint",
+        "https://postman-echo.com/post"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/graphql-api.md",
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "semantic_lint_and_quality_suite",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "graphql",
+        "--generated-doc",
+        "docs/reference/graphql-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/graphql_quality_suite_report.json",
+        "--semantic-required"
+      ],
+      "details": {
+        "attempt": 2,
+        "max_attempts": 3
+      }
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_frontmatter.py"
+      ],
+      "details": {
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\lint_code_snippets.py",
+        "docs/reference/graphql-api.md"
+      ],
+      "details": {
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "quality_gate_self_verify",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_self_verify.py",
+        "--protocol",
+        "graphql",
+        "--json-report",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_self_verify_report.json",
+        "--require-endpoint",
+        "--endpoint",
+        "https://postman-echo.com/post"
+      ],
+      "details": {
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_test_assets.py",
+        "--protocols",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0,
+        "attempt": 2
+      }
+    },
+    {
+      "stage": "autofix_retry",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "auto-retry",
+        "3"
+      ],
+      "details": {
+        "attempt": 2,
+        "next_attempt": 3,
+        "max_attempts": 3,
+        "reason": "one or more stages failed; retrying full protocol flow"
+      }
+    },
+    {
+      "stage": "contract_from_notes_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "missing_notes",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md"
+      ],
+      "details": {
+        "notes_path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md",
+        "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "ingest",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "exists",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql"
+      ],
+      "details": {
+        "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "contract_validation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_graphql_contract.py",
+        "api/schema.graphql"
+      ],
+      "details": {
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "server_stub_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_server_stubs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output",
+        "generated/api-stubs/graphql/handlers.py"
+      ],
+      "details": {
+        "stubs_output": "generated/api-stubs/graphql/handlers.py",
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_lint_stack.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--json-report",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_lint_stack_report.json"
+      ],
+      "details": {
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "regression",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 2,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\check_protocol_regression.py",
+        "--protocol",
+        "graphql",
+        "--snapshot",
+        "api\\.graphql-regression.json",
+        "--input",
+        "api/schema.graphql"
+      ],
+      "details": {
+        "bootstrap_rc": 2,
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_docs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output",
+        "docs/reference/graphql-api.md",
+        "--mode",
+        "api-first",
+        "--endpoint",
+        "https://postman-echo.com/post"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/graphql-api.md",
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "semantic_lint_and_quality_suite",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "graphql",
+        "--generated-doc",
+        "docs/reference/graphql-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/graphql_quality_suite_report.json",
+        "--semantic-required"
+      ],
+      "details": {
+        "attempt": 3,
+        "max_attempts": 3
+      }
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_frontmatter.py"
+      ],
+      "details": {
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\lint_code_snippets.py",
+        "docs/reference/graphql-api.md"
+      ],
+      "details": {
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "quality_gate_self_verify",
+      "protocol": "graphql",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_self_verify.py",
+        "--protocol",
+        "graphql",
+        "--json-report",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_self_verify_report.json",
+        "--require-endpoint",
+        "--endpoint",
+        "https://postman-echo.com/post"
+      ],
+      "details": {
+        "attempt": 3
+      }
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_test_assets.py",
+        "--protocols",
+        "graphql",
+        "--source",
+        "api/schema.graphql",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0,
+        "attempt": 3
+      }
+    }
+  ],
+  "by_protocol": {
+    "graphql": [
+      {
+        "stage": "contract_from_notes_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "missing_notes",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md"
+        ],
+        "details": {
+          "notes_path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md",
+          "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "ingest",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "exists",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql"
+        ],
+        "details": {
+          "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "contract_validation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_graphql_contract.py",
+          "api/schema.graphql"
+        ],
+        "details": {
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "server_stub_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_server_stubs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output",
+          "generated/api-stubs/graphql/handlers.py"
+        ],
+        "details": {
+          "stubs_output": "generated/api-stubs/graphql/handlers.py",
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_lint_stack.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--json-report",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_lint_stack_report.json"
+        ],
+        "details": {
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "regression",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\check_protocol_regression.py",
+          "--protocol",
+          "graphql",
+          "--snapshot",
+          "api\\.graphql-regression.json",
+          "--input",
+          "api/schema.graphql"
+        ],
+        "details": {
+          "bootstrap_rc": 2,
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_docs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output",
+          "docs/reference/graphql-api.md",
+          "--mode",
+          "api-first",
+          "--endpoint",
+          "https://postman-echo.com/post"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/graphql-api.md",
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "semantic_lint_and_quality_suite",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "graphql",
+          "--generated-doc",
+          "docs/reference/graphql-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/graphql_quality_suite_report.json",
+          "--semantic-required"
+        ],
+        "details": {
+          "attempt": 1,
+          "max_attempts": 3
+        }
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_frontmatter.py"
+        ],
+        "details": {
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\lint_code_snippets.py",
+          "docs/reference/graphql-api.md"
+        ],
+        "details": {
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "quality_gate_self_verify",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_self_verify.py",
+          "--protocol",
+          "graphql",
+          "--json-report",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_self_verify_report.json",
+          "--require-endpoint",
+          "--endpoint",
+          "https://postman-echo.com/post"
+        ],
+        "details": {
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_test_assets.py",
+          "--protocols",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0,
+          "attempt": 1
+        }
+      },
+      {
+        "stage": "autofix_retry",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "auto-retry",
+          "2"
+        ],
+        "details": {
+          "attempt": 1,
+          "next_attempt": 2,
+          "max_attempts": 3,
+          "reason": "one or more stages failed; retrying full protocol flow"
+        }
+      },
+      {
+        "stage": "contract_from_notes_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "missing_notes",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md"
+        ],
+        "details": {
+          "notes_path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md",
+          "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "ingest",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "exists",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql"
+        ],
+        "details": {
+          "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "contract_validation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_graphql_contract.py",
+          "api/schema.graphql"
+        ],
+        "details": {
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "server_stub_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_server_stubs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output",
+          "generated/api-stubs/graphql/handlers.py"
+        ],
+        "details": {
+          "stubs_output": "generated/api-stubs/graphql/handlers.py",
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_lint_stack.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--json-report",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_lint_stack_report.json"
+        ],
+        "details": {
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "regression",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\check_protocol_regression.py",
+          "--protocol",
+          "graphql",
+          "--snapshot",
+          "api\\.graphql-regression.json",
+          "--input",
+          "api/schema.graphql"
+        ],
+        "details": {
+          "bootstrap_rc": 2,
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_docs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output",
+          "docs/reference/graphql-api.md",
+          "--mode",
+          "api-first",
+          "--endpoint",
+          "https://postman-echo.com/post"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/graphql-api.md",
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "semantic_lint_and_quality_suite",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "graphql",
+          "--generated-doc",
+          "docs/reference/graphql-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/graphql_quality_suite_report.json",
+          "--semantic-required"
+        ],
+        "details": {
+          "attempt": 2,
+          "max_attempts": 3
+        }
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_frontmatter.py"
+        ],
+        "details": {
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\lint_code_snippets.py",
+          "docs/reference/graphql-api.md"
+        ],
+        "details": {
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "quality_gate_self_verify",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_self_verify.py",
+          "--protocol",
+          "graphql",
+          "--json-report",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_self_verify_report.json",
+          "--require-endpoint",
+          "--endpoint",
+          "https://postman-echo.com/post"
+        ],
+        "details": {
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_test_assets.py",
+          "--protocols",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0,
+          "attempt": 2
+        }
+      },
+      {
+        "stage": "autofix_retry",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "auto-retry",
+          "3"
+        ],
+        "details": {
+          "attempt": 2,
+          "next_attempt": 3,
+          "max_attempts": 3,
+          "reason": "one or more stages failed; retrying full protocol flow"
+        }
+      },
+      {
+        "stage": "contract_from_notes_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "missing_notes",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md"
+        ],
+        "details": {
+          "notes_path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\notes\\graphql-api-planning.md",
+          "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "ingest",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "exists",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql"
+        ],
+        "details": {
+          "source": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\api\\schema.graphql",
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "contract_validation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_graphql_contract.py",
+          "api/schema.graphql"
+        ],
+        "details": {
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "server_stub_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_server_stubs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output",
+          "generated/api-stubs/graphql/handlers.py"
+        ],
+        "details": {
+          "stubs_output": "generated/api-stubs/graphql/handlers.py",
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_lint_stack.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--json-report",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_lint_stack_report.json"
+        ],
+        "details": {
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "regression",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 2,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\check_protocol_regression.py",
+          "--protocol",
+          "graphql",
+          "--snapshot",
+          "api\\.graphql-regression.json",
+          "--input",
+          "api/schema.graphql"
+        ],
+        "details": {
+          "bootstrap_rc": 2,
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_docs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output",
+          "docs/reference/graphql-api.md",
+          "--mode",
+          "api-first",
+          "--endpoint",
+          "https://postman-echo.com/post"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/graphql-api.md",
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "semantic_lint_and_quality_suite",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "graphql",
+          "--generated-doc",
+          "docs/reference/graphql-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/graphql_quality_suite_report.json",
+          "--semantic-required"
+        ],
+        "details": {
+          "attempt": 3,
+          "max_attempts": 3
+        }
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\validate_frontmatter.py"
+        ],
+        "details": {
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\lint_code_snippets.py",
+          "docs/reference/graphql-api.md"
+        ],
+        "details": {
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "quality_gate_self_verify",
+        "protocol": "graphql",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\run_protocol_self_verify.py",
+          "--protocol",
+          "graphql",
+          "--json-report",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\graphql_self_verify_report.json",
+          "--require-endpoint",
+          "--endpoint",
+          "https://postman-echo.com/post"
+        ],
+        "details": {
+          "attempt": 3
+        }
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\scripts\\generate_protocol_test_assets.py",
+          "--protocols",
+          "graphql",
+          "--source",
+          "api/schema.graphql",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0,
+          "attempt": 3
+        }
+      }
+    ]
+  }
 }

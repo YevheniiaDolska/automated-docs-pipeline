@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-06-30T09:33:21.440307+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">617</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">748</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">14</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">11.67%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">N/A</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">84.26%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">56.73%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">81.0%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 14</li><li>SEO/GEO issue rate is high: 11.67%</li><li>API usage-doc coverage is low: 0.0% (617 API pages detected)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://render.com/docs</strong>: pages=617, broken_links=14, api_coverage=N/A, examples=84.26%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Render.com documentation spans 617 crawled pages with 100% crawl coverage across 748 discovered URLs. Critical issues include 14 confirmed broken internal links, 0% API reference coverage despite 617 API pages detected (55% detection confidence suggests tooling limitation), and 11.67% SEO/geo issue rate. Only 56.73% of pages display last-updated metadata, creating 37.79% stale-risk exposure. Code example reliability stands at 84.26%, and 67.74% of 1,581 key claims include supporting evidence, yielding a moderate retrieval readiness score of 77.95/100.</p><h3>Strengths</h3><ul><li>100% crawl coverage with 617 pages successfully indexed from 748 discovered URLs</li><li>90% actionability coverage indicates strong task-oriented content</li><li>100% answerability and citationability scores support AI retrieval and attribution</li><li>84.26% example reliability estimate shows majority of code samples are testable or verifiable</li><li>67.74% evidence coverage (1,071 of 1,581 claims) provides reasonable claim substantiation</li></ul><h3>Risks</h3><ul><li>0% API reference coverage with 617 API pages detected but 55% confidence flags potential detection tooling gap or missing structured reference layer</li><li>14 confirmed broken internal docs links degrade navigation trust and SEO authority</li><li>11.67% SEO/geo issue rate (72 pages) risks search visibility and international discoverability</li><li>43.27% of pages lack last-updated timestamps, obscuring content freshness for 267 pages</li><li>37.79% stale-risk score indicates significant portion of content may appear outdated to users and LLMs</li><li>60.94% chunkability score suggests suboptimal heading structure or section length for RAG ingestion</li><li>32.26% of key claims (510 of 1,581) lack evidence, weakening trust in product capabilities and compliance statements</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 14 confirmed broken internal docs links <em>[high, low]</em></li><li>Add last-updated timestamps to the 267 pages (43.27%) currently missing them <em>[high, low]</em></li><li>Resolve 11.67% SEO/geo issue rate affecting approximately 72 pages (missing meta descriptions, title tags, or hreflang) <em>[high, medium]</em></li><li>Investigate API reference coverage gap: validate whether 617 detected API pages lack usage examples or if 55% confidence indicates detection false-positive <em>[critical, medium]</em></li><li>Improve chunkability from 60.94% by auditing heading hierarchy and section length on lowest-scoring pages to optimize RAG retrieval <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

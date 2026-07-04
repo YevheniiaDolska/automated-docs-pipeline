@@ -14,48 +14,62 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-05-11'
+last_verified: '2026-06-29'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - migrate-from-confluence
+metadata:
+  url: https://docs.example.com/how-to/migrate-from-confluence/
+  title: Migrate documentation from Confluence
+  heading: Before you begin
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: how-to/migrate-from-confluence.md
+semantic:
+  topic: Before you begin
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - migrate from confluence
+  status: rule_based
 content:
-  docs_markdown: "# Migrate documentation from Confluence\n\nThe Confluence migration\
-    \ tool imports Confluence pages into pipeline-ready\nMarkdown with automatic frontmatter,\
-    \ heading hierarchy, SEO/GEO optimization,\nand knowledge module extraction. It\
-    \ supports two import methods: REST API\n(direct) and ZIP export (offline).\n\n\
-    ## Before you begin\n\nVerify you have the following before starting the migration:\n\
-    \n- Python 3.10 or higher installed\n- The documentation pipeline cloned and dependencies\
-    \ installed\n- For REST API mode: a Confluence API token (Cloud) or Personal Access\
-    \ Token\n  (Server/Data Center)\n- For ZIP export mode: a Confluence HTML+XML\
-    \ export ZIP file\n- Sufficient disk space for imported Markdown and attachments\n\
-    \n## Choose a migration method\n\nThe pipeline provides two ways to import Confluence\
-    \ content:\n\n| Method | Best for | Requirements |\n| --- | --- | --- |\n| REST\
-    \ API | Ongoing sync, selective spaces, incremental updates | API token, network\
-    \ access to Confluence |\n| ZIP export | One-time migration, air-gapped environments,\
-    \ full space backup | Admin access to export from Confluence |\n\n## Method 1:\
-    \ Import with REST API\n\nREST API mode connects directly to your Confluence instance,\
-    \ fetches pages,\nand converts them to Markdown. It supports both Confluence Cloud\
-    \ (API v2) and\nServer/Data Center (API v1)."
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n\n# Migrate documentation from Confluence\n\
+    \nThe Confluence migration tool imports Confluence pages into pipeline-ready\n\
+    Markdown with automatic frontmatter, heading hierarchy, SEO/GEO optimization,\n\
+    and knowledge module extraction. It supports two import methods: REST API\n(direct)\
+    \ and ZIP export (offline).\n\n## Before you begin\n\nVerify you have the following\
+    \ before starting the migration:\n\n- Python 3.10 or higher installed\n- The documentation\
+    \ pipeline cloned and dependencies installed\n- For REST API mode: a Confluence\
+    \ API token (Cloud) or Personal Access Token\n  (Server/Data Center)\n- For ZIP\
+    \ export mode: a Confluence HTML+XML export ZIP file\n- Sufficient disk space\
+    \ for imported Markdown and attachments\n\n## Choose a migration method\n\nThe\
+    \ pipeline provides two ways to import Confluence content:\n\n| Method | Best\
+    \ for | Requirements |\n| --- | --- | --- |\n| REST API | Ongoing sync, selective\
+    \ spaces, incremental updates | API token, network access to Confluence |\n| ZIP\
+    \ export | One-time migration, air-gapped environments, full space backup | Admin\
+    \ access to export from Confluence |"
   assistant_context: "Use this module when answering questions related to: Migrate\
-    \ documentation from Confluence. Source path: docs/how-to/migrate-from-confluence.md.\
+    \ documentation from Confluence. Source path: how-to/migrate-from-confluence.md.\
     \ Summary: Import Confluence pages into the documentation pipeline with automatic\
-    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n# Migrate\
-    \ documentation from Confluence\n\nThe Confluence migration tool imports Confluence\
-    \ pages into pipeline-ready\nMarkdown with automatic frontmatter, heading hierarchy,\
-    \ SEO/GEO optimization,\nand knowledge module extraction. It supports two import\
-    \ methods: REST API\n(direct) and ZIP export (offline).\n\n## Before you begin\n\
-    \nVerify you have the following before starting the migration:\n\n- Python 3.10\
-    \ or higher installed\n- The documentation pipeline cloned and dependencies installed\n\
-    - For REST API mode: a Confluence API token (Cloud) or Personal Access Token\n\
-    \  (Server/Data Center)\n- For ZIP export mode: a Confluence HTML+XML export ZIP\
-    \ file\n- Sufficient disk space for imported Markdown and attachments\n\n## Choose\
-    \ a migration method\n\nThe pipeline provides two ways to import Confluence content:\n\
-    \n| Method | Best for | Requirements |\n| --- | --- | --- |\n| REST API | Ongoing\
-    \ sync, selective spaces, incremental updates | API token, network access to Confluence\
-    \ |\n| ZIP export | One-time migration, air-gapped environments, full space backup\
-    \ | Admin access to export from Confluence |\n\n## Method 1: Import with REST\
-    \ API\n\nREST API mode connects directly to your Confluence instance, fetches\
-    \ pages,\nand converts them to Markdown. It supports both Confluence Cloud (API\
-    \ v2) and\nServer/Data Center (API v1)."
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n\n# Migrate documentation from Confluence\n\
+    \nThe Confluence migration tool imports Confluence pages into pipeline-ready\n\
+    Markdown with automatic frontmatter, heading hierarchy, SEO/GEO optimization,\n\
+    and knowledge module extraction. It supports two import methods: REST API\n(direct)\
+    \ and ZIP export (offline).\n\n## Before you begin\n\nVerify you have the following\
+    \ before starting the migration:\n\n- Python 3.10 or higher installed\n- The documentation\
+    \ pipeline cloned and dependencies installed\n- For REST API mode: a Confluence\
+    \ API token (Cloud) or Personal Access Token\n  (Server/Data Center)\n- For ZIP\
+    \ export mode: a Confluence HTML+XML export ZIP file\n- Sufficient disk space\
+    \ for imported Markdown and attachments\n\n## Choose a migration method\n\nThe\
+    \ pipeline provides two ways to import Confluence content:\n\n| Method | Best\
+    \ for | Requirements |\n| --- | --- | --- |\n| REST API | Ongoing sync, selective\
+    \ spaces, incremental updates | API token, network access to Confluence |\n| ZIP\
+    \ export | One-time migration, air-gapped environments, full space backup | Admin\
+    \ access to export from Confluence |"

@@ -1,0 +1,30 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 45.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 3.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 320.0,
+  "docs_related_ticket_share": 0.22,
+  "avg_ticket_handling_minutes": 18.0,
+  "monthly_doc_influenced_evals": 145.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 280.0,
+  "docs_friction_revenue_sensitivity": 0.15,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Engineer rate: mid-range for B2B SaaS technical writing and DevOps tooling",
+    "Support rate: standard for technical support in developer tools segment",
+    "Release frequency: inferred from active open-source DevOps project with 480 doc pages",
+    "Manual sync hours: conservative baseline for maintaining docs across frequent releases",
+    "Release delay: typical coordination lag between code ship and doc updates",
+    "Monthly tickets: scaled to developer tool with 480 pages and growing user base",
+    "Docs-related share: 22% reflects self-service developer audience with API coverage at 85%",
+    "Ticket handling: developer tools average, reduced by strong retrieval readiness (86.77)",
+    "Doc-influenced evals: conservative estimate for self-hosted platform evaluation friction",
+    "Eval conversion: 12% reflects developer tool trial-to-paid in competitive hosting market",
+    "Customer value: modest MRR for self-hosted platform, likely usage-based or team tier",
+    "Revenue sensitivity: 15% conservative given strong overall docs (86.77 score) but 69% stale risk",
+    "Confidence: moderate due to limited commercial data, strong technical metrics, 59% evidence coverage"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Moralis documentation spans 978 pages with 100% crawl coverage and zero broken links. API reference coverage is weak at 28.06% despite 884 API pages detected, leaving 71.94% of API surface undocumented or poorly linked to usage examples. Example code reliability shows 0% detection across all pages, flagged as a likely JS-rendering detection limitation requiring manual validation. Freshness metadata appears on only 4.81% of pages (47 pages), creating significant staleness risk (79.21%) that undermines user trust and AI retrieval quality. SEO/geo issues affect 22.26% of pages (218 pages), reducing discoverability.",
+    "strengths": [
+      "Zero broken internal, docs, or repository links across 978 pages with 95% link verification confidence",
+      "100% crawl coverage with 979 discovered pages and effective trap URL filtering (46 skipped)",
+      "Strong citationability at 100% and answerability at 99.9% for AI retrieval use cases",
+      "Evidence coverage is robust at 91.22% (956 of 1048 claims backed)",
+      "Actionability coverage reaches 93.75%, indicating clear next-step guidance in most content"
+    ],
+    "risks": [
+      "71.94% of 884 detected API pages lack adequate usage documentation or reference coverage, blocking developer onboarding",
+      "0% example reliability detection across 978 pages suggests JS-rendered code blocks invisible to crawlers, preventing validation of runnable samples",
+      "79.21% stale risk due to only 4.81% freshness metadata coverage (47 pages), eroding trust and AI answer accuracy",
+      "22.26% SEO/geo issue rate (218 pages) limits organic search visibility and regional discoverability",
+      "Chunkability at 17.28% indicates poor content structure for vector embeddings and LLM context windows",
+      "Overall retrieval readiness score of 54.37 (weak band) constrains AI-assisted support and chatbot quality",
+      "Multi-project topology with 884 API pages but 28.06% coverage suggests fragmented or missing cross-linking between guides and reference"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Add last-updated timestamps to all 978 pages via automated frontmatter injection or CMS workflow",
+        "impact": "critical",
+        "effort": "low",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Fixes 79.21% stale risk and 4.81% freshness coverage in one pass, immediately boosting user trust and AI retrieval confidence across entire site."
+      },
+      {
+        "action": "Audit and document the 636 API pages (71.94% of 884) missing usage examples or reference links, prioritizing top 50 by traffic",
+        "impact": "critical",
+        "effort": "high",
+        "expected_value": "high",
+        "confidence": "high",
+        "why_this_first": "Directly unblocks developer onboarding and reduces support volume by connecting API surface to practical usage patterns for most-visited endpoints."
+      },
+      {
+        "action": "Manually validate 20-page sample for runnable code examples to confirm JS-rendering hypothesis and establish baseline for 0% detection issue",
+        "impact": "high",
+        "effort": "low",
+        "expected_value": "medium",
+        "confidence": "medium",
+        "why_this_first": "Low-effort diagnostic clarifies whether 0% example reliability is real quality gap or tooling blind spot, informing next remediation investment."
+      },
+      {
+        "action": "Restructure content on low-chunkability pages (17.28% pass rate) by adding subheadings, breaking long paragraphs, and splitting monolithic guides",
+        "impact": "high",
+        "effort": "medium",
+        "expected_value": "high",
+        "confidence": "medium",
+        "why_this_first": "Improves vector search and LLM context quality for 810+ pages, directly lifting retrieval readiness from 54.37 weak band toward usable AI support."
+      },
+      {
+        "action": "Resolve SEO/geo issues on 218 pages (22.26%) by fixing missing meta descriptions, duplicate titles, and regional canonicalization",
+        "impact": "medium",
+        "effort": "medium",
+        "expected_value": "medium",
+        "confidence": "high",
+        "why_this_first": "Expands organic search reach and regional discoverability with moderate effort, driving top-of-funnel growth and reducing reliance on paid channels."
+      }
+    ],
+    "automation_first": [
+      "Deploy CI/CD hook to inject last-updated Git commit dates into frontmatter for all 978 pages, eliminating 95.19% freshness gap and cutting stale risk from 79.21% to near zero with zero ongoing manual effort.",
+      "Implement nightly link checker with Slack alerts to maintain zero broken links as site scales beyond 978 pages, preserving 95% link confidence and preventing future user frustration or SEO penalties.",
+      "Build automated chunkability linter (heading density, paragraph length, list usage) to flag pages below 17.28% threshold during PR review, preventing new low-quality content and guiding writers toward LLM-friendly structure before merge."
+    ],
+    "limitations": [
+      "External audit cannot verify actual code example correctness, runtime behavior, or dependency versioning; 0% detection likely reflects JS-rendered samples invisible to crawler, not true absence.",
+      "API coverage metric (28.06%) measures doc-to-API linking and reference completeness but cannot assess whether documented endpoints match current production API contract or SDK versions.",
+      "Staleness risk (79.21%) is inferred from missing last-updated metadata; pages without timestamps may still be current, and pages with timestamps may contain outdated technical details.",
+      "SEO/geo issue detection covers technical on-page factors but cannot measure actual search rankings, click-through rates, or regional content relevance without analytics integration.",
+      "Retrieval readiness score (54.37) models LLM and vector search performance but does not test real user queries, chatbot accuracy, or support deflection rates in production."
+    ]
+  }
+}

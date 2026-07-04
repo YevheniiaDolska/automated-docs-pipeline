@@ -1,0 +1,30 @@
+{
+  "engineer_hourly_usd": 85.0,
+  "support_hourly_usd": 55.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 320.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 45.0,
+  "eval_to_customer_rate": 0.18,
+  "avg_customer_monthly_value_usd": 2400.0,
+  "docs_friction_revenue_sensitivity": 0.35,
+  "assumptions_confidence_pct": 62.0,
+  "provenance": [
+    "Enterprise B2B SaaS standard loaded rates for technical roles",
+    "Web3/crypto infrastructure typical release velocity (8 deploys/month)",
+    "2286 pages crawled indicates substantial documentation requiring ongoing maintenance",
+    "61 broken links (2.7% break rate) suggests moderate maintenance debt requiring weekly sync effort",
+    "20% SEO/geo issues and 68% stale risk indicate documentation lag behind product",
+    "API coverage 67% with 1534 API pages shows partial reference completeness",
+    "Only 11.7% claims have evidence, suggesting users need support clarification",
+    "28% docs-related ticket share derived from low evidence coverage and moderate retrieval score",
+    "Developer-focused product (Dynamic auth/wallet) implies technical evaluation cycles",
+    "Conservative eval-to-customer 18% for developer infrastructure tooling",
+    "Mid-market B2B SaaS contract value for infrastructure/auth services",
+    "35% revenue sensitivity reflects docs importance for developer adoption but not sole factor",
+    "Confidence reduced due to limited freshness metadata (3.4% coverage) and example reliability 0%"
+  ]
+}

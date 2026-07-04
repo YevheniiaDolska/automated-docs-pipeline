@@ -14,7 +14,6 @@ original_author: Kroha
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Legal and compliance
 
 VeriDoc is committed to transparency in how we handle your data and operate

@@ -1,0 +1,1461 @@
+{
+  "generated_at": "2026-06-30T09:59:22.821559+00:00",
+  "site_url": "https://fly.io/docs",
+  "site_urls": [
+    "https://fly.io/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://fly.io/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1058,
+          "requested_pages": 1395,
+          "urls_examined": 1059,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1059,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1059,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 102,
+          "seeded_sitemap_urls": 1059,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 1374,
+          "broken_internal_links_count": 94,
+          "docs_broken_links_count": 94,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://fly.io/blog/SOC2-MESSAGE.webp",
+            "https://fly.io/blog/Spectrum.chat/flyio",
+            "https://fly.io/blog/blog/deno-on-fly-using-buildpacks",
+            "https://fly.io/blog/fly-io-is-hiring-rust-developers",
+            "https://fly.io/blog/scorecard.webp",
+            "https://fly.io/blog/turboku-1.webp",
+            "https://fly.io/blog/turboku-2.webp",
+            "https://fly.io/blog/turboku-logs.webp",
+            "https://fly.io/blog/we-are-hiring-elixir-developer-advocates",
+            "https://fly.io/changelog.xml",
+            "https://fly.io/dashboard/personal/documents",
+            "https://fly.io/dashboard/personal/machines",
+            "https://fly.io/docs/access-control",
+            "https://fly.io/docs/advanced-guides",
+            "https://fly.io/docs/app-guides/docs/machines/api/machines-resource",
+            "https://fly.io/docs/app-guides/elixir-livebook-connection-to-your-app",
+            "https://fly.io/docs/app-guides/speed-up-a-heroku-app",
+            "https://fly.io/docs/app-guides/terraform-iac-getting-started",
+            "https://fly.io/docs/application",
+            "https://fly.io/docs/apps/autostop-autostart"
+          ],
+          "docs_broken_link_samples": [
+            "https://fly.io/blog/SOC2-MESSAGE.webp",
+            "https://fly.io/blog/Spectrum.chat/flyio",
+            "https://fly.io/blog/blog/deno-on-fly-using-buildpacks",
+            "https://fly.io/blog/fly-io-is-hiring-rust-developers",
+            "https://fly.io/blog/scorecard.webp",
+            "https://fly.io/blog/turboku-1.webp",
+            "https://fly.io/blog/turboku-2.webp",
+            "https://fly.io/blog/turboku-logs.webp",
+            "https://fly.io/blog/we-are-hiring-elixir-developer-advocates",
+            "https://fly.io/changelog.xml",
+            "https://fly.io/dashboard/personal/documents",
+            "https://fly.io/dashboard/personal/machines",
+            "https://fly.io/docs/access-control",
+            "https://fly.io/docs/advanced-guides",
+            "https://fly.io/docs/app-guides/docs/machines/api/machines-resource",
+            "https://fly.io/docs/app-guides/elixir-livebook-connection-to-your-app",
+            "https://fly.io/docs/app-guides/speed-up-a-heroku-app",
+            "https://fly.io/docs/app-guides/terraform-iac-getting-started",
+            "https://fly.io/docs/application",
+            "https://fly.io/docs/apps/autostop-autostart",
+            "https://fly.io/docs/apps/performance",
+            "https://fly.io/docs/blueprints/(https:/fly.io/dashboard/)",
+            "https://fly.io/docs/blueprints/docs/volumes/volume-manage",
+            "https://fly.io/docs/deep-dive/Ecto.Adapters.Postgres",
+            "https://fly.io/docs/deploy-on",
+            "https://fly.io/docs/deploy-with",
+            "https://fly.io/docs/dockerfiles",
+            "https://fly.io/docs/events",
+            "https://fly.io/docs/examples",
+            "https://fly.io/docs/flyctl-server"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 5,
+          "unverified_link_samples": [
+            "https://fly.io/docs/app-guides",
+            "https://fly.io/docs/js",
+            "https://fly.io/docs/machines/flyctl",
+            "https://fly.io/docs/mpg/guides-examples",
+            "https://fly.io/docs/upstash"
+          ],
+          "confirmed_broken_links_count": 94,
+          "excluded_links_count": 26,
+          "excluded_link_samples": [
+            "https://fly.io/blog/feed.xml",
+            "https://fly.io/customer-stories/feed.xml",
+            "https://fly.io/django-beats/feed.xml",
+            "https://fly.io/docs/monitoring/search-logs",
+            "https://fly.io/infra-log/feed.xml",
+            "https://fly.io/javascript-journal/feed.xml",
+            "https://fly.io/jobs/feed.xml",
+            "https://fly.io/laravel-bytes/feed.xml",
+            "https://fly.io/phoenix-files/feed.xml",
+            "https://fly.io/ruby-dispatch/2023-03-28/markdown.gif",
+            "https://fly.io/ruby-dispatch/2023-03-28/search.gif",
+            "https://fly.io/ruby-dispatch/2023-03-28/validate.gif",
+            "https://fly.io/ruby-dispatch/buttons.gif",
+            "https://fly.io/ruby-dispatch/feed.xml",
+            "https://fly.io/static/images/brand/brandmark-dark.zip",
+            "https://fly.io/static/images/brand/brandmark-inverted.zip",
+            "https://fly.io/static/images/brand/brandmark-light.zip",
+            "https://fly.io/static/images/brand/brandmark.zip",
+            "https://fly.io/static/images/brand/logo-landscape-dark.zip",
+            "https://fly.io/static/images/brand/logo-landscape-inverted.zip",
+            "https://fly.io/static/images/brand/logo-landscape-light.zip",
+            "https://fly.io/static/images/brand/logo-landscape.zip",
+            "https://fly.io/static/images/brand/logo-portrait-dark.zip",
+            "https://fly.io/static/images/brand/logo-portrait-inverted.zip",
+            "https://fly.io/static/images/brand/logo-portrait-light.zip",
+            "https://fly.io/static/images/brand/logo-portrait.zip"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://fly.io/blog/SOC2-MESSAGE.webp",
+            "https://fly.io/blog/Spectrum.chat/flyio",
+            "https://fly.io/blog/blog/deno-on-fly-using-buildpacks",
+            "https://fly.io/blog/fly-io-is-hiring-rust-developers",
+            "https://fly.io/blog/scorecard.webp",
+            "https://fly.io/blog/turboku-1.webp",
+            "https://fly.io/blog/turboku-2.webp",
+            "https://fly.io/blog/turboku-logs.webp",
+            "https://fly.io/blog/we-are-hiring-elixir-developer-advocates",
+            "https://fly.io/changelog.xml",
+            "https://fly.io/dashboard/personal/documents",
+            "https://fly.io/dashboard/personal/machines",
+            "https://fly.io/docs/access-control",
+            "https://fly.io/docs/advanced-guides",
+            "https://fly.io/docs/app-guides/docs/machines/api/machines-resource",
+            "https://fly.io/docs/app-guides/elixir-livebook-connection-to-your-app",
+            "https://fly.io/docs/app-guides/speed-up-a-heroku-app",
+            "https://fly.io/docs/app-guides/terraform-iac-getting-started",
+            "https://fly.io/docs/application",
+            "https://fly.io/docs/apps/autostop-autostart",
+            "https://fly.io/docs/apps/performance",
+            "https://fly.io/docs/blueprints/(https:/fly.io/dashboard/)",
+            "https://fly.io/docs/blueprints/docs/volumes/volume-manage",
+            "https://fly.io/docs/deep-dive/Ecto.Adapters.Postgres",
+            "https://fly.io/docs/deploy-on",
+            "https://fly.io/docs/deploy-with",
+            "https://fly.io/docs/dockerfiles",
+            "https://fly.io/docs/events",
+            "https://fly.io/docs/examples",
+            "https://fly.io/docs/flyctl-server",
+            "https://fly.io/docs/flyctl/destroy",
+            "https://fly.io/docs/flyctl/resume",
+            "https://fly.io/docs/flyctl/suspend",
+            "https://fly.io/docs/getting-started/existing",
+            "https://fly.io/docs/js/getting-started",
+            "https://fly.io/docs/js/postgres",
+            "https://fly.io/docs/js/sqlite",
+            "https://fly.io/docs/laravel/the-basics/databases",
+            "https://fly.io/docs/machines/api/[]",
+            "https://fly.io/docs/mcp/flyctl-server.html.md",
+            "https://fly.io/docs/mpg/configuration",
+            "https://fly.io/docs/multiple-processes",
+            "https://fly.io/docs/nextjs",
+            "https://fly.io/docs/nodejs",
+            "https://fly.io/docs/phoenix",
+            "https://fly.io/docs/postgresql",
+            "https://fly.io/docs/pricing",
+            "https://fly.io/docs/prisma",
+            "https://fly.io/docs/rails/api",
+            "https://fly.io/docs/rails/build",
+            "https://fly.io/docs/rails/cookbooks/Dockerfile1",
+            "https://fly.io/docs/rails/cookbooks/Dockerfile2",
+            "https://fly.io/docs/rails/cookbooks/Dockerfile3",
+            "https://fly.io/docs/rails/cookbooks/Dockerfile4",
+            "https://fly.io/docs/rails/cookbooks/Dockerfile5",
+            "https://fly.io/docs/rails/cookbooks/Dockerfile6",
+            "https://fly.io/docs/rails/databases",
+            "https://fly.io/docs/rails/deploy",
+            "https://fly.io/docs/rails/dockerfiles",
+            "https://fly.io/docs/rails/minimal",
+            "https://fly.io/docs/rails/node",
+            "https://fly.io/docs/rails/sources",
+            "https://fly.io/docs/redis",
+            "https://fly.io/docs/regions",
+            "https://fly.io/docs/scaling",
+            "https://fly.io/docs/secrets",
+            "https://fly.io/docs/support",
+            "https://fly.io/docs/the-basics",
+            "https://fly.io/docs/transports",
+            "https://fly.io/forms-testing",
+            "https://fly.io/getting-started",
+            "https://fly.io/infra-log/vector.dev",
+            "https://fly.io/jobs/infrastructure-engineering",
+            "https://fly.io/js-ecosystem-delightfully-wierd",
+            "https://fly.io/languages-and-frameworks/nextjs",
+            "https://fly.io/languages-and-frameworks/remix",
+            "https://fly.io/laravel-bytes/[https:/fly.io/docs/machines/working-with-machines/](https:/fly.io/docs/machines/working-with-machines/)",
+            "https://fly.io/live-session",
+            "https://fly.io/open-source",
+            "https://fly.io/phoenix-files/config_data_source.webp",
+            "https://fly.io/phoenix-files/cookies.webp",
+            "https://fly.io/phoenix-files/fast_live_view_trace.webp",
+            "https://fly.io/phoenix-files/metadata_zoom_in.webp",
+            "https://fly.io/phoenix-files/slow_trace.webp",
+            "https://fly.io/phoenix-files/trace_metadata.webp",
+            "https://fly.io/phx-trigger-action",
+            "https://fly.io/rails/the-basics",
+            "https://fly.io/reference/arcjet",
+            "https://fly.io/reference/sentry",
+            "https://fly.io/ruby-dispatch/live-elements-demo.txt",
+            "https://fly.io/ruby-dispatch/showcase.conf",
+            "https://fly.io/tabs-with-js-commands",
+            "https://fly.io/vanilla-candy-sprinkles",
+            "https://fly.io/vector.dev"
+          ],
+          "_all_unverified_links": [
+            "https://fly.io/docs/app-guides",
+            "https://fly.io/docs/js",
+            "https://fly.io/docs/machines/flyctl",
+            "https://fly.io/docs/mpg/guides-examples",
+            "https://fly.io/docs/upstash"
+          ],
+          "_all_excluded_links": [
+            "https://fly.io/blog/feed.xml",
+            "https://fly.io/customer-stories/feed.xml",
+            "https://fly.io/django-beats/feed.xml",
+            "https://fly.io/docs/monitoring/search-logs",
+            "https://fly.io/infra-log/feed.xml",
+            "https://fly.io/javascript-journal/feed.xml",
+            "https://fly.io/jobs/feed.xml",
+            "https://fly.io/laravel-bytes/feed.xml",
+            "https://fly.io/phoenix-files/feed.xml",
+            "https://fly.io/ruby-dispatch/2023-03-28/markdown.gif",
+            "https://fly.io/ruby-dispatch/2023-03-28/search.gif",
+            "https://fly.io/ruby-dispatch/2023-03-28/validate.gif",
+            "https://fly.io/ruby-dispatch/buttons.gif",
+            "https://fly.io/ruby-dispatch/feed.xml",
+            "https://fly.io/static/images/brand/brandmark-dark.zip",
+            "https://fly.io/static/images/brand/brandmark-inverted.zip",
+            "https://fly.io/static/images/brand/brandmark-light.zip",
+            "https://fly.io/static/images/brand/brandmark.zip",
+            "https://fly.io/static/images/brand/logo-landscape-dark.zip",
+            "https://fly.io/static/images/brand/logo-landscape-inverted.zip",
+            "https://fly.io/static/images/brand/logo-landscape-light.zip",
+            "https://fly.io/static/images/brand/logo-landscape.zip",
+            "https://fly.io/static/images/brand/logo-portrait-dark.zip",
+            "https://fly.io/static/images/brand/logo-portrait-inverted.zip",
+            "https://fly.io/static/images/brand/logo-portrait-light.zip",
+            "https://fly.io/static/images/brand/logo-portrait.zip"
+          ],
+          "_all_docs_unverified_links": [
+            "https://fly.io/docs/app-guides",
+            "https://fly.io/docs/js",
+            "https://fly.io/docs/machines/flyctl",
+            "https://fly.io/docs/mpg/guides-examples",
+            "https://fly.io/docs/upstash"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://fly.io/blog/SOC2-MESSAGE.webp": [
+              {
+                "source_page": "https://fly.io/blog/soc2-the-screenshots-will-continue-until-security-improves",
+                "anchor_text": "things you need to carefully explain to your team"
+              }
+            ],
+            "https://fly.io/blog/Spectrum.chat/flyio": [
+              {
+                "source_page": "https://fly.io/blog/fly-friday-feb28-news",
+                "anchor_text": "Spectrum.chat/flyio"
+              }
+            ],
+            "https://fly.io/blog/blog/deno-on-fly-using-buildpacks": [
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-9th-june",
+                "anchor_text": "Deno on Fly using Buildpacks"
+              },
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-may-29th-2020",
+                "anchor_text": "Deno on Fly using Buildpacks"
+              }
+            ],
+            "https://fly.io/blog/fly-io-is-hiring-rust-developers": [
+              {
+                "source_page": "https://fly.io/blog/rust-memory-leak",
+                "anchor_text": "great little primer on fly-proxy"
+              }
+            ],
+            "https://fly.io/blog/scorecard.webp": [
+              {
+                "source_page": "https://fly.io/blog/api-tokens-a-tedious-survey",
+                "anchor_text": "a scorecard"
+              }
+            ],
+            "https://fly.io/blog/turboku-1.webp": [
+              {
+                "source_page": "https://fly.io/blog/new-turboku",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/blog/turboku-2.webp": [
+              {
+                "source_page": "https://fly.io/blog/new-turboku",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/blog/turboku-logs.webp": [
+              {
+                "source_page": "https://fly.io/blog/new-turboku",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/blog/we-are-hiring-elixir-developer-advocates": [
+              {
+                "source_page": "https://fly.io/blog/fly-io-is-hiring-full-stack-developers",
+                "anchor_text": "we fell in with a bad crowd"
+              }
+            ],
+            "https://fly.io/changelog.xml": [
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-17th-april-2020",
+                "anchor_text": "fly.io/changelog.xml"
+              },
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-1st-may-2020",
+                "anchor_text": "fly.io/changelog.xml"
+              },
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-9th-april-2020",
+                "anchor_text": "fly.io/changelog.xml"
+              },
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-9th-june",
+                "anchor_text": "fly.io/changelog.xml"
+              },
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-may-15th-2020",
+                "anchor_text": "fly.io/changelog.xml"
+              }
+            ],
+            "https://fly.io/dashboard/personal/documents": [
+              {
+                "source_page": "https://fly.io/blog/logbook-2022-05-26",
+                "anchor_text": "documents UI"
+              },
+              {
+                "source_page": "https://fly.io/blog/logbook-2022-06-23",
+                "anchor_text": "see these"
+              }
+            ],
+            "https://fly.io/dashboard/personal/machines": [
+              {
+                "source_page": "https://fly.io/docs/machines/runtime-environment",
+                "anchor_text": "https://fly.io/dashboard/personal/machines"
+              }
+            ],
+            "https://fly.io/docs/access-control": [
+              {
+                "source_page": "https://fly.io/docs/mcp",
+                "anchor_text": "access control"
+              }
+            ],
+            "https://fly.io/docs/advanced-guides": [
+              {
+                "source_page": "https://fly.io/docs/django",
+                "anchor_text": "Advanced Guides"
+              },
+              {
+                "source_page": "https://fly.io/docs/elixir",
+                "anchor_text": "Advanced Guides"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails",
+                "anchor_text": "Advanced Guides"
+              }
+            ],
+            "https://fly.io/docs/app-guides/docs/machines/api/machines-resource": [
+              {
+                "source_page": "https://fly.io/docs/app-guides/multiple-processes",
+                "anchor_text": "Machine config"
+              }
+            ],
+            "https://fly.io/docs/app-guides/elixir-livebook-connection-to-your-app": [
+              {
+                "source_page": "https://fly.io/blog/better-business-intelligence-in-elixir-with-livebook",
+                "anchor_text": "Elixir Guide for Connecting Livebook to your App in Production"
+              }
+            ],
+            "https://fly.io/docs/app-guides/speed-up-a-heroku-app": [
+              {
+                "source_page": "https://fly.io/blog/turboku",
+                "anchor_text": "Speed up a Heroku App"
+              }
+            ],
+            "https://fly.io/docs/app-guides/terraform-iac-getting-started": [
+              {
+                "source_page": "https://fly.io/blog/scale-to-zero-minecraft",
+                "anchor_text": "Learn more \u2192"
+              },
+              {
+                "source_page": "https://fly.io/laravel-bytes/deus-ex-machina",
+                "anchor_text": "Terraform provider"
+              }
+            ],
+            "https://fly.io/docs/application": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/launch-deep-dive",
+                "anchor_text": "Your Fly App"
+              }
+            ],
+            "https://fly.io/docs/apps/autostop-autostart": [
+              {
+                "source_page": "https://fly.io/docs/reference/fly-proxy",
+                "anchor_text": "how to configure it"
+              }
+            ],
+            "https://fly.io/docs/apps/performance": [
+              {
+                "source_page": "https://fly.io/docs/reference/content-encoding",
+                "anchor_text": "Troubleshooting app performance"
+              }
+            ],
+            "https://fly.io/docs/blueprints/(https:/fly.io/dashboard/)": [
+              {
+                "source_page": "https://fly.io/docs/blueprints/staging-prod-isolation",
+                "anchor_text": "dashboard"
+              }
+            ],
+            "https://fly.io/docs/blueprints/docs/volumes/volume-manage": [
+              {
+                "source_page": "https://fly.io/docs/blueprints/volume-forking",
+                "anchor_text": "forking"
+              }
+            ],
+            "https://fly.io/docs/deep-dive/Ecto.Adapters.Postgres": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/phoenix",
+                "anchor_text": "Ecto.Adapters.Postgres"
+              }
+            ],
+            "https://fly.io/docs/deploy-on": [
+              {
+                "source_page": "https://fly.io/docs/mcp",
+                "anchor_text": "deploy it on"
+              }
+            ],
+            "https://fly.io/docs/deploy-with": [
+              {
+                "source_page": "https://fly.io/docs/mcp",
+                "anchor_text": "deploy it with"
+              }
+            ],
+            "https://fly.io/docs/dockerfiles": [
+              {
+                "source_page": "https://fly.io/docs/rails/one-pager",
+                "anchor_text": "memory"
+              }
+            ],
+            "https://fly.io/docs/events": [
+              {
+                "source_page": "https://fly.io/docs/litefs/position",
+                "anchor_text": "LiteFS event stream"
+              }
+            ],
+            "https://fly.io/docs/examples": [
+              {
+                "source_page": "https://fly.io/docs/mcp",
+                "anchor_text": "examples"
+              },
+              {
+                "source_page": "https://fly.io/docs/mcp/launch",
+                "anchor_text": "Examples"
+              }
+            ],
+            "https://fly.io/docs/flyctl-server": [
+              {
+                "source_page": "https://fly.io/docs/mcp",
+                "anchor_text": "MCP server"
+              }
+            ],
+            "https://fly.io/docs/flyctl/destroy": [
+              {
+                "source_page": "https://fly.io/blog/remote-ide-machines",
+                "anchor_text": "Delete"
+              }
+            ],
+            "https://fly.io/docs/flyctl/resume": [
+              {
+                "source_page": "https://fly.io/blog/fly-answers-questions-suspend-resume-restart-and-redis",
+                "anchor_text": "fly resume"
+              }
+            ],
+            "https://fly.io/docs/flyctl/suspend": [
+              {
+                "source_page": "https://fly.io/blog/fly-answers-questions-suspend-resume-restart-and-redis",
+                "anchor_text": "fly suspend"
+              }
+            ],
+            "https://fly.io/docs/getting-started/existing": [
+              {
+                "source_page": "https://fly.io/docs/django",
+                "anchor_text": "Existing Django Apps"
+              }
+            ],
+            "https://fly.io/docs/js/getting-started": [
+              {
+                "source_page": "https://fly.io/sveltekit/agents/claude",
+                "anchor_text": "JavaScript docs"
+              },
+              {
+                "source_page": "https://fly.io/sveltekit/agents/claude",
+                "anchor_text": "Read the Docs"
+              },
+              {
+                "source_page": "https://fly.io/sveltekit/agents/copilot",
+                "anchor_text": "JavaScript docs"
+              },
+              {
+                "source_page": "https://fly.io/sveltekit/agents/copilot",
+                "anchor_text": "Read the Docs"
+              },
+              {
+                "source_page": "https://fly.io/sveltekit/agents/cursor",
+                "anchor_text": "JavaScript docs"
+              }
+            ],
+            "https://fly.io/docs/js/postgres": [
+              {
+                "source_page": "https://fly.io/docs/js/prisma",
+                "anchor_text": "PostgreSQL"
+              }
+            ],
+            "https://fly.io/docs/js/sqlite": [
+              {
+                "source_page": "https://fly.io/docs/js/prisma",
+                "anchor_text": "SQLite"
+              }
+            ],
+            "https://fly.io/docs/laravel/the-basics/databases": [
+              {
+                "source_page": "https://fly.io/docs/laravel/database-guides/laravel-redis",
+                "anchor_text": "above"
+              },
+              {
+                "source_page": "https://fly.io/laravel-bytes/full-stack-laravel",
+                "anchor_text": "As documented"
+              },
+              {
+                "source_page": "https://fly.io/laravel-bytes/full-stack-laravel",
+                "anchor_text": "Laravel + Redis docs"
+              }
+            ],
+            "https://fly.io/docs/machines/api/[]": [
+              {
+                "source_page": "https://fly.io/docs/machines/api/machines-resource",
+                "anchor_text": "string, string"
+              }
+            ],
+            "https://fly.io/docs/mcp/flyctl-server.html.md": [
+              {
+                "source_page": "https://fly.io/docs/mcp/examples",
+                "anchor_text": "flyctl MCP server"
+              }
+            ],
+            "https://fly.io/docs/mpg/configuration": [
+              {
+                "source_page": "https://fly.io/docs",
+                "anchor_text": "Cluster Configuration Options"
+              },
+              {
+                "source_page": "https://fly.io/docs/about",
+                "anchor_text": "Cluster Configuration Options"
+              },
+              {
+                "source_page": "https://fly.io/docs/about/billing",
+                "anchor_text": "Cluster Configuration Options"
+              },
+              {
+                "source_page": "https://fly.io/docs/about/brand",
+                "anchor_text": "Cluster Configuration Options"
+              },
+              {
+                "source_page": "https://fly.io/docs/about/cost-management",
+                "anchor_text": "Cluster Configuration Options"
+              }
+            ],
+            "https://fly.io/docs/multiple-processes": [
+              {
+                "source_page": "https://fly.io/docs/blueprints/opensshd",
+                "anchor_text": "number of ways to run multiple processes"
+              }
+            ],
+            "https://fly.io/docs/nextjs": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/launch-deep-dive",
+                "anchor_text": "Next.js"
+              }
+            ],
+            "https://fly.io/docs/nodejs": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/launch-deep-dive",
+                "anchor_text": "Node.js"
+              }
+            ],
+            "https://fly.io/docs/phoenix": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/launch-deep-dive",
+                "anchor_text": "Phoenix"
+              }
+            ],
+            "https://fly.io/docs/postgresql": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/launch-deep-dive",
+                "anchor_text": "PostgreSQL database"
+              }
+            ],
+            "https://fly.io/docs/pricing": [
+              {
+                "source_page": "https://fly.io/blog/scaling-fly-for-all",
+                "anchor_text": "pricing page"
+              }
+            ],
+            "https://fly.io/docs/prisma": [
+              {
+                "source_page": "https://fly.io/docs/js/shopify",
+                "anchor_text": "deploying Prisma apps on Fly.io"
+              }
+            ],
+            "https://fly.io/docs/rails/api": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "API"
+              }
+            ],
+            "https://fly.io/docs/rails/build": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "Optimizing builds"
+              }
+            ],
+            "https://fly.io/docs/rails/cookbooks/Dockerfile1": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/api",
+                "anchor_text": "api example"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/databases",
+                "anchor_text": "sqlite3"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/minimal",
+                "anchor_text": "ruby-full"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/node",
+                "anchor_text": "nodesource setup"
+              }
+            ],
+            "https://fly.io/docs/rails/cookbooks/Dockerfile2": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/databases",
+                "anchor_text": "postgres"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/minimal",
+                "anchor_text": "ruby-slim"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/node",
+                "anchor_text": "copy from node:slim docker image"
+              }
+            ],
+            "https://fly.io/docs/rails/cookbooks/Dockerfile3": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/databases",
+                "anchor_text": "mysql"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/minimal",
+                "anchor_text": "multi-stage"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/node",
+                "anchor_text": "volta"
+              }
+            ],
+            "https://fly.io/docs/rails/cookbooks/Dockerfile4": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/node",
+                "anchor_text": "node as base"
+              }
+            ],
+            "https://fly.io/docs/rails/cookbooks/Dockerfile5": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/node",
+                "anchor_text": "node plus rbenv/ruby-build"
+              }
+            ],
+            "https://fly.io/docs/rails/cookbooks/Dockerfile6": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks/node",
+                "anchor_text": "node plus rvm"
+              }
+            ],
+            "https://fly.io/docs/rails/databases": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "Databases"
+              }
+            ],
+            "https://fly.io/docs/rails/deploy": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "Optimizing deployments"
+              }
+            ],
+            "https://fly.io/docs/rails/dockerfiles": [
+              {
+                "source_page": "https://fly.io/docs/rails/getting-started/existing",
+                "anchor_text": "memory"
+              }
+            ],
+            "https://fly.io/docs/rails/minimal": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "Minimal"
+              }
+            ],
+            "https://fly.io/docs/rails/node": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "Node"
+              }
+            ],
+            "https://fly.io/docs/rails/sources": [
+              {
+                "source_page": "https://fly.io/docs/rails/cookbooks",
+                "anchor_text": "Sources"
+              }
+            ],
+            "https://fly.io/docs/redis": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/launch-deep-dive",
+                "anchor_text": "Upstash Redis"
+              }
+            ],
+            "https://fly.io/docs/regions": [
+              {
+                "source_page": "https://fly.io/blog/scaling-fly-for-all",
+                "anchor_text": "look regions up in the documentation"
+              },
+              {
+                "source_page": "https://fly.io/blog/updating-scale",
+                "anchor_text": "regions"
+              },
+              {
+                "source_page": "https://fly.io/docs/machines/runtime-environment",
+                "anchor_text": "Regions"
+              }
+            ],
+            "https://fly.io/docs/scaling": [
+              {
+                "source_page": "https://fly.io/blog/fly-answers-questions",
+                "anchor_text": "Fly\u2019s scaling documentation"
+              },
+              {
+                "source_page": "https://fly.io/blog/scaling-fly-for-all",
+                "anchor_text": "Scaling documentation"
+              },
+              {
+                "source_page": "https://fly.io/blog/scaling-fly-for-all",
+                "anchor_text": "scale documentation"
+              }
+            ],
+            "https://fly.io/docs/secrets": [
+              {
+                "source_page": "https://fly.io/blog/powerbuilding-with-fly",
+                "anchor_text": "Fly Secrets"
+              }
+            ],
+            "https://fly.io/docs/support": [
+              {
+                "source_page": "https://fly.io/",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://fly.io/about",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://fly.io/accident-forgiveness",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://fly.io/ai",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://fly.io/autoscaling",
+                "anchor_text": "Support"
+              }
+            ],
+            "https://fly.io/docs/the-basics": [
+              {
+                "source_page": "https://fly.io/docs/elixir",
+                "anchor_text": "The Basics"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails",
+                "anchor_text": "The Basics"
+              }
+            ],
+            "https://fly.io/docs/transports": [
+              {
+                "source_page": "https://fly.io/docs/mcp",
+                "anchor_text": "MCP transport"
+              }
+            ],
+            "https://fly.io/forms-testing": [
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": "Testing LiveView forms"
+              },
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": "you"
+              }
+            ],
+            "https://fly.io/getting-started": [
+              {
+                "source_page": "https://fly.io/docs/rails/one-pager",
+                "anchor_text": "Provisioning Redis"
+              }
+            ],
+            "https://fly.io/infra-log/vector.dev": [
+              {
+                "source_page": "https://fly.io/infra-log/2024-11-02",
+                "anchor_text": "Vector"
+              }
+            ],
+            "https://fly.io/jobs/infrastructure-engineering": [
+              {
+                "source_page": "https://fly.io/infra-log",
+                "anchor_text": "we\u2019re hiring!"
+              },
+              {
+                "source_page": "https://fly.io/infra-log/2024-05-11",
+                "anchor_text": "we\u2019re hiring!"
+              }
+            ],
+            "https://fly.io/js-ecosystem-delightfully-wierd": [
+              {
+                "source_page": "https://fly.io/javascript-journal/ciabatta",
+                "anchor_text": "delightfully weird"
+              }
+            ],
+            "https://fly.io/languages-and-frameworks/nextjs": [
+              {
+                "source_page": "https://fly.io/docs/js/the-basics",
+                "anchor_text": "Next.js"
+              }
+            ],
+            "https://fly.io/languages-and-frameworks/remix": [
+              {
+                "source_page": "https://fly.io/docs/js/the-basics",
+                "anchor_text": "Remix"
+              }
+            ],
+            "https://fly.io/laravel-bytes/[https:/fly.io/docs/machines/working-with-machines/](https:/fly.io/docs/machines/working-with-machines/)": [
+              {
+                "source_page": "https://fly.io/laravel-bytes/filamentphp-shooting-lasers-at-the-moon",
+                "anchor_text": "Fly.io machines API"
+              }
+            ],
+            "https://fly.io/live-session": [
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": "LiveSessions in action"
+              },
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": "telling"
+              }
+            ],
+            "https://fly.io/open-source": [
+              {
+                "source_page": "https://fly.io/blog/fly-changelog-1st-may-2020",
+                "anchor_text": "Open Source"
+              }
+            ],
+            "https://fly.io/phoenix-files/config_data_source.webp": [
+              {
+                "source_page": "https://fly.io/phoenix-files/opentelemetry-and-the-infamous-n-plus-1",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/phoenix-files/cookies.webp": [
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/phoenix-files/fast_live_view_trace.webp": [
+              {
+                "source_page": "https://fly.io/phoenix-files/opentelemetry-and-the-infamous-n-plus-1",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/phoenix-files/metadata_zoom_in.webp": [
+              {
+                "source_page": "https://fly.io/phoenix-files/opentelemetry-and-the-infamous-n-plus-1",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/phoenix-files/slow_trace.webp": [
+              {
+                "source_page": "https://fly.io/phoenix-files/opentelemetry-and-the-infamous-n-plus-1",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/phoenix-files/trace_metadata.webp": [
+              {
+                "source_page": "https://fly.io/phoenix-files/opentelemetry-and-the-infamous-n-plus-1",
+                "anchor_text": ""
+              }
+            ],
+            "https://fly.io/phx-trigger-action": [
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": "Triggering a Phoenix controller action from a form in a LiveView"
+              },
+              {
+                "source_page": "https://fly.io/phoenix-files/phx-gen-auth",
+                "anchor_text": "been"
+              }
+            ],
+            "https://fly.io/rails/the-basics": [
+              {
+                "source_page": "https://fly.io/docs/rails/getting-started",
+                "anchor_text": "The Basics"
+              },
+              {
+                "source_page": "https://fly.io/docs/rails/one-pager",
+                "anchor_text": "The Basics"
+              }
+            ],
+            "https://fly.io/reference/arcjet": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/recap",
+                "anchor_text": "Application Security by Arcjet"
+              }
+            ],
+            "https://fly.io/reference/sentry": [
+              {
+                "source_page": "https://fly.io/docs/deep-dive/recap",
+                "anchor_text": "Application Monitoring by Sentry"
+              }
+            ],
+            "https://fly.io/ruby-dispatch/live-elements-demo.txt": [
+              {
+                "source_page": "https://fly.io/ruby-dispatch/introducing-live-elements",
+                "anchor_text": "live_elements_demo"
+              }
+            ],
+            "https://fly.io/ruby-dispatch/showcase.conf": [
+              {
+                "source_page": "https://fly.io/ruby-dispatch/smooth-fly-dev",
+                "anchor_text": "showcase.conf"
+              }
+            ],
+            "https://fly.io/tabs-with-js-commands": [
+              {
+                "source_page": "https://fly.io/phoenix-files/making-tabs-mobile-friendly",
+                "anchor_text": "Client-Side Tabs in LiveView With JS Commands"
+              }
+            ],
+            "https://fly.io/vanilla-candy-sprinkles": [
+              {
+                "source_page": "https://fly.io/javascript-journal/ciabatta",
+                "anchor_text": "Vanilla with Candy Sprinkles"
+              }
+            ],
+            "https://fly.io/vector.dev": [
+              {
+                "source_page": "https://fly.io/infra-log",
+                "anchor_text": "Vector"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1058,
+          "missing_title_count": 11,
+          "missing_description_count": 139,
+          "multiple_h1_count": 253,
+          "heading_hierarchy_jump_count": 50,
+          "seo_geo_issue_rate_pct": 10.7
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 5,
+          "api_pages_detected": 137,
+          "endpoints_with_usage_docs": 3,
+          "reference_endpoints_without_usage_docs": 2,
+          "reference_coverage_pct": 60.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:arrives",
+            "gql:has"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 5245,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (5245 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 591,
+          "pages_without_last_updated_hint": 467,
+          "last_updated_coverage_pct": 55.86,
+          "samples_with_last_updated": [
+            {
+              "url": "https://fly.io/blog",
+              "hint": "Logbook: November 14 to December 5, 2022"
+            },
+            {
+              "url": "https://fly.io/blog/30-minute-mcp",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/32-bit-real-estate",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/a-blog-if-kept",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/a-foolish-consistency",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/accessibility-clearing-the-fog",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/accident-forgiveness",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/ai-gpu-clusters-from-your-laptop-livebook",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/all-in-on-sqlite-litestream",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://fly.io/blog/always-be-connecting-with-https",
+              "hint": "Last updated"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 80.34,
+          "answerability_pct": 89.51,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 33.9,
+          "overall_score_0_100": 82.11,
+          "overall_band": "strong"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 2376,
+          "claims_with_evidence": 1907,
+          "coverage_pct": 80.26
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 432,
+              "checks": {
+                "auth_model": 209,
+                "error_semantics": 432,
+                "retry_idempotency": 12,
+                "schema_evolution": 181
+              }
+            },
+            "graphql": {
+              "pages": 166,
+              "checks": {
+                "auth_model": 60,
+                "error_semantics": 166,
+                "retry_idempotency": 6,
+                "schema_evolution": 63
+              }
+            },
+            "grpc": {
+              "pages": 23,
+              "checks": {
+                "auth_model": 14,
+                "error_semantics": 23,
+                "retry_idempotency": 4,
+                "schema_evolution": 6
+              }
+            },
+            "asyncapi": {
+              "pages": 299,
+              "checks": {
+                "auth_model": 196,
+                "error_semantics": 299,
+                "retry_idempotency": 3,
+                "schema_evolution": 71
+              }
+            },
+            "websocket": {
+              "pages": 99,
+              "checks": {
+                "auth_model": 38,
+                "error_semantics": 99,
+                "retry_idempotency": 1,
+                "schema_evolution": 33
+              }
+            }
+          },
+          "coverage_pct": 100.0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://fly.io/blog/SOC2-MESSAGE.webp",
+          "https://fly.io/blog/Spectrum.chat/flyio",
+          "https://fly.io/blog/blog/deno-on-fly-using-buildpacks",
+          "https://fly.io/blog/fly-io-is-hiring-rust-developers",
+          "https://fly.io/blog/scorecard.webp",
+          "https://fly.io/blog/turboku-1.webp",
+          "https://fly.io/blog/turboku-2.webp",
+          "https://fly.io/blog/turboku-logs.webp",
+          "https://fly.io/blog/we-are-hiring-elixir-developer-advocates",
+          "https://fly.io/changelog.xml",
+          "https://fly.io/dashboard/personal/documents",
+          "https://fly.io/dashboard/personal/machines",
+          "https://fly.io/docs/access-control",
+          "https://fly.io/docs/advanced-guides",
+          "https://fly.io/docs/app-guides/docs/machines/api/machines-resource",
+          "https://fly.io/docs/app-guides/elixir-livebook-connection-to-your-app",
+          "https://fly.io/docs/app-guides/speed-up-a-heroku-app",
+          "https://fly.io/docs/app-guides/terraform-iac-getting-started",
+          "https://fly.io/docs/application",
+          "https://fly.io/docs/apps/autostop-autostart"
+        ],
+        "docs_broken_link_samples": [
+          "https://fly.io/blog/SOC2-MESSAGE.webp",
+          "https://fly.io/blog/Spectrum.chat/flyio",
+          "https://fly.io/blog/blog/deno-on-fly-using-buildpacks",
+          "https://fly.io/blog/fly-io-is-hiring-rust-developers",
+          "https://fly.io/blog/scorecard.webp",
+          "https://fly.io/blog/turboku-1.webp",
+          "https://fly.io/blog/turboku-2.webp",
+          "https://fly.io/blog/turboku-logs.webp",
+          "https://fly.io/blog/we-are-hiring-elixir-developer-advocates",
+          "https://fly.io/changelog.xml",
+          "https://fly.io/dashboard/personal/documents",
+          "https://fly.io/dashboard/personal/machines",
+          "https://fly.io/docs/access-control",
+          "https://fly.io/docs/advanced-guides",
+          "https://fly.io/docs/app-guides/docs/machines/api/machines-resource",
+          "https://fly.io/docs/app-guides/elixir-livebook-connection-to-your-app",
+          "https://fly.io/docs/app-guides/speed-up-a-heroku-app",
+          "https://fly.io/docs/app-guides/terraform-iac-getting-started",
+          "https://fly.io/docs/application",
+          "https://fly.io/docs/apps/autostop-autostart",
+          "https://fly.io/docs/apps/performance",
+          "https://fly.io/docs/blueprints/(https:/fly.io/dashboard/)",
+          "https://fly.io/docs/blueprints/docs/volumes/volume-manage",
+          "https://fly.io/docs/deep-dive/Ecto.Adapters.Postgres",
+          "https://fly.io/docs/deploy-on",
+          "https://fly.io/docs/deploy-with",
+          "https://fly.io/docs/dockerfiles",
+          "https://fly.io/docs/events",
+          "https://fly.io/docs/examples",
+          "https://fly.io/docs/flyctl-server"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://fly.io/docs/app-guides",
+          "https://fly.io/docs/js",
+          "https://fly.io/docs/machines/flyctl",
+          "https://fly.io/docs/mpg/guides-examples",
+          "https://fly.io/docs/upstash"
+        ],
+        "api_uncovered_samples": [
+          "gql:arrives",
+          "gql:has"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1058,
+        "requested_pages": 1395,
+        "urls_examined": 1059,
+        "max_pages_total": 5000,
+        "discovered_pages": 1059,
+        "crawl_scope_pages": 1059,
+        "trap_urls_skipped": 102,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 94,
+        "docs_broken_links_count": 94,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 94,
+        "excluded_links_count": 26
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 10.7
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 60.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 137,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 55.86
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 80.34,
+        "answerability_pct": 89.51,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 33.9,
+        "overall_score_0_100": 82.11,
+        "overall_band": "strong"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 2376,
+        "claims_with_evidence": 1907,
+        "coverage_pct": 80.26
+      },
+      "actionability": {
+        "coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 89.48,
+      "links_confidence_pct": 89.95,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 82.11,
+    "retrieval_readiness_band": "strong",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 1058,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 94,
+          "unverified_links_count": 5
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 10.7
+        },
+        "severity": "medium",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 55.86
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 60.0,
+          "no_api_pages_found": false
+        },
+        "severity": "medium",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 89.48,
+    "links_confidence_pct": 89.95,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 94",
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 10.7%",
+    "API usage-doc coverage is low: 60.0% (137 API pages detected)",
+    "Example reliability: 0% on 1058 pages (likely detection limitation). Site may use JS-rendered code blocks."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Fly.io documentation spans 1,058 pages with 100% crawl coverage and strong retrieval readiness (82.11/100, 'strong' band). Critical issues include 94 confirmed broken internal links across user-facing docs, 60% API reference coverage (137 API pages detected), and 10.7% SEO/geo issue rate. Example reliability shows 0% detection across all pages, flagged as a likely JS-rendering detection limitation rather than true absence. Last-updated metadata covers only 55.86% of pages, creating staleness risk for 33.9% of content.",
+      "strengths": [
+        "Complete crawl coverage (1,058 of 1,059 discovered pages, 100%) with high crawl confidence (95%)",
+        "Strong retrieval readiness overall score (82.11/100) with 100% citationability and 89.51% answerability for AI/search use cases",
+        "Evidence coverage at 80.26% (1,907 of 2,376 key claims backed by evidence)",
+        "High chunkability (80.34%) supports effective content segmentation for RAG and search indexing",
+        "Actionability coverage at 100%, indicating clear next-steps guidance throughout docs"
+      ],
+      "risks": [
+        "94 confirmed broken internal links degrade user navigation, trust, and SEO authority across docs",
+        "API reference coverage at 60% leaves 40% of API surface undocumented or undetected, risking developer onboarding friction",
+        "SEO/geo issue rate of 10.7% (approximately 113 pages) may suppress organic discovery and regional search performance",
+        "Example reliability at 0% suggests detection failure; if examples are truly absent or non-functional, developer trust and time-to-first-success suffer",
+        "Last-updated metadata missing on 44.14% of pages (467 pages) obscures content freshness and increases perceived staleness risk (33.9%)",
+        "5 unverified links due to auth/rate-limit/server blocks may hide additional broken links or access issues",
+        "API confidence at 85% and example detection limitation reduce certainty in developer-experience metrics"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 94 confirmed broken internal links across user-facing docs",
+          "impact": "critical",
+          "effort": "medium",
+          "expected_value": "high",
+          "confidence": "high",
+          "why_this_first": "Broken links directly block user workflows, erode trust, and harm SEO; fixing 94 links immediately improves navigation for 1,058 pages and signals active maintenance."
+        },
+        {
+          "action": "Audit and document the missing 40% of API surface (54 API endpoints or methods) to reach 100% reference coverage from current 60%",
+          "impact": "high",
+          "effort": "high",
+          "expected_value": "high",
+          "confidence": "medium",
+          "why_this_first": "Incomplete API docs are the top friction point for developer onboarding and integration success, directly impacting trial-to-paid conversion and support ticket volume."
+        },
+        {
+          "action": "Add or backfill last-updated timestamps for the 467 pages (44.14%) missing freshness metadata",
+          "impact": "high",
+          "effort": "low",
+          "expected_value": "medium",
+          "confidence": "high",
+          "why_this_first": "Low-effort metadata addition reduces perceived staleness risk (33.9%) and boosts user confidence in accuracy, especially for fast-moving platform features."
+        },
+        {
+          "action": "Resolve SEO/geo issues on approximately 113 pages (10.7% issue rate) to improve organic discoverability",
+          "impact": "medium",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "medium",
+          "why_this_first": "SEO fixes compound over time; addressing 113 pages now captures incremental organic traffic and reduces reliance on paid acquisition in next 30-90 days."
+        },
+        {
+          "action": "Investigate example detection failure (0% reliability) and either fix JS-rendering for audit tooling or manually verify top 50 high-traffic pages for working code examples",
+          "impact": "medium",
+          "effort": "medium",
+          "expected_value": "medium",
+          "confidence": "low",
+          "why_this_first": "If examples are truly missing or broken, developer time-to-first-success suffers; manual spot-check of high-traffic pages clarifies risk and prioritizes remediation."
+        }
+      ],
+      "automation_first": [
+        "Deploy continuous broken-link monitoring to catch and alert on new broken links before they accumulate (currently 94 confirmed broken internal links); expected payoff is preventing trust erosion and maintaining SEO link equity as docs scale beyond 1,058 pages.",
+        "Automate last-updated timestamp injection via CI/CD on every commit to eliminate the 44.14% metadata gap (467 pages) and ensure staleness risk (33.9%) does not grow as content velocity increases; payoff is sustained user confidence in freshness with zero manual overhead.",
+        "Implement automated API reference coverage diffing against OpenAPI spec or SDK source to flag the missing 40% of API surface (54 endpoints) on every release; expected payoff is preventing undocumented APIs from reaching production and reducing developer support escalations."
+      ],
+      "limitations": [
+        "External audit cannot verify content technical accuracy, correctness of code examples, or alignment with actual platform behavior and API contracts.",
+        "Example reliability at 0% is flagged as a detection limitation due to likely JS-rendered code blocks; true example presence and functionality require manual or instrumented browser-based validation.",
+        "5 unverified links blocked by auth, rate-limits, or server errors may hide additional broken links or access-control misconfigurations not surfaced in this scan.",
+        "API coverage confidence at 85% means detection may miss undocumented endpoints, especially if API pages lack consistent markup or are dynamically generated.",
+        "Audit does not measure user satisfaction, support ticket correlation, conversion impact, or whether docs answer the questions users actually ask."
+      ]
+    }
+  }
+}

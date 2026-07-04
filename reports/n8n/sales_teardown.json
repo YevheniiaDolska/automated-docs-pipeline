@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-06-30T13:00:31.826206+00:00",
+  "site_url": "https://docs.n8n.io/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 46.76,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "n8n documentation spans 1,300 pages with 100% crawl coverage and zero confirmed broken links. Critical weaknesses exist in AI retrieval readiness (overall score 37.61/100, 'weak' band) driven by 8.69% chunkability and 0% answerability. Only 41.25% of 1,772 detected claims include supporting evidence, and 50% of pages lack actionable guidance. SEO/geo issues affect 25.85% of pages, while API reference coverage reaches 77.78% across 117 detected pages. Example code reliability shows 0% (likely a detection limitation due to JS rendering), and overall audit confidence stands at 63.5%.",
+    "pages_crawled": 1300,
+    "crawl_coverage_pct": 100.0,
+    "broken_links_count": 0,
+    "unverified_links_count": 1,
+    "estimated_monthly_cost_usd": 11197.21
+  },
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "46.76 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "0",
+      "accent": "amber",
+      "detail": "1 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "77.78%",
+      "accent": "blue",
+      "detail": "26 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "100.0%",
+      "accent": "slate",
+      "detail": "0 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "50.0%",
+      "accent": "violet",
+      "detail": "650 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "8.7%",
+      "accent": "rose",
+      "detail": "Recall 0.0%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Example reliability %: 100.0 -> 5.0 % shortfall",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Code/docs contract drift",
+      "evidence": "Drift %: 58.75 -> 2.0 %",
+      "business_consequence": "Track interface changes and enforce docs updates with report-first governance."
+    },
+    {
+      "headline": "Missing required doc layers",
+      "evidence": "Features missing required layers %: 50.0 -> 5.0 %",
+      "business_consequence": "Backfill concept/how-to/reference coverage for key capabilities."
+    }
+  ],
+  "priority_actions": [
+    {
+      "title": "Refactor the 91% of pages with poor chunkability (1,183 pages) to use semantic headings, shorter sections, and explicit topic boundaries for vector search and LLM context windows",
+      "impact": "critical",
+      "effort": "high",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Directly unlocks AI-assisted support, in-product help, and RAG quality for 1,183 pages, reducing ticket volume and accelerating user self-service in 30 days."
+    },
+    {
+      "title": "Add inline evidence (screenshots, logs, output examples, error messages) to the 1,041 claims currently lacking support (58.75% of 1,772 claims) across high-traffic onboarding and troubleshooting pages",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "high",
+      "why_this_first": "Builds trust and reduces 'does this actually work?' friction for new users, directly shortening time-to-first-workflow and improving trial conversion."
+    },
+    {
+      "title": "Convert the 50% of pages lacking actionable guidance (650 pages) into step-by-step procedures with clear next actions, especially for integration setup and workflow creation",
+      "impact": "high",
+      "effort": "medium",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Reduces support tickets and onboarding drop-off by giving users clear 'what to do next' paths, improving activation metrics within the trial window."
+    }
+  ],
+  "strengths": [
+    "Complete crawl coverage (1,300 of 1,301 pages, 100%) with no broken internal or repository navigation links",
+    "Strong API reference coverage at 77.78% across 117 detected API pages",
+    "100% last-updated metadata coverage and 100% citationability for attribution"
+  ],
+  "risks": [
+    "AI retrieval readiness overall score of 37.61/100 ('weak') severely limits LLM answer quality and RAG performance",
+    "Chunkability at 8.69% means 91% of pages will fragment poorly for vector search and context windows",
+    "Answerability at 0% indicates pages lack self-contained Q&A structure, forcing users to navigate multiple pages",
+    "Only 41.25% of 1,772 claims (731 total) include evidence, undermining trust and onboarding for new users"
+  ],
+  "limitations": [
+    "External audit cannot verify actual user comprehension, task completion rates, or support ticket correlation with specific documentation gaps",
+    "Example reliability at 0% is flagged as a likely detection limitation due to JavaScript-rendered code blocks; manual sampling required to confirm real code quality",
+    "Chunkability and answerability scoring reflects structural heuristics, not real-world LLM retrieval performance with n8n's specific user queries and context"
+  ],
+  "automation_first": [
+    "Deploy a pre-commit linter to enforce semantic heading hierarchy and section length limits (target <300 words per section) on all markdown files, addressing the 8.69% chunkability crisis across 1,183 pages and preventing future regressions that degrade RAG and AI answer quality.",
+    "Implement a CI check that flags any claim-heavy page (>5 assertions) missing evidence patterns (code blocks, image references, log snippets) to systematically close the 58.75% evidence gap (1,041 unsupported claims) and ensure new content includes trust-building proof.",
+    "Add automated SEO validation (missing meta descriptions, title length, heading structure) to the build pipeline to catch and fix the 25.85% SEO/geo issue rate (336 pages) at authoring time, improving search ranking and reducing manual audits."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 9970.5,
+    "remediation_cost_usd_base_total": 4207.5,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

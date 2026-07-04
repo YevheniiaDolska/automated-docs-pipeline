@@ -1,0 +1,31 @@
+{
+  "engineer_hourly_usd": 95.0,
+  "support_hourly_usd": 65.0,
+  "release_count_per_month": 8.0,
+  "baseline_manual_sync_hours_per_week": 6.0,
+  "avg_release_delay_hours": 18.0,
+  "monthly_support_tickets": 2400.0,
+  "docs_related_ticket_share": 0.28,
+  "avg_ticket_handling_minutes": 22.0,
+  "monthly_doc_influenced_evals": 850.0,
+  "eval_to_customer_rate": 0.12,
+  "avg_customer_monthly_value_usd": 420.0,
+  "docs_friction_revenue_sensitivity": 0.18,
+  "assumptions_confidence_pct": 68.0,
+  "provenance": [
+    "Vercel is high-growth B2B SaaS platform with enterprise tier, engineer rate reflects senior dev market",
+    "Support rate typical for technical support in developer tools space",
+    "Release cadence 8/month conservative for fast-moving infrastructure platform",
+    "6845 pages crawled indicates large docs surface requiring ongoing maintenance",
+    "43 broken links (0.63% of crawled) suggests moderate sync friction, 6h/week baseline reasonable",
+    "18h delay conservative given deployment platform velocity and API surface",
+    "2400 tickets/month scaled to developer platform with growing enterprise segment",
+    "28% docs-related share reflects 47.66% freshness coverage and 43 broken links creating support load",
+    "22min handling time accounts for technical nature of developer audience",
+    "850 eval trials/month conservative for platform with strong product-led growth motion",
+    "12% eval-to-customer conversion typical for developer infrastructure with friction points",
+    "$420 monthly value blended across team/pro/enterprise, weighted toward lower tiers",
+    "18% revenue sensitivity reflects 53.14% stale risk and 15% API reference coverage gaps",
+    "Confidence 68% due to public platform but limited visibility into internal ops and enterprise mix"
+  ]
+}

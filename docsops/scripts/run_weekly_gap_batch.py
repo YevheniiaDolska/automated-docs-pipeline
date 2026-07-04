@@ -33,6 +33,7 @@ except ModuleNotFoundError:
 
 from scripts.flow_feedback import FlowNarrator
 from scripts.license_gate import get_license, get_license_summary
+from scripts.runtime_config_loader import load_runtime_config
 
 
 def _run(cmd: list[str], cwd: Path) -> None:
@@ -117,6 +118,10 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(raw, dict):
         raise ValueError(f"Expected YAML mapping: {path}")
     return raw
+
+
+def _read_runtime(path: Path) -> dict[str, Any]:
+    return load_runtime_config(path)
 
 
 def _resolve_policy_pack(docsops_root: Path, runtime: dict[str, Any]) -> Path:
@@ -244,7 +249,7 @@ def main() -> int:
         if args.runtime_config
         else docsops_root / "config" / "client_runtime.yml"
     )
-    runtime = _read_yaml(runtime_path)
+    runtime = _read_runtime(runtime_path)
     narrator.done(f"Runtime config loaded: {runtime_path}")
     docs_flow = runtime.get("docs_flow", {})
     flow_mode = str(docs_flow.get("mode", "code-first")).strip().lower()
