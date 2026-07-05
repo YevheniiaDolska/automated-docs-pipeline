@@ -65,6 +65,8 @@
     "askai:analytics": "python3 scripts/report_ask_ai_usage.py --usage-log reports/ask_ai_usage.jsonl --report reports/ask_ai_usage_report.json --gaps-csv reports/ask_ai_gaps.csv --since-days 30",
     "askai:dashboard": "python3 scripts/generate_ask_ai_analytics_dashboard.py --report reports/ask_ai_usage_report.json --output reports/ask-ai-analytics.html",
     "askai:analytics:build": "npm run askai:analytics && npm run askai:dashboard",
+    "askai:alerts": "python3 scripts/notify_owner_alerts.py --alerts-log reports/ask_ai_owner_alerts.jsonl",
+    "askai:alerts:dry": "python3 scripts/notify_owner_alerts.py --alerts-log reports/ask_ai_owner_alerts.jsonl --dry-run",
     "gaps": "python3 -m scripts.gap_detection.cli analyze",
     "gaps:full": "python3 -m scripts.gap_detection.cli full --generate",
     "gaps:community": "python3 -m scripts.gap_detection.cli community",

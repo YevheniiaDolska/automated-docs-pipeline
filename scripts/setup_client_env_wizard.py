@@ -140,6 +140,9 @@ def _is_key_relevant(key: str, algolia_enabled: bool, ask_ai_enabled: bool, ask_
         return ask_ai_enabled and ask_ai_provider == "anthropic"
     if key.startswith("AZURE_OPENAI_"):
         return ask_ai_enabled and ask_ai_provider == "azure-openai"
+    if key.startswith("ASK_AI_ALERT_"):
+        # Owner-alert delivery applies to any provider when Ask AI is enabled.
+        return ask_ai_enabled
     if key.startswith("ASK_AI_"):
         return ask_ai_enabled and ask_ai_provider == "custom"
     return True

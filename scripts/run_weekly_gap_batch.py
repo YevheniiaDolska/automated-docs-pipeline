@@ -870,6 +870,16 @@ def main() -> int:
                 cwd=repo_root,
             )
 
+    # Deliver any pending owner alerts (contradictions flagged during live Q&A).
+    # No-op unless an email or Slack channel is configured in the client env.
+    notify_alerts = scripts_dir / "notify_owner_alerts.py"
+    owner_alert_log = repo_root / "reports" / "ask_ai_owner_alerts.jsonl"
+    if _is_enabled(modules, "ask_ai_analytics", True) and notify_alerts.exists() and owner_alert_log.exists():
+        _run_allow_fail(
+            [py, str(notify_alerts), "--alerts-log", str(owner_alert_log)],
+            cwd=repo_root,
+        )
+
     consolidate = scripts_dir / "consolidate_reports.py"
     if consolidate.exists():
         _run(

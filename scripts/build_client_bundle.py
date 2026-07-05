@@ -1026,6 +1026,16 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
                 _append_env(lines, "ASK_AI_API_KEY", "YOUR_ASK_AI_API_KEY", "Ask AI: custom provider key")
                 _append_env(lines, "ASK_AI_BASE_URL", "https://api.example.com/v1", "Ask AI: custom provider base URL")
 
+            # Owner alerts: notify doc owners when Ask AI answers hit a contradiction.
+            # Leave blank to disable a channel. Both are optional and independent.
+            _append_env(lines, "ASK_AI_ALERT_EMAIL_TO", "", "Owner alerts: recipient email(s), comma-separated")
+            _append_env(lines, "ASK_AI_ALERT_EMAIL_FROM", "alerts@yourcompany.example", "Owner alerts: from address")
+            _append_env(lines, "ASK_AI_ALERT_SMTP_HOST", "", "Owner alerts: SMTP host (for email)")
+            _append_env(lines, "ASK_AI_ALERT_SMTP_PORT", "587", "Owner alerts: SMTP port")
+            _append_env(lines, "ASK_AI_ALERT_SMTP_USER", "", "Owner alerts: SMTP username")
+            _append_env(lines, "ASK_AI_ALERT_SMTP_PASSWORD", "", "Owner alerts: SMTP password")
+            _append_env(lines, "ASK_AI_ALERT_SLACK_WEBHOOK", "", "Owner alerts: Slack incoming webhook URL")
+
     api_first = runtime_cfg.get("api_first", {})
     if isinstance(api_first, Mapping):
         sandbox_backend = str(api_first.get("sandbox_backend", "")).strip().lower()
