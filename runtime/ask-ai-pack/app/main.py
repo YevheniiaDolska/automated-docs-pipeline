@@ -15,12 +15,15 @@ from typing import Any, AsyncGenerator
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app.auth import parse_auth_context, require_runtime_api_key, validate_role
-from app.billing_hooks import can_use_ask_ai, verify_webhook_signature
+from app.billing_hooks import can_use_ask_ai, enforce_webhook_replay_protection, verify_webhook_signature
 from app.retrieval import build_context, load_assistant_bundles, load_faiss_index, load_knowledge_index
 from app.secrets import resolve_provider_api_key
 
@@ -107,6 +110,13 @@ def _load_runtime_config() -> dict[str, Any]:
             "ASK_AI_CONTRADICTIONS_REPORT_PATH", "reports/rag_contradictions_report.json"
         ),
         "owner_alert_log_path": os.getenv("ASK_AI_OWNER_ALERT_LOG_PATH", "reports/ask_ai_owner_alerts.jsonl"),
+        "cors_origins": [
+            x.strip() for x in os.getenv("ASK_AI_CORS_ORIGINS", "http://localhost:3000").split(",") if x.strip()
+        ],
+        "trusted_hosts": [
+            x.strip().lower() for x in os.getenv("ASK_AI_TRUSTED_HOSTS", "*").split(",") if x.strip()
+        ],
+        "https_redirect": _bool_env("ASK_AI_HTTPS_REDIRECT", False),
         "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
         "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
         "graph_rerank_enabled": _bool_env("ASK_AI_GRAPH_RERANK_ENABLED", True),
@@ -392,8 +402,35 @@ def _chat_payload(config: dict[str, Any], messages: list[dict[str, str]], stream
     }
 
 
+def _is_native_ollama(config: dict[str, Any]) -> bool:
+    """True when the config targets Ollama's native API (a non /v1 base URL)."""
+    provider = str(config.get("provider", "")).strip().lower()
+    base_url = str(config.get("base_url", "")).rstrip("/")
+    return provider in {"local", "ollama"} and not base_url.endswith("/v1")
+
+
+async def _ask_ollama_native_once(config: dict[str, Any], messages: list[dict[str, str]]) -> str:
+    """Non-streaming call to Ollama's native /api/chat endpoint."""
+    base_url = str(config["base_url"]).rstrip("/")
+    payload = {
+        "model": config["model"],
+        "stream": False,
+        "messages": messages,
+        "options": {"temperature": float(config["temperature"]), "num_predict": int(config["max_tokens"])},
+    }
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        response = await client.post(
+            f"{base_url}/api/chat", headers={"Content-Type": "application/json"}, json=payload
+        )
+        response.raise_for_status()
+        data = response.json()
+    return str(data.get("message", {}).get("content", "")).strip()
+
+
 async def _ask_provider_once(config: dict[str, Any], messages: list[dict[str, str]]) -> str:
     """Single (non-streaming) provider call. Returns the raw answer text."""
+    if _is_native_ollama(config):
+        return await _ask_ollama_native_once(config, messages)
     headers = {
         "Authorization": f"Bearer {config['provider_api_key']}",
         "Content-Type": "application/json",
@@ -439,6 +476,20 @@ async def _stream_provider_tokens(
 
 app = FastAPI(title="Ask AI Runtime", version="1.0.0")
 app.mount("/public", StaticFiles(directory=str(Path(__file__).resolve().parents[1] / "public")), name="public")
+
+# Cross-origin support so the embeddable widget can call the runtime from the
+# docs site. Credentialed CORS forbids a wildcard origin, so origins are explicit.
+_startup_cfg = _load_runtime_config()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_startup_cfg["cors_origins"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=_startup_cfg["trusted_hosts"])
+if _startup_cfg["https_redirect"]:
+    app.add_middleware(HTTPSRedirectMiddleware)
 
 _faiss_data: tuple[Any, list[dict[str, Any]]] | None = None
 
@@ -754,6 +805,8 @@ async def feedback(
 async def billing_webhook(
     request: Request,
     x_signature: str | None = Header(default=None),
+    x_event_id: str | None = Header(default=None),
+    x_timestamp: str | None = Header(default=None),
 ) -> JSONResponse:
     """Process billing webhook events and update entitlements.
 
@@ -778,6 +831,9 @@ async def billing_webhook(
 
     if not verify_webhook_signature(body, x_signature, config["webhook_secret"]):
         raise HTTPException(status_code=401, detail="Invalid webhook signature")
+
+    # Reject stale and replayed deliveries after the signature is verified.
+    enforce_webhook_replay_protection(body=body, event_id=x_event_id, timestamp=x_timestamp)
 
     try:
         payload = json.loads(body)

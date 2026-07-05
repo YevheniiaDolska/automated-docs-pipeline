@@ -31,7 +31,7 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "audit_logging": True,
 }
 
-ALLOWED_PROVIDERS = {"openai", "anthropic", "azure-openai", "custom"}
+ALLOWED_PROVIDERS = {"openai", "anthropic", "azure-openai", "custom", "local", "ollama"}
 ALLOWED_BILLING_MODES = {"disabled", "bring-your-own-key", "user-subscription"}
 
 
