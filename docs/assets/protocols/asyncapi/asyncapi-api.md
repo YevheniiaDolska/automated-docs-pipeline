@@ -12,7 +12,10 @@ tags:
 - Kroha
 - Pytest 153
 - Appdata
+last_reviewed: '2026-07-04'
+original_author: Kroha
 ---
+
 
 
 # ASYNCAPI Reference

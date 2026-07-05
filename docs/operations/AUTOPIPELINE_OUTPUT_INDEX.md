@@ -1,13 +1,16 @@
 ---
-title: "Autopipeline Output Index"
-description: "Auto-generated review index for autopipeline outputs."
+title: Autopipeline Output Index
+description: Auto-generated review index for autopipeline outputs.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - Pipeline
-  - Review
+- Reference
+- Pipeline
+- Review
+last_reviewed: '2026-07-04'
+original_author: Kroha
 ---
+
 # Autopipeline Output Index
 
 Generated automatically after autopipeline run.
