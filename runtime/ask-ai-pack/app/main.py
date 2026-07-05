@@ -45,6 +45,7 @@ class AskResponse(BaseModel):
     citations: list[dict[str, Any]]
     question_id: str = ""
     grounded: bool = True
+    warnings: list[str] = Field(default_factory=list)
 
 
 class FeedbackRequest(BaseModel):
@@ -101,6 +102,11 @@ def _load_runtime_config() -> dict[str, Any]:
         "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
         "history_max_turns": int(os.getenv("ASK_AI_HISTORY_MAX_TURNS", "6")),
         "rate_limit_per_minute": int(os.getenv("ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE", "20")),
+        "min_confidence": float(os.getenv("ASK_AI_MIN_CONFIDENCE", "0.28")),
+        "contradictions_report_path": os.getenv(
+            "ASK_AI_CONTRADICTIONS_REPORT_PATH", "reports/rag_contradictions_report.json"
+        ),
+        "owner_alert_log_path": os.getenv("ASK_AI_OWNER_ALERT_LOG_PATH", "reports/ask_ai_owner_alerts.jsonl"),
         "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
         "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
         "graph_rerank_enabled": _bool_env("ASK_AI_GRAPH_RERANK_ENABLED", True),
@@ -179,6 +185,103 @@ def _apply_byok(
     if model and model.strip():
         effective["model"] = model.strip()
     return effective
+
+
+_LOW_CONFIDENCE_TEXT = (
+    "I do not have enough reliable context to answer this safely. This topic may "
+    "need documentation added or updated. Try rephrasing your question."
+)
+_CONF_STOPWORDS = frozenset(
+    "a an the of to in on for and or is are be as with by from at this that these those it its how do "
+    "does did can could should would will what which who where when why you your we our they them".split()
+)
+
+
+def _conf_tokens(text: str) -> list[str]:
+    return [t for t in re.findall(r"[a-z0-9][a-z0-9\-]+", str(text).lower()) if len(t) > 2 and t not in _CONF_STOPWORDS]
+
+
+def _estimate_context_confidence(question: str, modules: list[dict[str, Any]]) -> float:
+    """Estimate how well the retrieved context covers the question (0..1).
+
+    Combines question-token coverage across the top modules with a module-count
+    signal. Low confidence triggers a safe refusal instead of a guessed answer.
+    """
+    if not modules:
+        return 0.0
+    q_tokens = _conf_tokens(question)
+    if not q_tokens:
+        return 1.0
+    corpus = " ".join(
+        " ".join([str(m.get("title", "")), str(m.get("summary", "")), str(m.get("assistant_excerpt", ""))]).lower()
+        for m in modules
+    )
+    coverage = sum(1 for tok in q_tokens if tok in corpus) / len(q_tokens)
+    module_signal = min(len(modules) / 3.0, 1.0)
+    return min(1.0, 0.75 * coverage + 0.25 * module_signal)
+
+
+def _load_critical_contradiction_ids(report_path: str) -> set[str]:
+    """Load module IDs flagged as critical contradictions by the pipeline report."""
+    path = Path(report_path)
+    if not path.exists():
+        return set()
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return set()
+    if not isinstance(payload, dict):
+        return set()
+    ids: set[str] = set()
+    raw_ids = payload.get("critical_module_ids", [])
+    if isinstance(raw_ids, list):
+        ids.update(str(item).strip() for item in raw_ids if str(item).strip())
+    for issue in payload.get("contradictions", []) or []:
+        if not isinstance(issue, dict) or str(issue.get("severity", "")).strip().lower() != "critical":
+            continue
+        for mod in issue.get("modules", []) or []:
+            if isinstance(mod, dict) and str(mod.get("module_id", "")).strip():
+                ids.add(str(mod.get("module_id", "")).strip())
+    return ids
+
+
+def _contradiction_check(
+    config: dict[str, Any], citations: list[dict[str, Any]], context: dict[str, Any]
+) -> list[str]:
+    """Warn the user and alert doc owners when cited modules are in a contradiction.
+
+    Returns any user-facing warnings. When a cited module is flagged critical, an
+    owner-alert record is appended so a notifier can reach the document owner.
+    """
+    critical_ids = _load_critical_contradiction_ids(config["contradictions_report_path"])
+    if not critical_ids:
+        return []
+    cited_ids = {str(c.get("id", "")).strip() for c in citations if str(c.get("id", "")).strip()}
+    conflicted = sorted(cited_ids & critical_ids)
+    if not conflicted:
+        return []
+    logger.warning("Ask AI contradiction warning for modules: %s", ", ".join(conflicted))
+    owners = sorted(
+        {
+            str(m.get("owner", "")).strip()
+            for m in context.get("modules", [])
+            if str(m.get("id", "")).strip() in conflicted and str(m.get("owner", "")).strip()
+        }
+    )
+    _append_usage_event(
+        {"usage_log_enabled": True, "usage_log_path": config["owner_alert_log_path"]},
+        {
+            "type": "owner_alert",
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "reason": "contradiction",
+            "module_ids": conflicted,
+            "owners": owners,
+        },
+    )
+    return [
+        "Potential contradiction detected in the cited documentation. Verify against "
+        "the latest source docs before acting."
+    ]
 
 
 # Sentinel the model returns when the sources do not cover the question.
@@ -366,6 +469,8 @@ def healthz() -> dict[str, Any]:
         "entity_first": cfg["entity_first_enabled"],
         "hyde": cfg["hyde_enabled"],
         "embedding_cache": cfg["embed_cache_enabled"],
+        "confidence_guardrail": cfg["min_confidence"],
+        "contradiction_warnings": bool(Path(cfg["contradictions_report_path"]).exists()),
     }
 
 
@@ -454,6 +559,8 @@ def _log_question(
     answer: str,
     grounded: bool,
     session_id: str = "",
+    confidence: float | None = None,
+    warnings_count: int = 0,
 ) -> None:
     _append_usage_event(
         config,
@@ -469,6 +576,9 @@ def _log_question(
             "citations_count": len(citations),
             "answer_chars": len(answer),
             "grounded": grounded,
+            "confidence": round(float(confidence), 4) if confidence is not None else None,
+            "low_confidence": bool(confidence is not None and confidence < float(config["min_confidence"])),
+            "warnings_count": warnings_count,
         },
     )
 
@@ -490,10 +600,16 @@ async def ask(
     )
     gen_config = _apply_byok(config, x_provider_key, x_provider_base_url, x_model)
     modules = context["modules"]
+    confidence = _estimate_context_confidence(payload.question, modules)
+    warnings: list[str] = []
 
-    # Hard grounding gate: no retrieved context -> refuse without a provider call.
-    if not modules:
-        answer, citations, grounded = _REFUSAL_TEXT, [], False
+    # Grounding + confidence gates: refuse rather than guess on empty or weak context.
+    if not modules or confidence < config["min_confidence"]:
+        answer, citations, grounded = (
+            (_REFUSAL_TEXT if not modules else _LOW_CONFIDENCE_TEXT),
+            [],
+            False,
+        )
     elif not gen_config["provider_api_key"]:
         answer, citations, grounded = _fallback_answer(modules), all_citations, True
     else:
@@ -501,12 +617,17 @@ async def ask(
         raw = await _ask_provider_once(gen_config, messages)
         answer, citations, grounded = _finalize_answer(raw, all_citations)
 
+    if citations:
+        warnings = _contradiction_check(config, citations, context)
+
     question_id = uuid.uuid4().hex
     _log_question(
         config, auth, question_id, payload.question, context, citations, answer, grounded,
-        session_id=(x_session_id or "").strip(),
+        session_id=(x_session_id or "").strip(), confidence=confidence, warnings_count=len(warnings),
     )
-    return AskResponse(answer=answer, citations=citations, question_id=question_id, grounded=grounded)
+    return AskResponse(
+        answer=answer, citations=citations, question_id=question_id, grounded=grounded, warnings=warnings
+    )
 
 
 def _sse(event: dict[str, Any]) -> str:
@@ -537,11 +658,17 @@ async def ask_stream(
     modules = context["modules"]
     question_id = uuid.uuid4().hex
     session_id = (x_session_id or "").strip()
+    confidence = _estimate_context_confidence(payload.question, modules)
 
     async def event_stream() -> AsyncGenerator[str, None]:
-        # Refusal and no-provider paths need no streaming; send one token + done.
-        if not modules:
-            answer, citations, grounded = _REFUSAL_TEXT, [], False
+        warnings: list[str] = []
+        # Grounding + confidence gates: refuse rather than guess on empty or weak context.
+        if not modules or confidence < config["min_confidence"]:
+            answer, citations, grounded = (
+                (_REFUSAL_TEXT if not modules else _LOW_CONFIDENCE_TEXT),
+                [],
+                False,
+            )
             yield _sse({"type": "token", "text": answer})
         elif not gen_config["provider_api_key"]:
             answer, citations, grounded = _fallback_answer(modules), all_citations, True
@@ -574,9 +701,12 @@ async def ask_stream(
                 # emit the finalized text as a single token.
                 yield _sse({"type": "token", "text": answer})
 
+        if citations:
+            warnings = _contradiction_check(config, citations, context)
+
         _log_question(
             config, auth, question_id, payload.question, context, citations, answer, grounded,
-            session_id=session_id,
+            session_id=session_id, confidence=confidence, warnings_count=len(warnings),
         )
         yield _sse(
             {
@@ -584,6 +714,7 @@ async def ask_stream(
                 "citations": citations,
                 "question_id": question_id,
                 "grounded": grounded,
+                "warnings": warnings,
             }
         )
 

@@ -35,8 +35,8 @@
   }
 
   var colors = theme === "light"
-    ? { bg: "#ffffff", fg: "#0f172a", border: "#cbd5e1", panel: "#f1f5f9", accent: "#2563eb", muted: "#64748b", code: "#e2e8f0" }
-    : { bg: "#0f172a", fg: "#e2e8f0", border: "#334155", panel: "#111827", accent: "#2563eb", muted: "#94a3b8", code: "#1e293b" };
+    ? { bg: "#ffffff", fg: "#0f172a", border: "#cbd5e1", panel: "#f1f5f9", accent: "#2563eb", muted: "#64748b", code: "#e2e8f0", warn: "#b45309" }
+    : { bg: "#0f172a", fg: "#e2e8f0", border: "#334155", panel: "#111827", accent: "#2563eb", muted: "#94a3b8", code: "#1e293b", warn: "#f59e0b" };
 
   function esc(text) {
     return String(text)
@@ -174,7 +174,15 @@
         if (data.grounded === false) {
           el.style.borderLeft = "3px solid " + colors.muted;
         }
-        var html = sourcesHtml(data.citations);
+        var html = "";
+        var warnings = Array.isArray(data.warnings) ? data.warnings : [];
+        if (warnings.length) {
+          el.style.borderLeft = "3px solid " + colors.warn;
+          html += '<div style="margin-top:8px;padding:6px 8px;border-radius:6px;font-size:12px;background:' + colors.warn + '22;color:' + colors.warn + ';">';
+          warnings.forEach(function (w) { html += "&#9888; " + esc(w) + "<br/>"; });
+          html += "</div>";
+        }
+        html += sourcesHtml(data.citations);
         if (html) extrasEl.innerHTML = html;
 
         if (data.question_id) {
