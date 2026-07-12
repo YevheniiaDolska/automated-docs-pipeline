@@ -1,14 +1,14 @@
 ## SEO/GEO Optimization Report
 
-**Date**: Sun Jul  5 06:39:47 UTC 2026
+**Date**: Sun Jul 12 05:56:44 UTC 2026
 **Branch**: main
 
 ### Findings Summary
-GEO Findings: 0 errors, 50 warnings, 68 suggestions
-  docs/assets/protocols/asyncapi/asyncapi-api.md:54 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
-  docs/assets/protocols/asyncapi/asyncapi-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
-  docs/assets/protocols/graphql/graphql-api.md:47 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
-  docs/assets/protocols/graphql/graphql-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
+GEO Findings: 0 errors, 50 warnings, 63 suggestions
+  docs/assets/protocols/asyncapi/asyncapi-api.md:57 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
+  docs/assets/protocols/graphql/graphql-api.md:50 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
+  docs/assets/protocols/grpc/grpc-api.md:54 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
+  docs/assets/protocols/rest/rest-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
 
 ### Sitemap Statistics
 - Total pages: 82
