@@ -1703,6 +1703,89 @@ class TestSalesTeardown:
         assert "Automation Layer To Add First" in rendered
         assert "Broken internal documentation paths" in rendered
 
+    def test_expense_table_renders_assumed_input_values(self) -> None:
+        """A cost line must show the numbers behind its formula, not just the
+        formula. Without the inputs the reader cannot reproduce the dollar
+        figure, so the headline cost is an unverifiable assertion."""
+        payload = {
+            "site_url": "https://example.com/docs",
+            "monthly_expense_breakdown": {
+                "items": [
+                    {
+                        "label": "Support time on docs-related tickets",
+                        "formula": "monthly_support_tickets x support_hourly_usd",
+                        "inputs": {
+                            "monthly_support_tickets": 800.0,
+                            "docs_related_ticket_share": 0.22,
+                            "support_hourly_usd": 50.0,
+                        },
+                        "hours": 73.8,
+                        "monthly_usd": 3689.0,
+                        "annual_usd": 44263.0,
+                        "note": "Docs-attributable ticket load.",
+                    }
+                ],
+                "operational_subtotal_usd": 3689.0,
+                "revenue_risk_subtotal_usd": 0.0,
+                "total_monthly_usd": 3689.0,
+                "total_annual_usd": 44263.0,
+                "methodology_note": "Base-scenario estimate.",
+            },
+        }
+
+        rendered = scorecard._build_sales_teardown_html(payload)
+
+        assert "assumed:" in rendered
+        assert "monthly_support_tickets = 800" in rendered
+        assert "docs_related_ticket_share = 0.22" in rendered
+        # USD-suffixed inputs are rendered as money for quick sanity-checking.
+        assert "support_hourly_usd = $50" in rendered
+
+    def test_verify_block_falls_back_to_measured_numbers_when_no_defects(self) -> None:
+        """With no broken links or contradictions to link, the verify block must
+        not vanish: it falls back to measured, owner-checkable numbers taken
+        verbatim from the signal cards, never a fabricated defect claim."""
+        payload = {
+            "site_url": "https://example.com/docs",
+            "verify_in_30_seconds": [],
+            "signal_cards": [
+                {"label": "Audit Score", "value": "42.3 / 100", "detail": "Grade F"},
+                {"label": "API Coverage", "value": "18.02%", "detail": "763 undocumented ops"},
+                {"label": "Freshness Coverage", "value": "11.9%", "detail": "992 docs missing dates"},
+            ],
+        }
+
+        rendered = scorecard._build_sales_teardown_html(payload)
+
+        assert "Check these yourself in 30 seconds" in rendered
+        assert "measured numbers you can re-derive" in rendered
+        assert "763 undocumented ops" in rendered
+        assert "992 docs missing dates" in rendered
+        # Audit score is not owner-checkable in 30 seconds, so it is not a row.
+        assert "Grade F" not in rendered.split("Check these yourself")[1]
+
+    def test_hard_defects_take_precedence_over_fallback(self) -> None:
+        """When real defects exist, the block shows them, not the fallback."""
+        payload = {
+            "site_url": "https://example.com/docs",
+            "verify_in_30_seconds": [
+                {
+                    "kind": "code_defect",
+                    "label": "Unfinished marker in a code example",
+                    "refs": [{"url": "https://example.com/docs/x", "quote": "TODO"}],
+                }
+            ],
+            "signal_cards": [
+                {"label": "API Coverage", "value": "18.02%", "detail": "763 undocumented ops"},
+            ],
+        }
+
+        rendered = scorecard._build_sales_teardown_html(payload)
+
+        assert "Verify these in 30 seconds" in rendered
+        assert "Unfinished marker in a code example" in rendered
+        assert "Check these yourself in 30 seconds" not in rendered
+
     def test_render_html_to_pdf_with_browser_success(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         """PDF renderer helper should report success on zero exit."""
         html_path = tmp_path / "x.html"

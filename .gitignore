@@ -72,3 +72,6 @@ generated/client_keys/
 
 # Dogfood bundle install-local state (license, binding, pack, key copies)
 docsops/docsops/
+
+# Local audit cache (large SQLite crawl DBs)
+.tmp/

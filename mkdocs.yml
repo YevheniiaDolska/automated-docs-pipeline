@@ -38,6 +38,10 @@ theme:
 repo_url: https://github.com/YevheniiaDolska/automated-docs-pipeline
 repo_name: automated-docs-pipeline
 edit_uri: edit/main/docs/
+hooks:
+# Renders a per-language freshness banner on every translated page.
+# Configured under `freshness_banner` in i18n.yml.
+- hooks/i18n_freshness.py
 plugins:
 - search
 - i18n:

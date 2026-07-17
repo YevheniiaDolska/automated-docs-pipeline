@@ -143,10 +143,17 @@ def sync_glossary(
                     }
                 )
 
-    if write:
+    # Rewrite only when a marker actually changed something. A YAML re-dump is
+    # lossy: it strips comments and reflows the file. Doing that on every run,
+    # including no-op runs, silently destroys the hand-written locale rules
+    # documentation that maintainers rely on.
+    if write and (added_terms or updated_terms):
         glossary_path.parent.mkdir(parents=True, exist_ok=True)
         glossary_path.write_text(
-            yaml.safe_dump(glossary, sort_keys=False, allow_unicode=False),
+            # allow_unicode=True keeps non-English terms readable. Escaping
+            # them to \uXXXX makes the per-locale terminology rules unreadable
+            # to the reviewers who have to curate them.
+            yaml.safe_dump(glossary, sort_keys=False, allow_unicode=True),
             encoding="utf-8",
         )
 

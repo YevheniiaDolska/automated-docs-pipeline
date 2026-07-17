@@ -120,6 +120,15 @@ properties:
     description: "SHA-256 hash of the source document body at translation time."
     pattern: "^[0-9a-f]{64}$"
 
+  translated_at:
+    type: string
+    description: >-
+      Date this translation was last brought in line with its source
+      (YYYY-MM-DD). Shown to readers by the per-language freshness banner
+      (hooks/i18n_freshness.py). Advisory only: whether a page is current is
+      decided by source_hash, not by this date.
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+
   tags:
     type: array
     minItems: 1

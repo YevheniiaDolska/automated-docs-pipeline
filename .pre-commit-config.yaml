@@ -59,6 +59,19 @@ repos:
         pass_filenames: false
         additional_dependencies: [pyyaml]
 
+      # Translation terminology verification (non-English docs)
+      # Vale, write-good, and cspell do not cover non-English content. This
+      # is the only automated check standing between a fluent mistranslation
+      # of a technical term and a shipped page.
+      - id: validate-translation-terminology
+        name: Verify translated terminology
+        entry: python scripts/validate_translation_terminology.py --strict --quiet
+        language: python
+        files: ^docs/[a-z]{2,3}/.*\.md$
+        exclude: ^docs/en/
+        pass_filenames: true
+        additional_dependencies: [pyyaml]
+
       # Check for GUIDE.md (should be ignored)
       - id: no-guide-md
         name: Ensure GUIDE.md is not committed

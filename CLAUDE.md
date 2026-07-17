@@ -1690,6 +1690,83 @@ Languages are configured in `i18n.yml` (project root). Layout is folder-based: `
 - `npm run i18n:translate -- --source en/how-to/guide.md --locale ru` -- translate one file
 - `npm run i18n:translate:all -- --locale ru` -- translate all missing
 - `npm run i18n:translate:stale -- --locale ru` -- re-translate stale only
+- `npm run i18n:gate` -- run the full translation gate (drift + terminology), the same checks CI runs
+- `npm run i18n:drift` -- report which language versions are behind -> `reports/i18n_drift_report.json`
+- `npm run i18n:terminology` -- verify translated terminology -> `reports/i18n_terminology_report.json`
+
+## Translation drift is gated like code drift
+
+**Every language version of a page is a maintenance commitment, made the day it shipped.** Six languages are not six finished projects. This pipeline treats a translation falling behind its source as a blocking defect, not as work for a translation sprint someone remembers to schedule.
+
+Three mechanisms enforce this. Claude MUST understand all three.
+
+### 1. The drift gate (blocking, per language, per change)
+
+`scripts/i18n_drift_gate.py` applies the same gate logic as the API/SDK drift gate, per language, on every change to a source document. `.github/workflows/i18n-drift-gate.yml` runs it on every pull request that touches `docs/**/*.md` and fails the build when a source page changed without its translations.
+
+Staleness is decided by **content hash, not elapsed time**: the SHA-256 of the English body (frontmatter excluded) is stored in each translation's `source_hash`. A page is stale the moment its source changes, not 30 days later.
+
+Severity is deliberate, and it decides what blocks:
+
+- **stale = error, blocks the build.** The page reads as authoritative and is silently wrong.
+- **missing = warning, reported only.** The page falls back to English, so the reader knows what they got. This is a coverage decision, not drift introduced by the change under review.
+
+That default (`--fail-on error`) is what lets a repository with pre-existing untranslated pages adopt the gate at all. A gate that fails every pull request on day one over old coverage gaps gets switched off, and then it catches nothing. Once a locale reaches full coverage, tighten it to `--fail-on any` in `.github/workflows/i18n-drift-gate.yml`.
+
+**Claude MUST, after editing any source document that has translations:** re-translate the affected pages (`npm run i18n:translate:stale -- --locale <locale>`) or state explicitly that the drift is accepted and why. Do not leave a source edit with translations silently behind it.
+
+### 2. Terminology verification (targeted, not wholesale)
+
+AI translation handles grammar well and context poorly. A term with one precise English meaning can render into a phrase that means something subtly different while the sentence still parses, still sounds natural, and still passes review by a fluent speaker who is not the engineer who understands the system. No grammar checker catches this, because nothing is grammatically wrong.
+
+Vale, write-good, and cspell do not support non-English content, so `scripts/validate_translation_terminology.py` is the **only automated check** standing between a fluent mistranslation and a shipped page.
+
+It does not verify whole translations, which does not scale. It verifies only the terms where a meaning shift actually matters -- the terms carrying a `locales` block in `glossary.yml` -- which is a much smaller and more tractable problem.
+
+Locale rule schema in `glossary.yml`:
+
+```yaml
+terms:
+  retry:
+    description: Automatic re-execution after failure
+    locales:
+      ru:
+        preferred: повторная попытка   # canonical rendering, for authors
+        match:                          # lowercase stems; at least one must appear
+        - повторн
+        forbidden:                      # none may appear
+        - stem: перезапуск
+          reason: Means "restart" - implies re-running the whole workflow instead
+            of re-executing the one failed node
+        risk: high
+```
+
+Rules for `match` and `forbidden`:
+
+- Use **stems, not full words**. Russian and German decline; a full-word match produces false failures on correct grammar.
+- Matching runs against prose only. Code blocks, inline code, `{{ variables }}`, HTML, and link targets are stripped first.
+- A **forbidden** rendering is an error: it reads fluently and means the wrong thing.
+- A **missing approved** rendering is a warning: the translator may have legitimately rephrased, so a human decides.
+
+**Claude MUST, when introducing a term whose mistranslation would change the technical meaning:** add a `locales` block for it rather than relying on the translator to guess. Do not add `locales` blocks to terms where any reasonable rendering is fine -- that is how a gate becomes noise people learn to skip.
+
+The same rules are fed into the translation prompt by `i18n_translate.py`, so the translator is told the constraint up front rather than only audited afterward.
+
+### 3. The freshness indicator (reader-facing)
+
+`hooks/i18n_freshness.py` renders a banner at the top of every translated page, so the answer to "which version is accurate right now" takes five seconds to find instead of requiring someone to open a JSON report. It is registered under `hooks:` in `mkdocs.yml` and configured under `freshness_banner` in `i18n.yml`.
+
+| State | When | What the reader sees |
+| --- | --- | --- |
+| fresh | `source_hash` matches the current English body | "Translation up to date", with the `translated_at` date |
+| stale | The English source changed after translation | "Translation out of date", warning that parts may be inaccurate |
+| unknown | The page records no `source_hash` | "Translation freshness unknown" -- it cannot be verified |
+
+The banner shows on fresh pages too, by design. An indicator that appears only when something is broken cannot answer "is this page accurate?", because its absence is indistinguishable from the feature not existing.
+
+English pages and pages without a `language` field are never touched.
+
+**Claude MUST NOT** hand-edit `source_hash` to silence the banner or the gate. The hash is the only thing making staleness verifiable rather than a claim.
 
 ### Document creation with locale
 
@@ -1746,7 +1823,9 @@ Technical values (ports, URLs, versions) stay shared. **All localized documents 
 
 **Translations are supported for any language** (configured in `i18n.yml`). Russian and German are used as examples below, but the same rules apply to every target language.
 
-**Vale, write-good, proselint, and cspell do NOT support non-English languages.** For English docs these tools enforce quality automatically. For all other languages, **Claude IS the quality linter.** Claude MUST apply equivalent quality rules manually when writing or reviewing non-English documentation.
+**Vale, write-good, proselint, and cspell do NOT support non-English languages.** For English docs these tools enforce quality automatically. For style and spelling in all other languages, **Claude IS the quality linter.** Claude MUST apply equivalent quality rules manually when writing or reviewing non-English documentation.
+
+Two things are exceptions to that, and Claude MUST NOT rely on judgment where a gate exists: **terminology** is verified by `validate_translation_terminology.py`, and **freshness** is enforced by `i18n_drift_gate.py`. See "Translation drift is gated like code drift" above.
 
 ### What automated tools check per language
 
@@ -1760,6 +1839,8 @@ Technical values (ports, URLs, versions) stay shared. **All localized documents 
 | markdownlint (formatting) | Automated | Automated |
 | frontmatter validation | Automated | Automated |
 | SEO/GEO optimizer | Automated (en rules) | Automated (locale rules) |
+| Glossary terminology | Automated (glossary sync) | Automated (`i18n:terminology`, pre-commit + CI) |
+| Source freshness | N/A (is the source) | Automated (`i18n:drift`, blocking CI gate) |
 
 ### Rules Claude MUST enforce for non-English documentation
 

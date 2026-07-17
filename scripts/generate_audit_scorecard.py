@@ -2166,6 +2166,65 @@ def _build_sales_teardown_payload(
     return payload
 
 
+def _verify_fallback_rows_html(payload: dict[str, Any], escape: Any) -> str:
+    """Build owner-checkable rows from measured numbers already on the page.
+
+    Used only when the audit surfaced no hard defects to link to. Every row is
+    derived from a signal card's own value and detail -- no new number is
+    introduced -- and phrased as a check the owner runs on their own site, so
+    the section stays grounded rather than becoming filler.
+
+    Args:
+        payload: The sales teardown payload.
+        escape: An HTML-escaping callable (html.escape).
+
+    Returns:
+        Concatenated `.finding` row HTML, capped at three, or "".
+    """
+    site_url = str(payload.get("site_url", "")).strip()
+    cards = payload.get("signal_cards", [])
+    if not isinstance(cards, list):
+        return ""
+
+    # Map a signal card to a concrete, self-checkable instruction. Only
+    # dimensions an owner can confirm on their own docs in seconds qualify;
+    # audit score, retrieval precision, and recall do not and are omitted.
+    checks: dict[str, str] = {
+        "api coverage": "Open your API reference index and count operations that have a page.",
+        "freshness coverage": "Open ten pages at random and check for a last-reviewed or updated date.",
+        "layer completeness": "Pick one feature and check it has both a how-to and a reference page.",
+    }
+
+    rows: list[str] = []
+    for card in cards:
+        if not isinstance(card, dict):
+            continue
+        label = str(card.get("label", "")).strip()
+        instruction = checks.get(label.lower())
+        if not instruction:
+            continue
+        value = str(card.get("value", "")).strip()
+        detail = str(card.get("detail", "")).strip()
+        measured = " -- ".join(part for part in (value, detail) if part)
+        link = (
+            f"<a href='{escape(site_url)}' style='color:var(--blue); word-break:break-all;'>{escape(site_url)}</a>"
+            if site_url
+            else ""
+        )
+        rows.append(
+            "<div class='finding'>"
+            "<div class='finding-tag'>Check yourself</div>"
+            f"<h3 style='font-size:16px;'>{escape(label)}: {escape(measured)}</h3>"
+            f"<p style='margin:4px 0 0; color:var(--slate); font-size:13px;'>{escape(instruction)}</p>"
+            + (f"<div style='margin-top:6px;'>{link}</div>" if link else "")
+            + "</div>"
+        )
+        if len(rows) >= 3:
+            break
+
+    return "".join(rows)
+
+
 def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
     """Render a polished one-page sales teardown HTML asset."""
     score = payload.get("score", {})
@@ -2209,8 +2268,9 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         for it in verify_items
         if isinstance(it, dict)
     )
-    verify_section = (
-        (
+
+    if verify_rows:
+        verify_section = (
             "<section class='split' style='grid-template-columns:1fr;'><div class='surface'>"
             "<h2 class='section-title'>Verify these in 30 seconds</h2>"
             "<p class='summary-text'>Open the links below. Each is a concrete issue you can confirm "
@@ -2218,9 +2278,25 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
             + verify_rows
             + "</div></section>"
         )
-        if verify_rows
-        else ""
-    )
+    else:
+        # No hard defects (broken links, contradictions, failing examples) turned
+        # up. That is not a reason to drop the section: a teardown with no
+        # self-checkable claim is a teardown the reader discounts. Fall back to
+        # measured numbers already shown on this page, each re-derivable on the
+        # owner's own site, so the block is grounded rather than asserted.
+        fallback_rows = _verify_fallback_rows_html(payload, html.escape)
+        verify_section = (
+            (
+                "<section class='split' style='grid-template-columns:1fr;'><div class='surface'>"
+                "<h2 class='section-title'>Check these yourself in 30 seconds</h2>"
+                "<p class='summary-text'>The crawl found no broken links to point at, so these are "
+                "measured numbers you can re-derive on your own docs, not defects we are asserting.</p>"
+                + fallback_rows
+                + "</div></section>"
+            )
+            if fallback_rows
+            else ""
+        )
 
     def _accent_class(accent: str) -> str:
         safe = str(accent or "teal").strip().lower()
@@ -2299,6 +2375,40 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
     breakdown = payload.get("monthly_expense_breakdown", {})
     breakdown_items = breakdown.get("items", []) if isinstance(breakdown, dict) else []
 
+    def _format_input_value(key: str, value: Any) -> str:
+        """Render an assumed input value the way a reader would sanity-check it."""
+        if isinstance(value, bool):
+            return "yes" if value else "no"
+        if isinstance(value, (int, float)):
+            number = float(value)
+            text = f"{number:,.0f}" if number == int(number) else f"{number:,.4f}".rstrip("0").rstrip(".")
+            if key.endswith("_usd"):
+                return f"${text}"
+            if key.endswith("_pct"):
+                return f"{text}%"
+            return text
+        return str(value)
+
+    def _expense_inputs_html(item: dict[str, Any]) -> str:
+        """Render the actual assumed values behind a cost line.
+
+        The formula alone is not checkable: a reader cannot reproduce the
+        dollar figure without the numbers plugged into it. Showing the inputs
+        turns each line into something the owner can verify (or dispute) in
+        seconds, which is the whole point of a teardown they did not commission.
+        """
+        inputs = item.get("inputs")
+        if not isinstance(inputs, dict) or not inputs:
+            return ""
+        pairs = ", ".join(
+            f"{html.escape(str(key))} = {html.escape(_format_input_value(str(key), value))}"
+            for key, value in inputs.items()
+        )
+        return (
+            "<div style='color:#475569; font-size:11px; margin-top:3px;'>"
+            f"<span style='font-weight:600;'>assumed:</span> {pairs}</div>"
+        )
+
     def _expense_row(item: dict[str, Any]) -> str:
         hours = item.get("hours")
         hours_text = html.escape(str(hours)) if hours is not None else "-"
@@ -2310,6 +2420,7 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
             "<tr style='border-top:1px solid #e2e8f0;'>"
             f"<td style='padding:6px 8px;'><strong>{html.escape(str(item.get('label', '')))}</strong>"
             f"<div style='color:#64748b; font-family:monospace; font-size:11px; margin-top:2px;'>{html.escape(str(item.get('formula', '')))}</div>"
+            f"{_expense_inputs_html(item)}"
             f"<div style='color:#64748b; font-size:11px;'>{html.escape(str(item.get('note', '')))}</div></td>"
             f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'>{hours_text}</td>"
             f"<td style='text-align:right; padding:6px 8px; vertical-align:top;'>${usd_text}</td>"

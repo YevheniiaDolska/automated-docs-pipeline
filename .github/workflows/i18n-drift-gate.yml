@@ -1,0 +1,175 @@
+name: Translation Drift Gate
+
+# Applies the same gate logic as the API/SDK drift gate, per language, on
+# every change to a source document. When an English page changes, every
+# language version that has fallen behind it is flagged on that pull request
+# -- not in a quarterly translation sprint that someone remembers to schedule.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'docs/**/*.md'
+      - 'glossary.yml'
+      - 'i18n.yml'
+      - 'scripts/i18n_*.py'
+      - 'scripts/validate_translation_terminology.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: i18n-drift-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  translation-drift:
+    name: Detect translation drift
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so the gate can diff the branch against its base and
+          # scope itself to the source docs this PR actually touched.
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      # --fail-on error blocks on stale translations (a page that states the
+      # old behavior as fact) but only reports languages that were never
+      # translated, which is a coverage decision rather than drift introduced
+      # by this pull request. Switch to --fail-on any once every configured
+      # locale has full coverage.
+      - name: Check translation drift
+        id: drift
+        continue-on-error: true
+        run: |
+          python3 scripts/i18n_drift_gate.py \
+            --config i18n.yml \
+            --docs-dir docs \
+            --base-ref "origin/${{ github.event.pull_request.base.ref }}" \
+            --output reports/i18n_drift_report.json \
+            --strict --fail-on error
+
+      - name: Verify translation terminology
+        id: terminology
+        continue-on-error: true
+        run: |
+          python3 scripts/validate_translation_terminology.py \
+            --config i18n.yml \
+            --glossary glossary.yml \
+            --docs-dir docs \
+            --output reports/i18n_terminology_report.json \
+            --strict
+
+      - name: Comment on pull request
+        if: steps.drift.outcome == 'failure' || steps.terminology.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const readReport = (path) => {
+              try {
+                return JSON.parse(fs.readFileSync(path, 'utf8'));
+              } catch (e) {
+                return null;
+              }
+            };
+
+            const drift = readReport('reports/i18n_drift_report.json');
+            const terms = readReport('reports/i18n_terminology_report.json');
+
+            let body = '## Translation drift detected\n\n';
+            body += 'This pull request changes documentation that other ';
+            body += 'languages depend on. Those language versions are now ';
+            body += 'behind the English source.\n\n';
+
+            if (drift && drift.findings && drift.findings.length > 0) {
+              body += `### Pages behind their source (${drift.findings.length})\n\n`;
+              body += '| Locale | Page | Status |\n| --- | --- | --- |\n';
+              for (const f of drift.findings.slice(0, 30)) {
+                body += `| \`${f.target_locale}\` | \`${f.target_path}\` | ${f.status} |\n`;
+              }
+              if (drift.findings.length > 30) {
+                body += `| ... | ${drift.findings.length - 30} more | |\n`;
+              }
+              body += '\n';
+            }
+
+            if (terms && terms.findings && terms.findings.length > 0) {
+              const errors = terms.findings.filter((f) => f.severity === 'error');
+              if (errors.length > 0) {
+                body += `### Terminology errors (${errors.length})\n\n`;
+                body += 'These translations read fluently and state something ';
+                body += 'different from the source.\n\n';
+                body += '| Page | Term | Problem |\n| --- | --- | --- |\n';
+                for (const f of errors.slice(0, 20)) {
+                  body += `| \`${f.target_path}\` | \`${f.term}\` | ${f.message} |\n`;
+                }
+                body += '\n';
+              }
+            }
+
+            body += '### How to resolve\n\n';
+            body += '```bash\n';
+            body += '# Re-translate the pages that fell behind\n';
+            body += 'npm run i18n:translate:stale -- --locale <locale>\n\n';
+            body += '# Then verify terminology on the result\n';
+            body += 'npm run i18n:terminology\n';
+            body += '```\n\n';
+            body += 'Readers of an out-of-date page see a freshness banner ';
+            body += 'telling them so, but the page still states the old ';
+            body += 'behavior as fact. Six languages are six ongoing ';
+            body += 'maintenance commitments, not six finished projects.\n';
+
+            const marker = '<!-- i18n-drift-gate -->';
+            body += `\n${marker}\n`;
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            const existing = await github.rest.issues.listComments({
+              owner, repo, issue_number,
+            });
+            const previous = existing.data.find(
+              (c) => c.body && c.body.includes(marker)
+            );
+
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: previous.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number, body,
+              });
+            }
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i18n-drift-reports
+          path: |
+            reports/i18n_drift_report.json
+            reports/i18n_terminology_report.json
+          if-no-files-found: ignore
+
+      - name: Fail when translations are behind
+        if: steps.drift.outcome == 'failure' || steps.terminology.outcome == 'failure'
+        run: |
+          echo "Translation drift gate failed."
+          echo "Source pages changed without their translations, or a"
+          echo "translation uses terminology that means the wrong thing."
+          exit 1

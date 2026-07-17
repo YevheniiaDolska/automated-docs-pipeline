@@ -27,6 +27,7 @@ import asyncio
 import hashlib
 import json
 import sys
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -39,6 +40,7 @@ from i18n_utils import (
     load_variables_for_locale,
 )
 from i18n_sync import I18nSyncChecker
+from validate_translation_terminology import LocaleRule, load_locale_rules
 
 
 class DocumentTranslator:
@@ -48,10 +50,60 @@ class DocumentTranslator:
         self,
         config: I18nConfig,
         docs_dir: str | Path = "docs",
+        glossary_path: str | Path = "glossary.yml",
     ):
         self.config = config
         self.docs_dir = Path(docs_dir)
         self._client = None
+
+        # Per-locale terminology rules. The same rules that
+        # validate_translation_terminology.py enforces after the fact are fed
+        # into the prompt beforehand, so the translator is told which terms
+        # carry a meaning-shift risk instead of being audited for guessing wrong.
+        try:
+            self._locale_rules = load_locale_rules(glossary_path)
+        except (FileNotFoundError, ValueError) as exc:
+            print(
+                f"  Warning: could not load glossary terminology rules ({exc}). "
+                "Translating without terminology constraints.",
+                file=sys.stderr,
+            )
+            self._locale_rules = {}
+
+    def _build_terminology_section(self, target_locale: str) -> str:
+        """Build the glossary constraint block for the translation prompt.
+
+        Args:
+            target_locale: Target locale code.
+
+        Returns:
+            A prompt section listing required and forbidden renderings, or an
+            empty string when the locale has no rules.
+        """
+        rules: list[LocaleRule] = self._locale_rules.get(target_locale, [])
+        if not rules:
+            return ""
+
+        lines = [
+            "",
+            "6. TERMINOLOGY - these terms have exactly one correct rendering:",
+            "",
+        ]
+        for rule in rules:
+            lines.append(f'   - "{rule.term}" MUST be rendered as "{rule.preferred}"')
+            for forbidden in rule.forbidden:
+                lines.append(
+                    f'     NEVER render it as "{forbidden.stem}": {forbidden.reason}'
+                )
+        lines.extend([
+            "",
+            "   These renderings are not stylistic preferences. Each forbidden",
+            "   alternative produces a sentence that reads naturally and states",
+            "   something technically different from the source. Inflect the",
+            "   preferred term as the grammar requires, but do not substitute a",
+            "   synonym for it.",
+        ])
+        return "\n".join(lines)
 
     def _get_client(self):
         """Lazy-initialize the Anthropic client."""
@@ -93,6 +145,8 @@ class DocumentTranslator:
         Returns:
             Complete prompt string.
         """
+        terminology = self._build_terminology_section(target_locale)
+
         return f"""You are a professional technical documentation translator.
 Translate the following Markdown document from {source_locale} ({source_locale.upper()}) to {target_locale} ({target_language_name}).
 
@@ -128,6 +182,7 @@ CRITICAL RULES - you MUST follow all of these:
    - Use the standard technical terminology for {target_language_name}
    - Keep the same tone (professional, direct, second person "you")
    - Maintain the same level of technical precision
+{terminology}
 
 5. OUTPUT:
    - Return ONLY the translated Markdown document
@@ -209,6 +264,11 @@ SOURCE DOCUMENT:
 
         source_hash = hashlib.sha256(source_body.encode("utf-8")).hexdigest()
         fm["source_hash"] = source_hash
+
+        # Date this translation was last brought in line with its source.
+        # The freshness banner shows this to readers; without it the banner
+        # can state that a page is current but not since when.
+        fm["translated_at"] = date.today().isoformat()
 
         # Rebuild the document
         yaml_str = yaml.dump(

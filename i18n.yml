@@ -30,9 +30,41 @@ languages:
       meta_desc_max_chars: 200
       first_para_max_words: 80
 
+# Reader-facing freshness banner
+# Rendered by hooks/i18n_freshness.py on every translated page, so any reader
+# can tell in five seconds whether the page they are on is current.
+freshness_banner:
+  enabled: true
+  # Show a banner on fresh pages too. An indicator that only appears when
+  # something is broken cannot answer "is this page accurate right now?" --
+  # its absence is indistinguishable from the feature not existing.
+  show_when_fresh: true
+  # Show a banner when a page records no source_hash and cannot be verified.
+  show_when_unknown: true
+  # Link the banner to the English source page.
+  link_to_source: true
+
+# Translation drift gate
+# -----------------------
+# Enforced by scripts/i18n_drift_gate.py, run on every pull request by
+# .github/workflows/i18n-drift-gate.yml. This is the same gate logic applied
+# to API/SDK drift, applied per language, on every source change.
+#
+# Strictness is a CI decision, not a config value, so it lives with the
+# invocation rather than here:
+#
+#   --strict              fail the build on blocking findings
+#   --fail-on error       (default) block on stale translations only
+#   --fail-on any         also block on languages never translated at all
+#
+# Staleness is decided by content hash, not by elapsed time: a translation is
+# stale the moment its English source changes.
+
 # Translation settings
 translation:
-  # Days before a translation is considered stale
+  # Days before a translation is considered stale.
+  # Note: this is advisory only. Staleness is decided by content hash, not by
+  # elapsed time -- a page is stale the moment its English source changes.
   stale_threshold_days: 30
 
   # Auto-translation provider configuration

@@ -1,3 +1,30 @@
+# =============================================================
+# Project glossary
+# =============================================================
+# `terms` holds preferred English terminology and its aliases.
+#
+# Each term may carry an optional `locales` block declaring how it must be
+# rendered in each target language. These rules are enforced by
+# scripts/validate_translation_terminology.py against translated documents.
+#
+# Only add a `locales` block for terms where a subtle mistranslation changes
+# the technical meaning. Fluent-but-wrong output is the failure mode this
+# catches; translating everything perfectly is not the goal.
+#
+# Locale rule schema:
+#   locales:
+#     <locale>:
+#       preferred: <canonical rendering, for authors>
+#       match:      <list of lowercase stems; at least one must appear>
+#       forbidden:  <list of {stem, reason}; none may appear>
+#       risk:       high | medium
+#
+# `match` and `forbidden` are matched as case-insensitive substrings against
+# the translated prose with code blocks stripped. Use stems, not full words,
+# so inflected forms still match (Russian and German decline; a full-word
+# match would produce false failures).
+# =============================================================
+
 terms:
   workflow:
     description: A sequence of connected nodes that process data
@@ -5,34 +32,101 @@ terms:
     - flow
     - automation
     - pipeline
+    locales:
+      ru:
+        preferred: рабочий процесс
+        match:
+        - рабоч
+        - workflow
+        forbidden:
+        - stem: технологическая карта
+          reason: Means "process chart" - a document, not an executable object
+        risk: medium
   node:
     description: A single step in a workflow that performs an action
     aliases:
     - step
     - block
     - component
+    locales:
+      ru:
+        preferred: узел
+        match:
+        - узел
+        - узл
+        forbidden:
+        - stem: точк
+          reason: Means "point" - loses the executable-step meaning entirely
+        risk: medium
   trigger:
     description: A node that starts workflow execution
     aliases:
     - start node
     - initiator
+    locales:
+      ru:
+        preferred: триггер
+        match:
+        - триггер
+        forbidden:
+        - stem: переключател
+          reason: Means "switch" - implies toggling state, not starting execution
+        - stem: спусков
+          reason: Literal "trigger" as in a firearm; not the technical term
+        risk: high
   execution:
     description: A single run of a workflow
     aliases:
     - run
     - instance
+    locales:
+      ru:
+        preferred: выполнение
+        match:
+        - выполнен
+        - запуск
+        forbidden:
+        - stem: исполнительн
+          reason: Means "executive" - a false friend of "execution"
+        risk: medium
   credential:
     description: Stored authentication data for external services
     aliases:
     - auth
     - authentication
     - secret
+    locales:
+      ru:
+        preferred: учётные данные
+        match:
+        - учетн
+        - учётн
+        forbidden:
+        - stem: парол
+          reason: Means "password" - narrows credentials to one type, so readers
+            store the wrong thing and omit tokens, keys, and certificates
+        - stem: удостоверен
+          reason: Means "identity document" - a physical credential, not stored auth data
+        risk: high
   webhook:
     description: HTTP endpoint that triggers workflows on incoming requests
     aliases:
     - HTTP trigger
     - web hook
     - API endpoint
+    locales:
+      ru:
+        preferred: вебхук
+        match:
+        - вебхук
+        - webhook
+        forbidden:
+        - stem: веб-перехватчик
+          reason: Literal calque meaning "web interceptor" - implies the endpoint
+            intercepts traffic rather than receives a callback
+        - stem: веб-крюк
+          reason: Literal calque meaning "web hook" in the physical sense
+        risk: high
   HTTP Request:
     description: Node that makes outbound HTTP calls
     aliases:
@@ -56,18 +150,50 @@ terms:
     - record
     - row
     - entry
+    locales:
+      ru:
+        preferred: элемент
+        match:
+        - элемент
+        forbidden:
+        - stem: товар
+          reason: Means "merchandise" - a commerce false friend of "item" that
+            reads naturally and is completely wrong in a data-flow context
+        - stem: предмет
+          reason: Means "physical object" - loses the data-object meaning
+        risk: high
   expression:
     description: Dynamic value using {{ }} syntax
     aliases:
     - template
     - variable
     - placeholder
+    locales:
+      ru:
+        preferred: выражение
+        match:
+        - выражени
+        forbidden:
+        - stem: фраз
+          reason: Means "phrase" - natural-language sense, not an evaluated expression
+        risk: medium
   binary data:
     description: File attachments (images, PDFs, etc.)
     aliases:
     - file
     - attachment
     - blob
+    locales:
+      ru:
+        preferred: двоичные данные
+        match:
+        - двоичн
+        - бинарн
+        forbidden:
+        - stem: бинарник
+          reason: Slang for "compiled executable" - a dangerous shift, since readers
+            look for a program rather than an attached file
+        risk: high
   cloud:
     description: Hosted SaaS version of the product
     aliases:
@@ -85,11 +211,34 @@ terms:
     aliases:
     - exception handling
     - failure handling
+    locales:
+      ru:
+        preferred: обработка ошибок
+        match:
+        - обработк
+        forbidden:
+        - stem: исправление ошибок
+          reason: Means "fixing errors" - describes debugging by a developer, not
+            runtime handling by the workflow
+        risk: high
   retry:
     description: Automatic re-execution after failure
     aliases:
     - retry logic
     - auto-retry
+    locales:
+      ru:
+        preferred: повторная попытка
+        match:
+        - повторн
+        forbidden:
+        - stem: перезапуск
+          reason: Means "restart" - implies re-running the whole workflow instead of
+            re-executing the one failed node, which changes what the reader expects
+            to happen to already-processed items
+        - stem: откат
+          reason: Means "rollback" - a different recovery mechanism entirely
+        risk: high
   Term:
     description: Description
     aliases:
@@ -110,6 +259,8 @@ terms:
     usage_context:
     - docs/concepts/pipeline-configuration-combinations.md
     - docs\concepts\pipeline-configuration-combinations.md
+    - docs\reference\intent-experiences\integrate-developer.md
+    - docs\reference\intent-experiences\integrate-operator.md
 forbidden:
 - term: simple
   reason: Subjective - what's simple to one user isn't to another
