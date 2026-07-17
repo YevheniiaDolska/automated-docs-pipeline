@@ -113,6 +113,10 @@ _CRAWL_TRAP_PATH_HINTS = (
 _MAX_TEXT_CHUNKS_PER_PAGE = 5000
 _MAX_TEXT_CHARS_PER_PAGE = 200_000
 _MAX_LINKS_PER_PAGE = 1_500
+# Distinct targets tracked per anchor label before we stop counting. Anything
+# above 1 already means "ambiguous"; the cap only bounds memory on pages that
+# repeat one label across hundreds of rows.
+_MAX_LABEL_TARGETS = 8
 _MAX_LINK_HEALTH_CHECKS = 60_000
 _LINK_CHECK_BATCH_SIZE = 500
 _MAX_CODE_BUFFER_CHARS = 400_000
@@ -264,6 +268,9 @@ def _discover_seed_urls_from_sitemaps(
         text = body or ""
         if ("xml" not in ct.lower()) and "<urlset" not in text.lower() and "<sitemapindex" not in text.lower():
             continue
+        for _loc, _lastmod in _extract_sitemap_lastmods(text):
+            if _same_host(_loc, start_url) and len(_SITEMAP_LASTMOD) < _FRESHNESS_SIDE_CHANNEL_CAP:
+                _SITEMAP_LASTMOD[_normalize_url(_loc)] = _lastmod
         for loc in _extract_http_urls_from_xml(text):
             if not _same_host(loc, start_url):
                 continue
@@ -511,7 +518,10 @@ class _LinkAuditStore:
                     " url TEXT NOT NULL,"
                     " source_page TEXT NOT NULL,"
                     " anchor_text TEXT NOT NULL,"
-                    " PRIMARY KEY (url, source_page, anchor_text)"
+                    " anchor_label TEXT NOT NULL DEFAULT '',"
+                    " context TEXT NOT NULL DEFAULT '',"
+                    " locator_quality TEXT NOT NULL DEFAULT 'unlabeled',"
+                    " PRIMARY KEY (url, source_page, anchor_text, context)"
                     ")"
                 )
                 conn.execute(
@@ -557,12 +567,17 @@ class _LinkAuditStore:
             )
         if page.internal_link_refs:
             self._conn.executemany(
-                "INSERT OR IGNORE INTO provenance(url, source_page, anchor_text) VALUES (?, ?, ?)",
+                "INSERT OR IGNORE INTO provenance"
+                "(url, source_page, anchor_text, anchor_label, context, locator_quality)"
+                " VALUES (?, ?, ?, ?, ?, ?)",
                 (
                     (
                         str(ref.get("url", "")).strip(),
                         page.url,
                         str(ref.get("anchor_text", "")).strip(),
+                        str(ref.get("anchor_label", "")).strip(),
+                        str(ref.get("context", "")).strip(),
+                        str(ref.get("locator_quality", "unlabeled")).strip(),
                     )
                     for ref in page.internal_link_refs
                     if str(ref.get("url", "")).strip()
@@ -595,12 +610,25 @@ class _LinkAuditStore:
         if self._conn is None:
             raise sqlite3.OperationalError("link-audit store is closed")
         rows = self._conn.execute(
-            "SELECT source_page, anchor_text FROM provenance WHERE url = ? ORDER BY source_page, anchor_text LIMIT ?",
+            "SELECT source_page, anchor_text, anchor_label, context, locator_quality"
+            " FROM provenance WHERE url = ?"
+            # Mirrors _provenance_rank: the report shows only the top refs, so
+            # the citation a reader can actually verify must win the slot.
+            " ORDER BY (locator_quality = 'unique') DESC,"
+            " (anchor_text <> '') DESC, (context <> '') DESC,"
+            " source_page, anchor_text"
+            " LIMIT ?",
             (url, int(limit)),
         ).fetchall()
         return [
-            {"source_page": str(source_page), "anchor_text": str(anchor_text)}
-            for source_page, anchor_text in rows
+            {
+                "source_page": str(source_page),
+                "anchor_text": str(anchor_text),
+                "anchor_label": str(anchor_label),
+                "context": str(context),
+                "locator_quality": str(locator_quality),
+            }
+            for source_page, anchor_text, anchor_label, context, locator_quality in rows
             if str(source_page).strip()
         ]
 
@@ -831,6 +859,9 @@ def _fetch(
         with urlopen(req, timeout=timeout) as resp:
             status = int(getattr(resp, "status", 200) or 200)
             content_type = str(resp.headers.get("Content-Type", ""))
+            _last_modified = str(resp.headers.get("Last-Modified", "") or "").strip()
+            if _last_modified and len(_HTTP_LAST_MODIFIED) < _FRESHNESS_SIDE_CHANNEL_CAP:
+                _HTTP_LAST_MODIFIED[url] = _last_modified
             if head_only:
                 return status, content_type, ""
             try:
@@ -924,6 +955,9 @@ class PageData:
     text: str
     last_updated_hint: str
     internal_link_refs: list[dict[str, str]] = field(default_factory=list)
+    structured_modified: str = ""   # JSON-LD dateModified/datePublished
+    http_last_modified: str = ""    # HTTP Last-Modified response header
+    sitemap_lastmod: str = ""       # sitemap.xml <lastmod>
 
 
 _DATE_PATTERN = re.compile(
@@ -961,6 +995,53 @@ def _read_limited_response(resp: Any, *, max_bytes: int) -> bytes:
     return b"".join(chunks)
 
 
+# Side channels for freshness signals that are not visible in page HTML, keyed by URL.
+# _fetch populates HTTP Last-Modified; sitemap discovery populates <lastmod>. Both are
+# joined onto PageData at page-build time. Keyed by full URL, so parallel-site writes do
+# not collide; capped to avoid unbounded growth on very large crawls.
+_HTTP_LAST_MODIFIED: dict[str, str] = {}
+_SITEMAP_LASTMOD: dict[str, str] = {}
+_FRESHNESS_SIDE_CHANNEL_CAP = 200000
+
+_SITEMAP_URL_BLOCK_RE = re.compile(r"<url\b[^>]*>(.*?)</url>", re.IGNORECASE | re.DOTALL)
+_SITEMAP_LOC_RE = re.compile(r"<loc>\s*(.*?)\s*</loc>", re.IGNORECASE | re.DOTALL)
+_SITEMAP_LASTMOD_RE = re.compile(r"<lastmod>\s*(.*?)\s*</lastmod>", re.IGNORECASE | re.DOTALL)
+
+
+def _extract_sitemap_lastmods(xml_text: str) -> list[tuple[str, str]]:
+    """Return (loc, lastmod) pairs from a sitemap urlset, skipping entries without lastmod."""
+    pairs: list[tuple[str, str]] = []
+    for block in _SITEMAP_URL_BLOCK_RE.findall(xml_text or ""):
+        loc_m = _SITEMAP_LOC_RE.search(block)
+        lm_m = _SITEMAP_LASTMOD_RE.search(block)
+        if loc_m and lm_m:
+            loc = loc_m.group(1).strip()
+            lastmod = lm_m.group(1).strip()
+            if loc and lastmod:
+                pairs.append((loc, lastmod))
+    return pairs
+
+
+def _extract_jsonld_date(obj: Any) -> str:
+    """Recursively find dateModified (preferred) or datePublished in parsed JSON-LD."""
+    found_published = ""
+    stack = [obj]
+    while stack:
+        cur = stack.pop()
+        if isinstance(cur, dict):
+            for key, val in cur.items():
+                key_l = str(key).lower()
+                if key_l == "datemodified" and isinstance(val, str) and val.strip():
+                    return val.strip()
+                if key_l == "datepublished" and isinstance(val, str) and val.strip() and not found_published:
+                    found_published = val.strip()
+                if isinstance(val, (dict, list)):
+                    stack.append(val)
+        elif isinstance(cur, list):
+            stack.extend(cur)
+    return found_published
+
+
 class _DocsHTMLParser(HTMLParser):
     def __init__(self, base_url: str):
         super().__init__()
@@ -980,6 +1061,12 @@ class _DocsHTMLParser(HTMLParser):
         self._in_title = False
         self._in_code = False
         self._in_pre = False
+        # Suppress raw <script>/<style> bodies: their minified JS/CSS is not
+        # documentation prose, and letting it into page.text produces false
+        # contradiction/marker hits (e.g. "authorization:bearer" inside a JS
+        # bundle) with quotes that the reader cannot find on the rendered page.
+        self._in_script = 0  # nesting counter for non-JSON-LD <script>
+        self._in_style = 0   # nesting counter for <style>
         self._in_highlight_div = 0  # nesting counter for highlight wrappers
         self._code_lang = ""
         self._code_buf: list[str] = []
@@ -987,6 +1074,20 @@ class _DocsHTMLParser(HTMLParser):
         self._date_class_detected = False
         self._active_anchor_href = ""
         self._active_anchor_text: list[str] = []
+        # Evidence-quality tracking. An anchor label is only usable as a locator
+        # in a report if it resolves to exactly one target on the page. Icon-only
+        # links (no text) and repeated labels ("CCIP" on every row of a support
+        # matrix) are not locators: quoting them sends the reader to a different,
+        # working link and makes a true finding look like a false positive.
+        self._active_anchor_fallback = ""   # aria-label / title / nested <img alt>
+        self._label_targets: dict[str, set[str]] = {}
+        self._recent_text = ""              # nearest preceding non-anchor text
+        self._in_heading = 0
+        self._heading_buf: list[str] = []
+        self.structured_modified = ""
+        self._in_jsonld = False
+        self._jsonld_buf: list[str] = []
+        self._jsonld_chars = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attrs_map = dict(attrs)
@@ -994,6 +1095,19 @@ class _DocsHTMLParser(HTMLParser):
 
         if tag == "title":
             self._in_title = True
+            return
+
+        if tag == "script":
+            if str(attrs_map.get("type", "")).strip().lower() == "application/ld+json":
+                self._in_jsonld = True
+                self._jsonld_buf = []
+                self._jsonld_chars = 0
+            else:
+                self._in_script += 1
+            return
+
+        if tag == "style":
+            self._in_style += 1
             return
 
         if tag == "meta":
@@ -1016,12 +1130,26 @@ class _DocsHTMLParser(HTMLParser):
             self.heading_levels.append(level)
             if level == 1:
                 self.h1_count += 1
+            self._in_heading += 1
+            self._heading_buf = []
+            return
+
+        if tag == "img" and self._active_anchor_href:
+            # Icon-only links carry their meaning in the image alt text.
+            alt = str(attrs_map.get("alt", "")).strip()
+            if alt and not self._active_anchor_fallback:
+                self._active_anchor_fallback = alt
             return
 
         if tag == "a":
             href = str(attrs_map.get("href", "")).strip()
             self._active_anchor_href = ""
             self._active_anchor_text = []
+            # aria-label/title beat img alt: they are authored for this link.
+            self._active_anchor_fallback = (
+                str(attrs_map.get("aria-label", "")).strip()
+                or str(attrs_map.get("title", "")).strip()
+            )
             if href:
                 href = _normalize_relative_locale_href(self.base_url, href)
                 absolute = _safe_join_normalize_url(self.base_url, href)
@@ -1089,20 +1217,68 @@ class _DocsHTMLParser(HTMLParser):
                 self._date_class_detected = True
 
     def handle_endtag(self, tag: str) -> None:
+        if tag in {"h1", "h2", "h3", "h4", "h5", "h6"}:
+            if self._in_heading > 0:
+                self._in_heading -= 1
+            heading_text = " ".join(self._heading_buf).strip()
+            self._heading_buf = []
+            if heading_text:
+                self._recent_text = heading_text[:120]
+            return
         if tag == "a":
-            if self._active_anchor_href and _same_host(self._active_anchor_href, self.base_url):
+            if self._active_anchor_href:
                 anchor_text = " ".join(self._active_anchor_text).strip()
                 if len(anchor_text) > 240:
                     anchor_text = anchor_text[:240]
-                if len(self.internal_link_refs) < _MAX_LINKS_PER_PAGE:
+                label = anchor_text or self._active_anchor_fallback
+                # Track every anchor on the page (internal and external): a label
+                # shared with an external link is just as ambiguous to a reader.
+                if label:
+                    targets = self._label_targets.setdefault(label, set())
+                    if len(targets) <= _MAX_LABEL_TARGETS:
+                        targets.add(self._active_anchor_href)
+                if (
+                    _same_host(self._active_anchor_href, self.base_url)
+                    and len(self.internal_link_refs) < _MAX_LINKS_PER_PAGE
+                ):
                     self.internal_link_refs.append(
-                        {"url": self._active_anchor_href, "anchor_text": anchor_text}
+                        {
+                            "url": self._active_anchor_href,
+                            "anchor_text": anchor_text,
+                            "anchor_label": label,
+                            # Nearest preceding heading/cell label -- the row or
+                            # card this link sits in ("Robinhood Chain"). This is
+                            # what makes an icon-only or repeated-label link
+                            # findable by a human.
+                            "context": self._recent_text if self._recent_text != label else "",
+                        }
                     )
             self._active_anchor_href = ""
             self._active_anchor_text = []
+            self._active_anchor_fallback = ""
             return
         if tag == "title":
             self._in_title = False
+            return
+        if tag == "script":
+            if self._in_jsonld:
+                self._in_jsonld = False
+                raw = "".join(self._jsonld_buf).strip()
+                self._jsonld_buf = []
+                self._jsonld_chars = 0
+                if raw and not self.structured_modified:
+                    try:
+                        date_value = _extract_jsonld_date(json.loads(raw))
+                        if date_value:
+                            self.structured_modified = date_value
+                    except (ValueError, TypeError):
+                        pass
+            elif self._in_script > 0:
+                self._in_script -= 1
+            return
+        if tag == "style":
+            if self._in_style > 0:
+                self._in_style -= 1
             return
         if tag == "code":
             # If <code> was standalone (not inside <pre>) but had language class
@@ -1160,6 +1336,16 @@ class _DocsHTMLParser(HTMLParser):
         return False
 
     def handle_data(self, data: str) -> None:
+        if self._in_jsonld:
+            if self._jsonld_chars < _MAX_HTML_PARSE_CHARS:
+                self._jsonld_buf.append(data)
+                self._jsonld_chars += len(data)
+            return
+        # Raw <script>/<style> bodies are minified JS/CSS, not documentation.
+        # Dropping them keeps page.text prose-only so detectors never match
+        # inside a JS bundle.
+        if self._in_script > 0 or self._in_style > 0:
+            return
         # Always collect raw data into code buffers (preserve whitespace)
         if self._in_pre or self._in_code:
             if self._code_buf_chars < _MAX_CODE_BUFFER_CHARS:
@@ -1183,6 +1369,12 @@ class _DocsHTMLParser(HTMLParser):
             self.title = text
         if self._active_anchor_href:
             self._active_anchor_text.append(text)
+        elif self._in_heading > 0:
+            self._heading_buf.append(text)
+        elif len(text) <= 120:
+            # Short standalone text outside any link: the row/card label that a
+            # following link belongs to. Long prose is not a useful locator.
+            self._recent_text = text
         if (
             len(self.text_chunks) < _MAX_TEXT_CHUNKS_PER_PAGE
             and self._text_chars < _MAX_TEXT_CHARS_PER_PAGE
@@ -1210,7 +1402,13 @@ class _DocsHTMLParser(HTMLParser):
                 # Only capture if it looks like a standalone date element
                 self.last_updated_hint = text
 
-    def as_page(self, url: str, status: int) -> PageData:
+    def as_page(
+        self,
+        url: str,
+        status: int,
+        http_last_modified: str = "",
+        sitemap_lastmod: str = "",
+    ) -> PageData:
         # Deduplicate code blocks (MkDocs Material tabs often repeat same content)
         seen: set[str] = set()
         unique_blocks: list[dict[str, str]] = []
@@ -1226,6 +1424,20 @@ class _DocsHTMLParser(HTMLParser):
         except MemoryError:
             # Fallback for pathological pages on constrained hosts.
             text_value = " ".join(self.text_chunks[:1000])
+        # An anchor label is a usable locator only if it resolves to exactly one
+        # target on this page. Mark the rest so the report never quotes them as
+        # "linked as X" -- a reader who searches for an ambiguous label lands on
+        # a different, working link and dismisses a true finding.
+        link_refs = self.internal_link_refs[:_MAX_LINKS_PER_PAGE]
+        for ref in link_refs:
+            label = str(ref.get("anchor_label", ""))
+            targets = self._label_targets.get(label, set())
+            ref["locator_quality"] = (
+                "unique" if label and len(targets) <= 1 else
+                "ambiguous" if label else
+                "unlabeled"
+            )
+            ref["label_target_count"] = str(len(targets))
         return PageData(
             url=url,
             status=status,
@@ -1234,11 +1446,14 @@ class _DocsHTMLParser(HTMLParser):
             h1_count=self.h1_count,
             heading_levels=self.heading_levels[:],
             internal_links=sorted(set(self.internal_links)),
-            internal_link_refs=self.internal_link_refs[:_MAX_LINKS_PER_PAGE],
+            internal_link_refs=link_refs,
             external_links=sorted(set(self.external_links)),
             code_blocks=unique_blocks,
             text=text_value,
             last_updated_hint=self.last_updated_hint,
+            structured_modified=self.structured_modified,
+            http_last_modified=http_last_modified,
+            sitemap_lastmod=sitemap_lastmod,
         )
 
 
@@ -1373,15 +1588,47 @@ def _api_signal_score(text: str) -> int:
     return score
 
 
+_NON_ENDPOINT_EXTENSIONS = {
+    ".conf", ".sh", ".mjs", ".sock", ".pid", ".types", ".params", ".cfg", ".ini",
+    ".css", ".scss", ".js", ".map", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico",
+    ".woff", ".woff2", ".ttf", ".eot", ".mp4", ".webp", ".pdf", ".zip", ".gz", ".tar",
+    ".lock", ".log", ".yml", ".yaml", ".toml", ".env", ".template",
+}
+_NON_ENDPOINT_SEGMENTS = {
+    "assets", "static", "public", "_next", "cdn-cgi", "bootstrap", "cache",
+    "node_modules", "vendor", "dist", "conf",
+    # OS/filesystem paths mentioned in docs (e.g. /bin/bash, /var/log) are not API endpoints
+    "bin", "sbin", "usr", "etc", "var", "tmp", "storage",
+}
+
+
+def _looks_like_non_endpoint(path: str) -> bool:
+    """Reject static files and framework internals misread as API endpoints.
+
+    Paths such as /conf/fastcgi.conf, /assets/start.sh, or /assets/nginx.template.conf
+    are not API operations. Counting them as undocumented endpoints inflates the coverage
+    gap and makes the finding refutable, so they are excluded from the endpoint set.
+    """
+    p = path.strip().lower()
+    if not p:
+        return True
+    last = p.rsplit("/", 1)[-1]
+    if "." in last:
+        ext = "." + last.rsplit(".", 1)[-1]
+        if ext in _NON_ENDPOINT_EXTENSIONS:
+            return True
+    return any(seg in _NON_ENDPOINT_SEGMENTS for seg in p.split("/") if seg)
+
+
 def _extract_api_identifiers(text: str) -> set[str]:
     identifiers: set[str] = set()
     for match in ENDPOINT_PATTERN.findall(text.lower()):
         cleaned = str(match).strip().rstrip(".,;:)]}\"'")
-        if cleaned and cleaned.count("/") >= 1 and len(cleaned) > 3:
+        if cleaned and cleaned.count("/") >= 1 and len(cleaned) > 3 and not _looks_like_non_endpoint(cleaned):
             identifiers.add(f"ep:{cleaned}")
     for match in _METHOD_PATH_PATTERN.findall(text):
         cleaned = str(match).lower().strip().rstrip(".,;:)]}\"'")
-        if cleaned:
+        if cleaned and not _looks_like_non_endpoint(cleaned):
             identifiers.add(f"ep:{cleaned}")
     for match in _OPERATION_ID_PATTERN.findall(text):
         cleaned = str(match).lower().strip()
@@ -1670,6 +1917,15 @@ def _is_excluded_link(url: str) -> bool:
     """Return True for internal URLs outside documentation page scope."""
     parsed = urlparse(url)
     path = (parsed.path or "/").lower()
+    scheme = (parsed.scheme or "").lower()
+    # Non-navigational schemes and Cloudflare infrastructure (for example the
+    # /cdn-cgi/l/email-protection obfuscation link) are never documentation pages
+    # and must not be counted as broken links -- owners recognize them instantly
+    # and dismiss the whole audit as a false positive.
+    if scheme in {"mailto", "tel", "javascript"}:
+        return True
+    if "/cdn-cgi/" in path:
+        return True
     if any(path.endswith(ext) for ext in _EXCLUDED_PATH_EXTENSIONS):
         return True
     if any(seg in path for seg in _EXCLUDED_PATH_SEGMENTS):
@@ -1677,6 +1933,20 @@ def _is_excluded_link(url: str) -> bool:
     if path.startswith("/api/") and ("openapi" not in path and "swagger" not in path):
         return True
     return False
+
+
+def _provenance_rank(ref: dict[str, str]) -> tuple[int, int, int]:
+    """Sort key: the citation a reader can actually resolve goes first.
+
+    Reports truncate to the first few refs, so ordering decides which evidence
+    the owner sees. Prefer a label that resolves to exactly one target, then any
+    visible link text, then a nearby row/card heading to disambiguate with.
+    """
+    return (
+        0 if str(ref.get("locator_quality", "")) == "unique" else 1,
+        0 if str(ref.get("anchor_text", "")).strip() else 1,
+        0 if str(ref.get("context", "")).strip() else 1,
+    )
 
 
 def _link_health(pages: Iterable[PageData], status_map: dict[str, int]) -> dict[str, Any]:
@@ -1690,11 +1960,19 @@ def _link_health(pages: Iterable[PageData], status_map: dict[str, int]) -> dict[
                 continue
             anchor_text = str(ref.get("anchor_text", "")).strip()
             bucket = link_provenance.setdefault(target, [])
-            record = {"source_page": page.url, "anchor_text": anchor_text}
+            record = {
+                "source_page": page.url,
+                "anchor_text": anchor_text,
+                "anchor_label": str(ref.get("anchor_label", "")).strip(),
+                "context": str(ref.get("context", "")).strip(),
+                "locator_quality": str(ref.get("locator_quality", "unlabeled")).strip(),
+            }
             if record in bucket:
                 continue
             if len(bucket) < 5:
                 bucket.append(record)
+    for bucket in link_provenance.values():
+        bucket.sort(key=_provenance_rank)
     # Count only confirmed broken links; treat transient/auth/rate-limit statuses as unverified.
     broken = []
     unverified = []
@@ -1817,17 +2095,57 @@ def _last_updated_metrics(pages: Iterable[PageData]) -> dict[str, Any]:
     total = 0
     with_hint: list[PageData] = []
     with_hint_count = 0
+    structured_count = 0
+    http_header_count = 0
+    sitemap_count = 0
+    any_signal_count = 0
+    machine_readable_only = 0
+    no_signal_samples: list[dict[str, str]] = []
     for page in pages:
         total += 1
-        if page.last_updated_hint.strip():
+        has_visible = bool(page.last_updated_hint.strip())
+        has_structured = bool(str(getattr(page, "structured_modified", "") or "").strip())
+        has_http = bool(str(getattr(page, "http_last_modified", "") or "").strip())
+        has_sitemap = bool(str(getattr(page, "sitemap_lastmod", "") or "").strip())
+        any_signal = has_visible or has_structured or has_http or has_sitemap
+        if has_visible:
             with_hint_count += 1
             if len(with_hint) < 10:
                 with_hint.append(page)
+        if has_structured:
+            structured_count += 1
+        if has_http:
+            http_header_count += 1
+        if has_sitemap:
+            sitemap_count += 1
+        if any_signal:
+            any_signal_count += 1
+        elif len(no_signal_samples) < 10:
+            no_signal_samples.append({"url": page.url})
+        if (not has_visible) and (has_structured or has_http or has_sitemap):
+            machine_readable_only += 1
+    no_signal_count = max(0, total - any_signal_count)
     return {
+        # Backward-compatible: visible/meta on-page date only.
         "pages_with_last_updated_hint": with_hint_count,
         "pages_without_last_updated_hint": max(0, total - with_hint_count),
         "last_updated_coverage_pct": _safe_pct(with_hint_count, total),
         "samples_with_last_updated": [{"url": p.url, "hint": p.last_updated_hint[:120]} for p in with_hint],
+        # LLM-relevant: ANY machine-readable or visible freshness signal.
+        "pages_with_any_freshness_signal": any_signal_count,
+        "any_freshness_signal_coverage_pct": _safe_pct(any_signal_count, total),
+        "freshness_signal_breakdown": {
+            "visible_or_meta": with_hint_count,
+            "structured_data_datemodified": structured_count,
+            "http_last_modified": http_header_count,
+            "sitemap_lastmod": sitemap_count,
+        },
+        # Clean design (no visible date) but machine-readable signal present -> not a defect.
+        "pages_machine_readable_only": machine_readable_only,
+        # Real LLM freshness gap: no signal anywhere (verifiable by opening the page/sitemap).
+        "pages_with_no_freshness_signal": no_signal_count,
+        "no_freshness_signal_pct": _safe_pct(no_signal_count, total),
+        "no_freshness_signal_samples": no_signal_samples,
     }
 
 
@@ -2052,7 +2370,11 @@ def _browser_discover_pages(
                     html_body = page.content()
                     parser_html = _DocsHTMLParser(url)
                     parser_html.feed(html_body)
-                    parsed = parser_html.as_page(url, st)
+                    parsed = parser_html.as_page(
+                        url, st,
+                        http_last_modified=_HTTP_LAST_MODIFIED.get(_sanitize_url(url), ""),
+                        sitemap_lastmod=_SITEMAP_LASTMOD.get(_normalize_url(url), ""),
+                    )
                     pages.append(parsed)
                     for link in parsed.internal_links:
                         if urlparse(link).netloc.lower() == host and link not in seen and len(queue) < max_pages * 3:
@@ -2246,7 +2568,11 @@ def _crawl_site(
                 # Never fail the whole crawl due to one malformed page.
                 logger.warning("Skipping parse for %s due to parser failure", url)
                 return url, st, None, []
-            page = parser_html.as_page(url, st)
+            page = parser_html.as_page(
+                url, st,
+                http_last_modified=_HTTP_LAST_MODIFIED.get(_sanitize_url(url), ""),
+                sitemap_lastmod=_SITEMAP_LASTMOD.get(_normalize_url(url), ""),
+            )
             return url, st, page, page.internal_links
 
         try:
@@ -2734,6 +3060,8 @@ def _site_payload(
             ),
             "evidence_coverage": _evidence_coverage_metrics(page_iter_factory()),
             "actionability": _protocol_actionability_metrics(page_iter_factory()),
+            "contradictions": _cross_page_contradictions(page_iter_factory()),
+            "code_hygiene": _code_hygiene_defects(page_iter_factory()),
         }
         return {
             "site_url": site_url,
@@ -2744,6 +3072,7 @@ def _site_payload(
                 "repo_broken_link_samples": metrics["links"].get("repo_broken_link_samples", []),
                 "unverified_link_samples": metrics["links"].get("unverified_link_samples", []),
                 "api_uncovered_samples": metrics["api_coverage"]["uncovered_endpoint_samples"],
+                "contradiction_samples": metrics["contradictions"]["contradictions"][:10],
             },
         }
     finally:
@@ -2793,6 +3122,522 @@ def _aggregate_api_coverage(sites: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+_AUTH_SCHEME_PATTERN = re.compile(
+    r"authorization\s*[:=]\s*[\"']?\s*(bearer|token|basic|jwt)\b",
+    flags=re.IGNORECASE,
+)
+
+
+def _quote_around(text: str, pos: int, width: int = 90) -> str:
+    """Return an email-ready quote window centered on position *pos*.
+
+    The window is centered on the match so the shipped quote always contains the
+    matched token. Anchoring to the line start instead would, on whitespace-
+    collapsed pages (effectively one long line), return the line's opening text
+    -- which need not contain the match at all, making the evidence unverifiable.
+    """
+    line_start = text.rfind("\n", 0, pos) + 1
+    line_end = text.find("\n", pos)
+    if line_end == -1:
+        line_end = len(text)
+    # Center the window on the match within its line.
+    half = width // 2
+    win_start = max(line_start, pos - half)
+    win_end = min(line_end, pos + (width - half))
+    snippet = " ".join(text[win_start:win_end].split())
+    prefix = "..." if win_start > line_start else ""
+    suffix = "..." if win_end < line_end else ""
+    return prefix + snippet + suffix
+
+
+# Minified script/style bundles occasionally leak into extracted page text. A value
+# that matches inside one produces a quote made of JavaScript soup ("(()=>{var n=...")
+# that the recipient cannot verify against the rendered page, so it can never be a
+# persuasive finding. The minifier signature (chained arrow functions, packed
+# var/let/const declarations) is specific to bundles: a single arrow function in a
+# doc snippet matches at most once, and a curl/HTTP example matches none. Requiring
+# two or more signatures flags the soup without touching legitimate code evidence.
+_MINIFIED_CODE_HINT = re.compile(r"=>\s*\{|\}\)\s*\(|\)\s*=>|;var |;let |;const |\{var |function\s*\(")
+
+
+def _looks_like_minified(quote: str) -> bool:
+    """True when *quote* reads as minified JS/CSS rather than human-verifiable text."""
+    text = quote.strip()
+    if not text:
+        return False
+    return len(_MINIFIED_CODE_HINT.findall(text)) >= 2
+
+
+_EVIDENCE_TOKEN_RE = re.compile(r"[a-z0-9]+")
+
+
+def _quote_supports_value(quote: str, value: str) -> bool:
+    """True when *quote* actually backs the claimed *value* -- the hard invariant.
+
+    Both sides are normalized to lowercase alphanumerics and every significant
+    token of *value* must appear in *quote*. A finding is only verifiable if its
+    shipped quote literally contains the fact it claims; this is what stops the
+    engine from ever again leading with a quote of the page intro that never
+    contains the matched auth header (or any value the owner cannot confirm on
+    the page). Reformatting is tolerated: "Node 20" is backed by "Node.js v20".
+    """
+    haystack = re.sub(r"[^a-z0-9]", "", quote.lower())
+    if not haystack:
+        return False
+    tokens = _EVIDENCE_TOKEN_RE.findall(value.lower())
+    if not tokens:
+        return False
+    return all(tok in haystack for tok in tokens)
+
+
+_API_KEY_HEADER_PATTERN = re.compile(
+    r"(?<![\w-])(x-api-key|x-apikey|api-key|apikey)\s*:",
+    flags=re.IGNORECASE,
+)
+
+_API_BASE_VERSION_PATTERN = re.compile(
+    r"https?://([\w.-]+)/(?:api/)?(v\d+)/",
+    flags=re.IGNORECASE,
+)
+
+_DEFAULT_PORT_PATTERN = re.compile(
+    r"default\s+port\s*(?:is\s+|[:=]\s*)?(\d{2,5})\b",
+    flags=re.IGNORECASE,
+)
+
+_RATE_LIMIT_PATTERN = re.compile(
+    r"(\d[\d,]{0,6})\s*(?:requests?|calls?)\s*(?:per|/|a)\s*(second|sec|minute|min|hour|hr|day)\b",
+    flags=re.IGNORECASE,
+)
+_RATE_LIMIT_CONTEXT_PATTERN = re.compile(r"rate[\s_-]?limit", flags=re.IGNORECASE)
+
+_RUNTIME_MIN_PATTERN = re.compile(
+    r"(?:requires?|needs?|minimum(?:\s+of)?|at\s+least)\s+(node(?:\.js)?|python|java|ruby|php|go(?:lang)?)\s+v?(\d+(?:\.\d+)*)"
+    r"|\b(node(?:\.js)?|python|java|ruby|php|go(?:lang)?)\s+v?(\d+(?:\.\d+)*)\s+or\s+(?:higher|later|newer|above)",
+    flags=re.IGNORECASE,
+)
+
+_SIZE_LIMIT_PATTERNS = (
+    re.compile(
+        r"max(?:imum)?\s+(payload|request|upload|file|attachment|body|message)\s+size"
+        r"\s*(?:is|of|[:=])?\s*(\d[\d,]*(?:\.\d+)?)\s*(kb|mb|gb)\b",
+        flags=re.IGNORECASE,
+    ),
+    re.compile(
+        r"(payload|request|upload|file|attachment|body|message)s?\s+(?:size\s+)?(?:is\s+|are\s+)?"
+        r"(?:limited\s+to|cannot\s+exceed|up\s+to)\s+(\d[\d,]*(?:\.\d+)?)\s*(kb|mb|gb)\b",
+        flags=re.IGNORECASE,
+    ),
+)
+
+# Guards shared by contradiction extractors: values that legitimately differ per plan
+# tier are not contradictions, and archival/blog/changelog pages juxtapose old and new
+# values by design.
+_PLAN_TIER_PATTERN = re.compile(
+    r"\b(free|pro|enterprise|premium|starter|business|paid|trial|tiers?|plans?)\b",
+    flags=re.IGNORECASE,
+)
+_ARCHIVAL_URL_PATTERN = re.compile(
+    r"/(blog|changelog|release-notes|releases|news|archives?|legacy|deprecated)(/|$)",
+    flags=re.IGNORECASE,
+)
+# Versioned docs subtrees (docs.foo.com/2.11/..., /v1.2/...): a value in the 2.x docs
+# does not contradict a different value in the 3.x docs. Requires a dot so that plain
+# API path versions (/v1/) are not mistaken for docs versions.
+_DOC_VERSION_SEGMENT_PATTERN = re.compile(
+    r"/(v?\d+\.\d+(?:\.\d+)*|\d+\.x)(?=/)", flags=re.IGNORECASE
+)
+
+_SIZE_UNIT_KB = {"kb": 1.0, "mb": 1024.0, "gb": 1024.0 * 1024.0}
+_RATE_UNIT_CANONICAL = {"sec": "second", "min": "minute", "hr": "hour"}
+
+
+def _auth_scheme_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for match in _AUTH_SCHEME_PATTERN.finditer(src):
+        scheme = match.group(1).lower()
+        # Basic can legitimately coexist with Bearer (dashboard vs API), so only the
+        # token-shaped schemes are confusable with each other.
+        if scheme not in ("bearer", "token", "jwt"):
+            continue
+        display = "JWT" if scheme == "jwt" else scheme.capitalize()
+        yield "authorization-header", scheme, "Authorization: " + display, match.start()
+
+
+def _api_key_header_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for match in _API_KEY_HEADER_PATTERN.finditer(src):
+        name = match.group(1)
+        # Header names are case-insensitive, so only genuinely different names
+        # (X-API-Key vs Api-Key) count -- casing variants normalize to one value.
+        canonical = re.sub(r"[^a-z0-9]", "", name.lower())
+        yield "api-key-header", canonical, name, match.start()
+
+
+def _api_base_version_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for match in _API_BASE_VERSION_PATTERN.finditer(src):
+        host = match.group(1).lower()
+        version = match.group(2).lower()
+        yield "base-url:" + host, version, host + "/" + version, match.start()
+
+
+def _default_port_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for match in _DEFAULT_PORT_PATTERN.finditer(src):
+        yield "default-port", match.group(1), match.group(1), match.start()
+
+
+def _rate_limit_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for match in _RATE_LIMIT_PATTERN.finditer(src):
+        quote = _quote_around(src, match.start())
+        # Only explicit rate-limit statements; per-plan and per-endpoint limits
+        # legitimately differ, so those lines are skipped.
+        if not _RATE_LIMIT_CONTEXT_PATTERN.search(quote):
+            continue
+        if _PLAN_TIER_PATTERN.search(quote) or "endpoint" in quote.lower():
+            continue
+        value = match.group(1).replace(",", "")
+        unit = match.group(2).lower()
+        unit = _RATE_UNIT_CANONICAL.get(unit, unit)
+        display = "{} requests per {}".format(value, unit)
+        yield "rate-limit-per-" + unit, value, display, match.start()
+
+
+def _runtime_min_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for match in _RUNTIME_MIN_PATTERN.finditer(src):
+        runtime = (match.group(1) or match.group(3) or "").lower()
+        version = match.group(2) or match.group(4) or ""
+        runtime = {"node.js": "node", "golang": "go"}.get(runtime, runtime)
+        canonical = version
+        while canonical.endswith(".0"):
+            canonical = canonical[:-2]
+        display = "{} {}".format(runtime.capitalize(), version)
+        yield "min-version:" + runtime, canonical, display, match.start()
+
+
+def _size_limit_hits(src: str) -> Iterable[tuple[str, str, str, int]]:
+    for pattern in _SIZE_LIMIT_PATTERNS:
+        for match in pattern.finditer(src):
+            quote = _quote_around(src, match.start())
+            if _PLAN_TIER_PATTERN.search(quote):
+                continue
+            subject = match.group(1).lower()
+            value = float(match.group(2).replace(",", ""))
+            unit = match.group(3).lower()
+            canonical = "{:g}".format(value * _SIZE_UNIT_KB[unit])
+            display = "{:g} {} ({})".format(value, unit.upper(), subject)
+            yield "size-limit:" + subject, canonical, display, match.start()
+
+
+# (type, label, confidence, code_blocks_only, extractor). Confidence is per class:
+# "high" classes can lead an audit or a cold email as-is; "medium" classes are still
+# quote-backed but carry residual ambiguity (multi-component ports, coexisting API
+# versions), so downstream surfaces order them after high and label them for a human
+# check before citing.
+_CONTRADICTION_CLASSES: tuple[tuple[str, str, str, bool, Any], ...] = (
+    ("auth_scheme", "Authentication", "high", False, _auth_scheme_hits),
+    ("api_key_header", "API key header", "high", True, _api_key_header_hits),
+    ("api_base_version", "API base URL version", "medium", True, _api_base_version_hits),
+    ("default_port", "Default port", "medium", False, _default_port_hits),
+    ("rate_limit", "Rate limit", "medium", False, _rate_limit_hits),
+    ("runtime_min_version", "Minimum runtime version", "medium", False, _runtime_min_hits),
+    ("size_limit", "Size limit", "medium", False, _size_limit_hits),
+)
+
+
+def _cross_page_contradictions(pages: Iterable[PageData], limit: int = 12) -> dict[str, Any]:
+    """Detect owner-verifiable contradictions across pages, with exact-quote evidence.
+
+    The detector never issues a verdict. Each finding ships with two source URLs and two
+    verbatim quotes so the recipient adjudicates it in seconds -- that makes it impossible
+    to dismiss as a false positive, even when the conflict turns out to be intentional.
+    Detection is table-driven over confusable classes (auth scheme, API key header name,
+    API base URL version, default port, rate limit, minimum runtime version, size limit),
+    each guarded so that values which legitimately differ (plan tiers, versioned docs
+    subtrees, archival pages, pages that juxtapose both values) never fire.
+    """
+    hits: dict[tuple[str, str], dict[str, dict[str, Any]]] = {}
+    pages_scanned = 0
+    for page in pages:
+        pages_scanned += 1
+        url = page.url or ""
+        if _ARCHIVAL_URL_PATTERN.search(url):
+            continue
+        version_match = _DOC_VERSION_SEGMENT_PATTERN.search(url)
+        doc_version = "@" + version_match.group(1).lower() if version_match else ""
+        sources = [(page.text or "", False)] + [
+            (str(b.get("code", "")), True) for b in (page.code_blocks or [])
+        ]
+        for src, is_code in sources:
+            if not src:
+                continue
+            for ctype, _label, _conf, code_only, extractor in _CONTRADICTION_CLASSES:
+                if code_only and not is_code:
+                    continue
+                for slot, canonical, display, pos in extractor(src):
+                    quote = _quote_around(src, pos)
+                    # Never ship an unverifiable quote: a value matched inside a
+                    # minified bundle yields JS soup the owner cannot confirm, and
+                    # a quote that does not literally contain the claimed value is
+                    # a false lead. Drop either so the finding stays owner-checkable.
+                    if _looks_like_minified(quote) or not _quote_supports_value(quote, display):
+                        continue
+                    bucket = hits.setdefault((ctype, slot + doc_version), {})
+                    record = bucket.get(canonical)
+                    if record is None:
+                        bucket[canonical] = {
+                            "display": display,
+                            "url": url,
+                            "quote": quote,
+                            "urls": {url},
+                        }
+                    else:
+                        record["urls"].add(url)
+
+    class_meta = {c[0]: (c[1], c[2]) for c in _CONTRADICTION_CLASSES}
+    class_order = {c[0]: i for i, c in enumerate(_CONTRADICTION_CLASSES)}
+    contradictions: list[dict[str, Any]] = []
+    for (ctype, _slot), bucket in hits.items():
+        if len(bucket) < 2:
+            continue
+        records = list(bucket.values())
+        pair = None
+        for i in range(len(records)):
+            for j in range(i + 1, len(records)):
+                first, second = records[i], records[j]
+                # Cross-page only, and never when any single page shows both values:
+                # a page that juxtaposes them is dual-support or migration context, and
+                # the owner would refute a "two pages disagree" claim in one click.
+                if first["url"] != second["url"] and not (first["urls"] & second["urls"]):
+                    pair = (first, second)
+                    break
+            if pair:
+                break
+        if pair is None:
+            continue
+        label, confidence = class_meta[ctype]
+        first, second = pair
+        contradictions.append(
+            {
+                "type": ctype,
+                "confidence": confidence,
+                "summary": "{} documented two ways: '{}' and '{}'".format(
+                    label, first["display"], second["display"]
+                ),
+                "evidence": [
+                    {"value": first["display"], "url": first["url"], "quote": first["quote"]},
+                    {"value": second["display"], "url": second["url"], "quote": second["quote"]},
+                ],
+            }
+        )
+
+    contradictions.sort(
+        key=lambda c: (0 if c["confidence"] == "high" else 1, class_order.get(c["type"], 99))
+    )
+    contradictions = contradictions[:limit]
+    by_confidence: dict[str, int] = {}
+    for item in contradictions:
+        by_confidence[item["confidence"]] = by_confidence.get(item["confidence"], 0) + 1
+
+    return {
+        "pages_scanned": pages_scanned,
+        "contradictions_count": len(contradictions),
+        "by_confidence": by_confidence,
+        "contradictions": contradictions,
+    }
+
+
+# Leftover-marker detector. The negative lookbehind (no preceding "." or word
+# char) and lookahead (not immediately followed by "(") exclude legitimate API
+# calls such as Go's context.TODO() -- a standard-library function, not an
+# unfinished-work marker -- while still catching bare "TODO"/"FIXME:" comments.
+_CODE_MARKER_PATTERN = re.compile(r"(?<![.\w])(TODO|FIXME|CHANGEME|REPLACE_ME)\b(?!\s*\()")
+
+_COMMENT_LINE_PATTERN = re.compile(r"^\s*(//|#|/\*|\*/|\*(?!\w)|--\s|<!--|\"\"\"|''')")
+
+# A body reduced to these carries no logic: whatever the function is supposed to do,
+# the reader is the one who has to write it.
+_TRIVIAL_BODY_LINES = frozenset(
+    (
+        "", "{", "}", "()", "();", "pass", "...", "return", "ok(())", "return ok(())",
+        "none", "null", "nil", "undefined", "return none", "return null", "return nil",
+        "return undefined", "todo!()", "unimplemented!()", "raise notimplementederror",
+        "raise notimplementederror()", "throw new error('not implemented')",
+    )
+)
+
+# Second-person address inside the marker text: the sentence is written TO the reader
+# ("TODO: add your signing logic"), which no author-facing note ever is.
+_READER_DIRECTED_MARKER = re.compile(r"\byou\b|\byour\b|\byours\b", re.IGNORECASE)
+
+
+def _enclosing_body(code: str, pos: int) -> tuple[str, str] | None:
+    """Return (declaration line, body text) of the innermost block containing *pos*.
+
+    Braces first, then Python-style indentation. Returns None at top level, where
+    there is no body whose emptiness could mean anything.
+    """
+    depth = 0
+    open_idx = -1
+    for i in range(pos - 1, -1, -1):
+        ch = code[i]
+        if ch == "}":
+            depth += 1
+        elif ch == "{":
+            if depth == 0:
+                open_idx = i
+                break
+            depth -= 1
+    if open_idx != -1:
+        depth = 0
+        close_idx = len(code)
+        for i in range(open_idx + 1, len(code)):
+            ch = code[i]
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                if depth == 0:
+                    close_idx = i
+                    break
+                depth -= 1
+        decl_start = code.rfind("\n", 0, open_idx) + 1
+        return code[decl_start:open_idx].strip(), code[open_idx + 1:close_idx]
+
+    lines = code.split("\n")
+    line_no = code.count("\n", 0, pos)
+    marker_line = lines[line_no]
+    marker_indent = len(marker_line) - len(marker_line.lstrip())
+    for i in range(line_no - 1, -1, -1):
+        candidate = lines[i]
+        if not candidate.strip():
+            continue
+        indent = len(candidate) - len(candidate.lstrip())
+        if indent >= marker_indent:
+            continue
+        if not candidate.rstrip().endswith(":"):
+            return None
+        body: list[str] = []
+        for line in lines[i + 1:]:
+            if line.strip() and (len(line) - len(line.lstrip())) <= indent:
+                break
+            body.append(line)
+        return candidate.strip(), "\n".join(body)
+    return None
+
+
+def _body_is_stub(body: str) -> bool:
+    """True when *body* holds no logic of its own -- only comments and trivial returns."""
+    for line in body.split("\n"):
+        stripped = line.strip()
+        if not stripped or _COMMENT_LINE_PATTERN.match(line):
+            continue
+        normalized = stripped.rstrip(";,").strip().lower().replace('"', "'")
+        if normalized not in _TRIVIAL_BODY_LINES:
+            return False
+    return True
+
+
+def _completed_in_another_block(
+    blocks: list[dict[str, str]], current_index: int, decl_line: str
+) -> bool:
+    """True when another block on the page shows the same declaration, marker-free.
+
+    A guide that first prints a signature with a placeholder and later prints the same
+    signature filled in is teaching, not leaking an unfinished draft.
+    """
+    needle = " ".join(decl_line.split())
+    if len(needle) < 12:
+        return False
+    for index, other in enumerate(blocks):
+        if index == current_index:
+            continue
+        code = " ".join(str(other.get("code", "")).split())
+        if needle in code and not _CODE_MARKER_PATTERN.search(code):
+            return True
+    return False
+
+
+def _is_reader_placeholder(
+    code: str, match: "re.Match[str]", blocks: list[dict[str, str]], block_index: int
+) -> bool:
+    """True when the marker is a deliberate fill-in-the-blank left for the reader.
+
+    Docs teach by handing over a skeleton the reader completes, and the marker is how
+    the skeleton says "your logic goes here". Flagging that as a leftover is a finding
+    the owner refutes in one click, which costs more credibility than the miss. Three
+    signals, any one sufficient:
+
+    1. The enclosing body is a stub -- comments and a trivial return, nothing else.
+    2. The marker text addresses the reader in second person ("add your handler").
+    3. Another code block on the same page shows the same declaration, completed.
+
+    A marker sitting inside a body of working code, with no completed twin anywhere on
+    the page and no word for the reader, stays a defect: that is the leftover this
+    detector exists to catch.
+    """
+    line_end = code.find("\n", match.end())
+    marker_text = code[match.end(): line_end if line_end != -1 else len(code)]
+    if _READER_DIRECTED_MARKER.search(marker_text):
+        return True
+    enclosing = _enclosing_body(code, match.start())
+    if enclosing is None:
+        return False
+    decl_line, body = enclosing
+    if _body_is_stub(body):
+        return True
+    return _completed_in_another_block(blocks, block_index, decl_line)
+
+
+def _code_hygiene_defects(pages: Iterable[PageData], limit: int = 10) -> dict[str, Any]:
+    """Find unfinished markers left in published code examples (verifiable, exact quote).
+
+    A TODO/FIXME/CHANGEME in a shipped example is a defect only when it is a leftover
+    rather than a placeholder the guide asks the reader to fill in -- see
+    `_is_reader_placeholder` for how the two are told apart. One record per (page,
+    marker); other placeholder styles (YOUR_API_KEY) are deliberately excluded because
+    they are legitimate documentation placeholders.
+    """
+    defects: list[dict[str, Any]] = []
+    seen: set[tuple[str, str]] = set()
+    placeholders_skipped = 0
+    for page in pages:
+        blocks = list(page.code_blocks or [])
+        for block_index, block in enumerate(blocks):
+            code = str(block.get("code", ""))
+            if not code:
+                continue
+            for match in _CODE_MARKER_PATTERN.finditer(code):
+                marker = match.group(1).upper()
+                key = (page.url, marker)
+                if key in seen:
+                    continue
+                quote = _quote_around(code, match.start())
+                if _looks_like_minified(quote) or not _quote_supports_value(quote, marker):
+                    continue
+                if _is_reader_placeholder(code, match, blocks, block_index):
+                    placeholders_skipped += 1
+                    continue
+                seen.add(key)
+                defects.append(
+                    {
+                        "type": "code_marker",
+                        "confidence": "high",
+                        "summary": "Unfinished '{}' marker left in a published code example".format(marker),
+                        "evidence": [
+                            {"value": marker, "url": page.url, "quote": quote}
+                        ],
+                    }
+                )
+                if len(defects) >= limit:
+                    return {
+                        "defects_count": len(defects),
+                        "defects": defects,
+                        "reader_placeholders_skipped": placeholders_skipped,
+                    }
+    return {
+        "defects_count": len(defects),
+        "defects": defects,
+        "reader_placeholders_skipped": placeholders_skipped,
+    }
+
+
 def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
     """Merge repeated runs for one site; links use intersection for confirmed breaks."""
     if not site_runs:
@@ -2837,12 +3682,19 @@ def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
                 anchor_text = str(ref.get("anchor_text", "")).strip()
                 if not source_page:
                     continue
-                item = {"source_page": source_page, "anchor_text": anchor_text}
+                item = {
+                    "source_page": source_page,
+                    "anchor_text": anchor_text,
+                    "anchor_label": str(ref.get("anchor_label", "")).strip(),
+                    "context": str(ref.get("context", "")).strip(),
+                    "locator_quality": str(ref.get("locator_quality", "unlabeled")).strip(),
+                }
                 if item in seen_refs:
                     continue
                 if len(seen_refs) < 10:
                     seen_refs.append(item)
         if seen_refs:
+            seen_refs.sort(key=_provenance_rank)
             merged_provenance[url] = seen_refs
 
     link_merged = merged.setdefault("metrics", {}).setdefault("links", {})
@@ -2937,6 +3789,12 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         "api_coverage": _aggregate_api_coverage(sites),
         "examples": {
             "example_reliability_estimate_pct": wavg(["examples", "example_reliability_estimate_pct"]),
+            # Counts must survive aggregation: downstream (executive PDF content-
+            # coverage section) reads total_code_examples from the aggregate and
+            # would otherwise report "no code examples detected" while the same
+            # report cites a non-zero reliability estimate.
+            "total_code_examples": sum(int(s["metrics"].get("examples", {}).get("total_code_examples", 0)) for s in sites),
+            "runnable_without_env": sum(int(s["metrics"].get("examples", {}).get("runnable_without_env", 0)) for s in sites),
         },
         "freshness": {
             "last_updated_coverage_pct": wavg(["freshness", "last_updated_coverage_pct"]),
@@ -3615,7 +4473,17 @@ def _build_broken_links_export(payload: dict[str, Any]) -> dict[str, Any]:
                     source_page = str(ref.get("source_page", "")).strip()
                     anchor_text = str(ref.get("anchor_text", "")).strip()
                     if source_page:
-                        source_refs.append({"source_page": source_page, "anchor_text": anchor_text})
+                        source_refs.append(
+                            {
+                                "source_page": source_page,
+                                "anchor_text": anchor_text,
+                                "anchor_label": str(ref.get("anchor_label", "")).strip(),
+                                "context": str(ref.get("context", "")).strip(),
+                                "locator_quality": str(
+                                    ref.get("locator_quality", "unlabeled")
+                                ).strip(),
+                            }
+                        )
             detailed_links.append(
                 {
                     "target_url": target_url,
@@ -4081,6 +4949,48 @@ def main() -> int:
     pipeline_solution_fit = _build_pipeline_solution_fit(m)
 
     findings = []
+    # Cross-page contradictions lead: they are irrefutable (two source URLs + two verbatim
+    # quotes) and are exactly what a recipient can verify in seconds, so they open the audit.
+    contradiction_records: list[dict[str, Any]] = []
+    for _site in sites:
+        recs = _site.get("metrics", {}).get("contradictions", {}).get("contradictions", [])
+        if isinstance(recs, list):
+            contradiction_records.extend(recs)
+    # High-confidence classes lead; medium classes are still quote-backed but carry
+    # residual ambiguity, so they follow and are labeled for a human check first.
+    contradiction_records.sort(
+        key=lambda r: 0 if str(r.get("confidence", "high")).lower() == "high" else 1
+    )
+    for rec in contradiction_records:
+        evidence = rec.get("evidence", [])
+        if len(evidence) >= 2:
+            conf = str(rec.get("confidence", "high")).lower()
+            conf_note = (
+                "" if conf == "high"
+                else " ({} confidence: verify both quotes before citing)".format(conf)
+            )
+            findings.append(
+                "Contradiction ({}): {} says \"{}\" but {} says \"{}\" -- both are verifiable.{}".format(
+                    rec.get("type", "docs"),
+                    evidence[0].get("url", ""), evidence[0].get("quote", ""),
+                    evidence[1].get("url", ""), evidence[1].get("quote", ""),
+                    conf_note,
+                )
+            )
+    # Code-hygiene defects (leftover TODO/FIXME markers) also lead: verifiable by opening the page.
+    defect_records: list[dict[str, Any]] = []
+    for _site in sites:
+        recs = _site.get("metrics", {}).get("code_hygiene", {}).get("defects", [])
+        if isinstance(recs, list):
+            defect_records.extend(recs)
+    for rec in defect_records:
+        evidence = rec.get("evidence", [])
+        if evidence:
+            findings.append(
+                "Code defect: {} contains \"{}\" in a published example -- verifiable.".format(
+                    evidence[0].get("url", ""), evidence[0].get("quote", ""),
+                )
+            )
     total_pages = m["crawl"]["pages_crawled"]
     urls_examined = int(m["crawl"].get("urls_examined", m["crawl"].get("requested_pages", 0)) or 0)
     scope_pages = int(m["crawl"].get("crawl_scope_pages", m["crawl"].get("discovered_pages", m["crawl"].get("requested_pages", 0))) or 0)
@@ -4144,17 +5054,37 @@ def main() -> int:
         )
     elif api_cov < 70:
         findings.append("API usage-doc coverage is low: {}% ({} API pages detected)".format(api_cov, api_pages))
+    deferred_findings: list[str] = []
     ex_pct = m["examples"]["example_reliability_estimate_pct"]
-    ex_note = str(m["examples"].get("detection_note", "") or "")
-    if ex_pct < 60:
-        if ex_pct < 0.1 and total_pages >= 500:
+    # Read detection_note from the per-site metrics: the aggregate does not carry it, so
+    # reading only from m would miss the gate and wrongly lead with a "0%" detection failure.
+    ex_site = sites[0].get("metrics", {}).get("examples", {}) if sites else {}
+    ex_note = str(ex_site.get("detection_note", m["examples"].get("detection_note", "")) or "")
+    if ex_note:
+        # A detection_note means we found code blocks but could not classify them as
+        # runnable -- an auditor limitation, not a client defect. Never lead with it
+        # and never phrase it as "reliability is low"; defer it to the end as an
+        # explicitly low-confidence, manual-check item so it cannot be refuted.
+        deferred_findings.append(
+            "Code examples could not be auto-verified ({} code blocks found, none "
+            "classified as runnable). Low confidence -- needs a manual check, not counted "
+            "as a defect. {}".format(int(m["examples"].get("total_code_blocks_all", 0)), ex_note)
+        )
+    elif ex_pct < 60:
+        findings.append("Example reliability estimate is low: {}%".format(ex_pct))
+    fresh_site = sites[0].get("metrics", {}).get("freshness", {}) if sites else {}
+    # NB: do not use `or -1.0` here -- a legitimate 0.0 (every page has a freshness signal)
+    # is falsy and would be coerced to -1.0, wrongly triggering the old visible-date finding.
+    _no_sig_raw = fresh_site.get("no_freshness_signal_pct", -1.0)
+    no_sig_pct = float(_no_sig_raw) if _no_sig_raw is not None else -1.0
+    if no_sig_pct >= 0:
+        if no_sig_pct > 40:
             findings.append(
-                "Example reliability: 0% on {} pages (likely detection limitation). {}".format(
-                    total_pages, ex_note or "Site may use JS-rendered code blocks.")
+                "Freshness signals missing on {}% of pages -- no visible date, sitemap lastmod, "
+                "JSON-LD dateModified, or Last-Modified header -- so LLMs and search cannot tell "
+                "if the content is current.".format(no_sig_pct)
             )
-        else:
-            findings.append("Example reliability estimate is low: {}%".format(ex_pct))
-    if m["freshness"]["last_updated_coverage_pct"] < 50:
+    elif m["freshness"]["last_updated_coverage_pct"] < 50:
         findings.append(f"Freshness visibility is weak: only {m['freshness']['last_updated_coverage_pct']}% pages show last updated")
     if len(sites) > 1:
         if args.topology_mode == "single-product":
@@ -4163,6 +5093,11 @@ def main() -> int:
             findings.append("Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied.")
     if not findings:
         findings.append("No critical external issues found in sampled pages.")
+    # Verifiable, owner-checkable findings lead; low-confidence detection-limited
+    # notes always trail, clearly labeled, so the audit never opens with something
+    # the recipient can dismiss as wrong.
+    if deferred_findings:
+        findings.extend(deferred_findings)
 
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -4174,6 +5109,8 @@ def main() -> int:
         "aggregate": aggregate,
         "pipeline_solution_fit": pipeline_solution_fit,
         "confidence": aggregate.get("confidence", {}),
+        "verifiable_contradictions": contradiction_records,
+        "verifiable_defects": defect_records,
         "top_findings": findings,
     }
 

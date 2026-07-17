@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 import logging
 import re
-import time
 from datetime import datetime, timezone
 import uuid
 import os
@@ -26,6 +25,7 @@ from app.auth import parse_auth_context, require_runtime_api_key, validate_role
 from app.billing_hooks import can_use_ask_ai, enforce_webhook_replay_protection, verify_webhook_signature
 from app.retrieval import build_context, load_assistant_bundles, load_faiss_index, load_knowledge_index
 from app.secrets import resolve_provider_api_key
+from app.state_store import rate_limiter
 
 logger = logging.getLogger(__name__)
 
@@ -139,34 +139,20 @@ def _append_usage_event(config: dict[str, Any], event: dict[str, Any]) -> None:
         logger.warning("Ask AI usage log write failed: %s", exc)
 
 
-# Sliding-window rate limiter state: identity -> recent request timestamps.
-_RATE_STATE: dict[str, list[float]] = {}
-
-
 def _rate_limit_check(identity: str, limit_per_minute: int) -> None:
     """Enforce a per-identity request budget. Raises HTTP 429 when exceeded.
 
     Protects the public endpoint (and the provider quota behind it) from abuse.
-    A limit of 0 disables the check.
+    State lives in the shared store (in-memory, or Redis when configured for
+    multi-instance deployments). A limit of 0 disables the check.
     """
-    if limit_per_minute <= 0:
-        return
-    now = time.time()
-    window_start = now - 60.0
-    hits = [t for t in _RATE_STATE.get(identity, []) if t >= window_start]
-    if len(hits) >= limit_per_minute:
-        retry_after = max(1, int(60 - (now - hits[0])))
+    allowed, retry_after = rate_limiter.allow(identity, limit_per_minute, 60)
+    if not allowed:
         raise HTTPException(
             status_code=429,
             detail="Rate limit exceeded. Please slow down and try again shortly.",
             headers={"Retry-After": str(retry_after)},
         )
-    hits.append(now)
-    _RATE_STATE[identity] = hits
-    # Bound memory: drop identities whose window has fully expired.
-    if len(_RATE_STATE) > 4096:
-        for key in [k for k, v in _RATE_STATE.items() if not v or v[-1] < window_start]:
-            _RATE_STATE.pop(key, None)
 
 
 def _apply_byok(
@@ -522,6 +508,7 @@ def healthz() -> dict[str, Any]:
         "embedding_cache": cfg["embed_cache_enabled"],
         "confidence_guardrail": cfg["min_confidence"],
         "contradiction_warnings": bool(Path(cfg["contradictions_report_path"]).exists()),
+        "state_backend": rate_limiter.backend,
     }
 
 

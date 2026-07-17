@@ -8,7 +8,8 @@ import time
 
 from fastapi import HTTPException
 
-_webhook_replay_guard: dict[str, float] = {}
+from app.state_store import replay_guard
+
 WEBHOOK_MAX_SKEW_SECONDS = 300
 WEBHOOK_REPLAY_TTL_SECONDS = 3600
 
@@ -25,7 +26,8 @@ def enforce_webhook_replay_protection(*, body: bytes, event_id: str | None, time
 
     Requires a signed event id and timestamp. Deliveries outside the allowed
     clock skew are rejected, and a repeated (event id, body) pair within the TTL
-    is treated as a replay.
+    is treated as a replay. Replay state uses the shared store (in-memory, or
+    Redis when configured) so protection holds across instances.
     """
     if not event_id or not event_id.strip():
         raise HTTPException(status_code=400, detail="Missing webhook event id")
@@ -40,15 +42,10 @@ def enforce_webhook_replay_protection(*, body: bytes, event_id: str | None, time
     if abs(now - sent_ts) > WEBHOOK_MAX_SKEW_SECONDS:
         raise HTTPException(status_code=400, detail="Stale webhook timestamp")
 
-    stale = [key for key, ts in _webhook_replay_guard.items() if now - ts > WEBHOOK_REPLAY_TTL_SECONDS]
-    for key in stale:
-        _webhook_replay_guard.pop(key, None)
-
     digest = hashlib.sha256(body).hexdigest()
     replay_key = f"{event_id.strip()}:{digest}"
-    if replay_key in _webhook_replay_guard:
+    if not replay_guard.is_new(replay_key, WEBHOOK_REPLAY_TTL_SECONDS):
         raise HTTPException(status_code=409, detail="Webhook replay detected")
-    _webhook_replay_guard[replay_key] = float(now)
 
 
 def can_use_ask_ai(plan: str, billing_mode: str) -> bool:

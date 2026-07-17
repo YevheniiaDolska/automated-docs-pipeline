@@ -140,15 +140,16 @@ def _risk_band_color(band: str) -> colors.Color:
 
 
 def _grade_from_score(score: float) -> str:
+    # Thresholds MUST match the scorecard generator (generate_audit_scorecard.py)
+    # so the gauge letter, the grade card, and the sales teardown never disagree:
+    # A >= 90, B >= 80, C >= 70, D >= 60, F < 60.
     if score >= 90:
         return "A"
     if score >= 80:
-        return "B+"
-    if score >= 70:
         return "B"
-    if score >= 60:
+    if score >= 70:
         return "C"
-    if score >= 50:
+    if score >= 60:
         return "D"
     return "F"
 
@@ -329,8 +330,13 @@ def _benchmark_table(score: float, body_style: ParagraphStyle) -> list[Flowable]
 # ---------------------------------------------------------------------------
 
 
-def _draw_score_gauge(score: float, size: int = 140) -> Drawing:
-    """Semicircular gauge with red/yellow/green zones and needle."""
+def _draw_score_gauge(score: float, size: int = 140, grade: str | None = None) -> Drawing:
+    """Semicircular gauge with red/yellow/green zones and needle.
+
+    When *grade* is supplied (the authoritative scorecard grade), the gauge shows
+    it verbatim so the letter never diverges from the grade card or teardown;
+    otherwise it falls back to deriving the grade from the score.
+    """
     width = size
     height = int(size * 0.85)
     d = Drawing(width, height)
@@ -379,8 +385,8 @@ def _draw_score_gauge(score: float, size: int = 140) -> Drawing:
     score_y = cy - 28
     d.add(String(cx, score_y, score_str, fontSize=size * 0.17, fillColor=NAVY,
                  textAnchor="middle", fontName="Helvetica-Bold"))
-    grade = _grade_from_score(score)
-    d.add(String(cx, score_y - 16, grade, fontSize=size * 0.09, fillColor=GREY_500,
+    grade_str = grade if grade else _grade_from_score(score)
+    d.add(String(cx, score_y - 16, grade_str, fontSize=size * 0.09, fillColor=GREY_500,
                  textAnchor="middle", fontName="Helvetica-Bold"))
 
     # Zone labels at ends
@@ -523,7 +529,7 @@ def _alt_row_style(base_cmds: list, num_rows: int) -> list:
 
 def _cover_page(company_name: str, score: float, risk_band_label: str, gen_date: str,
                 pages_scanned: int, top_findings: list[str],
-                mode: str = "public") -> list[Flowable]:
+                mode: str = "public", grade: str | None = None) -> list[Flowable]:
 
     class CoverDrawing(Flowable):
         def __init__(self) -> None:
@@ -571,7 +577,7 @@ def _cover_page(company_name: str, score: float, risk_band_label: str, gen_date:
             c.drawString(30, h - 214, "CONFIDENTIAL  |  FOR INTERNAL USE ONLY")
 
             # Score gauge (right side)
-            gauge = _draw_score_gauge(score, size=160)
+            gauge = _draw_score_gauge(score, size=160, grade=grade)
             renderPDF.draw(gauge, c, w - 200, h - 230)
 
             # Risk band badge
@@ -1120,6 +1126,32 @@ def _compute_totals_from_findings(findings: list[dict[str, Any]]) -> dict[str, A
 # ---------------------------------------------------------------------------
 
 
+def _example_coverage(public_audit: dict[str, Any]) -> tuple[int, float]:
+    """Return (total_code_examples, reliability_pct) for the content-coverage line.
+
+    Single source of truth shared by the PDF and the cross-document consistency
+    test. The count is read from the aggregate first, then summed from per-site
+    metrics when the aggregate omits it (older payloads carried it only per site),
+    so the report can never claim "no code examples" while it also reports a
+    reliability estimate -- the exact PDF-vs-teardown contradiction this guards.
+    """
+    agg = public_audit.get("aggregate", {}).get("metrics", {})
+    agg_examples = agg.get("examples", {}) if isinstance(agg.get("examples"), dict) else {}
+    total_examples = int(agg_examples.get("total_code_examples", 0) or 0)
+    reliability = float(agg_examples.get("example_reliability_estimate_pct", 0) or 0)
+    # Count and reliability each fall back to per-site independently: the teardown's
+    # _extract_public_audit_metrics resolves reliability aggregate-first with per-site
+    # fallback, and both documents must land on the identical figure.
+    if total_examples == 0 or reliability == 0:
+        for site in public_audit.get("sites", []):
+            site_examples = site.get("metrics", {}).get("examples", {}) if isinstance(site, dict) else {}
+            if total_examples == 0:
+                total_examples += int(site_examples.get("total_code_examples", 0) or 0)
+            if reliability == 0:
+                reliability = float(site_examples.get("example_reliability_estimate_pct", 0) or 0)
+    return total_examples, reliability
+
+
 def _fallback_expert_analysis(public_audit: dict[str, Any], body_style: ParagraphStyle) -> list[Flowable]:
     """Render structured data-driven analysis when LLM was skipped."""
     elements: list[Flowable] = []
@@ -1173,13 +1205,18 @@ def _fallback_expert_analysis(public_audit: dict[str, Any], body_style: Paragrap
     elements.append(Spacer(1, 3 * mm))
 
     # Content Coverage
-    total_examples = int(agg.get("examples", {}).get("total_code_examples", 0) or 0) if isinstance(agg.get("examples"), dict) else 0
-    ex_rel = float(agg.get("examples", {}).get("example_reliability_estimate_pct", 0) or 0)
+    total_examples, ex_rel = _example_coverage(public_audit)
     freshness = float(agg.get("freshness", {}).get("last_updated_coverage_pct", 0) or 0)
     elements.append(Paragraph("Content Coverage", title_style))
     if total_examples > 0:
         elements.append(Paragraph(
             "Code examples found: <b>{}</b>, estimated reliability: <b>{:.0f}%</b>".format(total_examples, ex_rel),
+            green_item if ex_rel > 70 else item_style))
+    elif ex_rel > 0:
+        # Reliability was measured but the count did not propagate: report the
+        # signal we have rather than the contradictory "no examples" line.
+        elements.append(Paragraph(
+            "Code examples estimated reliability: <b>{:.0f}%</b>".format(ex_rel),
             green_item if ex_rel > 70 else item_style))
     else:
         elements.append(Paragraph("- No code examples detected in crawled pages", item_style))
@@ -1327,32 +1364,62 @@ def _money_style(amount: float) -> ParagraphStyle:
     )
 
 
-def _financial_cards(base: dict[str, Any], totals: dict[str, Any]) -> list[Flowable]:
-    """Financial exposure as 3 visual cards: LOW / BASE / HIGH."""
+def _scenario_monthly_signals(scenarios_impact: dict[str, Any]) -> tuple[float, float, float]:
+    """Return (low, base, high) monthly cost signals from business_impact scenarios.
+
+    The base signal is the exact figure the sales teardown annualizes, so both
+    documents lead with one reconciled number. Low/high use the same
+    conservative/aggressive multipliers (x0.7 / x1.4) the teardown documents,
+    falling back to computing them from base when only the base scenario exists.
+    """
+    def _signal(scenario: Any) -> float:
+        scenario = scenario if isinstance(scenario, dict) else {}
+        return float(scenario.get("total_signal_usd", scenario.get("monthly_cost_usd", 0)) or 0)
+
+    monthly_base = _signal(scenarios_impact.get("base"))
+    monthly_low = _signal(scenarios_impact.get("conservative"))
+    monthly_high = _signal(scenarios_impact.get("aggressive"))
+    if monthly_low == 0 and monthly_base:
+        monthly_low = round(monthly_base * 0.7, 2)
+    if monthly_high == 0 and monthly_base:
+        monthly_high = round(monthly_base * 1.4, 2)
+    return monthly_low, monthly_base, monthly_high
+
+
+def _financial_cards(scenarios_impact: dict[str, Any], totals: dict[str, Any]) -> list[Flowable]:
+    """Financial exposure as 3 visual cards: LOW / BASE / HIGH.
+
+    The headline is the annualized cost signal -- the same figure the sales
+    teardown reports (monthly cost signal x 12), scaled by the same
+    conservative/aggressive multipliers (x0.7 / x1.4). Both documents therefore
+    lead with one reconciled number. Remediation is shown as a separate one-time
+    fix cost and never folded into the recurring signal: adding a second
+    "operational friction" model on top of the cost signal was what made the
+    PDF's annual exposure diverge from the teardown's annualized figure.
+    """
+    monthly_low, monthly_base, monthly_high = _scenario_monthly_signals(scenarios_impact)
+
     rem_low = float(totals.get("remediation_cost_usd_low_total", 0) or 0)
     rem_base = float(totals.get("remediation_cost_usd_base_total", 0) or 0)
     rem_high = float(totals.get("remediation_cost_usd_high_total", 0) or 0)
-    loss_low = float(totals.get("monthly_loss_usd_low_total", 0) or 0)
-    loss_base = float(totals.get("monthly_loss_usd_base_total", 0) or 0)
-    loss_high = float(totals.get("monthly_loss_usd_high_total", 0) or 0)
-    opp = float(base.get("total_signal_usd", base.get("monthly_cost_usd", 0)) or 0)
 
     elements: list[Flowable] = []
 
-    # Scenario cards: LOW / BASE / HIGH
+    # Scenario cards: LOW / BASE / HIGH. Each carries its own monthly signal and
+    # its own one-time remediation cost.
     scenarios = [
-        ("Low Estimate", rem_low, loss_low, opp,
+        ("Low Estimate", monthly_low, rem_low,
          colors.HexColor("#065f46"), colors.HexColor("#ecfdf5"), colors.HexColor("#dcfce7")),
-        ("Base Estimate", rem_base, loss_base, opp,
+        ("Base Estimate", monthly_base, rem_base,
          colors.HexColor("#1e3a8a"), colors.HexColor("#eff6ff"), colors.HexColor("#dbeafe")),
-        ("High Estimate", rem_high, loss_high, opp,
+        ("High Estimate", monthly_high, rem_high,
          colors.HexColor("#991b1b"), colors.HexColor("#fef2f2"), colors.HexColor("#fee2e2")),
     ]
 
     card_w = CONTENT_W / 3 - 2 * mm
     card_cells = []
-    for label, rem, loss, opp_val, title_fg, card_bg, header_bg in scenarios:
-        total = rem + loss * 12 + opp_val * 12
+    for label, monthly, rem, title_fg, card_bg, header_bg in scenarios:
+        total = monthly * 12
         title_style = ParagraphStyle(
             "FCardTitle_{}".format(label[:4]), fontName="Helvetica-Bold", fontSize=9,
             leading=11, textColor=WHITE, alignment=TA_CENTER,
@@ -1373,11 +1440,10 @@ def _financial_cards(base: dict[str, Any], totals: dict[str, Any]) -> list[Flowa
         card_content = [
             Paragraph(label, title_style),
             Paragraph(_format_money(total), big_num),
-            Paragraph("annual exposure", sub_style),
+            Paragraph("annualized cost signal", sub_style),
             Spacer(1, 3 * mm),
-            Paragraph("Remediation: <b>{}</b>".format(_format_money(rem)), line_style),
-            Paragraph("Monthly loss: <b>{}</b>".format(_format_money(loss)), line_style),
-            Paragraph("Opportunity: <b>{}</b>/mo".format(_format_money(opp_val)), line_style),
+            Paragraph("Cost signal: <b>{}</b>/mo".format(_format_money(monthly)), line_style),
+            Paragraph("Remediation (one-time): <b>{}</b>".format(_format_money(rem)), line_style),
             Spacer(1, 3 * mm),
         ]
         card_cells.append(card_content)
@@ -1407,9 +1473,9 @@ def _financial_cards(base: dict[str, Any], totals: dict[str, Any]) -> list[Flowa
         textColor=GREY_500,
     )
     elements.append(Paragraph(
-        "Remediation: finding-level effort model  |  "
-        "Monthly loss: operational friction model  |  "
-        "Opportunity: engineering/support/release delay", note_style))
+        "Annualized cost signal = monthly cost signal x 12 -- the same figure as the sales teardown.  |  "
+        "Remediation is a separate one-time fix cost.  |  "
+        "Conservative/aggressive scenarios apply x0.7 / x1.4.", note_style))
 
     return elements
 
@@ -2049,7 +2115,10 @@ def _build_pdf(
     gen_date = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     top_findings = public_audit.get("top_findings", []) or []
 
-    impact_base = scorecard.get("business_impact", {}).get("scenarios", {}).get("base", {})
+    impact_scenarios = scorecard.get("business_impact", {}).get("scenarios", {})
+    if not isinstance(impact_scenarios, dict):
+        impact_scenarios = {}
+    impact_base = impact_scenarios.get("base", {})
     if not isinstance(impact_base, dict):
         impact_base = {}
 
@@ -2063,11 +2132,16 @@ def _build_pdf(
             ).format(company_name, score_value, grade_label,
                      len(findings))
         else:
+            # Count the findings actually tabulated below (Risk Matrix, Priority
+            # Action Plan). Using the scorecard findings keeps this number equal to
+            # the risk matrix and the sales teardown; fall back to public-audit
+            # headline findings only when no scorecard findings exist.
+            findings_n = len(findings) if findings else max(len(top_findings), 3)
             summary_text = (
                 "{} documentation has measurable quality gaps and structural risks. "
                 "This audit identifies {} specific findings across link health, content coverage, "
                 "and search optimization that directly impact developer experience and support costs."
-            ).format(company_name, max(len(top_findings), 3))
+            ).format(company_name, findings_n)
 
     action_items: list[str] = []
     if mode == "internal":
@@ -2128,17 +2202,17 @@ def _build_pdf(
         internal_top = [str(f.get("title", ""))[:90] for f in findings[:4]]
         content.extend(_cover_page(
             company_name, score_value, risk_band_label, gen_date,
-            docs_count, internal_top, mode="internal"))
+            docs_count, internal_top, mode="internal", grade=grade_label))
     else:
         content.extend(_cover_page(
             company_name, score_value, risk_band_label, gen_date,
-            pages, top_findings))
+            pages, top_findings, grade=grade_label))
 
     # == PAGE 2: Executive Summary + Per-Site Breakdown + Key Metrics ==
     content.extend(_section_header("Executive Summary", section_style))
 
     # Score gauge + narrative side by side
-    gauge_drawing = _draw_score_gauge(score_value, size=140)
+    gauge_drawing = _draw_score_gauge(score_value, size=140, grade=grade_label)
     gauge_cell = DrawingFlowable(gauge_drawing)
 
     narrative_parts = [Paragraph(summary_text, body_style), Spacer(1, 2 * mm)]
@@ -2373,7 +2447,7 @@ def _build_pdf(
         # When scorecard has no totals, compute from effective findings
         if not totals or all(v == 0 for v in totals.values() if isinstance(v, (int, float))):
             totals = _compute_totals_from_findings(effective_findings)
-        content.extend(_financial_cards(impact_base, totals))
+        content.extend(_financial_cards(impact_scenarios, totals))
     content.append(PageBreak())
 
     # == PAGE 4: Risk Matrix + Priority Actions ==

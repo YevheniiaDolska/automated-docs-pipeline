@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 
@@ -551,6 +552,35 @@ def _load_assumptions(path: Path | None) -> CostAssumptions:
     )
 
 
+def _resolve_assumptions_path(
+    explicit: str,
+    public_audit_path: Path | None,
+    reports_dir: Path,
+) -> Path | None:
+    """Resolve the cost-model assumptions file.
+
+    An explicit --assumptions-json always wins. Otherwise, when a client public
+    audit drives the scorecard, prefer the client-specific LLM-generated
+    assumptions (company_assumptions.autofill.json) that the auditor writes next
+    to that audit, then the reports dir. This keeps the cost model on
+    client-derived premises rather than the generic startup default, and makes
+    the signal deterministic for a given audit + autofill pair. Internal repo
+    runs (no public audit) keep the built-in defaults. Returns None to fall back.
+    """
+    explicit = str(explicit or "").strip()
+    if explicit:
+        return Path(explicit)
+    if public_audit_path is None:
+        return None
+    for candidate in (
+        public_audit_path.parent / "company_assumptions.autofill.json",
+        reports_dir / "company_assumptions.autofill.json",
+    ):
+        if candidate.exists():
+            return candidate
+    return None
+
+
 def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict[str, Any]:
     undocumented_pct = float(kpis["api_coverage"]["undocumented_pct"])
     stale_pct = float(kpis["freshness"]["stale_docs_pct"])
@@ -576,13 +606,34 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
         w_ex = rw.get("example_gap", 0.20)
         w_term = rw.get("terminology", 0.10)
 
-    risk_index = (
-        w_undoc * (undocumented_pct / 100.0)
-        + w_stale * (stale_pct / 100.0)
-        + w_drift * (drift_pct / 100.0)
-        + w_ex * ((100.0 - example_reliability) / 100.0)
-        + w_term * (terminology_violation_pct / 100.0)
-    )
+    # Confidence gating: an input flagged as a detection failure (for example, code
+    # blocks found but not classifiable as runnable) must not enter the cost model as a
+    # real 0%. Excluded dimensions are dropped and the remaining weight rescaled, so the
+    # number reflects only what the audit actually measured -- not a scanner limitation.
+    example_reliable = not bool(kpis.get("example_reliability", {}).get("detection_failed", False))
+    undoc_reliable = bool(kpis.get("api_coverage", {}).get("coverage_reliable", True))
+    excluded_cost_dimensions: list[str] = []
+    if not example_reliable:
+        excluded_cost_dimensions.append("example_reliability")
+    if not undoc_reliable:
+        excluded_cost_dimensions.append("api_coverage")
+
+    _risk_dims = [
+        (w_undoc, undocumented_pct / 100.0, undoc_reliable),
+        (w_stale, stale_pct / 100.0, True),
+        (w_drift, drift_pct / 100.0, True),
+        (w_ex, (100.0 - example_reliability) / 100.0, example_reliable),
+        (w_term, terminology_violation_pct / 100.0, True),
+    ]
+    if excluded_cost_dimensions:
+        _risk_used_w = sum(w for w, _v, ok in _risk_dims if ok)
+        _risk_all_w = sum(w for w, _v, _ok in _risk_dims)
+        risk_index = (
+            sum(w * v for w, v, ok in _risk_dims if ok) * (_risk_all_w / _risk_used_w)
+            if _risk_used_w > 0 else 0.0
+        )
+    else:
+        risk_index = sum(w * v for w, v, _ok in _risk_dims)
     risk_index = min(max(risk_index, 0.0), 1.0)
 
     # -- Itemized monthly expense components (base scenario) ------------------
@@ -592,8 +643,8 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     # sums to the reported totals.
     baseline_upkeep_hours = assumptions.baseline_manual_sync_hours_per_week * 4.3
     release_delay_hours = assumptions.release_count_per_month * assumptions.avg_release_delay_hours * risk_index
-    undocumented_drag_hours = (undocumented_pct / 100.0) * 10.0
-    example_drag_hours = ((100.0 - example_reliability) / 100.0) * 12.0
+    undocumented_drag_hours = ((undocumented_pct / 100.0) * 10.0) if undoc_reliable else 0.0
+    example_drag_hours = (((100.0 - example_reliability) / 100.0) * 12.0) if example_reliable else 0.0
     engineering_hours = baseline_upkeep_hours + release_delay_hours + undocumented_drag_hours + example_drag_hours
     support_hours = (
         assumptions.monthly_support_tickets
@@ -657,7 +708,12 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
             },
             "hours": round(example_drag_hours, 1),
             "monthly_usd": round(example_drag_hours * assumptions.engineer_hourly_usd, 2),
-            "note": "Proportional to the measured share of failing code examples.",
+            "note": (
+                "Proportional to the measured share of failing code examples."
+                if example_reliable
+                else "Excluded: code examples could not be auto-verified (detection limitation), "
+                "so this line is $0 instead of inferred from an unmeasured 0%."
+            ),
         },
         {
             "id": "docs_driven_support",
@@ -679,21 +735,25 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
 
     operational_cost = engineering_hours * assumptions.engineer_hourly_usd + support_hours * assumptions.support_hourly_usd
 
-    commercial_friction_index = min(
-        max(
-            (
-                0.20 * (undocumented_pct / 100.0)
-                + 0.10 * (stale_pct / 100.0)
-                + 0.10 * (drift_pct / 100.0)
-                + 0.20 * (layers_missing_pct / 100.0)
-                + 0.20 * ((100.0 - example_reliability) / 100.0)
-                + 0.10 * ((100.0 - retrieval_quality_pct) / 100.0)
-                + 0.10 * (hallucination_penalty_pct / 100.0)
-            ),
-            0.0,
-        ),
-        1.0,
-    )
+    _cf_dims = [
+        (0.20, undocumented_pct / 100.0, undoc_reliable),
+        (0.10, stale_pct / 100.0, True),
+        (0.10, drift_pct / 100.0, True),
+        (0.20, layers_missing_pct / 100.0, True),
+        (0.20, (100.0 - example_reliability) / 100.0, example_reliable),
+        (0.10, (100.0 - retrieval_quality_pct) / 100.0, True),
+        (0.10, hallucination_penalty_pct / 100.0, True),
+    ]
+    if excluded_cost_dimensions:
+        _cf_used_w = sum(w for w, _v, ok in _cf_dims if ok)
+        _cf_all_w = sum(w for w, _v, _ok in _cf_dims)
+        _cf_raw = (
+            sum(w * v for w, v, ok in _cf_dims if ok) * (_cf_all_w / _cf_used_w)
+            if _cf_used_w > 0 else 0.0
+        )
+    else:
+        _cf_raw = sum(w * v for w, v, _ok in _cf_dims)
+    commercial_friction_index = min(max(_cf_raw, 0.0), 1.0)
     customers_at_risk = (
         assumptions.monthly_doc_influenced_evals
         * assumptions.eval_to_customer_rate
@@ -772,6 +832,17 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
             "aggressive": _scenario(1.4),
         },
         "assumptions": assumptions.__dict__,
+        "cost_basis": {
+            "excluded_dimensions": excluded_cost_dimensions,
+            "confidence": "high" if not excluded_cost_dimensions else "partial",
+            "note": (
+                "All measured dimensions used."
+                if not excluded_cost_dimensions
+                else "Computed only from dimensions the audit verified; "
+                + ", ".join(excluded_cost_dimensions)
+                + " excluded as low-confidence (detection limitation) rather than counted as cost."
+            ),
+        },
     }
 
 
@@ -930,10 +1001,14 @@ def _build_findings(kpis: dict[str, Any], assumptions: CostAssumptions) -> list[
         "F-EXAMPLES-RELIABILITY",
         "Code examples fail or are non-runnable",
         "example_execution_quality",
-        "Example reliability %",
+        # The metric value is the non-runnable share (100 - reliability), so the
+        # label must name that share. Labeling it "Example reliability %" made the
+        # evidence read "reliability is 13%", contradicting the 86.9% reliability
+        # cited elsewhere in the same teardown and in the executive PDF.
+        "Non-runnable examples %",
         max(0.0, 100.0 - float(examples["example_reliability_pct"])),
         5.0,
-        "% shortfall",
+        "%",
         (3.0, 14.0),
         2.0,
         "Run smoke + expected-output checks and auto-fix broken snippets.",
@@ -1302,6 +1377,14 @@ def _extract_public_audit_metrics(public_audit: dict[str, Any]) -> dict[str, Any
     retrieval = metrics.get("retrieval_readiness", {}) if isinstance(metrics.get("retrieval_readiness"), dict) else {}
     evidence = metrics.get("evidence_coverage", {}) if isinstance(metrics.get("evidence_coverage"), dict) else {}
     actionability = metrics.get("actionability", {}) if isinstance(metrics.get("actionability"), dict) else {}
+    # Example reliability is resolved aggregate-first with per-site fallback -- the
+    # identical rule the executive PDF uses (_example_coverage) -- so both documents
+    # report one site-wide reliability figure even for multi-site audits.
+    aggregate_examples = aggregate_metrics.get("examples", {}) if isinstance(aggregate_metrics.get("examples"), dict) else {}
+    site_examples = site_metrics.get("examples", {}) if isinstance(site_metrics.get("examples"), dict) else {}
+    example_reliability_pct = float(aggregate_examples.get("example_reliability_estimate_pct", 0.0) or 0.0)
+    if example_reliability_pct == 0.0:
+        example_reliability_pct = float(site_examples.get("example_reliability_estimate_pct", 0.0) or 0.0)
     return {
         "site_url": str(site.get("site_url", public_audit.get("site_url", ""))).strip(),
         "pages_crawled": int(crawl.get("pages_crawled", 0) or 0),
@@ -1311,7 +1394,10 @@ def _extract_public_audit_metrics(public_audit: dict[str, Any]) -> dict[str, Any
         "unverified_links_count": int(links.get("unverified_links_count", 0) or 0),
         "api_coverage_pct": float(coverage.get("reference_coverage_pct", 0.0) or 0.0),
         "api_pages_detected": int(coverage.get("api_pages_detected", 0) or 0),
-        "example_reliability_pct": float(quality.get("example_reliability_estimate_pct", 0.0) or 0.0),
+        "example_reliability_pct": example_reliability_pct,
+        "examples_detection_note": str(quality.get("detection_note", "") or ""),
+        "api_coverage_determined": bool(coverage.get("coverage_determined", True))
+        and float(coverage.get("reference_coverage_pct", 0.0) or 0.0) >= 0,
         "seo_geo_issue_pct": float(seo_geo.get("seo_geo_issue_rate_pct", 0.0) or 0.0),
         "freshness_metadata_pct": float(metadata.get("last_updated_coverage_pct", 0.0) or 0.0),
         "retrieval_chunkability_pct": float(retrieval.get("chunkability_pct", 0.0) or 0.0),
@@ -1348,6 +1434,7 @@ def _merge_kpis_with_public_audit(base_kpis: dict[str, Any], public_audit: dict[
         "undocumented_operations": int(round((100.0 - max(0.0, min(100.0, api_coverage_pct))) / 100.0 * max(1, int(public_metrics.get("api_pages_detected", 0) or 0)))),
         "coverage_pct": round(api_coverage_pct, 2),
         "undocumented_pct": round(max(0.0, 100.0 - api_coverage_pct), 2),
+        "coverage_reliable": bool(public_metrics.get("api_coverage_determined", True)),
     }
     merged["example_reliability"] = {
         "report_found": True,
@@ -1355,6 +1442,7 @@ def _merge_kpis_with_public_audit(base_kpis: dict[str, Any], public_audit: dict[
         "executed_examples": pages_crawled,
         "failed_examples": int(round((100.0 - max(0.0, min(100.0, example_reliability_pct))) / 100.0 * pages_crawled)),
         "example_reliability_pct": round(example_reliability_pct, 2),
+        "detection_failed": bool(str(public_metrics.get("examples_detection_note", "")).strip()),
     }
     merged["freshness"] = {
         "total_docs": pages_crawled,
@@ -1826,6 +1914,202 @@ def _pipeline_price_comparison(monthly_cost_usd: float, pipeline_price_usd: floa
     }
 
 
+def _sales_verify_in_30s(
+    public_audit: dict[str, Any],
+    public_metrics: dict[str, Any],
+    limit: int = 3,
+) -> list[dict[str, Any]]:
+    """Capped list of concrete, owner-checkable defects (exact URL + verbatim quote).
+
+    Deliberately capped: it shows a few undeniable examples to earn trust, not the full
+    findings list (that stays behind a reply). Contradictions lead because two URLs plus
+    two verbatim quotes cannot be dismissed as a false positive, even if intentional.
+    """
+    items: list[dict[str, Any]] = []
+    contradictions = public_audit.get("verifiable_contradictions", [])
+    if isinstance(contradictions, list):
+        for rec in contradictions:
+            if not isinstance(rec, dict):
+                continue
+            # This block is the public-facing trust anchor: only high-confidence
+            # contradictions qualify. Medium-confidence ones stay in the payload for
+            # a human to verify and cherry-pick.
+            if str(rec.get("confidence", "high")).lower() != "high":
+                continue
+            evidence = rec.get("evidence", [])
+            if isinstance(evidence, list) and len(evidence) >= 2:
+                items.append(
+                    {
+                        "kind": "contradiction",
+                        "label": str(rec.get("summary", "Two pages contradict each other")),
+                        "refs": [
+                            {"url": str(e.get("url", "")), "quote": str(e.get("quote", ""))}
+                            for e in evidence[:2]
+                            if isinstance(e, dict)
+                        ],
+                    }
+                )
+            if len(items) >= limit:
+                return items[:limit]
+    defects = public_audit.get("verifiable_defects", [])
+    if isinstance(defects, list):
+        for rec in defects:
+            if not isinstance(rec, dict):
+                continue
+            evidence = rec.get("evidence", [])
+            if isinstance(evidence, list) and evidence and isinstance(evidence[0], dict):
+                items.append(
+                    {
+                        "kind": "code_defect",
+                        "label": str(rec.get("summary", "Unfinished marker in a code example")),
+                        "refs": [
+                            {
+                                "url": str(evidence[0].get("url", "")),
+                                "quote": str(evidence[0].get("quote", "")),
+                            }
+                        ],
+                    }
+                )
+            if len(items) >= limit:
+                return items[:limit]
+    sites = public_audit.get("sites", [])
+    site = sites[0] if isinstance(sites, list) and sites and isinstance(sites[0], dict) else {}
+    samples = site.get("samples", {}) if isinstance(site.get("samples"), dict) else {}
+    links_metrics = site.get("metrics", {}).get("links", {}) if isinstance(site.get("metrics"), dict) else {}
+    provenance = links_metrics.get("_broken_link_provenance", {})
+    if not isinstance(provenance, dict):
+        provenance = {}
+    broken = samples.get("docs_broken_link_samples", [])
+    if isinstance(broken, list):
+        for url in broken:
+            if len(items) >= limit:
+                break
+            # Lead with the dead target, then name the exact source page(s) and a
+            # locator the owner can actually resolve to THIS link.
+            refs: list[dict[str, str]] = [
+                {"url": str(url), "label": "Dead link (open to confirm it returns an error):"}
+            ]
+            seen_pages: set[str] = set()
+            for source in provenance.get(str(url), []):
+                if len(refs) >= 3:
+                    break
+                if not isinstance(source, dict):
+                    continue
+                source_page = str(source.get("source_page", "")).strip()
+                if not source_page or source_page in seen_pages:
+                    # Two refs to the same page is not two pieces of evidence.
+                    continue
+                seen_pages.add(source_page)
+                refs.append(_broken_link_source_ref(source_page, source, str(url)))
+            items.append(
+                {
+                    "kind": "broken_link",
+                    "label": "Broken link in the docs (dead end for readers)",
+                    "refs": refs,
+                }
+            )
+    return items[:limit]
+
+
+_MAX_CONTEXT_LOCATOR_CHARS = 60
+_MAX_CONTEXT_LOCATOR_WORDS = 8
+
+
+def _usable_context(context: str) -> str:
+    """Return *context* when it reads as a row/card label, else "".
+
+    The crawler's context is the nearest preceding heading or cell label, which on
+    a matrix page is the row name ("Robinhood Chain") but inside running prose is
+    whatever sentence fragment preceded the link. Telling a reader to "find" a
+    20-word fragment that starts mid-clause fails the same way a repeated anchor
+    label does: the locator does not locate. Only a short, label-shaped string
+    earns a place in the instruction; anything else degrades to the target path.
+    """
+    text = context.strip().strip(":;,-— ").strip()
+    if not text or text.endswith("."):
+        return ""
+    if len(text) > _MAX_CONTEXT_LOCATOR_CHARS:
+        return ""
+    if len(text.split()) > _MAX_CONTEXT_LOCATOR_WORDS:
+        return ""
+    return text
+
+
+def _broken_link_source_ref(
+    source_page: str, source: dict[str, Any], target_url: str
+) -> dict[str, str]:
+    """Describe where a broken link lives using a locator the reader can resolve.
+
+    An anchor label may only be quoted as "linked as X" when it resolves to
+    exactly one target on the source page. Quoting a label that repeats (a
+    support matrix where every row links out as "CCIP") or that does not exist
+    at all (icon-only cells) sends the reader to a different, working link. They
+    verify, it works, and they discard a true finding -- and the report's
+    credibility with it. When the label is not a locator, fall back to the
+    nearest row/card heading, and otherwise say plainly that the link is
+    icon-only rather than inventing a quote.
+
+    The quote slot renders as a code block, which the reader reads as "search for
+    this". So it may only ever hold a string that resolves to the claimed link. A
+    repeated label stays in the prose label, where it names the column to look
+    under, and the exact target path takes the quote slot.
+    """
+    quality = str(source.get("locator_quality", "")).strip()
+    context = _usable_context(str(source.get("context", "")))
+    # Only visible anchor text may be quoted. An accessible name recovered from
+    # aria-label or <img alt> disambiguates for the crawler but the reader cannot
+    # see it on the page, so quoting it sends them hunting for text that is not
+    # there.
+    text = str(source.get("anchor_text", "")).strip()
+
+    if text and quality == "unique":
+        return {
+            "url": source_page,
+            "label": "Linked from this doc as:",
+            "quote": text,
+        }
+    if text and context:
+        return {
+            "url": source_page,
+            "label": (
+                f'Linked from this doc: find "{context}", then its "{text}" link '
+                f'(other rows link out as "{text}" too -- match on the target below, '
+                "not the link text):"
+            ),
+            "quote": _relative_target(target_url),
+        }
+    if text:
+        # Label repeats across the page: name it, but never as a search target.
+        return {
+            "url": source_page,
+            "label": (
+                f'Linked from this doc (one of several "{text}" links -- '
+                "match on the target below, not the link text):"
+            ),
+            "quote": _relative_target(target_url),
+        }
+    if context:
+        return {
+            "url": source_page,
+            "label": f'Linked from this doc, in "{context}" (icon-only link), pointing to:',
+            "quote": _relative_target(target_url),
+        }
+    return {
+        "url": source_page,
+        "label": "Linked from this doc (icon-only link), pointing to:",
+        "quote": _relative_target(target_url),
+    }
+
+
+def _relative_target(target_url: str) -> str:
+    """Return the path of *target_url* -- the one locator that is always exact."""
+    try:
+        path = urlparse(target_url).path
+    except ValueError:
+        return target_url
+    return path or target_url
+
+
 def _build_sales_teardown_payload(
     scorecard_payload: dict[str, Any],
     *,
@@ -1856,6 +2140,8 @@ def _build_sales_teardown_payload(
             "estimated_annual_cost_usd": round(
                 float(base_impact.get("total_signal_usd", base_impact.get("monthly_cost_usd", 0.0)) or 0.0) * 12.0, 2
             ),
+            "cost_confidence": str(business_impact.get("cost_basis", {}).get("confidence", "")),
+            "cost_basis_note": str(business_impact.get("cost_basis", {}).get("note", "")),
         },
         "monthly_expense_breakdown": business_impact.get("monthly_expense_breakdown", {}),
         "pipeline_comparison": _pipeline_price_comparison(
@@ -1864,6 +2150,7 @@ def _build_sales_teardown_payload(
         ),
         "signal_cards": _sales_signal_cards(scorecard_payload, public_metrics),
         "key_findings": key_findings,
+        "verify_in_30_seconds": _sales_verify_in_30s(public_audit, public_metrics),
         "priority_actions": _sales_next_steps(scorecard_payload, public_metrics, llm_analysis),
         "strengths": llm_analysis.get("strengths", [])[:3],
         "risks": llm_analysis.get("risks", [])[:4],
@@ -1891,6 +2178,49 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
     automation_first = payload.get("automation_first", [])
     snapshot = payload.get("commercial_snapshot", {})
     site_url = html.escape(str(payload.get("site_url", "")))
+
+    verify_items = payload.get("verify_in_30_seconds", [])
+
+    def _verify_ref_html(ref: dict[str, Any]) -> str:
+        url = html.escape(str(ref.get("url", "")))
+        quote = html.escape(str(ref.get("quote", "")))
+        label = html.escape(str(ref.get("label", "")))
+        label_html = (
+            f"<div style='margin-top:8px; color:var(--slate); font-size:12px; font-weight:600;'>{label}</div>"
+            if label
+            else ""
+        )
+        link = f"<a href='{url}' style='color:var(--blue); word-break:break-all;'>{url}</a>" if url else ""
+        code = (
+            f"<code style='display:block; margin-top:4px; color:var(--slate); font-size:12px;'>{quote}</code>"
+            if quote
+            else ""
+        )
+        return f"<div style='margin-top:8px;'>{label_html}{link}{code}</div>"
+
+    verify_rows = "".join(
+        (
+            "<div class='finding'>"
+            "<div class='finding-tag'>Verify in 30s</div>"
+            f"<h3 style='font-size:16px;'>{html.escape(str(it.get('label', '')))}</h3>"
+            + "".join(_verify_ref_html(r) for r in it.get("refs", []) if isinstance(r, dict))
+            + "</div>"
+        )
+        for it in verify_items
+        if isinstance(it, dict)
+    )
+    verify_section = (
+        (
+            "<section class='split' style='grid-template-columns:1fr;'><div class='surface'>"
+            "<h2 class='section-title'>Verify these in 30 seconds</h2>"
+            "<p class='summary-text'>Open the links below. Each is a concrete issue you can confirm "
+            "yourself in seconds. This is a small sample from the audit, not the full list.</p>"
+            + verify_rows
+            + "</div></section>"
+        )
+        if verify_rows
+        else ""
+    )
 
     def _accent_class(accent: str) -> str:
         safe = str(accent or "teal").strip().lower()
@@ -2232,10 +2562,11 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
               <div class="v">${html.escape(f"{float(summary.get('estimated_monthly_cost_usd', 0.0) or 0.0):,.0f}")}</div>
             </div>
             <div class="mini">
-              <div class="k">Annualized</div>
+              <div class="k">Annualized (est.)</div>
               <div class="v">${html.escape(f"{float(summary.get('estimated_annual_cost_usd', 0.0) or 0.0):,.0f}")}</div>
             </div>
           </div>
+          <p class="footnote" style="color:rgba(255,255,255,.82); margin-top:12px;">Estimate on assumed inputs ({html.escape(str(summary.get("cost_confidence", "") or "estimate"))} confidence) — plug in your own numbers to recalculate. Full breakdown below.</p>
         </div>
       </div>
     </section>
@@ -2268,6 +2599,8 @@ def _build_sales_teardown_html(payload: dict[str, Any]) -> str:
         </div>
       </div>
     </section>
+
+    {verify_section}
 
     <section class="split">
       <div class="surface">
@@ -2496,7 +2829,9 @@ def main() -> int:
         help=(
             "Cost-model assumptions JSON. Pick a scale preset from "
             "config/impact_assumptions/{startup,midmarket,enterprise}.json or pass the "
-            "prospect's own numbers. Defaults to the (deliberately conservative) startup profile."
+            "prospect's own numbers. When omitted and a --public-audit-json is given, the "
+            "client-specific company_assumptions.autofill.json next to that audit is used "
+            "automatically; otherwise the built-in defaults apply."
         ),
     )
     parser.add_argument("--auto-run-smoke", action="store_true")
@@ -2528,7 +2863,12 @@ def main() -> int:
     }
     if public_audit:
         kpis = _merge_kpis_with_public_audit(kpis, public_audit)
-    assumptions = _load_assumptions(Path(args.assumptions_json) if str(args.assumptions_json).strip() else None)
+    assumptions_path = _resolve_assumptions_path(args.assumptions_json, public_audit_path, reports_dir)
+    assumptions = _load_assumptions(assumptions_path)
+    if assumptions_path is not None and assumptions_path.exists():
+        print(f"[ok] cost assumptions: {assumptions_path}")
+    elif public_audit:
+        print("[ok] cost assumptions: built-in defaults (no client autofill found next to the audit)")
     findings = _build_findings(kpis, assumptions)
     business_impact = _business_impact(kpis, assumptions)
     _allocate_finding_monthly_losses(findings, kpis, business_impact)

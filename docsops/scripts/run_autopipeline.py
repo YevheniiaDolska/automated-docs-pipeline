@@ -765,6 +765,12 @@ def main() -> int:
         action="store_true",
         help="Skip automatic screenshot placement into docs.",
     )
+    parser.add_argument(
+        "--skip-screenshot-local-serve",
+        action="store_true",
+        help="Do not build and serve the MkDocs site locally for screenshot capture. "
+        "Use when --screenshot-base-url or docs_site.production_url points at a live site.",
+    )
     args = parser.parse_args()
 
     repo_root = Path.cwd()
@@ -1068,44 +1074,72 @@ def main() -> int:
         screenshot_capture_report = reports_dir / "screenshot_capture_report.json"
         screenshot_report = reports_dir / "screenshot_injection_report.json"
         screenshot_build_report = reports_dir / "screenshot_manifest_build_report.json"
-        if not args.skip_screenshot_plan_refresh:
-            base_url = str(args.screenshot_base_url).strip()
-            if not base_url:
-                docs_site_cfg = runtime.get("docs_site", {}) if isinstance(runtime.get("docs_site"), dict) else {}
-                base_url = str(docs_site_cfg.get("production_url", "")).strip() or "http://localhost:3000"
-            refresh_cmd = [
-                sys.executable,
-                str(REPO_ROOT / "scripts" / "generate_screenshot_capture_plan.py"),
-                "--docs-root",
-                docs_root_cfg,
-                "--output",
-                str(args.screenshot_capture_plan),
-                "--base-url",
-                base_url,
-            ]
-            refresh_rc = _run(refresh_cmd, cwd=repo_root)
-            _say("Screenshot plan refresh", f"rc={refresh_rc}, plan={args.screenshot_capture_plan}")
-            if refresh_rc != 0 and strictness == "enterprise-strict":
-                print("[autopipeline] screenshot plan refresh failed in enterprise-strict mode")
-                narrator.finish(False, "Screenshot plan refresh failed in enterprise-strict mode")
-                return int(refresh_rc)
-        if not args.skip_screenshot_capture:
-            capture_cmd = [
-                sys.executable,
-                str(REPO_ROOT / "scripts" / "capture_screenshots.py"),
-                "--plan",
-                str(args.screenshot_capture_plan),
-                "--output-manifest",
-                str(args.screenshot_capture_manifest),
-                "--report",
-                str(screenshot_capture_report),
-            ]
-            capture_rc = _run(capture_cmd, cwd=repo_root)
-            _say("Screenshot capture", f"rc={capture_rc}, report={screenshot_capture_report}")
-            if capture_rc != 0 and strictness == "enterprise-strict":
-                print("[autopipeline] screenshot capture failed in enterprise-strict mode")
-                narrator.finish(False, "Screenshot capture failed in enterprise-strict mode")
-                return int(capture_rc)
+        docs_site_cfg = runtime.get("docs_site", {}) if isinstance(runtime.get("docs_site"), dict) else {}
+        explicit_base_url = str(args.screenshot_base_url).strip() or str(docs_site_cfg.get("production_url", "")).strip()
+        # When no live site is configured, build and serve the MkDocs site locally so
+        # Playwright captures render against real pages instead of timing out.
+        local_site = None
+        want_local_serve = (
+            not args.skip_screenshot_capture
+            and not args.skip_screenshot_local_serve
+            and not explicit_base_url
+            and str(docs_site_cfg.get("generator", "mkdocs")).strip().lower() == "mkdocs"
+            and bool(docs_site_cfg.get("local_preview_enabled", True))
+        )
+        if want_local_serve:
+            try:
+                from scripts.docs_site_server import serve_docs_site
+
+                mkdocs_config = REPO_ROOT / "mkdocs.yml"
+                local_site = serve_docs_site(
+                    REPO_ROOT,
+                    config_file=mkdocs_config if mkdocs_config.exists() else None,
+                    port=int(docs_site_cfg.get("local_preview_port", 0)) or None,
+                )
+            except Exception as exc:  # noqa: BLE001
+                _say("Screenshot local serve", f"skipped ({exc})")
+                local_site = None
+            if local_site is None:
+                _say("Screenshot local serve", "unavailable; capture will be skipped by capture_screenshots.py")
+        base_url = (local_site.base_url if local_site else explicit_base_url) or "http://localhost:3000"
+        try:
+            if not args.skip_screenshot_plan_refresh:
+                refresh_cmd = [
+                    sys.executable,
+                    str(REPO_ROOT / "scripts" / "generate_screenshot_capture_plan.py"),
+                    "--docs-root",
+                    docs_root_cfg,
+                    "--output",
+                    str(args.screenshot_capture_plan),
+                    "--base-url",
+                    base_url,
+                ]
+                refresh_rc = _run(refresh_cmd, cwd=repo_root)
+                _say("Screenshot plan refresh", f"rc={refresh_rc}, base_url={base_url}, plan={args.screenshot_capture_plan}")
+                if refresh_rc != 0 and strictness == "enterprise-strict":
+                    print("[autopipeline] screenshot plan refresh failed in enterprise-strict mode")
+                    narrator.finish(False, "Screenshot plan refresh failed in enterprise-strict mode")
+                    return int(refresh_rc)
+            if not args.skip_screenshot_capture:
+                capture_cmd = [
+                    sys.executable,
+                    str(REPO_ROOT / "scripts" / "capture_screenshots.py"),
+                    "--plan",
+                    str(args.screenshot_capture_plan),
+                    "--output-manifest",
+                    str(args.screenshot_capture_manifest),
+                    "--report",
+                    str(screenshot_capture_report),
+                ]
+                capture_rc = _run(capture_cmd, cwd=repo_root)
+                _say("Screenshot capture", f"rc={capture_rc}, report={screenshot_capture_report}")
+                if capture_rc != 0 and strictness == "enterprise-strict":
+                    print("[autopipeline] screenshot capture failed in enterprise-strict mode")
+                    narrator.finish(False, "Screenshot capture failed in enterprise-strict mode")
+                    return int(capture_rc)
+        finally:
+            if local_site is not None:
+                local_site.stop()
         build_manifest_cmd = [
             sys.executable,
             str(REPO_ROOT / "scripts" / "build_screenshot_manifest.py"),

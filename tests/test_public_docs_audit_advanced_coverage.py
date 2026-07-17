@@ -339,3 +339,59 @@ def test_site_payload_falls_back_when_link_audit_store_unavailable(monkeypatch: 
     payload = mod._site_payload("https://docs.example.com", 5, 2)
     assert payload["metrics"]["links"]["broken_internal_links_count"] == 1
     assert payload["metrics"]["links"]["_broken_link_provenance"]["https://docs.example.com/broken"][0]["anchor_text"] == "Broken"
+
+
+def test_repeated_anchor_label_is_marked_ambiguous_with_row_context() -> None:
+    """Regression for the docs.chain.link support-matrix shape: every network row
+    links out as "CCIP". Quoting that label as a locator sends the reader to the
+    first (working) "CCIP" link, so the label must be marked ambiguous and carry
+    the row heading that actually identifies the link."""
+    from scripts import generate_public_docs_audit as mod
+
+    html = """
+    <html><body>
+      <a href="/ccip">CCIP</a>
+      <div><h2>Arc Network</h2><a href="/ccip/directory/arc"><span>CCIP</span></a></div>
+      <div><h2>Robinhood Chain</h2>
+        <a href="/ccip/directory/robinhood-mainnet"><span>CCIP</span></a>
+      </div>
+      <div><h2>Manual Execution</h2><a href="/ccip/best-practices">Best Practices</a></div>
+    </body></html>
+    """
+    parser = mod._DocsHTMLParser("https://docs.example.com/quick-links")
+    parser.feed(html)
+    page = parser.as_page("https://docs.example.com/quick-links", 200)
+    refs = {r["url"]: r for r in page.internal_link_refs}
+
+    bad = refs["https://docs.example.com/ccip/directory/robinhood-mainnet"]
+    assert bad["locator_quality"] == "ambiguous"
+    assert bad["context"] == "Robinhood Chain"
+
+    # A label used by exactly one link stays quotable.
+    good = refs["https://docs.example.com/ccip/best-practices"]
+    assert good["locator_quality"] == "unique"
+
+
+def test_icon_only_link_label_falls_back_to_image_alt_for_ambiguity() -> None:
+    """Icon-only links have no visible text. The accessible name still lets the
+    crawler tell "this label repeats" from "this label is unique"."""
+    from scripts import generate_public_docs_audit as mod
+
+    html = """
+    <html><body>
+      <td>Robinhood Chain</td>
+      <a href="/ccip/directory/robinhood-mainnet"><img src="/t.svg" alt="Supported"/></a>
+      <td>Arc Network</td>
+      <a href="/ccip/directory/arc"><img src="/t.svg" alt="Supported"/></a>
+    </body></html>
+    """
+    parser = mod._DocsHTMLParser("https://docs.example.com/quick-links")
+    parser.feed(html)
+    page = parser.as_page("https://docs.example.com/quick-links", 200)
+    ref = {r["url"]: r for r in page.internal_link_refs}[
+        "https://docs.example.com/ccip/directory/robinhood-mainnet"
+    ]
+    assert ref["anchor_text"] == ""
+    assert ref["anchor_label"] == "Supported"
+    assert ref["locator_quality"] == "ambiguous"
+    assert ref["context"] == "Robinhood Chain"
