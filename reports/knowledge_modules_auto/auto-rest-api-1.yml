@@ -1,0 +1,127 @@
+id: auto-rest-api-1
+title: REST API Reference
+summary: Auto-generated rest reference from source contract.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- rest-api
+metadata:
+  url: https://docs.example.com/reference/rest-api/
+  title: REST API Reference
+  heading: Top-level Keys
+  version: 1.50.0
+  updated_at: '2026-03-20'
+  source_site: docs.example.com
+  source_path: reference/rest-api.md
+semantic:
+  topic: Top-level Keys
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - rest api
+  status: rule_based
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # REST Reference
+
+
+    Source: `api/openapi.yaml`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    - `components`
+
+    - `info`
+
+    - `openapi`
+
+    - `paths`
+
+    - `security`
+
+    - `servers`
+
+
+    ## Notes
+
+
+    - Generated from source contract.
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: REST API
+    Reference. Source path: reference/rest-api.md. Summary: Auto-generated rest reference
+    from source contract.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # REST Reference
+
+
+    Source: `api/openapi.yaml`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    - `components`
+
+    - `info`
+
+    - `openapi`
+
+    - `paths`
+
+    - `security`
+
+    - `servers`
+
+
+    ## Notes
+
+
+    - Generated from source contract.
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

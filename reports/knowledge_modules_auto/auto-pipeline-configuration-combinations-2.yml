@@ -1,0 +1,171 @@
+id: auto-pipeline-configuration-combinations-2
+title: How pipeline configurations compose (Part 2)
+summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles
+  stay aligned with proof, full, and RAG-enabled delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- pipeline-configuration-combinations
+metadata:
+  url: https://docs.example.com/concepts/pipeline-configuration-combinations/
+  title: How pipeline configurations compose (Part 2)
+  heading: The two axes
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: concepts/pipeline-configuration-combinations.md
+semantic:
+  topic: The two axes
+  intent: integrate
+  audience: developer
+  keywords:
+  - concept
+  - pipeline configuration combinations
+  status: rule_based
+content:
+  docs_markdown: '## The two axes
+
+
+    The pipeline combines these dimensions:
+
+
+    | Axis | What it controls | Primary fields |
+
+    | --- | --- | --- |
+
+    | Rollout scope | Which modules, checks, and weekly tasks are active | `licensing.plan`,
+    `runtime.modules`, `runtime.docs_flow` |
+
+    | Execution mode | Where LLM work runs and what egress policy applies | `runtime.llm_control.*`
+    |
+
+
+    The builder does not infer one axis from the other. A bundle can be `pilot + cloud`,
+    `full + strict-local`, or `full+RAG + hybrid`.
+
+
+    ## Rollout scope is about delivery depth
+
+
+    Rollout scope answers: how much of the platform should this client receive now?
+
+
+    ### Pilot
+
+
+    `pilot` narrows the surface to proof-oriented signals:
+
+
+    - weekly gap and drift evidence
+
+    - docs quality gates
+
+    - API-first generation if enabled
+
+    - reduced bundle script surface
+
+
+    Pilot intentionally keeps retrieval features off by default because the goal is
+    short proof cycles, not full knowledge-system rollout.
+
+
+    ### Full
+
+
+    `full` turns on the standard docs operations surface:
+
+
+    - governance and normalization
+
+    - docs-contract visibility
+
+    - KPI and SLA reporting
+
+    - lifecycle and release pack flows
+
+
+    Full can still be RAG-free. That is a valid state when the client wants governed
+    documentation operations without retrieval evaluation or graph outputs.'
+  assistant_context: 'Use this module when answering questions related to: How pipeline
+    configurations compose (Part 2). Source path: concepts/pipeline-configuration-combinations.md.
+    Summary: Learn how the pipeline combines rollout scope and LLM execution mode
+    so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+
+    ## The two axes
+
+
+    The pipeline combines these dimensions:
+
+
+    | Axis | What it controls | Primary fields |
+
+    | --- | --- | --- |
+
+    | Rollout scope | Which modules, checks, and weekly tasks are active | `licensing.plan`,
+    `runtime.modules`, `runtime.docs_flow` |
+
+    | Execution mode | Where LLM work runs and what egress policy applies | `runtime.llm_control.*`
+    |
+
+
+    The builder does not infer one axis from the other. A bundle can be `pilot + cloud`,
+    `full + strict-local`, or `full+RAG + hybrid`.
+
+
+    ## Rollout scope is about delivery depth
+
+
+    Rollout scope answers: how much of the platform should this client receive now?
+
+
+    ### Pilot
+
+
+    `pilot` narrows the surface to proof-oriented signals:
+
+
+    - weekly gap and drift evidence
+
+    - docs quality gates
+
+    - API-first generation if enabled
+
+    - reduced bundle script surface
+
+
+    Pilot intentionally keeps retrieval features off by default because the goal is
+    short proof cycles, not full knowledge-system rollout.
+
+
+    ### Full
+
+
+    `full` turns on the standard docs operations surface:
+
+
+    - governance and normalization
+
+    - docs-contract visibility
+
+    - KPI and SLA reporting
+
+    - lifecycle and release pack flows
+
+
+    Full can still be RAG-free. That is a valid state when the client wants governed
+    documentation operations without retrieval evaluation or graph outputs.'

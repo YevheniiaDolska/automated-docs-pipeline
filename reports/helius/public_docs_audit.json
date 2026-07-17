@@ -1,0 +1,483 @@
+{
+  "generated_at": "2026-07-17T13:01:22.082232+00:00",
+  "site_url": "https://helius.dev/docs",
+  "site_urls": [
+    "https://helius.dev/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://helius.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 342,
+          "requested_pages": 345,
+          "urls_examined": 343,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 343,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 343,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 21,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 345,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://helius.dev/docs/api-reference/das/searchassets",
+            "https://helius.dev/docs/das/search"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://helius.dev/docs/api-reference/das/searchassets",
+            "https://helius.dev/docs/das/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 342,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 113,
+          "seo_geo_issue_rate_pct": 8.26
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 66,
+          "api_pages_detected": 295,
+          "endpoints_with_usage_docs": 2,
+          "reference_endpoints_without_usage_docs": 64,
+          "reference_coverage_pct": 3.03,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/",
+            "ep:/fast",
+            "ep:/ping",
+            "ep:/v0/addresses/{address}/balances",
+            "ep:/v0/addresses/{address}/names",
+            "ep:/v0/addresses/{address}/nft-events",
+            "ep:/v0/addresses/{address}/nfts",
+            "ep:/v0/addresses/{address}/raw-transactions",
+            "ep:/v0/addresses/{address}/transactions",
+            "ep:/v0/admin/projects/{id}/usage",
+            "ep:/v0/raw-transactions",
+            "ep:/v0/token-metadata",
+            "ep:/v0/tokens/metadata",
+            "ep:/v0/transactions",
+            "ep:/v0/webhooks",
+            "ep:/v0/webhooks/{webhookid}",
+            "ep:/v1/active-listings",
+            "ep:/v1/mintlist",
+            "ep:/v1/nft-events",
+            "ep:/v1/nfts"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 2556,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (2556 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 11,
+          "pages_without_last_updated_hint": 331,
+          "last_updated_coverage_pct": 3.22,
+          "samples_with_last_updated": [
+            {
+              "url": "https://helius.dev/docs/api-reference/admin",
+              "hint": "\"2026-04-01\""
+            },
+            {
+              "url": "https://helius.dev/docs/api-reference/admin/get-project-usage",
+              "hint": "\"2026-04-01\""
+            },
+            {
+              "url": "https://helius.dev/docs/api-reference/wallet-api/balance-at",
+              "hint": "2025-01-10"
+            },
+            {
+              "url": "https://helius.dev/docs/das/pagination",
+              "hint": "Date the asset was last updated"
+            },
+            {
+              "url": "https://helius.dev/docs/enhanced-transactions/transaction-history",
+              "hint": "// January 1, 2024 to January 31, 2024"
+            },
+            {
+              "url": "https://helius.dev/docs/laserstream/guides/decoding-transaction-data",
+              "hint": "2025-07-07"
+            },
+            {
+              "url": "https://helius.dev/docs/rpc/gettransactionsforaddress",
+              "hint": "// Jan 1, 2025"
+            },
+            {
+              "url": "https://helius.dev/docs/rpc/guides/getinflationreward",
+              "hint": "Rewards are credited once per epoch. Ensure you are querying for the correct epoch number."
+            },
+            {
+              "url": "https://helius.dev/docs/rpc/how-to-index-solana-data",
+              "hint": "'2025-01-01'"
+            },
+            {
+              "url": "https://helius.dev/docs/wallet-api/balance-at",
+              "hint": "// USDC balance on 2025-01-10 19:20:00 UTC"
+            }
+          ],
+          "pages_with_any_freshness_signal": 341,
+          "any_freshness_signal_coverage_pct": 99.71,
+          "freshness_signal_breakdown": {
+            "visible_or_meta": 11,
+            "structured_data_datemodified": 341,
+            "http_last_modified": 0,
+            "sitemap_lastmod": 0
+          },
+          "pages_machine_readable_only": 330,
+          "pages_with_no_freshness_signal": 1,
+          "no_freshness_signal_pct": 0.29,
+          "no_freshness_signal_samples": [
+            {
+              "url": "https://helius.dev/docs/grpc"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 66.96,
+          "answerability_pct": 85.96,
+          "citationability_pct": 95.91,
+          "stale_risk_pct": 87.84,
+          "overall_score_0_100": 69.28,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 848,
+          "claims_with_evidence": 708,
+          "coverage_pct": 83.49
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 255,
+              "checks": {
+                "auth_model": 255,
+                "error_semantics": 253,
+                "retry_idempotency": 30,
+                "schema_evolution": 124
+              }
+            },
+            "graphql": {
+              "pages": 253,
+              "checks": {
+                "auth_model": 253,
+                "error_semantics": 252,
+                "retry_idempotency": 27,
+                "schema_evolution": 122
+              }
+            },
+            "grpc": {
+              "pages": 342,
+              "checks": {
+                "auth_model": 340,
+                "error_semantics": 340,
+                "retry_idempotency": 36,
+                "schema_evolution": 139
+              }
+            },
+            "asyncapi": {
+              "pages": 314,
+              "checks": {
+                "auth_model": 312,
+                "error_semantics": 312,
+                "retry_idempotency": 35,
+                "schema_evolution": 135
+              }
+            },
+            "websocket": {
+              "pages": 192,
+              "checks": {
+                "auth_model": 190,
+                "error_semantics": 190,
+                "retry_idempotency": 25,
+                "schema_evolution": 35
+              }
+            }
+          },
+          "coverage_pct": 100.0
+        },
+        "contradictions": {
+          "pages_scanned": 342,
+          "contradictions_count": 1,
+          "by_confidence": {
+            "high": 1
+          },
+          "contradictions": [
+            {
+              "type": "api_key_header",
+              "confidence": "high",
+              "summary": "API key header documented two ways: 'apiKey' and 'X-Api-Key'",
+              "evidence": [
+                {
+                  "value": "apiKey",
+                  "url": "https://helius.dev/docs/agents/typescript-sdk",
+                  "quote": "apiKey: \"YOUR_API_KEY\","
+                },
+                {
+                  "value": "X-Api-Key",
+                  "url": "https://helius.dev/docs/api-reference/admin",
+                  "quote": "-H \"X-Api-Key: YOUR_API_KEY\""
+                }
+              ]
+            }
+          ]
+        },
+        "code_hygiene": {
+          "defects_count": 0,
+          "defects": [],
+          "reader_placeholders_skipped": 0
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/",
+          "ep:/fast",
+          "ep:/ping",
+          "ep:/v0/addresses/{address}/balances",
+          "ep:/v0/addresses/{address}/names",
+          "ep:/v0/addresses/{address}/nft-events",
+          "ep:/v0/addresses/{address}/nfts",
+          "ep:/v0/addresses/{address}/raw-transactions",
+          "ep:/v0/addresses/{address}/transactions",
+          "ep:/v0/admin/projects/{id}/usage",
+          "ep:/v0/raw-transactions",
+          "ep:/v0/token-metadata",
+          "ep:/v0/tokens/metadata",
+          "ep:/v0/transactions",
+          "ep:/v0/webhooks",
+          "ep:/v0/webhooks/{webhookid}",
+          "ep:/v1/active-listings",
+          "ep:/v1/mintlist",
+          "ep:/v1/nft-events",
+          "ep:/v1/nfts"
+        ],
+        "contradiction_samples": [
+          {
+            "type": "api_key_header",
+            "confidence": "high",
+            "summary": "API key header documented two ways: 'apiKey' and 'X-Api-Key'",
+            "evidence": [
+              {
+                "value": "apiKey",
+                "url": "https://helius.dev/docs/agents/typescript-sdk",
+                "quote": "apiKey: \"YOUR_API_KEY\","
+              },
+              {
+                "value": "X-Api-Key",
+                "url": "https://helius.dev/docs/api-reference/admin",
+                "quote": "-H \"X-Api-Key: YOUR_API_KEY\""
+              }
+            ]
+          }
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 342,
+        "requested_pages": 345,
+        "urls_examined": 343,
+        "max_pages_total": 2500,
+        "discovered_pages": 343,
+        "crawl_scope_pages": 343,
+        "trap_urls_skipped": 21,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 8.26
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 3.03,
+        "no_api_pages_found": false,
+        "api_pages_detected": 295,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0,
+        "total_code_examples": 0,
+        "runnable_without_env": 0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 3.22
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 66.96,
+        "answerability_pct": 85.96,
+        "citationability_pct": 95.91,
+        "stale_risk_pct": 87.84,
+        "overall_score_0_100": 69.28,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 848,
+        "claims_with_evidence": 708,
+        "coverage_pct": 83.49
+      },
+      "actionability": {
+        "coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 69.28,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 342,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 8.26
+        },
+        "severity": "medium",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 3.22
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 3.03,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "verifiable_contradictions": [
+    {
+      "type": "api_key_header",
+      "confidence": "high",
+      "summary": "API key header documented two ways: 'apiKey' and 'X-Api-Key'",
+      "evidence": [
+        {
+          "value": "apiKey",
+          "url": "https://helius.dev/docs/agents/typescript-sdk",
+          "quote": "apiKey: \"YOUR_API_KEY\","
+        },
+        {
+          "value": "X-Api-Key",
+          "url": "https://helius.dev/docs/api-reference/admin",
+          "quote": "-H \"X-Api-Key: YOUR_API_KEY\""
+        }
+      ]
+    }
+  ],
+  "verifiable_defects": [],
+  "top_findings": [
+    "Contradiction (api_key_header): https://helius.dev/docs/agents/typescript-sdk says \"apiKey: \"YOUR_API_KEY\",\" but https://helius.dev/docs/api-reference/admin says \"-H \"X-Api-Key: YOUR_API_KEY\"\" -- both are verifiable.",
+    "API usage-doc coverage is low: 3.03% (295 API pages detected)",
+    "Code examples could not be auto-verified (0 code blocks found, none classified as runnable). Low confidence -- needs a manual check, not counted as a defect. No executable code blocks detected (2556 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

@@ -4,27 +4,25 @@ description: Auto-generated grpc reference from source contract.
 content_type: reference
 product: both
 tags:
-- Pytest Of Kroha
-- Temp
 - Docs
-- Users
-- Test_Multi_Protocol_Flow_Gener0
-- Local
-- Pytest 153
+- Temp
 - Appdata
-last_reviewed: '2026-07-04'
-original_author: Kroha
+- Pytest 228
+- Pytest Of Kroha
+- Local
+- Kroha
+- Test_Multi_Protocol_Flow_Gener0
 ---
-
 
 
 # GRPC Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_multi_protocol_flow_gener0/api/proto`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-228/test_multi_protocol_flow_gener0/api/proto`
 
 Flow mode: `api-first`
 
 ## Top-level Keys
+
 
 ## Service Methods
 
@@ -36,9 +34,9 @@ Flow mode: `api-first`
 
 ## Interactive gRPC Tester
 
-This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.
-
 <!-- vale off -->
+
+This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.
 
 <div id="grpc-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Gateway Endpoint:</strong> <code id="grpc-endpoint-view"></code></p>

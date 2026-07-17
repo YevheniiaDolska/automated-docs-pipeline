@@ -1,0 +1,416 @@
+{
+  "generated_at": "2026-07-17T16:37:26.124398+00:00",
+  "site_url": "https://docs.crossmint.com/",
+  "site_urls": [
+    "https://docs.crossmint.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.crossmint.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1210,
+          "requested_pages": 1236,
+          "urls_examined": 1210,
+          "max_pages": 3000,
+          "effective_limit": 3000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1210,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1209,
+          "crawl_coverage_pct": 100.08,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 1209,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 1236,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 1210,
+          "missing_title_count": 0,
+          "missing_description_count": 160,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 144,
+          "seo_geo_issue_rate_pct": 6.38
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 395,
+          "api_pages_detected": 1013,
+          "endpoints_with_usage_docs": 71,
+          "reference_endpoints_without_usage_docs": 324,
+          "reference_coverage_pct": 17.97,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/-----begin",
+            "ep:/-----end",
+            "ep:/.aws/config",
+            "ep:/.aws/credentials",
+            "ep:/10.0.2.2:3000",
+            "ep:/1a7a-181-110-64-58.ngrok-free.app/api/2022-06-09/collections/297199ba-c763-4464-b592-26c2ca2dbe5d/nfts/cf9985d3-3341-4fd6-bd0e-548ef97a3486",
+            "ep:/a5b6-181-167-232-117.ngrok-free.app/api/2022-06-09/collections/01ac4b77-9bc9-42d3-a110-b0572ec299fd",
+            "ep:/abc123.ngrok.io",
+            "ep:/abc123.ngrok.io/api/webhooks/transfers",
+            "ep:/abi",
+            "ep:/actions",
+            "ep:/actions/$",
+            "ep:/actions/createorder",
+            "ep:/actions/linkwallet",
+            "ep:/agentic-enrollment",
+            "ep:/agents",
+            "ep:/agents/$",
+            "ep:/another.com",
+            "ep:/api-reference/minting/nfts/mint-nft",
+            "ep:/api.morpho.org/graphql"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 5195,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (5195 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 135,
+          "pages_without_last_updated_hint": 1075,
+          "last_updated_coverage_pct": 11.16,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.crossmint.com/agents/payment-methods/stablecoin-wallets/onramp-add-funds",
+              "hint": "\"https://staging.crossmint.com/api/2022-06-09/orders\""
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/common/get-action-status",
+              "hint": "\"https://staging.crossmint.com/api/2022-06-09/actions/"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/create-order",
+              "hint": "https://staging.crossmint.com/api/2022-06-09/orders"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/edit-order",
+              "hint": "\"https://staging.crossmint.com/api/2022-06-09/orders/"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/get-all-tokens",
+              "hint": "https://staging.crossmint.com/api/2024-09-26/tokens"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/get-order",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/list-orders",
+              "hint": "https://staging.crossmint.com/api/2022-06-09/orders"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/process-payment",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/create-collection",
+              "hint": "https://staging.crossmint.com/api/2022-06-09/collections/"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/create-collection-idempotent",
+              "hint": "\"https://staging.crossmint.com/api/2022-06-09/collections/"
+            }
+          ],
+          "pages_with_any_freshness_signal": 1210,
+          "any_freshness_signal_coverage_pct": 100.0,
+          "freshness_signal_breakdown": {
+            "visible_or_meta": 135,
+            "structured_data_datemodified": 1209,
+            "http_last_modified": 1210,
+            "sitemap_lastmod": 1209
+          },
+          "pages_machine_readable_only": 1075,
+          "pages_with_no_freshness_signal": 0,
+          "no_freshness_signal_pct": 0.0,
+          "no_freshness_signal_samples": []
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 88.1,
+          "answerability_pct": 45.45,
+          "citationability_pct": 45.7,
+          "stale_risk_pct": 77.8,
+          "overall_score_0_100": 57.71,
+          "overall_band": "weak"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1808,
+          "claims_with_evidence": 1500,
+          "coverage_pct": 82.96
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 1162,
+              "checks": {
+                "auth_model": 1162,
+                "error_semantics": 547,
+                "retry_idempotency": 53,
+                "schema_evolution": 224
+              }
+            },
+            "graphql": {
+              "pages": 48,
+              "checks": {
+                "auth_model": 48,
+                "error_semantics": 42,
+                "retry_idempotency": 10,
+                "schema_evolution": 5
+              }
+            },
+            "grpc": {
+              "pages": 14,
+              "checks": {
+                "auth_model": 14,
+                "error_semantics": 6,
+                "retry_idempotency": 0,
+                "schema_evolution": 7
+              }
+            },
+            "asyncapi": {
+              "pages": 37,
+              "checks": {
+                "auth_model": 37,
+                "error_semantics": 32,
+                "retry_idempotency": 1,
+                "schema_evolution": 11
+              }
+            },
+            "websocket": {
+              "pages": 1,
+              "checks": {
+                "auth_model": 1,
+                "error_semantics": 0,
+                "retry_idempotency": 0,
+                "schema_evolution": 1
+              }
+            }
+          },
+          "coverage_pct": 85.0
+        },
+        "contradictions": {
+          "pages_scanned": 1210,
+          "contradictions_count": 0,
+          "by_confidence": {},
+          "contradictions": []
+        },
+        "code_hygiene": {
+          "defects_count": 0,
+          "defects": [],
+          "reader_placeholders_skipped": 0
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/-----begin",
+          "ep:/-----end",
+          "ep:/.aws/config",
+          "ep:/.aws/credentials",
+          "ep:/10.0.2.2:3000",
+          "ep:/1a7a-181-110-64-58.ngrok-free.app/api/2022-06-09/collections/297199ba-c763-4464-b592-26c2ca2dbe5d/nfts/cf9985d3-3341-4fd6-bd0e-548ef97a3486",
+          "ep:/a5b6-181-167-232-117.ngrok-free.app/api/2022-06-09/collections/01ac4b77-9bc9-42d3-a110-b0572ec299fd",
+          "ep:/abc123.ngrok.io",
+          "ep:/abc123.ngrok.io/api/webhooks/transfers",
+          "ep:/abi",
+          "ep:/actions",
+          "ep:/actions/$",
+          "ep:/actions/createorder",
+          "ep:/actions/linkwallet",
+          "ep:/agentic-enrollment",
+          "ep:/agents",
+          "ep:/agents/$",
+          "ep:/another.com",
+          "ep:/api-reference/minting/nfts/mint-nft",
+          "ep:/api.morpho.org/graphql"
+        ],
+        "contradiction_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1210,
+        "requested_pages": 1236,
+        "urls_examined": 1210,
+        "max_pages_total": 3000,
+        "discovered_pages": 1210,
+        "crawl_scope_pages": 1209,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.08
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 6.38
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 17.97,
+        "no_api_pages_found": false,
+        "api_pages_detected": 1013,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0,
+        "total_code_examples": 0,
+        "runnable_without_env": 0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 11.16
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 88.1,
+        "answerability_pct": 45.45,
+        "citationability_pct": 45.7,
+        "stale_risk_pct": 77.8,
+        "overall_score_0_100": 57.71,
+        "overall_band": "weak"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1808,
+        "claims_with_evidence": 1500,
+        "coverage_pct": 82.96
+      },
+      "actionability": {
+        "coverage_pct": 85.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 57.71,
+    "retrieval_readiness_band": "weak",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 1210,
+      "crawl_coverage_pct": 100.08
+    },
+    "opportunities": [
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 6.38
+        },
+        "severity": "medium",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 11.16
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 17.97,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "verifiable_contradictions": [],
+  "verifiable_defects": [],
+  "top_findings": [
+    "API usage-doc coverage is low: 17.97% (1013 API pages detected)",
+    "Code examples could not be auto-verified (0 code blocks found, none classified as runnable). Low confidence -- needs a manual check, not counted as a defect. No executable code blocks detected (5195 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

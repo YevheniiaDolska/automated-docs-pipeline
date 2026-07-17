@@ -1,0 +1,101 @@
+id: auto-plan-tiers-12
+title: Plan Tiers (Basic / Pro / Enterprise) (Part 12)
+summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client
+  plans.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- plan-tiers
+- reference
+metadata:
+  url: https://docs.example.com/operations/PLAN_TIERS/
+  title: Plan Tiers (Basic / Pro / Enterprise) (Part 12)
+  heading: 4. License enforcement
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PLAN_TIERS.md
+semantic:
+  topic: 4. License enforcement
+  intent: integrate
+  audience: developer
+  keywords:
+  - plan tiers
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## 4. License enforcement
+
+
+    Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated script
+    calls `license_gate.require("feature_name")` before executing protected logic.
+    The license is validated offline using an Ed25519-signed JWT stored at `docsops/license.jwt`.
+
+
+    Without a valid license, the pipeline runs in **community mode** (degraded):
+
+
+    - Markdown lint, frontmatter validation, SEO/GEO report-only.
+
+    - Advanced runtime modules are disabled in community mode (including glossary
+    sync, lifecycle management, API-first/REST protocol automation, multi-protocol
+    flow, drift detection, KPI/SLA, and RAG layers).
+
+    - Existing client artifacts remain on disk (docs content, templates, glossary,
+    shared variables), but pipeline execution falls back to the reduced community
+    feature surface.
+
+    - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no
+    multi-protocol.
+
+    - Quality gates warn-only (never block).
+
+
+    License features per plan:'
+  assistant_context: 'Use this module when answering questions related to: Plan Tiers
+    (Basic / Pro / Enterprise) (Part 12). Source path: operations/PLAN_TIERS.md. Summary:
+    Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+
+    ## 4. License enforcement
+
+
+    Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated script
+    calls `license_gate.require("feature_name")` before executing protected logic.
+    The license is validated offline using an Ed25519-signed JWT stored at `docsops/license.jwt`.
+
+
+    Without a valid license, the pipeline runs in **community mode** (degraded):
+
+
+    - Markdown lint, frontmatter validation, SEO/GEO report-only.
+
+    - Advanced runtime modules are disabled in community mode (including glossary
+    sync, lifecycle management, API-first/REST protocol automation, multi-protocol
+    flow, drift detection, KPI/SLA, and RAG layers).
+
+    - Existing client artifacts remain on disk (docs content, templates, glossary,
+    shared variables), but pipeline execution falls back to the reduced community
+    feature surface.
+
+    - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no
+    multi-protocol.
+
+    - Quality gates warn-only (never block).
+
+
+    License features per plan:'

@@ -1,0 +1,140 @@
+id: auto-pipeline-configuration-reference-4
+title: Pipeline configuration reference (Part 4)
+summary: Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud,
+  strict-local, and hybrid pipeline configurations.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-configuration-reference
+- reference
+metadata:
+  url: https://docs.example.com/reference/pipeline-configuration-reference/
+  title: Pipeline configuration reference (Part 4)
+  heading: Bundle documentation selection rules
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: reference/pipeline-configuration-reference.md
+semantic:
+  topic: Bundle documentation selection rules
+  intent: configure
+  audience: developer
+  keywords:
+  - pipeline configuration reference
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Bundle documentation selection rules
+
+
+    The bundle builder now auto-includes configuration docs from the final runtime
+    config.
+
+
+    Base configuration docs:
+
+
+    - `docs/getting-started/choose-pipeline-configuration.md`
+
+    - `docs/how-to/apply-pipeline-configuration.md`
+
+    - `docs/concepts/pipeline-configuration-combinations.md`
+
+    - `docs/reference/pipeline-configuration-reference.md`
+
+
+    Additional docs are added when relevant:
+
+
+    - `docs/how-to/run-api-first-production-flow.md` for `api-first` or `hybrid`
+
+    - `docs/how-to/configure-ask-ai-module.md` and `docs/how-to/install-ask-ai-runtime-pack.md`
+    when Ask AI is enabled
+
+    - `docs/concepts/intelligent-knowledge-system.md` when retrieval features are
+    enabled
+
+    - `docs/reference/network-transparency.md` when local-first or egress-sensitive
+    execution is in use
+
+
+    ## Validation rules
+
+
+    - `pilot` should not ship with the full retrieval triplet enabled unless the rollout
+    is intentionally re-scoped.
+
+    - `strict-local` must keep `external_llm_allowed: false`.
+
+    - `cloud` should not use `llm_mode: local_default` unless the team intentionally
+    wants local-first behavior.
+
+    - `full+RAG` should keep all three retrieval flags enabled together to avoid partial
+    retrieval governance.'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    configuration reference (Part 4). Source path: reference/pipeline-configuration-reference.md.
+    Summary: Exact preset, module, and llm_control values for pilot, full, full+RAG,
+    cloud, strict-local, and hybrid pipeline configurations.
+
+
+    ## Bundle documentation selection rules
+
+
+    The bundle builder now auto-includes configuration docs from the final runtime
+    config.
+
+
+    Base configuration docs:
+
+
+    - `docs/getting-started/choose-pipeline-configuration.md`
+
+    - `docs/how-to/apply-pipeline-configuration.md`
+
+    - `docs/concepts/pipeline-configuration-combinations.md`
+
+    - `docs/reference/pipeline-configuration-reference.md`
+
+
+    Additional docs are added when relevant:
+
+
+    - `docs/how-to/run-api-first-production-flow.md` for `api-first` or `hybrid`
+
+    - `docs/how-to/configure-ask-ai-module.md` and `docs/how-to/install-ask-ai-runtime-pack.md`
+    when Ask AI is enabled
+
+    - `docs/concepts/intelligent-knowledge-system.md` when retrieval features are
+    enabled
+
+    - `docs/reference/network-transparency.md` when local-first or egress-sensitive
+    execution is in use
+
+
+    ## Validation rules
+
+
+    - `pilot` should not ship with the full retrieval triplet enabled unless the rollout
+    is intentionally re-scoped.
+
+    - `strict-local` must keep `external_llm_allowed: false`.
+
+    - `cloud` should not use `llm_mode: local_default` unless the team intentionally
+    wants local-first behavior.
+
+    - `full+RAG` should keep all three retrieval flags enabled together to avoid partial
+    retrieval governance.'

@@ -1,0 +1,69 @@
+id: auto-apply-pipeline-configuration-4
+title: Apply a pilot, full, or RAG configuration (Part 4)
+summary: Update a client profile for pilot, full, or RAG-enabled operation and align
+  it with cloud, strict-local, or hybrid LLM execution.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- apply-pipeline-configuration
+- auto-extracted
+- how-to
+metadata:
+  url: https://docs.example.com/how-to/apply-pipeline-configuration/
+  title: Apply a pilot, full, or RAG configuration (Part 4)
+  heading: 'Step 4: Align flow-specific settings'
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: how-to/apply-pipeline-configuration.md
+semantic:
+  topic: 'Step 4: Align flow-specific settings'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - apply pipeline configuration
+  - how-to
+  status: rule_based
+content:
+  docs_markdown: "## Step 4: Align flow-specific settings\n\nIf the client uses `api-first`\
+    \ or `hybrid` docs flow, confirm the API-first block is still coherent.\n\n```yaml\n\
+    runtime:\n  docs_flow:\n    mode: \"hybrid\"\n  api_first:\n    enabled: true\n\
+    \    generate_from_notes: true\n    sandbox_backend: \"prism\"\n    generate_test_assets:\
+    \ true\n```\n\nIf the client uses retrieval features, keep the knowledge outputs\
+    \ enabled and versioned:\n\n```yaml\nruntime:\n  retrieval_eval:\n    enabled:\
+    \ true\n    index_path: \"docs/assets/knowledge-retrieval-index.json\"\n  knowledge_graph:\n\
+    \    enabled: true\n    output_path: \"docs/assets/knowledge-graph.jsonld\"\n\
+    ```\n\n## Step 5: Rebuild the bundle\n\nAfter editing the profile, rebuild the\
+    \ bundle:\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n\
+    ```\n\nIf you are installing directly into a repo, reprovision it:\n\n```bash\n\
+    python3 scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml\
+    \ \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n```"
+  assistant_context: "Use this module when answering questions related to: Apply a\
+    \ pilot, full, or RAG configuration (Part 4). Source path: how-to/apply-pipeline-configuration.md.\
+    \ Summary: Update a client profile for pilot, full, or RAG-enabled operation and\
+    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n## Step 4: Align\
+    \ flow-specific settings\n\nIf the client uses `api-first` or `hybrid` docs flow,\
+    \ confirm the API-first block is still coherent.\n\n```yaml\nruntime:\n  docs_flow:\n\
+    \    mode: \"hybrid\"\n  api_first:\n    enabled: true\n    generate_from_notes:\
+    \ true\n    sandbox_backend: \"prism\"\n    generate_test_assets: true\n```\n\n\
+    If the client uses retrieval features, keep the knowledge outputs enabled and\
+    \ versioned:\n\n```yaml\nruntime:\n  retrieval_eval:\n    enabled: true\n    index_path:\
+    \ \"docs/assets/knowledge-retrieval-index.json\"\n  knowledge_graph:\n    enabled:\
+    \ true\n    output_path: \"docs/assets/knowledge-graph.jsonld\"\n```\n\n## Step\
+    \ 5: Rebuild the bundle\n\nAfter editing the profile, rebuild the bundle:\n\n\
+    ```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml\n\
+    ```\n\nIf you are installing directly into a repo, reprovision it:\n\n```bash\n\
+    python3 scripts/provision_client_repo.py \\\n  --client profiles/clients/acme.client.yml\
+    \ \\\n  --client-repo /path/to/client-repo \\\n  --install-scheduler linux\n```"

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-24T18:47:09.112628+00:00",
+  "generated_at": "2026-07-15T12:33:52.646359+00:00",
   "site_url": "https://docs.chain.link/",
   "site_urls": [
     "https://docs.chain.link/"
   ],
-  "topology_mode": "multi-project",
+  "topology_mode": "single-product",
   "verification_modes": [
     "authenticated",
     "bot",
@@ -15,28 +15,29 @@
       "site_url": "https://docs.chain.link/",
       "metrics": {
         "crawl": {
-          "pages_crawled": 1635,
-          "requested_pages": 1756,
-          "urls_examined": 1653,
-          "max_pages": 10000,
-          "effective_limit": 10000,
+          "pages_crawled": 1698,
+          "requested_pages": 1828,
+          "urls_examined": 1720,
+          "max_pages": 5000,
+          "effective_limit": 5000,
           "auto_mode": false,
           "stop_reason": "queue_exhausted",
-          "discovered_pages": 1653,
+          "discovered_pages": 1720,
           "crawl_scope_basis": "sitemap",
-          "crawl_scope_pages": 1653,
+          "crawl_scope_pages": 1720,
           "crawl_coverage_pct": 100.0,
-          "trap_urls_skipped": 423,
-          "seeded_sitemap_urls": 1653,
+          "trap_urls_skipped": 438,
+          "seeded_sitemap_urls": 1720,
           "robots_sitemaps_declared": 2
         },
         "links": {
-          "internal_links_checked": 1751,
-          "broken_internal_links_count": 5,
-          "docs_broken_links_count": 5,
+          "internal_links_checked": 1821,
+          "broken_internal_links_count": 6,
+          "docs_broken_links_count": 6,
           "repo_broken_links_count": 0,
           "broken_internal_link_samples": [
             "https://docs.chain.link/ccip/concepts/best-practices",
+            "https://docs.chain.link/ccip/directory/testnet/chain/robinhood-mainnet",
             "https://docs.chain.link/cre/getting-started",
             "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
             "https://docs.chain.link/cre/reference/sdk",
@@ -44,16 +45,20 @@
           ],
           "docs_broken_link_samples": [
             "https://docs.chain.link/ccip/concepts/best-practices",
+            "https://docs.chain.link/ccip/directory/testnet/chain/robinhood-mainnet",
             "https://docs.chain.link/cre/getting-started",
             "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
             "https://docs.chain.link/cre/reference/sdk",
             "https://docs.chain.link/cre/reference/sdk/triggers"
           ],
           "repo_broken_link_samples": [],
-          "unreachable_links_count": 0,
-          "unverified_links_count": 0,
-          "unverified_link_samples": [],
-          "confirmed_broken_links_count": 5,
+          "unreachable_links_count": 2,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://docs.chain.link/ccip/directory/mainnet/chain/xdai-mainnet",
+            "https://docs.chain.link/ccip/directory/testnet/chain/tempo-testnet-moderato"
+          ],
+          "confirmed_broken_links_count": 6,
           "excluded_links_count": 10,
           "excluded_link_samples": [
             "https://docs.chain.link/api/ccip/README",
@@ -69,12 +74,16 @@
           ],
           "_all_confirmed_broken_links": [
             "https://docs.chain.link/ccip/concepts/best-practices",
+            "https://docs.chain.link/ccip/directory/testnet/chain/robinhood-mainnet",
             "https://docs.chain.link/cre/getting-started",
             "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
             "https://docs.chain.link/cre/reference/sdk",
             "https://docs.chain.link/cre/reference/sdk/triggers"
           ],
-          "_all_unverified_links": [],
+          "_all_unverified_links": [
+            "https://docs.chain.link/ccip/directory/mainnet/chain/xdai-mainnet",
+            "https://docs.chain.link/ccip/directory/testnet/chain/tempo-testnet-moderato"
+          ],
           "_all_excluded_links": [
             "https://docs.chain.link/api/ccip/README",
             "https://docs.chain.link/api/ccip/v1/docs",
@@ -87,95 +96,159 @@
             "https://docs.chain.link/data-feeds/svr-feeds/searcher-onboarding-atlas",
             "https://docs.chain.link/data-feeds/svr-feeds/searcher-onboarding-ethereum"
           ],
-          "_all_docs_unverified_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.chain.link/ccip/directory/mainnet/chain/xdai-mainnet",
+            "https://docs.chain.link/ccip/directory/testnet/chain/tempo-testnet-moderato"
+          ],
           "_all_repo_unverified_links": [],
           "_broken_link_provenance": {
             "https://docs.chain.link/ccip/concepts/best-practices": [
               {
-                "source_page": "https://docs.chain.link/ccip/concepts",
-                "anchor_text": "Best Practices"
+                "source_page": "https://docs.chain.link/ccip/concepts/manual-execution",
+                "anchor_text": "> Learn CCIP best practices",
+                "anchor_label": "> Learn CCIP best practices",
+                "context": "What's next",
+                "locator_quality": "unique"
               },
               {
-                "source_page": "https://docs.chain.link/ccip/concepts/manual-execution",
-                "anchor_text": "> Learn CCIP best practices"
+                "source_page": "https://docs.chain.link/ccip/concepts",
+                "anchor_text": "Best Practices",
+                "anchor_label": "Best Practices",
+                "context": ": Learn about the Cross-Chain Token (CCT) standard that enables secure token transfers across different blockchains.",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://docs.chain.link/ccip/directory/testnet/chain/robinhood-mainnet": [
+              {
+                "source_page": "https://docs.chain.link/builders-quick-links",
+                "anchor_text": "CCIP",
+                "anchor_label": "CCIP",
+                "context": "Robinhood Chain",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "https://docs.chain.link/builders-quick-links",
+                "anchor_text": "",
+                "anchor_label": "Supported",
+                "context": "Robinhood Chain",
+                "locator_quality": "ambiguous"
               }
             ],
             "https://docs.chain.link/cre/getting-started": [
               {
                 "source_page": "https://docs.chain.link/cre/reference/cli",
-                "anchor_text": "Getting Started"
+                "anchor_text": "Getting Started",
+                "anchor_label": "Getting Started",
+                "context": "\u2014 How to install and set up the CRE CLI",
+                "locator_quality": "unique"
               }
             ],
             "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write": [
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/building-consumer-contracts",
-                "anchor_text": "writes data to the blockchain"
+                "anchor_text": "writes data to the blockchain",
+                "anchor_label": "writes data to the blockchain",
+                "context": "When your workflow",
+                "locator_quality": "unique"
               },
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-single-values",
-                "anchor_text": "Working with Solidity input types"
+                "anchor_text": "Working with Solidity input types",
+                "anchor_label": "Working with Solidity input types",
+                "context": "Familiarity with",
+                "locator_quality": "unique"
               },
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-structs",
-                "anchor_text": "Onchain Write"
-              },
-              {
-                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-structs",
-                "anchor_text": "Onchain Write Overview"
+                "anchor_text": "Onchain Write Overview",
+                "anchor_label": "Onchain Write Overview",
+                "context": "for troubleshooting submission issues",
+                "locator_quality": "unique"
               },
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/submitting-reports-onchain",
-                "anchor_text": "Onchain Write Overview"
+                "anchor_text": "Onchain Write Overview",
+                "anchor_label": "Onchain Write Overview",
+                "context": "to properly convert address strings",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/using-write-report-helpers",
+                "anchor_text": "Onchain Write Overview",
+                "anchor_label": "Onchain Write Overview",
+                "context": "Verify the struct fields match what your contract expects",
+                "locator_quality": "unique"
               }
             ],
             "https://docs.chain.link/cre/reference/sdk": [
               {
                 "source_page": "https://docs.chain.link/cre",
-                "anchor_text": "SDK Reference"
+                "anchor_text": "SDK Reference",
+                "anchor_label": "SDK Reference",
+                "context": "- Simulate, deploy, and manage your workflows",
+                "locator_quality": "ambiguous"
               },
               {
                 "source_page": "https://docs.chain.link/cre/index",
-                "anchor_text": "SDK Reference"
+                "anchor_text": "SDK Reference",
+                "anchor_label": "SDK Reference",
+                "context": "- Simulate, deploy, and manage your workflows",
+                "locator_quality": "ambiguous"
               }
             ],
             "https://docs.chain.link/cre/reference/sdk/triggers": [
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/cron-trigger-go",
-                "anchor_text": "cron.Trigger"
+                "anchor_text": "cron.Trigger",
+                "anchor_label": "cron.Trigger",
+                "context": "You create a Cron trigger by calling the",
+                "locator_quality": "unique"
               },
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/http-trigger/configuration-go",
-                "anchor_text": "http.Config"
+                "anchor_text": "http.Config",
+                "anchor_label": "http.Config",
+                "context": "function. Its configuration (",
+                "locator_quality": "unique"
               },
               {
                 "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/http-trigger/configuration-go",
-                "anchor_text": "http.Trigger"
+                "anchor_text": "http.Trigger",
+                "anchor_label": "http.Trigger",
+                "context": "You create an HTTP trigger by calling the",
+                "locator_quality": "unique"
               },
               {
                 "source_page": "https://docs.chain.link/cre/reference/sdk/core-go",
-                "anchor_text": "Triggers reference"
+                "anchor_text": "Triggers reference",
+                "anchor_label": "Triggers reference",
+                "context": "). This defines the event that will start your workflow. See the",
+                "locator_quality": "unique"
               },
               {
-                "source_page": "https://docs.chain.link/cre/reference/sdk/core-ts",
-                "anchor_text": "Triggers reference"
+                "source_page": "https://docs.chain.link/cre/reference/sdk/core-go",
+                "anchor_text": "Triggers reference",
+                "anchor_label": "Triggers reference",
+                "context": "Each trigger type requires a specific callback signature. See the",
+                "locator_quality": "unique"
               }
             ]
           }
         },
         "seo_geo": {
-          "pages_scanned": 1635,
+          "pages_scanned": 1698,
           "missing_title_count": 5,
-          "missing_description_count": 42,
+          "missing_description_count": 53,
           "multiple_h1_count": 3,
           "heading_hierarchy_jump_count": 56,
-          "seo_geo_issue_rate_pct": 1.62
+          "seo_geo_issue_rate_pct": 1.72
         },
         "api_coverage": {
           "reference_endpoint_count": 12,
-          "api_pages_detected": 712,
-          "endpoints_with_usage_docs": 4,
-          "reference_endpoints_without_usage_docs": 8,
-          "reference_coverage_pct": 33.33,
+          "api_pages_detected": 731,
+          "endpoints_with_usage_docs": 3,
+          "reference_endpoints_without_usage_docs": 9,
+          "reference_coverage_pct": 25.0,
           "no_api_pages_found": false,
           "coverage_determined": true,
           "coverage_method": "source_of_truth",
@@ -184,26 +257,27 @@
             "ep:/chains",
             "ep:/lanes",
             "ep:/tokens",
+            "ev:gtm.js",
             "gql:status",
-            "gql:that",
+            "gql:type",
             "op:getchains",
             "op:getlanes",
             "op:gettokens"
           ]
         },
         "examples": {
-          "total_code_examples": 5540,
-          "total_code_blocks_all": 6706,
-          "runnable_without_env": 4814,
-          "blocked_by_placeholders": 362,
-          "network_bound_examples": 364,
-          "example_reliability_estimate_pct": 86.9,
+          "total_code_examples": 5690,
+          "total_code_blocks_all": 6931,
+          "runnable_without_env": 4942,
+          "blocked_by_placeholders": 370,
+          "network_bound_examples": 378,
+          "example_reliability_estimate_pct": 86.85,
           "detection_note": ""
         },
         "freshness": {
-          "pages_with_last_updated_hint": 360,
-          "pages_without_last_updated_hint": 1275,
-          "last_updated_coverage_pct": 22.02,
+          "pages_with_last_updated_hint": 392,
+          "pages_without_last_updated_hint": 1306,
+          "last_updated_coverage_pct": 23.09,
           "samples_with_last_updated": [
             {
               "url": "https://docs.chain.link/ace",
@@ -245,75 +319,136 @@
               "url": "https://docs.chain.link/ace/index",
               "hint": "2026-04-20"
             }
-          ]
+          ],
+          "pages_with_any_freshness_signal": 1698,
+          "any_freshness_signal_coverage_pct": 100.0,
+          "freshness_signal_breakdown": {
+            "visible_or_meta": 392,
+            "structured_data_datemodified": 874,
+            "http_last_modified": 1698,
+            "sitemap_lastmod": 0
+          },
+          "pages_machine_readable_only": 1306,
+          "pages_with_no_freshness_signal": 0,
+          "no_freshness_signal_pct": 0.0,
+          "no_freshness_signal_samples": []
         },
         "retrieval_readiness": {
-          "chunkability_pct": 86.3,
-          "answerability_pct": 20.18,
-          "citationability_pct": 99.76,
-          "stale_risk_pct": 65.59,
-          "overall_score_0_100": 65.4,
+          "chunkability_pct": 75.09,
+          "answerability_pct": 43.4,
+          "citationability_pct": 92.87,
+          "stale_risk_pct": 67.34,
+          "overall_score_0_100": 66.16,
           "overall_band": "moderate"
         },
         "evidence_coverage": {
-          "key_claims_detected": 1172,
-          "claims_with_evidence": 1110,
-          "coverage_pct": 94.71
+          "key_claims_detected": 5294,
+          "claims_with_evidence": 4287,
+          "coverage_pct": 80.98
         },
         "actionability": {
           "protocols": {
             "rest": {
-              "pages": 134,
+              "pages": 376,
               "checks": {
-                "auth_model": 71,
-                "error_semantics": 87,
-                "retry_idempotency": 13,
-                "schema_evolution": 49
+                "auth_model": 363,
+                "error_semantics": 362,
+                "retry_idempotency": 31,
+                "schema_evolution": 156
               }
             },
             "graphql": {
-              "pages": 75,
+              "pages": 198,
               "checks": {
-                "auth_model": 44,
-                "error_semantics": 53,
-                "retry_idempotency": 8,
-                "schema_evolution": 31
+                "auth_model": 194,
+                "error_semantics": 185,
+                "retry_idempotency": 15,
+                "schema_evolution": 100
               }
             },
             "grpc": {
-              "pages": 80,
+              "pages": 396,
               "checks": {
-                "auth_model": 46,
-                "error_semantics": 65,
-                "retry_idempotency": 13,
-                "schema_evolution": 43
+                "auth_model": 394,
+                "error_semantics": 351,
+                "retry_idempotency": 23,
+                "schema_evolution": 215
               }
             },
             "asyncapi": {
-              "pages": 1630,
+              "pages": 296,
               "checks": {
-                "auth_model": 921,
-                "error_semantics": 607,
-                "retry_idempotency": 158,
-                "schema_evolution": 547
+                "auth_model": 289,
+                "error_semantics": 276,
+                "retry_idempotency": 17,
+                "schema_evolution": 143
               }
             },
             "websocket": {
-              "pages": 18,
+              "pages": 118,
               "checks": {
-                "auth_model": 10,
-                "error_semantics": 13,
-                "retry_idempotency": 1,
-                "schema_evolution": 8
+                "auth_model": 115,
+                "error_semantics": 109,
+                "retry_idempotency": 7,
+                "schema_evolution": 41
               }
             }
           },
           "coverage_pct": 100.0
+        },
+        "contradictions": {
+          "pages_scanned": 1698,
+          "contradictions_count": 2,
+          "by_confidence": {
+            "high": 1,
+            "medium": 1
+          },
+          "contradictions": [
+            {
+              "type": "auth_scheme",
+              "confidence": "high",
+              "summary": "Authentication documented two ways: 'Authorization: Token' and 'Authorization: Bearer'",
+              "evidence": [
+                {
+                  "value": "Authorization: Token",
+                  "url": "https://docs.chain.link/ccip/service-responsibility",
+                  "quote": "...s enabled for transfer using Chainlink CCIP. Authorization : Token Developers must verify..."
+                },
+                {
+                  "value": "Authorization: Bearer",
+                  "url": "https://docs.chain.link/ccip/tutorials/canton/cross-chain-tokens/lock-release-token-pool",
+                  "quote": "...it-and-wait-for-transaction-tree \\ --header \"authorization: Bearer $JWT \" \\ --header 'cont..."
+                }
+              ]
+            },
+            {
+              "type": "runtime_min_version",
+              "confidence": "medium",
+              "summary": "Minimum runtime version documented two ways: 'Node 20' and 'Node 22.10.0'",
+              "evidence": [
+                {
+                  "value": "Node 20",
+                  "url": "https://docs.chain.link/ccip/tutorials/aptos/destination/prerequisites",
+                  "quote": "...atest version to avoid compatibility issues. Node.js v20 or higher : You can use the nvm p..."
+                },
+                {
+                  "value": "Node 22.10.0",
+                  "url": "https://docs.chain.link/ccip/tutorials/evm/cross-chain-tokens/register-from-eoa-burn-mint-foundry",
+                  "quote": "...in CCIP. Before You Begin Make sure you have Node.js v22.10.0 or above installed. If not,..."
+                }
+              ]
+            }
+          ]
+        },
+        "code_hygiene": {
+          "defects_count": 0,
+          "defects": []
         }
       },
       "samples": {
         "broken_links": [
           "https://docs.chain.link/ccip/concepts/best-practices",
+          "https://docs.chain.link/ccip/directory/testnet/chain/robinhood-mainnet",
           "https://docs.chain.link/cre/getting-started",
           "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
           "https://docs.chain.link/cre/reference/sdk",
@@ -321,22 +456,63 @@
         ],
         "docs_broken_link_samples": [
           "https://docs.chain.link/ccip/concepts/best-practices",
+          "https://docs.chain.link/ccip/directory/testnet/chain/robinhood-mainnet",
           "https://docs.chain.link/cre/getting-started",
           "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
           "https://docs.chain.link/cre/reference/sdk",
           "https://docs.chain.link/cre/reference/sdk/triggers"
         ],
         "repo_broken_link_samples": [],
-        "unverified_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.chain.link/ccip/directory/mainnet/chain/xdai-mainnet",
+          "https://docs.chain.link/ccip/directory/testnet/chain/tempo-testnet-moderato"
+        ],
         "api_uncovered_samples": [
           "ep:/chains",
           "ep:/lanes",
           "ep:/tokens",
+          "ev:gtm.js",
           "gql:status",
-          "gql:that",
+          "gql:type",
           "op:getchains",
           "op:getlanes",
           "op:gettokens"
+        ],
+        "contradiction_samples": [
+          {
+            "type": "auth_scheme",
+            "confidence": "high",
+            "summary": "Authentication documented two ways: 'Authorization: Token' and 'Authorization: Bearer'",
+            "evidence": [
+              {
+                "value": "Authorization: Token",
+                "url": "https://docs.chain.link/ccip/service-responsibility",
+                "quote": "...s enabled for transfer using Chainlink CCIP. Authorization : Token Developers must verify..."
+              },
+              {
+                "value": "Authorization: Bearer",
+                "url": "https://docs.chain.link/ccip/tutorials/canton/cross-chain-tokens/lock-release-token-pool",
+                "quote": "...it-and-wait-for-transaction-tree \\ --header \"authorization: Bearer $JWT \" \\ --header 'cont..."
+              }
+            ]
+          },
+          {
+            "type": "runtime_min_version",
+            "confidence": "medium",
+            "summary": "Minimum runtime version documented two ways: 'Node 20' and 'Node 22.10.0'",
+            "evidence": [
+              {
+                "value": "Node 20",
+                "url": "https://docs.chain.link/ccip/tutorials/aptos/destination/prerequisites",
+                "quote": "...atest version to avoid compatibility issues. Node.js v20 or higher : You can use the nvm p..."
+              },
+              {
+                "value": "Node 22.10.0",
+                "url": "https://docs.chain.link/ccip/tutorials/evm/cross-chain-tokens/register-from-eoa-burn-mint-foundry",
+                "quote": "...in CCIP. Before You Begin Make sure you have Node.js v22.10.0 or above installed. If not,..."
+              }
+            ]
+          }
         ]
       },
       "run_count": 1
@@ -345,69 +521,71 @@
   "aggregate": {
     "metrics": {
       "crawl": {
-        "pages_crawled": 1635,
-        "requested_pages": 1756,
-        "urls_examined": 1653,
-        "max_pages_total": 10000,
-        "discovered_pages": 1653,
-        "crawl_scope_pages": 1653,
-        "trap_urls_skipped": 423,
+        "pages_crawled": 1698,
+        "requested_pages": 1828,
+        "urls_examined": 1720,
+        "max_pages_total": 5000,
+        "discovered_pages": 1720,
+        "crawl_scope_pages": 1720,
+        "trap_urls_skipped": 438,
         "crawl_coverage_pct": 100.0
       },
       "links": {
-        "broken_internal_links_count": 5,
-        "docs_broken_links_count": 5,
+        "broken_internal_links_count": 6,
+        "docs_broken_links_count": 6,
         "repo_broken_links_count": 0,
-        "unverified_links_count": 0,
-        "confirmed_broken_links_count": 5,
+        "unverified_links_count": 2,
+        "confirmed_broken_links_count": 6,
         "excluded_links_count": 10
       },
       "seo_geo": {
-        "seo_geo_issue_rate_pct": 1.62
+        "seo_geo_issue_rate_pct": 1.72
       },
       "api_coverage": {
-        "reference_coverage_pct": 33.33,
+        "reference_coverage_pct": 25.0,
         "no_api_pages_found": false,
-        "api_pages_detected": 712,
+        "api_pages_detected": 731,
         "coverage_determined": true,
         "detection_note": ""
       },
       "examples": {
-        "example_reliability_estimate_pct": 86.9
+        "example_reliability_estimate_pct": 86.85,
+        "total_code_examples": 5690,
+        "runnable_without_env": 4942
       },
       "freshness": {
-        "last_updated_coverage_pct": 22.02
+        "last_updated_coverage_pct": 23.09
       },
       "retrieval_readiness": {
-        "chunkability_pct": 86.3,
-        "answerability_pct": 20.18,
-        "citationability_pct": 99.76,
-        "stale_risk_pct": 65.59,
-        "overall_score_0_100": 65.4,
+        "chunkability_pct": 75.09,
+        "answerability_pct": 43.4,
+        "citationability_pct": 92.87,
+        "stale_risk_pct": 67.34,
+        "overall_score_0_100": 66.16,
         "overall_band": "moderate"
       },
       "evidence_coverage": {
-        "key_claims_detected": 1172,
-        "claims_with_evidence": 1110,
-        "coverage_pct": 94.71
+        "key_claims_detected": 5294,
+        "claims_with_evidence": 4287,
+        "coverage_pct": 80.98
       },
       "actionability": {
         "coverage_pct": 100.0
       }
     },
     "confidence": {
-      "overall_confidence_pct": 91.5,
-      "links_confidence_pct": 95.0,
+      "overall_confidence_pct": 81.5,
+      "links_confidence_pct": 70.0,
       "api_confidence_pct": 85.0,
       "crawl_confidence_pct": 95.0
     }
   },
   "pipeline_solution_fit": {
-    "retrieval_readiness_score_0_100": 65.4,
+    "retrieval_readiness_score_0_100": 66.16,
     "retrieval_readiness_band": "moderate",
     "audit_confidence": "high",
     "audit_signal": {
-      "pages_crawled": 1635,
+      "pages_crawled": 1698,
       "crawl_coverage_pct": 100.0
     },
     "opportunities": [
@@ -415,8 +593,8 @@
         "id": "OPS-LINK-INTEGRITY",
         "problem": "Internal documentation link integrity issues",
         "signal": {
-          "docs_broken_links_count": 5,
-          "unverified_links_count": 0
+          "docs_broken_links_count": 6,
+          "unverified_links_count": 2
         },
         "severity": "medium",
         "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
@@ -430,7 +608,7 @@
         "id": "OPS-FRESHNESS-GOVERNANCE",
         "problem": "Weak freshness and lifecycle visibility",
         "signal": {
-          "last_updated_coverage_pct": 22.02
+          "last_updated_coverage_pct": 23.09
         },
         "severity": "medium",
         "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
@@ -444,7 +622,7 @@
         "id": "OPS-API-DOC-COVERAGE",
         "problem": "API reference coverage and drift risk",
         "signal": {
-          "reference_coverage_pct": 33.33,
+          "reference_coverage_pct": 25.0,
           "no_api_pages_found": false
         },
         "severity": "high",
@@ -459,91 +637,57 @@
     ]
   },
   "confidence": {
-    "overall_confidence_pct": 91.5,
-    "links_confidence_pct": 95.0,
+    "overall_confidence_pct": 81.5,
+    "links_confidence_pct": 70.0,
     "api_confidence_pct": 85.0,
     "crawl_confidence_pct": 95.0
   },
-  "top_findings": [
-    "Broken internal links: 5",
-    "API usage-doc coverage is low: 33.33% (712 API pages detected)",
-    "Freshness visibility is weak: only 22.02% pages show last updated"
-  ],
-  "llm_analysis": {
-    "status": "ok",
-    "model": "claude-sonnet-4-5",
-    "analysis": {
-      "executive_summary": "Chainlink documentation spans 1635 crawled pages with 100% crawl coverage and 91.5% overall audit confidence. API reference coverage is critically low at 33.33% despite 712 API pages detected, indicating significant usage documentation gaps. Freshness metadata is visible on only 22.02% of pages, creating trust and staleness perception risk across 1275+ pages. Retrieval readiness scores 65.4/100 (moderate band) with only 20.18% answerability, limiting AI assistant and search effectiveness. Evidence coverage is strong at 94.71% (1110 of 1172 claims supported), and 5 confirmed broken internal links require immediate repair.",
-      "strengths": [
-        "Complete crawl coverage (100%) across 1635 pages with high confidence (91.5%)",
-        "Strong evidence backing: 94.71% of 1172 detected claims have supporting evidence",
-        "Minimal broken links: only 5 confirmed broken internal docs links, zero repository navigation failures",
-        "High citationability (99.76%) supports attribution in AI-generated answers",
-        "100% actionability coverage ensures task-oriented content is present"
-      ],
-      "risks": [
-        "API reference coverage at 33.33% leaves two-thirds of 712 API pages without adequate usage documentation, blocking developer onboarding",
-        "Answerability at 20.18% means 1304+ pages lack structure for AI assistants and chatbots to extract reliable answers",
-        "Freshness metadata missing on 77.98% of pages (1275+ pages) erodes user trust and prevents staleness triage",
-        "Stale risk flagged on 65.59% of pages (1072+ pages) suggests outdated content may mislead users",
-        "Chunkability at 86.3% indicates 224+ pages have structural issues limiting RAG and semantic search performance",
-        "SEO/geo issue rate of 1.62% affects discoverability for ~26 pages in search engines",
-        "Example reliability estimate of 86.9% implies 214+ code examples may be outdated or untested, risking developer frustration"
-      ],
-      "prioritized_actions": [
+  "verifiable_contradictions": [
+    {
+      "type": "auth_scheme",
+      "confidence": "high",
+      "summary": "Authentication documented two ways: 'Authorization: Token' and 'Authorization: Bearer'",
+      "evidence": [
         {
-          "action": "Add last-updated timestamps to the 1275+ pages missing freshness metadata (77.98% of site)",
-          "impact": "high",
-          "effort": "low",
-          "expected_value": "high",
-          "confidence": "high",
-          "why_this_first": "Immediate trust signal for users and support teams, enables staleness triage, and improves AI answer confidence with minimal engineering lift."
+          "value": "Authorization: Token",
+          "url": "https://docs.chain.link/ccip/service-responsibility",
+          "quote": "...s enabled for transfer using Chainlink CCIP. Authorization : Token Developers must verify..."
         },
         {
-          "action": "Create usage documentation for the 475+ API pages (66.67% of 712 detected) lacking reference coverage",
-          "impact": "critical",
-          "effort": "high",
-          "expected_value": "high",
-          "confidence": "high",
-          "why_this_first": "Directly unblocks developer onboarding and reduces support volume by bridging the gap between API reference and practical implementation."
-        },
-        {
-          "action": "Restructure the 1304+ pages with low answerability (79.82%) to include explicit Q&A patterns, summaries, or structured data",
-          "impact": "high",
-          "effort": "medium",
-          "expected_value": "high",
-          "confidence": "medium",
-          "why_this_first": "Unlocks AI assistant effectiveness and search snippet quality across 80% of content, directly improving self-service success rates."
-        },
-        {
-          "action": "Fix the 5 confirmed broken internal docs links to eliminate user friction and SEO penalties",
-          "impact": "medium",
-          "effort": "low",
-          "expected_value": "medium",
-          "confidence": "high",
-          "why_this_first": "Quick win that removes immediate user frustration and signals documentation quality to search engines and prospects."
-        },
-        {
-          "action": "Audit and refresh the 1072+ pages flagged with stale risk (65.59%) to align with current product state",
-          "impact": "high",
-          "effort": "high",
-          "expected_value": "medium",
-          "confidence": "medium",
-          "why_this_first": "Reduces support escalations from outdated guidance and protects brand reputation, though requires cross-functional validation effort."
+          "value": "Authorization: Bearer",
+          "url": "https://docs.chain.link/ccip/tutorials/canton/cross-chain-tokens/lock-release-token-pool",
+          "quote": "...it-and-wait-for-transaction-tree \\ --header \"authorization: Bearer $JWT \" \\ --header 'cont..."
         }
-      ],
-      "automation_first": [
-        "Deploy automated freshness metadata injection for the 1275+ pages missing last-updated dates (77.98% coverage gap), using Git commit history or CMS timestamps to populate frontmatter; expected payoff is immediate trust restoration and enables automated staleness alerts without manual tagging.",
-        "Implement broken link monitoring with weekly CI checks targeting the 5 current broken internal links and preventing future regressions across 1635 pages; expected payoff is zero user-facing link failures and reduced manual QA burden, protecting conversion and SEO.",
-        "Build API reference-to-usage doc coverage tracker that flags the 475+ undocumented API pages (66.67% of 712 detected) in pull request reviews; expected payoff is preventing API launches without usage examples, reducing developer support tickets by 30-40% over 90 days."
-      ],
-      "limitations": [
-        "External audit cannot verify runtime accuracy of 712 API pages or the 86.9% example reliability estimate without executing code in live environments",
-        "Staleness risk (65.59%) is inferred from metadata and structure patterns, not product version alignment; actual content accuracy requires domain expert review",
-        "Answerability scoring (20.18%) measures structural readiness for AI extraction but cannot guarantee semantic correctness or completeness of answers",
-        "API coverage detection depends on URL and heading patterns; custom or non-standard API documentation structures may be underreported despite 85% confidence",
-        "User behavior data (bounce rates, search success, support ticket correlation) is unavailable, so business impact estimates rely on industry benchmarks"
+      ]
+    },
+    {
+      "type": "runtime_min_version",
+      "confidence": "medium",
+      "summary": "Minimum runtime version documented two ways: 'Node 20' and 'Node 22.10.0'",
+      "evidence": [
+        {
+          "value": "Node 20",
+          "url": "https://docs.chain.link/ccip/tutorials/aptos/destination/prerequisites",
+          "quote": "...atest version to avoid compatibility issues. Node.js v20 or higher : You can use the nvm p..."
+        },
+        {
+          "value": "Node 22.10.0",
+          "url": "https://docs.chain.link/ccip/tutorials/evm/cross-chain-tokens/register-from-eoa-burn-mint-foundry",
+          "quote": "...in CCIP. Before You Begin Make sure you have Node.js v22.10.0 or above installed. If not,..."
+        }
       ]
     }
+  ],
+  "verifiable_defects": [],
+  "top_findings": [
+    "Contradiction (auth_scheme): https://docs.chain.link/ccip/service-responsibility says \"...s enabled for transfer using Chainlink CCIP. Authorization : Token Developers must verify...\" but https://docs.chain.link/ccip/tutorials/canton/cross-chain-tokens/lock-release-token-pool says \"...it-and-wait-for-transaction-tree \\ --header \"authorization: Bearer $JWT \" \\ --header 'cont...\" -- both are verifiable.",
+    "Contradiction (runtime_min_version): https://docs.chain.link/ccip/tutorials/aptos/destination/prerequisites says \"...atest version to avoid compatibility issues. Node.js v20 or higher : You can use the nvm p...\" but https://docs.chain.link/ccip/tutorials/evm/cross-chain-tokens/register-from-eoa-burn-mint-foundry says \"...in CCIP. Before You Begin Make sure you have Node.js v22.10.0 or above installed. If not,...\" -- both are verifiable. (medium confidence: verify both quotes before citing)",
+    "Broken internal links: 6",
+    "Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 25.0% (731 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
   }
 }

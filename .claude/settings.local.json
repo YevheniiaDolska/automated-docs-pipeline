@@ -186,7 +186,13 @@
       "Bash(powershell -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { \\\\$_.Name -match 'python|node|bash|ollama|curl' } | Select-Object ProcessId,Name,CreationDate | Format-Table -AutoSize\" 2>/dev/null)",
       "Bash(powershell -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { \\\\$_.ProcessId -in 17132,21616,1780,15356 } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | Format-List\" 2>/dev/null)",
       "Bash(python -m pytest tests/test_veridoc_production.py -q -p no:cacheprovider --co)",
-      "Bash(timeout 120 python -m pytest tests/test_veridoc_production.py -q -p no:cacheprovider -x)"
+      "Bash(timeout 120 python -m pytest tests/test_veridoc_production.py -q -p no:cacheprovider -x)",
+      "Bash(python -m mkdocs --version)",
+      "Bash(OPENBLAS_NUM_THREADS=1 python -m pytest tests/test_cross_page_contradictions.py -q)",
+      "Bash(OPENBLAS_NUM_THREADS=1 python -m pytest tests/test_public_docs_audit_advanced_coverage.py tests/test_coverage_boost_round3.py tests/test_remaining_zero_coverage.py tests/test_audit_embeddings_rollback.py -q)",
+      "WebFetch(domain:docs.chain.link)",
+      "Bash(mkdir -p /tmp/cl)",
+      "Bash(python scripts/generate_audit_scorecard.py --public-audit-json reports/chainlink/public_docs_audit.json --public-broken-links-json reports/chainlink/public_docs_broken_links.json --json-output /tmp/cl/audit_scorecard.json --html-output /tmp/cl/audit_scorecard.html --sales-json-output /tmp/cl/sales_teardown.json --sales-html-output /tmp/cl/sales_teardown.html --skip-sales-pdf)"
     ],
     "deny": [],
     "ask": []

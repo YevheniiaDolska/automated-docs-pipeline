@@ -1,0 +1,135 @@
+id: auto-pipeline-capabilities-catalog-14
+title: Pipeline Capabilities Catalog (Part 14)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 14)
+  heading: Public docs auditor and executive PDF
+  version: 1.50.0
+  updated_at: '2026-06-19'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Public docs auditor and executive PDF
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Public docs auditor and executive PDF
+
+
+    The public docs auditor crawls live documentation sites and generates a comprehensive
+    quality assessment.
+
+
+    Large link sets are processed through disk-backed storage instead of one in-memory
+    batch, so the auditor preserves full broken-link coverage and provenance while
+    reducing RAM pressure on operator machines.
+
+
+    **Audit modes:**
+
+
+    | Mode | Command | Description |
+
+    | --- | --- | --- |
+
+    | Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
+
+    | Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit
+    |
+
+    | LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude
+    |
+
+    | LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without
+    full crawl |
+
+    | Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit
+    results |
+
+    | Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality
+    dimensions |
+
+
+    **Executive PDF contents:** cover page with headline findings, executive summary
+    with score gauge and grade, per-site metrics table, board-level KPI bars with
+    financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven
+    fallback), methodology appendix, evidence appendix.
+
+
+    **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example
+    reliability, glossary health, content freshness, policy compliance.'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 14). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## Public docs auditor and executive PDF
+
+
+    The public docs auditor crawls live documentation sites and generates a comprehensive
+    quality assessment.
+
+
+    Large link sets are processed through disk-backed storage instead of one in-memory
+    batch, so the auditor preserves full broken-link coverage and provenance while
+    reducing RAM pressure on operator machines.
+
+
+    **Audit modes:**
+
+
+    | Mode | Command | Description |
+
+    | --- | --- | --- |
+
+    | Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
+
+    | Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit
+    |
+
+    | LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude
+    |
+
+    | LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without
+    full crawl |
+
+    | Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit
+    results |
+
+    | Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality
+    dimensions |
+
+
+    **Executive PDF contents:** cover page with headline findings, executive summary
+    with score gauge and grade, per-site metrics table, board-level KPI bars with
+    financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven
+    fallback), methodology appendix, evidence appendix.
+
+
+    **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example
+    reliability, glossary health, content freshness, policy compliance.'

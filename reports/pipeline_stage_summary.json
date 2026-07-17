@@ -2,7 +2,7 @@
   "weekly_rc": 0,
   "strictness": "standard",
   "skip_consolidated_report": false,
-  "missing_required_artifacts": 1,
+  "missing_required_artifacts": 6,
   "stages": [
     {
       "stage": "multi_protocol_contract",
@@ -19,13 +19,13 @@
     {
       "stage": "audit_scorecard",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\audit_scorecard.json",
-      "exists": true,
+      "exists": false,
       "required": true
     },
     {
       "stage": "finalize_gate",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\finalize_gate_report.json",
-      "exists": true,
+      "exists": false,
       "required": true
     },
     {
@@ -38,6 +38,12 @@
       "stage": "ready_marker",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\READY_FOR_REVIEW.txt",
       "exists": true,
+      "required": true
+    },
+    {
+      "stage": "code_traceability",
+      "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\code_traceability_index.json",
+      "exists": false,
       "required": true
     },
     {
@@ -61,19 +67,19 @@
     {
       "stage": "test_assets_json",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\api_test_cases.json",
-      "exists": true,
+      "exists": false,
       "required": true
     },
     {
       "stage": "test_assets_coverage",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\coverage_report.json",
-      "exists": true,
+      "exists": false,
       "required": true
     },
     {
       "stage": "test_assets_fuzz",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\fuzz_scenarios.json",
-      "exists": true,
+      "exists": false,
       "required": false
     },
     {

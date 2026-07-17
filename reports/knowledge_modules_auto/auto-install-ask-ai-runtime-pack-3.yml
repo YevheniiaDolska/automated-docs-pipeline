@@ -1,0 +1,61 @@
+id: auto-install-ask-ai-runtime-pack-3
+title: Install Ask AI runtime pack (Part 3)
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+metadata:
+  url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
+  title: Install Ask AI runtime pack (Part 3)
+  heading: 'Step 5: Embed the widget'
+  version: 1.50.0
+  updated_at: '2026-07-04'
+  source_site: docs.example.com
+  source_path: how-to/install-ask-ai-runtime-pack.md
+semantic:
+  topic: 'Step 5: Embed the widget'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - install ask ai runtime pack
+  status: rule_based
+content:
+  docs_markdown: "## Step 5: Embed the widget\n\nAdd this snippet to the docs site\
+    \ page template or custom HTML block:\n\n```html\n<script\n  src=\"/ask-ai/public/ask-ai-widget.js\"\
+    \n  data-ask-ai-endpoint=\"https://docs.example.com/ask-ai/api/v1/ask\"\n  data-ask-ai-api-key=\"\
+    YOUR_PUBLIC_OR_PROXY_KEY\"\n  data-user-id=\"USER_123\"\n  data-user-role=\"support\"\
+    \n  data-plan=\"pro\"\n  data-theme=\"dark\"\n  data-title=\"Ask AI\"\n  data-stream=\"\
+    true\"\n  data-enabled=\"true\"></script>\n```\n\nThe widget streams answers token\
+    \ by token, keeps conversation history for follow-up questions, renders inline\
+    \ citations, and shows thumbs up and thumbs down controls. Set `data-theme=\"\
+    light\"` for a light panel and `data-stream=\"false\"` to use the buffered endpoint."
+  assistant_context: "Use this module when answering questions related to: Install\
+    \ Ask AI runtime pack (Part 3). Source path: how-to/install-ask-ai-runtime-pack.md.\
+    \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
+    \ auth checks, and billing hooks in a few commands.\n\n## Step 5: Embed the widget\n\
+    \nAdd this snippet to the docs site page template or custom HTML block:\n\n```html\n\
+    <script\n  src=\"/ask-ai/public/ask-ai-widget.js\"\n  data-ask-ai-endpoint=\"\
+    https://docs.example.com/ask-ai/api/v1/ask\"\n  data-ask-ai-api-key=\"YOUR_PUBLIC_OR_PROXY_KEY\"\
+    \n  data-user-id=\"USER_123\"\n  data-user-role=\"support\"\n  data-plan=\"pro\"\
+    \n  data-theme=\"dark\"\n  data-title=\"Ask AI\"\n  data-stream=\"true\"\n  data-enabled=\"\
+    true\"></script>\n```\n\nThe widget streams answers token by token, keeps conversation\
+    \ history for follow-up questions, renders inline citations, and shows thumbs\
+    \ up and thumbs down controls. Set `data-theme=\"light\"` for a light panel and\
+    \ `data-stream=\"false\"` to use the buffered endpoint."

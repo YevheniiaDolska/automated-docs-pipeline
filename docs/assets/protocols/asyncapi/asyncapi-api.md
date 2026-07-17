@@ -4,23 +4,20 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- Temp
-- Users
 - Local
-- Pytest Of Kroha
+- Pytest 228
 - Test_Multi_Protocol_Flow_Gener0
-- Kroha
-- Pytest 153
 - Appdata
-last_reviewed: '2026-07-04'
-original_author: Kroha
+- Kroha
+- Temp
+- Docs
+- Users
 ---
-
 
 
 # ASYNCAPI Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-228/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -37,9 +34,9 @@ Flow mode: `api-first`
 
 ## Interactive AsyncAPI Tester
 
-> Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
-
 <!-- vale off -->
+
+> Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
 
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>

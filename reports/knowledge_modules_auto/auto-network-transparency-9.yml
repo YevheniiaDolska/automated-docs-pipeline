@@ -1,0 +1,129 @@
+id: auto-network-transparency-9
+title: Network transparency reference (Part 9)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+metadata:
+  url: https://docs.example.com/reference/network-transparency/
+  title: Network transparency reference (Part 9)
+  heading: Summary of data flow
+  version: 1.50.0
+  updated_at: '2026-03-26'
+  source_site: docs.example.com
+  source_path: reference/network-transparency.md
+semantic:
+  topic: Summary of data flow
+  intent: integrate
+  audience: developer
+  keywords:
+  - network transparency
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Summary of data flow
+
+
+    ```text
+
+    Your Network                              VeriOps Server
+
+    +----------------------------------+      +----------------------+
+
+    | docs/ (your content)             |      |                      |
+
+    | api/ (your contracts)            |      | Receives ONLY:       |
+
+    | reports/ (your quality scores)   |      |  - License key       |
+
+    |                                  |      |  - Machine hash      |
+
+    | ALL processing happens here:     |      |  - Version string    |
+
+    |  - Linting                       |      |  - Platform string   |
+
+    |  - Scoring                       |      |                      |
+
+    |  - Gap analysis           ------>|      | Sends BACK:          |
+
+    |  - KPI wall               NEVER  |      |  - Signed JWT        |
+
+    |  - PDF generation                |      |  - Encrypted pack    |
+
+    |  - Knowledge modules             |      |  - Update bundles    |
+
+    |  - Test asset generation         |      |                      |
+
+    +----------------------------------+      +----------------------+
+
+    ```
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: Network
+    transparency reference (Part 9). Source path: reference/network-transparency.md.
+    Summary: Complete list of all outgoing network requests the pipeline makes, with
+    exact payload schemas. No client data leaves your network.
+
+
+    ## Summary of data flow
+
+
+    ```text
+
+    Your Network                              VeriOps Server
+
+    +----------------------------------+      +----------------------+
+
+    | docs/ (your content)             |      |                      |
+
+    | api/ (your contracts)            |      | Receives ONLY:       |
+
+    | reports/ (your quality scores)   |      |  - License key       |
+
+    |                                  |      |  - Machine hash      |
+
+    | ALL processing happens here:     |      |  - Version string    |
+
+    |  - Linting                       |      |  - Platform string   |
+
+    |  - Scoring                       |      |                      |
+
+    |  - Gap analysis           ------>|      | Sends BACK:          |
+
+    |  - KPI wall               NEVER  |      |  - Signed JWT        |
+
+    |  - PDF generation                |      |  - Encrypted pack    |
+
+    |  - Knowledge modules             |      |  - Update bundles    |
+
+    |  - Test asset generation         |      |                      |
+
+    +----------------------------------+      +----------------------+
+
+    ```
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

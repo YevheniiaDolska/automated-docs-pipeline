@@ -152,12 +152,45 @@ The widget streams answers token by token, keeps conversation history for follow
 
 The runtime streams answers token by token over the `POST /api/v1/ask/stream` endpoint. The widget renders each token as it arrives, so readers watch the answer form in real time instead of waiting for the full reply. Send the same request body as the standard endpoint:
 
-```bash
-curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \
-  -H "Content-Type: application/json" \
-  -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
-  -d '{"question": "How do I rotate API keys?", "history": []}'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \
+      -H "Content-Type: application/json" \
+      -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
+      -d '{"question": "How do I rotate API keys?", "history": []}'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask/stream', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-Ask-AI-Key": "YOUR_PUBLIC_OR_PROXY_KEY",
+      },
+      body: JSON.stringify({"question": "How do I rotate API keys?", "history": []}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://docs.example.com/ask-ai/api/v1/ask/stream',
+        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY'},
+        json={'question': 'How do I rotate API keys?', 'history': []},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 The stream sends one event per token, then a final event with the citations and question identifier:
 
@@ -185,14 +218,49 @@ The runtime rate limits requests per user to protect the public endpoint and the
 
 To bill queries to each user rather than a shared key, send the user's provider key per request:
 
-```bash
-curl -X POST https://docs.example.com/ask-ai/api/v1/ask \
-  -H "Content-Type: application/json" \
-  -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
-  -H "X-Provider-Key: USER_PROVIDER_KEY" \
-  -H "X-Model: gpt-4.1-mini" \
-  -d '{"question": "How do I rotate API keys?"}'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X POST https://docs.example.com/ask-ai/api/v1/ask \
+      -H "Content-Type: application/json" \
+      -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
+      -H "X-Provider-Key: USER_PROVIDER_KEY" \
+      -H "X-Model: gpt-4.1-mini" \
+      -d '{"question": "How do I rotate API keys?"}'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-Ask-AI-Key": "YOUR_PUBLIC_OR_PROXY_KEY",
+        "X-Provider-Key": "USER_PROVIDER_KEY",
+        "X-Model": "gpt-4.1-mini",
+      },
+      body: JSON.stringify({"question": "How do I rotate API keys?"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://docs.example.com/ask-ai/api/v1/ask',
+        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY', 'X-Provider-Key': 'USER_PROVIDER_KEY', 'X-Model': 'gpt-4.1-mini'},
+        json={'question': 'How do I rotate API keys?'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 The runtime uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key` to require the header: a request without it returns HTTP 402.
 

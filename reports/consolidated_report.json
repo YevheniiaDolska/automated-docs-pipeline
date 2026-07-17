@@ -1,15 +1,10 @@
 {
-  "generated_at": "2026-07-13T11:58:18.840857+00:00",
+  "generated_at": "2026-07-13T08:01:42.481238+00:00",
   "input_reports": {
     "gaps": {
-      "found": true,
-      "generated_at": "2026-07-13T11:58:18.443110",
-      "details": {
-        "total_gaps": 2,
-        "high_priority": 1,
-        "medium_priority": 1,
-        "low_priority": 0
-      }
+      "found": false,
+      "generated_at": "",
+      "details": {}
     },
     "drift": {
       "found": true,
@@ -19,38 +14,42 @@
       }
     },
     "docs_contract": {
-      "found": false,
+      "found": true,
       "generated_at": "",
-      "details": {}
+      "details": {
+        "status": "ok",
+        "mismatch_count": 0,
+        "new_or_changed_count": 0,
+        "closed_count": 0,
+        "emitted_count": 0,
+        "deduplicated_count": 0
+      }
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-07-13T11:58:18Z",
+      "generated_at": "2026-07-13T08:01:42Z",
       "details": {
-        "quality_score": 80,
-        "stale_docs": 43,
-        "stale_files_count": 43
+        "quality_score": 100,
+        "stale_docs": 0,
+        "stale_files_count": 0
       }
     },
     "sla": {
       "found": true,
       "generated_at": "",
       "details": {
-        "status": "breach",
-        "breaches": [
-          "Quality score breach: 80 < 82.",
-          "Stale docs breach: 55.8% > 12.0%."
-        ],
+        "status": "ok",
+        "breaches": [],
         "metrics": {
-          "quality_score": 80,
-          "stale_pct": 55.8,
-          "high_priority_gaps": 1
+          "quality_score": 100,
+          "stale_pct": 0.0,
+          "high_priority_gaps": 0
         }
       }
     },
     "i18n": {
       "found": true,
-      "generated_at": "2026-06-29T08:01:55.734609+00:00",
+      "generated_at": "2026-07-13T08:01:41.627368+00:00",
       "details": {
         "total_source_docs": 1,
         "languages": [
@@ -69,983 +68,56 @@
     },
     "glossary": {
       "found": true,
-      "generated_at": "2026-06-29T08:01:55.908631+00:00",
+      "generated_at": "2026-07-13T08:01:41.827721+00:00",
       "details": {
-        "markers_found": 4,
+        "markers_found": 6,
         "added_count": 0,
-        "updated_count": 1
+        "updated_count": 0
       }
     },
     "retrieval_evals": {
-      "found": true,
-      "generated_at": "2026-07-04T13:56:44.234290+00:00",
-      "details": {
-        "status": "ok",
-        "precision_at_k": 0.9667,
-        "recall_at_k": 0.9861,
-        "hallucination_rate": 0.0,
-        "top_k": 3
-      }
+      "found": false,
+      "generated_at": "",
+      "details": {}
     },
     "knowledge_graph": {
-      "found": true,
-      "generated_at": "2026-07-04T13:55:57.081865+00:00",
-      "details": {
-        "status": "ok",
-        "modules_count": 308,
-        "graph_nodes": 2313,
-        "edge_count": 1989,
-        "output_file": "docs\\assets\\knowledge-graph.jsonld"
-      }
-    },
-    "ask_ai": {
       "found": false,
       "generated_at": "",
       "details": {}
     }
   },
   "health_summary": {
-    "quality_score": 80,
-    "stale_pct": 55.8,
-    "total_docs": 77,
+    "quality_score": 100,
+    "stale_pct": 0.0,
+    "total_docs": 80,
     "metadata_completeness_pct": 100.0,
     "drift_status": "ok",
-    "sla_status": "breach",
-    "sla_breaches": [
-      "Quality score breach: 80 < 82.",
-      "Stale docs breach: 55.8% > 12.0%."
-    ],
-    "total_action_items": 49,
+    "sla_status": "ok",
+    "sla_breaches": [],
+    "total_action_items": 1,
     "translation_coverage": {
       "ru": 0.0
     },
     "terminology_new_terms": 0,
-    "retrieval_precision_at_k": 0.9667,
-    "retrieval_recall_at_k": 0.9861,
+    "retrieval_precision_at_k": 0.0,
+    "retrieval_recall_at_k": 0.0,
     "retrieval_hallucination_rate": 0.0,
-    "knowledge_graph_nodes": 2313
+    "knowledge_graph_nodes": 0
   },
   "action_items": [
     {
       "id": "CONS-001",
-      "source_report": "gaps",
-      "source_id": "CODE-0013",
-      "title": "Authentication: authentication: Auth",
-      "category": "authentication",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 32,
-      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
-      "related_files": [
-        "reports/doc_gaps_report.csv"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-002",
-      "source_report": "gaps",
-      "source_id": "CODE-0001",
-      "title": "Webhook: webhook: Webhook",
-      "category": "webhook",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 28,
-      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
-      "related_files": [
-        "reports/doc_gaps_report.csv"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-003",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: concepts/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review concepts/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "concepts/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-004",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: concepts/intelligent-knowledge-system.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review concepts/intelligent-knowledge-system.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "concepts/intelligent-knowledge-system.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-005",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: concepts/workflow-execution-model.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review concepts/workflow-execution-model.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "concepts/workflow-execution-model.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-006",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: en/how-to/set-up-real-time-webhook-processing-pipeline.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review en/how-to/set-up-real-time-webhook-processing-pipeline.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "en/how-to/set-up-real-time-webhook-processing-pipeline.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-007",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: getting-started/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review getting-started/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "getting-started/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-008",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: getting-started/quickstart.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review getting-started/quickstart.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "getting-started/quickstart.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-009",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: how-to/assemble-intent-experiences.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review how-to/assemble-intent-experiences.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "how-to/assemble-intent-experiences.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-010",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: how-to/configure-ask-ai-module.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review how-to/configure-ask-ai-module.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "how-to/configure-ask-ai-module.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-011",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: how-to/configure-webhook-trigger.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review how-to/configure-webhook-trigger.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "how-to/configure-webhook-trigger.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-012",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: how-to/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review how-to/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "how-to/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-013",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: how-to/migrate-from-confluence.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review how-to/migrate-from-confluence.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "how-to/migrate-from-confluence.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-014",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: how-to/run-api-first-production-flow.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review how-to/run-api-first-production-flow.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "how-to/run-api-first-production-flow.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-015",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-016",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: legal/data-processing-agreement.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review legal/data-processing-agreement.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "legal/data-processing-agreement.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-017",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: legal/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review legal/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "legal/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-018",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: legal/privacy-policy.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review legal/privacy-policy.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "legal/privacy-policy.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-019",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: legal/security-contact-policy.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review legal/security-contact-policy.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "legal/security-contact-policy.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-020",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: legal/security-policy.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review legal/security-policy.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "legal/security-policy.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-021",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: legal/terms-of-service.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review legal/terms-of-service.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "legal/terms-of-service.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-022",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/CANONICAL_FLOW.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/CANONICAL_FLOW.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/CANONICAL_FLOW.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-023",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/CENTRALIZED_CLIENT_BUNDLES.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/CENTRALIZED_CLIENT_BUNDLES.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/CENTRALIZED_CLIENT_BUNDLES.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-024",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/MULTI_PROTOCOL_ARCHITECTURE.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/MULTI_PROTOCOL_ARCHITECTURE.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/MULTI_PROTOCOL_ARCHITECTURE.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-025",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/MULTI_PROTOCOL_WIZARD_GUIDE.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/MULTI_PROTOCOL_WIZARD_GUIDE.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/MULTI_PROTOCOL_WIZARD_GUIDE.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-026",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/PLAN_TIERS.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/PLAN_TIERS.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/PLAN_TIERS.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-027",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/SMART_MERGE_REVIEW.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/SMART_MERGE_REVIEW.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/SMART_MERGE_REVIEW.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-028",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: operations/UNIFIED_CLIENT_CONFIG.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review operations/UNIFIED_CLIENT_CONFIG.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "operations/UNIFIED_CLIENT_CONFIG.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-029",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/api-playground.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/api-playground.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/api-playground.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-030",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/auto-doc-pipeline-study-guide.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/auto-doc-pipeline-study-guide.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/auto-doc-pipeline-study-guide.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-031",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/deprecated-example.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/deprecated-example.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/deprecated-example.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-032",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/grpc-api.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/grpc-api.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/grpc-api.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-033",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-034",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/intent-experiences/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/intent-experiences/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/intent-experiences/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-035",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/intent-experiences/integrate-beginner.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/intent-experiences/integrate-beginner.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/intent-experiences/integrate-beginner.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-036",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/intent-experiences/troubleshoot-beginner.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/intent-experiences/troubleshoot-beginner.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/intent-experiences/troubleshoot-beginner.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-037",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/network-transparency.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/network-transparency.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/network-transparency.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-038",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/nodes/webhook.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/nodes/webhook.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/nodes/webhook.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-039",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/rest-api.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/rest-api.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/rest-api.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-040",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/taskstream-api-playground.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/taskstream-api-playground.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/taskstream-api-playground.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-041",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/taskstream-planning-notes.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/taskstream-planning-notes.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/taskstream-planning-notes.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-042",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: reference/websocket-api.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review reference/websocket-api.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "reference/websocket-api.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-043",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: tags.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review tags.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "tags.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-044",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: troubleshooting/index.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review troubleshooting/index.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "troubleshooting/index.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-045",
-      "source_report": "kpi",
-      "source_id": null,
-      "title": "Stale document needs review: troubleshooting/webhook-not-firing.md",
-      "category": "stale_doc",
-      "suggested_doc_type": null,
-      "priority": "medium",
-      "frequency": 0,
-      "action_required": "Review troubleshooting/webhook-not-firing.md (not updated in 90+ days). Read the document and assess: (1) if content is outdated, update it and set last_reviewed to today; (2) if content is still accurate, only update last_reviewed to today.",
-      "related_files": [
-        "troubleshooting/webhook-not-firing.md"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "stale_related": true
-      }
-    },
-    {
-      "id": "CONS-046",
-      "source_report": "sla",
-      "source_id": null,
-      "title": "SLA breach: Quality score breach: 80 < 82.",
-      "category": "sla_breach",
-      "suggested_doc_type": null,
-      "priority": "high",
-      "frequency": 0,
-      "action_required": "Quality score breach: 80 < 82.",
-      "related_files": [],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "sla_breach_related": true,
-        "breach_details": "Quality score breach: 80 < 82.",
-        "metrics": {
-          "quality_score": 80,
-          "stale_pct": 55.8,
-          "high_priority_gaps": 1
-        }
-      }
-    },
-    {
-      "id": "CONS-047",
-      "source_report": "sla",
-      "source_id": null,
-      "title": "SLA breach: Stale docs breach: 55.8% > 12.0%.",
-      "category": "sla_breach",
-      "suggested_doc_type": null,
-      "priority": "high",
-      "frequency": 0,
-      "action_required": "Stale docs breach: 55.8% > 12.0%.",
-      "related_files": [],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "sla_breach_related": true,
-        "breach_details": "Stale docs breach: 55.8% > 12.0%.",
-        "metrics": {
-          "quality_score": 80,
-          "stale_pct": 55.8,
-          "high_priority_gaps": 1
-        }
-      }
-    },
-    {
-      "id": "CONS-048",
       "source_report": "i18n",
       "source_id": null,
-      "title": "Missing translation: ru/how-to\\set-up-real-time-webhook-processing-pipeline.md",
+      "title": "Missing translation: ru/how-to/set-up-real-time-webhook-processing-pipeline.md",
       "category": "missing_translation",
       "suggested_doc_type": null,
       "priority": "medium",
       "frequency": 0,
-      "action_required": "Create translation at ru/how-to\\set-up-real-time-webhook-processing-pipeline.md from source en/how-to\\set-up-real-time-webhook-processing-pipeline.md",
+      "action_required": "Create translation at ru/how-to/set-up-real-time-webhook-processing-pipeline.md from source en/how-to/set-up-real-time-webhook-processing-pipeline.md",
       "related_files": [
-        "en/how-to\\set-up-real-time-webhook-processing-pipeline.md",
-        "ru/how-to\\set-up-real-time-webhook-processing-pipeline.md"
+        "en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+        "ru/how-to/set-up-real-time-webhook-processing-pipeline.md"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -1054,26 +126,6 @@
         "translation_status": "missing",
         "target_locale": "ru",
         "source_hash": "fb1cb6418bc8227a235375ae970225b8f3a69feed0737c4901401a4c0e63574f"
-      }
-    },
-    {
-      "id": "CONS-049",
-      "source_report": "glossary",
-      "source_id": null,
-      "title": "Review updated glossary entries",
-      "category": "terminology_governance",
-      "suggested_doc_type": "reference",
-      "priority": "low",
-      "frequency": 0,
-      "action_required": "Review 1 updated glossary entries for consistent terminology governance.",
-      "related_files": [
-        "glossary.yml"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "terminology_related": true,
-        "updated_count": 1
       }
     }
   ]

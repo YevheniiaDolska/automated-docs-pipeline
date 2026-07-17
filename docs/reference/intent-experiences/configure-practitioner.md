@@ -25,6 +25,10 @@ python3 scripts/assemble_intent_experience.py \
 
 Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 ### Apply a pilot, full, or RAG configuration: Apply a pilot, full, or RAG configuration
 
 This guide shows you how to take an existing client profile and switch it to `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`, `strict-local`, or `hybrid` policy.
@@ -50,7 +54,11 @@ Before you start, ensure you have:
 - The target execution mode: `cloud`, `strict-local`, or `hybrid`
 - Permission to rebuild or reprovision the bundle
 
-#### Apply a pilot, full, or RAG configuration: Step 1: Start from the nearest preset
+### Apply a pilot, full, or RAG configuration (Part 2)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 2): Step 1: Start from the nearest preset
 
 Use the preset that is closest to the target state.
 
@@ -62,11 +70,7 @@ Use the preset that is closest to the target state.
 
 If the profile already exists, compare it to the preset before changing fields by hand.
 
-#### Apply a pilot, full, or RAG configuration: Step 2: Set the scope tier
-
-### Apply a pilot, full, or RAG configuration (Part 2)
-
-Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+#### Apply a pilot, full, or RAG configuration (Part 2): Step 2: Set the scope tier
 
 ##### Apply a pilot, full, or RAG configuration (Part 2): Pilot
 
@@ -112,7 +116,11 @@ runtime:
 
 ```
 
-##### Apply a pilot, full, or RAG configuration (Part 2): Full+RAG
+### Apply a pilot, full, or RAG configuration (Part 3)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+##### Apply a pilot, full, or RAG configuration (Part 3): Full+RAG
 
 Use `full+RAG` when retrieval quality is part of the contract.
 
@@ -132,9 +140,9 @@ runtime:
 
 ```
 
-#### Apply a pilot, full, or RAG configuration (Part 2): Step 3: Set the execution mode
+#### Apply a pilot, full, or RAG configuration (Part 3): Step 3: Set the execution mode
 
-##### Apply a pilot, full, or RAG configuration (Part 2): Cloud
+##### Apply a pilot, full, or RAG configuration (Part 3): Cloud
 
 ```yaml
 
@@ -146,10 +154,6 @@ runtime:
     redact_before_external: true
 
 ```
-
-### Apply a pilot, full, or RAG configuration (Part 3)
-
-Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
 
 ##### Apply a pilot, full, or RAG configuration (Part 3): Strict-local
 
@@ -179,7 +183,11 @@ runtime:
 
 Use `require_explicit_approval: false` in `hybrid` only if the client allows automatic external fallback.
 
-#### Apply a pilot, full, or RAG configuration (Part 3): Step 4: Align flow-specific settings
+### Apply a pilot, full, or RAG configuration (Part 4)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 4): Step 4: Align flow-specific settings
 
 If the client uses `api-first` or `hybrid` docs flow, confirm the API-first block is still coherent.
 
@@ -210,10 +218,6 @@ runtime:
 
 ```
 
-### Apply a pilot, full, or RAG configuration (Part 4)
-
-Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
-
 #### Apply a pilot, full, or RAG configuration (Part 4): Step 5: Rebuild the bundle
 
 After editing the profile, rebuild the bundle:
@@ -235,7 +239,11 @@ python3 scripts/provision_client_repo.py \
 
 ```
 
-#### Apply a pilot, full, or RAG configuration (Part 4): Step 6: Verify the included docs
+### Apply a pilot, full, or RAG configuration (Part 5)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 5): Step 6: Verify the included docs
 
 Every generated bundle should now include the configuration docs that match its profile. Check for:
 
@@ -246,25 +254,25 @@ Every generated bundle should now include the configuration docs that match its 
 
 Bundles may also include additional documents such as API-first or Ask AI instructions when those features are enabled.
 
-#### Apply a pilot, full, or RAG configuration (Part 4): Common issues and fixes
+#### Apply a pilot, full, or RAG configuration (Part 5): Common issues and fixes
 
-##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Full bundle still looks like pilot
+##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Full bundle still looks like pilot
 
 Check `licensing.plan` and the three retrieval flags. If `plan` is still `pilot`, or all three retrieval flags are `false`, the profile is still scoped down.
 
-##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Strict-local bundle still attempts external LLM use
+##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Strict-local bundle still attempts external LLM use
 
 Check `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify the generated bundle copies the expected `config/client_runtime.yml`.
-
-### Apply a pilot, full, or RAG configuration (Part 5)
-
-Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
 
 ##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Full+RAG bundle does not ship retrieval guidance
 
 Rebuild the bundle after changing the profile. The bundle builder selects configuration docs from the final runtime config, not from stale outputs.
 
-#### Apply a pilot, full, or RAG configuration (Part 5): Validation checklist
+### Apply a pilot, full, or RAG configuration (Part 6)
+
+Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+
+#### Apply a pilot, full, or RAG configuration (Part 6): Validation checklist
 
 - [ ] `licensing.plan` matches the intended scope tier
 - [ ] Retrieval flags match the intended scope tier
@@ -272,7 +280,7 @@ Rebuild the bundle after changing the profile. The bundle builder selects config
 - [ ] Bundle rebuild completed after the profile edit
 - [ ] The bundle includes the configuration documents under `docs/`
 
-#### Apply a pilot, full, or RAG configuration (Part 5): Next steps
+#### Apply a pilot, full, or RAG configuration (Part 6): Next steps
 
 - [Documentation index](index.md)
 
@@ -411,6 +419,10 @@ Build user-intent documentation and channel bundles from reusable knowledge modu
 ### Choose a pipeline configuration
 
 Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Choose a pipeline configuration: Choose a pipeline configuration
 
@@ -780,7 +792,7 @@ git commit -m "docs-ops: update Ask AI configuration"
 #### Configure Ask AI module (Part 4): Next steps
 
 - [Quick start](../getting-started/quickstart.md)
-- [Assemble intent experiences](./assemble-intent-experiences.md)
+- [Assemble intent experiences](assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Configure webhook triggers
@@ -1110,13 +1122,180 @@ Add this snippet to the docs site page template or custom HTML block:
   data-user-id="USER_123"
   data-user-role="support"
   data-plan="pro"
+  data-theme="dark"
+  data-title="Ask AI"
+  data-stream="true"
   data-enabled="true"></script>
 
 ```
 
-#### Install Ask AI runtime pack (Part 3): Troubleshooting
+The widget streams answers token by token, keeps conversation history for follow-up questions, renders inline citations, and shows thumbs up and thumbs down controls. Set `data-theme="light"` for a light panel and `data-stream="false"` to use the buffered endpoint.
 
-##### Install Ask AI runtime pack (Part 3): Runtime pack install fails because destination exists
+### Install Ask AI runtime pack (Part 4)
+
+Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+
+#### Install Ask AI runtime pack (Part 4): Stream answers as they generate
+
+The runtime streams answers token by token over the `POST /api/v1/ask/stream` endpoint. The widget renders each token as it arrives, so readers watch the answer form in real time instead of waiting for the full reply. Send the same request body as the standard endpoint:
+
+=== "cURL"
+
+```bash smoke
+
+    curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \
+      -H "Content-Type: application/json" \
+      -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
+      -d '{"question": "How do I rotate API keys?", "history": []}'
+
+```
+
+=== "JavaScript"
+
+```javascript smoke
+
+    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask/stream', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-Ask-AI-Key": "YOUR_PUBLIC_OR_PROXY_KEY",
+      },
+      body: JSON.stringify({"question": "How do I rotate API keys?", "history": []}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+
+```
+
+=== "Python"
+
+```python smoke
+
+    import requests
+
+### Install Ask AI runtime pack (Part 5)
+
+Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+
+response = requests.request(
+        'POST',
+        'https://docs.example.com/ask-ai/api/v1/ask/stream',
+        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY'},
+        json={'question': 'How do I rotate API keys?', 'history': []},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+
+```
+
+The stream sends one event per token, then a final event with the citations and question identifier:
+
+```text
+
+data: {"type": "token", "text": "Rotate "}
+
+data: {"type": "done", "citations": [...], "question_id": "...", "grounded": true}
+
+```
+
+## Keep conversation context for follow-up questions
+
+Send prior turns in the `history` field so follow-up questions read in context. Each turn is an object with a `role` of `user` or `assistant` and a `content` string. The `ASK_AI_HISTORY_MAX_TURNS` environment variable sets how many recent turns the server keeps, with a default of six. The widget stores the conversation and sends it with each question, so a reader can ask a follow-up such as "How does that work in self-hosted mode?" and receive a contextual answer.
+
+### Install Ask AI runtime pack (Part 6)
+
+Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+
+#### Install Ask AI runtime pack (Part 6): Ground answers in documentation and refuse when uncertain
+
+The assistant answers only from the retrieved documentation sources and cites them inline with bracketed numbers such as `[1]`. The response returns a `citations` list that contains only the sources the answer references, plus a `grounded` flag. When retrieval returns no sources, or the sources do not cover the question, the runtime returns an honest refusal with `grounded` set to `false` and an empty `citations` list. The runtime records each refusal in the usage log, where it surfaces as a documentation-gap candidate in the analytics report.
+
+#### Install Ask AI runtime pack (Part 6): Collect reader feedback
+
+Each answer includes thumbs up and thumbs down controls. The widget posts the rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the answer. Ratings feed the usage analytics and help rank which pages to improve first.
+
+### Install Ask AI runtime pack (Part 7)
+
+Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+
+#### Install Ask AI runtime pack (Part 7): Protect the endpoint and bill each user separately
+
+The runtime rate limits requests per user to protect the public endpoint and the provider quota behind it. Set the budget with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE` (default 20). The runtime keys the limit on the `X-User-Id` header, falling back to the API key. A request over the budget returns HTTP 429 with a `Retry-After` header.
+
+To bill queries to each user rather than a shared key, send the user's provider key per request:
+
+=== "cURL"
+
+```bash smoke
+
+    curl -X POST https://docs.example.com/ask-ai/api/v1/ask \
+      -H "Content-Type: application/json" \
+      -H "X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY" \
+      -H "X-Provider-Key: USER_PROVIDER_KEY" \
+      -H "X-Model: gpt-4.1-mini" \
+      -d '{"question": "How do I rotate API keys?"}'
+
+```
+
+=== "JavaScript"
+
+```javascript smoke
+
+    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-Ask-AI-Key": "YOUR_PUBLIC_OR_PROXY_KEY",
+        "X-Provider-Key": "USER_PROVIDER_KEY",
+        "X-Model": "gpt-4.1-mini",
+      },
+      body: JSON.stringify({"question": "How do I rotate API keys?"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+
+```
+
+=== "Python"
+
+```python smoke
+
+    import requests
+
+### Install Ask AI runtime pack (Part 8)
+
+Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+
+response = requests.request(
+        'POST',
+        'https://docs.example.com/ask-ai/api/v1/ask',
+        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY', 'X-Provider-Key': 'USER_PROVIDER_KEY', 'X-Model': 'gpt-4.1-mini'},
+        json={'question': 'How do I rotate API keys?'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+
+```
+
+The runtime uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key` to require the header: a request without it returns HTTP 402.
+
+## Analyze usage by topic and session
+
+The analytics report clusters questions into topics and builds a session engagement funnel. Send an `X-Session-Id` header with each request so the runtime can group a conversation. Build the report and dashboard:
+
+```bash
+
+npm run askai:analytics:build
+
+```
+
+The dashboard shows answer rate per topic (which themes lack coverage) and the funnel from asked to answered to follow-up to helpful rating.
+
+## Troubleshooting
+
+### Runtime pack install fails because destination exists
 
 Use force mode:
 
@@ -1126,13 +1305,27 @@ npm run askai:runtime:install:force
 
 ```
 
-##### Install Ask AI runtime pack (Part 3): Ask endpoint returns 401
+### Ask endpoint returns 401
 
 Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
 
-##### Install Ask AI runtime pack (Part 3): Ask endpoint returns 402
+### Install Ask AI runtime pack (Part 9)
+
+Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+
+##### Install Ask AI runtime pack (Part 9): Ask endpoint returns 402
 
 The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE` and user plan header.
+
+##### Install Ask AI runtime pack (Part 9): Answer reports that it cannot find the information
+
+The runtime refuses to answer when retrieval returns no relevant sources, or when the sources do not cover the question. This behavior prevents fabricated answers. Rebuild the retrieval index so new documentation becomes searchable:
+
+```bash
+
+python3 scripts/generate_knowledge_retrieval_index.py
+
+```
 
 The `/healthz` endpoint reports the status of all advanced retrieval features:
 
@@ -1152,7 +1345,7 @@ The `/healthz` endpoint reports the status of all advanced retrieval features:
 
 ```
 
-#### Install Ask AI runtime pack (Part 3): Next steps
+#### Install Ask AI runtime pack (Part 9): Next steps
 
 - [Configure Ask AI module](configure-ask-ai-module.md)
 - [Assemble intent experiences](assemble-intent-experiences.md)

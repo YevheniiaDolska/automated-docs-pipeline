@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-06-25T10:36:32.592689+00:00",
+  "generated_at_utc": "2026-07-17T11:43:03.945090+00:00",
   "sites_count": 1,
   "totals": {
-    "docs_broken_links_count": 14,
+    "docs_broken_links_count": 15,
     "repo_broken_links_count": 0,
-    "all_confirmed_broken_links_count": 14,
-    "unverified_links_sample_count": 30
+    "all_confirmed_broken_links_count": 15,
+    "unverified_links_sample_count": 21
   },
   "all_docs_broken_links": [
     "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
@@ -13,6 +13,7 @@
     "http://quicknode.com/docs/ethereum/undefined",
     "http://quicknode.com/docs/zcash/undefined",
     "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+    "http://quicknode.com/solana/getTipAccounts",
     "http://quicknode.com/streams/rest-api/getting-started",
     "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
     "https://quicknode.com/docs/bitcoin/bb_getAddress",
@@ -25,42 +26,33 @@
   ],
   "all_repo_broken_links": [],
   "all_unverified_links_sample": [
-    "http://quicknode.com/builders-guide/compare/asterizm-protocol-by-astrotech-labs-ltd-vs-polyfire-by-polyfire-vs-prediedge-by-ambitarc-inc",
-    "http://quicknode.com/builders-guide/compare/chartscout-by-chartscout-vs-rugcheck-by-rugcheck-team-vs-prediedge-by-ambitarc-inc",
-    "http://quicknode.com/builders-guide/compare/dexetera-by-dexetera-vs-vaults-fyi-by-wallfacer-labs-vs-chartscout-by-chartscout",
-    "http://quicknode.com/builders-guide/compare/fastbridge-by-avail-vs-vaults-fyi-by-wallfacer-labs-vs-asterizm-protocol-by-astrotech-labs-ltd",
-    "http://quicknode.com/builders-guide/compare/oddsshift-by-oddsshift-vs-turbinefi-by-turbinefi-vs-unusual-predictions-by-unusual-whales",
-    "http://quicknode.com/builders-guide/compare/vaults-fyi-by-wallfacer-labs-vs-polyfire-by-polyfire-vs-rugcheck-by-rugcheck-team",
-    "http://quicknode.com/builders-guide/tool-filter/page/28",
-    "http://quicknode.com/builders-guide/tool-filter/page/4",
-    "http://quicknode.com/builders-guide/tools/cryptopia-by-cryptopia-nodes",
-    "http://quicknode.com/builders-guide/tools/dogeminer-by-dogeminer",
-    "http://quicknode.com/builders-guide/tools/fliprbot-by-flipr-finance",
-    "http://quicknode.com/builders-guide/tools/kgen-by-kratos-studios",
-    "http://quicknode.com/builders-guide/tools/metavixens-by-theinkedmink",
-    "http://quicknode.com/builders-guide/tools/micro3-by-micro3",
-    "http://quicknode.com/builders-guide/tools/microswap-by-microswap",
-    "http://quicknode.com/builders-guide/tools/migrate-fun-by-agent-hustle",
-    "http://quicknode.com/builders-guide/tools/milliondollartokenpage-by-tokenpage",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-allchains-address-walletAddress-balances",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-allchains-transactions",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-balances_native",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-portfolio_v2",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transactions_summary",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transactions_v3",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transactions_v3-page-page",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transfers_v2",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block-blockHeight-transactions_v3-page-page",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block_hash-blockHash-transactions_v3",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block_v2-blockHeight",
-    "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block_v2-startDate-endDate"
+    "http://quicknode.com/builders-guide/compare/brave-wallet-by-brave-software-vs-ledger-nano-x-vs-crypto-com-by-crypto.com-team",
+    "http://quicknode.com/builders-guide/compare/crypto-wallet-by-metamask-vs-trust-wallet-vs-crypto-com-by-crypto.com-team",
+    "http://quicknode.com/builders-guide/compare/filedgr-by-filedgr-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+    "http://quicknode.com/builders-guide/compare/gear-protocol-by-gear-technologies-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+    "http://quicknode.com/builders-guide/compare/keep-network-by-keep-network-team-vs-multichain-vs-magic-by-magic-labs",
+    "http://quicknode.com/builders-guide/compare/latency-compare-by-quicknode-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+    "http://quicknode.com/builders-guide/compare/lava-network-by-lavanet-vs-multichain-vs-magic-by-magic-labs",
+    "http://quicknode.com/builders-guide/tools/ferrum-network-by-ferrum-network",
+    "http://quicknode.com/builders-guide/tools/linkdrop-by-linkdrop-labs",
+    "http://quicknode.com/builders-guide/tools/liquify-by-liquify-ltd",
+    "http://quicknode.com/builders-guide/tools/loop-crypto-by-loop",
+    "http://quicknode.com/builders-guide/tools/loopcrypto-by-loop-finance",
+    "http://quicknode.com/builders-guide/tools/meta-carbon-inc",
+    "http://quicknode.com/builders-guide/tools/rainbowkit-by-rainbow",
+    "http://quicknode.com/docs/megaeth/trace_callMany",
+    "https://quicknode.com/builders-guide/compare/ankr-liquid-staking-by-ankr-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+    "https://quicknode.com/builders-guide/compare/polkadot-by-parity-technologies-vs-coinbase-by-coinbase-inc-vs-subgraphs-by-goldsky",
+    "https://quicknode.com/builders-guide/compare/polygon-pos-by-polygon-labs-vs-fuse-vs-fuel",
+    "https://quicknode.com/builders-guide/compare/subsquid-by-rezolve-ai-vs-blockchain-analytics-app-by-nansen-vs-data-api-by-chainbase",
+    "https://quicknode.com/builders-guide/compare/sui-by-sui-foundation-vs-sunrise-layer-by-sunrise-project-vs-internet-computer-by-dfinity-foundation",
+    "https://quicknode.com/builders-guide/compare/web3-data-infrastructure-by-chainbase-vs-blast-api-by-bware-labs-vs-tenderly-monitoring-by-tenderly"
   ],
   "sites": [
     {
       "site_url": "https://quicknode.com/docs",
-      "confirmed_broken_links_count": 14,
-      "docs_broken_links_count": 14,
+      "confirmed_broken_links_count": 15,
+      "docs_broken_links_count": 15,
       "repo_broken_links_count": 0,
       "docs_broken_links": [
         "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
@@ -68,6 +60,7 @@
         "http://quicknode.com/docs/ethereum/undefined",
         "http://quicknode.com/docs/zcash/undefined",
         "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+        "http://quicknode.com/solana/getTipAccounts",
         "http://quicknode.com/streams/rest-api/getting-started",
         "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
         "https://quicknode.com/docs/bitcoin/bb_getAddress",
@@ -86,11 +79,17 @@
           "source_refs": [
             {
               "source_page": "http://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
-              "anchor_text": ""
+              "anchor_text": "Community View",
+              "anchor_label": "Community View",
+              "context": "Resources",
+              "locator_quality": "unique"
             },
             {
               "source_page": "http://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
-              "anchor_text": "Community View"
+              "anchor_text": "",
+              "anchor_label": "discord",
+              "context": "Financial Institutions",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -100,7 +99,10 @@
           "source_refs": [
             {
               "source_page": "http://quicknode.com/docs/bitcoin/marketplace-addons",
-              "anchor_text": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities"
+              "anchor_text": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities",
+              "anchor_label": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities",
+              "context": "Supported Marketplace Add-Ons for Bitcoin",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -110,7 +112,10 @@
           "source_refs": [
             {
               "source_page": "http://quicknode.com/docs/ethereum/api-overview",
-              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on"
+              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "anchor_label": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "context": "Supported APIs",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -120,7 +125,10 @@
           "source_refs": [
             {
               "source_page": "http://quicknode.com/docs/zcash/api-overview",
-              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on"
+              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "anchor_label": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "context": "Supported APIs",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -130,7 +138,23 @@
           "source_refs": [
             {
               "source_page": "http://quicknode.com/sample-app-library/solana-mcp",
-              "anchor_text": "example Claude desktop config"
+              "anchor_text": "example Claude desktop config",
+              "anchor_label": "example Claude desktop config",
+              "context": "file with the content from",
+              "locator_quality": "unique"
+            }
+          ]
+        },
+        {
+          "target_url": "http://quicknode.com/solana/getTipAccounts",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://quicknode.com/docs/solana/sendBundle",
+              "anchor_text": "getTipAccounts",
+              "anchor_label": "getTipAccounts",
+              "context": "sendBundle RPC Method -  JITO",
+              "locator_quality": "ambiguous"
             }
           ]
         },
@@ -140,7 +164,10 @@
           "source_refs": [
             {
               "source_page": "http://quicknode.com/docs/streams",
-              "anchor_text": "Streams REST API"
+              "anchor_text": "Streams REST API",
+              "anchor_label": "Streams REST API",
+              "context": "or via the",
+              "locator_quality": "ambiguous"
             }
           ]
         },
@@ -150,11 +177,17 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
-              "anchor_text": ""
+              "anchor_text": "Community View",
+              "anchor_label": "Community View",
+              "context": "Resources",
+              "locator_quality": "unique"
             },
             {
               "source_page": "https://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
-              "anchor_text": "Community View"
+              "anchor_text": "",
+              "anchor_label": "discord",
+              "context": "Financial Institutions",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -164,7 +197,10 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/docs/bitcoin/marketplace-addons",
-              "anchor_text": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities"
+              "anchor_text": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities",
+              "anchor_label": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities",
+              "context": "Supported Marketplace Add-Ons for Bitcoin",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -174,7 +210,10 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/docs/ethereum/api-overview",
-              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on"
+              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "anchor_label": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "context": "Supported APIs",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -184,7 +223,10 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/docs/zcash/api-overview",
-              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on"
+              "anchor_text": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "anchor_label": "Blockbook REST API REST endpoints for querying Bitcoin addresses, transactions, blocks, UTXO sets, and balance data via the Blockbook add-on",
+              "context": "Supported APIs",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -194,7 +236,10 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/sample-app-library/solana-mcp",
-              "anchor_text": "example Claude desktop config"
+              "anchor_text": "example Claude desktop config",
+              "anchor_label": "example Claude desktop config",
+              "context": "file with the content from",
+              "locator_quality": "unique"
             }
           ]
         },
@@ -204,7 +249,10 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/docs/solana/sendBundle",
-              "anchor_text": "getTipAccounts"
+              "anchor_text": "getTipAccounts",
+              "anchor_label": "getTipAccounts",
+              "context": "sendBundle RPC Method -  JITO",
+              "locator_quality": "ambiguous"
             }
           ]
         },
@@ -214,7 +262,10 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/docs/streams",
-              "anchor_text": "Streams REST API"
+              "anchor_text": "Streams REST API",
+              "anchor_label": "Streams REST API",
+              "context": "or via the",
+              "locator_quality": "ambiguous"
             }
           ]
         },
@@ -224,42 +275,36 @@
           "source_refs": [
             {
               "source_page": "https://quicknode.com/builders-guide/tools/jito-staking-by-jito-foundation",
-              "anchor_text": ""
+              "anchor_text": "",
+              "anchor_label": "x",
+              "context": "Infrastructure Developers",
+              "locator_quality": "unique"
             }
           ]
         }
       ],
       "unverified_links_sample": [
-        "http://quicknode.com/builders-guide/compare/asterizm-protocol-by-astrotech-labs-ltd-vs-polyfire-by-polyfire-vs-prediedge-by-ambitarc-inc",
-        "http://quicknode.com/builders-guide/compare/chartscout-by-chartscout-vs-rugcheck-by-rugcheck-team-vs-prediedge-by-ambitarc-inc",
-        "http://quicknode.com/builders-guide/compare/dexetera-by-dexetera-vs-vaults-fyi-by-wallfacer-labs-vs-chartscout-by-chartscout",
-        "http://quicknode.com/builders-guide/compare/fastbridge-by-avail-vs-vaults-fyi-by-wallfacer-labs-vs-asterizm-protocol-by-astrotech-labs-ltd",
-        "http://quicknode.com/builders-guide/compare/oddsshift-by-oddsshift-vs-turbinefi-by-turbinefi-vs-unusual-predictions-by-unusual-whales",
-        "http://quicknode.com/builders-guide/compare/vaults-fyi-by-wallfacer-labs-vs-polyfire-by-polyfire-vs-rugcheck-by-rugcheck-team",
-        "http://quicknode.com/builders-guide/tool-filter/page/28",
-        "http://quicknode.com/builders-guide/tool-filter/page/4",
-        "http://quicknode.com/builders-guide/tools/cryptopia-by-cryptopia-nodes",
-        "http://quicknode.com/builders-guide/tools/dogeminer-by-dogeminer",
-        "http://quicknode.com/builders-guide/tools/fliprbot-by-flipr-finance",
-        "http://quicknode.com/builders-guide/tools/kgen-by-kratos-studios",
-        "http://quicknode.com/builders-guide/tools/metavixens-by-theinkedmink",
-        "http://quicknode.com/builders-guide/tools/micro3-by-micro3",
-        "http://quicknode.com/builders-guide/tools/microswap-by-microswap",
-        "http://quicknode.com/builders-guide/tools/migrate-fun-by-agent-hustle",
-        "http://quicknode.com/builders-guide/tools/milliondollartokenpage-by-tokenpage",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-allchains-address-walletAddress-balances",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-allchains-transactions",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-balances_native",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-portfolio_v2",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transactions_summary",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transactions_v3",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transactions_v3-page-page",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-transfers_v2",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block-blockHeight-transactions_v3-page-page",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block_hash-blockHash-transactions_v3",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block_v2-blockHeight",
-        "http://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-block_v2-startDate-endDate"
+        "http://quicknode.com/builders-guide/compare/brave-wallet-by-brave-software-vs-ledger-nano-x-vs-crypto-com-by-crypto.com-team",
+        "http://quicknode.com/builders-guide/compare/crypto-wallet-by-metamask-vs-trust-wallet-vs-crypto-com-by-crypto.com-team",
+        "http://quicknode.com/builders-guide/compare/filedgr-by-filedgr-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+        "http://quicknode.com/builders-guide/compare/gear-protocol-by-gear-technologies-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+        "http://quicknode.com/builders-guide/compare/keep-network-by-keep-network-team-vs-multichain-vs-magic-by-magic-labs",
+        "http://quicknode.com/builders-guide/compare/latency-compare-by-quicknode-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+        "http://quicknode.com/builders-guide/compare/lava-network-by-lavanet-vs-multichain-vs-magic-by-magic-labs",
+        "http://quicknode.com/builders-guide/tools/ferrum-network-by-ferrum-network",
+        "http://quicknode.com/builders-guide/tools/linkdrop-by-linkdrop-labs",
+        "http://quicknode.com/builders-guide/tools/liquify-by-liquify-ltd",
+        "http://quicknode.com/builders-guide/tools/loop-crypto-by-loop",
+        "http://quicknode.com/builders-guide/tools/loopcrypto-by-loop-finance",
+        "http://quicknode.com/builders-guide/tools/meta-carbon-inc",
+        "http://quicknode.com/builders-guide/tools/rainbowkit-by-rainbow",
+        "http://quicknode.com/docs/megaeth/trace_callMany",
+        "https://quicknode.com/builders-guide/compare/ankr-liquid-staking-by-ankr-vs-rarible-by-rarible-inc-vs-subgraphs-by-goldsky",
+        "https://quicknode.com/builders-guide/compare/polkadot-by-parity-technologies-vs-coinbase-by-coinbase-inc-vs-subgraphs-by-goldsky",
+        "https://quicknode.com/builders-guide/compare/polygon-pos-by-polygon-labs-vs-fuse-vs-fuel",
+        "https://quicknode.com/builders-guide/compare/subsquid-by-rezolve-ai-vs-blockchain-analytics-app-by-nansen-vs-data-api-by-chainbase",
+        "https://quicknode.com/builders-guide/compare/sui-by-sui-foundation-vs-sunrise-layer-by-sunrise-project-vs-internet-computer-by-dfinity-foundation",
+        "https://quicknode.com/builders-guide/compare/web3-data-infrastructure-by-chainbase-vs-blast-api-by-bware-labs-vs-tenderly-monitoring-by-tenderly"
       ]
     }
   ]

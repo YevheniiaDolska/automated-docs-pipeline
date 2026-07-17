@@ -25,32 +25,11 @@ python3 scripts/assemble_intent_experience.py \
 
 ## Included modules
 
-### Apply a pilot, full, or RAG configuration (Part 4)
+### Apply a pilot, full, or RAG configuration (Part 5)
 
 Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
 
-#### Apply a pilot, full, or RAG configuration (Part 4): Step 5: Rebuild the bundle
-
-After editing the profile, rebuild the bundle:
-
-```bash
-
-python3 scripts/build_client_bundle.py --client profiles/clients/acme.client.yml
-
-```
-
-If you are installing directly into a repo, reprovision it:
-
-```bash
-
-python3 scripts/provision_client_repo.py \
-  --client profiles/clients/acme.client.yml \
-  --client-repo /path/to/client-repo \
-  --install-scheduler linux
-
-```
-
-#### Apply a pilot, full, or RAG configuration (Part 4): Step 6: Verify the included docs
+#### Apply a pilot, full, or RAG configuration (Part 5): Step 6: Verify the included docs
 
 Every generated bundle should now include the configuration docs that match its profile. Check for:
 
@@ -61,15 +40,19 @@ Every generated bundle should now include the configuration docs that match its 
 
 Bundles may also include additional documents such as API-first or Ask AI instructions when those features are enabled.
 
-#### Apply a pilot, full, or RAG configuration (Part 4): Common issues and fixes
+#### Apply a pilot, full, or RAG configuration (Part 5): Common issues and fixes
 
-##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Full bundle still looks like pilot
+##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Full bundle still looks like pilot
 
 Check `licensing.plan` and the three retrieval flags. If `plan` is still `pilot`, or all three retrieval flags are `false`, the profile is still scoped down.
 
-##### Apply a pilot, full, or RAG configuration (Part 4): Issue: Strict-local bundle still attempts external LLM use
+##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Strict-local bundle still attempts external LLM use
 
 Check `runtime.llm_control.external_llm_allowed`. It must be `false`. Also verify the generated bundle copies the expected `config/client_runtime.yml`.
+
+##### Apply a pilot, full, or RAG configuration (Part 5): Issue: Full+RAG bundle does not ship retrieval guidance
+
+Rebuild the bundle after changing the profile. The bundle builder selects configuration docs from the final runtime config, not from stale outputs.
 
 ### Assemble intent experiences (Part 2)
 
@@ -197,7 +180,7 @@ git commit -m "docs-ops: update Ask AI configuration"
 #### Configure Ask AI module (Part 4): Next steps
 
 - [Quick start](../getting-started/quickstart.md)
-- [Assemble intent experiences](./assemble-intent-experiences.md)
+- [Assemble intent experiences](assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Migrate documentation from Confluence (Part 5)

@@ -116,9 +116,10 @@ Auto-generated asyncapi reference from source contract.
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
+
 ### ASYNCAPI API Reference: ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -141,6 +142,8 @@ Auto-generated asyncapi reference from source contract.
 
 > Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
 
+<!-- vale off -->
+
 ### ASYNCAPI API Reference (Part 3)
 
 Auto-generated asyncapi reference from source contract.
@@ -148,13 +151,11 @@ Auto-generated asyncapi reference from source contract.
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
-<textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -228,6 +229,8 @@ sendHttp.onclick = async function(){
 ### ASYNCAPI API Reference (Part 4)
 
 Auto-generated asyncapi reference from source contract.
+
+<!-- vale on -->
 
 #### ASYNCAPI API Reference (Part 4): Next steps
 
@@ -492,9 +495,9 @@ Auto-generated review index for autopipeline outputs.
 
 Generated automatically after autopipeline run.
 
-- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml`
-- Stage summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/pipeline_stage_summary.json`
-- Review manifest: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/REVIEW_MANIFEST.md`
+- Runtime config: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docsops\config\client_runtime.yml`
+- Stage summary: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\pipeline_stage_summary.json`
+- Review manifest: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\REVIEW_MANIFEST.md`
 - Weekly rc: `0`
 - Strictness: `standard`
 - Skip consolidated report: `False`
@@ -507,6 +510,7 @@ Generated automatically after autopipeline run.
 - `finalize_gate`: **OK**
 - `docsops_status`: **OK**
 - `ready_marker`: **OK**
+- `code_traceability`: **OK**
 - `kpi_wall`: **OK**
 - `kpi_sla`: **OK**
 - `glossary_sync`: **OK**
@@ -517,7 +521,7 @@ Generated automatically after autopipeline run.
 
 #### Autopipeline Output Index: Docs Links
 
-- Docs index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md` (OK)
+- Docs index: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\index.md` (OK)
   Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/index/>
 
 ### Autopipeline Output Index (Part 2)
@@ -526,18 +530,18 @@ Auto-generated review index for autopipeline outputs.
 
 #### Autopipeline Output Index (Part 2): Protocols Links
 
-- Multi-protocol contract report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/multi_protocol_contract_report.json` (OK)
-- REST reference: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/rest-api.md` (OK)
+- Multi-protocol contract report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\multi_protocol_contract_report.json` (OK)
+- REST reference: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\reference\rest-api.md` (OK)
   Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/reference/rest-api/>
-- REST playground: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md` (OK)
+- REST playground: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\reference\taskstream-api-playground.md` (OK)
   Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/reference/taskstream-api-playground/>
 
 #### Autopipeline Output Index (Part 2): Quality Links
 
-- Glossary source: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/glossary.yml` (OK)
-- Glossary sync report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/glossary_sync_report.json` (OK)
-- KPI wall: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-wall.json` (OK)
-- KPI SLA report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/kpi-sla-report.json` (OK)
+- Glossary source: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\glossary.yml` (OK)
+- Glossary sync report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\glossary_sync_report.json` (OK)
+- KPI wall: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\kpi-wall.json` (OK)
+- KPI SLA report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\kpi-sla-report.json` (OK)
 
 ### Autopipeline Output Index (Part 3)
 
@@ -545,46 +549,42 @@ Auto-generated review index for autopipeline outputs.
 
 #### Autopipeline Output Index (Part 3): Reports Links
 
-- Consolidated report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/consolidated_report.json` (OK)
-- Audit scorecard (JSON): `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.json` (OK)
-- Audit scorecard (HTML): `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/audit_scorecard.html` (OK)
-- Finalize gate report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/finalize_gate_report.json` (OK)
-- VeriOps status: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/docsops_status.json` (OK)
-- Ready marker: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/READY_FOR_REVIEW.txt` (OK)
-- Generated changes list: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/generated_changes.json` (OK)
-- VeriDoc branding policy report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veridoc_branding_policy_report.json` (OK)
+- Consolidated report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\consolidated_report.json` (OK)
+- Audit scorecard (JSON): `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.json` (OK)
+- Audit scorecard (HTML): `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.html` (OK)
+- Finalize gate report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\finalize_gate_report.json` (OK)
+- VeriOps status: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\docsops_status.json` (OK)
+- Ready marker: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\READY_FOR_REVIEW.txt` (OK)
+- Generated changes list: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\generated_changes.json` (OK)
+- VeriDoc branding policy report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\veridoc_branding_policy_report.json` (OK)
+
+#### Autopipeline Output Index (Part 3): Search Links
+
+- Faceted search page: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\search-faceted.md` (OK)
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/>
+- Facets index: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\assets\facets-index.json` (OK)
+  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json>
 
 ### Autopipeline Output Index (Part 4)
 
 Auto-generated review index for autopipeline outputs.
 
-#### Autopipeline Output Index (Part 4): Search Links
-
-- Faceted search page: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md` (OK)
-  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/>
-- Facets index: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json` (OK)
-  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json>
-
 #### Autopipeline Output Index (Part 4): Tests Links
 
-- API test cases JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/api_test_cases.json` (OK)
-- TestRail CSV: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/testrail_test_cases.csv` (OK)
-- Zephyr JSON: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/zephyr_test_cases.json` (OK)
-- Test coverage report: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/coverage_report.json` (OK)
-- Fuzz scenarios: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/fuzz_scenarios.json` (OK)
-- Test assets summary: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/api-test-assets/TEST_ASSETS_SUMMARY.md` (MISSING)
+- API test cases JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\api_test_cases.json` (OK)
+- TestRail CSV: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\testrail_test_cases.csv` (OK)
+- Zephyr JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\zephyr_test_cases.json` (OK)
+- Test coverage report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\coverage_report.json` (OK)
+- Fuzz scenarios: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\fuzz_scenarios.json` (OK)
+- Test assets summary: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\TEST_ASSETS_SUMMARY.md` (MISSING)
 
-### Autopipeline Output Index (Part 5)
-
-Auto-generated review index for autopipeline outputs.
-
-#### Autopipeline Output Index (Part 5): Browse/Searchability
+#### Autopipeline Output Index (Part 4): Browse/Searchability
 
 - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable page paths.
 - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index (`docs/assets/knowledge-retrieval-index.json`).
 - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval eval reports.
 
-#### Autopipeline Output Index (Part 5): Next steps
+#### Autopipeline Output Index (Part 4): Next steps
 
 - [Documentation index](../index.md)
 
@@ -826,15 +826,15 @@ export SCREENSHOT_LOGIN_PASSWORD="your-password"
 
 Playwright bootstrap:
 
-### Canonical Flow (Sales + Delivery) (Part 7)
-
-Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
-
 ```bash
 
 python3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright
 
 ```
+
+### Canonical Flow (Sales + Delivery) (Part 7)
+
+Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
 
 - terminology governance:
   - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
@@ -1824,9 +1824,10 @@ Auto-generated graphql reference from source contract.
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
+
 ### GRAPHQL API Reference: GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_publish_blocked_when_live0/api/schema.graphql`
 
 Flow mode: `api-first`
 
@@ -1842,6 +1843,8 @@ Flow mode: `api-first`
 Auto-generated graphql reference from source contract.
 
 #### GRAPHQL API Reference (Part 2): Interactive GraphQL Playground
+
+<!-- vale off -->
 
 This auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing.
 
@@ -1859,7 +1862,7 @@ Auto-generated graphql reference from source contract.
   <pre id="graphql-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const endpoint = "https://postman-echo.com/post";
+(function(){ const endpoint = "http://127.0.0.1:9/graphql";
 const view = document.getElementById('graphql-endpoint-view');
 const run = document.getElementById('graphql-run');
 const query = document.getElementById('graphql-query');
@@ -1899,6 +1902,8 @@ run.onclick = async function(){
 
 Auto-generated graphql reference from source contract.
 
+<!-- vale on -->
+
 #### GRAPHQL API Reference (Part 4): Next steps
 
 - [Documentation index](index.md)
@@ -1936,6 +1941,8 @@ Auto-generated grpc reference from source contract.
 #### GRPC API Reference (Part 2): Interactive gRPC Tester
 
 This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.
+
+<!-- vale off -->
 
 ### GRPC API Reference (Part 3)
 
@@ -1992,6 +1999,8 @@ run.onclick = async function(){
 ### GRPC API Reference (Part 4)
 
 Auto-generated grpc reference from source contract.
+
+<!-- vale on -->
 
 #### GRPC API Reference (Part 4): Next steps
 
@@ -3188,6 +3197,10 @@ The pipeline supports five API protocols with a unified orchestrator (`run_multi
 
 Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 ### How pipeline configurations compose: How pipeline configurations compose
 
 Pipeline configuration is a two-axis model. One axis defines rollout scope, and the other defines how LLM work is executed and governed.
@@ -3209,7 +3222,11 @@ runtime:
 
 This model matters because a `pilot` bundle in `strict-local mode` should carry different scripts, governance, and user instructions than a `full+RAG` bundle in `cloud` mode.
 
-#### How pipeline configurations compose: The two axes
+### How pipeline configurations compose (Part 2)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+#### How pipeline configurations compose (Part 2): The two axes
 
 The pipeline combines these dimensions:
 
@@ -3220,13 +3237,9 @@ The pipeline combines these dimensions:
 
 The builder does not infer one axis from the other. A bundle can be `pilot + cloud`, `full + strict-local`, or `full+RAG + hybrid`.
 
-#### How pipeline configurations compose: Rollout scope is about delivery depth
+#### How pipeline configurations compose (Part 2): Rollout scope is about delivery depth
 
 Rollout scope answers: how much of the platform should this client receive now?
-
-### How pipeline configurations compose (Part 2)
-
-Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
 
 ##### How pipeline configurations compose (Part 2): Pilot
 
@@ -3250,7 +3263,11 @@ Pilot intentionally keeps retrieval features off by default because the goal is 
 
 Full can still be RAG-free. That is a valid state when the client wants governed documentation operations without retrieval evaluation or graph outputs.
 
-##### How pipeline configurations compose (Part 2): Full+RAG
+### How pipeline configurations compose (Part 3)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+##### How pipeline configurations compose (Part 3): Full+RAG
 
 `full+RAG` adds the retrieval layer to full docs operations:
 
@@ -3261,11 +3278,11 @@ Full can still be RAG-free. That is a valid state when the client wants governed
 
 This mode is appropriate when the client expects AI-facing documentation quality to be measured, not only generated.
 
-#### How pipeline configurations compose (Part 2): Execution mode is about LLM governance
+#### How pipeline configurations compose (Part 3): Execution mode is about LLM governance
 
 Execution mode answers: where may synthesis run, and what fallback is allowed?
 
-##### How pipeline configurations compose (Part 2): Cloud
+##### How pipeline configurations compose (Part 3): Cloud
 
 Cloud mode prefers external models:
 
@@ -3280,10 +3297,6 @@ runtime:
 ```
 
 Use this mode when external-model quality and latency matter more than local-only execution controls.
-
-### How pipeline configurations compose (Part 3)
-
-Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
 
 ##### How pipeline configurations compose (Part 3): Strict-local
 
@@ -3317,7 +3330,11 @@ runtime:
 
 Use this mode when the team wants local defaults but still needs a path for harder synthesis tasks.
 
-#### How pipeline configurations compose (Part 3): Why full and full+RAG are not the same
+### How pipeline configurations compose (Part 4)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+#### How pipeline configurations compose (Part 4): Why full and full+RAG are not the same
 
 A frequent mistake is assuming `full` automatically implies retrieval features. It does not.
 
@@ -3328,10 +3345,6 @@ The difference is the retrieval triplet:
 - `retrieval_evals`
 
 When all three are `true`, the configuration behaves as `full+RAG`. When they are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed rollout.
-
-### How pipeline configurations compose (Part 4)
-
-Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
 
 #### How pipeline configurations compose (Part 4): Why bundles need configuration-specific docs
 
@@ -3345,7 +3358,11 @@ The same scripts are not enough across every configuration. Users need configura
 
 That is why the bundle builder now selects documentation from the final runtime config, not only from manual `include_docs` entries.
 
-#### How pipeline configurations compose (Part 4): Configuration patterns that work well
+### How pipeline configurations compose (Part 5)
+
+Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+#### How pipeline configurations compose (Part 5): Configuration patterns that work well
 
 | Pattern | When it works best |
 | --- | --- |
@@ -3354,10 +3371,6 @@ That is why the bundle builder now selects documentation from the final runtime 
 | `full + hybrid` | Standard production rollout with local-first governance |
 | `full+RAG + hybrid` | AI-facing docs program with controlled external fallback |
 | `full+RAG + cloud` | Maximum throughput and retrieval quality work on hosted models |
-
-### How pipeline configurations compose (Part 5)
-
-Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
 
 #### How pipeline configurations compose (Part 5): Next steps
 
@@ -3368,6 +3381,10 @@ Learn how the pipeline combines rollout scope and LLM execution mode so bundles 
 ### Pipeline configuration reference
 
 Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
 
 ### Pipeline configuration reference: Pipeline configuration reference
 

@@ -24,6 +24,11 @@ docs_site:
   generator: mkdocs
   build_enabled: true
   build_command: ''
+  # Screenshot capture serves the built site locally so Playwright has real pages.
+  # Set production_url to a live docs URL to capture that instead of a local build.
+  production_url: ''
+  local_preview_enabled: true
+  local_preview_port: 0  # 0 selects a free port automatically
 paths:
   docs_root: docs
   api_root: api

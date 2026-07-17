@@ -25,6 +25,10 @@ python3 scripts/assemble_intent_experience.py \
 
 Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 ### Choose a pipeline configuration: Choose a pipeline configuration
 
 The pipeline combines one scope tier with one execution mode. Start with that pair, then build or provision the matching bundle from a single client profile.

@@ -1,0 +1,73 @@
+id: auto-install-ask-ai-runtime-pack-5
+title: Install Ask AI runtime pack (Part 5)
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+metadata:
+  url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
+  title: Install Ask AI runtime pack (Part 5)
+  heading: Keep conversation context for follow-up questions
+  version: 1.50.0
+  updated_at: '2026-07-04'
+  source_site: docs.example.com
+  source_path: how-to/install-ask-ai-runtime-pack.md
+semantic:
+  topic: Keep conversation context for follow-up questions
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - install ask ai runtime pack
+  status: rule_based
+content:
+  docs_markdown: "response = requests.request(\n        'POST',\n        'https://docs.example.com/ask-ai/api/v1/ask/stream',\n\
+    \        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY'},\n\
+    \        json={'question': 'How do I rotate API keys?', 'history': []},\n    \
+    \    timeout=30,\n    )\n    response.raise_for_status()\n    print(response.json())\n\
+    \    ```\n\nThe stream sends one event per token, then a final event with the\
+    \ citations and question identifier:\n\n```text\ndata: {\"type\": \"token\", \"\
+    text\": \"Rotate \"}\n\ndata: {\"type\": \"done\", \"citations\": [...], \"question_id\"\
+    : \"...\", \"grounded\": true}\n```\n\n## Keep conversation context for follow-up\
+    \ questions\n\nSend prior turns in the `history` field so follow-up questions\
+    \ read in context. Each turn is an object with a `role` of `user` or `assistant`\
+    \ and a `content` string. The `ASK_AI_HISTORY_MAX_TURNS` environment variable\
+    \ sets how many recent turns the server keeps, with a default of six. The widget\
+    \ stores the conversation and sends it with each question, so a reader can ask\
+    \ a follow-up such as \"How does that work in self-hosted mode?\" and receive\
+    \ a contextual answer."
+  assistant_context: "Use this module when answering questions related to: Install\
+    \ Ask AI runtime pack (Part 5). Source path: how-to/install-ask-ai-runtime-pack.md.\
+    \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
+    \ auth checks, and billing hooks in a few commands.\n\nresponse = requests.request(\n\
+    \        'POST',\n        'https://docs.example.com/ask-ai/api/v1/ask/stream',\n\
+    \        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY'},\n\
+    \        json={'question': 'How do I rotate API keys?', 'history': []},\n    \
+    \    timeout=30,\n    )\n    response.raise_for_status()\n    print(response.json())\n\
+    \    ```\n\nThe stream sends one event per token, then a final event with the\
+    \ citations and question identifier:\n\n```text\ndata: {\"type\": \"token\", \"\
+    text\": \"Rotate \"}\n\ndata: {\"type\": \"done\", \"citations\": [...], \"question_id\"\
+    : \"...\", \"grounded\": true}\n```\n\n## Keep conversation context for follow-up\
+    \ questions\n\nSend prior turns in the `history` field so follow-up questions\
+    \ read in context. Each turn is an object with a `role` of `user` or `assistant`\
+    \ and a `content` string. The `ASK_AI_HISTORY_MAX_TURNS` environment variable\
+    \ sets how many recent turns the server keeps, with a default of six. The widget\
+    \ stores the conversation and sends it with each question, so a reader can ask\
+    \ a follow-up such as \"How does that work in self-hosted mode?\" and receive\
+    \ a contextual answer."

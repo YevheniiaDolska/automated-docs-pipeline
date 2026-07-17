@@ -1,0 +1,77 @@
+id: auto-install-ask-ai-runtime-pack-8
+title: Install Ask AI runtime pack (Part 8)
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+metadata:
+  url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
+  title: Install Ask AI runtime pack (Part 8)
+  heading: Analyze usage by topic and session
+  version: 1.50.0
+  updated_at: '2026-07-04'
+  source_site: docs.example.com
+  source_path: how-to/install-ask-ai-runtime-pack.md
+semantic:
+  topic: Analyze usage by topic and session
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - install ask ai runtime pack
+  status: rule_based
+content:
+  docs_markdown: "response = requests.request(\n        'POST',\n        'https://docs.example.com/ask-ai/api/v1/ask',\n\
+    \        headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY',\
+    \ 'X-Provider-Key': 'USER_PROVIDER_KEY', 'X-Model': 'gpt-4.1-mini'},\n       \
+    \ json={'question': 'How do I rotate API keys?'},\n        timeout=30,\n    )\n\
+    \    response.raise_for_status()\n    print(response.json())\n    ```\n\nThe runtime\
+    \ uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for\
+    \ that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key`\
+    \ to require the header: a request without it returns HTTP 402.\n\n## Analyze\
+    \ usage by topic and session\n\nThe analytics report clusters questions into topics\
+    \ and builds a session engagement funnel. Send an `X-Session-Id` header with each\
+    \ request so the runtime can group a conversation. Build the report and dashboard:\n\
+    \n```bash\nnpm run askai:analytics:build\n```\n\nThe dashboard shows answer rate\
+    \ per topic (which themes lack coverage) and the funnel from asked to answered\
+    \ to follow-up to helpful rating.\n\n## Troubleshooting\n\n### Runtime pack install\
+    \ fails because destination exists\n\nUse force mode:\n\n```bash\nnpm run askai:runtime:install:force\n\
+    ```\n\n### Ask endpoint returns 401\n\nCheck `X-Ask-AI-Key` header and `ASK_AI_API_KEY`\
+    \ value."
+  assistant_context: "Use this module when answering questions related to: Install\
+    \ Ask AI runtime pack (Part 8). Source path: how-to/install-ask-ai-runtime-pack.md.\
+    \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
+    \ auth checks, and billing hooks in a few commands.\n\nresponse = requests.request(\n\
+    \        'POST',\n        'https://docs.example.com/ask-ai/api/v1/ask',\n    \
+    \    headers={'Content-Type': 'application/json', 'X-Ask-AI-Key': 'YOUR_PUBLIC_OR_PROXY_KEY',\
+    \ 'X-Provider-Key': 'USER_PROVIDER_KEY', 'X-Model': 'gpt-4.1-mini'},\n       \
+    \ json={'question': 'How do I rotate API keys?'},\n        timeout=30,\n    )\n\
+    \    response.raise_for_status()\n    print(response.json())\n    ```\n\nThe runtime\
+    \ uses `X-Provider-Key` (and optional `X-Provider-Base-Url` and `X-Model`) for\
+    \ that request, so the user pays for their own queries. Set `ASK_AI_BILLING_MODE=bring-your-own-key`\
+    \ to require the header: a request without it returns HTTP 402.\n\n## Analyze\
+    \ usage by topic and session\n\nThe analytics report clusters questions into topics\
+    \ and builds a session engagement funnel. Send an `X-Session-Id` header with each\
+    \ request so the runtime can group a conversation. Build the report and dashboard:\n\
+    \n```bash\nnpm run askai:analytics:build\n```\n\nThe dashboard shows answer rate\
+    \ per topic (which themes lack coverage) and the funnel from asked to answered\
+    \ to follow-up to helpful rating.\n\n## Troubleshooting\n\n### Runtime pack install\
+    \ fails because destination exists\n\nUse force mode:\n\n```bash\nnpm run askai:runtime:install:force\n\
+    ```\n\n### Ask endpoint returns 401\n\nCheck `X-Ask-AI-Key` header and `ASK_AI_API_KEY`\
+    \ value."

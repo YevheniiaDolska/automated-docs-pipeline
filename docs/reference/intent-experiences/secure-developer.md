@@ -135,6 +135,12 @@ export SCREENSHOT_LOGIN_PASSWORD="your-password"
 
 Playwright bootstrap:
 
+```bash
+
+python3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright
+
+```
+
 ### Configure webhook triggers
 
 Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.

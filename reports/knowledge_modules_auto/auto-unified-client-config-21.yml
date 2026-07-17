@@ -1,0 +1,68 @@
+id: auto-unified-client-config-21
+title: Unified Client Configuration (Part 21)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+metadata:
+  url: https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/
+  title: Unified Client Configuration (Part 21)
+  heading: Unified Client Configuration (Part 21)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/UNIFIED_CLIENT_CONFIG.md
+semantic:
+  topic: Unified Client Configuration (Part 21)
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - unified client config
+  status: rule_based
+content:
+  docs_markdown: '- runs after generation/refinement tasks in weekly flow,
+
+    - runs lint/fix/lint loop (`scripts/finalize_docs_gate.py`),
+
+    - can optionally ask user confirmation before commit in interactive mode.
+
+
+    Important: API-first is only one flow branch.
+
+    The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook),
+    and quality automation applies across them.'
+  assistant_context: 'Use this module when answering questions related to: Unified
+    Client Configuration (Part 21). Source path: operations/UNIFIED_CLIENT_CONFIG.md.
+    Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,
+    modules, and automation.
+
+
+    - runs after generation/refinement tasks in weekly flow,
+
+    - runs lint/fix/lint loop (`scripts/finalize_docs_gate.py`),
+
+    - can optionally ask user confirmation before commit in interactive mode.
+
+
+    Important: API-first is only one flow branch.
+
+    The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook),
+    and quality automation applies across them.'

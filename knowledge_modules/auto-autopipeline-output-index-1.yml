@@ -13,7 +13,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-07-04'
+last_verified: '2026-07-13'
 dependencies: []
 tags:
 - auto-extracted
@@ -24,7 +24,7 @@ metadata:
   title: Autopipeline Output Index
   heading: Stage Articulation
   version: 1.50.0
-  updated_at: '2026-07-04T21:46:05.351149Z'
+  updated_at: '2026-07-13T08:01:32.966022Z'
   source_site: docs.example.com
   source_path: operations/AUTOPIPELINE_OUTPUT_INDEX.md
 semantic:
@@ -44,11 +44,12 @@ content:
     reports\\REVIEW_MANIFEST.md`\n- Weekly rc: `0`\n- Strictness: `standard`\n- Skip\
     \ consolidated report: `False`\n\n## Stage Articulation\n\n- `multi_protocol_contract`:\
     \ **OK**\n- `consolidated_report`: **OK**\n- `audit_scorecard`: **OK**\n- `finalize_gate`:\
-    \ **OK**\n- `docsops_status`: **OK**\n- `ready_marker`: **OK**\n- `kpi_wall`:\
-    \ **OK**\n- `kpi_sla`: **OK**\n- `glossary_sync`: **OK**\n- `test_assets_json`:\
-    \ **OK**\n- `test_assets_coverage`: **OK**\n- `test_assets_fuzz`: **OK**\n- `test_assets_summary`:\
-    \ **MISSING**\n\n## Docs Links\n\n- Docs index: `C:\\Users\\Kroha\\Documents\\\
-    development\\Auto-Doc Pipeline\\docs\\index.md` (OK)\n  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/index/>"
+    \ **OK**\n- `docsops_status`: **OK**\n- `ready_marker`: **OK**\n- `code_traceability`:\
+    \ **OK**\n- `kpi_wall`: **OK**\n- `kpi_sla`: **OK**\n- `glossary_sync`: **OK**\n\
+    - `test_assets_json`: **OK**\n- `test_assets_coverage`: **OK**\n- `test_assets_fuzz`:\
+    \ **OK**\n- `test_assets_summary`: **MISSING**\n\n## Docs Links\n\n- Docs index:\
+    \ `C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\docs\\index.md`\
+    \ (OK)\n  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/index/>"
   assistant_context: "Use this module when answering questions related to: Autopipeline\
     \ Output Index. Source path: operations/AUTOPIPELINE_OUTPUT_INDEX.md. Summary:\
     \ Auto-generated review index for autopipeline outputs.\n\n# Autopipeline Output\
@@ -60,8 +61,8 @@ content:
     - Weekly rc: `0`\n- Strictness: `standard`\n- Skip consolidated report: `False`\n\
     \n## Stage Articulation\n\n- `multi_protocol_contract`: **OK**\n- `consolidated_report`:\
     \ **OK**\n- `audit_scorecard`: **OK**\n- `finalize_gate`: **OK**\n- `docsops_status`:\
-    \ **OK**\n- `ready_marker`: **OK**\n- `kpi_wall`: **OK**\n- `kpi_sla`: **OK**\n\
-    - `glossary_sync`: **OK**\n- `test_assets_json`: **OK**\n- `test_assets_coverage`:\
-    \ **OK**\n- `test_assets_fuzz`: **OK**\n- `test_assets_summary`: **MISSING**\n\
-    \n## Docs Links\n\n- Docs index: `C:\\Users\\Kroha\\Documents\\development\\Auto-Doc\
-    \ Pipeline\\docs\\index.md` (OK)\n  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/index/>"
+    \ **OK**\n- `ready_marker`: **OK**\n- `code_traceability`: **OK**\n- `kpi_wall`:\
+    \ **OK**\n- `kpi_sla`: **OK**\n- `glossary_sync`: **OK**\n- `test_assets_json`:\
+    \ **OK**\n- `test_assets_coverage`: **OK**\n- `test_assets_fuzz`: **OK**\n- `test_assets_summary`:\
+    \ **MISSING**\n\n## Docs Links\n\n- Docs index: `C:\\Users\\Kroha\\Documents\\\
+    development\\Auto-Doc Pipeline\\docs\\index.md` (OK)\n  Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/index/>"

@@ -1,0 +1,103 @@
+id: auto-index-2
+title: Legal and compliance (Part 2)
+summary: Legal documents for VeriDoc platform including terms of service, privacy
+  policy, data processing agreement, and security policy.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- index
+- reference
+metadata:
+  url: https://docs.example.com/legal/
+  title: Legal and compliance (Part 2)
+  heading: Quick reference
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/index.md
+semantic:
+  topic: Quick reference
+  intent: integrate
+  audience: developer
+  keywords:
+  - index
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Quick reference
+
+
+    **Data location:** Hetzner Cloud, Germany (EU)
+
+
+    **Encryption:** TLS 1.3 in transit, AES-256 at rest
+
+
+    **Password security:** PBKDF2-SHA256, 600,000 iterations
+
+
+    **Data retention:** Account data kept 30 days after closure, then permanently
+    deleted
+
+
+    **LLM processing:** Opt-in only. Disable AI features to keep all content on VeriDoc
+    infrastructure.
+
+
+    **GDPR rights:** Access, correct, delete, export, restrict, object. Email <privacy@veri-doc.app>.
+
+
+    ## Next steps
+
+
+    - [Terms of service](terms-of-service.md)
+
+    - [Privacy policy](privacy-policy.md)'
+  assistant_context: 'Use this module when answering questions related to: Legal and
+    compliance (Part 2). Source path: legal/index.md. Summary: Legal documents for
+    VeriDoc platform including terms of service, privacy policy, data processing agreement,
+    and security policy.
+
+
+    ## Quick reference
+
+
+    **Data location:** Hetzner Cloud, Germany (EU)
+
+
+    **Encryption:** TLS 1.3 in transit, AES-256 at rest
+
+
+    **Password security:** PBKDF2-SHA256, 600,000 iterations
+
+
+    **Data retention:** Account data kept 30 days after closure, then permanently
+    deleted
+
+
+    **LLM processing:** Opt-in only. Disable AI features to keep all content on VeriDoc
+    infrastructure.
+
+
+    **GDPR rights:** Access, correct, delete, export, restrict, object. Email <privacy@veri-doc.app>.
+
+
+    ## Next steps
+
+
+    - [Terms of service](terms-of-service.md)
+
+    - [Privacy policy](privacy-policy.md)'

@@ -1,0 +1,61 @@
+id: auto-choose-pipeline-configuration-1
+title: Choose a pipeline configuration
+summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+  or hybrid execution in one guided setup.
+intents:
+- configure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- choose-pipeline-configuration
+- tutorial
+metadata:
+  url: https://docs.example.com/getting-started/choose-pipeline-configuration/
+  title: Choose a pipeline configuration
+  heading: Choose a pipeline configuration
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: getting-started/choose-pipeline-configuration.md
+semantic:
+  topic: Choose a pipeline configuration
+  intent: configure
+  audience: beginner
+  keywords:
+  - choose pipeline configuration
+  - tutorial
+  status: rule_based
+content:
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Choose a pipeline configuration\n\nThe\
+    \ pipeline combines one scope tier with one execution mode. Start with that pair,\
+    \ then build or provision the matching bundle from a single client profile.\n\n\
+    ```yaml\nlicensing:\n  plan: \"pilot\"\nruntime:\n  modules:\n    rag_optimization:\
+    \ false\n    ontology_graph: false\n    retrieval_evals: false\n  llm_control:\n\
+    \    llm_mode: \"local_default\"\n    external_llm_allowed: false\n```\n\nUse\
+    \ this tutorial when you need to decide between `pilot`, `full`, and `full+RAG`,\
+    \ then choose whether LLM execution should be `cloud`, `strict-local`, or `hybrid`."
+  assistant_context: "Use this module when answering questions related to: Choose\
+    \ a pipeline configuration. Source path: getting-started/choose-pipeline-configuration.md.\
+    \ Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,\
+    \ or hybrid execution in one guided setup.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Choose a pipeline configuration\n\nThe\
+    \ pipeline combines one scope tier with one execution mode. Start with that pair,\
+    \ then build or provision the matching bundle from a single client profile.\n\n\
+    ```yaml\nlicensing:\n  plan: \"pilot\"\nruntime:\n  modules:\n    rag_optimization:\
+    \ false\n    ontology_graph: false\n    retrieval_evals: false\n  llm_control:\n\
+    \    llm_mode: \"local_default\"\n    external_llm_allowed: false\n```\n\nUse\
+    \ this tutorial when you need to decide between `pilot`, `full`, and `full+RAG`,\
+    \ then choose whether LLM execution should be `cloud`, `strict-local`, or `hybrid`."

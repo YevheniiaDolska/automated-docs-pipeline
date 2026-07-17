@@ -1,0 +1,129 @@
+id: auto-pipeline-configuration-combinations-4
+title: How pipeline configurations compose (Part 4)
+summary: Learn how the pipeline combines rollout scope and LLM execution mode so bundles
+  stay aligned with proof, full, and RAG-enabled delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- pipeline-configuration-combinations
+metadata:
+  url: https://docs.example.com/concepts/pipeline-configuration-combinations/
+  title: How pipeline configurations compose (Part 4)
+  heading: Why full and full+RAG are not the same
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: concepts/pipeline-configuration-combinations.md
+semantic:
+  topic: Why full and full+RAG are not the same
+  intent: integrate
+  audience: developer
+  keywords:
+  - concept
+  - pipeline configuration combinations
+  status: rule_based
+content:
+  docs_markdown: '## Why full and full+RAG are not the same
+
+
+    A frequent mistake is assuming `full` automatically implies retrieval features.
+    It does not.
+
+
+    The difference is the retrieval triplet:
+
+
+    - `rag_optimization`
+
+    - `ontology_graph`
+
+    - `retrieval_evals`
+
+
+    When all three are `true`, the configuration behaves as `full+RAG`. When they
+    are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed
+    rollout.
+
+
+    ## Why bundles need configuration-specific docs
+
+
+    The same scripts are not enough across every configuration. Users need configuration-specific
+    instructions because:
+
+
+    - `pilot` users need proof-oriented operating steps
+
+    - `full` users need broader automation and governance guidance
+
+    - `full+RAG` users need retrieval quality and knowledge-system guidance
+
+    - `strict-local` users need egress and local runtime instructions
+
+    - `cloud` users need external-model behavior spelled out
+
+
+    That is why the bundle builder now selects documentation from the final runtime
+    config, not only from manual `include_docs` entries.'
+  assistant_context: 'Use this module when answering questions related to: How pipeline
+    configurations compose (Part 4). Source path: concepts/pipeline-configuration-combinations.md.
+    Summary: Learn how the pipeline combines rollout scope and LLM execution mode
+    so bundles stay aligned with proof, full, and RAG-enabled delivery.
+
+
+    ## Why full and full+RAG are not the same
+
+
+    A frequent mistake is assuming `full` automatically implies retrieval features.
+    It does not.
+
+
+    The difference is the retrieval triplet:
+
+
+    - `rag_optimization`
+
+    - `ontology_graph`
+
+    - `retrieval_evals`
+
+
+    When all three are `true`, the configuration behaves as `full+RAG`. When they
+    are all `false`, the bundle is still full-scope docs operations, but not a retrieval-governed
+    rollout.
+
+
+    ## Why bundles need configuration-specific docs
+
+
+    The same scripts are not enough across every configuration. Users need configuration-specific
+    instructions because:
+
+
+    - `pilot` users need proof-oriented operating steps
+
+    - `full` users need broader automation and governance guidance
+
+    - `full+RAG` users need retrieval quality and knowledge-system guidance
+
+    - `strict-local` users need egress and local runtime instructions
+
+    - `cloud` users need external-model behavior spelled out
+
+
+    That is why the bundle builder now selects documentation from the final runtime
+    config, not only from manual `include_docs` entries.'

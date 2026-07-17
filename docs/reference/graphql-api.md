@@ -4,20 +4,20 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- Development
 - Documents
-- Kroha
-- Users
-- Auto Doc Pipeline
+- Development
 - Docs
-last_reviewed: '2026-05-18'
+- Kroha
+- Auto Doc Pipeline
+- Users
+last_reviewed: '2026-07-04'
 original_author: Kroha
 ---
 
 
 # GRAPHQL Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_publish_blocked_when_live0/api/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-228/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 
@@ -42,7 +42,7 @@ Flow mode: `api-first`
   <pre id="graphql-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const endpoint = "http://127.0.0.1:9/graphql";
+(function(){ const endpoint = "https://postman-echo.com/post";
 const view = document.getElementById('graphql-endpoint-view');
 const run = document.getElementById('graphql-run');
 const query = document.getElementById('graphql-query');

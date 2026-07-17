@@ -13,7 +13,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-07-04'
+last_verified: '2026-07-13'
 dependencies: []
 tags:
 - asyncapi-api
@@ -36,7 +36,15 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '# ASYNCAPI Reference
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+
+    # ASYNCAPI Reference
 
 
     Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
@@ -64,6 +72,14 @@ content:
   assistant_context: 'Use this module when answering questions related to: ASYNCAPI
     API Reference. Source path: reference/asyncapi-api.md. Summary: Auto-generated
     asyncapi reference from source contract.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
 
 
     # ASYNCAPI Reference

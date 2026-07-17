@@ -1,12 +1,20 @@
 {
-  "generated_at": "2026-05-26T09:49:24.787213Z",
+  "generated_at": "2026-07-13T08:01:31.747239Z",
   "required_layers": [
     "concept",
     "how-to",
     "reference"
   ],
-  "violations_count": 49,
+  "violations_count": 54,
   "violations": [
+    {
+      "file": "concepts\\pipeline-configuration-combinations.md",
+      "content_type": "concept",
+      "violation": "Contains pattern inappropriate for concept",
+      "pattern": "```[a-z]+\\n.*?\\n```",
+      "occurrences": 4,
+      "recommendation": "Concept documentation should explain 'what' and 'why', not 'how'"
+    },
     {
       "file": "--",
       "content_type": "feature",
@@ -44,6 +52,19 @@
       ],
       "present_layers": [
         "reference"
+      ]
+    },
+    {
+      "file": "apply-a-pilot-full-or-rag-configuration",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "reference"
+      ],
+      "present_layers": [
+        "how-to"
       ]
     },
     {
@@ -136,6 +157,20 @@
       ],
       "present_layers": [
         "reference"
+      ]
+    },
+    {
+      "file": "choose-a-pipeline-configuration",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "tutorial"
       ]
     },
     {
@@ -242,6 +277,19 @@
       ],
       "present_layers": [
         "reference"
+      ]
+    },
+    {
+      "file": "how-pipeline-configurations-compose",
+      "content_type": "feature",
+      "violation": "Missing required layers: how-to, reference",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "how-to",
+        "reference"
+      ],
+      "present_layers": [
+        "concept"
       ]
     },
     {
@@ -376,6 +424,19 @@
     },
     {
       "file": "pipeline-capabilities-catalog",
+      "content_type": "feature",
+      "violation": "Missing required layers: concept, how-to",
+      "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",
+      "missing_layers": [
+        "concept",
+        "how-to"
+      ],
+      "present_layers": [
+        "reference"
+      ]
+    },
+    {
+      "file": "pipeline-configuration-reference",
       "content_type": "feature",
       "violation": "Missing required layers: concept, how-to",
       "recommendation": "Add missing layer docs for this feature (required by policy pack: concept, how-to, reference).",

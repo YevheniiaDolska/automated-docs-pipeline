@@ -3,11 +3,11 @@
     {
       "id": "tc-asyncapi-orders/created-invalid-payload",
       "title": "ASYNCAPI orders/created invalid payload",
-      "suite": "ASYNCAPI Contract [pytest]",
+      "suite": "ASYNCAPI Contract",
       "operation_id": "orders/created:invalid-payload",
       "traceability": {
         "method": "N/A",
-        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-153\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
+        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-228\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
         "operation_id": "orders/created:invalid-payload"
       },
       "preconditions": [
@@ -30,11 +30,11 @@
     {
       "id": "tc-asyncapi-orders/created-ordering-idempotency",
       "title": "ASYNCAPI orders/created ordering/idempotency",
-      "suite": "ASYNCAPI Contract [pytest]",
+      "suite": "ASYNCAPI Contract",
       "operation_id": "orders/created:ordering-idempotency",
       "traceability": {
         "method": "N/A",
-        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-153\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
+        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-228\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
         "operation_id": "orders/created:ordering-idempotency"
       },
       "preconditions": [
@@ -57,11 +57,11 @@
     {
       "id": "tc-asyncapi-orders/created-performance-throughput",
       "title": "ASYNCAPI orders/created performance profile",
-      "suite": "ASYNCAPI Contract [pytest]",
+      "suite": "ASYNCAPI Contract",
       "operation_id": "orders/created:performance-throughput",
       "traceability": {
         "method": "N/A",
-        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-153\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
+        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-228\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
         "operation_id": "orders/created:performance-throughput"
       },
       "preconditions": [
@@ -84,11 +84,11 @@
     {
       "id": "tc-asyncapi-orders/created-publish",
       "title": "ASYNCAPI orders/created publish contract",
-      "suite": "ASYNCAPI Contract [pytest]",
+      "suite": "ASYNCAPI Contract",
       "operation_id": "orders/created:publish",
       "traceability": {
         "method": "N/A",
-        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-153\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
+        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-228\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
         "operation_id": "orders/created:publish"
       },
       "preconditions": [
@@ -111,11 +111,11 @@
     {
       "id": "tc-asyncapi-orders/created-security-signature",
       "title": "ASYNCAPI orders/created security policy",
-      "suite": "ASYNCAPI Contract [pytest]",
+      "suite": "ASYNCAPI Contract",
       "operation_id": "orders/created:security-signature",
       "traceability": {
         "method": "N/A",
-        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-153\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
+        "path": "C:\\Users\\Kroha\\AppData\\Local\\Temp\\pytest-of-Kroha\\pytest-228\\test_multi_protocol_flow_e2e_e0\\asyncapi.yaml",
         "operation_id": "orders/created:security-signature"
       },
       "preconditions": [
@@ -146,8 +146,5 @@
   "needs_review_count": 0,
   "needs_review_ids": [],
   "source_signature": "2c6feef26bd1",
-  "style_hints": {
-    "dominant_framework": "pytest",
-    "preferred_precondition": ""
-  }
+  "style_hints": {}
 }

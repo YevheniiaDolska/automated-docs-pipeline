@@ -1,0 +1,105 @@
+id: auto-grpc-api-1
+title: GRPC API Reference
+summary: Auto-generated grpc reference from source contract.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- grpc-api
+- reference
+metadata:
+  url: https://docs.example.com/reference/grpc-api/
+  title: GRPC API Reference
+  heading: Top-level Keys
+  version: 1.50.0
+  updated_at: '2026-03-19'
+  source_site: docs.example.com
+  source_path: reference/grpc-api.md
+semantic:
+  topic: Top-level Keys
+  intent: integrate
+  audience: developer
+  keywords:
+  - grpc api
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # GRPC Reference
+
+
+    Source: `contracts/grpc/acme.proto`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    ## Service Methods
+
+
+    - RPC method count: `4`
+
+    - `AutoDocPipelineService.CreateProject`
+
+    - `AutoDocPipelineService.GetProject`
+
+    - `AutoDocPipelineService.ListProjects`
+
+    - `AutoDocPipelineService.UpdateProject`'
+  assistant_context: 'Use this module when answering questions related to: GRPC API
+    Reference. Source path: reference/grpc-api.md. Summary: Auto-generated grpc reference
+    from source contract.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # GRPC Reference
+
+
+    Source: `contracts/grpc/acme.proto`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    ## Service Methods
+
+
+    - RPC method count: `4`
+
+    - `AutoDocPipelineService.CreateProject`
+
+    - `AutoDocPipelineService.GetProject`
+
+    - `AutoDocPipelineService.ListProjects`
+
+    - `AutoDocPipelineService.UpdateProject`'

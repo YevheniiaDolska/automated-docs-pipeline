@@ -135,6 +135,12 @@ export SCREENSHOT_LOGIN_PASSWORD="your-password"
 
 Playwright bootstrap:
 
+```bash
+
+python3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright
+
+```
+
 ### VeriDoc data processing agreement (Part 2)
 
 Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.

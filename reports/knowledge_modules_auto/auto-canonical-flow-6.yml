@@ -1,0 +1,63 @@
+id: auto-canonical-flow-6
+title: Canonical Flow (Sales + Delivery) (Part 6)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 6)
+  heading: Canonical Flow (Sales + Delivery) (Part 6)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: Canonical Flow (Sales + Delivery) (Part 6)
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "Private pages (authenticated screenshot capture):\n\n1. Open `docs/screenshots.capture.yml`.\n\
+    1. Set `auth.enabled: true`.\n1. Set `auth.login_url` to your sign-in URL.\n1.\
+    \ Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`) to match your\
+    \ login form.\n1. Export credentials before run:\n\n```bash\nexport SCREENSHOT_LOGIN_EMAIL=\"\
+    your-login@example.com\"\nexport SCREENSHOT_LOGIN_PASSWORD=\"your-password\"\n\
+    ```\n\n1. Run pipeline normally (`run_autopipeline.py`); it will:\n   - execute\
+    \ auth once,\n   - save Playwright session state to `reports/playwright_storage_state.json`,\n\
+    \   - reuse it for capture targets in the same run.\n\nPlaywright bootstrap:\n\
+    \n```bash\npython3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright\n\
+    ```"
+  assistant_context: "Use this module when answering questions related to: Canonical\
+    \ Flow (Sales + Delivery) (Part 6). Source path: operations/CANONICAL_FLOW.md.\
+    \ Summary: Canonical sales and delivery flow for onboarding and operating client\
+    \ Auto-Doc Pipeline setups.\n\nPrivate pages (authenticated screenshot capture):\n\
+    \n1. Open `docs/screenshots.capture.yml`.\n1. Set `auth.enabled: true`.\n1. Set\
+    \ `auth.login_url` to your sign-in URL.\n1. Keep or adjust `auth.steps` (`fill`/`click`/`wait_for_selector`)\
+    \ to match your login form.\n1. Export credentials before run:\n\n```bash\nexport\
+    \ SCREENSHOT_LOGIN_EMAIL=\"your-login@example.com\"\nexport SCREENSHOT_LOGIN_PASSWORD=\"\
+    your-password\"\n```\n\n1. Run pipeline normally (`run_autopipeline.py`); it will:\n\
+    \   - execute auth once,\n   - save Playwright session state to `reports/playwright_storage_state.json`,\n\
+    \   - reuse it for capture targets in the same run.\n\nPlaywright bootstrap:\n\
+    \n```bash\npython3 docsops/scripts/setup_client_env_wizard.py --auto --install-playwright\n\
+    ```"

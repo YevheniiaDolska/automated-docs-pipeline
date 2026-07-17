@@ -1,0 +1,67 @@
+id: auto-apply-pipeline-configuration-1
+title: Apply a pilot, full, or RAG configuration
+summary: Update a client profile for pilot, full, or RAG-enabled operation and align
+  it with cloud, strict-local, or hybrid LLM execution.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- apply-pipeline-configuration
+- auto-extracted
+- how-to
+metadata:
+  url: https://docs.example.com/how-to/apply-pipeline-configuration/
+  title: Apply a pilot, full, or RAG configuration
+  heading: Prerequisites
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: how-to/apply-pipeline-configuration.md
+semantic:
+  topic: Prerequisites
+  intent: configure
+  audience: practitioner
+  keywords:
+  - apply pipeline configuration
+  - how-to
+  status: rule_based
+content:
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Apply a pilot, full, or RAG configuration\n\
+    \nThis guide shows you how to take an existing client profile and switch it to\
+    \ `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`,\
+    \ `strict-local`, or `hybrid` policy.\n\n```yaml\nruntime:\n  llm_control:\n \
+    \   llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this guide when the client already has a `.client.yml` file\
+    \ and you need to change rollout depth or LLM behavior without rebuilding the\
+    \ profile from scratch.\n\n## Prerequisites\n\nBefore you start, ensure you have:\n\
+    \n- A client profile under `profiles/clients/`\n- The target rollout decision:\
+    \ `pilot`, `full`, or `full+RAG`\n- The target execution mode: `cloud`, `strict-local`,\
+    \ or `hybrid`\n- Permission to rebuild or reprovision the bundle"
+  assistant_context: "Use this module when answering questions related to: Apply a\
+    \ pilot, full, or RAG configuration. Source path: how-to/apply-pipeline-configuration.md.\
+    \ Summary: Update a client profile for pilot, full, or RAG-enabled operation and\
+    \ align it with cloud, strict-local, or hybrid LLM execution.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Apply a pilot, full, or RAG configuration\n\
+    \nThis guide shows you how to take an existing client profile and switch it to\
+    \ `pilot`, `full`, or `full+RAG` while keeping LLM execution aligned with `cloud`,\
+    \ `strict-local`, or `hybrid` policy.\n\n```yaml\nruntime:\n  llm_control:\n \
+    \   llm_mode: \"external_preferred\"\n    external_llm_allowed: true\n    require_explicit_approval:\
+    \ false\n```\n\nUse this guide when the client already has a `.client.yml` file\
+    \ and you need to change rollout depth or LLM behavior without rebuilding the\
+    \ profile from scratch.\n\n## Prerequisites\n\nBefore you start, ensure you have:\n\
+    \n- A client profile under `profiles/clients/`\n- The target rollout decision:\
+    \ `pilot`, `full`, or `full+RAG`\n- The target execution mode: `cloud`, `strict-local`,\
+    \ or `hybrid`\n- Permission to rebuild or reprovision the bundle"

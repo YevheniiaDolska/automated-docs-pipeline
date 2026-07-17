@@ -1,0 +1,83 @@
+id: auto-install-ask-ai-runtime-pack-6
+title: Install Ask AI runtime pack (Part 6)
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+metadata:
+  url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
+  title: Install Ask AI runtime pack (Part 6)
+  heading: Ground answers in documentation and refuse when uncertain
+  version: 1.50.0
+  updated_at: '2026-07-04'
+  source_site: docs.example.com
+  source_path: how-to/install-ask-ai-runtime-pack.md
+semantic:
+  topic: Ground answers in documentation and refuse when uncertain
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - install ask ai runtime pack
+  status: rule_based
+content:
+  docs_markdown: '## Ground answers in documentation and refuse when uncertain
+
+
+    The assistant answers only from the retrieved documentation sources and cites
+    them inline with bracketed numbers such as `[1]`. The response returns a `citations`
+    list that contains only the sources the answer references, plus a `grounded` flag.
+    When retrieval returns no sources, or the sources do not cover the question, the
+    runtime returns an honest refusal with `grounded` set to `false` and an empty
+    `citations` list. The runtime records each refusal in the usage log, where it
+    surfaces as a documentation-gap candidate in the analytics report.
+
+
+    ## Collect reader feedback
+
+
+    Each answer includes thumbs up and thumbs down controls. The widget posts the
+    rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the
+    answer. Ratings feed the usage analytics and help rank which pages to improve
+    first.'
+  assistant_context: 'Use this module when answering questions related to: Install
+    Ask AI runtime pack (Part 6). Source path: how-to/install-ask-ai-runtime-pack.md.
+    Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+    checks, and billing hooks in a few commands.
+
+
+    ## Ground answers in documentation and refuse when uncertain
+
+
+    The assistant answers only from the retrieved documentation sources and cites
+    them inline with bracketed numbers such as `[1]`. The response returns a `citations`
+    list that contains only the sources the answer references, plus a `grounded` flag.
+    When retrieval returns no sources, or the sources do not cover the question, the
+    runtime returns an honest refusal with `grounded` set to `false` and an empty
+    `citations` list. The runtime records each refusal in the usage log, where it
+    surfaces as a documentation-gap candidate in the analytics report.
+
+
+    ## Collect reader feedback
+
+
+    Each answer includes thumbs up and thumbs down controls. The widget posts the
+    rating to the `POST /api/v1/feedback` endpoint with the `question_id` from the
+    answer. Ratings feed the usage analytics and help rank which pages to improve
+    first.'

@@ -1,0 +1,127 @@
+id: auto-operator-runbook-20
+title: Operator Runbook (Retainer Operations) (Part 20)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+metadata:
+  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
+  title: Operator Runbook (Retainer Operations) (Part 20)
+  heading: What happens without a license
+  version: 1.50.0
+  updated_at: '2026-03-21'
+  source_site: docs.example.com
+  source_path: operations/OPERATOR_RUNBOOK.md
+semantic:
+  topic: What happens without a license
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - operator runbook
+  status: rule_based
+content:
+  docs_markdown: '### What happens without a license
+
+
+    The pipeline runs in **community mode** (degraded):
+
+
+    - Only free lint defaults are enabled (markdown, frontmatter, SEO/GEO report-only)
+
+    - Advanced modules are disabled (gap detection, glossary sync, lifecycle, API-first,
+    multi-protocol, KPI/SLA, RAG prep/retrieval, PDF/i18n/custom packs)
+
+    - No protocol entitlement is granted in community mode
+
+
+    ### License file location
+
+
+    License JWT is stored at `<client-repo>/docsops/license.jwt`. The public key for
+    verification is at `<client-repo>/docsops/keys/veriops-licensing.pub`.
+
+
+    ### Dev/test bypass
+
+
+    For local development and testing, set the environment variable:
+
+
+    ```bash
+
+    export VERIOPS_LICENSE_PLAN=enterprise
+
+    ```
+
+
+    This bypasses JWT validation entirely.
+
+
+    ---
+
+
+    ## Troubleshooting'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 20). Source path: operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### What happens without a license
+
+
+    The pipeline runs in **community mode** (degraded):
+
+
+    - Only free lint defaults are enabled (markdown, frontmatter, SEO/GEO report-only)
+
+    - Advanced modules are disabled (gap detection, glossary sync, lifecycle, API-first,
+    multi-protocol, KPI/SLA, RAG prep/retrieval, PDF/i18n/custom packs)
+
+    - No protocol entitlement is granted in community mode
+
+
+    ### License file location
+
+
+    License JWT is stored at `<client-repo>/docsops/license.jwt`. The public key for
+    verification is at `<client-repo>/docsops/keys/veriops-licensing.pub`.
+
+
+    ### Dev/test bypass
+
+
+    For local development and testing, set the environment variable:
+
+
+    ```bash
+
+    export VERIOPS_LICENSE_PLAN=enterprise
+
+    ```
+
+
+    This bypasses JWT validation entirely.
+
+
+    ---
+
+
+    ## Troubleshooting'

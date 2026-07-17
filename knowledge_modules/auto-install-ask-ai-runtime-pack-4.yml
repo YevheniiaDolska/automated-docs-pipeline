@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-07-04'
+last_verified: '2026-07-13'
 dependencies: []
 tags:
 - auto-extracted
@@ -41,20 +41,16 @@ content:
     \ token by token over the `POST /api/v1/ask/stream` endpoint. The widget renders\
     \ each token as it arrives, so readers watch the answer form in real time instead\
     \ of waiting for the full reply. Send the same request body as the standard endpoint:\n\
-    \n```bash\ncurl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \\\
-    \n  -H \"Content-Type: application/json\" \\\n  -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\"\
-    \ \\\n  -d '{\"question\": \"How do I rotate API keys?\", \"history\": []}'\n\
-    ```\n\nThe stream sends one event per token, then a final event with the citations\
-    \ and question identifier:\n\n```text\ndata: {\"type\": \"token\", \"text\": \"\
-    Rotate \"}\n\ndata: {\"type\": \"done\", \"citations\": [...], \"question_id\"\
-    : \"...\", \"grounded\": true}\n```\n\n## Keep conversation context for follow-up\
-    \ questions\n\nSend prior turns in the `history` field so follow-up questions\
-    \ read in context. Each turn is an object with a `role` of `user` or `assistant`\
-    \ and a `content` string. The `ASK_AI_HISTORY_MAX_TURNS` environment variable\
-    \ sets how many recent turns the server keeps, with a default of six. The widget\
-    \ stores the conversation and sends it with each question, so a reader can ask\
-    \ a follow-up such as \"How does that work in self-hosted mode?\" and receive\
-    \ a contextual answer."
+    \n=== \"cURL\"\n\n```bash smoke\n    curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream\
+    \ \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Ask-AI-Key:\
+    \ YOUR_PUBLIC_OR_PROXY_KEY\" \\\n      -d '{\"question\": \"How do I rotate API\
+    \ keys?\", \"history\": []}'\n    ```\n\n=== \"JavaScript\"\n\n```javascript smoke\n\
+    \    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask/stream',\
+    \ {\n      method: 'POST',\n      headers: {\n        \"Content-Type\": \"application/json\"\
+    ,\n        \"X-Ask-AI-Key\": \"YOUR_PUBLIC_OR_PROXY_KEY\",\n      },\n      body:\
+    \ JSON.stringify({\"question\": \"How do I rotate API keys?\", \"history\": []}),\n\
+    \    });\n    const payload = await response.json();\n    console.log(payload);\n\
+    \    ```\n\n=== \"Python\"\n\n```python smoke\n    import requests"
   assistant_context: "Use this module when answering questions related to: Install\
     \ Ask AI runtime pack (Part 4). Source path: how-to/install-ask-ai-runtime-pack.md.\
     \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
@@ -62,17 +58,14 @@ content:
     \ generate\n\nThe runtime streams answers token by token over the `POST /api/v1/ask/stream`\
     \ endpoint. The widget renders each token as it arrives, so readers watch the\
     \ answer form in real time instead of waiting for the full reply. Send the same\
-    \ request body as the standard endpoint:\n\n```bash\ncurl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream\
-    \ \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\"\
-    \ \\\n  -d '{\"question\": \"How do I rotate API keys?\", \"history\": []}'\n\
-    ```\n\nThe stream sends one event per token, then a final event with the citations\
-    \ and question identifier:\n\n```text\ndata: {\"type\": \"token\", \"text\": \"\
-    Rotate \"}\n\ndata: {\"type\": \"done\", \"citations\": [...], \"question_id\"\
-    : \"...\", \"grounded\": true}\n```\n\n## Keep conversation context for follow-up\
-    \ questions\n\nSend prior turns in the `history` field so follow-up questions\
-    \ read in context. Each turn is an object with a `role` of `user` or `assistant`\
-    \ and a `content` string. The `ASK_AI_HISTORY_MAX_TURNS` environment variable\
-    \ sets how many recent turns the server keeps, with a default of six. The widget\
-    \ stores the conversation and sends it with each question, so a reader can ask\
-    \ a follow-up such as \"How does that work in self-hosted mode?\" and receive\
-    \ a contextual answer."
+    \ request body as the standard endpoint:\n\n=== \"cURL\"\n\n```bash smoke\n  \
+    \  curl -N -X POST https://docs.example.com/ask-ai/api/v1/ask/stream \\\n    \
+    \  -H \"Content-Type: application/json\" \\\n      -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\"\
+    \ \\\n      -d '{\"question\": \"How do I rotate API keys?\", \"history\": []}'\n\
+    \    ```\n\n=== \"JavaScript\"\n\n```javascript smoke\n    const response = await\
+    \ fetch('https://docs.example.com/ask-ai/api/v1/ask/stream', {\n      method:\
+    \ 'POST',\n      headers: {\n        \"Content-Type\": \"application/json\",\n\
+    \        \"X-Ask-AI-Key\": \"YOUR_PUBLIC_OR_PROXY_KEY\",\n      },\n      body:\
+    \ JSON.stringify({\"question\": \"How do I rotate API keys?\", \"history\": []}),\n\
+    \    });\n    const payload = await response.json();\n    console.log(payload);\n\
+    \    ```\n\n=== \"Python\"\n\n```python smoke\n    import requests"

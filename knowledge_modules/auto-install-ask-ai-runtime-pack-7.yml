@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-07-04'
+last_verified: '2026-07-13'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/how-to/install-ask-ai-runtime-pack/
   title: Install Ask AI runtime pack (Part 7)
-  heading: Analyze usage by topic and session
+  heading: Protect the endpoint and bill each user separately
   version: 1.50.0
   updated_at: '2026-07-04'
   source_site: docs.example.com
   source_path: how-to/install-ask-ai-runtime-pack.md
 semantic:
-  topic: Analyze usage by topic and session
+  topic: Protect the endpoint and bill each user separately
   intent: configure
   audience: practitioner
   keywords:
@@ -37,101 +37,43 @@ semantic:
   - install ask ai runtime pack
   status: rule_based
 content:
-  docs_markdown: '## Analyze usage by topic and session
-
-
-    The analytics report clusters questions into topics and builds a session engagement
-    funnel. Send an `X-Session-Id` header with each request so the runtime can group
-    a conversation. Build the report and dashboard:
-
-
-    ```bash
-
-    npm run askai:analytics:build
-
-    ```
-
-
-    The dashboard shows answer rate per topic (which themes lack coverage) and the
-    funnel from asked to answered to follow-up to helpful rating.
-
-
-    ## Troubleshooting
-
-
-    ### Runtime pack install fails because destination exists
-
-
-    Use force mode:
-
-
-    ```bash
-
-    npm run askai:runtime:install:force
-
-    ```
-
-
-    ### Ask endpoint returns 401
-
-
-    Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
-
-
-    ### Ask endpoint returns 402
-
-
-    The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE`
-    and user plan header.'
-  assistant_context: 'Use this module when answering questions related to: Install
-    Ask AI runtime pack (Part 7). Source path: how-to/install-ask-ai-runtime-pack.md.
-    Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
-    checks, and billing hooks in a few commands.
-
-
-    ## Analyze usage by topic and session
-
-
-    The analytics report clusters questions into topics and builds a session engagement
-    funnel. Send an `X-Session-Id` header with each request so the runtime can group
-    a conversation. Build the report and dashboard:
-
-
-    ```bash
-
-    npm run askai:analytics:build
-
-    ```
-
-
-    The dashboard shows answer rate per topic (which themes lack coverage) and the
-    funnel from asked to answered to follow-up to helpful rating.
-
-
-    ## Troubleshooting
-
-
-    ### Runtime pack install fails because destination exists
-
-
-    Use force mode:
-
-
-    ```bash
-
-    npm run askai:runtime:install:force
-
-    ```
-
-
-    ### Ask endpoint returns 401
-
-
-    Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
-
-
-    ### Ask endpoint returns 402
-
-
-    The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE`
-    and user plan header.'
+  docs_markdown: "## Protect the endpoint and bill each user separately\n\nThe runtime\
+    \ rate limits requests per user to protect the public endpoint and the provider\
+    \ quota behind it. Set the budget with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE`\
+    \ (default 20). The runtime keys the limit on the `X-User-Id` header, falling\
+    \ back to the API key. A request over the budget returns HTTP 429 with a `Retry-After`\
+    \ header.\n\nTo bill queries to each user rather than a shared key, send the user's\
+    \ provider key per request:\n\n=== \"cURL\"\n\n```bash smoke\n    curl -X POST\
+    \ https://docs.example.com/ask-ai/api/v1/ask \\\n      -H \"Content-Type: application/json\"\
+    \ \\\n      -H \"X-Ask-AI-Key: YOUR_PUBLIC_OR_PROXY_KEY\" \\\n      -H \"X-Provider-Key:\
+    \ USER_PROVIDER_KEY\" \\\n      -H \"X-Model: gpt-4.1-mini\" \\\n      -d '{\"\
+    question\": \"How do I rotate API keys?\"}'\n    ```\n\n=== \"JavaScript\"\n\n\
+    ```javascript smoke\n    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask',\
+    \ {\n      method: 'POST',\n      headers: {\n        \"Content-Type\": \"application/json\"\
+    ,\n        \"X-Ask-AI-Key\": \"YOUR_PUBLIC_OR_PROXY_KEY\",\n        \"X-Provider-Key\"\
+    : \"USER_PROVIDER_KEY\",\n        \"X-Model\": \"gpt-4.1-mini\",\n      },\n \
+    \     body: JSON.stringify({\"question\": \"How do I rotate API keys?\"}),\n \
+    \   });\n    const payload = await response.json();\n    console.log(payload);\n\
+    \    ```\n\n=== \"Python\"\n\n```python smoke\n    import requests"
+  assistant_context: "Use this module when answering questions related to: Install\
+    \ Ask AI runtime pack (Part 7). Source path: how-to/install-ask-ai-runtime-pack.md.\
+    \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
+    \ auth checks, and billing hooks in a few commands.\n\n## Protect the endpoint\
+    \ and bill each user separately\n\nThe runtime rate limits requests per user to\
+    \ protect the public endpoint and the provider quota behind it. Set the budget\
+    \ with `ASK_AI_RATE_LIMIT_PER_USER_PER_MINUTE` (default 20). The runtime keys\
+    \ the limit on the `X-User-Id` header, falling back to the API key. A request\
+    \ over the budget returns HTTP 429 with a `Retry-After` header.\n\nTo bill queries\
+    \ to each user rather than a shared key, send the user's provider key per request:\n\
+    \n=== \"cURL\"\n\n```bash smoke\n    curl -X POST https://docs.example.com/ask-ai/api/v1/ask\
+    \ \\\n      -H \"Content-Type: application/json\" \\\n      -H \"X-Ask-AI-Key:\
+    \ YOUR_PUBLIC_OR_PROXY_KEY\" \\\n      -H \"X-Provider-Key: USER_PROVIDER_KEY\"\
+    \ \\\n      -H \"X-Model: gpt-4.1-mini\" \\\n      -d '{\"question\": \"How do\
+    \ I rotate API keys?\"}'\n    ```\n\n=== \"JavaScript\"\n\n```javascript smoke\n\
+    \    const response = await fetch('https://docs.example.com/ask-ai/api/v1/ask',\
+    \ {\n      method: 'POST',\n      headers: {\n        \"Content-Type\": \"application/json\"\
+    ,\n        \"X-Ask-AI-Key\": \"YOUR_PUBLIC_OR_PROXY_KEY\",\n        \"X-Provider-Key\"\
+    : \"USER_PROVIDER_KEY\",\n        \"X-Model\": \"gpt-4.1-mini\",\n      },\n \
+    \     body: JSON.stringify({\"question\": \"How do I rotate API keys?\"}),\n \
+    \   });\n    const payload = await response.json();\n    console.log(payload);\n\
+    \    ```\n\n=== \"Python\"\n\n```python smoke\n    import requests"

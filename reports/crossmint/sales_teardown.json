@@ -1,0 +1,220 @@
+{
+  "generated_at": "2026-07-17T16:37:30.078628+00:00",
+  "site_url": "https://docs.crossmint.com/",
+  "headline": "Public docs teardown: highest-impact fixes and the automation layer to prioritize first",
+  "score": {
+    "audit_score_0_100": 42.28,
+    "grade": "F"
+  },
+  "summary": {
+    "executive_summary": "",
+    "pages_crawled": 1210,
+    "crawl_coverage_pct": 100.08,
+    "broken_links_count": 0,
+    "unverified_links_count": 0,
+    "estimated_monthly_cost_usd": 13633.2,
+    "estimated_annual_cost_usd": 163598.4,
+    "cost_confidence": "partial",
+    "cost_basis_note": "Computed only from dimensions the audit verified; example_reliability excluded as low-confidence (detection limitation) rather than counted as cost."
+  },
+  "monthly_expense_breakdown": {
+    "items": [
+      {
+        "id": "manual_docs_upkeep",
+        "label": "Manual docs upkeep the automation replaces",
+        "category": "existing_process_cost",
+        "formula": "baseline_manual_sync_hours_per_week x 4.3 weeks x engineer_hourly_usd",
+        "inputs": {
+          "baseline_manual_sync_hours_per_week": 12.0,
+          "engineer_hourly_usd": 110.0
+        },
+        "hours": 51.6,
+        "monthly_usd": 5676.0,
+        "note": "Cost of keeping docs in sync by hand today. It does not depend on audit findings; it is what the pipeline automates away.",
+        "annual_usd": 68112.0
+      },
+      {
+        "id": "release_delay_drag",
+        "label": "Release delay caused by docs work",
+        "category": "quality_drag",
+        "formula": "release_count_per_month x avg_release_delay_hours x risk_index x engineer_hourly_usd",
+        "inputs": {
+          "release_count_per_month": 8.0,
+          "avg_release_delay_hours": 4.5,
+          "risk_index": 0.548,
+          "engineer_hourly_usd": 110.0
+        },
+        "hours": 19.7,
+        "monthly_usd": 2169.68,
+        "note": "Scales with the measured risk index; zero when the audit finds no gaps.",
+        "annual_usd": 26036.16
+      },
+      {
+        "id": "undocumented_api_drag",
+        "label": "Engineering answering questions undocumented APIs create",
+        "category": "quality_drag",
+        "formula": "(undocumented_pct / 100) x 10 h full-gap coefficient x engineer_hourly_usd",
+        "inputs": {
+          "undocumented_pct": 82.0,
+          "full_gap_hours_coefficient": 10.0,
+          "engineer_hourly_usd": 110.0
+        },
+        "hours": 8.2,
+        "monthly_usd": 902.33,
+        "note": "Proportional to the measured undocumented-API share.",
+        "annual_usd": 10827.96
+      },
+      {
+        "id": "broken_example_drag",
+        "label": "Debugging integrations broken examples cause",
+        "category": "quality_drag",
+        "formula": "((100 - example_reliability_pct) / 100) x 12 h full-gap coefficient x engineer_hourly_usd",
+        "inputs": {
+          "example_reliability_pct": 0.0,
+          "full_gap_hours_coefficient": 12.0,
+          "engineer_hourly_usd": 110.0
+        },
+        "hours": 0.0,
+        "monthly_usd": 0.0,
+        "note": "Excluded: code examples could not be auto-verified (detection limitation), so this line is $0 instead of inferred from an unmeasured 0%.",
+        "annual_usd": 0.0
+      },
+      {
+        "id": "docs_driven_support",
+        "label": "Support time on docs-related tickets",
+        "category": "support_cost",
+        "formula": "monthly_support_tickets x docs_related_ticket_share x (avg_ticket_handling_minutes / 60) x (0.5 + risk_index) x support_hourly_usd",
+        "inputs": {
+          "monthly_support_tickets": 800.0,
+          "docs_related_ticket_share": 0.22,
+          "avg_ticket_handling_minutes": 24.0,
+          "risk_index": 0.548,
+          "support_hourly_usd": 50.0
+        },
+        "hours": 73.8,
+        "monthly_usd": 3688.61,
+        "note": "Docs-attributable ticket load, scaled between 0.5x and 1.5x of the nominal share by the measured risk index.",
+        "annual_usd": 44263.32
+      },
+      {
+        "id": "revenue_at_risk",
+        "label": "Revenue at risk from evaluations lost to docs friction",
+        "category": "revenue_risk",
+        "formula": "monthly_doc_influenced_evals x eval_to_customer_rate x docs_friction_revenue_sensitivity x commercial_friction_index x avg_customer_monthly_value_usd",
+        "inputs": {
+          "monthly_doc_influenced_evals": 45.0,
+          "eval_to_customer_rate": 0.07,
+          "docs_friction_revenue_sensitivity": 0.32,
+          "commercial_friction_index": 0.424,
+          "avg_customer_monthly_value_usd": 2800.0
+        },
+        "hours": null,
+        "monthly_usd": 1196.57,
+        "note": "Expected value of would-be customers who churn during evaluation because of docs friction; not booked revenue.",
+        "annual_usd": 14358.84
+      }
+    ],
+    "operational_subtotal_usd": 12436.62,
+    "revenue_risk_subtotal_usd": 1196.57,
+    "total_monthly_usd": 13633.2,
+    "total_annual_usd": 163598.35,
+    "methodology_note": "Base-scenario estimate built only from the line items above. Every input is an adjustable assumption (see 'assumptions'); pass --assumptions <file.json> to recalculate with the client's own numbers. Conservative/aggressive scenarios apply x0.7 / x1.4. The 'manual docs upkeep' line is the cost of today's manual process (what automation replaces), not damage caused by documentation gaps."
+  },
+  "pipeline_comparison": {},
+  "signal_cards": [
+    {
+      "label": "Audit Score",
+      "value": "42.28 / 100",
+      "accent": "teal",
+      "detail": "Grade F"
+    },
+    {
+      "label": "Broken Links",
+      "value": "0",
+      "accent": "amber",
+      "detail": "0 unverified"
+    },
+    {
+      "label": "API Coverage",
+      "value": "17.97%",
+      "accent": "blue",
+      "detail": "831 undocumented ops"
+    },
+    {
+      "label": "Freshness Coverage",
+      "value": "11.16%",
+      "accent": "slate",
+      "detail": "1075 docs missing dates"
+    },
+    {
+      "label": "Layer Completeness",
+      "value": "85.0%",
+      "accent": "violet",
+      "detail": "182 features missing required layers"
+    },
+    {
+      "label": "Retrieval Precision",
+      "value": "88.1%",
+      "accent": "rose",
+      "detail": "Recall 45.5%"
+    }
+  ],
+  "key_findings": [
+    {
+      "headline": "Undocumented API operations",
+      "evidence": "API undocumented %: 82.03 -> 5.0 %",
+      "business_consequence": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "headline": "Code examples fail or are non-runnable",
+      "evidence": "Non-runnable examples %: 100.0 -> 5.0 %",
+      "business_consequence": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "headline": "Documentation freshness debt",
+      "evidence": "Stale docs %: 77.8 -> 10.0 %",
+      "business_consequence": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    }
+  ],
+  "verify_in_30_seconds": [],
+  "priority_actions": [
+    {
+      "title": "Replace non-runnable or placeholder-heavy examples in the public docs surface.",
+      "impact": "medium",
+      "effort": "3.0h est.",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Runnable examples remove implementation friction faster than broad copy edits when users are actively integrating."
+    },
+    {
+      "title": "Backfill missing public API coverage and raise reference coverage from 18.0%.",
+      "impact": "medium",
+      "effort": "5.0h est.",
+      "expected_value": "high",
+      "confidence": "medium",
+      "why_this_first": "Coverage gaps create repeated support demand and slow time-to-first-success for technical evaluators."
+    },
+    {
+      "title": "Add last-reviewed metadata to pages until freshness coverage exceeds 11.2%.",
+      "impact": "medium",
+      "effort": "2.0h est.",
+      "expected_value": "medium",
+      "confidence": "medium",
+      "why_this_first": "Freshness visibility helps users trust the docs and lets teams prioritize stale pages with less manual triage."
+    }
+  ],
+  "strengths": [],
+  "risks": [],
+  "limitations": [],
+  "automation_first": [
+    "Add API drift and reference-generation automation because public API coverage is 18.0% with 831 undocumented operations, so contract changes stop creating repeat support demand.",
+    "Add weekly freshness and lifecycle automation because 1075 docs are missing review dates and freshness coverage is 11.2%, so stale content can be queued before trust drops.",
+    "Add snippet smoke and expected-output checks because example reliability is 0.0%, so broken examples fail before they derail implementation attempts."
+  ],
+  "commercial_snapshot": {
+    "monthly_loss_usd_base_total": 6197.35,
+    "remediation_cost_usd_base_total": 5445.0,
+    "pilot_fixable_count": 7,
+    "findings_count": 7
+  }
+}

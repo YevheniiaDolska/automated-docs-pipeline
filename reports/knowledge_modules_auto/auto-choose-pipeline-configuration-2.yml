@@ -1,0 +1,151 @@
+id: auto-choose-pipeline-configuration-2
+title: Choose a pipeline configuration (Part 2)
+summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+  or hybrid execution in one guided setup.
+intents:
+- configure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-07-14'
+dependencies: []
+tags:
+- auto-extracted
+- choose-pipeline-configuration
+- tutorial
+metadata:
+  url: https://docs.example.com/getting-started/choose-pipeline-configuration/
+  title: Choose a pipeline configuration (Part 2)
+  heading: 'Step 1: Pick the scope tier'
+  version: 1.50.0
+  updated_at: '2026-06-16'
+  source_site: docs.example.com
+  source_path: getting-started/choose-pipeline-configuration.md
+semantic:
+  topic: 'Step 1: Pick the scope tier'
+  intent: configure
+  audience: beginner
+  keywords:
+  - choose pipeline configuration
+  - tutorial
+  status: rule_based
+content:
+  docs_markdown: '## Step 1: Pick the scope tier
+
+
+    Choose the tier that matches the rollout depth you want in the client repository.
+
+
+    | Scope tier | Use this when | Starting point | Key module pattern |
+
+    | --- | --- | --- | --- |
+
+    | `pilot` | You need proof in one week with a reduced script surface | `profiles/clients/presets/pilot-evidence.yml`
+    | Core quality modules on, RAG modules off |
+
+    | `full` | You want full docs operations without retrieval evaluation features
+    | `profiles/clients/presets/small.yml` or a custom profile | Governance and weekly
+    automation on, RAG modules optional |
+
+    | `full+RAG` | You want retrieval index, graph, and eval gates in the same bundle
+    | `profiles/clients/presets/startup.yml` or `enterprise.yml` | `rag_optimization`,
+    `ontology_graph`, and `retrieval_evals` on |
+
+
+    For `pilot`, use the preset as-is unless you have a narrow reason to expand scope.
+
+
+    For `full`, keep the standard automation modules on:
+
+
+    - `gap_detection`
+
+    - `drift_detection`
+
+    - `docs_contract`
+
+    - `kpi_sla`
+
+    - `normalization`
+
+    - `snippet_lint`
+
+    - `self_checks`
+
+    - `fact_checks`
+
+
+    For `full+RAG`, keep these three modules enabled together:
+
+
+    - `rag_optimization`
+
+    - `ontology_graph`
+
+    - `retrieval_evals`'
+  assistant_context: 'Use this module when answering questions related to: Choose
+    a pipeline configuration (Part 2). Source path: getting-started/choose-pipeline-configuration.md.
+    Summary: Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local,
+    or hybrid execution in one guided setup.
+
+
+    ## Step 1: Pick the scope tier
+
+
+    Choose the tier that matches the rollout depth you want in the client repository.
+
+
+    | Scope tier | Use this when | Starting point | Key module pattern |
+
+    | --- | --- | --- | --- |
+
+    | `pilot` | You need proof in one week with a reduced script surface | `profiles/clients/presets/pilot-evidence.yml`
+    | Core quality modules on, RAG modules off |
+
+    | `full` | You want full docs operations without retrieval evaluation features
+    | `profiles/clients/presets/small.yml` or a custom profile | Governance and weekly
+    automation on, RAG modules optional |
+
+    | `full+RAG` | You want retrieval index, graph, and eval gates in the same bundle
+    | `profiles/clients/presets/startup.yml` or `enterprise.yml` | `rag_optimization`,
+    `ontology_graph`, and `retrieval_evals` on |
+
+
+    For `pilot`, use the preset as-is unless you have a narrow reason to expand scope.
+
+
+    For `full`, keep the standard automation modules on:
+
+
+    - `gap_detection`
+
+    - `drift_detection`
+
+    - `docs_contract`
+
+    - `kpi_sla`
+
+    - `normalization`
+
+    - `snippet_lint`
+
+    - `self_checks`
+
+    - `fact_checks`
+
+
+    For `full+RAG`, keep these three modules enabled together:
+
+
+    - `rag_optimization`
+
+    - `ontology_graph`
+
+    - `retrieval_evals`'
