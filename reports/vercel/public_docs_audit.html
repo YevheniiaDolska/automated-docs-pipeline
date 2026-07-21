@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-07-21T13:00:11.523755+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">7979</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">7998</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.01%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">58</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">17</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">3.14%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">13.64%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">82.13%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">42.44%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">82.43%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Contradiction (api_base_version): https://vercel.com/docs says &quot;curl -X POST &quot;https://ai-gateway.vercel.sh/v1/chat/completi...&quot; but https://vercel.com/docs/ai-gateway/modalities/speech-to-text says &quot;curl -X POST https://ai-gateway.vercel.sh/v4/ai/transcript...&quot; -- both are verifiable. (medium confidence: verify both quotes before citing)</li><li>Contradiction (api_base_version): https://vercel.com/docs/accounts says &quot;--url https://api.vercel.com/v1/teams \&quot; but https://vercel.com/docs/builds/managing-builds says &quot;--url https://api.vercel.com/v9/projects/YOUR_PROJE...&quot; -- both are verifiable. (medium confidence: verify both quotes before citing)</li><li>Contradiction (runtime_min_version): https://vercel.com/academy/nextjs-foundations/project-setup says &quot;...nstall dependencies pnpm i Prerequisites You need Node.js 24+ and pnpm installed. The repo...&quot; but https://vercel.com/academy/production-monorepos/understanding-monorepos says &quot;...Locks pnpm version for consistency engines : Requires Node.js 20.9+ Apps/web/package.json...&quot; -- both are verifiable. (medium confidence: verify both quotes before citing)</li><li>Contradiction (runtime_min_version): https://vercel.com/kb/guide/real-time-board-nextjs-fastapi says &quot;...unt Vercel CLI installed ( npm i -g vercel ) Python 3.14.6 or later uv , a Python package...&quot; but https://vercel.com/kb/guide/ship-a-fastapi-app-on-vercel says &quot;...begin, make sure you have: A Vercel account Python 3.12 or later and a package manager (e...&quot; -- both are verifiable. (medium confidence: verify both quotes before citing)</li><li>Contradiction (size_limit): https://vercel.com/ai-gateway/models/wan-v2.6-i2v/faq says &quot;...n 360px and 2000px on each dimension, with a maximum file size of 100MB. Can I control the...&quot; but https://vercel.com/docs/conformance/rules/nextjs_no_self_hosted_videos says &quot;...e file size: Server uploads are suitable for files up to 4.5 MB Client uploads allow for u...&quot; -- both are verifiable. (medium confidence: verify both quotes before citing)</li><li>Contradiction (size_limit): https://vercel.com/docs/ai-gateway/modalities/realtime says &quot;...if the client sends nothing after connecting Maximum message size 256 KB The message is re...&quot; but https://vercel.com/docs/frameworks/backend/celery says &quot;supports messages up to 100 MB . Long-running processe...&quot; -- both are verifiable. (medium confidence: verify both quotes before citing)</li><li>Code defect: https://vercel.com/academy/ai-sdk/automatic-summarization contains &quot;// TODO: Define the structure for our summary&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/ai-sdk/basic-chatbot contains &quot;// TODO: Initialize useChat hook&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/ai-sdk/introduction-to-invisible-ai contains &quot;// Replace the first TODO with this:&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/ai-sdk/structured-data-extraction contains &quot;// TODO: Define the appointmentSchema with these...&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/ai-sdk/ui-with-v0 contains &quot;// TODO: Paste the component JSX from v0 here&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/production-monorepos/add-codeblock-snippetcard contains &quot;// TODO: Define CodeBlockProps interface with:&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/production-monorepos/add-docs-app contains &quot;// TODO: Import Button, Card from &#x27;@geniusgarage...&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/production-monorepos/add-shared-utils contains &quot;// TODO: Export formatDate function that:&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/production-monorepos/code-governance contains &quot;# TODO: Add ownership rules following this patt...&quot; in a published example -- verifiable.</li><li>Code defect: https://vercel.com/academy/production-monorepos/configure-turborepo-tests contains &quot;// TODO: Import formatDate, slugify, truncate, v...&quot; in a published example -- verifiable.</li><li>Broken internal links: 58</li><li>Link verification inconclusive for 17 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 13.64% (1406 API pages detected)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://vercel.com/docs</strong>: pages=7979, broken_links=58, api_coverage=13.64%, examples=82.13%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Status: blocked. External LLM use blocked by policy/approval gate.</p></div>
+  </div>
+</body>
+</html>

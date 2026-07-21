@@ -1,0 +1,552 @@
+{
+  "generated_at": "2026-07-21T09:34:41.841422+00:00",
+  "site_url": "https://docs.privy.io/",
+  "site_urls": [
+    "https://docs.privy.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.privy.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 641,
+          "requested_pages": 715,
+          "urls_examined": 648,
+          "max_pages": 3000,
+          "effective_limit": 3000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 648,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 647,
+          "crawl_coverage_pct": 100.15,
+          "trap_urls_skipped": 179,
+          "seeded_sitemap_urls": 647,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 715,
+          "broken_internal_links_count": 4,
+          "docs_broken_links_count": 4,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.privy.io/llms-full.xml",
+            "https://docs.privy.io/recipes/mock-jwt.mdx",
+            "https://docs.privy.io/recipes/trpc.mdx",
+            "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.privy.io/llms-full.xml",
+            "https://docs.privy.io/recipes/mock-jwt.mdx",
+            "https://docs.privy.io/recipes/trpc.mdx",
+            "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 7,
+          "unverified_links_count": 7,
+          "unverified_link_samples": [
+            "https://docs.privy.io/basics/react-native/advanced/automatic-wallet-creation",
+            "https://docs.privy.io/recipes/agent-integrations/auto-exchange-privy-agent",
+            "https://docs.privy.io/user-management/users/custom-metadata",
+            "https://docs.privy.io/wallets/accounts/self-custody",
+            "https://docs.privy.io/wallets/actions/earn/withdraw",
+            "https://docs.privy.io/wallets/actions/swap/setup",
+            "https://docs.privy.io/wallets/wallets/external-ids"
+          ],
+          "confirmed_broken_links_count": 4,
+          "excluded_links_count": 8,
+          "excluded_link_samples": [
+            "https://docs.privy.io/api-reference/users/search",
+            "https://docs.privy.io/cdn-cgi/l/email-protection",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/balance-event-webhooks",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-a-transaction",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-balance",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/list-transactions",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/overview",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/transaction-event-webhooks"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.privy.io/llms-full.xml",
+            "https://docs.privy.io/recipes/mock-jwt.mdx",
+            "https://docs.privy.io/recipes/trpc.mdx",
+            "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+          ],
+          "_all_unverified_links": [
+            "https://docs.privy.io/basics/react-native/advanced/automatic-wallet-creation",
+            "https://docs.privy.io/recipes/agent-integrations/auto-exchange-privy-agent",
+            "https://docs.privy.io/user-management/users/custom-metadata",
+            "https://docs.privy.io/wallets/accounts/self-custody",
+            "https://docs.privy.io/wallets/actions/earn/withdraw",
+            "https://docs.privy.io/wallets/actions/swap/setup",
+            "https://docs.privy.io/wallets/wallets/external-ids"
+          ],
+          "_all_excluded_links": [
+            "https://docs.privy.io/api-reference/users/search",
+            "https://docs.privy.io/cdn-cgi/l/email-protection",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/balance-event-webhooks",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-a-transaction",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-balance",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/list-transactions",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/overview",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/transaction-event-webhooks"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.privy.io/basics/react-native/advanced/automatic-wallet-creation",
+            "https://docs.privy.io/recipes/agent-integrations/auto-exchange-privy-agent",
+            "https://docs.privy.io/user-management/users/custom-metadata",
+            "https://docs.privy.io/wallets/accounts/self-custody",
+            "https://docs.privy.io/wallets/actions/earn/withdraw",
+            "https://docs.privy.io/wallets/actions/swap/setup",
+            "https://docs.privy.io/wallets/wallets/external-ids"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.privy.io/llms-full.xml": [
+              {
+                "source_page": "https://docs.privy.io/",
+                "anchor_text": "https://docs.privy.io/llms-full.xml",
+                "anchor_label": "https://docs.privy.io/llms-full.xml",
+                "context": "for a structured map of all\nPrivy documentation and",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://docs.privy.io/welcome",
+                "anchor_text": "https://docs.privy.io/llms-full.xml",
+                "anchor_label": "https://docs.privy.io/llms-full.xml",
+                "context": "for a structured map of all\nPrivy documentation and",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://docs.privy.io/recipes/mock-jwt.mdx": [
+              {
+                "source_page": "https://docs.privy.io/recipes/mock-jwt",
+                "anchor_text": "publicKey",
+                "anchor_label": "publicKey",
+                "context": "method to verify your test JWT against your test",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://docs.privy.io/recipes/trpc.mdx": [
+              {
+                "source_page": "https://docs.privy.io/recipes/trpc",
+                "anchor_text": "client",
+                "anchor_label": "client",
+                "context": "in your",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://docs.privy.io/recipes/trpc",
+                "anchor_text": "server",
+                "anchor_label": "server",
+                "context": "in your",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet": [
+              {
+                "source_page": "https://docs.privy.io/recipes/migrating-jwt-authentication-from-alchemy",
+                "anchor_text": "createWallet",
+                "anchor_label": "createWallet",
+                "context": "(no Alchemy wallet to migrate). Create a Privy wallet for them explicitly after login \u2014 either by calling",
+                "locator_quality": "unique"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 641,
+          "missing_title_count": 0,
+          "missing_description_count": 241,
+          "multiple_h1_count": 15,
+          "heading_hierarchy_jump_count": 258,
+          "seo_geo_issue_rate_pct": 20.05
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 267,
+          "api_pages_detected": 251,
+          "endpoints_with_usage_docs": 51,
+          "reference_endpoints_without_usage_docs": 216,
+          "reference_coverage_pct": 19.1,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/7ijvs1tcpvifz570ir44acx93pugz5ievpkg+hgaalhaxubuoumq9cuwrm4wo+3090nus",
+            "ep:/=+$/",
+            "ep:/abc123.trycloudflare.com",
+            "ep:/actions",
+            "ep:/actions/{action_id",
+            "ep:/api.bridge.xyz/v0/customers/{customerid}/endorsements",
+            "ep:/api.due.network/v1/accounts",
+            "ep:/api.due.network/v1/recipients",
+            "ep:/api.due.network/v1/transfer_intents/submit",
+            "ep:/api.due.network/v1/transfers",
+            "ep:/api.due.network/v1/transfers/quote",
+            "ep:/api.due.network/v1/virtual_accounts",
+            "ep:/api.due.network/v1/wallets",
+            "ep:/api.hyperliquid-testnet.xyz/info",
+            "ep:/api.privy.io",
+            "ep:/api.privy.io/api/v1/earn/ethereum/vaults",
+            "ep:/api.privy.io/api/v1/earn/ethereum/vaults/{vault_id",
+            "ep:/api.privy.io/api/v1/wallets",
+            "ep:/api.privy.io/api/v1/wallets/{admin_wallet_id}/earn/ethereum/fees/collect",
+            "ep:/api.privy.io/api/v1/wallets/{wallet_id}/earn/ethereum/deposit"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 2773,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (2773 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 8,
+          "pages_without_last_updated_hint": 633,
+          "last_updated_coverage_pct": 1.25,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.privy.io/api-reference/wallets/spark/get-withdrawal-fee-quote",
+              "hint": "The date and time when the quote was last updated."
+            },
+            {
+              "url": "https://docs.privy.io/api-reference/wallets/spark/withdraw",
+              "hint": "The date and time when the request was last updated."
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/ethereum",
+              "hint": "// 2025-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/solana",
+              "hint": "// 2025-09-01 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/sui",
+              "hint": "// 2025-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/timebound",
+              "hint": "// 2026-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/tron",
+              "hint": "// 2025-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/user-management/users/updating-accounts",
+              "hint": "An object representing the account that was just updated on the authenticated user."
+            }
+          ],
+          "pages_with_any_freshness_signal": 641,
+          "any_freshness_signal_coverage_pct": 100.0,
+          "freshness_signal_breakdown": {
+            "visible_or_meta": 8,
+            "structured_data_datemodified": 641,
+            "http_last_modified": 641,
+            "sitemap_lastmod": 640
+          },
+          "pages_machine_readable_only": 633,
+          "pages_with_no_freshness_signal": 0,
+          "no_freshness_signal_pct": 0.0,
+          "no_freshness_signal_samples": []
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 59.75,
+          "answerability_pct": 94.85,
+          "citationability_pct": 78.78,
+          "stale_risk_pct": 84.39,
+          "overall_score_0_100": 61.71,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 1400,
+          "claims_with_evidence": 1134,
+          "coverage_pct": 81.0
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 312,
+              "checks": {
+                "auth_model": 312,
+                "error_semantics": 262,
+                "retry_idempotency": 127,
+                "schema_evolution": 52
+              }
+            },
+            "graphql": {
+              "pages": 66,
+              "checks": {
+                "auth_model": 66,
+                "error_semantics": 54,
+                "retry_idempotency": 21,
+                "schema_evolution": 7
+              }
+            },
+            "grpc": {
+              "pages": 268,
+              "checks": {
+                "auth_model": 268,
+                "error_semantics": 210,
+                "retry_idempotency": 187,
+                "schema_evolution": 39
+              }
+            },
+            "asyncapi": {
+              "pages": 92,
+              "checks": {
+                "auth_model": 92,
+                "error_semantics": 87,
+                "retry_idempotency": 64,
+                "schema_evolution": 3
+              }
+            },
+            "websocket": {
+              "pages": 9,
+              "checks": {
+                "auth_model": 9,
+                "error_semantics": 8,
+                "retry_idempotency": 1,
+                "schema_evolution": 2
+              }
+            }
+          },
+          "coverage_pct": 100.0
+        },
+        "contradictions": {
+          "pages_scanned": 641,
+          "contradictions_count": 0,
+          "by_confidence": {},
+          "contradictions": []
+        },
+        "code_hygiene": {
+          "defects_count": 0,
+          "defects": [],
+          "reader_placeholders_skipped": 0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.privy.io/llms-full.xml",
+          "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "https://docs.privy.io/recipes/trpc.mdx",
+          "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.privy.io/llms-full.xml",
+          "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "https://docs.privy.io/recipes/trpc.mdx",
+          "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.privy.io/basics/react-native/advanced/automatic-wallet-creation",
+          "https://docs.privy.io/recipes/agent-integrations/auto-exchange-privy-agent",
+          "https://docs.privy.io/user-management/users/custom-metadata",
+          "https://docs.privy.io/wallets/accounts/self-custody",
+          "https://docs.privy.io/wallets/actions/earn/withdraw",
+          "https://docs.privy.io/wallets/actions/swap/setup",
+          "https://docs.privy.io/wallets/wallets/external-ids"
+        ],
+        "api_uncovered_samples": [
+          "ep:/7ijvs1tcpvifz570ir44acx93pugz5ievpkg+hgaalhaxubuoumq9cuwrm4wo+3090nus",
+          "ep:/=+$/",
+          "ep:/abc123.trycloudflare.com",
+          "ep:/actions",
+          "ep:/actions/{action_id",
+          "ep:/api.bridge.xyz/v0/customers/{customerid}/endorsements",
+          "ep:/api.due.network/v1/accounts",
+          "ep:/api.due.network/v1/recipients",
+          "ep:/api.due.network/v1/transfer_intents/submit",
+          "ep:/api.due.network/v1/transfers",
+          "ep:/api.due.network/v1/transfers/quote",
+          "ep:/api.due.network/v1/virtual_accounts",
+          "ep:/api.due.network/v1/wallets",
+          "ep:/api.hyperliquid-testnet.xyz/info",
+          "ep:/api.privy.io",
+          "ep:/api.privy.io/api/v1/earn/ethereum/vaults",
+          "ep:/api.privy.io/api/v1/earn/ethereum/vaults/{vault_id",
+          "ep:/api.privy.io/api/v1/wallets",
+          "ep:/api.privy.io/api/v1/wallets/{admin_wallet_id}/earn/ethereum/fees/collect",
+          "ep:/api.privy.io/api/v1/wallets/{wallet_id}/earn/ethereum/deposit"
+        ],
+        "contradiction_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 641,
+        "requested_pages": 715,
+        "urls_examined": 648,
+        "max_pages_total": 3000,
+        "discovered_pages": 648,
+        "crawl_scope_pages": 647,
+        "trap_urls_skipped": 179,
+        "crawl_coverage_pct": 100.15
+      },
+      "links": {
+        "broken_internal_links_count": 4,
+        "docs_broken_links_count": 4,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 7,
+        "confirmed_broken_links_count": 4,
+        "excluded_links_count": 8
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 20.05
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 19.1,
+        "no_api_pages_found": false,
+        "api_pages_detected": 251,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0,
+        "total_code_examples": 0,
+        "runnable_without_env": 0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.25
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 59.75,
+        "answerability_pct": 94.85,
+        "citationability_pct": 78.78,
+        "stale_risk_pct": 84.39,
+        "overall_score_0_100": 61.71,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 1400,
+        "claims_with_evidence": 1134,
+        "coverage_pct": 81.0
+      },
+      "actionability": {
+        "coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 66.05,
+      "links_confidence_pct": 31.36,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 61.71,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 641,
+      "crawl_coverage_pct": 100.15
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 4,
+          "unverified_links_count": 7
+        },
+        "severity": "medium",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 20.05
+        },
+        "severity": "high",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-FRESHNESS-GOVERNANCE",
+        "problem": "Weak freshness and lifecycle visibility",
+        "signal": {
+          "last_updated_coverage_pct": 1.25
+        },
+        "severity": "medium",
+        "pipeline_solution": "Lifecycle management, stale detection, and weekly governance cadence",
+        "pipeline_modules": [
+          "lifecycle_management",
+          "kpi_sla",
+          "release_pack"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 19.1,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 66.05,
+    "links_confidence_pct": 31.36,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "verifiable_contradictions": [],
+  "verifiable_defects": [],
+  "top_findings": [
+    "Broken internal links: 4",
+    "Link verification inconclusive for 7 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 20.05%",
+    "API usage-doc coverage is low: 19.1% (251 API pages detected)",
+    "Code examples could not be auto-verified (0 code blocks found, none classified as runnable). Low confidence -- needs a manual check, not counted as a defect. No executable code blocks detected (2773 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

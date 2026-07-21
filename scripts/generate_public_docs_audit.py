@@ -4055,49 +4055,70 @@ def _web_search_tool_for(model: str, max_uses: int = 5) -> dict[str, Any]:
     return {"type": tool_type, "name": "web_search", "max_uses": int(max_uses)}
 
 
-def _run_llm_json_prompt(
-    *,
-    api_key: str,
+# Supported LLM providers. DeepSeek and Qwen (DashScope) expose OpenAI-compatible
+# Chat Completions endpoints; Anthropic uses its own Messages API. Web search is
+# Anthropic-only, so OpenAI-compatible providers fall back to knowledge-only prompts.
+_LLM_PROVIDERS: dict[str, dict[str, str]] = {
+    "anthropic": {
+        "base_url": "https://api.anthropic.com/v1/messages",
+        "style": "anthropic",
+        "api_key_env": "ANTHROPIC_API_KEY",
+    },
+    "deepseek": {
+        "base_url": "https://api.deepseek.com/v1/chat/completions",
+        "style": "openai",
+        "api_key_env": "DEEPSEEK_API_KEY",
+    },
+    "qwen": {
+        # Alibaba DashScope OpenAI-compatible mode (international endpoint).
+        "base_url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",
+        "style": "openai",
+        "api_key_env": "DASHSCOPE_API_KEY",
+    },
+    "openai": {
+        "base_url": "https://api.openai.com/v1/chat/completions",
+        "style": "openai",
+        "api_key_env": "OPENAI_API_KEY",
+    },
+}
+
+
+def _infer_llm_provider(model: str) -> str:
+    """Infer the provider from the model id when not set explicitly."""
+    m = str(model).strip().lower()
+    if m.startswith("deepseek"):
+        return "deepseek"
+    if m.startswith("qwen"):
+        return "qwen"
+    if m.startswith(("gpt-", "gpt3", "gpt4", "o1", "o3", "o4-")):
+        return "openai"
+    if m.startswith("claude") or m.startswith("us.anthropic"):
+        return "anthropic"
+    # Cheapest sensible default when the model is ambiguous.
+    return "deepseek"
+
+
+def _resolve_llm_provider(
+    provider_name: str,
     model: str,
-    timeout: int,
-    prompt: str,
-    max_tokens: int = 1200,
-    tools: list[dict[str, Any]] | None = None,
-) -> dict[str, Any]:
-    """Run Anthropic LLM and return parsed JSON object."""
-    body: dict[str, Any] = {
-        "model": model,
-        "max_tokens": int(max_tokens),
-        "messages": [{"role": "user", "content": prompt}],
-    }
-    if not str(model).startswith(_NO_SAMPLING_MODEL_PREFIXES):
-        body["temperature"] = 0.1
-    if tools:
-        body["tools"] = tools
-    req = Request(
-        url="https://api.anthropic.com/v1/messages",
-        data=json.dumps(body).encode("utf-8"),
-        headers={
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-        method="POST",
-    )
-    with urlopen(req, timeout=timeout) as resp:
-        raw = resp.read().decode("utf-8", errors="ignore")
-    data = json.loads(raw or "{}")
-    text = ""
-    for part in data.get("content", []) if isinstance(data.get("content"), list) else []:
-        if isinstance(part, dict) and part.get("type") == "text":
-            candidate = str(part.get("text", "")).strip()
-            if candidate:
-                # Keep the LAST non-empty text block: with server-side web
-                # search, earlier blocks are inter-search narration and the
-                # final answer arrives last.
-                text = candidate
-    if not text:
-        raise RuntimeError("LLM returned empty response")
+    base_url_override: str = "",
+    api_key_env_override: str = "",
+) -> dict[str, str]:
+    """Resolve a provider config from an explicit name (or 'auto') plus overrides."""
+    name = str(provider_name or "auto").strip().lower()
+    if name in ("", "auto"):
+        name = _infer_llm_provider(model)
+    cfg = dict(_LLM_PROVIDERS.get(name, _LLM_PROVIDERS["deepseek"]))
+    cfg["name"] = name
+    if str(base_url_override).strip():
+        cfg["base_url"] = str(base_url_override).strip()
+    if str(api_key_env_override).strip():
+        cfg["api_key_env"] = str(api_key_env_override).strip()
+    return cfg
+
+
+def _strip_json_fences(text: str) -> str:
+    """Strip a ```json ... ``` fence some models wrap around JSON output."""
     stripped = text.strip()
     if stripped.startswith("```"):
         first_nl = stripped.find("\n")
@@ -4105,7 +4126,101 @@ def _run_llm_json_prompt(
             stripped = stripped[first_nl + 1:]
         if stripped.endswith("```"):
             stripped = stripped[:-3].strip()
-    parsed = json.loads(stripped)
+    return stripped
+
+
+def _llm_chat(
+    *,
+    provider: dict[str, str],
+    api_key: str,
+    model: str,
+    prompt: str,
+    max_tokens: int,
+    timeout: int,
+    temperature: float | None = None,
+    tools: list[dict[str, Any]] | None = None,
+) -> str:
+    """Call the configured provider and return the assistant text content."""
+    style = str(provider.get("style", "openai"))
+    url = str(provider.get("base_url", ""))
+    if style == "anthropic":
+        body: dict[str, Any] = {
+            "model": model,
+            "max_tokens": int(max_tokens),
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        if temperature is not None and not str(model).startswith(_NO_SAMPLING_MODEL_PREFIXES):
+            body["temperature"] = float(temperature)
+        if tools:
+            body["tools"] = tools
+        headers = {
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        }
+    else:
+        # OpenAI-compatible Chat Completions (DeepSeek, Qwen DashScope, OpenAI).
+        # Server-side web-search tools are Anthropic-specific, so `tools` is not
+        # forwarded here; callers fall back to knowledge-only prompts.
+        body = {
+            "model": model,
+            "max_tokens": int(max_tokens),
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        if temperature is not None:
+            body["temperature"] = float(temperature)
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+    req = Request(url=url, data=json.dumps(body).encode("utf-8"), headers=headers, method="POST")
+    with urlopen(req, timeout=timeout) as resp:
+        raw = resp.read().decode("utf-8", errors="ignore")
+    data = json.loads(raw or "{}")
+    if style == "anthropic":
+        text = ""
+        for part in data.get("content", []) if isinstance(data.get("content"), list) else []:
+            if isinstance(part, dict) and part.get("type") == "text":
+                candidate = str(part.get("text", "")).strip()
+                if candidate:
+                    # Keep the LAST non-empty text block: with server-side web
+                    # search, earlier blocks are inter-search narration and the
+                    # final answer arrives last.
+                    text = candidate
+        return text
+    # OpenAI-compatible response shape: choices[0].message.content.
+    choices = data.get("choices", [])
+    if isinstance(choices, list) and choices and isinstance(choices[0], dict):
+        message = choices[0].get("message", {})
+        if isinstance(message, dict):
+            return str(message.get("content", "")).strip()
+    return ""
+
+
+def _run_llm_json_prompt(
+    *,
+    provider: dict[str, str],
+    api_key: str,
+    model: str,
+    timeout: int,
+    prompt: str,
+    max_tokens: int = 1200,
+    tools: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Run the configured LLM provider and return a parsed JSON object."""
+    text = _llm_chat(
+        provider=provider,
+        api_key=api_key,
+        model=model,
+        prompt=prompt,
+        max_tokens=max_tokens,
+        timeout=timeout,
+        temperature=0.1,
+        tools=tools,
+    )
+    if not text:
+        raise RuntimeError("LLM returned empty response")
+    parsed = json.loads(_strip_json_fences(text))
     if not isinstance(parsed, dict):
         raise RuntimeError("LLM response is not JSON object")
     return parsed
@@ -4127,6 +4242,7 @@ def _autofill_assumptions_with_llm(
     llm_api_key: str,
     llm_model: str,
     llm_timeout: int,
+    provider: dict[str, str],
 ) -> dict[str, Any]:
     """Generate assumptions profile from available public signals."""
     prompt = (
@@ -4147,19 +4263,28 @@ def _autofill_assumptions_with_llm(
         "(e.g. 'pricing page lists $499/mo team plan', '~250 employees per LinkedIn'). "
         f"Audit metrics: {json.dumps(aggregate_metrics, ensure_ascii=True)}"
     )
+    # Server-side web search is Anthropic-only; skip the tool call entirely for
+    # OpenAI-compatible providers (DeepSeek, Qwen) and go straight to knowledge-only.
+    web_search_tools = (
+        [_web_search_tool_for(llm_model, max_uses=5)]
+        if provider.get("style") == "anthropic"
+        else None
+    )
     try:
         out = _run_llm_json_prompt(
+            provider=provider,
             api_key=llm_api_key,
             model=llm_model,
             timeout=max(int(llm_timeout), 240),
-            prompt=prompt,
+            prompt=prompt if web_search_tools else prompt.replace("using web search", "from your knowledge"),
             max_tokens=4000,
-            tools=[_web_search_tool_for(llm_model, max_uses=5)],
+            tools=web_search_tools,
         )
     except (RuntimeError, ValueError, OSError, json.JSONDecodeError):
         # Web search unavailable (offline, model without tool support):
         # fall back to knowledge-only estimation rather than failing the audit.
         out = _run_llm_json_prompt(
+            provider=provider,
             api_key=llm_api_key,
             model=llm_model,
             timeout=llm_timeout,
@@ -4276,48 +4401,23 @@ def _run_llm_analysis(
     model: str,
     api_key: str,
     timeout: int,
+    provider: dict[str, str],
     summary_only: bool = False,
 ) -> dict[str, Any]:
     prompt = _build_llm_prompt(payload, summary_only=summary_only)
-    body = {
-        "model": model,
-        "max_tokens": 1600,
-        "temperature": 0.2,
-        "messages": [{"role": "user", "content": prompt}],
-    }
-    req = Request(
-        url="https://api.anthropic.com/v1/messages",
-        data=json.dumps(body).encode("utf-8"),
-        headers={
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-        method="POST",
+    text = _llm_chat(
+        provider=provider,
+        api_key=api_key,
+        model=model,
+        prompt=prompt,
+        max_tokens=1600,
+        timeout=timeout,
+        temperature=0.2,
     )
-    with urlopen(req, timeout=timeout) as resp:
-        raw = resp.read().decode("utf-8", errors="ignore")
-    data = json.loads(raw or "{}")
-    content = data.get("content", [])
-    text = ""
-    if isinstance(content, list):
-        for part in content:
-            if isinstance(part, dict) and part.get("type") == "text":
-                text = str(part.get("text", "")).strip()
-                if text:
-                    break
     if not text:
         raise RuntimeError("LLM response has no text content.")
-    # Strip markdown code fences (```json ... ```) that Claude sometimes wraps around JSON
-    stripped = text.strip()
-    if stripped.startswith("```"):
-        first_nl = stripped.find("\n")
-        if first_nl != -1:
-            stripped = stripped[first_nl + 1:]
-        if stripped.endswith("```"):
-            stripped = stripped[:-3].strip()
     try:
-        parsed = json.loads(stripped)
+        parsed = json.loads(_strip_json_fences(text))
     except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001
         raise RuntimeError(f"LLM returned non-JSON content: {text[:300]}") from exc
     if not isinstance(parsed, dict):
@@ -4348,6 +4448,7 @@ def _build_html(payload: dict[str, Any]) -> str:
     llm = payload.get("llm_analysis", {})
     if isinstance(llm, dict):
         status = str(llm.get("status", "")).strip().lower()
+        model_label = html.escape(str(llm.get("model", "")).strip() or "LLM")
         if status == "ok":
             analysis = llm.get("analysis", {}) if isinstance(llm.get("analysis"), dict) else {}
             summary = html.escape(str(analysis.get("executive_summary", "")))
@@ -4356,7 +4457,7 @@ def _build_html(payload: dict[str, Any]) -> str:
             actions = analysis.get("prioritized_actions", []) if isinstance(analysis.get("prioritized_actions"), list) else []
             llm_block = (
                 "<div class=\"section\">"
-                "<h2>LLM Executive Analysis (Claude Sonnet)</h2>"
+                f"<h2>LLM Executive Analysis ({model_label})</h2>"
                 f"<p>{summary}</p>"
                 "<h3>Strengths</h3><ul>"
                 + "".join(f"<li>{html.escape(str(item))}</li>" for item in strengths[:5])
@@ -4380,7 +4481,7 @@ def _build_html(payload: dict[str, Any]) -> str:
             reason = html.escape(str(llm.get("reason") or llm.get("error") or "not available"))
             llm_block = (
                 "<div class=\"section\">"
-                "<h2>LLM Executive Analysis (Claude Sonnet)</h2>"
+                f"<h2>LLM Executive Analysis ({model_label})</h2>"
                 f"<p>Status: {html.escape(status)}. {reason}</p>"
                 "</div>"
             )
@@ -4652,22 +4753,33 @@ def main() -> int:
     parser.add_argument(
         "--llm-enabled",
         action="store_true",
-        help="Add optional Claude executive analysis on top of deterministic metrics",
+        help="Add optional LLM executive analysis on top of deterministic metrics",
+    )
+    parser.add_argument(
+        "--llm-provider",
+        default="auto",
+        choices=["auto", "deepseek", "qwen", "openai", "anthropic"],
+        help="LLM provider for executive analysis. 'auto' infers from --llm-model (default: deepseek)",
     )
     parser.add_argument(
         "--llm-model",
-        default="claude-sonnet-5",
-        help="Anthropic model name for executive analysis",
+        default="deepseek-chat",
+        help="Model name for executive analysis (for example, deepseek-chat, qwen-plus, claude-sonnet-5)",
+    )
+    parser.add_argument(
+        "--llm-base-url",
+        default="",
+        help="Override the provider chat-completions endpoint URL (advanced)",
     )
     parser.add_argument(
         "--llm-env-file",
         default=".env",
-        help="Path to .env file containing ANTHROPIC_API_KEY (defaults to repo .env; also searches common fallback locations)",
+        help="Path to .env file containing the provider API key (defaults to repo .env; also searches common fallback locations)",
     )
     parser.add_argument(
         "--llm-api-key-env-name",
-        default="ANTHROPIC_API_KEY",
-        help="Env var key to read from --llm-env-file or environment",
+        default="",
+        help="Env var holding the API key. Empty uses the provider default (DEEPSEEK_API_KEY, DASHSCOPE_API_KEY, OPENAI_API_KEY, or ANTHROPIC_API_KEY)",
     )
     parser.add_argument(
         "--llm-timeout",
@@ -4802,9 +4914,9 @@ def main() -> int:
         args.llm_summary_output = str(out_dir / "public_docs_audit_llm_summary.json")
         args.scorecard_json = str(out_dir / "audit_scorecard.json")
         args.assumptions_autofill_output = str(out_dir / "company_assumptions.autofill.json")
-        print("Claude Sonnet executive analysis options:")
-        print("  1) Summary only -- LLM gets aggregate metrics only (fast, ~$0.05)")
-        print("  2) Full -- LLM gets all per-site data (slower, ~$3-4/site)")
+        print(f"LLM executive analysis options (provider: {args.llm_provider}, model: {args.llm_model}):")
+        print("  1) Summary only -- LLM gets aggregate metrics only (fast, cheapest)")
+        print("  2) Full -- LLM gets all per-site data (slower, more tokens)")
         print("  3) None -- no LLM analysis")
         llm_prompt = (
             "Choice [1/2/3] (default: 1)\n"
@@ -5117,14 +5229,21 @@ def main() -> int:
     if bool(args.llm_enabled):
         reports_dir = Path(str(args.json_output)).resolve().parent
         policy = load_policy(Path(str(args.runtime_config)))
-        llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
+        provider = _resolve_llm_provider(
+            getattr(args, "llm_provider", "auto"),
+            str(args.llm_model),
+            base_url_override=str(getattr(args, "llm_base_url", "")),
+            api_key_env_override=str(args.llm_api_key_env_name),
+        )
+        api_key_env = provider["api_key_env"]
+        llm_api_key = os.environ.get(api_key_env, "").strip()
         if not llm_api_key:
-            llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
+            llm_api_key = _read_dotenv_value(str(args.llm_env_file), api_key_env)
         if not llm_api_key:
             payload["llm_analysis"] = {
                 "status": "skipped",
                 "reason": (
-                    f"Missing {args.llm_api_key_env_name}. "
+                    f"Missing {api_key_env}. "
                     "Set env var or place .env in the repo root."
                 ),
             }
@@ -5150,11 +5269,13 @@ def main() -> int:
                         model=str(args.llm_model),
                         api_key=llm_api_key,
                         timeout=int(args.llm_timeout),
+                        provider=provider,
                         summary_only=bool(getattr(args, "llm_summary_only", False)),
                     )
                     payload["llm_analysis"] = {
                         "status": "ok",
                         "model": str(args.llm_model),
+                        "provider": provider["name"],
                         "analysis": llm_result,
                     }
                     llm_path = Path(args.llm_summary_output)
@@ -5229,9 +5350,16 @@ def main() -> int:
                 not assumptions_path or Path(assumptions_path).name == "default.json"
             )
             if use_autofill:
-                llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
+                provider = _resolve_llm_provider(
+                    getattr(args, "llm_provider", "auto"),
+                    str(args.llm_model),
+                    base_url_override=str(getattr(args, "llm_base_url", "")),
+                    api_key_env_override=str(args.llm_api_key_env_name),
+                )
+                api_key_env = provider["api_key_env"]
+                llm_api_key = os.environ.get(api_key_env, "").strip()
                 if not llm_api_key:
-                    llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
+                    llm_api_key = _read_dotenv_value(str(args.llm_env_file), api_key_env)
                 if llm_api_key:
                     try:
                         reports_dir = Path(str(args.json_output)).resolve().parent
@@ -5254,6 +5382,7 @@ def main() -> int:
                             llm_api_key=llm_api_key,
                             llm_model=str(args.llm_model),
                             llm_timeout=int(args.llm_timeout),
+                            provider=provider,
                         )
                         auto_path = Path(str(getattr(args, "assumptions_autofill_output", "reports/company_assumptions.autofill.json")))
                         auto_path.parent.mkdir(parents=True, exist_ok=True)

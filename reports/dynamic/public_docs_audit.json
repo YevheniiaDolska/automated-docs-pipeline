@@ -1,0 +1,1875 @@
+{
+  "generated_at": "2026-07-21T09:07:34.493968+00:00",
+  "site_url": "https://dynamic.xyz/docs",
+  "site_urls": [
+    "https://dynamic.xyz/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://dynamic.xyz/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2201,
+          "requested_pages": 2369,
+          "urls_examined": 2369,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2369,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 2369,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 2369,
+          "broken_internal_links_count": 56,
+          "docs_broken_links_count": 56,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+            "http://dynamic.xyz/developers",
+            "http://dynamic.xyz/industry/fintechs-and-exchanges",
+            "http://dynamic.xyz/jp",
+            "http://dynamic.xyz/kr",
+            "http://dynamic.xyz/resource-hub/banking-tokenization",
+            "http://dynamic.xyz/resource-hub/security",
+            "http://dynamic.xyz/resource-hub/stablecoins-payments",
+            "http://dynamic.xyz/resource-hub/wallets-digital-asset-custody",
+            "http://dynamic.xyz/stablecoins/N/A",
+            "http://dynamic.xyz/use-case-categories/analytics",
+            "http://dynamic.xyz/use-case-categories/bridge",
+            "http://dynamic.xyz/use-case-categories/chains",
+            "http://dynamic.xyz/use-case-categories/consumer-apps",
+            "http://dynamic.xyz/use-case-categories/defi",
+            "http://dynamic.xyz/use-case-categories/gaming",
+            "http://dynamic.xyz/use-case-categories/marketplaces",
+            "http://dynamic.xyz/use-case-categories/rwas",
+            "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+            "https://dynamic.xyz/blog/agentic-payments-suite-psp-fintech"
+          ],
+          "docs_broken_link_samples": [
+            "http://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+            "http://dynamic.xyz/developers",
+            "http://dynamic.xyz/industry/fintechs-and-exchanges",
+            "http://dynamic.xyz/jp",
+            "http://dynamic.xyz/kr",
+            "http://dynamic.xyz/resource-hub/banking-tokenization",
+            "http://dynamic.xyz/resource-hub/security",
+            "http://dynamic.xyz/resource-hub/stablecoins-payments",
+            "http://dynamic.xyz/resource-hub/wallets-digital-asset-custody",
+            "http://dynamic.xyz/stablecoins/N/A",
+            "http://dynamic.xyz/use-case-categories/analytics",
+            "http://dynamic.xyz/use-case-categories/bridge",
+            "http://dynamic.xyz/use-case-categories/chains",
+            "http://dynamic.xyz/use-case-categories/consumer-apps",
+            "http://dynamic.xyz/use-case-categories/defi",
+            "http://dynamic.xyz/use-case-categories/gaming",
+            "http://dynamic.xyz/use-case-categories/marketplaces",
+            "http://dynamic.xyz/use-case-categories/rwas",
+            "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+            "https://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+            "https://dynamic.xyz/developers",
+            "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser",
+            "https://dynamic.xyz/docs/api-reference/users/createUser",
+            "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken",
+            "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster",
+            "https://dynamic.xyz/docs/api-reference/wallets/createWallet",
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events",
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide",
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup",
+            "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 107,
+          "unverified_links_count": 108,
+          "unverified_link_samples": [
+            "https://dynamic.xyz/docs/api-reference/checkout/update-a-checkout",
+            "https://dynamic.xyz/docs/api-reference/clientgrant/read-public-safe-metadata-about-a-pending-grant",
+            "https://dynamic.xyz/docs/api-reference/environments/get-api-keys-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/gates/disable-the-gate-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/gates/enable-the-gate-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/organizations/cancel-subscription-at-period-end",
+            "https://dynamic.xyz/docs/api-reference/schemas/AuthenticatorAttestationResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/KeyResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/MFARegisterTotpDevicePostResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/MFAUpdateDeviceRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/MembershipEnvironmentIds",
+            "https://dynamic.xyz/docs/api-reference/schemas/MethodNotAllowed",
+            "https://dynamic.xyz/docs/api-reference/schemas/MultichainAccountBalancesRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyString",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith16384MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith50MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyUrlWith255MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/OauthInitAuthRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/OauthRedirectUri",
+            "https://dynamic.xyz/docs/api-reference/schemas/OpenRoomResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/OptionalBase58StringWith100MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/OptionalNonEmptyCssUrl",
+            "https://dynamic.xyz/docs/api-reference/sdk-views/get-an-sdk-view-by-type",
+            "https://dynamic.xyz/docs/api-reference/sdk-views/get-sdk-views-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/users/bulk-create-users",
+            "https://dynamic.xyz/docs/api-reference/users/create-a-user",
+            "https://dynamic.xyz/docs/api-reference/users/delete-user",
+            "https://dynamic.xyz/docs/api-reference/users/get-all-sessions-for-a-user-by-user-id",
+            "https://dynamic.xyz/docs/api-reference/users/revoke-sessions-by-user-id-1",
+            "https://dynamic.xyz/docs/api-reference/waas/get-a-signer-layers-current-rules"
+          ],
+          "confirmed_broken_links_count": 56,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "http://dynamic.xyz/cdn-cgi/l/email-protection",
+            "https://dynamic.xyz/cdn-cgi/l/email-protection"
+          ],
+          "_all_confirmed_broken_links": [
+            "http://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+            "http://dynamic.xyz/developers",
+            "http://dynamic.xyz/industry/fintechs-and-exchanges",
+            "http://dynamic.xyz/jp",
+            "http://dynamic.xyz/kr",
+            "http://dynamic.xyz/resource-hub/banking-tokenization",
+            "http://dynamic.xyz/resource-hub/security",
+            "http://dynamic.xyz/resource-hub/stablecoins-payments",
+            "http://dynamic.xyz/resource-hub/wallets-digital-asset-custody",
+            "http://dynamic.xyz/stablecoins/N/A",
+            "http://dynamic.xyz/use-case-categories/analytics",
+            "http://dynamic.xyz/use-case-categories/bridge",
+            "http://dynamic.xyz/use-case-categories/chains",
+            "http://dynamic.xyz/use-case-categories/consumer-apps",
+            "http://dynamic.xyz/use-case-categories/defi",
+            "http://dynamic.xyz/use-case-categories/gaming",
+            "http://dynamic.xyz/use-case-categories/marketplaces",
+            "http://dynamic.xyz/use-case-categories/rwas",
+            "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+            "https://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+            "https://dynamic.xyz/developers",
+            "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser",
+            "https://dynamic.xyz/docs/api-reference/users/createUser",
+            "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken",
+            "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster",
+            "https://dynamic.xyz/docs/api-reference/wallets/createWallet",
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events",
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide",
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup",
+            "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+            "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+            "https://dynamic.xyz/docs/react-sdk/hooks/useconnectwithemailotp",
+            "https://dynamic.xyz/docs/react/chains/enabling-chains.mdx",
+            "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+            "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+            "https://dynamic.xyz/docs/recipes/stablecoins/recipes/integrations/telegram/telegram-server-wallets-bots",
+            "https://dynamic.xyz/docs/sign-in-sign-up/overview",
+            "https://dynamic.xyz/docs/wallets/embedded-wallets/create-embedded-wallets",
+            "https://dynamic.xyz/docs/wallets/embedded-wallets/mpc/delegated-access/revoking-delegation",
+            "https://dynamic.xyz/industry/fintechs-and-exchanges",
+            "https://dynamic.xyz/jp",
+            "https://dynamic.xyz/kr",
+            "https://dynamic.xyz/resource-hub/banking-tokenization",
+            "https://dynamic.xyz/resource-hub/security",
+            "https://dynamic.xyz/resource-hub/stablecoins-payments",
+            "https://dynamic.xyz/resource-hub/wallets-digital-asset-custody",
+            "https://dynamic.xyz/stablecoins/N/A",
+            "https://dynamic.xyz/use-case-categories/analytics",
+            "https://dynamic.xyz/use-case-categories/bridge",
+            "https://dynamic.xyz/use-case-categories/chains",
+            "https://dynamic.xyz/use-case-categories/consumer-apps",
+            "https://dynamic.xyz/use-case-categories/defi",
+            "https://dynamic.xyz/use-case-categories/gaming",
+            "https://dynamic.xyz/use-case-categories/marketplaces",
+            "https://dynamic.xyz/use-case-categories/rwas",
+            "https://dynamic.xyz/use-case-categories/stabelcoin-payment"
+          ],
+          "_all_unverified_links": [
+            "https://dynamic.xyz/docs/api-reference/checkout/update-a-checkout",
+            "https://dynamic.xyz/docs/api-reference/clientgrant/read-public-safe-metadata-about-a-pending-grant",
+            "https://dynamic.xyz/docs/api-reference/environments/get-api-keys-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/gates/disable-the-gate-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/gates/enable-the-gate-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/organizations/cancel-subscription-at-period-end",
+            "https://dynamic.xyz/docs/api-reference/schemas/AuthenticatorAttestationResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/KeyResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/MFARegisterTotpDevicePostResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/MFAUpdateDeviceRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/MembershipEnvironmentIds",
+            "https://dynamic.xyz/docs/api-reference/schemas/MethodNotAllowed",
+            "https://dynamic.xyz/docs/api-reference/schemas/MultichainAccountBalancesRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyString",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith16384MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith50MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyUrlWith255MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/OauthInitAuthRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/OauthRedirectUri",
+            "https://dynamic.xyz/docs/api-reference/schemas/OpenRoomResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/OptionalBase58StringWith100MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/OptionalNonEmptyCssUrl",
+            "https://dynamic.xyz/docs/api-reference/sdk-views/get-an-sdk-view-by-type",
+            "https://dynamic.xyz/docs/api-reference/sdk-views/get-sdk-views-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/users/bulk-create-users",
+            "https://dynamic.xyz/docs/api-reference/users/create-a-user",
+            "https://dynamic.xyz/docs/api-reference/users/delete-user",
+            "https://dynamic.xyz/docs/api-reference/users/get-all-sessions-for-a-user-by-user-id",
+            "https://dynamic.xyz/docs/api-reference/users/revoke-sessions-by-user-id-1",
+            "https://dynamic.xyz/docs/api-reference/waas/get-a-signer-layers-current-rules",
+            "https://dynamic.xyz/docs/api-reference/wallets/create-waas-wallet",
+            "https://dynamic.xyz/docs/api-reference/wallets/creates-a-new-wallet-for-the-user",
+            "https://dynamic.xyz/docs/api-reference/wallets/creates-a-new-wallet-for-the-user-deprecated--use-environments-users-wallets-instead",
+            "https://dynamic.xyz/docs/api-reference/wallets/delete-wallet",
+            "https://dynamic.xyz/docs/api-reference/wallets/delete-wallet-deprecated--use-environments-wallets-instead",
+            "https://dynamic.xyz/docs/api-reference/wallets/get-a-wallet-using-the-id-deprecated--use-environments-wallets-instead",
+            "https://dynamic.xyz/docs/api-reference/wallets/get-wallets-by-environment",
+            "https://dynamic.xyz/docs/api-reference/wallets/get-wallets-by-user",
+            "https://dynamic.xyz/docs/api-reference/wallets/recover-deleted-wallets-for-a-user-in-a-specific-environment",
+            "https://dynamic.xyz/docs/flutter/wallets/evm/send-eth",
+            "https://dynamic.xyz/docs/flutter/wallets/evm/smart-contracts",
+            "https://dynamic.xyz/docs/flutter/wallets/global-wallets/walletconnect",
+            "https://dynamic.xyz/docs/javascript/reference/bitcoin/send-bitcoin",
+            "https://dynamic.xyz/docs/javascript/reference/bitcoin/send-raw-transaction",
+            "https://dynamic.xyz/docs/javascript/reference/client/is-hardware-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/evm/calculate-evm-transaction-fee",
+            "https://dynamic.xyz/docs/javascript/reference/evm/sign-transaction",
+            "https://dynamic.xyz/docs/javascript/reference/solana/calculate-solana-transaction-fee",
+            "https://dynamic.xyz/docs/javascript/reference/solana/getting-solana-connection",
+            "https://dynamic.xyz/docs/javascript/reference/starknet/adding-starknet-extension",
+            "https://dynamic.xyz/docs/javascript/reference/tron/adding-tron-extension",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/add-network",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/build-wallet-picker",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-multichain-token-balances",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-native-balance",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-networks-data",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-token-balances",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-wallet-options-catalogue",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/remove-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/sign-message",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/calculate-fee-for-user-operation",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/create-kernel-client-for-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/get-signer-for-smart-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/send-user-operation",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/simulate-zerodev-user-operation",
+            "https://dynamic.xyz/docs/kotlin/wallets",
+            "https://dynamic.xyz/docs/kotlin/wallets/evm/message-signing",
+            "https://dynamic.xyz/docs/kotlin/wallets/evm/send-eth",
+            "https://dynamic.xyz/docs/kotlin/wallets/evm/typed-data-signing",
+            "https://dynamic.xyz/docs/kotlin/wallets/general/network-management",
+            "https://dynamic.xyz/docs/kotlin/wallets/solana/message-signing",
+            "https://dynamic.xyz/docs/node/reference/evm",
+            "https://dynamic.xyz/docs/node/reference/evm/create-delegated-evm-wallet-client",
+            "https://dynamic.xyz/docs/node/reference/evm/get-evm-wallets",
+            "https://dynamic.xyz/docs/node/reference/evm/import-private-key",
+            "https://dynamic.xyz/docs/node/reference/evm/sign-typed-data",
+            "https://dynamic.xyz/docs/node/reference/svm/create-delegated-svm-wallet-client",
+            "https://dynamic.xyz/docs/node/reference/svm/delegated-sign-transaction",
+            "https://dynamic.xyz/docs/node/reference/svm/export-private-key",
+            "https://dynamic.xyz/docs/node/reference/svm/fetch-wallet-metadata",
+            "https://dynamic.xyz/docs/node/reference/svm/get-export-id",
+            "https://dynamic.xyz/docs/node/reference/svm/get-wallet",
+            "https://dynamic.xyz/docs/node/reference/svm/get-wallet-external-server-key-share-backup-info",
+            "https://dynamic.xyz/docs/node/reference/svm/refresh-wallet-account-shares",
+            "https://dynamic.xyz/docs/node/reference/svm/sponsor-transaction",
+            "https://dynamic.xyz/docs/overview/social-providers/tiktok",
+            "https://dynamic.xyz/docs/overview/troubleshooting/react/cannot-convert-a-bigInt-value-to-a-number",
+            "https://dynamic.xyz/docs/overview/troubleshooting/react/jest-error-syntaxerror-unexpected-token-export",
+            "https://dynamic.xyz/docs/overview/troubleshooting/react/pop-up-isnt-visible-on-some-devices",
+            "https://dynamic.xyz/docs/react-native/wallets/embedded-wallets",
+            "https://dynamic.xyz/docs/react-native/wallets/embedded-wallets/mpc/creating-wallets",
+            "https://dynamic.xyz/docs/react-native/wallets/using-wallets/accessing-wallets",
+            "https://dynamic.xyz/docs/react-native/wallets/using-wallets/evm/using-evm-wallets",
+            "https://dynamic.xyz/docs/react/building-bridges/headless-bridge-widget",
+            "https://dynamic.xyz/docs/react/global-wallets/export",
+            "https://dynamic.xyz/docs/react/reference/hooks/embedded-wallets",
+            "https://dynamic.xyz/docs/react/reference/hooks/login-user-management/useisloggedin",
+            "https://dynamic.xyz/docs/react/reference/hooks/wallets",
+            "https://dynamic.xyz/docs/react/reference/hooks/wallets/usewalletoptions",
+            "https://dynamic.xyz/docs/react/reference/objects/SolanaRpcProviderMethods",
+            "https://dynamic.xyz/docs/react/reference/objects/social-provider",
+            "https://dynamic.xyz/docs/react/reference/objects/walletconnector",
+            "https://dynamic.xyz/docs/react/smart-wallets/advanced",
+            "https://dynamic.xyz/docs/react/wallets/using-wallets/evm/sign-typed-data",
+            "https://dynamic.xyz/docs/react/wallets/using-wallets/evm/using-evm-wallets",
+            "https://dynamic.xyz/docs/recipes/integrations/telegram/telegram-auto-wallets",
+            "https://dynamic.xyz/docs/recipes/stablecoins/buy-usdc",
+            "https://dynamic.xyz/slack"
+          ],
+          "_all_excluded_links": [
+            "http://dynamic.xyz/cdn-cgi/l/email-protection",
+            "https://dynamic.xyz/cdn-cgi/l/email-protection"
+          ],
+          "_all_docs_unverified_links": [
+            "https://dynamic.xyz/docs/api-reference/checkout/update-a-checkout",
+            "https://dynamic.xyz/docs/api-reference/clientgrant/read-public-safe-metadata-about-a-pending-grant",
+            "https://dynamic.xyz/docs/api-reference/environments/get-api-keys-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/gates/disable-the-gate-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/gates/enable-the-gate-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/organizations/cancel-subscription-at-period-end",
+            "https://dynamic.xyz/docs/api-reference/schemas/AuthenticatorAttestationResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/KeyResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/MFARegisterTotpDevicePostResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/MFAUpdateDeviceRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/MembershipEnvironmentIds",
+            "https://dynamic.xyz/docs/api-reference/schemas/MethodNotAllowed",
+            "https://dynamic.xyz/docs/api-reference/schemas/MultichainAccountBalancesRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyString",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith16384MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith50MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyUrlWith255MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/OauthInitAuthRequest",
+            "https://dynamic.xyz/docs/api-reference/schemas/OauthRedirectUri",
+            "https://dynamic.xyz/docs/api-reference/schemas/OpenRoomResponse",
+            "https://dynamic.xyz/docs/api-reference/schemas/OptionalBase58StringWith100MaxLength",
+            "https://dynamic.xyz/docs/api-reference/schemas/OptionalNonEmptyCssUrl",
+            "https://dynamic.xyz/docs/api-reference/sdk-views/get-an-sdk-view-by-type",
+            "https://dynamic.xyz/docs/api-reference/sdk-views/get-sdk-views-for-the-environment",
+            "https://dynamic.xyz/docs/api-reference/users/bulk-create-users",
+            "https://dynamic.xyz/docs/api-reference/users/create-a-user",
+            "https://dynamic.xyz/docs/api-reference/users/delete-user",
+            "https://dynamic.xyz/docs/api-reference/users/get-all-sessions-for-a-user-by-user-id",
+            "https://dynamic.xyz/docs/api-reference/users/revoke-sessions-by-user-id-1",
+            "https://dynamic.xyz/docs/api-reference/waas/get-a-signer-layers-current-rules",
+            "https://dynamic.xyz/docs/api-reference/wallets/create-waas-wallet",
+            "https://dynamic.xyz/docs/api-reference/wallets/creates-a-new-wallet-for-the-user",
+            "https://dynamic.xyz/docs/api-reference/wallets/creates-a-new-wallet-for-the-user-deprecated--use-environments-users-wallets-instead",
+            "https://dynamic.xyz/docs/api-reference/wallets/delete-wallet",
+            "https://dynamic.xyz/docs/api-reference/wallets/delete-wallet-deprecated--use-environments-wallets-instead",
+            "https://dynamic.xyz/docs/api-reference/wallets/get-a-wallet-using-the-id-deprecated--use-environments-wallets-instead",
+            "https://dynamic.xyz/docs/api-reference/wallets/get-wallets-by-environment",
+            "https://dynamic.xyz/docs/api-reference/wallets/get-wallets-by-user",
+            "https://dynamic.xyz/docs/api-reference/wallets/recover-deleted-wallets-for-a-user-in-a-specific-environment",
+            "https://dynamic.xyz/docs/flutter/wallets/evm/send-eth",
+            "https://dynamic.xyz/docs/flutter/wallets/evm/smart-contracts",
+            "https://dynamic.xyz/docs/flutter/wallets/global-wallets/walletconnect",
+            "https://dynamic.xyz/docs/javascript/reference/bitcoin/send-bitcoin",
+            "https://dynamic.xyz/docs/javascript/reference/bitcoin/send-raw-transaction",
+            "https://dynamic.xyz/docs/javascript/reference/client/is-hardware-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/evm/calculate-evm-transaction-fee",
+            "https://dynamic.xyz/docs/javascript/reference/evm/sign-transaction",
+            "https://dynamic.xyz/docs/javascript/reference/solana/calculate-solana-transaction-fee",
+            "https://dynamic.xyz/docs/javascript/reference/solana/getting-solana-connection",
+            "https://dynamic.xyz/docs/javascript/reference/starknet/adding-starknet-extension",
+            "https://dynamic.xyz/docs/javascript/reference/tron/adding-tron-extension",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/add-network",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/build-wallet-picker",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-multichain-token-balances",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-native-balance",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-networks-data",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-token-balances",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/get-wallet-options-catalogue",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/remove-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/wallets/sign-message",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/calculate-fee-for-user-operation",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/create-kernel-client-for-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/get-signer-for-smart-wallet-account",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/send-user-operation",
+            "https://dynamic.xyz/docs/javascript/reference/zerodev/simulate-zerodev-user-operation",
+            "https://dynamic.xyz/docs/kotlin/wallets",
+            "https://dynamic.xyz/docs/kotlin/wallets/evm/message-signing",
+            "https://dynamic.xyz/docs/kotlin/wallets/evm/send-eth",
+            "https://dynamic.xyz/docs/kotlin/wallets/evm/typed-data-signing",
+            "https://dynamic.xyz/docs/kotlin/wallets/general/network-management",
+            "https://dynamic.xyz/docs/kotlin/wallets/solana/message-signing",
+            "https://dynamic.xyz/docs/node/reference/evm",
+            "https://dynamic.xyz/docs/node/reference/evm/create-delegated-evm-wallet-client",
+            "https://dynamic.xyz/docs/node/reference/evm/get-evm-wallets",
+            "https://dynamic.xyz/docs/node/reference/evm/import-private-key",
+            "https://dynamic.xyz/docs/node/reference/evm/sign-typed-data",
+            "https://dynamic.xyz/docs/node/reference/svm/create-delegated-svm-wallet-client",
+            "https://dynamic.xyz/docs/node/reference/svm/delegated-sign-transaction",
+            "https://dynamic.xyz/docs/node/reference/svm/export-private-key",
+            "https://dynamic.xyz/docs/node/reference/svm/fetch-wallet-metadata",
+            "https://dynamic.xyz/docs/node/reference/svm/get-export-id",
+            "https://dynamic.xyz/docs/node/reference/svm/get-wallet",
+            "https://dynamic.xyz/docs/node/reference/svm/get-wallet-external-server-key-share-backup-info",
+            "https://dynamic.xyz/docs/node/reference/svm/refresh-wallet-account-shares",
+            "https://dynamic.xyz/docs/node/reference/svm/sponsor-transaction",
+            "https://dynamic.xyz/docs/overview/social-providers/tiktok",
+            "https://dynamic.xyz/docs/overview/troubleshooting/react/cannot-convert-a-bigInt-value-to-a-number",
+            "https://dynamic.xyz/docs/overview/troubleshooting/react/jest-error-syntaxerror-unexpected-token-export",
+            "https://dynamic.xyz/docs/overview/troubleshooting/react/pop-up-isnt-visible-on-some-devices",
+            "https://dynamic.xyz/docs/react-native/wallets/embedded-wallets",
+            "https://dynamic.xyz/docs/react-native/wallets/embedded-wallets/mpc/creating-wallets",
+            "https://dynamic.xyz/docs/react-native/wallets/using-wallets/accessing-wallets",
+            "https://dynamic.xyz/docs/react-native/wallets/using-wallets/evm/using-evm-wallets",
+            "https://dynamic.xyz/docs/react/building-bridges/headless-bridge-widget",
+            "https://dynamic.xyz/docs/react/global-wallets/export",
+            "https://dynamic.xyz/docs/react/reference/hooks/embedded-wallets",
+            "https://dynamic.xyz/docs/react/reference/hooks/login-user-management/useisloggedin",
+            "https://dynamic.xyz/docs/react/reference/hooks/wallets",
+            "https://dynamic.xyz/docs/react/reference/hooks/wallets/usewalletoptions",
+            "https://dynamic.xyz/docs/react/reference/objects/SolanaRpcProviderMethods",
+            "https://dynamic.xyz/docs/react/reference/objects/social-provider",
+            "https://dynamic.xyz/docs/react/reference/objects/walletconnector",
+            "https://dynamic.xyz/docs/react/smart-wallets/advanced",
+            "https://dynamic.xyz/docs/react/wallets/using-wallets/evm/sign-typed-data",
+            "https://dynamic.xyz/docs/react/wallets/using-wallets/evm/using-evm-wallets",
+            "https://dynamic.xyz/docs/recipes/integrations/telegram/telegram-auto-wallets",
+            "https://dynamic.xyz/docs/recipes/stablecoins/buy-usdc",
+            "https://dynamic.xyz/slack"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://dynamic.xyz/blog/agentic-payments-suite-psp-fintech": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Learn more",
+                "anchor_label": "Learn more",
+                "context": "Fireblocks launches the Agentic Payments Suite, powering agent-initiated payments for PSPs and Fintechs.",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Learn more",
+                "anchor_label": "Learn more",
+                "context": "Fireblocks launches the Agentic Payments Suite, powering agent-initiated payments for PSPs and Fintechs.",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "http://dynamic.xyz/developers": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Developers",
+                "anchor_label": "Developers",
+                "context": "Use Cases",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Developers",
+                "anchor_label": "Developers",
+                "context": "Use Cases",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "http://dynamic.xyz/industry/fintechs-and-exchanges": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Fintechs & exchanges",
+                "anchor_label": "Fintechs & exchanges",
+                "context": "Industries",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Fintechs & exchanges",
+                "anchor_label": "Fintechs & exchanges",
+                "context": "Industries",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/jp": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\u82f1\u8a9e",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\u82f1\u8a9e",
+                "locator_quality": "unlabeled"
+              }
+            ],
+            "http://dynamic.xyz/kr": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\ud55c\uad6d\uc5b4\ub85c \ubcf4\uae30",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\ud55c\uad6d\uc5b4\ub85c \ubcf4\uae30",
+                "locator_quality": "unlabeled"
+              }
+            ],
+            "http://dynamic.xyz/resource-hub/banking-tokenization": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Banking & Tokenization",
+                "anchor_label": "Banking & Tokenization",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Banking & Tokenization",
+                "anchor_label": "Banking & Tokenization",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/resource-hub/security": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Digital Asset Security",
+                "anchor_label": "Digital Asset Security",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Digital Asset Security",
+                "anchor_label": "Digital Asset Security",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/resource-hub/stablecoins-payments": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Stablecoins & Payments",
+                "anchor_label": "Stablecoins & Payments",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Stablecoins & Payments",
+                "anchor_label": "Stablecoins & Payments",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/resource-hub/wallets-digital-asset-custody": [
+              {
+                "source_page": "http://dynamic.xyz/blog",
+                "anchor_text": "Wallets & Digital Asset Custody",
+                "anchor_label": "Wallets & Digital Asset Custody",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Wallets & Digital Asset Custody",
+                "anchor_label": "Wallets & Digital Asset Custody",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/stablecoins/N/A": [
+              {
+                "source_page": "http://dynamic.xyz/stablecoins/ecosystem-map",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "A global payments platform enabling stablecoin settlement and crypto treasury services for enterprises and fintechs.",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "http://dynamic.xyz/stablecoins/ecosystem-map",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "A decentralized stablecoin and derivatives platform that lets users mint synthetic assets and hedge against volatility.",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "http://dynamic.xyz/stablecoins/ecosystem-map",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "A global settlement network built on stablecoins and digital dollars to streamline cross-border and B2B payments.",
+                "locator_quality": "unlabeled"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/analytics": [
+              {
+                "source_page": "http://dynamic.xyz/customers/aixbt",
+                "anchor_text": "Analytics",
+                "anchor_label": "Analytics",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/nansen",
+                "anchor_text": "Analytics",
+                "anchor_label": "Analytics",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/bridge": [
+              {
+                "source_page": "http://dynamic.xyz/customers/eclipse",
+                "anchor_text": "Bridge",
+                "anchor_label": "Bridge",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/chains": [
+              {
+                "source_page": "http://dynamic.xyz/customers/eclipse",
+                "anchor_text": "Chains",
+                "anchor_label": "Chains",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/nexus",
+                "anchor_text": "Chains",
+                "anchor_label": "Chains",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/tron",
+                "anchor_text": "Chains",
+                "anchor_label": "Chains",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/consumer-apps": [
+              {
+                "source_page": "http://dynamic.xyz/customers/defi-app",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/doodles",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/kraken",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/lighter",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/magic-eden",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/defi": [
+              {
+                "source_page": "http://dynamic.xyz/customers/aixbt",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/defi-app",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/kraken",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/lighter",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/maple",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/gaming": [
+              {
+                "source_page": "http://dynamic.xyz/customers/ethxy",
+                "anchor_text": "Gaming",
+                "anchor_label": "Gaming",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/lamborghini",
+                "anchor_text": "Gaming",
+                "anchor_label": "Gaming",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/onefootball-club",
+                "anchor_text": "Gaming",
+                "anchor_label": "Gaming",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/marketplaces": [
+              {
+                "source_page": "http://dynamic.xyz/customers/doodles",
+                "anchor_text": "Marketplaces",
+                "anchor_label": "Marketplaces",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/magic-eden",
+                "anchor_text": "Marketplaces",
+                "anchor_label": "Marketplaces",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/rwas": [
+              {
+                "source_page": "http://dynamic.xyz/customers/maple",
+                "anchor_text": "RWAs",
+                "anchor_label": "RWAs",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/ondo-finance",
+                "anchor_text": "RWAs",
+                "anchor_label": "RWAs",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "http://dynamic.xyz/use-case-categories/stabelcoin-payment": [
+              {
+                "source_page": "http://dynamic.xyz/customers/acctual",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/loopcrypto",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/noble",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/stripe",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "http://dynamic.xyz/customers/suku-wallet",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/blog/agentic-payments-suite-psp-fintech": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Learn more",
+                "anchor_label": "Learn more",
+                "context": "Fireblocks launches the Agentic Payments Suite, powering agent-initiated payments for PSPs and Fintechs.",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Learn more",
+                "anchor_label": "Learn more",
+                "context": "Fireblocks launches the Agentic Payments Suite, powering agent-initiated payments for PSPs and Fintechs.",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Learn more",
+                "anchor_label": "Learn more",
+                "context": "Fireblocks launches the Agentic Payments Suite, powering agent-initiated payments for PSPs and Fintechs.",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://dynamic.xyz/developers": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Developers",
+                "anchor_label": "Developers",
+                "context": "Use Cases",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Developers",
+                "anchor_label": "Developers",
+                "context": "Use Cases",
+                "locator_quality": "ambiguous"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Developers",
+                "anchor_label": "Developers",
+                "context": "Use Cases",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/migrations/migration-guide",
+                "anchor_text": "Bulk upsert your users into Dynamic",
+                "anchor_label": "Bulk upsert your users into Dynamic",
+                "context": "You\u2019ll need to import your users into Dynamic",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/api-reference/users/createUser": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/migrations/tutorials/importing",
+                "anchor_text": "API reference",
+                "anchor_label": "API reference",
+                "context": "For more information on the user creation API endpoint, refer to the",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/social-providers/overview",
+                "anchor_text": "this API\nrequest",
+                "anchor_label": "this API\nrequest",
+                "context": "If you need to get the auth token of a valid OAuth provider, use",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster": [
+              {
+                "source_page": "https://dynamic.xyz/docs/recipes/integrations/farcaster/embedded-wallet-frame",
+                "anchor_text": "here",
+                "anchor_label": "here",
+                "context": "The full reference for the endpoint can be found",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://dynamic.xyz/docs/api-reference/wallets/createWallet": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/migrations/migration-guide",
+                "anchor_text": "create wallet",
+                "anchor_label": "create wallet",
+                "context": "For front end changes, you can follow path A above. In addition, you can use our",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/docs/react/reference/upgrade/v1",
+                "anchor_text": "here",
+                "anchor_label": "here",
+                "context": "for more info.",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/google-drive-backup",
+                "anchor_text": "webhook events",
+                "anchor_label": "webhook events",
+                "context": "webhook event. You can use this to track backup status or trigger follow-up actions in your application. See",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/google-drive-backup",
+                "anchor_text": "password for the key share",
+                "anchor_label": "password for the key share",
+                "context": "For meaningful protection, we recommend setting a",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/google-drive-backup",
+                "anchor_text": "iCloud backup",
+                "anchor_label": "iCloud backup",
+                "context": "Dynamic also supports",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables": [
+              {
+                "source_page": "https://dynamic.xyz/docs/react-native/global-wallets/create-your-own-package",
+                "anchor_text": "CSS Variables",
+                "anchor_label": "CSS Variables",
+                "context": "-",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/custom-css": [
+              {
+                "source_page": "https://dynamic.xyz/docs/react-native/global-wallets/create-your-own-package",
+                "anchor_text": "Custom CSS",
+                "anchor_label": "Custom CSS",
+                "context": "-",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/react-sdk/hooks/useconnectwithemailotp": [
+              {
+                "source_page": "https://dynamic.xyz/docs/react/reference/upgrade/v2",
+                "anchor_text": "useConnectWithEmailOtp",
+                "anchor_label": "useConnectWithEmailOtp",
+                "context": "}",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/react/chains/enabling-chains.mdx": [
+              {
+                "source_page": "https://dynamic.xyz/docs/react/building-bridges/dynamic-bridge-widget",
+                "anchor_text": "your desired chains configured",
+                "anchor_label": "your desired chains configured",
+                "context": "To get the bridge component setup, you\u2019ll want to have",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/css-variables": [
+              {
+                "source_page": "https://dynamic.xyz/docs/react/global-wallets/create-your-own-package",
+                "anchor_text": "CSS Variables",
+                "anchor_label": "CSS Variables",
+                "context": "-",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/custom-css": [
+              {
+                "source_page": "https://dynamic.xyz/docs/react/global-wallets/create-your-own-package",
+                "anchor_text": "Custom CSS",
+                "anchor_label": "Custom CSS",
+                "context": "-",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/recipes/stablecoins/recipes/integrations/telegram/telegram-server-wallets-bots": [
+              {
+                "source_page": "https://dynamic.xyz/docs/recipes/stablecoins/quick-start",
+                "anchor_text": "here",
+                "anchor_label": "here",
+                "context": ".",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/sign-in-sign-up/overview": [
+              {
+                "source_page": "https://dynamic.xyz/docs/recipes/webhooks-xmtp",
+                "anchor_text": "https://dynamic.xyz/docs/sign-in-sign-up/overview",
+                "anchor_label": "https://dynamic.xyz/docs/sign-in-sign-up/overview",
+                "context": "You can learn more about the different kinds of signup you can enable in the following section of the docs:",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/docs/wallets/embedded-wallets/create-embedded-wallets": [
+              {
+                "source_page": "https://dynamic.xyz/docs/overview/security/recommendedpaths",
+                "anchor_text": "here",
+                "anchor_label": "here",
+                "context": "If you enable the frame-src CSP, then you need to perform this whitelisting (learn how",
+                "locator_quality": "ambiguous"
+              }
+            ],
+            "https://dynamic.xyz/docs/wallets/embedded-wallets/mpc/delegated-access/revoking-delegation": [
+              {
+                "source_page": "https://dynamic.xyz/docs/javascript/authentication-methods/mfa/action-based",
+                "anchor_text": "delegated access",
+                "anchor_label": "delegated access",
+                "context": "WaaS Reshare - When a wallet is approved or revoked from",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/industry/fintechs-and-exchanges": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Fintechs & exchanges",
+                "anchor_label": "Fintechs & exchanges",
+                "context": "Industries",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Fintechs & exchanges",
+                "anchor_label": "Fintechs & exchanges",
+                "context": "Industries",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Fintechs & exchanges",
+                "anchor_label": "Fintechs & exchanges",
+                "context": "Industries",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/jp": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\u82f1\u8a9e",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\u82f1\u8a9e",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\u82f1\u8a9e",
+                "locator_quality": "unlabeled"
+              }
+            ],
+            "https://dynamic.xyz/kr": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\ud55c\uad6d\uc5b4\ub85c \ubcf4\uae30",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\ud55c\uad6d\uc5b4\ub85c \ubcf4\uae30",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "\ud55c\uad6d\uc5b4\ub85c \ubcf4\uae30",
+                "locator_quality": "unlabeled"
+              }
+            ],
+            "https://dynamic.xyz/resource-hub/banking-tokenization": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Banking & Tokenization",
+                "anchor_label": "Banking & Tokenization",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Banking & Tokenization",
+                "anchor_label": "Banking & Tokenization",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Banking & Tokenization",
+                "anchor_label": "Banking & Tokenization",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/resource-hub/security": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Digital Asset Security",
+                "anchor_label": "Digital Asset Security",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Digital Asset Security",
+                "anchor_label": "Digital Asset Security",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Digital Asset Security",
+                "anchor_label": "Digital Asset Security",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/resource-hub/stablecoins-payments": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Stablecoins & Payments",
+                "anchor_label": "Stablecoins & Payments",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Stablecoins & Payments",
+                "anchor_label": "Stablecoins & Payments",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Stablecoins & Payments",
+                "anchor_label": "Stablecoins & Payments",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/resource-hub/wallets-digital-asset-custody": [
+              {
+                "source_page": "https://dynamic.xyz/blog",
+                "anchor_text": "Wallets & Digital Asset Custody",
+                "anchor_label": "Wallets & Digital Asset Custody",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+                "anchor_text": "Wallets & Digital Asset Custody",
+                "anchor_label": "Wallets & Digital Asset Custody",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+                "anchor_text": "Wallets & Digital Asset Custody",
+                "anchor_label": "Wallets & Digital Asset Custody",
+                "context": "Resource hubs",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/stablecoins/N/A": [
+              {
+                "source_page": "https://dynamic.xyz/stablecoins/ecosystem-map",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "A global payments platform enabling stablecoin settlement and crypto treasury services for enterprises and fintechs.",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "https://dynamic.xyz/stablecoins/ecosystem-map",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "A decentralized stablecoin and derivatives platform that lets users mint synthetic assets and hedge against volatility.",
+                "locator_quality": "unlabeled"
+              },
+              {
+                "source_page": "https://dynamic.xyz/stablecoins/ecosystem-map",
+                "anchor_text": "",
+                "anchor_label": "",
+                "context": "A global settlement network built on stablecoins and digital dollars to streamline cross-border and B2B payments.",
+                "locator_quality": "unlabeled"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/analytics": [
+              {
+                "source_page": "https://dynamic.xyz/customers/aixbt",
+                "anchor_text": "Analytics",
+                "anchor_label": "Analytics",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/nansen",
+                "anchor_text": "Analytics",
+                "anchor_label": "Analytics",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/bridge": [
+              {
+                "source_page": "https://dynamic.xyz/customers/eclipse",
+                "anchor_text": "Bridge",
+                "anchor_label": "Bridge",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/chains": [
+              {
+                "source_page": "https://dynamic.xyz/customers/eclipse",
+                "anchor_text": "Chains",
+                "anchor_label": "Chains",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/nexus",
+                "anchor_text": "Chains",
+                "anchor_label": "Chains",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/tron",
+                "anchor_text": "Chains",
+                "anchor_label": "Chains",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/consumer-apps": [
+              {
+                "source_page": "https://dynamic.xyz/customers/defi-app",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/doodles",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/kraken",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/lighter",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/magic-eden",
+                "anchor_text": "Consumer Apps",
+                "anchor_label": "Consumer Apps",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/defi": [
+              {
+                "source_page": "https://dynamic.xyz/customers/aixbt",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/defi-app",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/kraken",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/lighter",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/maple",
+                "anchor_text": "DeFi",
+                "anchor_label": "DeFi",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/gaming": [
+              {
+                "source_page": "https://dynamic.xyz/customers/ethxy",
+                "anchor_text": "Gaming",
+                "anchor_label": "Gaming",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/lamborghini",
+                "anchor_text": "Gaming",
+                "anchor_label": "Gaming",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/onefootball-club",
+                "anchor_text": "Gaming",
+                "anchor_label": "Gaming",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/marketplaces": [
+              {
+                "source_page": "https://dynamic.xyz/customers/doodles",
+                "anchor_text": "Marketplaces",
+                "anchor_label": "Marketplaces",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/magic-eden",
+                "anchor_text": "Marketplaces",
+                "anchor_label": "Marketplaces",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/rwas": [
+              {
+                "source_page": "https://dynamic.xyz/customers/maple",
+                "anchor_text": "RWAs",
+                "anchor_label": "RWAs",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/ondo-finance",
+                "anchor_text": "RWAs",
+                "anchor_label": "RWAs",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ],
+            "https://dynamic.xyz/use-case-categories/stabelcoin-payment": [
+              {
+                "source_page": "https://dynamic.xyz/customers/acctual",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/loopcrypto",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/noble",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/stripe",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              },
+              {
+                "source_page": "https://dynamic.xyz/customers/suku-wallet",
+                "anchor_text": "Stablecoin Payments",
+                "anchor_label": "Stablecoin Payments",
+                "context": "\u00a9 2026 Dynamic Labs, Inc. All rights reserved.",
+                "locator_quality": "unique"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 2201,
+          "missing_title_count": 5,
+          "missing_description_count": 1161,
+          "multiple_h1_count": 77,
+          "heading_hierarchy_jump_count": 509,
+          "seo_geo_issue_rate_pct": 19.9
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 9,
+          "api_pages_detected": 1457,
+          "endpoints_with_usage_docs": 4,
+          "reference_endpoints_without_usage_docs": 5,
+          "reference_coverage_pct": 44.44,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:at",
+            "gql:parameter",
+            "gql:plan",
+            "gql:remains",
+            "gql:wallet"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 9778,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (9778 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 1973,
+          "pages_without_last_updated_hint": 228,
+          "last_updated_coverage_pct": 89.64,
+          "samples_with_last_updated": [
+            {
+              "url": "http://dynamic.xyz/blog",
+              "hint": "Jul 16, 2026"
+            },
+            {
+              "url": "http://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+              "hint": "2026-06-09T15:18:13+00:00"
+            },
+            {
+              "url": "http://dynamic.xyz/privacy-policy",
+              "hint": "Last modified: 5/27/2022"
+            },
+            {
+              "url": "http://dynamic.xyz/stablecoins/blog/stripe-bets-on-stablecoins-with-new-financial-accounts-what-this-means-for-other-fintechs",
+              "hint": "May 7, 2025"
+            },
+            {
+              "url": "http://dynamic.xyz/terms-conditions",
+              "hint": "Last modified: 03/13/2025"
+            },
+            {
+              "url": "https://dynamic.xyz/blog",
+              "hint": "Jul 16, 2026"
+            },
+            {
+              "url": "https://dynamic.xyz/blog/how-x402-and-dynamic-enable-internet-native-payments-for-ai-and-apis",
+              "hint": "2026-06-09T15:18:13+00:00"
+            },
+            {
+              "url": "https://dynamic.xyz/blog/introducing-delegated-access-fueling-automated-commerce-and-agentic-finance",
+              "hint": "2026-06-09T15:18:13+00:00"
+            },
+            {
+              "url": "https://dynamic.xyz/docs",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://dynamic.xyz/docs/api-reference/allowlists/get-all-allowlists-for-a-environment",
+              "hint": "Last modified on"
+            }
+          ],
+          "pages_with_any_freshness_signal": 2196,
+          "any_freshness_signal_coverage_pct": 99.77,
+          "freshness_signal_breakdown": {
+            "visible_or_meta": 1973,
+            "structured_data_datemodified": 1945,
+            "http_last_modified": 229,
+            "sitemap_lastmod": 0
+          },
+          "pages_machine_readable_only": 223,
+          "pages_with_no_freshness_signal": 5,
+          "no_freshness_signal_pct": 0.23,
+          "no_freshness_signal_samples": [
+            {
+              "url": "https://dynamic.xyz/docs/api-reference/schemas/NativeCurrency"
+            },
+            {
+              "url": "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyIsoCountryCode"
+            },
+            {
+              "url": "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith255MaxLength"
+            },
+            {
+              "url": "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith4096MaxLength"
+            },
+            {
+              "url": "https://dynamic.xyz/docs/api-reference/schemas/OauthProviderLoginUrl"
+            }
+          ]
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 76.24,
+          "answerability_pct": 61.02,
+          "citationability_pct": 57.2,
+          "stale_risk_pct": 14.92,
+          "overall_score_0_100": 64.37,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 2777,
+          "claims_with_evidence": 2266,
+          "coverage_pct": 81.6
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 691,
+              "checks": {
+                "auth_model": 632,
+                "error_semantics": 643,
+                "retry_idempotency": 29,
+                "schema_evolution": 110
+              }
+            },
+            "graphql": {
+              "pages": 109,
+              "checks": {
+                "auth_model": 105,
+                "error_semantics": 109,
+                "retry_idempotency": 14,
+                "schema_evolution": 31
+              }
+            },
+            "grpc": {
+              "pages": 81,
+              "checks": {
+                "auth_model": 61,
+                "error_semantics": 81,
+                "retry_idempotency": 6,
+                "schema_evolution": 19
+              }
+            },
+            "asyncapi": {
+              "pages": 1235,
+              "checks": {
+                "auth_model": 1165,
+                "error_semantics": 613,
+                "retry_idempotency": 20,
+                "schema_evolution": 84
+              }
+            },
+            "websocket": {
+              "pages": 3,
+              "checks": {
+                "auth_model": 2,
+                "error_semantics": 3,
+                "retry_idempotency": 0,
+                "schema_evolution": 2
+              }
+            }
+          },
+          "coverage_pct": 95.0
+        },
+        "contradictions": {
+          "pages_scanned": 2201,
+          "contradictions_count": 0,
+          "by_confidence": {},
+          "contradictions": []
+        },
+        "code_hygiene": {
+          "defects_count": 1,
+          "defects": [
+            {
+              "type": "code_marker",
+              "confidence": "high",
+              "summary": "Unfinished 'TODO' marker left in a published code example",
+              "evidence": [
+                {
+                  "value": "TODO",
+                  "url": "https://dynamic.xyz/docs/react-native/reference/quickstart",
+                  "quote": "// TODO: Complete passkey setup \u2014 https://docs.d..."
+                }
+              ]
+            }
+          ],
+          "reader_placeholders_skipped": 0
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+          "http://dynamic.xyz/developers",
+          "http://dynamic.xyz/industry/fintechs-and-exchanges",
+          "http://dynamic.xyz/jp",
+          "http://dynamic.xyz/kr",
+          "http://dynamic.xyz/resource-hub/banking-tokenization",
+          "http://dynamic.xyz/resource-hub/security",
+          "http://dynamic.xyz/resource-hub/stablecoins-payments",
+          "http://dynamic.xyz/resource-hub/wallets-digital-asset-custody",
+          "http://dynamic.xyz/stablecoins/N/A",
+          "http://dynamic.xyz/use-case-categories/analytics",
+          "http://dynamic.xyz/use-case-categories/bridge",
+          "http://dynamic.xyz/use-case-categories/chains",
+          "http://dynamic.xyz/use-case-categories/consumer-apps",
+          "http://dynamic.xyz/use-case-categories/defi",
+          "http://dynamic.xyz/use-case-categories/gaming",
+          "http://dynamic.xyz/use-case-categories/marketplaces",
+          "http://dynamic.xyz/use-case-categories/rwas",
+          "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+          "https://dynamic.xyz/blog/agentic-payments-suite-psp-fintech"
+        ],
+        "docs_broken_link_samples": [
+          "http://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+          "http://dynamic.xyz/developers",
+          "http://dynamic.xyz/industry/fintechs-and-exchanges",
+          "http://dynamic.xyz/jp",
+          "http://dynamic.xyz/kr",
+          "http://dynamic.xyz/resource-hub/banking-tokenization",
+          "http://dynamic.xyz/resource-hub/security",
+          "http://dynamic.xyz/resource-hub/stablecoins-payments",
+          "http://dynamic.xyz/resource-hub/wallets-digital-asset-custody",
+          "http://dynamic.xyz/stablecoins/N/A",
+          "http://dynamic.xyz/use-case-categories/analytics",
+          "http://dynamic.xyz/use-case-categories/bridge",
+          "http://dynamic.xyz/use-case-categories/chains",
+          "http://dynamic.xyz/use-case-categories/consumer-apps",
+          "http://dynamic.xyz/use-case-categories/defi",
+          "http://dynamic.xyz/use-case-categories/gaming",
+          "http://dynamic.xyz/use-case-categories/marketplaces",
+          "http://dynamic.xyz/use-case-categories/rwas",
+          "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+          "https://dynamic.xyz/blog/agentic-payments-suite-psp-fintech",
+          "https://dynamic.xyz/developers",
+          "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser",
+          "https://dynamic.xyz/docs/api-reference/users/createUser",
+          "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken",
+          "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster",
+          "https://dynamic.xyz/docs/api-reference/wallets/createWallet",
+          "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events",
+          "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide",
+          "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup",
+          "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://dynamic.xyz/docs/api-reference/checkout/update-a-checkout",
+          "https://dynamic.xyz/docs/api-reference/clientgrant/read-public-safe-metadata-about-a-pending-grant",
+          "https://dynamic.xyz/docs/api-reference/environments/get-api-keys-for-the-environment",
+          "https://dynamic.xyz/docs/api-reference/gates/disable-the-gate-for-the-environment",
+          "https://dynamic.xyz/docs/api-reference/gates/enable-the-gate-for-the-environment",
+          "https://dynamic.xyz/docs/api-reference/organizations/cancel-subscription-at-period-end",
+          "https://dynamic.xyz/docs/api-reference/schemas/AuthenticatorAttestationResponse",
+          "https://dynamic.xyz/docs/api-reference/schemas/KeyResponse",
+          "https://dynamic.xyz/docs/api-reference/schemas/MFARegisterTotpDevicePostResponse",
+          "https://dynamic.xyz/docs/api-reference/schemas/MFAUpdateDeviceRequest",
+          "https://dynamic.xyz/docs/api-reference/schemas/MembershipEnvironmentIds",
+          "https://dynamic.xyz/docs/api-reference/schemas/MethodNotAllowed",
+          "https://dynamic.xyz/docs/api-reference/schemas/MultichainAccountBalancesRequest",
+          "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyString",
+          "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith16384MaxLength",
+          "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyStringWith50MaxLength",
+          "https://dynamic.xyz/docs/api-reference/schemas/NonEmptyUrlWith255MaxLength",
+          "https://dynamic.xyz/docs/api-reference/schemas/OauthInitAuthRequest",
+          "https://dynamic.xyz/docs/api-reference/schemas/OauthRedirectUri",
+          "https://dynamic.xyz/docs/api-reference/schemas/OpenRoomResponse",
+          "https://dynamic.xyz/docs/api-reference/schemas/OptionalBase58StringWith100MaxLength",
+          "https://dynamic.xyz/docs/api-reference/schemas/OptionalNonEmptyCssUrl",
+          "https://dynamic.xyz/docs/api-reference/sdk-views/get-an-sdk-view-by-type",
+          "https://dynamic.xyz/docs/api-reference/sdk-views/get-sdk-views-for-the-environment",
+          "https://dynamic.xyz/docs/api-reference/users/bulk-create-users",
+          "https://dynamic.xyz/docs/api-reference/users/create-a-user",
+          "https://dynamic.xyz/docs/api-reference/users/delete-user",
+          "https://dynamic.xyz/docs/api-reference/users/get-all-sessions-for-a-user-by-user-id",
+          "https://dynamic.xyz/docs/api-reference/users/revoke-sessions-by-user-id-1",
+          "https://dynamic.xyz/docs/api-reference/waas/get-a-signer-layers-current-rules"
+        ],
+        "api_uncovered_samples": [
+          "gql:at",
+          "gql:parameter",
+          "gql:plan",
+          "gql:remains",
+          "gql:wallet"
+        ],
+        "contradiction_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 2201,
+        "requested_pages": 2369,
+        "urls_examined": 2369,
+        "max_pages_total": 5000,
+        "discovered_pages": 2369,
+        "crawl_scope_pages": 2369,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 56,
+        "docs_broken_links_count": 56,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 108,
+        "confirmed_broken_links_count": 56,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 19.9
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 44.44,
+        "no_api_pages_found": false,
+        "api_pages_detected": 1457,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0,
+        "total_code_examples": 0,
+        "runnable_without_env": 0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 89.64
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 76.24,
+        "answerability_pct": 61.02,
+        "citationability_pct": 57.2,
+        "stale_risk_pct": 14.92,
+        "overall_score_0_100": 64.37,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 2777,
+        "claims_with_evidence": 2266,
+        "coverage_pct": 81.6
+      },
+      "actionability": {
+        "coverage_pct": 95.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 65.16,
+      "links_confidence_pct": 29.15,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 64.37,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 2201,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-LINK-INTEGRITY",
+        "problem": "Internal documentation link integrity issues",
+        "signal": {
+          "docs_broken_links_count": 56,
+          "unverified_links_count": 108
+        },
+        "severity": "high",
+        "pipeline_solution": "Weekly link governance via automated audits and consolidated remediation queue",
+        "pipeline_modules": [
+          "gap_detection",
+          "kpi_sla",
+          "consolidated_report"
+        ]
+      },
+      {
+        "id": "OPS-SEO-GEO",
+        "problem": "Search and AI readability quality gaps",
+        "signal": {
+          "seo_geo_issue_rate_pct": 19.9
+        },
+        "severity": "high",
+        "pipeline_solution": "Deterministic SEO/GEO linting and fix cycles before publish",
+        "pipeline_modules": [
+          "seo_geo_optimizer",
+          "finalize_gate"
+        ]
+      },
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 44.44,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 65.16,
+    "links_confidence_pct": 29.15,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "verifiable_contradictions": [],
+  "verifiable_defects": [
+    {
+      "type": "code_marker",
+      "confidence": "high",
+      "summary": "Unfinished 'TODO' marker left in a published code example",
+      "evidence": [
+        {
+          "value": "TODO",
+          "url": "https://dynamic.xyz/docs/react-native/reference/quickstart",
+          "quote": "// TODO: Complete passkey setup \u2014 https://docs.d..."
+        }
+      ]
+    }
+  ],
+  "top_findings": [
+    "Code defect: https://dynamic.xyz/docs/react-native/reference/quickstart contains \"// TODO: Complete passkey setup \u2014 https://docs.d...\" in a published example -- verifiable.",
+    "Broken internal links: 56",
+    "Link verification inconclusive for 108 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 19.9%",
+    "API usage-doc coverage is low: 44.44% (1457 API pages detected)",
+    "Code examples could not be auto-verified (0 code blocks found, none classified as runnable). Low confidence -- needs a manual check, not counted as a defect. No executable code blocks detected (9778 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

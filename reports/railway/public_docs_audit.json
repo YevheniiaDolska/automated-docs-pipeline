@@ -1,0 +1,363 @@
+{
+  "generated_at": "2026-07-21T13:09:56.466371+00:00",
+  "site_url": "https://docs.railway.com/",
+  "site_urls": [
+    "https://docs.railway.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.railway.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 326,
+          "requested_pages": 344,
+          "urls_examined": 326,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 326,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 326,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 326,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 343,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 326,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 24,
+          "seo_geo_issue_rate_pct": 1.84
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 7,
+          "api_pages_detected": 326,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 7,
+          "reference_coverage_pct": 0.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:as",
+            "gql:deployments",
+            "gql:example",
+            "gql:language",
+            "gql:project",
+            "gql:projectcreate",
+            "gql:that"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 8,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (8 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 323,
+          "pages_without_last_updated_hint": 3,
+          "last_updated_coverage_pct": 99.08,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.railway.com/access",
+              "hint": "2026-07-20T14:17:51.962Z"
+            },
+            {
+              "url": "https://docs.railway.com/access/accounts",
+              "hint": "2026-07-20T14:17:51.982Z"
+            },
+            {
+              "url": "https://docs.railway.com/access/multi-factor-authentication",
+              "hint": "2026-07-20T14:17:52.070Z"
+            },
+            {
+              "url": "https://docs.railway.com/access/two-factor-enforcement",
+              "hint": "2026-07-20T14:17:52.167Z"
+            },
+            {
+              "url": "https://docs.railway.com/agents",
+              "hint": "2026-07-20T14:17:52.061Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai",
+              "hint": "2026-07-20T14:17:52.306Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/agent-integrations",
+              "hint": "2026-07-20T14:17:52.018Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/agent-integrations/discord",
+              "hint": "2026-07-20T14:17:52.050Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/agent-integrations/slack",
+              "hint": "2026-07-20T14:17:52.087Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/agent-skills",
+              "hint": "2026-07-20T14:17:51.993Z"
+            }
+          ],
+          "pages_with_any_freshness_signal": 326,
+          "any_freshness_signal_coverage_pct": 100.0,
+          "freshness_signal_breakdown": {
+            "visible_or_meta": 323,
+            "structured_data_datemodified": 323,
+            "http_last_modified": 0,
+            "sitemap_lastmod": 326
+          },
+          "pages_machine_readable_only": 3,
+          "pages_with_no_freshness_signal": 0,
+          "no_freshness_signal_pct": 0.0,
+          "no_freshness_signal_samples": []
+        },
+        "retrieval_readiness": {
+          "chunkability_pct": 92.64,
+          "answerability_pct": 29.75,
+          "citationability_pct": 100.0,
+          "stale_risk_pct": 8.14,
+          "overall_score_0_100": 78.27,
+          "overall_band": "moderate"
+        },
+        "evidence_coverage": {
+          "key_claims_detected": 615,
+          "claims_with_evidence": 85,
+          "coverage_pct": 13.82
+        },
+        "actionability": {
+          "protocols": {
+            "rest": {
+              "pages": 109,
+              "checks": {
+                "auth_model": 109,
+                "error_semantics": 109,
+                "retry_idempotency": 10,
+                "schema_evolution": 20
+              }
+            },
+            "graphql": {
+              "pages": 326,
+              "checks": {
+                "auth_model": 326,
+                "error_semantics": 326,
+                "retry_idempotency": 13,
+                "schema_evolution": 58
+              }
+            },
+            "grpc": {
+              "pages": 1,
+              "checks": {
+                "auth_model": 1,
+                "error_semantics": 1,
+                "retry_idempotency": 0,
+                "schema_evolution": 0
+              }
+            },
+            "asyncapi": {
+              "pages": 326,
+              "checks": {
+                "auth_model": 326,
+                "error_semantics": 326,
+                "retry_idempotency": 13,
+                "schema_evolution": 58
+              }
+            },
+            "websocket": {
+              "pages": 7,
+              "checks": {
+                "auth_model": 7,
+                "error_semantics": 7,
+                "retry_idempotency": 2,
+                "schema_evolution": 1
+              }
+            }
+          },
+          "coverage_pct": 90.0
+        },
+        "contradictions": {
+          "pages_scanned": 326,
+          "contradictions_count": 0,
+          "by_confidence": {},
+          "contradictions": []
+        },
+        "code_hygiene": {
+          "defects_count": 0,
+          "defects": [],
+          "reader_placeholders_skipped": 0
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:as",
+          "gql:deployments",
+          "gql:example",
+          "gql:language",
+          "gql:project",
+          "gql:projectcreate",
+          "gql:that"
+        ],
+        "contradiction_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 326,
+        "requested_pages": 344,
+        "urls_examined": 326,
+        "max_pages_total": 2500,
+        "discovered_pages": 326,
+        "crawl_scope_pages": 326,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.84
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 0.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 326,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0,
+        "total_code_examples": 0,
+        "runnable_without_env": 0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 99.08
+      },
+      "retrieval_readiness": {
+        "chunkability_pct": 92.64,
+        "answerability_pct": 29.75,
+        "citationability_pct": 100.0,
+        "stale_risk_pct": 8.14,
+        "overall_score_0_100": 78.27,
+        "overall_band": "moderate"
+      },
+      "evidence_coverage": {
+        "key_claims_detected": 615,
+        "claims_with_evidence": 85,
+        "coverage_pct": 13.82
+      },
+      "actionability": {
+        "coverage_pct": 90.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 81.0,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 55.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "pipeline_solution_fit": {
+    "retrieval_readiness_score_0_100": 78.27,
+    "retrieval_readiness_band": "moderate",
+    "audit_confidence": "high",
+    "audit_signal": {
+      "pages_crawled": 326,
+      "crawl_coverage_pct": 100.0
+    },
+    "opportunities": [
+      {
+        "id": "OPS-EXAMPLE-RELIABILITY",
+        "problem": "Code example reliability risk",
+        "signal": {
+          "example_reliability_estimate_pct": 0.0
+        },
+        "severity": "high",
+        "pipeline_solution": "Snippet lint + smoke checks + protocol self-verify coverage",
+        "pipeline_modules": [
+          "snippet_lint",
+          "check_code_examples_smoke",
+          "self_checks"
+        ]
+      },
+      {
+        "id": "OPS-API-DOC-COVERAGE",
+        "problem": "API reference coverage and drift risk",
+        "signal": {
+          "reference_coverage_pct": 0.0,
+          "no_api_pages_found": false
+        },
+        "severity": "high",
+        "pipeline_solution": "API-first contract flow, validators, regression gates, and drift checks",
+        "pipeline_modules": [
+          "api_first",
+          "multi_protocol_contract_flow",
+          "drift_detection",
+          "docs_contract"
+        ]
+      }
+    ]
+  },
+  "confidence": {
+    "overall_confidence_pct": 81.0,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 55.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "verifiable_contradictions": [],
+  "verifiable_defects": [],
+  "top_findings": [
+    "API usage-doc coverage is low: 0.0% (326 API pages detected)",
+    "Code examples could not be auto-verified (0 code blocks found, none classified as runnable). Low confidence -- needs a manual check, not counted as a defect. No executable code blocks detected (8 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

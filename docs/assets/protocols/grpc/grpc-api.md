@@ -14,6 +14,10 @@ tags:
 - Test_Multi_Protocol_Flow_Gener0
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 
 # GRPC Reference
 

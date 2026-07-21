@@ -1,0 +1,627 @@
+{
+  "generated_at": "2026-07-21T13:00:13.224401+00:00",
+  "source_mode": "external_public_audit_bundle",
+  "score": {
+    "audit_score_0_100": 61.71,
+    "grade": "D"
+  },
+  "kpis": {
+    "api_coverage": {
+      "spec_found": true,
+      "total_operations": 1406,
+      "documented_operations": 192,
+      "undocumented_operations": 1214,
+      "coverage_pct": 13.64,
+      "undocumented_pct": 86.36,
+      "coverage_reliable": true
+    },
+    "example_reliability": {
+      "report_found": true,
+      "report_path": "public-audit-proxy",
+      "executed_examples": 7979,
+      "failed_examples": 1426,
+      "example_reliability_pct": 82.13,
+      "detection_failed": false
+    },
+    "freshness": {
+      "total_docs": 7979,
+      "dated_docs": 3386,
+      "missing_date_docs": 4593,
+      "average_age_days": 109.86,
+      "median_age_days": 122.0,
+      "stale_days_threshold": 180,
+      "stale_docs_count": 4564,
+      "stale_docs_pct": 57.2
+    },
+    "drift": {
+      "docs_contract_report_found": true,
+      "api_drift_report_found": false,
+      "docs_contract_mismatch_count": 2109,
+      "docs_contract_interface_count": 7979,
+      "docs_contract_drift_pct": 26.43,
+      "api_drift_status": "public-audit-proxy"
+    },
+    "layer_completeness": {
+      "required_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "total_features": 7979,
+      "features_missing_required_layers": 0,
+      "features_missing_required_layers_pct": 0.0,
+      "sample_missing_features": []
+    },
+    "retrieval_quality": {
+      "report_found": true,
+      "status": "public-audit-proxy",
+      "precision_at_k": 0.8777,
+      "recall_at_k": 0.6634,
+      "hallucination_rate": 0.2643,
+      "top_k": 3
+    },
+    "terminology": {
+      "glossary_found": false,
+      "forbidden_term_occurrences": 63,
+      "terminology_violation_pct": 1.26,
+      "terminology_consistency_pct": 98.74
+    }
+  },
+  "business_impact": {
+    "risk_index_0_to_1": 0.463,
+    "commercial_friction_index_0_to_1": 0.341,
+    "risk_weights": {
+      "undocumented": 0.3,
+      "stale": 0.2,
+      "drift": 0.2,
+      "example_gap": 0.2,
+      "terminology": 0.1
+    },
+    "engineering_support_hours_lost_estimate": {
+      "monthly_cost_usd": 12087.63,
+      "revenue_risk_usd": 963.75,
+      "total_signal_usd": 13051.38,
+      "engineering_hours": 79.06,
+      "support_hours": 67.82,
+      "release_delay_hours": 16.68,
+      "potential_customers_lost": 0.34
+    },
+    "monthly_expense_breakdown": {
+      "items": [
+        {
+          "id": "manual_docs_upkeep",
+          "label": "Manual docs upkeep the automation replaces",
+          "category": "existing_process_cost",
+          "formula": "baseline_manual_sync_hours_per_week x 4.3 weeks x engineer_hourly_usd",
+          "inputs": {
+            "baseline_manual_sync_hours_per_week": 12.0,
+            "engineer_hourly_usd": 110.0
+          },
+          "hours": 51.6,
+          "monthly_usd": 5676.0,
+          "note": "Cost of keeping docs in sync by hand today. It does not depend on audit findings; it is what the pipeline automates away.",
+          "annual_usd": 68112.0
+        },
+        {
+          "id": "release_delay_drag",
+          "label": "Release delay caused by docs work",
+          "category": "quality_drag",
+          "formula": "release_count_per_month x avg_release_delay_hours x risk_index x engineer_hourly_usd",
+          "inputs": {
+            "release_count_per_month": 8.0,
+            "avg_release_delay_hours": 4.5,
+            "risk_index": 0.463,
+            "engineer_hourly_usd": 110.0
+          },
+          "hours": 16.7,
+          "monthly_usd": 1834.83,
+          "note": "Scales with the measured risk index; zero when the audit finds no gaps.",
+          "annual_usd": 22017.96
+        },
+        {
+          "id": "undocumented_api_drag",
+          "label": "Engineering answering questions undocumented APIs create",
+          "category": "quality_drag",
+          "formula": "(undocumented_pct / 100) x 10 h full-gap coefficient x engineer_hourly_usd",
+          "inputs": {
+            "undocumented_pct": 86.4,
+            "full_gap_hours_coefficient": 10.0,
+            "engineer_hourly_usd": 110.0
+          },
+          "hours": 8.6,
+          "monthly_usd": 949.96,
+          "note": "Proportional to the measured undocumented-API share.",
+          "annual_usd": 11399.52
+        },
+        {
+          "id": "broken_example_drag",
+          "label": "Debugging integrations broken examples cause",
+          "category": "quality_drag",
+          "formula": "((100 - example_reliability_pct) / 100) x 12 h full-gap coefficient x engineer_hourly_usd",
+          "inputs": {
+            "example_reliability_pct": 82.1,
+            "full_gap_hours_coefficient": 12.0,
+            "engineer_hourly_usd": 110.0
+          },
+          "hours": 2.1,
+          "monthly_usd": 235.88,
+          "note": "Proportional to the measured share of failing code examples.",
+          "annual_usd": 2830.56
+        },
+        {
+          "id": "docs_driven_support",
+          "label": "Support time on docs-related tickets",
+          "category": "support_cost",
+          "formula": "monthly_support_tickets x docs_related_ticket_share x (avg_ticket_handling_minutes / 60) x (0.5 + risk_index) x support_hourly_usd",
+          "inputs": {
+            "monthly_support_tickets": 800.0,
+            "docs_related_ticket_share": 0.22,
+            "avg_ticket_handling_minutes": 24.0,
+            "risk_index": 0.463,
+            "support_hourly_usd": 50.0
+          },
+          "hours": 67.8,
+          "monthly_usd": 3390.96,
+          "note": "Docs-attributable ticket load, scaled between 0.5x and 1.5x of the nominal share by the measured risk index.",
+          "annual_usd": 40691.52
+        },
+        {
+          "id": "revenue_at_risk",
+          "label": "Revenue at risk from evaluations lost to docs friction",
+          "category": "revenue_risk",
+          "formula": "monthly_doc_influenced_evals x eval_to_customer_rate x docs_friction_revenue_sensitivity x commercial_friction_index x avg_customer_monthly_value_usd",
+          "inputs": {
+            "monthly_doc_influenced_evals": 45.0,
+            "eval_to_customer_rate": 0.07,
+            "docs_friction_revenue_sensitivity": 0.32,
+            "commercial_friction_index": 0.341,
+            "avg_customer_monthly_value_usd": 2800.0
+          },
+          "hours": null,
+          "monthly_usd": 963.75,
+          "note": "Expected value of would-be customers who churn during evaluation because of docs friction; not booked revenue.",
+          "annual_usd": 11565.0
+        }
+      ],
+      "operational_subtotal_usd": 12087.63,
+      "revenue_risk_subtotal_usd": 963.75,
+      "total_monthly_usd": 13051.38,
+      "total_annual_usd": 156616.54,
+      "methodology_note": "Base-scenario estimate built only from the line items above. Every input is an adjustable assumption (see 'assumptions'); pass --assumptions <file.json> to recalculate with the client's own numbers. Conservative/aggressive scenarios apply x0.7 / x1.4. The 'manual docs upkeep' line is the cost of today's manual process (what automation replaces), not damage caused by documentation gaps."
+    },
+    "scenarios": {
+      "conservative": {
+        "monthly_cost_usd": 8461.34,
+        "revenue_risk_usd": 674.63,
+        "total_signal_usd": 9135.96,
+        "engineering_hours": 55.34,
+        "support_hours": 47.47,
+        "release_delay_hours": 11.68,
+        "potential_customers_lost": 0.24
+      },
+      "base": {
+        "monthly_cost_usd": 12087.63,
+        "revenue_risk_usd": 963.75,
+        "total_signal_usd": 13051.38,
+        "engineering_hours": 79.06,
+        "support_hours": 67.82,
+        "release_delay_hours": 16.68,
+        "potential_customers_lost": 0.34
+      },
+      "aggressive": {
+        "monthly_cost_usd": 16922.68,
+        "revenue_risk_usd": 1349.25,
+        "total_signal_usd": 18271.93,
+        "engineering_hours": 110.68,
+        "support_hours": 94.95,
+        "release_delay_hours": 23.35,
+        "potential_customers_lost": 0.48
+      }
+    },
+    "assumptions": {
+      "engineer_hourly_usd": 110.0,
+      "support_hourly_usd": 50.0,
+      "release_count_per_month": 8.0,
+      "baseline_manual_sync_hours_per_week": 12.0,
+      "avg_release_delay_hours": 4.5,
+      "monthly_support_tickets": 800.0,
+      "docs_related_ticket_share": 0.22,
+      "avg_ticket_handling_minutes": 24.0,
+      "monthly_doc_influenced_evals": 45.0,
+      "eval_to_customer_rate": 0.07,
+      "avg_customer_monthly_value_usd": 2800.0,
+      "docs_friction_revenue_sensitivity": 0.32
+    },
+    "cost_basis": {
+      "excluded_dimensions": [],
+      "confidence": "high",
+      "note": "All measured dimensions used."
+    }
+  },
+  "pipeline_monthly_price_usd": 0.0,
+  "capability_matrix": [
+    {
+      "capability_id": "api_coverage_sync",
+      "capability_label": "API coverage sync",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "related_flow": "api_first",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "drift_contract_visibility",
+      "capability_label": "Code/docs drift contract visibility",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "related_flow": "weekly",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "example_execution_quality",
+      "capability_label": "Executable examples quality",
+      "pipeline_modules": [
+        "self_checks",
+        "snippet_lint",
+        "normalization"
+      ],
+      "related_flow": "docs_flow",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "freshness_lifecycle",
+      "capability_label": "Freshness + lifecycle management",
+      "pipeline_modules": [
+        "kpi_sla",
+        "release_pack"
+      ],
+      "related_flow": "weekly",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "layer_completeness",
+      "capability_label": "Doc layer completeness",
+      "pipeline_modules": [
+        "gap_detection",
+        "fact_checks"
+      ],
+      "related_flow": "docs_flow",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "retrieval_quality_control",
+      "capability_label": "RAG retrieval quality control",
+      "pipeline_modules": [
+        "rag_optimization",
+        "ontology_graph",
+        "retrieval_evals"
+      ],
+      "related_flow": "knowledge",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "terminology_governance",
+      "capability_label": "Terminology governance",
+      "pipeline_modules": [
+        "terminology_management",
+        "normalization"
+      ],
+      "related_flow": "docs_flow",
+      "pilot": true,
+      "full": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-API-COVERAGE",
+      "title": "Undocumented API operations",
+      "capability_id": "api_coverage_sync",
+      "capability_label": "API coverage sync",
+      "pipeline_related_flow": "api_first",
+      "metric": "API undocumented %",
+      "current_value": 86.36,
+      "target_value": 5.0,
+      "unit": "%",
+      "gap_value": 81.36,
+      "severity": "high",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 4.0,
+      "effort_hours_base": 10.0,
+      "effort_hours_high": 16.0,
+      "estimated_remediation_cost_usd_low": 440.0,
+      "estimated_remediation_cost_usd_base": 1100.0,
+      "estimated_remediation_cost_usd_high": 1760.0,
+      "estimated_monthly_loss_usd_low": 2362.51,
+      "estimated_monthly_loss_usd_base": 3375.02,
+      "estimated_monthly_loss_usd_high": 4725.03,
+      "recommended_window_days": 7,
+      "evidence_source": "OpenAPI + docs text scan",
+      "estimation_confidence": "high",
+      "note": "Generate/update reference + how-to from OpenAPI and enforce drift checks.",
+      "estimated_annual_loss_usd_base": 40500.22,
+      "payback_months": 0.3,
+      "first_year_roi_multiple": 36.8,
+      "monthly_loss_derivation": "allocated share of the driver-based monthly cost model (direct drag + risk-pool share + revenue-risk share); excludes the manual-upkeep baseline"
+    },
+    {
+      "id": "F-FRESHNESS",
+      "title": "Documentation freshness debt",
+      "capability_id": "freshness_lifecycle",
+      "capability_label": "Freshness + lifecycle management",
+      "pipeline_related_flow": "weekly",
+      "metric": "Stale docs %",
+      "current_value": 57.2,
+      "target_value": 10.0,
+      "unit": "%",
+      "gap_value": 47.2,
+      "severity": "high",
+      "pipeline_modules": [
+        "kpi_sla",
+        "release_pack"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 2.0,
+      "effort_hours_base": 5.0,
+      "effort_hours_high": 8.0,
+      "estimated_remediation_cost_usd_low": 220.0,
+      "estimated_remediation_cost_usd_base": 550.0,
+      "estimated_remediation_cost_usd_high": 880.0,
+      "estimated_monthly_loss_usd_low": 711.9,
+      "estimated_monthly_loss_usd_base": 1017.0,
+      "estimated_monthly_loss_usd_high": 1423.8,
+      "recommended_window_days": 7,
+      "evidence_source": "frontmatter date scan",
+      "estimation_confidence": "high",
+      "note": "Prioritize stale pages via weekly SLA loop and lifecycle policies.",
+      "estimated_annual_loss_usd_base": 12204.01,
+      "payback_months": 0.5,
+      "first_year_roi_multiple": 22.2,
+      "monthly_loss_derivation": "allocated share of the driver-based monthly cost model (direct drag + risk-pool share + revenue-risk share); excludes the manual-upkeep baseline"
+    },
+    {
+      "id": "F-EXAMPLES-RELIABILITY",
+      "title": "Code examples fail or are non-runnable",
+      "capability_id": "example_execution_quality",
+      "capability_label": "Executable examples quality",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Non-runnable examples %",
+      "current_value": 17.87,
+      "target_value": 5.0,
+      "unit": "%",
+      "gap_value": 12.87,
+      "severity": "medium",
+      "pipeline_modules": [
+        "self_checks",
+        "snippet_lint",
+        "normalization"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 3.0,
+      "effort_hours_base": 8.5,
+      "effort_hours_high": 14.0,
+      "estimated_remediation_cost_usd_low": 330.0,
+      "estimated_remediation_cost_usd_base": 935.0,
+      "estimated_remediation_cost_usd_high": 1540.0,
+      "estimated_monthly_loss_usd_low": 422.83,
+      "estimated_monthly_loss_usd_base": 604.04,
+      "estimated_monthly_loss_usd_high": 845.66,
+      "recommended_window_days": 14,
+      "evidence_source": "examples_smoke_report.json",
+      "estimation_confidence": "high",
+      "note": "Run smoke + expected-output checks and auto-fix broken snippets.",
+      "estimated_annual_loss_usd_base": 7248.48,
+      "payback_months": 1.5,
+      "first_year_roi_multiple": 7.8,
+      "monthly_loss_derivation": "allocated share of the driver-based monthly cost model (direct drag + risk-pool share + revenue-risk share); excludes the manual-upkeep baseline"
+    },
+    {
+      "id": "F-DRIFT",
+      "title": "Code/docs contract drift",
+      "capability_id": "drift_contract_visibility",
+      "capability_label": "Code/docs drift contract visibility",
+      "pipeline_related_flow": "weekly",
+      "metric": "Drift %",
+      "current_value": 26.43,
+      "target_value": 2.0,
+      "unit": "%",
+      "gap_value": 24.43,
+      "severity": "medium",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 2.0,
+      "effort_hours_base": 6.0,
+      "effort_hours_high": 10.0,
+      "estimated_remediation_cost_usd_low": 220.0,
+      "estimated_remediation_cost_usd_base": 660.0,
+      "estimated_remediation_cost_usd_high": 1100.0,
+      "estimated_monthly_loss_usd_low": 328.94,
+      "estimated_monthly_loss_usd_base": 469.92,
+      "estimated_monthly_loss_usd_high": 657.89,
+      "recommended_window_days": 14,
+      "evidence_source": "pr_docs_contract.json + api_sdk_drift_report.json",
+      "estimation_confidence": "high",
+      "note": "Track interface changes and enforce docs updates with report-first governance.",
+      "estimated_annual_loss_usd_base": 5639.02,
+      "payback_months": 1.4,
+      "first_year_roi_multiple": 8.5,
+      "monthly_loss_derivation": "allocated share of the driver-based monthly cost model (direct drag + risk-pool share + revenue-risk share); excludes the manual-upkeep baseline"
+    },
+    {
+      "id": "F-RETRIEVAL",
+      "title": "RAG retrieval quality risk",
+      "capability_id": "retrieval_quality_control",
+      "capability_label": "RAG retrieval quality control",
+      "pipeline_related_flow": "knowledge",
+      "metric": "Hallucination rate %",
+      "current_value": 26.43,
+      "target_value": 10.0,
+      "unit": "%",
+      "gap_value": 16.43,
+      "severity": "medium",
+      "pipeline_modules": [
+        "rag_optimization",
+        "ontology_graph",
+        "retrieval_evals"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 4.0,
+      "effort_hours_base": 9.0,
+      "effort_hours_high": 14.0,
+      "estimated_remediation_cost_usd_low": 440.0,
+      "estimated_remediation_cost_usd_base": 990.0,
+      "estimated_remediation_cost_usd_high": 1540.0,
+      "estimated_monthly_loss_usd_low": 97.55,
+      "estimated_monthly_loss_usd_base": 139.36,
+      "estimated_monthly_loss_usd_high": 195.1,
+      "recommended_window_days": 14,
+      "evidence_source": "retrieval_evals_report.json",
+      "estimation_confidence": "high",
+      "note": "Improve module metadata, index quality, and retrieval eval thresholds.",
+      "estimated_annual_loss_usd_base": 1672.27,
+      "payback_months": 7.1,
+      "first_year_roi_multiple": 1.7,
+      "monthly_loss_derivation": "allocated share of the driver-based monthly cost model (direct drag + risk-pool share + revenue-risk share); excludes the manual-upkeep baseline"
+    },
+    {
+      "id": "F-LAYERS",
+      "title": "Missing required doc layers",
+      "capability_id": "layer_completeness",
+      "capability_label": "Doc layer completeness",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Features missing required layers %",
+      "current_value": 0.0,
+      "target_value": 5.0,
+      "unit": "%",
+      "gap_value": 5.0,
+      "severity": "low",
+      "pipeline_modules": [
+        "gap_detection",
+        "fact_checks"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 3.0,
+      "effort_hours_base": 7.5,
+      "effort_hours_high": 12.0,
+      "estimated_remediation_cost_usd_low": 330.0,
+      "estimated_remediation_cost_usd_base": 825.0,
+      "estimated_remediation_cost_usd_high": 1320.0,
+      "estimated_monthly_loss_usd_low": 0.0,
+      "estimated_monthly_loss_usd_base": 0.0,
+      "estimated_monthly_loss_usd_high": 0.0,
+      "recommended_window_days": 30,
+      "evidence_source": "policy pack + frontmatter layer scan",
+      "estimation_confidence": "high",
+      "note": "Backfill concept/how-to/reference coverage for key capabilities.",
+      "estimated_annual_loss_usd_base": 0.0,
+      "payback_months": null,
+      "first_year_roi_multiple": null,
+      "monthly_loss_derivation": "no measured cost contribution attributed to this finding yet"
+    },
+    {
+      "id": "F-TERMINOLOGY",
+      "title": "Terminology inconsistency",
+      "capability_id": "terminology_governance",
+      "capability_label": "Terminology governance",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Terminology violations %",
+      "current_value": 1.26,
+      "target_value": 3.0,
+      "unit": "%",
+      "gap_value": 1.74,
+      "severity": "low",
+      "pipeline_modules": [
+        "terminology_management",
+        "normalization"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 1.0,
+      "effort_hours_base": 3.5,
+      "effort_hours_high": 6.0,
+      "estimated_remediation_cost_usd_low": 110.0,
+      "estimated_remediation_cost_usd_base": 385.0,
+      "estimated_remediation_cost_usd_high": 660.0,
+      "estimated_monthly_loss_usd_low": 6.6,
+      "estimated_monthly_loss_usd_base": 9.42,
+      "estimated_monthly_loss_usd_high": 13.19,
+      "recommended_window_days": 30,
+      "evidence_source": "glossary.yml forbidden terms scan",
+      "estimation_confidence": "low",
+      "note": "Enforce preferred terms and sync glossary markers continuously.",
+      "estimated_annual_loss_usd_base": 113.08,
+      "payback_months": 40.9,
+      "first_year_roi_multiple": 0.3,
+      "monthly_loss_derivation": "allocated share of the driver-based monthly cost model (direct drag + risk-pool share + revenue-risk share); excludes the manual-upkeep baseline"
+    }
+  ],
+  "findings_totals": {
+    "findings_count": 7,
+    "high_count": 2,
+    "medium_count": 3,
+    "low_count": 2,
+    "pilot_fixable_count": 7,
+    "full_fixable_count": 7,
+    "remediation_cost_usd_low_total": 2090.0,
+    "remediation_cost_usd_base_total": 5445.0,
+    "remediation_cost_usd_high_total": 8800.0,
+    "monthly_loss_usd_low_total": 3930.33,
+    "monthly_loss_usd_base_total": 5614.76,
+    "monthly_loss_usd_high_total": 7860.67
+  },
+  "top_3_gaps": [
+    {
+      "id": "CODE-0002",
+      "title": "Authentication: authentication: Auth",
+      "priority": "high",
+      "action_required": "Update authentication documentation for changes in optimization.log. Include security considerations.",
+      "related_files": [
+        "optimization.log"
+      ]
+    },
+    {
+      "id": "CODE-0001",
+      "title": "Webhook: webhook: webhook",
+      "priority": "medium",
+      "action_required": "Update webhook documentation for changes in optimization.log. Include payload examples and event types.",
+      "related_files": [
+        "optimization.log"
+      ]
+    }
+  ]
+}

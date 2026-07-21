@@ -43,18 +43,18 @@
   <div class="wrap">
     <div class="hero">
       <h1>VeriOps Audit Scorecard</h1>
-      <p class="sub">Generated at 2026-07-17T16:37:30.078628+00:00</p>
+      <p class="sub">Generated at 2026-07-21T13:09:57.903302+00:00</p>
       <div class="score">
-        <div class="big">42.28</div>
+        <div class="big">34.47</div>
         <div class="grade">Grade F</div>
       </div>
       <div class="grid">
-        <div class='card'><h3>API coverage</h3><div class='value'>17.97%</div><p>Undocumented: 831 / 1013 operations</p></div>
-        <div class='card'><h3>Example reliability</h3><div class='value'>0.0%</div><p>Executed: 1210, failed: 1210</p></div>
-        <div class='card'><h3>Freshness (median age)</h3><div class='value'>118.0 days</div><p>Stale over threshold: 77.8%</p></div>
-        <div class='card'><h3>Docs contract drift</h3><div class='value'>17.04%</div><p>Mismatches: 206</p></div>
-        <div class='card'><h3>Layer completeness</h3><div class='value'>85.0%</div><p>Features missing layers: 182</p></div>
-        <div class='card'><h3>Terminology consistency</h3><div class='value'>97.45%</div><p>Forbidden term occurrences: 19</p></div>
+        <div class='card'><h3>API coverage</h3><div class='value'>0.0%</div><p>Undocumented: 326 / 326 operations</p></div>
+        <div class='card'><h3>Example reliability</h3><div class='value'>0.0%</div><p>Executed: 326, failed: 326</p></div>
+        <div class='card'><h3>Freshness (median age)</h3><div class='value'>122.0 days</div><p>Stale over threshold: 8.14%</p></div>
+        <div class='card'><h3>Docs contract drift</h3><div class='value'>86.18%</div><p>Mismatches: 281</p></div>
+        <div class='card'><h3>Layer completeness</h3><div class='value'>90.0%</div><p>Features missing layers: 33</p></div>
+        <div class='card'><h3>Terminology consistency</h3><div class='value'>99.26%</div><p>Forbidden term occurrences: 1</p></div>
       </div>
     </div>
 
@@ -62,15 +62,15 @@
       <h2>Business Impact Estimate (Monthly)</h2>
       <table class="kpi-table">
         <tr><th>Metric</th><th>Estimate</th></tr>
-        <tr><td>Engineering hours lost</td><td>79.53 h</td></tr>
-        <tr><td>Support hours burden</td><td>73.77 h</td></tr>
-        <tr><td>Release delay risk</td><td>19.72 h</td></tr>
-        <tr><td>Operational cost</td><td>$12436.62</td></tr>
-        <tr><td>Revenue at risk</td><td>$1196.57</td></tr>
-        <tr><td>Potential customers lost</td><td>0.43</td></tr>
-        <tr><td>Total monthly signal</td><td>$13633.2</td></tr>
+        <tr><td>Engineering hours lost</td><td>83.62 h</td></tr>
+        <tr><td>Support hours burden</td><td>78.27 h</td></tr>
+        <tr><td>Release delay risk</td><td>22.02 h</td></tr>
+        <tr><td>Operational cost</td><td>$13111.7</td></tr>
+        <tr><td>Revenue at risk</td><td>$1549.87</td></tr>
+        <tr><td>Potential customers lost</td><td>0.55</td></tr>
+        <tr><td>Total monthly signal</td><td>$14661.57</td></tr>
       </table>
-      <p class="foot">Per-finding totals (low/base/high): remediation $2090.0 / $5445.0 / $8800.0, monthly loss $4338.16 / $6197.35 / $8676.3. Per-finding monthly losses are allocated shares of the driver-based cost model and sum to its quality-attributable portion; the manual-upkeep baseline is shown separately in the cost-signal breakdown.</p>
+      <p class="foot">Per-finding totals (low/base/high): remediation $2090.0 / $5445.0 / $8800.0, monthly loss $5058.2 / $7226.0 / $10116.4. Per-finding monthly losses are allocated shares of the driver-based cost model and sum to its quality-attributable portion; the manual-upkeep baseline is shown separately in the cost-signal breakdown.</p>
       <p class="foot">Fixability coverage: pilot can close 7 of 7 findings; full implementation can close 7 of 7.</p>
     </div>
 
@@ -80,7 +80,7 @@
         <tr>
           <th>ID</th><th>Issue</th><th>Severity</th><th>Capability</th><th>Gap</th><th>Pilot/Full</th><th>Effort (L/B/H)</th><th>Fix Cost (L/B/H)</th><th>Monthly Loss (L/B/H)</th><th>Confidence</th>
         </tr>
-        <tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>high</td><td>API coverage sync</td><td>API undocumented %: 82.03 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$440.0 / $1100.0 / $1760.0</td><td>$1992.55 / $2846.5 / $3985.1</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>high</td><td>Executable examples quality</td><td>Non-runnable examples %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$330.0 / $935.0 / $1540.0</td><td>$1209.6 / $1728.0 / $2419.2</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>high</td><td>Freshness + lifecycle management</td><td>Stale docs %: 77.8 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$220.0 / $550.0 / $880.0</td><td>$820.21 / $1171.72 / $1640.41</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>medium</td><td>Code/docs drift contract visibility</td><td>Drift %: 17.04 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$220.0 / $660.0 / $1100.0</td><td>$179.64 / $256.63 / $359.29</td><td>high</td></tr><tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>medium</td><td>Doc layer completeness</td><td>Features missing required layers %: 15.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$330.0 / $825.0 / $1320.0</td><td>$46.61 / $66.58 / $93.21</td><td>high</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 2.55 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$110.0 / $385.0 / $660.0</td><td>$11.46 / $16.37 / $22.92</td><td>low</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>low</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 17.04 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$440.0 / $990.0 / $1540.0</td><td>$78.09 / $111.55 / $156.17</td><td>high</td></tr>
+        <tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>high</td><td>API coverage sync</td><td>API undocumented %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$440.0 / $1100.0 / $1760.0</td><td>$2503.39 / $3576.27 / $5006.78</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>high</td><td>Executable examples quality</td><td>Non-runnable examples %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$330.0 / $935.0 / $1540.0</td><td>$1268.73 / $1812.47 / $2537.46</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>high</td><td>Code/docs drift contract visibility</td><td>Drift %: 86.18 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$220.0 / $660.0 / $1100.0</td><td>$947.14 / $1353.06 / $1894.28</td><td>high</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>high</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 86.18 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$440.0 / $990.0 / $1540.0</td><td>$212.1 / $303.0 / $424.2</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>low</td><td>Freshness + lifecycle management</td><td>Stale docs %: 8.14 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$220.0 / $550.0 / $880.0</td><td>$89.46 / $127.8 / $178.92</td><td>high</td></tr><tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>low</td><td>Doc layer completeness</td><td>Features missing required layers %: 10.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$330.0 / $825.0 / $1320.0</td><td>$33.94 / $48.49 / $67.88</td><td>high</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 0.74 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$110.0 / $385.0 / $660.0</td><td>$3.44 / $4.91 / $6.88</td><td>low</td></tr>
       </table>
     </div>
 
@@ -104,9 +104,9 @@
       <table class="kpi-table">
         <tr><th>Precision@k</th><th>Recall@k</th><th>Hallucination rate</th></tr>
         <tr>
-          <td>0.881</td>
-          <td>0.4545</td>
-          <td>0.1704</td>
+          <td>0.9264</td>
+          <td>0.2975</td>
+          <td>0.8618</td>
         </tr>
       </table>
       <p class="foot">If retrieval report is missing, run: npm run eval:retrieval</p>

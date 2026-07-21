@@ -91,7 +91,9 @@ def test_llm_json_prompt_and_assumptions_clamping(monkeypatch: pytest.MonkeyPatc
 
     monkeypatch.setattr(mod, "urlopen", lambda req, timeout: _FakeHTTPResponse(llm_payload))
 
+    anthropic_provider = mod._resolve_llm_provider("anthropic", "claude")
     parsed = mod._run_llm_json_prompt(
+        provider=anthropic_provider,
         api_key="k",
         model="claude",
         timeout=3,
@@ -108,6 +110,7 @@ def test_llm_json_prompt_and_assumptions_clamping(monkeypatch: pytest.MonkeyPatc
         llm_api_key="k",
         llm_model="claude",
         llm_timeout=5,
+        provider=anthropic_provider,
     )
     assert assumptions["engineer_hourly_usd"] == 400.0
     assert assumptions["support_hourly_usd"] == 20.0
@@ -157,11 +160,13 @@ def test_run_llm_analysis_and_build_html(monkeypatch: pytest.MonkeyPatch) -> Non
     }
 
     monkeypatch.setattr(mod, "urlopen", lambda req, timeout: _FakeHTTPResponse(analysis_payload))
+    anthropic_provider = mod._resolve_llm_provider("anthropic", "claude")
     llm = mod._run_llm_analysis(
         payload={"site_urls": ["https://docs.example.com"]},
         model="claude",
         api_key="k",
         timeout=5,
+        provider=anthropic_provider,
         summary_only=True,
     )
     assert llm["executive_summary"] == "Strong docs"
@@ -206,7 +211,37 @@ def test_run_llm_analysis_and_build_html(monkeypatch: pytest.MonkeyPatch) -> Non
         lambda req, timeout: _FakeHTTPResponse({"content": [{"type": "text", "text": "not-json"}]}),
     )
     with pytest.raises(RuntimeError):
-        mod._run_llm_analysis(payload={}, model="claude", api_key="k", timeout=2)
+        mod._run_llm_analysis(
+            payload={}, model="claude", api_key="k", timeout=2, provider=anthropic_provider
+        )
+
+
+def test_llm_provider_inference_and_openai_shape(monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import generate_public_docs_audit as mod
+
+    # 'auto' infers provider from the model id; unknown defaults to deepseek.
+    assert mod._resolve_llm_provider("auto", "deepseek-chat")["name"] == "deepseek"
+    assert mod._resolve_llm_provider("auto", "qwen-plus")["name"] == "qwen"
+    assert mod._resolve_llm_provider("auto", "claude-sonnet-5")["name"] == "anthropic"
+    assert mod._resolve_llm_provider("auto", "mystery-model")["name"] == "deepseek"
+
+    # DeepSeek/Qwen use the OpenAI-compatible choices[].message.content response shape.
+    openai_payload = {
+        "choices": [
+            {"message": {"content": "```json\n{\"executive_summary\":\"ok\",\"strengths\":[],\"risks\":[],\"prioritized_actions\":[],\"limitations\":[]}\n```"}}
+        ]
+    }
+    monkeypatch.setattr(mod, "urlopen", lambda req, timeout: _FakeHTTPResponse(openai_payload))
+    provider = mod._resolve_llm_provider("deepseek", "deepseek-chat")
+    result = mod._run_llm_analysis(
+        payload={"site_urls": ["https://docs.example.com"]},
+        model="deepseek-chat",
+        api_key="k",
+        timeout=5,
+        provider=provider,
+        summary_only=True,
+    )
+    assert result["executive_summary"] == "ok"
 
 
 def test_link_health_from_store_matches_in_memory() -> None:

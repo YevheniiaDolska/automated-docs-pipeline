@@ -2,7 +2,7 @@
   "weekly_rc": 0,
   "strictness": "standard",
   "skip_consolidated_report": false,
-  "missing_required_artifacts": 6,
+  "missing_required_artifacts": 4,
   "stages": [
     {
       "stage": "multi_protocol_contract",
@@ -67,19 +67,19 @@
     {
       "stage": "test_assets_json",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\api_test_cases.json",
-      "exists": false,
+      "exists": true,
       "required": true
     },
     {
       "stage": "test_assets_coverage",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\coverage_report.json",
-      "exists": false,
+      "exists": true,
       "required": true
     },
     {
       "stage": "test_assets_fuzz",
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\fuzz_scenarios.json",
-      "exists": false,
+      "exists": true,
       "required": false
     },
     {

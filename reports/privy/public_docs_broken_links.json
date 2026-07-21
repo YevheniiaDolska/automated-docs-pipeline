@@ -1,0 +1,118 @@
+{
+  "generated_at_utc": "2026-07-21T09:34:41.902520+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 4,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 4,
+    "unverified_links_sample_count": 7
+  },
+  "all_docs_broken_links": [
+    "https://docs.privy.io/llms-full.xml",
+    "https://docs.privy.io/recipes/mock-jwt.mdx",
+    "https://docs.privy.io/recipes/trpc.mdx",
+    "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://docs.privy.io/basics/react-native/advanced/automatic-wallet-creation",
+    "https://docs.privy.io/recipes/agent-integrations/auto-exchange-privy-agent",
+    "https://docs.privy.io/user-management/users/custom-metadata",
+    "https://docs.privy.io/wallets/accounts/self-custody",
+    "https://docs.privy.io/wallets/actions/earn/withdraw",
+    "https://docs.privy.io/wallets/actions/swap/setup",
+    "https://docs.privy.io/wallets/wallets/external-ids"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.privy.io/",
+      "confirmed_broken_links_count": 4,
+      "docs_broken_links_count": 4,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.privy.io/llms-full.xml",
+        "https://docs.privy.io/recipes/mock-jwt.mdx",
+        "https://docs.privy.io/recipes/trpc.mdx",
+        "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.privy.io/llms-full.xml",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/",
+              "anchor_text": "https://docs.privy.io/llms-full.xml",
+              "anchor_label": "https://docs.privy.io/llms-full.xml",
+              "context": "for a structured map of all\nPrivy documentation and",
+              "locator_quality": "unique"
+            },
+            {
+              "source_page": "https://docs.privy.io/welcome",
+              "anchor_text": "https://docs.privy.io/llms-full.xml",
+              "anchor_label": "https://docs.privy.io/llms-full.xml",
+              "context": "for a structured map of all\nPrivy documentation and",
+              "locator_quality": "unique"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/mock-jwt",
+              "anchor_text": "publicKey",
+              "anchor_label": "publicKey",
+              "context": "method to verify your test JWT against your test",
+              "locator_quality": "unique"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/recipes/trpc.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/trpc",
+              "anchor_text": "client",
+              "anchor_label": "client",
+              "context": "in your",
+              "locator_quality": "unique"
+            },
+            {
+              "source_page": "https://docs.privy.io/recipes/trpc",
+              "anchor_text": "server",
+              "anchor_label": "server",
+              "context": "in your",
+              "locator_quality": "unique"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/wallets/using-wallets/ethereum/create-a-wallet",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/migrating-jwt-authentication-from-alchemy",
+              "anchor_text": "createWallet",
+              "anchor_label": "createWallet",
+              "context": "(no Alchemy wallet to migrate). Create a Privy wallet for them explicitly after login \u2014 either by calling",
+              "locator_quality": "unique"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://docs.privy.io/basics/react-native/advanced/automatic-wallet-creation",
+        "https://docs.privy.io/recipes/agent-integrations/auto-exchange-privy-agent",
+        "https://docs.privy.io/user-management/users/custom-metadata",
+        "https://docs.privy.io/wallets/accounts/self-custody",
+        "https://docs.privy.io/wallets/actions/earn/withdraw",
+        "https://docs.privy.io/wallets/actions/swap/setup",
+        "https://docs.privy.io/wallets/wallets/external-ids"
+      ]
+    }
+  ]
+}

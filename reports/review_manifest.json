@@ -4,7 +4,7 @@
     "weekly_rc": 0,
     "strictness": "standard",
     "skip_consolidated_report": false,
-    "missing_required_artifacts": 6,
+    "missing_required_artifacts": 4,
     "stages": [
       {
         "stage": "multi_protocol_contract",
@@ -69,19 +69,19 @@
       {
         "stage": "test_assets_json",
         "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\api_test_cases.json",
-        "exists": false,
+        "exists": true,
         "required": true
       },
       {
         "stage": "test_assets_coverage",
         "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\coverage_report.json",
-        "exists": false,
+        "exists": true,
         "required": true
       },
       {
         "stage": "test_assets_fuzz",
         "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\fuzz_scenarios.json",
-        "exists": false,
+        "exists": true,
         "required": false
       },
       {
@@ -116,7 +116,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\audit_scorecard.html",
-      "exists": false
+      "exists": true
     },
     {
       "title": "Finalize gate report",
@@ -148,7 +148,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\generated_changes.json",
-      "exists": false
+      "exists": true
     },
     {
       "title": "VeriDoc branding policy report",
@@ -212,7 +212,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\api_test_cases.json",
-      "exists": false
+      "exists": true
     },
     {
       "title": "TestRail CSV",
@@ -220,7 +220,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\testrail_test_cases.csv",
-      "exists": false
+      "exists": true
     },
     {
       "title": "Zephyr JSON",
@@ -228,7 +228,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\zephyr_test_cases.json",
-      "exists": false
+      "exists": true
     },
     {
       "title": "Test coverage report",
@@ -236,7 +236,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\coverage_report.json",
-      "exists": false
+      "exists": true
     },
     {
       "title": "Fuzz scenarios",
@@ -244,7 +244,7 @@
       "module": "",
       "required": false,
       "path": "C:\\Users\\Kroha\\Documents\\development\\Auto-Doc Pipeline\\reports\\api-test-assets\\fuzz_scenarios.json",
-      "exists": false
+      "exists": true
     },
     {
       "title": "Test assets summary",
@@ -287,7 +287,7 @@
       "exists": true
     }
   ],
-  "available_artifacts": 14,
-  "missing_artifacts": 10,
+  "available_artifacts": 21,
+  "missing_artifacts": 3,
   "rag_metadata": {}
 }

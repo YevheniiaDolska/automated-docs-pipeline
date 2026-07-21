@@ -112,14 +112,9 @@ Interactive API reference with Swagger UI or Redoc and configurable sandbox beha
 
 Auto-generated asyncapi reference from source contract.
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
-<!-- VERIDOC_POWERED_BADGE:END -->
-
-
 ### ASYNCAPI API Reference: ASYNCAPI Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-228/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -140,9 +135,9 @@ Auto-generated asyncapi reference from source contract.
 
 #### ASYNCAPI API Reference (Part 2): Interactive AsyncAPI Tester
 
-> Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
-
 <!-- vale off -->
+
+> Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
 
 ### ASYNCAPI API Reference (Part 3)
 
@@ -506,17 +501,17 @@ Generated automatically after autopipeline run.
 
 - `multi_protocol_contract`: **OK**
 - `consolidated_report`: **OK**
-- `audit_scorecard`: **OK**
-- `finalize_gate`: **OK**
+- `audit_scorecard`: **MISSING**
+- `finalize_gate`: **MISSING**
 - `docsops_status`: **OK**
 - `ready_marker`: **OK**
-- `code_traceability`: **OK**
+- `code_traceability`: **MISSING**
 - `kpi_wall`: **OK**
 - `kpi_sla`: **OK**
 - `glossary_sync`: **OK**
-- `test_assets_json`: **OK**
-- `test_assets_coverage`: **OK**
-- `test_assets_fuzz`: **OK**
+- `test_assets_json`: **MISSING**
+- `test_assets_coverage`: **MISSING**
+- `test_assets_fuzz`: **MISSING**
 - `test_assets_summary`: **MISSING**
 
 #### Autopipeline Output Index: Docs Links
@@ -550,41 +545,45 @@ Auto-generated review index for autopipeline outputs.
 #### Autopipeline Output Index (Part 3): Reports Links
 
 - Consolidated report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\consolidated_report.json` (OK)
-- Audit scorecard (JSON): `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.json` (OK)
-- Audit scorecard (HTML): `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.html` (OK)
-- Finalize gate report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\finalize_gate_report.json` (OK)
+- Audit scorecard (JSON): `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.json` (MISSING)
+- Audit scorecard (HTML): `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\audit_scorecard.html` (MISSING)
+- Finalize gate report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\finalize_gate_report.json` (MISSING)
 - VeriOps status: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\docsops_status.json` (OK)
 - Ready marker: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\READY_FOR_REVIEW.txt` (OK)
-- Generated changes list: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\generated_changes.json` (OK)
+- Generated changes list: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\generated_changes.json` (MISSING)
 - VeriDoc branding policy report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\veridoc_branding_policy_report.json` (OK)
 
-#### Autopipeline Output Index (Part 3): Search Links
+### Autopipeline Output Index (Part 4)
+
+Auto-generated review index for autopipeline outputs.
+
+#### Autopipeline Output Index (Part 4): Search Links
 
 - Faceted search page: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\search-faceted.md` (OK)
   Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/search-faceted/>
 - Facets index: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\docs\assets\facets-index.json` (OK)
   Public URL: <https://yevheniiadolska.github.io/automated-docs-pipeline/assets/facets-index.json>
 
-### Autopipeline Output Index (Part 4)
+#### Autopipeline Output Index (Part 4): Tests Links
+
+- API test cases JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\api_test_cases.json` (MISSING)
+- TestRail CSV: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\testrail_test_cases.csv` (MISSING)
+- Zephyr JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\zephyr_test_cases.json` (MISSING)
+- Test coverage report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\coverage_report.json` (MISSING)
+- Fuzz scenarios: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\fuzz_scenarios.json` (MISSING)
+- Test assets summary: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\TEST_ASSETS_SUMMARY.md` (MISSING)
+
+### Autopipeline Output Index (Part 5)
 
 Auto-generated review index for autopipeline outputs.
 
-#### Autopipeline Output Index (Part 4): Tests Links
-
-- API test cases JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\api_test_cases.json` (OK)
-- TestRail CSV: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\testrail_test_cases.csv` (OK)
-- Zephyr JSON: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\zephyr_test_cases.json` (OK)
-- Test coverage report: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\coverage_report.json` (OK)
-- Fuzz scenarios: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\fuzz_scenarios.json` (OK)
-- Test assets summary: `C:\Users\Kroha\Documents\development\Auto-Doc Pipeline\reports\api-test-assets\TEST_ASSETS_SUMMARY.md` (MISSING)
-
-#### Autopipeline Output Index (Part 4): Browse/Searchability
+#### Autopipeline Output Index (Part 5): Browse/Searchability
 
 - Browsability: hierarchical navigation (MkDocs nav + cross-links) with stable page paths.
 - Searchability: faceted index (`docs/assets/facets-index.json`) + retrieval index (`docs/assets/knowledge-retrieval-index.json`).
 - AI retrieval: knowledge graph (`docs/assets/knowledge-graph.jsonld`) + retrieval eval reports.
 
-#### Autopipeline Output Index (Part 4): Next steps
+#### Autopipeline Output Index (Part 5): Next steps
 
 - [Documentation index](../index.md)
 
@@ -1820,14 +1819,9 @@ const webhook = new WebhookNode({
 
 Auto-generated graphql reference from source contract.
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
-<!-- VERIDOC_POWERED_BADGE:END -->
-
-
 ### GRAPHQL API Reference: GRAPHQL Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-153/test_publish_blocked_when_live0/api/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-228/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 
@@ -1862,7 +1856,7 @@ Auto-generated graphql reference from source contract.
   <pre id="graphql-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const endpoint = "http://127.0.0.1:9/graphql";
+(function(){ const endpoint = "https://postman-echo.com/post";
 const view = document.getElementById('graphql-endpoint-view');
 const run = document.getElementById('graphql-run');
 const query = document.getElementById('graphql-query');

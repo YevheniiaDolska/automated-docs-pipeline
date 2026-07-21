@@ -1,10 +1,15 @@
 {
-  "generated_at": "2026-07-13T08:01:42.481238+00:00",
+  "generated_at": "2026-07-20T08:02:08.270639+00:00",
   "input_reports": {
     "gaps": {
-      "found": false,
-      "generated_at": "",
-      "details": {}
+      "found": true,
+      "generated_at": "2026-07-17T10:51:08.141252",
+      "details": {
+        "total_gaps": 2,
+        "high_priority": 1,
+        "medium_priority": 1,
+        "low_priority": 0
+      }
     },
     "drift": {
       "found": true,
@@ -27,9 +32,9 @@
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-07-13T08:01:42Z",
+      "generated_at": "2026-07-20T08:02:07Z",
       "details": {
-        "quality_score": 100,
+        "quality_score": 97,
         "stale_docs": 0,
         "stale_files_count": 0
       }
@@ -41,15 +46,15 @@
         "status": "ok",
         "breaches": [],
         "metrics": {
-          "quality_score": 100,
+          "quality_score": 97,
           "stale_pct": 0.0,
-          "high_priority_gaps": 0
+          "high_priority_gaps": 1
         }
       }
     },
     "i18n": {
       "found": true,
-      "generated_at": "2026-07-13T08:01:41.627368+00:00",
+      "generated_at": "2026-07-20T08:02:07.439279+00:00",
       "details": {
         "total_source_docs": 1,
         "languages": [
@@ -68,7 +73,7 @@
     },
     "glossary": {
       "found": true,
-      "generated_at": "2026-07-13T08:01:41.827721+00:00",
+      "generated_at": "2026-07-20T08:02:07.658003+00:00",
       "details": {
         "markers_found": 6,
         "added_count": 0,
@@ -87,14 +92,14 @@
     }
   },
   "health_summary": {
-    "quality_score": 100,
+    "quality_score": 97,
     "stale_pct": 0.0,
     "total_docs": 80,
     "metadata_completeness_pct": 100.0,
     "drift_status": "ok",
     "sla_status": "ok",
     "sla_breaches": [],
-    "total_action_items": 1,
+    "total_action_items": 3,
     "translation_coverage": {
       "ru": 0.0
     },
@@ -107,6 +112,50 @@
   "action_items": [
     {
       "id": "CONS-001",
+      "source_report": "gaps",
+      "source_id": "CODE-0002",
+      "title": "Authentication: authentication: Auth",
+      "category": "authentication",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 4,
+      "action_required": "Update authentication documentation for changes in optimization.log. Include security considerations.",
+      "related_files": [
+        "optimization.log"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-002",
+      "source_report": "gaps",
+      "source_id": "CODE-0001",
+      "title": "Webhook: webhook: webhook",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 2,
+      "action_required": "Update webhook documentation for changes in optimization.log. Include payload examples and event types.",
+      "related_files": [
+        "optimization.log"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-003",
       "source_report": "i18n",
       "source_id": null,
       "title": "Missing translation: ru/how-to/set-up-real-time-webhook-processing-pipeline.md",

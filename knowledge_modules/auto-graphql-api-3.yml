@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-07-13'
+last_verified: '2026-07-20'
 dependencies: []
 tags:
 - auto-extracted
@@ -26,7 +26,7 @@ metadata:
   title: GRAPHQL API Reference (Part 3)
   heading: GRAPHQL API Reference (Part 3)
   version: 1.50.0
-  updated_at: '2026-05-18'
+  updated_at: '2026-07-04'
   source_site: docs.example.com
   source_path: reference/graphql-api.md
 semantic:
@@ -44,7 +44,7 @@ content:
     12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n\
     }</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n  <pre\
     \ id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
-    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"http://127.0.0.1:9/graphql\"\
+    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"https://postman-echo.com/post\"\
     ;\nconst view = document.getElementById('graphql-endpoint-view');\nconst run =\
     \ document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\n\
     const out = document.getElementById('graphql-output');\nif (!view || !run || !query\
@@ -81,7 +81,7 @@ content:
     \ rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n\
     \  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n\
     \  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
-    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"http://127.0.0.1:9/graphql\"\
+    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"https://postman-echo.com/post\"\
     ;\nconst view = document.getElementById('graphql-endpoint-view');\nconst run =\
     \ document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\n\
     const out = document.getElementById('graphql-output');\nif (!view || !run || !query\

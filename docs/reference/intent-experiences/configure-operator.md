@@ -263,7 +263,7 @@ Auto-generated graphql reference from source contract.
   <pre id="graphql-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const endpoint = "http://127.0.0.1:9/graphql";
+(function(){ const endpoint = "https://postman-echo.com/post";
 const view = document.getElementById('graphql-endpoint-view');
 const run = document.getElementById('graphql-run');
 const query = document.getElementById('graphql-query');
