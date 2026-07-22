@@ -19,6 +19,20 @@ bundle:
   # Vale style profile for this client: google | microsoft | hybrid
   style_guide: "google"
 
+  # Optional: LLM-generated, company-specific SSOT documentation templates.
+  # When enabled, the bundle ships the assembly toolchain (render_sdk_snippets,
+  # generate_doc_from_spec, web_research, generate_company_templates) plus SSOT
+  # snippets, so the client repo assembles docs from blocks (no duplication).
+  # Set generate_on_build to also plan+render templates during the build; that
+  # step googles the company, needs API keys (DeepSeek + a search provider) and
+  # egress approval in the build env, and is best-effort (never fails the build).
+  company_templates:
+    enabled: false
+    generate_on_build: false
+    web_research: true
+    domain: ""            # falls back to client.company_domain
+    llm_model: "deepseek-chat"
+
   # Optional overrides merged into selected policy pack.
   policy_overrides:
     kpi_sla:

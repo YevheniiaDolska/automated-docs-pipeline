@@ -1,0 +1,61 @@
+# ProductName
+
+> Enterprise workflow automation platform
+
+## Configure
+- Configure HMAC authentication for inbound webhooks: Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module.
+- [API playground](https://docs.example.com/reference/api-playground/): Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
+- [Apply a pilot, full, or RAG configuration](https://docs.example.com/how-to/apply-pipeline-configuration/): Update a client profile for pilot, full, or RAG-enabled operation and align it with cloud, strict-local, or hybrid LLM execution.
+- [Assemble intent experiences](https://docs.example.com/how-to/assemble-intent-experiences/): Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.
+- [Build your first workflow in 5 minutes](https://docs.example.com/getting-started/quickstart/): Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required.
+- [Canonical Flow (Sales + Delivery)](https://docs.example.com/operations/CANONICAL_FLOW/): Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.
+- [Choose a pipeline configuration](https://docs.example.com/getting-started/choose-pipeline-configuration/): Pick a pilot, full, or RAG-enabled bundle and pair it with cloud, strict-local, or hybrid execution in one guided setup.
+- [Configure Ask AI module](https://docs.example.com/how-to/configure-ask-ai-module/): Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.
+- [Configure webhook triggers](https://docs.example.com/how-to/configure-webhook-trigger/): Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.
+- [Install Ask AI runtime pack](https://docs.example.com/how-to/install-ask-ai-runtime-pack/): Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.
+- [Migrate documentation from Confluence](https://docs.example.com/how-to/migrate-from-confluence/): Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction.
+- [Multi-Protocol Wizard Guide](https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/): Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+- [Operator Runbook (Retainer Operations)](https://docs.example.com/operations/OPERATOR_RUNBOOK/): Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
+- [Run API-first production flow](https://docs.example.com/how-to/run-api-first-production-flow/): Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.
+- [Set up a real-time webhook processing pipeline](https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/): Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
+- [Smart Merge and Manual Review](https://docs.example.com/operations/SMART_MERGE_REVIEW/): How needs_review works for protocol test assets and where operators review flagged cases.
+- [TaskStream API playground](https://docs.example.com/reference/taskstream-api-playground/): Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.
+- [Variables and Templates Guide](https://docs.example.com/VARIABLES_GUIDE/): How to use Jinja2 variables and templates in documentation for consistency
+
+## Troubleshoot
+- Define idempotent webhook retry handling: Provides retry and idempotency patterns to avoid duplicate processing across documentation, assistant guidance, and runbook automation.
+- [Fix: Webhook trigger not firing](https://docs.example.com/troubleshooting/webhook-not-firing/): Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.
+- [TaskStream API planning notes](https://docs.example.com/reference/taskstream-planning-notes/): Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.
+- [Troubleshooting Guide](https://docs.example.com/troubleshooting/): Solutions for common problems including webhook failures, credential errors, execution timeouts, and memory issues.
+
+## Secure
+- [Intelligent knowledge system architecture](https://docs.example.com/concepts/intelligent-knowledge-system/): Explains how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.
+- [VeriDoc privacy policy](https://docs.example.com/legal/privacy-policy/): Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+- [VeriDoc security policy](https://docs.example.com/legal/security-policy/): Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+- [VeriDoc terms of service](https://docs.example.com/legal/terms-of-service/): Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+- [Webhook node reference for](https://docs.example.com/reference/nodes/webhook/): Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling.
+
+## Integrate
+- [ASYNCAPI API Reference](https://docs.example.com/reference/asyncapi-api/): Auto-generated asyncapi reference from source contract.
+- [Advanced Search](https://docs.example.com/search-faceted/): Search and filter documentation using faceted navigation for quick discovery
+- [Auto-Doc Pipeline study guide](https://docs.example.com/reference/auto-doc-pipeline-study-guide/): Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating flow, plan mapping, and a detailed client FAQ.
+- [Autopipeline Output Index](https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/): Auto-generated review index for autopipeline outputs.
+- [Browse by tag](https://docs.example.com/tags/): Filter documentation by topic tags including tutorials, how-to guides, concepts, and component-specific content.
+- [GRAPHQL API Reference](https://docs.example.com/reference/graphql-api/): Auto-generated graphql reference from source contract.
+- [GRPC API Reference](https://docs.example.com/reference/grpc-api/): Auto-generated grpc reference from source contract.
+- [How pipeline configurations compose](https://docs.example.com/concepts/pipeline-configuration-combinations/): Learn how the pipeline combines rollout scope and LLM execution mode so bundles stay aligned with proof, full, and RAG-enabled delivery.
+- [Legal and compliance](https://docs.example.com/legal/): Legal documents for VeriDoc platform including terms of service, privacy policy, data processing agreement, and security policy.
+- [Multi-Protocol Architecture](https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/): Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+- [Network transparency reference](https://docs.example.com/reference/network-transparency/): Complete list of all outgoing network requests the pipeline makes, with exact payload schemas. No client data leaves your network.
+- [Old Webhook API (Deprecated)](https://docs.example.com/reference/deprecated-example/): This API is deprecated. Use the new Webhook node instead.
+- [Pipeline Capabilities Catalog](https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/): Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+- [Pipeline configuration reference](https://docs.example.com/reference/pipeline-configuration-reference/): Exact preset, module, and llm_control values for pilot, full, full+RAG, cloud, strict-local, and hybrid pipeline configurations.
+- [Plan Tiers (Basic / Pro / Enterprise)](https://docs.example.com/operations/PLAN_TIERS/): Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+- [REST API Reference](https://docs.example.com/reference/rest-api/): Auto-generated rest reference from source contract.
+- [SEO/GEO Optimization Guide](https://docs.example.com/SEO_GUIDE/): Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+- [Unified Client Configuration](https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/): Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+- [VeriDoc data processing agreement](https://docs.example.com/legal/data-processing-agreement/): Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+- [VeriDoc security contact policy](https://docs.example.com/legal/security-contact-policy/): Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports.
+- [WEBSOCKET API Reference](https://docs.example.com/reference/websocket-api/): Auto-generated websocket reference from source contract.
+- [Workflow execution model](https://docs.example.com/concepts/workflow-execution-model/): The workflow engine processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain.
+- [Централизованная настройка клиентов](https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/): Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.

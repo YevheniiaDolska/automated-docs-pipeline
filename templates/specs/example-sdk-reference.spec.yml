@@ -1,0 +1,26 @@
+doc_type: sdk-reference
+output_path: docs/reference/sdk-reference.md
+frontmatter:
+  title: "Payments SDK reference"
+  description: "Reference for the official Payments SDK: install, initialize the client, create charges, handle errors, and retries."
+  content_type: reference
+  product: both
+  tags:
+    - Reference
+intro: >-
+  The Payments SDK provides typed client methods for charges, refunds, and
+  webhooks. This reference documents installation, client initialization,
+  and the create-charge call with runnable examples in four languages.
+geo_contract:
+  first_paragraph_max_words: 60
+sections:
+  - heading: "Create a charge"
+    slots:
+      - type: prose
+        text: "Create a charge with an amount in the smallest currency unit and an order reference in metadata."
+      - type: snippet
+        ref: sdk/create-charge
+  - heading: "Interactive API reference"
+    slots:
+      - type: module
+        ref: auto-api-playground-1

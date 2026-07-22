@@ -1,0 +1,17 @@
+id: create-charge
+title: Create a charge
+description: Create a charge for 20.00 USD and attach an order reference.
+method: POST
+path: /v1/charges
+auth: bearer
+body:
+  amount: 2000
+  currency: usd
+  description: "Order #1234 - Blue T-Shirt (Size: M)"
+  metadata:
+    order_id: "1234"
+languages:
+  - curl
+  - python
+  - javascript
+  - go

@@ -1,0 +1,954 @@
+{
+  "generated_at": "2026-07-22T09:41:48.568423+00:00",
+  "source_spec": "docs\\assets\\protocols\\rest\\openapi.yaml",
+  "server": "https://api.taskstream.example.com/v1",
+  "tool_count": 31,
+  "tools": [
+    {
+      "name": "getComment",
+      "description": "Retrieve a comment by ID\n\nReturns a single comment identified by its unique ID. Use this endpoint to fetch the full content and metadata of a specific comment.\n\nHTTP GET /comments/{comment_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "comment_id": {
+            "type": "string",
+            "description": "Unique identifier of the comment to retrieve",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "comment_id"
+        ]
+      }
+    },
+    {
+      "name": "updateComment",
+      "description": "Update a comment\n\nReplaces the body of an existing comment. Only the comment author or a project admin can update a comment. Returns the updated comment object.\n\nHTTP PUT /comments/{comment_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "comment_id": {
+            "type": "string",
+            "description": "Unique identifier of the comment to update",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "required": [
+              "body"
+            ],
+            "properties": {
+              "body": {
+                "type": "string",
+                "description": "Updated markdown content of the comment",
+                "example": "Updated review notes: approved with minor changes."
+              }
+            }
+          }
+        },
+        "required": [
+          "comment_id",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "deleteComment",
+      "description": "Delete a comment\n\nPermanently removes a comment. Only the comment author or a project admin can delete a comment. This action cannot be undone.\n\nHTTP DELETE /comments/{comment_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "comment_id": {
+            "type": "string",
+            "description": "Unique identifier of the comment to delete",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "comment_id"
+        ]
+      }
+    },
+    {
+      "name": "listProjects",
+      "description": "List all projects\n\nReturns a paginated list of projects accessible to the authenticated user. Use the limit and cursor parameters to paginate through results.\n\nHTTP GET /projects",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "description": "Maximum number of projects to return per page (1-100)",
+            "x-in": "query"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor returned from a previous list request",
+            "x-in": "query"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        }
+      }
+    },
+    {
+      "name": "createProject",
+      "description": "Create a new project\n\nCreates a new project with the given name and description. The authenticated user becomes the project owner. Returns the created project object.\n\nHTTP POST /projects",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "Idempotency-Key": {
+            "type": "string",
+            "description": "Unique key to ensure the request is processed only once",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Display name of the project (1-255 characters)",
+                "example": "Mobile App v2"
+              },
+              "description": {
+                "type": "string",
+                "description": "Detailed description of the project goals",
+                "example": "Build the next-generation mobile application"
+              }
+            }
+          }
+        },
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "getProject",
+      "description": "Retrieve a project by ID\n\nReturns a single project identified by its unique ID. Use this endpoint to fetch full project details including status and timestamps.\n\nHTTP GET /projects/{project_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Unique identifier of the project to retrieve",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "updateProject",
+      "description": "Update a project\n\nUpdates the name or description of an existing project. Only project owners and admins can update projects. Returns the updated project object.\n\nHTTP PUT /projects/{project_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Unique identifier of the project to update",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Updated display name of the project",
+                "example": "Website Redesign v2"
+              },
+              "description": {
+                "type": "string",
+                "description": "Updated description of the project goals",
+                "example": "Complete redesign with new branding for Q4 launch"
+              }
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "deleteProject",
+      "description": "Delete a project\n\nPermanently deletes a project and all associated tasks, comments, and tag assignments. This action cannot be undone. Only the project owner can delete a project.\n\nHTTP DELETE /projects/{project_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Unique identifier of the project to delete",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "archiveProject",
+      "description": "Archive a project\n\nSets the project status to archived. Archived projects are read-only and hidden from default list views. Use the restore endpoint to reactivate an archived project.\n\nHTTP POST /projects/{project_id}/archive",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Unique identifier of the project to archive",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "restoreProject",
+      "description": "Restore an archived project\n\nRestores a previously archived project back to active status. All tasks and comments become editable again after restoration.\n\nHTTP POST /projects/{project_id}/restore",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Unique identifier of the archived project to restore",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      }
+    },
+    {
+      "name": "listTags",
+      "description": "List all tags\n\nReturns a paginated list of all tags available in the workspace. Tags are used to categorize and filter tasks across projects.\n\nHTTP GET /tags",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "description": "Maximum number of tags to return per page (1-100)",
+            "x-in": "query"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor returned from a previous list request",
+            "x-in": "query"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        }
+      }
+    },
+    {
+      "name": "createTag",
+      "description": "Create a new tag\n\nCreates a new tag with the given name and optional color. Tags enable categorization and filtering of tasks across projects. Returns the created tag object.\n\nHTTP POST /tags",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "Idempotency-Key": {
+            "type": "string",
+            "description": "Unique key to ensure the request is processed only once",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Display name of the tag (1-50 characters, unique)",
+                "example": "enhancement"
+              },
+              "color": {
+                "type": "string",
+                "description": "Hex color code for the tag label",
+                "example": "#2ecc71"
+              }
+            }
+          }
+        },
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "getTag",
+      "description": "Retrieve a tag by ID\n\nReturns a single tag identified by its unique ID. Use this endpoint to fetch the full details of a specific tag.\n\nHTTP GET /tags/{tag_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "description": "Unique identifier of the tag to retrieve",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "tag_id"
+        ]
+      }
+    },
+    {
+      "name": "updateTag",
+      "description": "Update a tag\n\nUpdates the name or color of an existing tag. Changes propagate to all tasks that use this tag. Returns the updated tag object.\n\nHTTP PUT /tags/{tag_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "description": "Unique identifier of the tag to update",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Updated display name of the tag",
+                "example": "critical-bug"
+              },
+              "color": {
+                "type": "string",
+                "description": "Updated hex color code for the tag label",
+                "example": "#c0392b"
+              }
+            }
+          }
+        },
+        "required": [
+          "tag_id",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "deleteTag",
+      "description": "Delete a tag\n\nPermanently removes a tag and detaches it from all tasks. This action cannot be undone. Tasks previously tagged retain their other tags.\n\nHTTP DELETE /tags/{tag_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "description": "Unique identifier of the tag to delete",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "tag_id"
+        ]
+      }
+    },
+    {
+      "name": "listTasks",
+      "description": "List all tasks\n\nReturns a paginated list of tasks accessible to the authenticated user. Supports filtering and cursor-based pagination for efficient retrieval of large task lists.\n\nHTTP GET /tasks",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "description": "Maximum number of tasks to return per page (1-100)",
+            "x-in": "query"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor returned from a previous list request",
+            "x-in": "query"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        }
+      }
+    },
+    {
+      "name": "createTask",
+      "description": "Create a new task\n\nCreates a new task in the specified project. The task starts in open status. Assign it to a user and attach tags as needed. Returns the created task object.\n\nHTTP POST /tasks",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "Idempotency-Key": {
+            "type": "string",
+            "description": "Unique key to ensure the request is processed only once",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "required": [
+              "project_id",
+              "title"
+            ],
+            "properties": {
+              "project_id": {
+                "type": "string",
+                "description": "Identifier of the project to create the task in",
+                "example": "prj_001"
+              },
+              "title": {
+                "type": "string",
+                "description": "Short summary of the task (1-255 characters)",
+                "example": "Add dark mode support"
+              },
+              "description": {
+                "type": "string",
+                "description": "Detailed description of the work required",
+                "example": "Implement dark mode toggle in user settings and apply theme across all pages"
+              },
+              "assignee_id": {
+                "type": "string",
+                "description": "Identifier of the user to assign this task to",
+                "example": "usr_def456"
+              }
+            }
+          }
+        },
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "getTask",
+      "description": "Retrieve a task by ID\n\nReturns a single task identified by its unique ID. Use this endpoint to fetch full task details including status, assignee, and timestamps.\n\nHTTP GET /tasks/{task_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to retrieve",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "updateTask",
+      "description": "Update a task\n\nUpdates the title, description, status, or assignee of an existing task. Only project members can update tasks. Returns the updated task object.\n\nHTTP PUT /tasks/{task_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to update",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Updated short summary of the task",
+                "example": "Fix login page layout on all mobile devices"
+              },
+              "description": {
+                "type": "string",
+                "description": "Updated detailed description of the work required",
+                "example": "Address layout issues on iOS and Android devices with screens narrower than 375px"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "in_progress",
+                  "completed"
+                ],
+                "description": "Updated status of the task",
+                "example": "in_progress"
+              },
+              "assignee_id": {
+                "type": "string",
+                "nullable": true,
+                "description": "Identifier of the user to reassign this task to, or null to unassign",
+                "example": "usr_ghi789"
+              }
+            }
+          }
+        },
+        "required": [
+          "task_id",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "deleteTask",
+      "description": "Delete a task\n\nPermanently deletes a task and all its comments. This action cannot be undone. Tag assignments are also removed. Only the task creator or a project admin can delete a task.\n\nHTTP DELETE /tasks/{task_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to delete",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "listTaskComments",
+      "description": "List comments on a task\n\nReturns a paginated list of comments attached to the specified task. Comments appear in chronological order. Use cursor-based pagination for tasks with many comments.\n\nHTTP GET /tasks/{task_id}/comments",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task whose comments to list",
+            "x-in": "path"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "description": "Maximum number of comments to return per page (1-100)",
+            "x-in": "query"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor returned from a previous list request",
+            "x-in": "query"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "createTaskComment",
+      "description": "Add a comment to a task\n\nCreates a new comment on the specified task. The authenticated user becomes the comment author. Returns the created comment object with its assigned identifier.\n\nHTTP POST /tasks/{task_id}/comments",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to comment on",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "Idempotency-Key": {
+            "type": "string",
+            "description": "Unique key to ensure the request is processed only once",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "required": [
+              "body"
+            ],
+            "properties": {
+              "body": {
+                "type": "string",
+                "description": "Markdown content of the comment",
+                "example": "Fixed in commit abc1234. Ready for QA testing."
+              }
+            }
+          }
+        },
+        "required": [
+          "task_id",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "completeTask",
+      "description": "Mark a task as completed\n\nTransitions a task to completed status. The task must be in open or in_progress status. Returns the updated task object with the new status and timestamp.\n\nHTTP POST /tasks/{task_id}/complete",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to mark as completed",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "reopenTask",
+      "description": "Reopen a completed task\n\nTransitions a completed task back to open status. Use this endpoint when additional work is needed on a previously completed task. Returns the updated task object.\n\nHTTP POST /tasks/{task_id}/reopen",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the completed task to reopen",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "addTagToTask",
+      "description": "Attach a tag to a task\n\nAssociates a tag with the specified task. If the tag is already attached, the operation is idempotent and returns the current state. A task can have multiple tags.\n\nHTTP PUT /tasks/{task_id}/tags/{tag_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to tag",
+            "x-in": "path"
+          },
+          "tag_id": {
+            "type": "string",
+            "description": "Unique identifier of the tag to attach",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id",
+          "tag_id"
+        ]
+      }
+    },
+    {
+      "name": "removeTagFromTask",
+      "description": "Detach a tag from a task\n\nRemoves the association between a tag and the specified task. The tag itself is not deleted and remains available for other tasks.\n\nHTTP DELETE /tasks/{task_id}/tags/{tag_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Unique identifier of the task to detach the tag from",
+            "x-in": "path"
+          },
+          "tag_id": {
+            "type": "string",
+            "description": "Unique identifier of the tag to detach",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "task_id",
+          "tag_id"
+        ]
+      }
+    },
+    {
+      "name": "listUsers",
+      "description": "List all users\n\nReturns a paginated list of users in the workspace. Use this endpoint to browse team members and their profiles for task assignment or collaboration.\n\nHTTP GET /users",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "description": "Maximum number of users to return per page (1-100)",
+            "x-in": "query"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor returned from a previous list request",
+            "x-in": "query"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        }
+      }
+    },
+    {
+      "name": "getCurrentUser",
+      "description": "Retrieve the authenticated user profile\n\nReturns the profile of the user identified by the Bearer token. Use this endpoint to display the current user's information in the application UI or to verify authentication.\n\nHTTP GET /users/me",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        }
+      }
+    },
+    {
+      "name": "getUser",
+      "description": "Retrieve a user by ID\n\nReturns a single user profile identified by its unique ID. Use this endpoint to look up team member details for task assignment or collaboration.\n\nHTTP GET /users/{user_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "Unique identifier of the user to retrieve",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "user_id"
+        ]
+      }
+    },
+    {
+      "name": "updateUser",
+      "description": "Update a user profile\n\nUpdates the display name or role of an existing user. Only workspace admins can change roles. Users can update their own display name. Returns the updated user object.\n\nHTTP PUT /users/{user_id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "Unique identifier of the user to update",
+            "x-in": "path"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "display_name": {
+                "type": "string",
+                "description": "Updated display name shown in the UI",
+                "example": "Robert Smith"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "admin",
+                  "member",
+                  "viewer"
+                ],
+                "description": "Updated role of the user in the workspace (admin-only operation)",
+                "example": "admin"
+              }
+            }
+          }
+        },
+        "required": [
+          "user_id",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "listUserTasks",
+      "description": "List tasks assigned to a user\n\nReturns a paginated list of tasks assigned to the specified user. Use this endpoint to display a user's workload or to find tasks that need reassignment.\n\nHTTP GET /users/{user_id}/tasks",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "Unique identifier of the user whose tasks to list",
+            "x-in": "path"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20,
+            "description": "Maximum number of tasks to return per page (1-100)",
+            "x-in": "query"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor returned from a previous list request",
+            "x-in": "query"
+          },
+          "X-Request-Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Client-generated UUID for request tracing and idempotency checks",
+            "x-in": "header"
+          }
+        },
+        "required": [
+          "user_id"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,3304 @@
+{
+  "generated_at": "2026-07-22T09:32:37.186176+00:00",
+  "product": "ProductName",
+  "parts": [
+    {
+      "file": "llms-full.txt",
+      "tokens": 59948
+    },
+    {
+      "file": "llms-full.part2.txt",
+      "tokens": 33007
+    }
+  ],
+  "total_sections": 315,
+  "total_tokens": 92940,
+  "sections": [
+    {
+      "id": "webhook-auth-baseline",
+      "title": "Configure HMAC authentication for inbound webhooks",
+      "url": "",
+      "tokens": 178,
+      "intents": [
+        "configure",
+        "secure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "webhook-retry-policy",
+      "title": "Define idempotent webhook retry handling",
+      "url": "",
+      "tokens": 165,
+      "intents": [
+        "troubleshoot",
+        "optimize",
+        "automate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-api-playground-1",
+      "title": "API playground",
+      "url": "https://docs.example.com/reference/api-playground/",
+      "tokens": 246,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-api-playground-2",
+      "title": "API playground (Part 2)",
+      "url": "https://docs.example.com/reference/api-playground/",
+      "tokens": 320,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-api-playground-3",
+      "title": "API playground (Part 3)",
+      "url": "https://docs.example.com/reference/api-playground/",
+      "tokens": 108,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-apply-pipeline-configuration-1",
+      "title": "Apply a pilot, full, or RAG configuration",
+      "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+      "tokens": 235,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-apply-pipeline-configuration-2",
+      "title": "Apply a pilot, full, or RAG configuration (Part 2)",
+      "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+      "tokens": 329,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-apply-pipeline-configuration-3",
+      "title": "Apply a pilot, full, or RAG configuration (Part 3)",
+      "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+      "tokens": 283,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-apply-pipeline-configuration-4",
+      "title": "Apply a pilot, full, or RAG configuration (Part 4)",
+      "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+      "tokens": 287,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-apply-pipeline-configuration-5",
+      "title": "Apply a pilot, full, or RAG configuration (Part 5)",
+      "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+      "tokens": 316,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-apply-pipeline-configuration-6",
+      "title": "Apply a pilot, full, or RAG configuration (Part 6)",
+      "url": "https://docs.example.com/how-to/apply-pipeline-configuration/",
+      "tokens": 122,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-assemble-intent-experiences-1",
+      "title": "Assemble intent experiences",
+      "url": "https://docs.example.com/how-to/assemble-intent-experiences/",
+      "tokens": 262,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-assemble-intent-experiences-2",
+      "title": "Assemble intent experiences (Part 2)",
+      "url": "https://docs.example.com/how-to/assemble-intent-experiences/",
+      "tokens": 372,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-assemble-intent-experiences-3",
+      "title": "Assemble intent experiences (Part 3)",
+      "url": "https://docs.example.com/how-to/assemble-intent-experiences/",
+      "tokens": 73,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-asyncapi-api-1",
+      "title": "ASYNCAPI API Reference",
+      "url": "https://docs.example.com/reference/asyncapi-api/",
+      "tokens": 90,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-asyncapi-api-2",
+      "title": "ASYNCAPI API Reference (Part 2)",
+      "url": "https://docs.example.com/reference/asyncapi-api/",
+      "tokens": 62,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-asyncapi-api-3",
+      "title": "ASYNCAPI API Reference (Part 3)",
+      "url": "https://docs.example.com/reference/asyncapi-api/",
+      "tokens": 1258,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-asyncapi-api-4",
+      "title": "ASYNCAPI API Reference (Part 4)",
+      "url": "https://docs.example.com/reference/asyncapi-api/",
+      "tokens": 69,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-1",
+      "title": "Auto-Doc Pipeline study guide",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 292,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-2",
+      "title": "Auto-Doc Pipeline study guide (Part 2)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 125,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-3",
+      "title": "Auto-Doc Pipeline study guide (Part 3)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 285,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-4",
+      "title": "Auto-Doc Pipeline study guide (Part 4)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 347,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-5",
+      "title": "Auto-Doc Pipeline study guide (Part 5)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 347,
+      "intents": [
+        "configure",
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-6",
+      "title": "Auto-Doc Pipeline study guide (Part 6)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 376,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-7",
+      "title": "Auto-Doc Pipeline study guide (Part 7)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 376,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-auto-doc-pipeline-study-guide-8",
+      "title": "Auto-Doc Pipeline study guide (Part 8)",
+      "url": "https://docs.example.com/reference/auto-doc-pipeline-study-guide/",
+      "tokens": 334,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-autopipeline-output-index-1",
+      "title": "Autopipeline Output Index",
+      "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
+      "tokens": 305,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-autopipeline-output-index-2",
+      "title": "Autopipeline Output Index (Part 2)",
+      "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
+      "tokens": 287,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-autopipeline-output-index-3",
+      "title": "Autopipeline Output Index (Part 3)",
+      "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
+      "tokens": 274,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-autopipeline-output-index-4",
+      "title": "Autopipeline Output Index (Part 4)",
+      "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
+      "tokens": 337,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-autopipeline-output-index-5",
+      "title": "Autopipeline Output Index (Part 5)",
+      "url": "https://docs.example.com/operations/AUTOPIPELINE_OUTPUT_INDEX/",
+      "tokens": 127,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-1",
+      "title": "Canonical Flow (Sales + Delivery)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 121,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-10",
+      "title": "Canonical Flow (Sales + Delivery) (Part 10)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 155,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-11",
+      "title": "Canonical Flow (Sales + Delivery) (Part 11)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 331,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-2",
+      "title": "Canonical Flow (Sales + Delivery) (Part 2)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 367,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-3",
+      "title": "Canonical Flow (Sales + Delivery) (Part 3)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 201,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-4",
+      "title": "Canonical Flow (Sales + Delivery) (Part 4)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 58,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-5",
+      "title": "Canonical Flow (Sales + Delivery) (Part 5)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 554,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-6",
+      "title": "Canonical Flow (Sales + Delivery) (Part 6)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 212,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-7",
+      "title": "Canonical Flow (Sales + Delivery) (Part 7)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 339,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-8",
+      "title": "Canonical Flow (Sales + Delivery) (Part 8)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 211,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-canonical-flow-9",
+      "title": "Canonical Flow (Sales + Delivery) (Part 9)",
+      "url": "https://docs.example.com/operations/CANONICAL_FLOW/",
+      "tokens": 359,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-1",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 316,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-10",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 10)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 357,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-11",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 11)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 201,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-12",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 12)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 373,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-13",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 13)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 230,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-14",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 14)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 375,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-15",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 15)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 365,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-16",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 16)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 334,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-2",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 2)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 144,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-3",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 3)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 350,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-4",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 4)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 165,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-5",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 5)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 253,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-6",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 6)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 261,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-7",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 7)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 298,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-8",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 8)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 204,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-centralized-client-bundles-9",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 9)",
+      "url": "https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/",
+      "tokens": 320,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-choose-pipeline-configuration-1",
+      "title": "Choose a pipeline configuration",
+      "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+      "tokens": 174,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-choose-pipeline-configuration-2",
+      "title": "Choose a pipeline configuration (Part 2)",
+      "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+      "tokens": 326,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-choose-pipeline-configuration-3",
+      "title": "Choose a pipeline configuration (Part 3)",
+      "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+      "tokens": 276,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-choose-pipeline-configuration-4",
+      "title": "Choose a pipeline configuration (Part 4)",
+      "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+      "tokens": 325,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-choose-pipeline-configuration-5",
+      "title": "Choose a pipeline configuration (Part 5)",
+      "url": "https://docs.example.com/getting-started/choose-pipeline-configuration/",
+      "tokens": 318,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-ask-ai-module-1",
+      "title": "Configure Ask AI module",
+      "url": "https://docs.example.com/how-to/configure-ask-ai-module/",
+      "tokens": 320,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-ask-ai-module-2",
+      "title": "Configure Ask AI module (Part 2)",
+      "url": "https://docs.example.com/how-to/configure-ask-ai-module/",
+      "tokens": 234,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-ask-ai-module-3",
+      "title": "Configure Ask AI module (Part 3)",
+      "url": "https://docs.example.com/how-to/configure-ask-ai-module/",
+      "tokens": 292,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-ask-ai-module-4",
+      "title": "Configure Ask AI module (Part 4)",
+      "url": "https://docs.example.com/how-to/configure-ask-ai-module/",
+      "tokens": 362,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-webhook-trigger-1",
+      "title": "Configure webhook triggers",
+      "url": "https://docs.example.com/how-to/configure-webhook-trigger/",
+      "tokens": 319,
+      "intents": [
+        "configure",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-webhook-trigger-2",
+      "title": "Configure webhook triggers (Part 2)",
+      "url": "https://docs.example.com/how-to/configure-webhook-trigger/",
+      "tokens": 162,
+      "intents": [
+        "configure",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-webhook-trigger-3",
+      "title": "Configure webhook triggers (Part 3)",
+      "url": "https://docs.example.com/how-to/configure-webhook-trigger/",
+      "tokens": 377,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-configure-webhook-trigger-4",
+      "title": "Configure webhook triggers (Part 4)",
+      "url": "https://docs.example.com/how-to/configure-webhook-trigger/",
+      "tokens": 155,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-1",
+      "title": "VeriDoc data processing agreement",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 312,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-2",
+      "title": "VeriDoc data processing agreement (Part 2)",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 220,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-3",
+      "title": "VeriDoc data processing agreement (Part 3)",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 74,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-4",
+      "title": "VeriDoc data processing agreement (Part 4)",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 391,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-5",
+      "title": "VeriDoc data processing agreement (Part 5)",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 332,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-6",
+      "title": "VeriDoc data processing agreement (Part 6)",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 315,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-data-processing-agreement-7",
+      "title": "VeriDoc data processing agreement (Part 7)",
+      "url": "https://docs.example.com/legal/data-processing-agreement/",
+      "tokens": 271,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-deprecated-example-1",
+      "title": "Old Webhook API (Deprecated)",
+      "url": "https://docs.example.com/reference/deprecated-example/",
+      "tokens": 151,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-graphql-api-1",
+      "title": "GRAPHQL API Reference",
+      "url": "https://docs.example.com/reference/graphql-api/",
+      "tokens": 88,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-graphql-api-2",
+      "title": "GRAPHQL API Reference (Part 2)",
+      "url": "https://docs.example.com/reference/graphql-api/",
+      "tokens": 65,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-graphql-api-3",
+      "title": "GRAPHQL API Reference (Part 3)",
+      "url": "https://docs.example.com/reference/graphql-api/",
+      "tokens": 705,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-graphql-api-4",
+      "title": "GRAPHQL API Reference (Part 4)",
+      "url": "https://docs.example.com/reference/graphql-api/",
+      "tokens": 69,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-grpc-api-1",
+      "title": "GRPC API Reference",
+      "url": "https://docs.example.com/reference/grpc-api/",
+      "tokens": 95,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-grpc-api-2",
+      "title": "GRPC API Reference (Part 2)",
+      "url": "https://docs.example.com/reference/grpc-api/",
+      "tokens": 60,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-grpc-api-3",
+      "title": "GRPC API Reference (Part 3)",
+      "url": "https://docs.example.com/reference/grpc-api/",
+      "tokens": 714,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-grpc-api-4",
+      "title": "GRPC API Reference (Part 4)",
+      "url": "https://docs.example.com/reference/grpc-api/",
+      "tokens": 67,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-index-1",
+      "title": "Troubleshooting Guide",
+      "url": "https://docs.example.com/troubleshooting/",
+      "tokens": 40,
+      "intents": [
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-index-2",
+      "title": "Legal and compliance (Part 2)",
+      "url": "https://docs.example.com/legal/",
+      "tokens": 159,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-1",
+      "title": "Install Ask AI runtime pack",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 324,
+      "intents": [
+        "configure",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-2",
+      "title": "Install Ask AI runtime pack (Part 2)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 370,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-3",
+      "title": "Install Ask AI runtime pack (Part 3)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 206,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-4",
+      "title": "Install Ask AI runtime pack (Part 4)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 296,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-5",
+      "title": "Install Ask AI runtime pack (Part 5)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 312,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-6",
+      "title": "Install Ask AI runtime pack (Part 6)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 249,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-7",
+      "title": "Install Ask AI runtime pack (Part 7)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 371,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-8",
+      "title": "Install Ask AI runtime pack (Part 8)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 361,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-install-ask-ai-runtime-pack-9",
+      "title": "Install Ask AI runtime pack (Part 9)",
+      "url": "https://docs.example.com/how-to/install-ask-ai-runtime-pack/",
+      "tokens": 285,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-intelligent-knowledge-system-1",
+      "title": "Intelligent knowledge system architecture",
+      "url": "https://docs.example.com/concepts/intelligent-knowledge-system/",
+      "tokens": 302,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-intelligent-knowledge-system-2",
+      "title": "Intelligent knowledge system architecture (Part 2)",
+      "url": "https://docs.example.com/concepts/intelligent-knowledge-system/",
+      "tokens": 344,
+      "intents": [
+        "configure",
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-intelligent-knowledge-system-3",
+      "title": "Intelligent knowledge system architecture (Part 3)",
+      "url": "https://docs.example.com/concepts/intelligent-knowledge-system/",
+      "tokens": 203,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-intelligent-knowledge-system-4",
+      "title": "Intelligent knowledge system architecture (Part 4)",
+      "url": "https://docs.example.com/concepts/intelligent-knowledge-system/",
+      "tokens": 355,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-intelligent-knowledge-system-5",
+      "title": "Intelligent knowledge system architecture (Part 5)",
+      "url": "https://docs.example.com/concepts/intelligent-knowledge-system/",
+      "tokens": 340,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-intelligent-knowledge-system-6",
+      "title": "Intelligent knowledge system architecture (Part 6)",
+      "url": "https://docs.example.com/concepts/intelligent-knowledge-system/",
+      "tokens": 149,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-1",
+      "title": "Migrate documentation from Confluence",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 299,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-2",
+      "title": "Migrate documentation from Confluence (Part 2)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 269,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-3",
+      "title": "Migrate documentation from Confluence (Part 3)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 353,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-4",
+      "title": "Migrate documentation from Confluence (Part 4)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 271,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-5",
+      "title": "Migrate documentation from Confluence (Part 5)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 367,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-6",
+      "title": "Migrate documentation from Confluence (Part 6)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 298,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-7",
+      "title": "Migrate documentation from Confluence (Part 7)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 326,
+      "intents": [
+        "configure",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-migrate-from-confluence-8",
+      "title": "Migrate documentation from Confluence (Part 8)",
+      "url": "https://docs.example.com/how-to/migrate-from-confluence/",
+      "tokens": 347,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-architecture-1",
+      "title": "Multi-Protocol Architecture",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/",
+      "tokens": 291,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-architecture-2",
+      "title": "Multi-Protocol Architecture (Part 2)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/",
+      "tokens": 301,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-architecture-3",
+      "title": "Multi-Protocol Architecture (Part 3)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/",
+      "tokens": 285,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-architecture-4",
+      "title": "Multi-Protocol Architecture (Part 4)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/",
+      "tokens": 309,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-architecture-5",
+      "title": "Multi-Protocol Architecture (Part 5)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/",
+      "tokens": 348,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-architecture-6",
+      "title": "Multi-Protocol Architecture (Part 6)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/",
+      "tokens": 332,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-wizard-guide-1",
+      "title": "Multi-Protocol Wizard Guide",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/",
+      "tokens": 34,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-wizard-guide-2",
+      "title": "Multi-Protocol Wizard Guide (Part 2)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/",
+      "tokens": 377,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-wizard-guide-3",
+      "title": "Multi-Protocol Wizard Guide (Part 3)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/",
+      "tokens": 375,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-wizard-guide-4",
+      "title": "Multi-Protocol Wizard Guide (Part 4)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/",
+      "tokens": 163,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-wizard-guide-5",
+      "title": "Multi-Protocol Wizard Guide (Part 5)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/",
+      "tokens": 321,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-multi-protocol-wizard-guide-6",
+      "title": "Multi-Protocol Wizard Guide (Part 6)",
+      "url": "https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/",
+      "tokens": 332,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-1",
+      "title": "Network transparency reference",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 210,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-2",
+      "title": "Network transparency reference (Part 2)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 268,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-3",
+      "title": "Network transparency reference (Part 3)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 327,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-4",
+      "title": "Network transparency reference (Part 4)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 211,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-5",
+      "title": "Network transparency reference (Part 5)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 365,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-6",
+      "title": "Network transparency reference (Part 6)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 346,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-7",
+      "title": "Network transparency reference (Part 7)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 201,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-8",
+      "title": "Network transparency reference (Part 8)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 274,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-network-transparency-9",
+      "title": "Network transparency reference (Part 9)",
+      "url": "https://docs.example.com/reference/network-transparency/",
+      "tokens": 298,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-1",
+      "title": "Operator Runbook (Retainer Operations)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 313,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-10",
+      "title": "Operator Runbook (Retainer Operations) (Part 10)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 74,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-11",
+      "title": "Operator Runbook (Retainer Operations) (Part 11)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 492,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-12",
+      "title": "Operator Runbook (Retainer Operations) (Part 12)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 341,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-13",
+      "title": "Operator Runbook (Retainer Operations) (Part 13)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 356,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-14",
+      "title": "Operator Runbook (Retainer Operations) (Part 14)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 156,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-15",
+      "title": "Operator Runbook (Retainer Operations) (Part 15)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 296,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-16",
+      "title": "Operator Runbook (Retainer Operations) (Part 16)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 264,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-17",
+      "title": "Operator Runbook (Retainer Operations) (Part 17)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 340,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-18",
+      "title": "Operator Runbook (Retainer Operations) (Part 18)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 376,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-19",
+      "title": "Operator Runbook (Retainer Operations) (Part 19)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 290,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-2",
+      "title": "Operator Runbook (Retainer Operations) (Part 2)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 288,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-20",
+      "title": "Operator Runbook (Retainer Operations) (Part 20)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 220,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-21",
+      "title": "Operator Runbook (Retainer Operations) (Part 21)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 310,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-22",
+      "title": "Operator Runbook (Retainer Operations) (Part 22)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 376,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-23",
+      "title": "Operator Runbook (Retainer Operations) (Part 23)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 109,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-24",
+      "title": "Operator Runbook (Retainer Operations) (Part 24)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 335,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-3",
+      "title": "Operator Runbook (Retainer Operations) (Part 3)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 379,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-4",
+      "title": "Operator Runbook (Retainer Operations) (Part 4)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 348,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-5",
+      "title": "Operator Runbook (Retainer Operations) (Part 5)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 317,
+      "intents": [
+        "configure",
+        "secure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-6",
+      "title": "Operator Runbook (Retainer Operations) (Part 6)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 236,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-7",
+      "title": "Operator Runbook (Retainer Operations) (Part 7)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 360,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-8",
+      "title": "Operator Runbook (Retainer Operations) (Part 8)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 325,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-operator-runbook-9",
+      "title": "Operator Runbook (Retainer Operations) (Part 9)",
+      "url": "https://docs.example.com/operations/OPERATOR_RUNBOOK/",
+      "tokens": 276,
+      "intents": [
+        "configure"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-1",
+      "title": "Pipeline Capabilities Catalog",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 36,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-10",
+      "title": "Pipeline Capabilities Catalog (Part 10)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 83,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-11",
+      "title": "Pipeline Capabilities Catalog (Part 11)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 377,
+      "intents": [
+        "integrate",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-12",
+      "title": "Pipeline Capabilities Catalog (Part 12)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 354,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-13",
+      "title": "Pipeline Capabilities Catalog (Part 13)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 361,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-14",
+      "title": "Pipeline Capabilities Catalog (Part 14)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 378,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-15",
+      "title": "Pipeline Capabilities Catalog (Part 15)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 301,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-16",
+      "title": "Pipeline Capabilities Catalog (Part 16)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 374,
+      "intents": [
+        "integrate",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-17",
+      "title": "Pipeline Capabilities Catalog (Part 17)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 88,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-18",
+      "title": "Pipeline Capabilities Catalog (Part 18)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 334,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-2",
+      "title": "Pipeline Capabilities Catalog (Part 2)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 359,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-3",
+      "title": "Pipeline Capabilities Catalog (Part 3)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 323,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-4",
+      "title": "Pipeline Capabilities Catalog (Part 4)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 83,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-5",
+      "title": "Pipeline Capabilities Catalog (Part 5)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 3407,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-6",
+      "title": "Pipeline Capabilities Catalog (Part 6)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 72,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-7",
+      "title": "Pipeline Capabilities Catalog (Part 7)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 1417,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-8",
+      "title": "Pipeline Capabilities Catalog (Part 8)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 365,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-capabilities-catalog-9",
+      "title": "Pipeline Capabilities Catalog (Part 9)",
+      "url": "https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/",
+      "tokens": 380,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-combinations-1",
+      "title": "How pipeline configurations compose",
+      "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+      "tokens": 212,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-combinations-2",
+      "title": "How pipeline configurations compose (Part 2)",
+      "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+      "tokens": 349,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-combinations-3",
+      "title": "How pipeline configurations compose (Part 3)",
+      "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+      "tokens": 374,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-combinations-4",
+      "title": "How pipeline configurations compose (Part 4)",
+      "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+      "tokens": 291,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-combinations-5",
+      "title": "How pipeline configurations compose (Part 5)",
+      "url": "https://docs.example.com/concepts/pipeline-configuration-combinations/",
+      "tokens": 244,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-reference-1",
+      "title": "Pipeline configuration reference",
+      "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+      "tokens": 316,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-reference-2",
+      "title": "Pipeline configuration reference (Part 2)",
+      "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+      "tokens": 318,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-reference-3",
+      "title": "Pipeline configuration reference (Part 3)",
+      "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+      "tokens": 339,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-reference-4",
+      "title": "Pipeline configuration reference (Part 4)",
+      "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+      "tokens": 332,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-pipeline-configuration-reference-5",
+      "title": "Pipeline configuration reference (Part 5)",
+      "url": "https://docs.example.com/reference/pipeline-configuration-reference/",
+      "tokens": 109,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-1",
+      "title": "Plan Tiers (Basic / Pro / Enterprise)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 35,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-10",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 10)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 808,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-11",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 11)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 149,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-12",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 12)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 270,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-13",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 13)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 377,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-14",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 14)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 364,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-2",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 2)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 302,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-3",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 3)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 241,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-4",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 4)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 286,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-5",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 5)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 348,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-6",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 6)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 255,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-7",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 7)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 60,
+      "intents": [
+        "integrate"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-8",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 8)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 501,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 1
+    },
+    {
+      "id": "auto-plan-tiers-9",
+      "title": "Plan Tiers (Basic / Pro / Enterprise) (Part 9)",
+      "url": "https://docs.example.com/operations/PLAN_TIERS/",
+      "tokens": 61,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-1",
+      "title": "VeriDoc privacy policy",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 313,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-2",
+      "title": "VeriDoc privacy policy (Part 2)",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 245,
+      "intents": [
+        "integrate",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-3",
+      "title": "VeriDoc privacy policy (Part 3)",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 226,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-4",
+      "title": "VeriDoc privacy policy (Part 4)",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 289,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-5",
+      "title": "VeriDoc privacy policy (Part 5)",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 273,
+      "intents": [
+        "integrate",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-6",
+      "title": "VeriDoc privacy policy (Part 6)",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 369,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-privacy-policy-7",
+      "title": "VeriDoc privacy policy (Part 7)",
+      "url": "https://docs.example.com/legal/privacy-policy/",
+      "tokens": 199,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-quickstart-1",
+      "title": "Build your first workflow in 5 minutes",
+      "url": "https://docs.example.com/getting-started/quickstart/",
+      "tokens": 299,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-quickstart-2",
+      "title": "Build your first workflow in 5 minutes (Part 2)",
+      "url": "https://docs.example.com/getting-started/quickstart/",
+      "tokens": 359,
+      "intents": [
+        "configure",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-rest-api-1",
+      "title": "REST API Reference",
+      "url": "https://docs.example.com/reference/rest-api/",
+      "tokens": 83,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-1",
+      "title": "Run API-first production flow",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 138,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-10",
+      "title": "Run API-first production flow (Part 10)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 339,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-11",
+      "title": "Run API-first production flow (Part 11)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 71,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-2",
+      "title": "Run API-first production flow (Part 2)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 355,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-3",
+      "title": "Run API-first production flow (Part 3)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 172,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-4",
+      "title": "Run API-first production flow (Part 4)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 283,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-5",
+      "title": "Run API-first production flow (Part 5)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 280,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-6",
+      "title": "Run API-first production flow (Part 6)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 289,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-7",
+      "title": "Run API-first production flow (Part 7)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 140,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-8",
+      "title": "Run API-first production flow (Part 8)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 352,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-run-api-first-production-flow-9",
+      "title": "Run API-first production flow (Part 9)",
+      "url": "https://docs.example.com/how-to/run-api-first-production-flow/",
+      "tokens": 363,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-search-faceted-1",
+      "title": "Advanced Search",
+      "url": "https://docs.example.com/search-faceted/",
+      "tokens": 293,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-search-faceted-2",
+      "title": "Advanced Search (Part 2)",
+      "url": "https://docs.example.com/search-faceted/",
+      "tokens": 341,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-search-faceted-3",
+      "title": "Advanced Search (Part 3)",
+      "url": "https://docs.example.com/search-faceted/",
+      "tokens": 277,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-contact-policy-1",
+      "title": "VeriDoc security contact policy",
+      "url": "https://docs.example.com/legal/security-contact-policy/",
+      "tokens": 233,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-contact-policy-2",
+      "title": "VeriDoc security contact policy (Part 2)",
+      "url": "https://docs.example.com/legal/security-contact-policy/",
+      "tokens": 326,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-1",
+      "title": "VeriDoc security policy",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 276,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-2",
+      "title": "VeriDoc security policy (Part 2)",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 345,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-3",
+      "title": "VeriDoc security policy (Part 3)",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 275,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-4",
+      "title": "VeriDoc security policy (Part 4)",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 281,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-5",
+      "title": "VeriDoc security policy (Part 5)",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 270,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-6",
+      "title": "VeriDoc security policy (Part 6)",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 348,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-security-policy-7",
+      "title": "VeriDoc security policy (Part 7)",
+      "url": "https://docs.example.com/legal/security-policy/",
+      "tokens": 195,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-seo-guide-1",
+      "title": "SEO/GEO Optimization Guide",
+      "url": "https://docs.example.com/SEO_GUIDE/",
+      "tokens": 275,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-seo-guide-2",
+      "title": "SEO/GEO Optimization Guide (Part 2)",
+      "url": "https://docs.example.com/SEO_GUIDE/",
+      "tokens": 292,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-seo-guide-3",
+      "title": "SEO/GEO Optimization Guide (Part 3)",
+      "url": "https://docs.example.com/SEO_GUIDE/",
+      "tokens": 354,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-seo-guide-4",
+      "title": "SEO/GEO Optimization Guide (Part 4)",
+      "url": "https://docs.example.com/SEO_GUIDE/",
+      "tokens": 339,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-seo-guide-5",
+      "title": "SEO/GEO Optimization Guide (Part 5)",
+      "url": "https://docs.example.com/SEO_GUIDE/",
+      "tokens": 325,
+      "intents": [
+        "configure",
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-seo-guide-6",
+      "title": "SEO/GEO Optimization Guide (Part 6)",
+      "url": "https://docs.example.com/SEO_GUIDE/",
+      "tokens": 304,
+      "intents": [
+        "configure",
+        "integrate",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-1",
+      "title": "Set up a real-time webhook processing pipeline",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 320,
+      "intents": [
+        "configure",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-10",
+      "title": "Set up a real-time webhook processing pipeline (Part 10)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 223,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-11",
+      "title": "Set up a real-time webhook processing pipeline (Part 11)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 284,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-12",
+      "title": "Set up a real-time webhook processing pipeline (Part 12)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 370,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-13",
+      "title": "Set up a real-time webhook processing pipeline (Part 13)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 72,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-14",
+      "title": "Set up a real-time webhook processing pipeline (Part 14)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 357,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-15",
+      "title": "Set up a real-time webhook processing pipeline (Part 15)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 166,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-2",
+      "title": "Set up a real-time webhook processing pipeline (Part 2)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 314,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-3",
+      "title": "Set up a real-time webhook processing pipeline (Part 3)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 327,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-4",
+      "title": "Set up a real-time webhook processing pipeline (Part 4)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 170,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-5",
+      "title": "Set up a real-time webhook processing pipeline (Part 5)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 306,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-6",
+      "title": "Set up a real-time webhook processing pipeline (Part 6)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 163,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-7",
+      "title": "Set up a real-time webhook processing pipeline (Part 7)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 299,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-8",
+      "title": "Set up a real-time webhook processing pipeline (Part 8)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 379,
+      "intents": [
+        "configure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-set-up-real-time-webhook-processing-pipeline-9",
+      "title": "Set up a real-time webhook processing pipeline (Part 9)",
+      "url": "https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/",
+      "tokens": 358,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-smart-merge-review-1",
+      "title": "Smart Merge and Manual Review",
+      "url": "https://docs.example.com/operations/SMART_MERGE_REVIEW/",
+      "tokens": 260,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-smart-merge-review-2",
+      "title": "Smart Merge and Manual Review (Part 2)",
+      "url": "https://docs.example.com/operations/SMART_MERGE_REVIEW/",
+      "tokens": 316,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-smart-merge-review-3",
+      "title": "Smart Merge and Manual Review (Part 3)",
+      "url": "https://docs.example.com/operations/SMART_MERGE_REVIEW/",
+      "tokens": 235,
+      "intents": [
+        "configure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-smart-merge-review-4",
+      "title": "Smart Merge and Manual Review (Part 4)",
+      "url": "https://docs.example.com/operations/SMART_MERGE_REVIEW/",
+      "tokens": 331,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-tags-1",
+      "title": "Browse by tag",
+      "url": "https://docs.example.com/tags/",
+      "tokens": 58,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-taskstream-api-playground-1",
+      "title": "TaskStream API playground",
+      "url": "https://docs.example.com/reference/taskstream-api-playground/",
+      "tokens": 206,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-taskstream-api-playground-2",
+      "title": "TaskStream API playground (Part 2)",
+      "url": "https://docs.example.com/reference/taskstream-api-playground/",
+      "tokens": 377,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-taskstream-api-playground-3",
+      "title": "TaskStream API playground (Part 3)",
+      "url": "https://docs.example.com/reference/taskstream-api-playground/",
+      "tokens": 267,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-taskstream-planning-notes-1",
+      "title": "TaskStream API planning notes",
+      "url": "https://docs.example.com/reference/taskstream-planning-notes/",
+      "tokens": 288,
+      "intents": [
+        "integrate",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-terms-of-service-1",
+      "title": "VeriDoc terms of service",
+      "url": "https://docs.example.com/legal/terms-of-service/",
+      "tokens": 292,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-terms-of-service-2",
+      "title": "VeriDoc terms of service (Part 2)",
+      "url": "https://docs.example.com/legal/terms-of-service/",
+      "tokens": 365,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-terms-of-service-3",
+      "title": "VeriDoc terms of service (Part 3)",
+      "url": "https://docs.example.com/legal/terms-of-service/",
+      "tokens": 322,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-terms-of-service-4",
+      "title": "VeriDoc terms of service (Part 4)",
+      "url": "https://docs.example.com/legal/terms-of-service/",
+      "tokens": 368,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-terms-of-service-5",
+      "title": "VeriDoc terms of service (Part 5)",
+      "url": "https://docs.example.com/legal/terms-of-service/",
+      "tokens": 335,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-1",
+      "title": "Unified Client Configuration",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 33,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-10",
+      "title": "Unified Client Configuration (Part 10)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 539,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-11",
+      "title": "Unified Client Configuration (Part 11)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 329,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-12",
+      "title": "Unified Client Configuration (Part 12)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 378,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-13",
+      "title": "Unified Client Configuration (Part 13)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 313,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-14",
+      "title": "Unified Client Configuration (Part 14)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 305,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-15",
+      "title": "Unified Client Configuration (Part 15)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 378,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-16",
+      "title": "Unified Client Configuration (Part 16)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 142,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-17",
+      "title": "Unified Client Configuration (Part 17)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 67,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-18",
+      "title": "Unified Client Configuration (Part 18)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 437,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-19",
+      "title": "Unified Client Configuration (Part 19)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 179,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-2",
+      "title": "Unified Client Configuration (Part 2)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 312,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-20",
+      "title": "Unified Client Configuration (Part 20)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 361,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-21",
+      "title": "Unified Client Configuration (Part 21)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 137,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-22",
+      "title": "Unified Client Configuration (Part 22)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 272,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-23",
+      "title": "Unified Client Configuration (Part 23)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 363,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-24",
+      "title": "Unified Client Configuration (Part 24)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 207,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-25",
+      "title": "Unified Client Configuration (Part 25)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 356,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-26",
+      "title": "Unified Client Configuration (Part 26)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 356,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-27",
+      "title": "Unified Client Configuration (Part 27)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 367,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-28",
+      "title": "Unified Client Configuration (Part 28)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 251,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-29",
+      "title": "Unified Client Configuration (Part 29)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 378,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-3",
+      "title": "Unified Client Configuration (Part 3)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 365,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-30",
+      "title": "Unified Client Configuration (Part 30)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 355,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-31",
+      "title": "Unified Client Configuration (Part 31)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 373,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-4",
+      "title": "Unified Client Configuration (Part 4)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 359,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-5",
+      "title": "Unified Client Configuration (Part 5)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 320,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-6",
+      "title": "Unified Client Configuration (Part 6)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 360,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-7",
+      "title": "Unified Client Configuration (Part 7)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 133,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-8",
+      "title": "Unified Client Configuration (Part 8)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 310,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-unified-client-config-9",
+      "title": "Unified Client Configuration (Part 9)",
+      "url": "https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/",
+      "tokens": 73,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-variables-guide-1",
+      "title": "Variables and Templates Guide",
+      "url": "https://docs.example.com/VARIABLES_GUIDE/",
+      "tokens": 303,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-variables-guide-2",
+      "title": "Variables and Templates Guide (Part 2)",
+      "url": "https://docs.example.com/VARIABLES_GUIDE/",
+      "tokens": 366,
+      "intents": [
+        "configure",
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-variables-guide-3",
+      "title": "Variables and Templates Guide (Part 3)",
+      "url": "https://docs.example.com/VARIABLES_GUIDE/",
+      "tokens": 367,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-variables-guide-4",
+      "title": "Variables and Templates Guide (Part 4)",
+      "url": "https://docs.example.com/VARIABLES_GUIDE/",
+      "tokens": 323,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-webhook-1",
+      "title": "Webhook node reference for",
+      "url": "https://docs.example.com/reference/nodes/webhook/",
+      "tokens": 282,
+      "intents": [
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-webhook-2",
+      "title": "Webhook node reference for (Part 2)",
+      "url": "https://docs.example.com/reference/nodes/webhook/",
+      "tokens": 357,
+      "intents": [
+        "configure",
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-webhook-3",
+      "title": "Webhook node reference for (Part 3)",
+      "url": "https://docs.example.com/reference/nodes/webhook/",
+      "tokens": 159,
+      "intents": [
+        "configure",
+        "integrate",
+        "secure"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-webhook-not-firing-1",
+      "title": "Fix: Webhook trigger not firing",
+      "url": "https://docs.example.com/troubleshooting/webhook-not-firing/",
+      "tokens": 291,
+      "intents": [
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-webhook-not-firing-2",
+      "title": "Fix: Webhook trigger not firing (Part 2)",
+      "url": "https://docs.example.com/troubleshooting/webhook-not-firing/",
+      "tokens": 334,
+      "intents": [
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-webhook-not-firing-3",
+      "title": "Fix: Webhook trigger not firing (Part 3)",
+      "url": "https://docs.example.com/troubleshooting/webhook-not-firing/",
+      "tokens": 143,
+      "intents": [
+        "configure",
+        "secure",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-websocket-api-1",
+      "title": "WEBSOCKET API Reference",
+      "url": "https://docs.example.com/reference/websocket-api/",
+      "tokens": 71,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-websocket-api-2",
+      "title": "WEBSOCKET API Reference (Part 2)",
+      "url": "https://docs.example.com/reference/websocket-api/",
+      "tokens": 58,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-websocket-api-3",
+      "title": "WEBSOCKET API Reference (Part 3)",
+      "url": "https://docs.example.com/reference/websocket-api/",
+      "tokens": 1069,
+      "intents": [
+        "configure",
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-websocket-api-4",
+      "title": "WEBSOCKET API Reference (Part 4)",
+      "url": "https://docs.example.com/reference/websocket-api/",
+      "tokens": 65,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-workflow-execution-model-1",
+      "title": "Workflow execution model",
+      "url": "https://docs.example.com/concepts/workflow-execution-model/",
+      "tokens": 312,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-workflow-execution-model-2",
+      "title": "Workflow execution model (Part 2)",
+      "url": "https://docs.example.com/concepts/workflow-execution-model/",
+      "tokens": 361,
+      "intents": [
+        "integrate",
+        "troubleshoot"
+      ],
+      "part": 2
+    },
+    {
+      "id": "auto-workflow-execution-model-3",
+      "title": "Workflow execution model (Part 3)",
+      "url": "https://docs.example.com/concepts/workflow-execution-model/",
+      "tokens": 73,
+      "intents": [
+        "integrate"
+      ],
+      "part": 2
+    }
+  ]
+}

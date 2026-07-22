@@ -1228,6 +1228,80 @@ def build_operator_override_template(bundle_root: Path) -> None:
     target.write_text(template, encoding="utf-8")
 
 
+COMPANY_TEMPLATE_SCRIPTS = (
+    "scripts/render_sdk_snippets.py",
+    "scripts/generate_doc_from_spec.py",
+    "scripts/web_research.py",
+    "scripts/generate_company_templates.py",
+)
+
+
+def build_company_templates(profile: dict[str, Any], bundle_root: Path) -> None:
+    """Ship the SSOT template toolchain and, if requested, generate company
+    templates during the build.
+
+    Opt-in via ``bundle.company_templates.enabled``. When enabled, the assembly
+    scripts and SSOT snippets are always shipped so the client repo can (re)build
+    documents from blocks. Live LLM generation runs only when
+    ``generate_on_build`` is also set, needs API keys plus egress approval in the
+    build environment, and is best-effort (never fails the bundle build).
+    """
+    bundle_cfg = _as_mapping(profile.get("bundle", {}))
+    cfg = _as_mapping(bundle_cfg.get("company_templates", {}))
+    if not bool(cfg.get("enabled", False)):
+        return
+
+    # Always ship the toolchain + SSOT snippet sources + rendered partials.
+    for rel in COMPANY_TEMPLATE_SCRIPTS:
+        if (REPO_ROOT / rel).exists():
+            copy_into_bundle(rel, bundle_root)
+    for rel in ("snippets", "_snippets", "templates/specs"):
+        if (REPO_ROOT / rel).exists():
+            copy_path_into_bundle(rel, bundle_root)
+
+    if not bool(cfg.get("generate_on_build", False)):
+        print("[company-templates] toolchain shipped; live generation disabled (generate_on_build=false)")
+        return
+
+    client = _as_mapping(profile.get("client", {}))
+    company = str(client.get("company_name", "")).strip()
+    domain = str(client.get("company_domain", "")).strip() or str(cfg.get("domain", "")).strip()
+    runtime = _as_mapping(profile.get("runtime", {}))
+    protocols = ",".join(str(p).strip() for p in runtime.get("api_protocols", []) if str(p).strip())
+    reports_dir = bundle_root / "reports"
+    research_out = reports_dir / "company_research.json"
+
+    if bool(cfg.get("web_research", True)):
+        subprocess.run(
+            [
+                sys.executable, "scripts/web_research.py",
+                "--company", company, "--domain", domain,
+                "--output", str(research_out), "--reports-dir", str(reports_dir),
+                "--external-approve-for-run",
+            ],
+            cwd=str(REPO_ROOT), check=False,
+        )
+
+    result = subprocess.run(
+        [
+            sys.executable, "scripts/generate_company_templates.py",
+            "--company", company, "--domain", domain,
+            "--research", str(research_out),
+            "--api-protocols", protocols,
+            "--style-guide", str(bundle_cfg.get("style_guide", "google")),
+            "--specs-dir", str(bundle_root / "templates" / "specs"),
+            "--docs-root", str(bundle_root / "docs"),
+            "--manifest", str(reports_dir / "company_templates_manifest.json"),
+            "--reports-dir", str(reports_dir),
+            "--llm-model", str(cfg.get("llm_model", "deepseek-chat")),
+            "--external-approve-for-run",
+        ],
+        cwd=str(REPO_ROOT), check=False,
+    )
+    if result.returncode != 0:
+        print(f"[company-templates] live generation skipped/failed (exit {result.returncode}); toolchain still shipped")
+
+
 def create_bundle(profile_path: Path, target_platforms: list[str] | None = None) -> Path:
     profile = read_yaml(profile_path)
     client = profile.get("client", {})
@@ -1441,6 +1515,7 @@ def create_bundle(profile_path: Path, target_platforms: list[str] | None = None)
     build_operator_override_template(bundle_root)
     build_vale_config(profile, bundle_root)
     build_licensing_infrastructure(profile, bundle_root)
+    build_company_templates(profile, bundle_root)
 
     operator_note = {
         "client": {
