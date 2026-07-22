@@ -157,6 +157,8 @@ def build_planner_prompt(context: dict[str, Any], repair_errors: list[str] | Non
         "  for company-specific framing.",
         "- Plan 15-20 templates covering the company's real product surface (APIs/SDKs,",
         "  protocols, onboarding, auth, errors, webhooks, migration), ordered by importance.",
+        "- Keep the JSON compact so the full response fits: prose slots <= 30 words,",
+        "  2-4 sections per template, 2-3 slots per section. Return COMPLETE valid JSON only.",
         "",
         f"CONTEXT:\n{json.dumps(context, ensure_ascii=True)}",
     ]
@@ -233,9 +235,19 @@ def plan_templates(
     last_errors: list[str] = []
     for _ in range(max_attempts):
         prompt = build_planner_prompt(context, repair_errors)
-        plan = _run_llm_json_prompt(
-            provider=provider, api_key=api_key, model=model, timeout=timeout, prompt=prompt, max_tokens=4000
-        )
+        try:
+            plan = _run_llm_json_prompt(
+                provider=provider, api_key=api_key, model=model, timeout=timeout, prompt=prompt, max_tokens=8000
+            )
+        except (ValueError, RuntimeError, TypeError) as exc:
+            # Truncated or malformed JSON (often an output-length cutoff): retry,
+            # asking the model for complete, compact JSON.
+            repair_errors = [
+                f"Previous response was not complete valid JSON ({str(exc)[:120]}). "
+                "Return COMPLETE, valid JSON only; keep it compact (prose <= 30 words)."
+            ]
+            last_errors = repair_errors
+            continue
         valid, errors = validate_plan(
             plan, module_ids=module_ids, snippet_refs=snippet_refs, schema=schema, allowed_tags=allowed_tags
         )
