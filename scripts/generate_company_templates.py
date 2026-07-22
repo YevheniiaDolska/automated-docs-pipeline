@@ -33,7 +33,7 @@ import yaml
 
 from scripts import generate_doc_from_spec as gdfs
 from scripts import validate_frontmatter as vfm
-from scripts.generate_public_docs_audit import _resolve_llm_provider, _run_llm_json_prompt
+from scripts.generate_public_docs_audit import _read_dotenv_value, _resolve_llm_provider, _run_llm_json_prompt
 from scripts.llm_egress import ensure_external_allowed, load_policy, redact_payload
 
 _CONTENT_TYPES = ["tutorial", "how-to", "concept", "reference", "troubleshooting", "release-note"]
@@ -318,6 +318,7 @@ def main() -> int:
     parser.add_argument("--llm-provider", default="auto")
     parser.add_argument("--llm-model", default="deepseek-chat")
     parser.add_argument("--llm-api-key-env-name", default="")
+    parser.add_argument("--llm-env-file", default=".env", help="Path to .env with the LLM key")
     parser.add_argument("--llm-timeout", type=int, default=120)
     parser.add_argument("--runtime-config", default="docsops/config/client_runtime.yml")
     parser.add_argument("--reports-dir", default="reports")
@@ -328,6 +329,8 @@ def main() -> int:
 
     provider = _resolve_llm_provider(args.llm_provider, args.llm_model, api_key_env_override=args.llm_api_key_env_name)
     api_key = os.environ.get(provider["api_key_env"], "").strip()
+    if not api_key:
+        api_key = _read_dotenv_value(str(args.llm_env_file), provider["api_key_env"])
     if not api_key:
         print(f"[skipped] missing {provider['api_key_env']} for provider {provider['name']}")
         return 2

@@ -42,6 +42,32 @@ _SEARCH_PROVIDERS: dict[str, dict[str, str]] = {
 }
 
 
+def dotenv_value(key: str, path: str = ".env") -> str:
+    """Read one KEY=value from a .env file (repo root). Empty if absent."""
+    p = Path(path)
+    if not p.exists():
+        return ""
+    for line in p.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and line.split("=", 1)[0].strip() == key:
+            return line.split("=", 1)[1].strip().strip('"').strip("'")
+    return ""
+
+
+def env_with_dotenv(env_file: str = ".env") -> dict[str, str]:
+    """os.environ merged with search-provider keys from .env (environ wins)."""
+    import os
+
+    merged = dict(os.environ)
+    for cfg in _SEARCH_PROVIDERS.values():
+        key = cfg["api_key_env"]
+        if not merged.get(key, "").strip():
+            value = dotenv_value(key, env_file)
+            if value:
+                merged[key] = value
+    return merged
+
+
 def resolve_search_provider(name: str, env: dict[str, str]) -> dict[str, str] | None:
     """Resolve a provider by name, or auto-pick the first with a key in env."""
     name = str(name or "auto").strip().lower()
@@ -200,6 +226,7 @@ def main() -> int:
     parser.add_argument("--domain", default="", help="Company primary domain (for crawl)")
     parser.add_argument("--provider", default="auto", help="Search provider: auto|tavily|brave|serpapi")
     parser.add_argument("--api-key-env", default="", help="Env var for the search key (default: provider default)")
+    parser.add_argument("--env-file", default=".env", help="Path to .env with the search key")
     parser.add_argument("--max-results", type=int, default=5, help="Results per query")
     parser.add_argument("--timeout", type=int, default=20, help="Per-request timeout (seconds)")
     parser.add_argument("--no-crawl", action="store_true", help="Skip crawling the company domain")
@@ -211,11 +238,14 @@ def main() -> int:
     parser.add_argument("--interactive", action="store_true", help="Allow interactive approval prompt")
     args = parser.parse_args()
 
-    provider = resolve_search_provider(args.provider, dict(os.environ))
+    env = env_with_dotenv(args.env_file)
+    provider = resolve_search_provider(args.provider, env)
     api_key = ""
     if provider:
         api_key_env = args.api_key_env.strip() or provider["api_key_env"]
-        api_key = os.environ.get(api_key_env, "").strip()
+        api_key = env.get(api_key_env, "").strip()
+        if not api_key:
+            api_key = dotenv_value(api_key_env, args.env_file)
 
     # Any web access (search or crawl) is external; gate it.
     policy = load_policy(Path(args.runtime_config))
