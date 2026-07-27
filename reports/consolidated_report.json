@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-13T11:58:18.840857+00:00",
+  "generated_at": "2026-07-27T12:19:16.022787+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-07-13T11:58:18.443110",
+      "generated_at": "2026-07-27T12:19:15.593919",
       "details": {
         "total_gaps": 2,
         "high_priority": 1,
@@ -25,7 +25,7 @@
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-07-13T11:58:18Z",
+      "generated_at": "2026-07-27T12:19:15Z",
       "details": {
         "quality_score": 80,
         "stale_docs": 43,
@@ -77,26 +77,14 @@
       }
     },
     "retrieval_evals": {
-      "found": true,
-      "generated_at": "2026-07-04T13:56:44.234290+00:00",
-      "details": {
-        "status": "ok",
-        "precision_at_k": 0.9667,
-        "recall_at_k": 0.9861,
-        "hallucination_rate": 0.0,
-        "top_k": 3
-      }
+      "found": false,
+      "generated_at": "",
+      "details": {}
     },
     "knowledge_graph": {
-      "found": true,
-      "generated_at": "2026-07-04T13:55:57.081865+00:00",
-      "details": {
-        "status": "ok",
-        "modules_count": 308,
-        "graph_nodes": 2313,
-        "edge_count": 1989,
-        "output_file": "docs\\assets\\knowledge-graph.jsonld"
-      }
+      "found": false,
+      "generated_at": "",
+      "details": {}
     },
     "ask_ai": {
       "found": false,
@@ -120,10 +108,10 @@
       "ru": 0.0
     },
     "terminology_new_terms": 0,
-    "retrieval_precision_at_k": 0.9667,
-    "retrieval_recall_at_k": 0.9861,
+    "retrieval_precision_at_k": 0.0,
+    "retrieval_recall_at_k": 0.0,
     "retrieval_hallucination_rate": 0.0,
-    "knowledge_graph_nodes": 2313
+    "knowledge_graph_nodes": 0
   },
   "action_items": [
     {
@@ -134,7 +122,7 @@
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 32,
+      "frequency": 25,
       "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -156,7 +144,7 @@
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 28,
+      "frequency": 30,
       "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "related_files": [
         "reports/doc_gaps_report.csv"
