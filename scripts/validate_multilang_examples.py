@@ -23,6 +23,21 @@ LANG_SYNONYMS: dict[str, set[str]] = {
     "go": {"go", "golang"},
     "ruby": {"ruby", "rb"},
     "java": {"java"},
+    "swift": {"swift"},
+    "kotlin": {"kotlin", "kt"},
+    "dart": {"dart", "flutter"},
+    "csharp": {"csharp", "cs", "c#", "dotnet", ".net"},
+}
+
+# SDK HTTP-client markers per mobile/desktop SDK language. A doc containing one
+# of these calls is treated as needing multi-language example tabs, the same way
+# a curl or fetch() snippet is. Kept separate from the web-language markers so
+# existing detection is unchanged.
+SDK_HTTP_MARKERS: dict[str, tuple[str, ...]] = {
+    "swift": ("urlsession", "alamofire", ".datatask", "af.request"),
+    "kotlin": ("okhttp", "ktor", "retrofit", ".newcall(", "httpclient"),
+    "dart": ("http.get", "http.post", "dio.", "httpclientrequest"),
+    "csharp": ("httpclient", "restclient", "httpwebrequest", "webrequest"),
 }
 
 
@@ -141,6 +156,8 @@ def _requires_multilang(fences: list[CodeFence]) -> bool:
             or "httpx." in content
             or "httpclient" in content
         ):
+            return True
+        if lang in SDK_HTTP_MARKERS and any(marker in content for marker in SDK_HTTP_MARKERS[lang]):
             return True
     return False
 

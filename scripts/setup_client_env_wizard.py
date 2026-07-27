@@ -71,6 +71,16 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip screenshot automation bootstrap (plan generation + Playwright check).",
     )
+    parser.add_argument(
+        "--skip-deps",
+        action="store_true",
+        help="Do not install core Python dependencies (requirements.txt).",
+    )
+    parser.add_argument(
+        "--install-optional-deps",
+        action="store_true",
+        help="Also install optional feature dependencies (requirements-optional.txt).",
+    )
     return parser.parse_args()
 
 
@@ -166,7 +176,12 @@ def _load_runtime(repo_root: Path) -> dict[str, Any]:
 
 def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
     suffix = "[Y/n]" if default_yes else "[y/N]"
-    raw = input(f"{prompt} {suffix}: ").strip().lower()
+    try:
+        raw = input(f"{prompt} {suffix}: ").strip().lower()
+    except EOFError:
+        # No interactive stdin (some shells report a tty but read EOF). Fall
+        # back to the safe default instead of crashing the setup wizard.
+        return default_yes
     if not raw:
         return default_yes
     return raw in {"y", "yes"}
@@ -334,6 +349,43 @@ def _install_playwright_stack(repo_root: Path) -> None:
         print(f"[env-wizard] run manually: {' '.join(browser_cmd)}")
 
 
+def _find_requirements(repo_root: Path, filename: str) -> Path | None:
+    """Locate a requirements file at the repo root or inside docsops/."""
+    for candidate in (repo_root / filename, repo_root / "docsops" / filename):
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _pip_install_requirements(repo_root: Path, req_path: Path) -> bool:
+    py = sys.executable
+    pip_cmd = [py, "-m", "pip", "install", "-r", str(req_path)]
+    print(f"[env-wizard] installing dependencies from {req_path.name} ...")
+    res = subprocess.run(pip_cmd, cwd=str(repo_root), check=False)
+    if res.returncode == 0:
+        print(f"[env-wizard] dependencies installed from {req_path.name}")
+        return True
+    print(f"[env-wizard] failed to install from {req_path.name}")
+    print(f"[env-wizard] run manually: {' '.join(pip_cmd)}")
+    return False
+
+
+def _install_core_requirements(repo_root: Path) -> None:
+    req_path = _find_requirements(repo_root, "requirements.txt")
+    if req_path is None:
+        print("[env-wizard] requirements.txt not found; skipping core dependency install")
+        return
+    _pip_install_requirements(repo_root, req_path)
+
+
+def _install_optional_requirements(repo_root: Path) -> None:
+    req_path = _find_requirements(repo_root, "requirements-optional.txt")
+    if req_path is None:
+        print("[env-wizard] requirements-optional.txt not found; skipping optional dependency install")
+        return
+    _pip_install_requirements(repo_root, req_path)
+
+
 def _bootstrap_screenshot_plan(repo_root: Path, runtime: dict[str, Any]) -> None:
     docs_root = str(runtime.get("docs_root", "docs")) if isinstance(runtime, dict) else "docs"
     docs_site = runtime.get("docs_site", {}) if isinstance(runtime.get("docs_site"), dict) else {}
@@ -495,6 +547,24 @@ def main() -> int:
     print(f"\n[env-wizard] wrote {env_path}")
     _write_repo_binding(repo_root, runtime)
     _write_integrity_manifest(repo_root)
+
+    # Install Python dependencies so the pipeline scripts run out of the box.
+    if not args.skip_deps:
+        install_core = args.auto or _prompt_yes_no(
+            "Install core Python dependencies now (requirements.txt)?", default_yes=True
+        )
+        if install_core:
+            _install_core_requirements(repo_root)
+    install_optional = args.install_optional_deps or (
+        not args.auto
+        and not args.skip_deps
+        and _prompt_yes_no(
+            "Install optional feature dependencies now (RAG, PDF, screenshots, translation)?",
+            default_yes=False,
+        )
+    )
+    if install_optional:
+        _install_optional_requirements(repo_root)
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     llm_mode = str(llm_control.get("llm_mode", "local_default")).strip().lower()
     model = str(llm_control.get("local_model", "veridoc-writer")).strip() or "veridoc-writer"

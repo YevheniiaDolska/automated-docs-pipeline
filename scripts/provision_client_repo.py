@@ -29,7 +29,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.build_client_bundle import SUPPORTED_TARGET_PLATFORMS, _normalize_target_platforms, create_bundle  # noqa: E402
+from scripts.build_client_bundle import (  # noqa: E402
+    SUPPORTED_TARGET_PLATFORMS,
+    _normalize_target_platforms,
+    create_bundle,
+    primary_docs_generator,
+)
 from scripts.docs_ci_bootstrap import install_docs_ci_files  # noqa: E402
 
 PRESETS_DIR = REPO_ROOT / "profiles" / "clients" / "presets"
@@ -425,6 +430,17 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     profile["bundle"]["target_platforms"] = bundle_target_platforms
     profile["bundle"]["style_guide"] = style_guide
     profile["runtime"]["output_targets"] = output_targets
+    # The primary docs output target also drives authoring conventions (admonition
+    # syntax, nav format, API playground). Record it explicitly so the profile is
+    # self-consistent instead of leaving the build to default it to mkdocs.
+    docs_generator = primary_docs_generator(output_targets)
+    docs_site = profile["runtime"].get("docs_site")
+    if not isinstance(docs_site, dict):
+        docs_site = {"build_enabled": True, "build_command": ""}
+    docs_site["generator"] = docs_generator
+    profile["runtime"]["docs_site"] = docs_site
+    if isinstance(profile["runtime"].get("api_first"), dict):
+        profile["runtime"]["api_first"]["docs_provider"] = docs_generator
     profile["runtime"]["pr_autofix"]["enabled"] = enable_pr_autofix
     profile["runtime"]["integrations"]["algolia"]["enabled"] = enable_algolia
     if enable_algolia:

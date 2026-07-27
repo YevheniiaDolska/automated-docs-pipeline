@@ -192,7 +192,8 @@
       "Bash(OPENBLAS_NUM_THREADS=1 python -m pytest tests/test_public_docs_audit_advanced_coverage.py tests/test_coverage_boost_round3.py tests/test_remaining_zero_coverage.py tests/test_audit_embeddings_rollback.py -q)",
       "WebFetch(domain:docs.chain.link)",
       "Bash(mkdir -p /tmp/cl)",
-      "Bash(python scripts/generate_audit_scorecard.py --public-audit-json reports/chainlink/public_docs_audit.json --public-broken-links-json reports/chainlink/public_docs_broken_links.json --json-output /tmp/cl/audit_scorecard.json --html-output /tmp/cl/audit_scorecard.html --sales-json-output /tmp/cl/sales_teardown.json --sales-html-output /tmp/cl/sales_teardown.html --skip-sales-pdf)"
+      "Bash(python scripts/generate_audit_scorecard.py --public-audit-json reports/chainlink/public_docs_audit.json --public-broken-links-json reports/chainlink/public_docs_broken_links.json --json-output /tmp/cl/audit_scorecard.json --html-output /tmp/cl/audit_scorecard.html --sales-json-output /tmp/cl/sales_teardown.json --sales-html-output /tmp/cl/sales_teardown.html --skip-sales-pdf)",
+      "PowerShell($env:OPENBLAS_NUM_THREADS = '1'; python scripts/build_client_bundle.py --client profiles/clients/scandit.client.yml)"
     ],
     "deny": [],
     "ask": []

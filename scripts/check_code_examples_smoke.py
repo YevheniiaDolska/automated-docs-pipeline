@@ -304,6 +304,71 @@ def _run_typescript(content: str, timeout: int) -> tuple[bool, str]:
         return True, ""
 
 
+# Interpreter-style SDK languages that run a single source file directly.
+# Value: (tool candidates, file suffix, run-args builder(tool_path, file_path)).
+_INTERPRETED: dict[str, tuple[tuple[str, ...], str, "Callable[[str, str], list[str]]"]] = {
+    "ruby": (("ruby",), ".rb", lambda tool, path: [tool, path]),
+    "php": (("php",), ".php", lambda tool, path: [tool, path]),
+    "swift": (("swift",), ".swift", lambda tool, path: [tool, path]),
+    "dart": (("dart",), ".dart", lambda tool, path: [tool, "run", path]),
+}
+_INTERPRETED_ALIASES = {"rb": "ruby", "flutter": "dart"}
+
+
+def _resolve_tool(candidates: tuple[str, ...]) -> str | None:
+    for name in candidates:
+        found = shutil.which(name)
+        if found:
+            return found
+    return None
+
+
+def _run_interpreted(language: str, content: str, timeout: int, execute: bool) -> tuple[bool, str]:
+    """Execute a single-file snippet with its interpreter (Ruby, PHP, Swift, Dart)."""
+    candidates, suffix, run_args = _INTERPRETED[language]
+    tool = _resolve_tool(candidates)
+    if tool is None:
+        return False, f"{candidates[0]} is not installed but {language} smoke block was found"
+    if not execute:
+        # These interpreters have no cheap syntax-only mode; nothing to check
+        # without running, so treat a non-executed block as a pass.
+        return True, ""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        script_path = Path(temp_dir) / f"snippet{suffix}"
+        script_path.write_text(content + "\n", encoding="utf-8")
+        try:
+            result = subprocess.run(
+                run_args(tool, str(script_path)),
+                cwd=temp_dir, capture_output=True, text=True, timeout=timeout, check=False,
+            )
+        except subprocess.TimeoutExpired:
+            return False, f"{language} example timed out"
+        if result.returncode != 0:
+            return False, result.stderr.strip() or f"{language} example failed"
+        return True, ""
+
+
+def _collect_interpreted(language: str, content: str, timeout: int) -> tuple[bool, str]:
+    """Run a snippet and capture stdout for expected-output comparison."""
+    candidates, suffix, run_args = _INTERPRETED[language]
+    tool = _resolve_tool(candidates)
+    if tool is None:
+        return False, f"{candidates[0]} is not installed"
+    with tempfile.TemporaryDirectory() as temp_dir:
+        script_path = Path(temp_dir) / f"snippet{suffix}"
+        script_path.write_text(content + "\n", encoding="utf-8")
+        try:
+            result = subprocess.run(
+                run_args(tool, str(script_path)),
+                cwd=temp_dir, capture_output=True, text=True, timeout=timeout, check=False,
+            )
+        except subprocess.TimeoutExpired:
+            return False, f"{language} output collection timed out"
+        if result.returncode != 0:
+            return False, result.stderr.strip() or ""
+        return True, result.stdout.strip()
+
+
 def _has_placeholders(content: str) -> bool:
     lower = content.lower()
     if "{{" in content or "}}" in content or "{%" in content or "%}" in content:
@@ -350,6 +415,9 @@ def _run_smoke_block(
     if language == "curl":
         should_execute = execute and "network" in block.tags and allow_network
         return _run_curl(block.content, timeout, should_execute)
+    interpreted = _INTERPRETED_ALIASES.get(language, language)
+    if interpreted in _INTERPRETED:
+        return _run_interpreted(interpreted, block.content, timeout, execute)
     return False, f"unsupported language for smoke execution: '{language}'"
 
 
@@ -406,6 +474,10 @@ def _collect_output(block: CodeBlock, timeout: int, allow_network: bool) -> tupl
         if result.returncode != 0:
             return False, result.stderr.strip() or ""
         return True, result.stdout.strip()
+
+    interpreted = _INTERPRETED_ALIASES.get(block.language, block.language)
+    if interpreted in _INTERPRETED:
+        return _collect_interpreted(interpreted, block.content, timeout)
 
     return True, ""
 

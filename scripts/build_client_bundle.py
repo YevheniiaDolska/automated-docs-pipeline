@@ -33,6 +33,29 @@ MANAGED_END = "<!-- VERIOPS_MANAGED_BLOCK:END -->"
 SUPPORTED_TARGET_PLATFORMS = {"linux", "windows", "macos"}
 
 
+# Output targets that carry docs-authoring conventions (admonition syntax, nav
+# format, build command). Publish-only targets such as "readme", "github" or
+# "pdf" do not, so they must never decide the authoring generator.
+DOCS_SITE_GENERATORS = ("mkdocs", "docusaurus", "sphinx", "hugo", "jekyll", "vitepress")
+
+
+def primary_docs_generator(output_targets: Any) -> str:
+    """Return the docs generator whose authoring conventions the pipeline follows.
+
+    The first entry in ``output_targets`` that is a real site generator wins;
+    publish-only targets (readme, github, pdf, ...) are skipped. Falls back to
+    ``mkdocs`` when no generator is present. This is what makes a Docusaurus
+    (or Sphinx) client actually author with that generator's conventions instead
+    of silently defaulting to MkDocs admonitions and ``mkdocs.yml`` nav.
+    """
+    if isinstance(output_targets, (list, tuple)):
+        for target in output_targets:
+            candidate = str(target).strip().lower()
+            if candidate in DOCS_SITE_GENERATORS:
+                return candidate
+    return "mkdocs"
+
+
 def read_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as fh:
         raw = yaml.safe_load(fh) or {}
@@ -167,13 +190,14 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
     private = profile.get("private_tuning", {})
     api_protocols = normalize_protocols(runtime.get("api_protocols", ["rest"]))
     api_protocol_settings = merge_protocol_settings(runtime.get("api_protocol_settings", {}), api_protocols)
+    output_targets = runtime.get("output_targets", ["mkdocs"])
 
-    return {
+    cfg: dict[str, Any] = {
         "project": {
             "client_id": profile["client"]["id"],
             "company_name": profile["client"]["company_name"],
             "preferred_llm": runtime.get("preferred_llm", "claude"),
-            "output_targets": runtime.get("output_targets", ["mkdocs"]),
+            "output_targets": output_targets,
         },
         "llm_control": runtime.get(
             "llm_control",
@@ -447,6 +471,43 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             ),
         },
     }
+
+    _sync_docs_generator(cfg, runtime, output_targets)
+    return cfg
+
+
+def _sync_docs_generator(
+    cfg: dict[str, Any],
+    runtime: Mapping[str, Any],
+    output_targets: Any,
+) -> None:
+    """Force the operative docs-generator fields to agree with the chosen generator.
+
+    ``docs_site.generator`` and ``api_first.docs_provider`` both drive authoring
+    conventions (admonition syntax, nav format, API playground layout). Left to
+    their template defaults they stay ``mkdocs`` even when the client publishes to
+    Docusaurus or Sphinx -- the "worst of both" failure where MkDocs conventions
+    are written into a Docusaurus site. Here they are resolved from an explicit
+    ``runtime.docs_site.generator`` when the operator set one, otherwise from the
+    primary docs output target. ``docs_provider`` always follows the resolved
+    generator so API-first docs render in the same tool as the rest of the site.
+    """
+    docs_site = cfg.get("docs_site")
+    if not isinstance(docs_site, dict):
+        docs_site = {"generator": "mkdocs", "build_enabled": True, "build_command": ""}
+        cfg["docs_site"] = docs_site
+
+    explicit = ""
+    runtime_docs_site = runtime.get("docs_site")
+    if isinstance(runtime_docs_site, Mapping):
+        explicit = str(runtime_docs_site.get("generator", "")).strip().lower()
+
+    resolved = explicit if explicit in DOCS_SITE_GENERATORS else primary_docs_generator(output_targets)
+    docs_site["generator"] = resolved
+
+    api_first = cfg.get("api_first")
+    if isinstance(api_first, dict):
+        api_first["docs_provider"] = resolved
 
 
 def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -> None:
@@ -1206,6 +1267,57 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
     out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
+def build_requirements_files(bundle_root: Path) -> None:
+    """Write the Python dependency manifests shipped with the bundle.
+
+    ``requirements.txt`` holds the packages every gated pipeline script needs to
+    run at all (YAML config parsing plus the license/pack cryptography stack).
+    ``requirements-optional.txt`` groups feature-specific extras that only some
+    clients need, so a minimal install stays small. Version floors match the
+    known-good vendor build environment. The client setup wizard installs the
+    core file automatically; the optional file is opt-in.
+    """
+    core = (
+        "# VeriOps DocsOps -- core runtime dependencies (installed automatically).\n"
+        "# These are required for the licensed pipeline to run at all: YAML config\n"
+        "# parsing (used by ~84 scripts) and the Ed25519/AES license + capability\n"
+        "# pack cryptography stack. Install with:\n"
+        "#   python3 -m pip install -r requirements.txt\n"
+        "\n"
+        "PyYAML>=6.0\n"
+        "cryptography>=44.0.0\n"
+        "PyNaCl>=1.5.0\n"
+        "httpx>=0.28.0\n"
+        "pycryptodome>=3.20.0\n"
+    )
+    optional = (
+        "# VeriOps DocsOps -- optional, feature-specific dependencies.\n"
+        "# Install only the groups you use:\n"
+        "#   python3 -m pip install -r requirements-optional.txt\n"
+        "\n"
+        "# --- Semantic retrieval / RAG (embeddings, FAISS index, retrieval evals) ---\n"
+        "numpy>=2.0.0\n"
+        "faiss-cpu>=1.14.0\n"
+        "tiktoken>=0.13.0\n"
+        "sentence-transformers>=3.0.0\n"
+        "\n"
+        "# --- LLM-assisted translation (i18n_translate.py) ---\n"
+        "anthropic>=0.68.0\n"
+        "\n"
+        "# --- Screenshots, HTML->PDF, public-docs audit (browser automation) ---\n"
+        "# After install, download the browser once: python3 -m playwright install chromium\n"
+        "playwright>=1.61.0\n"
+        "\n"
+        "# --- PDF report generation (executive audit, sales cheat sheet, legal) ---\n"
+        "reportlab>=4.4.0\n"
+        "\n"
+        "# --- Local docs preview server only (clients usually bring their own generator) ---\n"
+        "mkdocs>=1.6.0\n"
+    )
+    (bundle_root / "requirements.txt").write_text(core, encoding="utf-8")
+    (bundle_root / "requirements-optional.txt").write_text(optional, encoding="utf-8")
+
+
 def build_operator_override_template(bundle_root: Path) -> None:
     template = (
         "# Operator-only live overrides\n"
@@ -1512,6 +1624,7 @@ def create_bundle(profile_path: Path, target_platforms: list[str] | None = None)
     build_llm_instruction_files(profile, bundle_root)
     build_automation_files(profile, bundle_root, resolved_target_platforms)
     build_local_env_template(runtime_cfg, bundle_root)
+    build_requirements_files(bundle_root)
     build_operator_override_template(bundle_root)
     build_vale_config(profile, bundle_root)
     build_licensing_infrastructure(profile, bundle_root)

@@ -5,23 +5,19 @@ content_type: reference
 product: both
 tags:
 - Documents
-- Development
-- Docs
 - Kroha
 - Auto Doc Pipeline
+- Docs
+- Development
 - Users
-last_reviewed: '2026-07-04'
+last_reviewed: '2026-07-21'
 original_author: Kroha
 ---
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veri-doc.app/)
-<!-- VERIDOC_POWERED_BADGE:END -->
 
 
 # GRAPHQL Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-228/test_multi_protocol_contract_f0/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-265/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 

@@ -11,6 +11,21 @@ Supported languages:
 - JSON: json.loads()
 - YAML: yaml.safe_load()
 - Go: go build (syntax only)
+- Ruby: ruby -c (parse-only, blocking)
+- PHP: php -l (parse-only, blocking)
+- Swift: swiftc -parse (parse-only, blocking)
+- C/C++: gcc/g++ -fsyntax-only (best-effort, non-blocking)
+- Rust: rustc --crate-type lib --emit=metadata (best-effort, non-blocking)
+- Java: javac (best-effort, non-blocking)
+- Kotlin: kotlinc (best-effort, non-blocking)
+- C#: csc (best-effort, non-blocking)
+- Dart: dart analyze (best-effort, non-blocking)
+
+Every linter is toolchain-detecting: if the compiler/interpreter is not on
+PATH, the snippet is skipped with an info note rather than failing. Parse-only
+checks (Ruby, PHP, Swift) are blocking; full-compile checks that resolve
+external symbols report diagnostics at info severity so partial SDK snippets in
+docs never break commits, even under --strict.
 
 Usage:
     python scripts/lint_code_snippets.py docs/
@@ -289,6 +304,215 @@ def lint_go(block: CodeBlock, timeout: int = 15) -> LintResult:
             return LintResult(block, False, "Go lint timeout")
 
 
+def _first_tool(*names: str) -> str | None:
+    """Return the path of the first available tool from ``names``, or None."""
+    for name in names:
+        found = shutil.which(name)
+        if found:
+            return found
+    return None
+
+
+def _syntax_lint_file(
+    block: CodeBlock,
+    *,
+    tool: str,
+    flags: list[str],
+    suffix: str,
+    label: str,
+    timeout: int,
+    fatal: bool,
+    content: str | None = None,
+) -> LintResult:
+    """Run ``tool flags <tempfile>`` as a single-file syntax check.
+
+    ``fatal=True`` marks a genuine syntax gate (parse-only tools that never
+    false-positive on undefined external symbols, e.g. ``ruby -c``): a failure
+    blocks. ``fatal=False`` is for full-compile tools that resolve symbols and
+    therefore report errors on legitimately-partial documentation snippets;
+    their diagnostics are surfaced at ``info`` severity so they inform without
+    ever blocking a commit, even under ``--strict``.
+    """
+    body = block.content if content is None else content
+    with tempfile.TemporaryDirectory() as temp_dir:
+        source = Path(temp_dir) / f"snippet{suffix}"
+        source.write_text(body, encoding="utf-8")
+        try:
+            result = subprocess.run(
+                [tool, *flags, str(source)],
+                cwd=temp_dir,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+            )
+        except subprocess.TimeoutExpired:
+            return LintResult(block, not fatal, f"{label} lint timeout", "error" if fatal else "info")
+        except OSError as exc:
+            return LintResult(block, True, f"{label} runner error: {exc}, skipping", "info")
+        if result.returncode != 0:
+            error = (result.stderr.strip() or result.stdout.strip()).replace(
+                str(source), f"{block.filepath}:{block.line_number}"
+            )
+            if fatal:
+                return LintResult(block, False, f"{label} syntax error: {error}")
+            return LintResult(block, True, f"{label} best-effort check reported issues (may be a partial snippet): {error}", "info")
+        return LintResult(block, True)
+
+
+def lint_ruby(block: CodeBlock, timeout: int = 10) -> LintResult:
+    """Lint Ruby code using ruby -c (parse-only, no execution)."""
+    ruby = shutil.which("ruby")
+    if ruby is None:
+        return LintResult(block, True, "ruby not installed, skipping", "info")
+    return _syntax_lint_file(block, tool=ruby, flags=["-c"], suffix=".rb", label="Ruby", timeout=timeout, fatal=True)
+
+
+def lint_php(block: CodeBlock, timeout: int = 10) -> LintResult:
+    """Lint PHP code using php -l (lint/parse-only)."""
+    php = shutil.which("php")
+    if php is None:
+        return LintResult(block, True, "php not installed, skipping", "info")
+    return _syntax_lint_file(block, tool=php, flags=["-l"], suffix=".php", label="PHP", timeout=timeout, fatal=True)
+
+
+def lint_swift(block: CodeBlock, timeout: int = 20) -> LintResult:
+    """Lint Swift code using swiftc -parse (parse-only, no type resolution)."""
+    swiftc = shutil.which("swiftc")
+    if swiftc is None:
+        return LintResult(block, True, "swiftc not installed, skipping", "info")
+    return _syntax_lint_file(block, tool=swiftc, flags=["-parse"], suffix=".swift", label="Swift", timeout=timeout, fatal=True)
+
+
+def lint_c(block: CodeBlock, timeout: int = 15) -> LintResult:
+    """Lint C code using a compiler front-end syntax check (best-effort)."""
+    cc = _first_tool("gcc", "clang", "cc")
+    if cc is None:
+        return LintResult(block, True, "no C compiler installed, skipping", "info")
+    return _syntax_lint_file(
+        block, tool=cc, flags=["-fsyntax-only", "-x", "c"], suffix=".c", label="C", timeout=timeout, fatal=False
+    )
+
+
+def lint_cpp(block: CodeBlock, timeout: int = 15) -> LintResult:
+    """Lint C++ code using a compiler front-end syntax check (best-effort)."""
+    cxx = _first_tool("g++", "clang++")
+    if cxx is None:
+        return LintResult(block, True, "no C++ compiler installed, skipping", "info")
+    return _syntax_lint_file(
+        block, tool=cxx, flags=["-fsyntax-only", "-x", "c++", "-std=c++17"], suffix=".cpp", label="C++",
+        timeout=timeout, fatal=False,
+    )
+
+
+def lint_rust(block: CodeBlock, timeout: int = 20) -> LintResult:
+    """Lint Rust code by compiling as a library to metadata only (best-effort)."""
+    rustc = shutil.which("rustc")
+    if rustc is None:
+        return LintResult(block, True, "rustc not installed, skipping", "info")
+    return _syntax_lint_file(
+        block, tool=rustc, flags=["--edition", "2021", "--crate-type", "lib", "--emit=metadata"],
+        suffix=".rs", label="Rust", timeout=timeout, fatal=False,
+    )
+
+
+def lint_kotlin(block: CodeBlock, timeout: int = 60) -> LintResult:
+    """Lint Kotlin code using kotlinc (full compile, best-effort, non-blocking)."""
+    kotlinc = shutil.which("kotlinc")
+    if kotlinc is None:
+        return LintResult(block, True, "kotlinc not installed, skipping", "info")
+    if not re.search(r"\b(fun|class|object|interface|enum)\s+\w", block.content):
+        return LintResult(block, True, "Kotlin fragment (no top-level declaration), skipping", "info")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        source = Path(temp_dir) / "snippet.kt"
+        source.write_text(block.content, encoding="utf-8")
+        try:
+            result = subprocess.run(
+                [kotlinc, str(source), "-d", temp_dir],
+                cwd=temp_dir, capture_output=True, text=True, timeout=timeout,
+            )
+        except subprocess.TimeoutExpired:
+            return LintResult(block, True, "Kotlin lint timeout (non-blocking)", "info")
+        except OSError as exc:
+            return LintResult(block, True, f"Kotlin runner error: {exc}, skipping", "info")
+        if "error:" in (result.stderr or "").lower():
+            return LintResult(block, True, f"Kotlin best-effort check reported issues (may be a partial snippet): {result.stderr.strip()}", "info")
+        return LintResult(block, True)
+
+
+def lint_csharp(block: CodeBlock, timeout: int = 30) -> LintResult:
+    """Lint C# code using the Roslyn compiler csc (best-effort, non-blocking)."""
+    csc = _first_tool("csc", "csc.exe")
+    if csc is None:
+        return LintResult(block, True, "csc not installed, skipping", "info")
+    if not re.search(r"\b(class|interface|enum|struct|record|namespace)\s+\w", block.content):
+        return LintResult(block, True, "C# fragment (no top-level declaration), skipping", "info")
+    return _syntax_lint_file(
+        block, tool=csc, flags=["-nologo", "-target:library", "-out:snippet.dll"],
+        suffix=".cs", label="C#", timeout=timeout, fatal=False,
+    )
+
+
+def lint_java(block: CodeBlock, timeout: int = 25) -> LintResult:
+    """Lint Java code using javac (full compile, best-effort, non-blocking).
+
+    Only self-contained snippets that declare a top-level type are linted.
+    Bare statement/method fragments are skipped, because wrapping them cannot
+    be done reliably (a statement is invalid directly in a class body) and
+    would produce misleading warnings. Because javac resolves symbols, snippets
+    referencing external SDK types report errors surfaced as non-blocking
+    warnings, never as commit-blocking failures.
+    """
+    javac = shutil.which("javac")
+    if javac is None:
+        return LintResult(block, True, "javac not installed, skipping", "info")
+    content = block.content
+    type_match = re.search(r"\b(?:class|interface|enum|record)\s+(\w+)", content)
+    if type_match is None:
+        return LintResult(block, True, "Java fragment (no top-level declaration), skipping", "info")
+    # javac requires a public type to live in a file named after it.
+    class_name = type_match.group(1)
+    with tempfile.TemporaryDirectory() as temp_dir:
+        source = Path(temp_dir) / f"{class_name}.java"
+        source.write_text(content, encoding="utf-8")
+        try:
+            result = subprocess.run(
+                [javac, "-d", temp_dir, str(source)],
+                cwd=temp_dir, capture_output=True, text=True, timeout=timeout,
+            )
+        except subprocess.TimeoutExpired:
+            return LintResult(block, True, "Java lint timeout (non-blocking)", "info")
+        except OSError as exc:
+            return LintResult(block, True, f"Java runner error: {exc}, skipping", "info")
+        if result.returncode != 0:
+            error = result.stderr.strip().replace(str(source), f"{block.filepath}:{block.line_number}")
+            return LintResult(block, True, f"Java best-effort check reported issues (may be a partial snippet): {error}", "info")
+        return LintResult(block, True)
+
+
+def lint_dart(block: CodeBlock, timeout: int = 30) -> LintResult:
+    """Lint Dart code using dart analyze; only error-severity issues fail."""
+    dart = shutil.which("dart")
+    if dart is None:
+        return LintResult(block, True, "dart not installed, skipping", "info")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        source = Path(temp_dir) / "snippet.dart"
+        source.write_text(block.content, encoding="utf-8")
+        try:
+            result = subprocess.run(
+                [dart, "analyze", str(source)],
+                cwd=temp_dir, capture_output=True, text=True, timeout=timeout,
+            )
+        except subprocess.TimeoutExpired:
+            return LintResult(block, True, "Dart lint timeout (non-blocking)", "info")
+        except OSError as exc:
+            return LintResult(block, True, f"Dart runner error: {exc}, skipping", "info")
+        output = (result.stdout or "") + (result.stderr or "")
+        # dart analyze lines look like: "  error - message - file:line:col - code".
+        if re.search(r"^\s*error\b", output, re.MULTILINE):
+            return LintResult(block, True, f"Dart best-effort check reported issues (may be a partial snippet): {output.strip()}", "info")
+        return LintResult(block, True)
+
+
 # Language to linter mapping
 LINTERS: dict[str, Callable[[CodeBlock, int], LintResult]] = {
     "javascript": lint_javascript,
@@ -305,6 +529,22 @@ LINTERS: dict[str, Callable[[CodeBlock, int], LintResult]] = {
     "yml": lint_yaml,
     "go": lint_go,
     "golang": lint_go,
+    "ruby": lint_ruby,
+    "rb": lint_ruby,
+    "php": lint_php,
+    "swift": lint_swift,
+    "c": lint_c,
+    "cpp": lint_cpp,
+    "c++": lint_cpp,
+    "rust": lint_rust,
+    "rs": lint_rust,
+    "kotlin": lint_kotlin,
+    "kt": lint_kotlin,
+    "csharp": lint_csharp,
+    "cs": lint_csharp,
+    "java": lint_java,
+    "dart": lint_dart,
+    "flutter": lint_dart,
 }
 
 # Languages to skip (output only, config, etc.)
@@ -328,14 +568,6 @@ SKIP_LANGUAGES = {
     "apache",  # Apache config
     "env",  # Environment files
     "properties",  # Java properties
-    "ruby", "rb",  # Ruby (no linter configured)
-    "rust", "rs",  # Rust (no linter configured)
-    "java",  # Java (no linter configured)
-    "csharp", "cs",  # C# (no linter configured)
-    "cpp", "c",  # C/C++ (no linter configured)
-    "php",  # PHP (no linter configured)
-    "swift",  # Swift (no linter configured)
-    "kotlin",  # Kotlin (no linter configured)
 }
 
 # Patterns that indicate a code block is a template/placeholder (not real code)
