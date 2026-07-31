@@ -4,20 +4,20 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- Documents
-- Kroha
 - Auto Doc Pipeline
-- Docs
 - Development
+- Documents
+- Docs
+- Kroha
 - Users
-last_reviewed: '2026-07-21'
+last_reviewed: '2026-07-27'
 original_author: Kroha
 ---
 
 
 # GRAPHQL Reference
 
-Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-265/test_multi_protocol_contract_f0/schema.graphql`
+Source: `C:/Users/Kroha/AppData/Local/Temp/pytest-of-Kroha/pytest-271/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 

@@ -34,6 +34,46 @@ except ModuleNotFoundError:
 from scripts.flow_feedback import FlowNarrator
 from scripts.runtime_config_loader import load_runtime_config, read_yaml_mapping, sibling_override_paths
 
+try:
+    from scripts.plugin_api import PipelineContext
+    from scripts.plugin_manager import PluginManager
+except ModuleNotFoundError:  # pragma: no cover - bundle layout has scripts/ on sys.path
+    from plugin_api import PipelineContext
+    from plugin_manager import PluginManager
+
+
+def _make_plugin_manager(
+    repo_root: Path,
+    docsops_root: Path,
+    reports_dir: Path,
+    runtime: dict[str, Any],
+) -> PluginManager:
+    """Build the client-plugin manager with a pipeline context (no-op if none)."""
+    paths = runtime.get("paths", {}) if isinstance(runtime.get("paths"), dict) else {}
+    docs_root = repo_root / str(paths.get("docs_root", "docs"))
+    context = PipelineContext(
+        repo_root=repo_root,
+        docsops_root=docsops_root,
+        reports_dir=reports_dir,
+        docs_root=docs_root,
+        runtime=runtime,
+    )
+    return PluginManager(context)
+
+
+def _run_plugin_hook(manager: PluginManager | None, hook: str, **kwargs: Any) -> bool:
+    """Invoke a lifecycle hook on all client plugins. Returns True if a gate blocked."""
+    if manager is None or not manager.active:
+        return False
+    blocked = False
+    for outcome in manager.invoke(hook, **kwargs):
+        status = "ok" if outcome.ok else "FAIL"
+        detail = f" :: {outcome.message}" if outcome.message else ""
+        _say(f"plugin:{outcome.plugin}", f"{hook} -> {status}{detail}")
+        if outcome.blocked:
+            blocked = True
+    return blocked
+
 
 def _read_yaml(path: Path) -> dict[str, Any]:
     return read_yaml_mapping(path)
@@ -783,6 +823,14 @@ def main() -> int:
         raise FileNotFoundError(f"Runtime config not found: {runtime_path}")
 
     runtime = load_runtime_config(runtime_path)
+
+    # Client extension surface: load plugins from client_plugins/ and fire the
+    # start-of-run hook. No plugins -> zero behavior change for existing clients.
+    plugin_manager = _make_plugin_manager(repo_root, docsops_root, reports_dir, runtime)
+    if plugin_manager.active:
+        _say("plugins", f"loaded: {', '.join(plugin_manager.names())}")
+    _run_plugin_hook(plugin_manager, "before_pipeline")
+
     strictness = str(runtime.get("api_governance", {}).get("strictness", "standard")).strip().lower() or "standard"
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})
@@ -1174,6 +1222,12 @@ def main() -> int:
     if not isinstance(review_branch_cfg, dict):
         review_branch_cfg = {}
     if bool(review_branch_cfg.get("enabled", True)) and bool(review_branch_cfg.get("auto_push", True)):
+        # Client gate hook: a before_commit plugin may block the commit/push.
+        plugin_manager.context.changed_files = _git_changed_files(repo_root)
+        if _run_plugin_hook(plugin_manager, "before_commit"):
+            print("[autopipeline] commit halted by a client plugin gate (before_commit)")
+            narrator.finish(False, "Halted by client plugin gate")
+            return 1
         stage_no += 1
         narrator.stage(stage_no, execution_stages[stage_no - 1], "Run lint/pre-commit and push dedicated review branch")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
@@ -1222,6 +1276,8 @@ def main() -> int:
         runtime=runtime,
         reports_dir=reports_dir,
     )
+
+    _run_plugin_hook(plugin_manager, "after_pipeline")
 
     missing_required = int(stage_summary.get("missing_required_artifacts", 0) or 0)
     if rc == 0 and missing_required == 0:

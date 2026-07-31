@@ -1510,6 +1510,9 @@ def create_bundle(profile_path: Path, target_platforms: list[str] | None = None)
     required_scripts.append("scripts/flow_feedback.py")
     required_scripts.append("scripts/runtime_config_loader.py")
     required_scripts.append("scripts/sign_operator_runtime_overrides.py")
+    # Client extension surface (imported by run_autopipeline).
+    required_scripts.append("scripts/plugin_api.py")
+    required_scripts.append("scripts/plugin_manager.py")
     if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)):
         required_scripts.append("scripts/apply_veridoc_branding_policy.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
@@ -1605,6 +1608,14 @@ def create_bundle(profile_path: Path, target_platforms: list[str] | None = None)
     # Frontmatter schema is required by validate_frontmatter.py (community tier).
     if (REPO_ROOT / "docs-schema.yml").exists():
         copy_into_bundle("docs-schema.yml", bundle_root)
+
+    # Client extension surface: the how-to guide plus a client_plugins/ scaffold
+    # (a disabled example) so clients -- or Claude/Codex on their behalf -- can
+    # adapt the pipeline without touching the protected core.
+    if (REPO_ROOT / "EXTENDING.md").exists():
+        copy_into_bundle("EXTENDING.md", bundle_root)
+    if (REPO_ROOT / "client_plugins").exists():
+        copy_path_into_bundle("client_plugins", bundle_root)
 
     for rel in include_scripts:
         copy_into_bundle(str(rel), bundle_root)
