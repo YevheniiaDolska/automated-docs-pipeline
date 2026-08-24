@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-08-17T09:37:21.833857+00:00",
+  "generated_at": "2026-08-24T09:42:45.397809+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-08-17T09:37:21.439113",
+      "generated_at": "2026-08-24T09:42:44.990399",
       "details": {
         "total_gaps": 2,
         "high_priority": 1,
@@ -25,7 +25,7 @@
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-08-17T09:37:21Z",
+      "generated_at": "2026-08-24T09:42:45Z",
       "details": {
         "quality_score": 79,
         "stale_docs": 45,
@@ -122,7 +122,7 @@
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 54,
+      "frequency": 25,
       "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -144,7 +144,7 @@
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 59,
+      "frequency": 25,
       "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "related_files": [
         "reports/doc_gaps_report.csv"
